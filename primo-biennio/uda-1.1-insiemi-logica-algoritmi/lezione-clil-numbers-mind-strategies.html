@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="it" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CLIL Lesson: Numbers & Mental Strategies • comode</title>
+  <meta name="description" content="CLIL Interactive Lesson for Liceo delle Scienze Umane: Numbers, Mental Strategies and Fractions in English with native audio pronunciation.">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- KaTeX -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+
+  <!-- CSS Condiviso comode -->
+  <link rel="stylesheet" href="../../shared/css/comode.css">
+
+  <style>
+    /* Stili specifici per la lezione CLIL */
+    .flag-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: rgba(168, 85, 247, 0.15);
+      color: var(--accent-purple);
+      border: 1px solid rgba(168, 85, 247, 0.3);
+      padding: 0.3rem 0.8rem;
+      border-radius: var(--radius-pill);
+      font-size: 0.82rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .clil-lab-prompt {
+      background: var(--bg-surface-elevated);
+      border-left: 3px solid var(--accent-purple);
+      padding: 1rem 1.25rem;
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      margin: 1rem 0;
+      font-style: italic;
+      color: var(--text-main);
+    }
+
+    .clil-translation-toggle {
+      background: transparent;
+      border: none;
+      color: var(--accent-math);
+      font-size: 0.85rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      margin-top: 0.5rem;
+      font-weight: 600;
+    }
+
+    .clil-translation-toggle:hover {
+      text-decoration: underline;
+    }
+
+    .clil-translation-box {
+      display: none;
+      background: var(--bg-surface);
+      border: 1px dashed var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 0.85rem;
+      margin-top: 0.6rem;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .clil-translation-box.visible {
+      display: block;
+    }
+  </style>
+</head>
+<body data-theme="dark" data-lesson-id="pb-1.1-clil" data-xp="70" data-unit="uda-1.1">
+
+  <div class="container">
+
+    <!-- Navbar -->
+    <nav class="navbar">
+      <a href="../../index.html" class="brand">
+        comode<span>.</span>
+      </a>
+      <div class="nav-actions">
+        <div class="gamification-widget" title="Il tuo livello e punti XP">
+          <span class="level-badge user-level-val">Liv. 1 🌱</span>
+          <span class="xp-counter user-xp-val">0 XP</span>
+        </div>
+        <button id="audioToggleBtn" class="icon-btn" aria-label="Audio">
+          🔊 <span class="nav-text">Suoni</span>
+        </button>
+        <button id="themeToggleBtn" class="theme-toggle-btn" aria-label="Cambia tema">
+          <span id="themeIcon">☀️ </span>
+          <span id="themeLabel">Chiaro</span>
+        </button>
+      </div>
+    </nav>
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumbs">
+      <a href="../../index.html">Home</a>
+      <span class="sep">/</span>
+      <a href="../index.html">Primo Biennio</a>
+      <span class="sep">/</span>
+      <a href="index.html">UDA 1.1: Insiemi, Logica e Algoritmi</a>
+      <span class="sep">/</span>
+      <span class="current">Lezione CLIL (English)</span>
+    </div>
+
+    <!-- Hero Card -->
+    <header class="hero-card">
+      <div class="hero-badges">
+        <span class="flag-pill">🌍 CLIL Module • English in Science</span>
+        <span class="badge badge-primary">Matematica • 1° Anno</span>
+        <span class="badge badge-secondary">UDA 1.1</span>
+      </div>
+      <h1 class="hero-title">Numbers &amp; Mental Strategies in English</h1>
+      <p class="hero-desc">
+        Explore mathematics through the international language of scientific research: master key English terminology, listen to native pronunciation with one click, and solve applied problem-solving tasks!
+      </p>
+
+      <!-- Progress Tracker -->
+      <div class="progress-bar-card">
+        <div class="progress-label">
+          <span>🎯 CLIL Tasks Progress:</span>
+          <span class="progress-score" id="progressScore">0 / 2 completed</span>
+        </div>
+        <div class="progress-track">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+      </div>
+    </header>
+
+    <!-- PREREQUISITI & OBIETTIVI BILINGUI -->
+    <div class="prereq-objectives-grid">
+      <!-- Prerequisiti -->
+      <div class="prereq-card">
+        <div class="card-top-label prereq">
+          <span>🔑</span> Prerequisites / Prerequisiti
+        </div>
+        <h2 class="po-title">What you need before starting</h2>
+        <ul class="po-list">
+          <li>
+            <span class="po-icon">✓</span>
+            <div><strong>Basic Arithmetic:</strong> understanding operations in $\mathbb{N}$ and $\mathbb{Z}$.</div>
+          </li>
+          <li>
+            <span class="po-icon">✓</span>
+            <div><strong>Fraction Basics:</strong> meaning of numerator, denominator and common size.</div>
+          </li>
+          <li>
+            <span class="po-icon">✓</span>
+            <div><strong>English Level A2+:</strong> basic vocabulary and readiness to explore scientific language.</div>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Obiettivi -->
+      <div class="objectives-card">
+        <div class="card-top-label objectives">
+          <span>🎯</span> Learning Outcomes / Competenze
+        </div>
+        <h2 class="po-title">What you will be able to do</h2>
+        <ul class="po-list">
+          <li>
+            <span class="po-icon">🚀</span>
+            <div><strong>Speak the Global Language of Math:</strong> correctly pronounce and recognize 8 key terms.</div>
+          </li>
+          <li>
+            <span class="po-icon">🚀</span>
+            <div><strong>International Problem Solving:</strong> read and solve math word problems formulated in English.</div>
+          </li>
+          <li>
+            <span class="po-icon">🚀</span>
+            <div><strong>Explain Smart Strategies:</strong> describe distributive shortcuts and cross-simplifications in English.</div>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- SEZIONE 1: INTERACTIVE BILINGUAL GLOSSARY CON AUDIO -->
+    <section class="clil-glossary-card">
+      <div class="clil-glossary-header">
+        <div>
+          <h2 style="font-size: 1.35rem; font-weight: 800; display: flex; align-items: center; gap: 0.5rem;">
+            <span>🎧</span> Interactive Bilingual Math Glossary
+          </h2>
+          <p style="color: var(--text-muted); font-size: 0.95rem; margin-top: 0.25rem;">
+            Click on <strong>🔊 Listen</strong> next to any word to hear its native English pronunciation powered by Web Speech API.
+          </p>
+        </div>
+        <span class="tag info-tag" style="background: rgba(168, 85, 247, 0.12); color: var(--accent-purple); padding: 0.35rem 0.8rem; border-radius: 9999px; font-weight: 700; font-size: 0.85rem;">
+          Native Pronunciation 🔊
+        </span>
+      </div>
+
+      <div class="clil-table-wrapper">
+        <table class="clil-table">
+          <thead>
+            <tr>
+              <th style="min-width: 220px;">English Term &amp; Audio</th>
+              <th style="min-width: 180px;">Italian Equivalent</th>
+              <th>Math Definition &amp; Context</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <div class="term-en">
+                  <span>Whole Numbers / Integers</span>
+                  <button class="speech-btn" onclick="speakWord('integers')">🔊 Listen</button>
+                </div>
+              </td>
+              <td><span class="term-it">Numeri Interi ($\mathbb{Z}$)</span></td>
+              <td><span class="term-context">Numbers without fractional parts: positive, negative and zero ($\{\dots, -2, -1, 0, 1, 2, \dots\}$).</span></td>
+            </tr>
+            <tr>
+              <td>
+                <div class="term-en">
+                  <span>Rational Numbers</span>
+                  <button class="speech-btn" onclick="speakWord('rational numbers')">🔊 Listen</button>
+                </div>
+              </td>
+              <td><span class="term-it">Numeri Razionali ($\mathbb{Q}$)</span></td>
+              <td><span class="term-context">Any number expressible as the quotient $\frac{a}{b}$ of two integers ($b \neq 0$).</span></td>
+            </tr>
+            <tr>
+              <td>
+                <div class="term-en">
+                  <span>Numerator &amp; Denominator</span>
+                  <button class="speech-btn" onclick="speakWord('numerator and denominator')">🔊 Listen</button>
+                </div>
+              </td>
+              <td><span class="term-it">Numeratore e Denominatore</span></td>
+              <td><span class="term-context">In $\frac{3}{4}$, 3 is the numerator (how many slices) and 4 is the denominator (the slice size).</span></td>
+            </tr>
+            <tr>
+              <td>
+                <div class="term-en">
+                  <span>Common Denominator</span>
+                  <button class="speech-btn" onclick="speakWord('common denominator')">🔊 Listen</button>
+                </div>
+              </td>
+              <td><span class="term-it">Denominatore Comune</span></td>
+              <td><span class="term-context">A shared multiple of the denominators needed to add or subtract fractions: $\frac{1}{3} + \frac{1}{4} = \frac{7}{12}$.</span></td>
+            </tr>
+            <tr>
+              <td>
+                <div class="term-en">
+                  <span>Reciprocal</span>
+                  <button class="speech-btn" onclick="speakWord('reciprocal')">🔊 Listen</button>
+                </div>
+              </td>
+              <td><span class="term-it">Inverso / Reciproco</span></td>
+              <td><span class="term-context">The multiplicative inverse: the reciprocal of $\frac{3}{5}$ is $\frac{5}{3}$ because $\frac{3}{5} \times \frac{5}{3} = 1$.</span></td>
+            </tr>
+            <tr>
+              <td>
+                <div class="term-en">
+                  <span>Cross-Simplification</span>
+                  <button class="speech-btn" onclick="speakWord('cross simplification')">🔊 Listen</button>
+                </div>
+              </td>
+              <td><span class="term-it">Semplificazione in croce</span></td>
+              <td><span class="term-context">Cancelling common factors between numerators and denominators before multiplying: $\frac{21}{20} \times \frac{25}{14}$.</span></td>
+            </tr>
+            <tr>
+              <td>
+                <div class="term-en">
+                  <span>Distributive Property</span>
+                  <button class="speech-btn" onclick="speakWord('distributive property')">🔊 Listen</button>
+                </div>
+              </td>
+              <td><span class="term-it">Proprietà Distributiva</span></td>
+              <td><span class="term-context">Multiplying a sum by multiplying each addend separately: $a \times (b + c) = ab + ac$.</span></td>
+            </tr>
+            <tr>
+              <td>
+                <div class="term-en">
+                  <span>Mental Computation</span>
+                  <button class="speech-btn" onclick="speakWord('mental computation')">🔊 Listen</button>
+                </div>
+              </td>
+              <td><span class="term-it">Calcolo Mentale Guidato</span></td>
+              <td><span class="term-context">Calculating accurately in your mind by choosing comfortable representations ($48 \times 0.25 = 48 : 4 = 12$).</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+
+    <!-- SEZIONE 2: PROBLEM SOLVING IN ENGLISH -->
+    <main class="labs-container">
+      <div class="section-header">
+        <h2 class="section-title">
+          <span class="icon">🧪</span> English Problem-Solving Tasks
+        </h2>
+      </div>
+
+      <!-- Task 1: School Survey -->
+      <article class="lab-card" id="clilLab1">
+        <div class="lab-badge-row">
+          <span class="lab-tag" style="background: rgba(168, 85, 247, 0.15); color: var(--accent-purple);">Task 1 • Human Sciences Context</span>
+          <span class="lab-xp-badge">+15 XP</span>
+        </div>
+        <h3 class="lab-title">The High School Social Survey</h3>
+        
+        <div class="clil-lab-prompt">
+          "A group of sociology students surveyed <strong>400 high school teenagers</strong> about their leisure reading habits. 
+          They found that <strong>$\frac{3}{8}$</strong> of the students read non-fiction articles, and <strong>$\frac{2}{5}$</strong> of those non-fiction readers are specifically interested in psychology essays. 
+          How many students in total read psychology essays?"
+        </div>
+
+        <button class="clil-translation-toggle" onclick="toggleTranslation('t1')">
+          🇮🇹 Mostra / Nascondi traduzione in Italiano
+        </button>
+        <div class="clil-translation-box" id="t1">
+          Un gruppo di studenti di sociologia ha intervistato 400 liceali. Hanno rilevato che i $\frac{3}{8}$ leggono saggistica e i $\frac{2}{5}$ di questi sono specificamente interessati a saggi di psicologia. Quanti studenti in totale leggono saggi di psicologia?
+        </div>
+
+        <p style="margin-top: 1rem; font-size: 0.95rem;">
+          💡 <strong>Mental Shortcut (Cross-Simplification):</strong><br>
+          We need to calculate $\frac{3}{8} \times \frac{2}{5} \times 400$. Notice that $\frac{3}{8} \times \frac{2}{5} = \frac{3 \times 1}{4 \times 5} = \frac{3}{20}$.<br>
+          Now calculate $\frac{3}{20} \times 400$: since $400 : 20 = 20$, then $3 \times 20 = \dots$
+        </p>
+
+        <div class="verify-box">
+          <label for="clil1In" style="font-weight: 600; font-size: 0.92rem;">Your Answer (Number of students):</label>
+          <input type="number" id="clil1In" class="inline-input" placeholder="e.g. 60">
+          <button class="btn-action" onclick="verifyClil1()">Verify Answer</button>
+          <span id="clil1Msg" class="feedback-msg" style="display: none;"></span>
+        </div>
+      </article>
+
+      <!-- Task 2: Textbook Discount -->
+      <article class="lab-card" id="clilLab2">
+        <div class="lab-badge-row">
+          <span class="lab-tag" style="background: rgba(168, 85, 247, 0.15); color: var(--accent-purple);">Task 2 • Distributive Strategy</span>
+          <span class="lab-xp-badge">+15 XP</span>
+        </div>
+        <h3 class="lab-title">Library Book Order with Smart Multiplication</h3>
+
+        <div class="clil-lab-prompt">
+          "The school library is purchasing <strong>19 copies</strong> of a Developmental Psychology handbook. Each copy costs <strong>€35</strong>. 
+          Instead of doing long vertical multiplication on paper, the school secretary uses the <em>distributive property</em>:
+          $$19 \times 35 = (20 - 1) \times 35 = (20 \times 35) - (1 \times 35)$$
+          What is the total cost in Euros?"
+        </div>
+
+        <button class="clil-translation-toggle" onclick="toggleTranslation('t2')">
+          🇮🇹 Mostra / Nascondi traduzione in Italiano
+        </button>
+        <div class="clil-translation-box" id="t2">
+          La biblioteca scolastica acquista 19 copie di un manuale di psicologia dello sviluppo a 35€ ciascuna. Usando $(20 - 1) \times 35$, calcola mentalmente la spesa totale.
+        </div>
+
+        <p style="margin-top: 1rem; font-size: 0.95rem;">
+          💡 <strong>Mental Computation:</strong><br>
+          $20 \times 35 = 700$. Now subtract $1 \times 35 = 35$: calculate $700 - 35 = \dots$
+        </p>
+
+        <div class="verify-box">
+          <label for="clil2In" style="font-weight: 600; font-size: 0.92rem;">Total Cost (€):</label>
+          <input type="number" id="clil2In" class="inline-input" placeholder="e.g. 665">
+          <button class="btn-action" onclick="verifyClil2()">Verify Answer</button>
+          <span id="clil2Msg" class="feedback-msg" style="display: none;"></span>
+        </div>
+      </article>
+    </main>
+
+
+    <!-- SEZIONE 3: FLASHCARDS DI AUTOVALUTAZIONE IN LINGUA INGLESE -->
+    <section class="flashcard-section" id="flashcardSection">
+      <div class="section-header">
+        <h2 class="section-title">
+          <span class="icon">🃏</span> CLIL Assessment Flashcards (+15 XP per card)
+        </h2>
+        <span class="tag info-tag" style="background: rgba(168, 85, 247, 0.15); color: var(--accent-purple); padding: 0.25rem 0.65rem; border-radius: 9999px; font-size: 0.8rem; font-weight: 700;">
+          🔁 Infinite Retries (Mastery Learning)
+        </span>
+      </div>
+      <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1.5rem;">
+        Test your mathematical understanding and English scientific vocabulary. You can repeat this test as many times as you want to reach 100% mastery!
+      </p>
+
+      <div id="clilFlashcardDeck"></div>
+    </section>
+
+
+    <!-- TAKEAWAYS & COMPLETAMENTO -->
+    <footer class="final-recap" id="finalRecap">
+      <div class="recap-icon">🎓</div>
+      <h2 class="recap-title">Global Mindset: Math has No Borders!</h2>
+      <p class="recap-subtitle">
+        In the Human Sciences curriculum, mastering scientific English bridges mathematics, psychology, sociology and international research.
+      </p>
+
+      <div class="takeaways-row">
+        <div class="takeaway-item">
+          <strong>1. Universal Vocabulary</strong>
+          <p>Terms like <em>common denominator</em>, <em>reciprocal</em>, and <em>cross-simplification</em> are identical worldwide.</p>
+        </div>
+        <div class="takeaway-item">
+          <strong>2. Smart Representation</strong>
+          <p>Converting decimals to fractions ($0.25 = \frac{1}{4}$) saves time in any language!</p>
+        </div>
+        <div class="takeaway-item">
+          <strong>3. Metacognitive Reasoning</strong>
+          <p>Explaining your problem-solving strategy in English proves deep mathematical mastery.</p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- CARD DI COMPLETAMENTO GAMIFICATION -->
+    <div class="completion-card" id="lessonCompletionCard">
+      <div class="completion-icon">🌍</div>
+      <h3 class="completion-title">Have you completed the CLIL Lesson?</h3>
+      <p class="completion-desc">
+        Congratulations for tackling mathematics in English! Claim your achievement to earn +70 XP and unlock the <strong>CLIL Explorer</strong> status.
+      </p>
+      <button id="btnCompleteLesson" class="btn-complete" style="background: linear-gradient(135deg, #a855f7, #38bdf8);">
+        ✨ Mark as Completed (+70 XP)
+      </button>
+    </div>
+
+  </div>
+
+  <!-- Shared Scripts comode -->
+  <script src="../../shared/js/audio.js"></script>
+  <script src="../../shared/js/theme.js"></script>
+  <script src="../../shared/js/gamification.js"></script>
+  <script src="../../shared/js/components.js"></script>
+  <script src="../../shared/js/flashcards.js"></script>
+  <script src="../../shared/js/speech.js"></script>
+  <script src="../../shared/js/comode.js"></script>
+
+  <!-- Logica Specifica Lezione CLIL -->
+  <script>
+    function toggleTranslation(id) {
+      if (window.ComodeAudio) window.ComodeAudio.playClick();
+      const el = document.getElementById(id);
+      if (el) el.classList.toggle('visible');
+    }
+
+    const completedClilTasks = new Set();
+
+    function markClilTask(taskNum) {
+      if (!completedClilTasks.has(taskNum)) {
+        completedClilTasks.add(taskNum);
+        if (window.ComodeAudio) window.ComodeAudio.playSuccess();
+        if (window.ComodeGamification) {
+          window.ComodeGamification.addXP(15, `CLIL Task ${taskNum} completed!`);
+        }
+        updateClilProgress();
+      }
+    }
+
+    function updateClilProgress() {
+      const count = completedClilTasks.size;
+      const pct = (count / 2) * 100;
+      const fill = document.getElementById('progressFill');
+      const score = document.getElementById('progressScore');
+      if (fill) fill.style.width = pct + '%';
+      if (score) score.textContent = `${count} / 2 completed`;
+
+      if (count === 2) {
+        if (window.ComodeAudio) window.ComodeAudio.playLevelUp();
+      }
+    }
+
+    function verifyClil1() {
+      const val = parseInt(document.getElementById('clil1In').value.trim(), 10);
+      const msg = document.getElementById('clil1Msg');
+      msg.style.display = 'inline-flex';
+
+      if (val === 60) {
+        msg.className = 'feedback-msg success';
+        msg.textContent = 'Correct! 3/20 of 400 = 60 psychology readers. Excellent cross-simplification!';
+        markClilTask(1);
+      } else {
+        if (window.ComodeAudio) window.ComodeAudio.playError();
+        msg.className = 'feedback-msg error';
+        msg.textContent = 'Try again: 3/20 × 400 = 3 × 20 = ?';
+      }
+    }
+
+    function verifyClil2() {
+      const val = parseInt(document.getElementById('clil2In').value.trim(), 10);
+      const msg = document.getElementById('clil2Msg');
+      msg.style.display = 'inline-flex';
+
+      if (val === 665) {
+        msg.className = 'feedback-msg success';
+        msg.textContent = 'Spot on! 700 - 35 = €665. The distributive property saves time!';
+        markClilTask(2);
+      } else {
+        if (window.ComodeAudio) window.ComodeAudio.playError();
+        msg.className = 'feedback-msg error';
+        msg.textContent = 'Think: 20 × 35 = 700. Now subtract 35 from 700.';
+      }
+    }
+
+    function initClilLesson() {
+      if (window.ComodeFlashcards) {
+        ComodeFlashcards.init('clilFlashcardDeck', {
+          deckId: 'pb-1.1-clil-deck',
+          xpPerCard: 15,
+          completionXP: 25,
+          cards: [
+            {
+              category: 'Scientific Vocabulary',
+              question: 'What is the <em>reciprocal</em> (multiplicative inverse) of the fraction $\\frac{3}{5}$?',
+              options: [
+                '$-\\frac{3}{5}$',
+                '$\\frac{5}{3}$',
+                '$\\frac{3}{10}$',
+                '$0.6$'
+              ],
+              correct: 1,
+              explanation: 'The reciprocal swaps the numerator and denominator: $\\frac{3}{5} \\times \\frac{5}{3} = 1$. It turns multiplication into division!'
+            },
+            {
+              category: 'Smart Computation',
+              question: 'Which is the fastest mental strategy to calculate $36 \\times 0.25$ in your head?',
+              options: [
+                'Multiply $36 \\times 25$ on paper, then divide by 100',
+                'Recognize that $0.25 = \\frac{1}{4}$, and divide $36 : 4 = 9$',
+                'Compute $(30 \\times 0.25) + (6 \\times 0.25)$',
+                'Convert to percentages: calculate 25% of 36 with an algorithm'
+              ],
+              correct: 1,
+              explanation: 'Replacing the decimal $0.25$ with the fraction $\\frac{1}{4}$ turns multiplication into half of a half: $36 \\to 18 \\to 9$!'
+            },
+            {
+              category: 'Fractions in English',
+              question: 'Why do we need a <em>common denominator</em> to compute $\\frac{1}{3} + \\frac{1}{4}$?',
+              options: [
+                'Because the slices have different sizes: we must convert them to equal twelfths ($\\frac{4}{12} + \\frac{3}{12} = \\frac{7}{12}$)',
+                'Because the sum of numerators must always equal 7',
+                'Because an arbitrary grammar rule forbids touching denominators',
+                'Because fractions can only be added if converted to decimals'
+              ],
+              correct: 0,
+              explanation: 'You cannot combine thirds and fourths directly without partitioning them into common twelfths: $\\frac{4 + 3}{12} = \\frac{7}{12}$.'
+            },
+            {
+              category: 'Directed Numbers',
+              question: 'On the directed number line, what is the meaning of the operation $-4 - (-6)$?',
+              options: [
+                'Start at $-4$ and step 6 units to the left to reach $-10$',
+                'Start at $-4$ and remove a debt of 6: subtracting a negative moves 6 steps to the right, landing at $+2$',
+                'Multiply both negative signs and calculate $-4 - 6 = -10$',
+                'Calculate the absolute geometric distance between $-4$ and $-6$'
+              ],
+              correct: 1,
+              explanation: 'Taking away a negative moves to the right: $-4 - (-6) = -4 + 6 = +2$!'
+            }
+          ]
+        });
+      }
+    }
+
+    if (document.readyState !== 'loading') {
+      initClilLesson();
+    } else {
+      document.addEventListener('DOMContentLoaded', initClilLesson);
+    }
+  </script>
+</body>
+</html>

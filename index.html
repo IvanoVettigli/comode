@@ -3,200 +3,492 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>comode — Lavori in corso</title>
+  <title>le comode lezioni d'Ivano • Problem Solving Matematica &amp; Fisica</title>
+  <meta name="description" content="Piattaforma didattica per l'apprendimento della Matematica e della Fisica nel Liceo delle Scienze Umane basata su Problem Solving, Inquiry-Based Learning, Gamification e Metacognizione.">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Stili Condivisi comode -->
+  <link rel="stylesheet" href="shared/css/comode.css">
+
   <style>
-    :root {
-      --bg: #090d16;
-      --card-bg: rgba(17, 24, 39, 0.85);
-      --border: rgba(255, 255, 255, 0.1);
-      --text: #f3f4f6;
-      --text-muted: #9ca3af;
-      --accent: #38bdf8;
-      --accent-glow: rgba(56, 189, 248, 0.2);
-      --btn-bg: #1f2937;
-      --btn-text: #f3f4f6;
+    /* Stili dedicati per la Home Page */
+    .hub-hero {
+      margin-bottom: 2.5rem;
+      text-align: center;
+      padding: 3rem 1.5rem 2.5rem;
+      background: linear-gradient(180deg, var(--bg-surface) 0%, var(--bg-surface-elevated) 100%);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
     }
 
-    [data-theme="light"] {
-      --bg: #f8fafc;
-      --card-bg: rgba(255, 255, 255, 0.95);
-      --border: rgba(0, 0, 0, 0.1);
-      --text: #0f172a;
-      --text-muted: #64748b;
-      --accent: #0284c7;
-      --accent-glow: rgba(2, 132, 199, 0.15);
-      --btn-bg: #e2e8f0;
-      --btn-text: #0f172a;
+    .hub-hero::before {
+      content: '';
+      position: absolute;
+      top: -40px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 440px;
+      height: 150px;
+      background: radial-gradient(circle, var(--accent-math-glow) 0%, transparent 70%);
+      pointer-events: none;
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+    .hub-hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.4rem 0.95rem;
+      border-radius: var(--radius-pill);
+      font-size: 0.82rem;
+      font-weight: 700;
+      background: rgba(56, 189, 248, 0.12);
+      color: var(--accent-math);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      margin-bottom: 1.25rem;
     }
 
-    body {
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      background-color: var(--bg);
-      color: var(--text);
-      min-height: 100vh;
+    .hub-title {
+      font-size: 2.6rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      margin-bottom: 0.85rem;
+      line-height: 1.2;
+    }
+
+    .hub-title span {
+      background: linear-gradient(135deg, var(--accent-math), var(--accent-purple));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hub-desc {
+      font-size: 1.15rem;
+      color: var(--text-muted);
+      max-width: 760px;
+      margin: 0 auto 1.75rem;
+      line-height: 1.6;
+      font-weight: 500;
+    }
+
+    .hub-quick-stats {
+      display: flex;
+      justify-content: center;
+      gap: 0.85rem;
+      flex-wrap: wrap;
+    }
+
+    .hub-stat-item {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      padding: 0.4rem 0.9rem;
+      border-radius: var(--radius-pill);
+    }
+
+    .section-title-wrap {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin: 2.5rem 0 1.25rem;
+      border-bottom: 1px solid var(--border-subtle);
+      padding-bottom: 0.75rem;
+    }
+
+    .section-title {
+      font-size: 1.45rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      letter-spacing: -0.01em;
+    }
+
+    .section-sub {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+    }
+
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+      gap: 1.35rem;
+      margin-bottom: 3.5rem;
+    }
+
+    .portal-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 1.6rem;
       display: flex;
       flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 1.5rem;
+      transition: var(--transition);
+      text-decoration: none;
+      color: inherit;
       position: relative;
     }
 
-    .theme-toggle {
-      position: absolute;
-      top: 1.5rem;
-      right: 1.5rem;
-      background: var(--btn-bg);
-      color: var(--btn-text);
-      border: 1px solid var(--border);
-      padding: 0.6rem 1.1rem;
-      border-radius: 9999px;
-      cursor: pointer;
-      font-size: 0.9rem;
-      font-weight: 500;
-      display: inline-flex;
+    .portal-card:hover {
+      border-color: var(--accent-math);
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .portal-card.active-cycle {
+      border: 2px solid var(--accent-math);
+      box-shadow: 0 4px 18px var(--accent-math-glow);
+    }
+
+    .portal-card.active-cycle:hover {
+      border-color: #60a5fa;
+      box-shadow: 0 8px 24px var(--accent-math-glow);
+    }
+
+    .portal-card.wip-cycle:hover {
+      border-color: var(--accent-gold);
+    }
+
+    .portal-card.curriculum:hover {
+      border-color: var(--accent-purple);
+    }
+
+    .portal-card-top {
+      display: flex;
+      justify-content: space-between;
       align-items: center;
-      gap: 0.5rem;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      margin-bottom: 0.85rem;
     }
 
-    .theme-toggle:hover {
-      border-color: var(--accent);
-    }
-
-    .card {
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 3rem 2.5rem;
-      max-width: 540px;
-      width: 100%;
-      text-align: center;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.25), 0 0 40px var(--accent-glow);
-      backdrop-filter: blur(12px);
-    }
-
-    .badge {
-      display: inline-flex;
-      align-items: center;
+    .portal-badges {
+      display: flex;
       gap: 0.4rem;
-      padding: 0.35rem 0.9rem;
-      border-radius: 9999px;
-      font-size: 0.85rem;
-      font-weight: 600;
-      background: rgba(56, 189, 248, 0.12);
-      color: var(--accent);
-      border: 1px solid var(--border);
-      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
     }
 
-    .logo {
-      font-size: 2.2rem;
-      font-weight: 800;
-      letter-spacing: -0.03em;
-      margin-bottom: 0.5rem;
-    }
-
-    .logo span {
-      color: var(--accent);
-    }
-
-    h1 {
-      font-size: 1.6rem;
+    .portal-pill {
+      font-size: 0.72rem;
       font-weight: 700;
-      margin-bottom: 1rem;
+      padding: 0.2rem 0.55rem;
+      border-radius: var(--radius-pill);
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
     }
 
-    p {
+    .portal-pill.math {
+      background: rgba(56, 189, 248, 0.12);
+      color: var(--accent-math);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+    }
+
+    .portal-pill.active {
+      background: rgba(16, 185, 129, 0.15);
+      color: var(--accent-success);
+      border: 1px solid rgba(16, 185, 129, 0.35);
+    }
+
+    .portal-pill.wip {
+      background: rgba(245, 158, 11, 0.12);
+      color: var(--accent-gold);
+      border: 1px solid rgba(245, 158, 11, 0.25);
+    }
+
+    .portal-pill.curr {
+      background: rgba(168, 85, 247, 0.12);
+      color: var(--accent-purple);
+      border: 1px solid rgba(168, 85, 247, 0.25);
+    }
+
+    .portal-xp-tag {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--accent-gold);
+      background: rgba(245, 158, 11, 0.12);
+      padding: 0.2rem 0.5rem;
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(245, 158, 11, 0.25);
+    }
+
+    .portal-card-title {
+      font-size: 1.25rem;
+      font-weight: 800;
+      margin-bottom: 0.35rem;
+      line-height: 1.3;
+    }
+
+    .portal-card-subtitle {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--accent-math);
+      margin-bottom: 0.6rem;
+    }
+
+    .portal-card.wip-cycle .portal-card-subtitle {
+      color: var(--accent-gold);
+    }
+
+    .portal-card.curriculum .portal-card-subtitle {
+      color: var(--accent-purple);
+    }
+
+    .portal-card-desc {
+      font-size: 0.9rem;
       color: var(--text-muted);
-      line-height: 1.6;
-      font-size: 1rem;
-      margin-bottom: 2rem;
+      line-height: 1.55;
+      margin-bottom: 1.35rem;
+      flex-grow: 1;
     }
 
-    .repo-link {
+    .portal-card-btn {
       display: inline-flex;
       align-items: center;
+      justify-content: center;
       gap: 0.5rem;
-      text-decoration: none;
-      background: var(--accent);
-      color: #ffffff;
-      padding: 0.75rem 1.4rem;
-      border-radius: 10px;
-      font-weight: 600;
-      font-size: 0.95rem;
-      box-shadow: 0 4px 14px var(--accent-glow);
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-main);
+      padding: 0.7rem 1.1rem;
+      border-radius: var(--radius-md);
+      font-size: 0.9rem;
+      font-weight: 700;
+      transition: var(--transition);
+      margin-top: auto;
     }
 
-    .repo-link:hover {
-      opacity: 0.92;
-      transform: translateY(-1px);
+    .portal-card:hover .portal-card-btn {
+      background: var(--accent-math);
+      color: #0b0f19;
+      border-color: var(--accent-math);
     }
 
-    footer {
-      margin-top: 2rem;
-      font-size: 0.8rem;
+    .portal-card.active-cycle .portal-card-btn {
+      background: var(--accent-math);
+      color: #0b0f19;
+      border-color: var(--accent-math);
+    }
+
+    .portal-card.active-cycle:hover .portal-card-btn {
+      background: #7dd3fc;
+    }
+
+    .portal-card.wip-cycle:hover .portal-card-btn {
+      background: var(--accent-gold);
+      color: #78350f;
+      border-color: var(--accent-gold);
+    }
+
+    .portal-card.curriculum:hover .portal-card-btn {
+      background: var(--accent-purple);
+      color: #fff;
+      border-color: var(--accent-purple);
+    }
+
+    .portal-footer {
+      margin-top: 4rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border-subtle);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
       color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+
+    .reset-btn {
+      background: transparent;
+      border: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+      font-size: 0.78rem;
+      padding: 0.35rem 0.75rem;
+      border-radius: var(--radius-pill);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .reset-btn:hover {
+      color: var(--accent-danger);
+      border-color: var(--accent-danger);
     }
   </style>
 </head>
-<body>
+<body data-theme="dark">
 
-  <button class="theme-toggle" id="themeToggle" aria-label="Cambia tema">
-    <span id="themeIcon">☀️</span>
-    <span id="themeText">Tema chiaro</span>
-  </button>
+  <div class="container">
+    <!-- Navbar Superiore con Widget Gamification e Controlli -->
+    <nav class="navbar">
+      <a href="index.html" class="brand">
+        📐 comode<span>.</span>
+      </a>
+      <div class="nav-actions">
+        <div class="gamification-widget" title="Il tuo livello attuale e punti XP">
+          <span class="level-badge user-level-val">Liv. 1 🌱</span>
+          <span class="xp-counter user-xp-val">0 XP</span>
+        </div>
+        <button id="audioToggleBtn" class="icon-btn" aria-label="Attiva o disattiva audio">
+          🔊 <span class="nav-text">Suoni</span>
+        </button>
+        <button id="themeToggleBtn" class="theme-toggle-btn" aria-label="Cambia tema chiaro/scuro">
+          <span id="themeIcon">☀️</span>
+          <span id="themeLabel">Chiaro</span>
+        </button>
+      </div>
+    </nav>
 
-  <main class="card">
-    <div class="badge">🚧 Lavori in corso</div>
-    <div class="logo">📐 comode<span>.</span></div>
-    <h1>Sito in costruzione</h1>
-    <p>
-      Stiamo allestendo la piattaforma per l'apprendimento della Matematica e della Fisica nel Liceo delle Scienze Umane, basata sul metodo del Problem Solving e sulle Nuove Indicazioni Nazionali.
-    </p>
-    <a href="https://github.com/IvanoVettigli/comode" class="repo-link" target="_blank" rel="noopener">
-      Vai alla repository GitHub →
-    </a>
-  </main>
+    <!-- ======================================================== -->
+    <!-- HERO HEADER CON TITOLO E SOTTOTITOLO RICHIESTI           -->
+    <!-- ======================================================== -->
+    <header class="hub-hero">
+      <div class="hub-hero-badge">
+        🧠 Problem Solving • Scienze Umane • Metacognizione
+      </div>
+      <h1 class="hub-title">
+        le comode lezioni d'<span>Ivano</span>
+      </h1>
+      <p class="hub-desc">
+        Allena le tue capacità di problem solving accumulando punti esperienza completando le unità didattiche!
+      </p>
+      <div class="hub-quick-stats">
+        <span class="hub-stat-item">📐 20 UDA Curricolari</span>
+        <span class="hub-stat-item">🏆 20 Titoli + 1 Titolo Supremo</span>
+        <span class="hub-stat-item">🔒 Privacy 100% Locale (Zero Cookie / Zero Dati)</span>
+      </div>
+    </header>
 
-  <footer>
-    comode • Verifica pubblicazione pagine
-  </footer>
 
-  <script>
-    const html = document.documentElement;
-    const btn = document.getElementById('themeToggle');
-    const icon = document.getElementById('themeIcon');
-    const text = document.getElementById('themeText');
+    <!-- ======================================================== -->
+    <!-- LINK ALLE UDA DEI CICLI (PRIMO, SECONDO, QUINTO)         -->
+    <!-- ======================================================== -->
+    <div class="section-title-wrap">
+      <div class="section-title">
+        <span>📚 I Percorsi Didattici Quinquennali</span>
+      </div>
+      <div class="section-sub">
+        Scegli il ciclo di studi per accedere alle Unità Didattiche di Apprendimento
+      </div>
+    </div>
 
-    // Default tema scuro
-    let currentTheme = localStorage.getItem('comode-theme') || 'dark';
+    <div class="cards-grid">
+      <!-- 1. PRIMO BIENNIO (Attivo con link all'UDA 1.1) -->
+      <a href="primo-biennio/index.html" class="portal-card active-cycle">
+        <div class="portal-card-top">
+          <div class="portal-badges">
+            <span class="portal-pill math">1° &amp; 2° Anno</span>
+            <span class="portal-pill active">🟢 UDA 1.1 Attiva</span>
+          </div>
+          <span class="portal-xp-tag">+130 XP</span>
+        </div>
+        <h2 class="portal-card-title">Primo Biennio</h2>
+        <div class="portal-card-subtitle">8 UDA • Matematica per le Scienze Umane</div>
+        <p class="portal-card-desc">
+          Rappresentazioni confortevoli dei numeri, gettoni per il calcolo mentale, frazioni come taglie, geometria euclidea, statistica e modulo CLIL in lingua inglese. Accedi per iniziare i laboratori dell'UDA 1.1.
+        </p>
+        <div class="portal-card-btn">
+          Accedi al Primo Biennio (UDA 1.1) →
+        </div>
+      </a>
 
-    function applyTheme(theme) {
-      html.setAttribute('data-theme', theme);
-      if (theme === 'dark') {
-        icon.textContent = '☀️';
-        text.textContent = 'Tema chiaro';
-      } else {
-        icon.textContent = '🌙';
-        text.textContent = 'Tema scuro';
-      }
-      localStorage.setItem('comode-theme', theme);
-    }
+      <!-- 2. SECONDO BIENNIO (Lavori in corso) -->
+      <a href="secondo-biennio/index.html" class="portal-card wip-cycle">
+        <div class="portal-card-top">
+          <div class="portal-badges">
+            <span class="portal-pill math">3° &amp; 4° Anno</span>
+            <span class="portal-pill wip">🚧 Lavori in corso</span>
+          </div>
+          <span class="portal-xp-tag">8 UDA</span>
+        </div>
+        <h2 class="portal-card-title">Secondo Biennio</h2>
+        <div class="portal-card-subtitle">8 UDA • Matematica &amp; Fisica</div>
+        <p class="portal-card-desc">
+          Calcolo vettoriale, cinematica, modelli quadratici e coniche, dinamica di Newton ed energia, funzioni esponenziali, onde, termologia e Teorema di Bayes. Pagina in allestimento didattico.
+        </p>
+        <div class="portal-card-btn">
+          Esplora Secondo Biennio (Lavori in Corso) →
+        </div>
+      </a>
 
-    applyTheme(currentTheme);
+      <!-- 3. QUINTO ANNO (Lavori in corso) -->
+      <a href="quinto-anno/index.html" class="portal-card wip-cycle">
+        <div class="portal-card-top">
+          <div class="portal-badges">
+            <span class="portal-pill math">5° Anno</span>
+            <span class="portal-pill wip">🚧 Lavori in corso</span>
+          </div>
+          <span class="portal-xp-tag">4 UDA</span>
+        </div>
+        <h2 class="portal-card-title">Quinto Anno</h2>
+        <div class="portal-card-subtitle">4 UDA • Verso l'Esame di Stato</div>
+        <p class="portal-card-desc">
+          Limiti, continuità e derivate, termodinamica ed elettromagnetismo, studio completo di funzione, calcolo integrale, epistemologia scientifica, quanti e intelligenza artificiale. Pagina in allestimento.
+        </p>
+        <div class="portal-card-btn">
+          Esplora Quinto Anno (Lavori in Corso) →
+        </div>
+      </a>
 
-    btn.addEventListener('click', () => {
-      currentTheme = currentTheme === 'dark' ? 'light' : 'dark';
-      applyTheme(currentTheme);
-    });
-  </script>
+      <!-- 4. PROGRAMMAZIONE DIDATTICA COMPLETA -->
+      <a href="programmazione_matematica_fisica.html" class="portal-card curriculum">
+        <div class="portal-card-top">
+          <div class="portal-badges">
+            <span class="portal-pill curr">Piano Quinquennale</span>
+            <span class="portal-pill curr">MIM 100%</span>
+          </div>
+          <span class="portal-xp-tag">Curricolo</span>
+        </div>
+        <h2 class="portal-card-title">Programmazione Didattica</h2>
+        <div class="portal-card-subtitle">Quadro completo delle 20 UDA</div>
+        <p class="portal-card-desc">
+          Il piano quinquennale ministeriale integrale per il Liceo delle Scienze Umane: nuclei tematici, traguardi di competenza, verifiche scritte e rubriche di valutazione.
+        </p>
+        <div class="portal-card-btn">
+          Consulta la Programmazione →
+        </div>
+      </a>
+    </div>
+
+
+    <!-- ======================================================== -->
+    <!-- SOTTO ANCORA: BACHECA CON TUTTI I TITOLI ACQUISITI       -->
+    <!-- E COSA FARE PER ACQUISIRE OGNI TITOLO + TITOLO SUPREMO   -->
+    <!-- ======================================================== -->
+    <section id="trophyBoardContainer">
+      <!-- Popolato dinamicamente da ComodeGamification.renderTrophyBoard() -->
+    </section>
+
+
+    <!-- Footer -->
+    <footer class="portal-footer">
+      <div>
+        <strong>le comode lezioni d'Ivano</strong> • Matematica &amp; Fisica per il Liceo delle Scienze Umane
+      </div>
+      <div style="display: flex; align-items: center; gap: 1rem;">
+        <button class="reset-btn" onclick="window.ComodeGamification.resetProgress()" title="Azzera i punti e i titoli su questo dispositivo">
+          🔄 Azzera Progressi Locali
+        </button>
+        <a href="https://github.com/IvanoVettigli/comode" target="_blank" rel="noopener" style="color: var(--text-muted); text-decoration: none;">
+          Repository GitHub →
+        </a>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Script Condivisi comode -->
+  <script src="shared/js/audio.js"></script>
+  <script src="shared/js/theme.js"></script>
+  <script src="shared/js/gamification.js"></script>
+  <script src="shared/js/comode.js"></script>
 </body>
 </html>

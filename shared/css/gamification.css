@@ -1,0 +1,849 @@
+/* ==========================================================================
+   comode — gamification.css (XP, Livelli, Badge, Toast e Traguardi)
+   ========================================================================== */
+
+/* Widget Utente nella Navbar */
+.gamification-widget {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: var(--bg-surface-elevated);
+  border: 1px solid var(--border-subtle);
+  padding: 0.35rem 0.75rem;
+  border-radius: var(--radius-pill);
+  font-size: 0.82rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.level-badge {
+  background: linear-gradient(135deg, #fbbf24, #f59e0b);
+  color: #78350f;
+  font-weight: 800;
+  font-size: 0.75rem;
+  padding: 0.15rem 0.5rem;
+  border-radius: var(--radius-pill);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.xp-counter {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  color: var(--accent-gold);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+/* Barra Progresso Lezione */
+.progress-container {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 0.85rem 1.25rem;
+  margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.progress-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.progress-track {
+  flex: 1;
+  height: 10px;
+  background: var(--bg-surface-elevated);
+  border-radius: var(--radius-pill);
+  overflow: hidden;
+  position: relative;
+  border: 1px solid var(--border-subtle);
+}
+
+.progress-bar-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--accent-math), var(--accent-success));
+  border-radius: var(--radius-pill);
+  transition: width 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 0 10px var(--accent-success-glow);
+}
+
+.progress-pct {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  min-width: 45px;
+  text-align: right;
+}
+
+/* Card di Fine Lezione / Completamento */
+.completion-card {
+  background: linear-gradient(135deg, var(--bg-surface) 0%, var(--bg-surface-elevated) 100%);
+  border: 2px dashed var(--border-accent);
+  border-radius: var(--radius-lg);
+  padding: 2.5rem 2rem;
+  text-align: center;
+  margin-top: 3rem;
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+}
+
+.completion-card.is-completed {
+  border: 2px solid var(--accent-success);
+  background: linear-gradient(180deg, rgba(16, 185, 129, 0.08) 0%, var(--bg-surface) 100%);
+}
+
+.completion-icon {
+  font-size: 3rem;
+  margin-bottom: 0.75rem;
+  display: inline-block;
+  animation: bounce 2s infinite ease-in-out;
+}
+
+.completion-title {
+  font-size: 1.4rem;
+  font-weight: 800;
+  margin-bottom: 0.5rem;
+}
+
+.completion-desc {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  max-width: 520px;
+  margin: 0 auto 1.5rem;
+}
+
+.btn-complete {
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: #fff;
+  border: none;
+  font-family: inherit;
+  font-size: 1.05rem;
+  font-weight: 700;
+  padding: 0.9rem 2.2rem;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  box-shadow: 0 4px 16px var(--accent-success-glow);
+  transition: var(--transition);
+}
+
+.btn-complete:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.1);
+}
+
+.btn-complete.completed-state {
+  background: var(--bg-surface-elevated);
+  border: 1px solid var(--accent-success);
+  color: var(--accent-success);
+  box-shadow: none;
+  cursor: default;
+}
+
+/* Toast Notifica Gamification (XP / Level Up) */
+.comode-toast-container {
+  position: fixed;
+  bottom: 1.75rem;
+  right: 1.75rem;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  pointer-events: none;
+}
+
+.comode-toast {
+  pointer-events: auto;
+  background: var(--bg-surface-glass);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border-accent);
+  padding: 1rem 1.4rem;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg), 0 0 25px var(--accent-math-glow);
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  min-width: 280px;
+  max-width: 380px;
+  transform: translateX(120%);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s ease;
+  opacity: 0;
+}
+
+.comode-toast.show {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+.toast-icon {
+  font-size: 1.7rem;
+  line-height: 1;
+}
+
+.toast-content {
+  flex: 1;
+}
+
+.toast-title {
+  font-weight: 800;
+  font-size: 0.95rem;
+  margin-bottom: 0.2rem;
+}
+
+.toast-desc {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+/* ==========================================================================
+   Bacheca dei Titoli Collezionati (UDA Trophy Board)
+   ========================================================================== */
+
+.trophy-board {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 1.75rem;
+  margin-bottom: 2.5rem;
+  box-shadow: var(--shadow-md);
+  position: relative;
+  overflow: hidden;
+}
+
+.trophy-board::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--accent-math), var(--accent-purple), var(--accent-gold));
+}
+
+.trophy-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+  margin-bottom: 1.25rem;
+}
+
+.trophy-header-left {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.trophy-main-badge {
+  font-size: 2.4rem;
+  width: 58px;
+  height: 58px;
+  background: var(--bg-surface-elevated);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-sm);
+}
+
+.trophy-title {
+  font-size: 1.45rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.25rem;
+}
+
+.trophy-subtitle {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  max-width: 600px;
+  line-height: 1.4;
+}
+
+.trophy-header-stats {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.trophy-stat-pill {
+  background: var(--bg-surface-elevated);
+  border: 1px solid var(--border-subtle);
+  padding: 0.5rem 0.9rem;
+  border-radius: var(--radius-pill);
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.trophy-stat-pill .stat-label {
+  color: var(--text-muted);
+}
+
+.trophy-stat-pill .stat-value {
+  font-weight: 700;
+  font-family: var(--font-mono);
+}
+
+.trophy-global-progress {
+  background: var(--bg-surface-elevated);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 0.85rem 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.progress-meta-text {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 0.5rem;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+
+.progress-meta-text strong {
+  color: var(--text-main);
+}
+
+/* Filtri Ciclo */
+.trophy-filter-row {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.trophy-pill {
+  background: var(--bg-surface-elevated);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-muted);
+  font-size: 0.82rem;
+  font-weight: 600;
+  padding: 0.4rem 0.85rem;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.trophy-pill:hover {
+  border-color: var(--accent-math);
+  color: var(--text-main);
+}
+
+.trophy-pill.active {
+  background: var(--accent-math);
+  color: #fff;
+  border-color: var(--accent-math);
+  box-shadow: 0 2px 8px var(--accent-math-glow);
+}
+
+.trophy-pill.highlight.active {
+  background: var(--accent-gold);
+  color: #78350f;
+  border-color: var(--accent-gold);
+}
+
+/* Griglia Trofei */
+.trophy-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 1rem;
+}
+
+/* Card Trofeo Singola */
+.trophy-card {
+  background: var(--bg-surface-elevated);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 1.15rem;
+  display: flex;
+  flex-direction: column;
+  transition: var(--transition);
+  position: relative;
+}
+
+.trophy-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Stato Sbloccato */
+.trophy-card.unlocked {
+  background: linear-gradient(145deg, var(--bg-surface-elevated) 0%, rgba(16, 185, 129, 0.05) 100%);
+  border: 1px solid rgba(16, 185, 129, 0.4);
+  box-shadow: 0 4px 14px rgba(16, 185, 129, 0.08);
+}
+
+.trophy-card.unlocked:hover {
+  border-color: var(--accent-success);
+  box-shadow: 0 6px 20px rgba(16, 185, 129, 0.16);
+}
+
+/* Stato Bloccato */
+.trophy-card.locked {
+  opacity: 0.72;
+  border: 1px dashed var(--border-subtle);
+}
+
+.trophy-card.locked:hover {
+  opacity: 0.95;
+  border-color: var(--border-accent);
+}
+
+.trophy-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.trophy-badge-wrap {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-sm);
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+}
+
+.trophy-card.unlocked .trophy-badge-wrap {
+  border-color: rgba(16, 185, 129, 0.3);
+  background: rgba(16, 185, 129, 0.12);
+}
+
+.trophy-code-tag {
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 0.2rem 0.5rem;
+  border-radius: var(--radius-pill);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.trophy-code-tag.math {
+  background: rgba(56, 189, 248, 0.12);
+  color: var(--accent-math);
+  border: 1px solid rgba(56, 189, 248, 0.2);
+}
+
+.trophy-code-tag.phys {
+  background: rgba(245, 158, 11, 0.12);
+  color: var(--accent-physics);
+  border: 1px solid rgba(245, 158, 11, 0.2);
+}
+
+.trophy-name {
+  font-size: 1.05rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  margin-bottom: 0.35rem;
+  line-height: 1.3;
+}
+
+.trophy-card.unlocked .trophy-name {
+  color: var(--text-main);
+}
+
+.trophy-card.locked .trophy-name {
+  color: var(--text-muted);
+}
+
+.trophy-uda-topic {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  line-height: 1.4;
+  margin-bottom: 1rem;
+  flex-grow: 1;
+}
+
+.trophy-card-footer {
+  margin-top: auto;
+  padding-top: 0.6rem;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.trophy-unlocked-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--accent-success);
+}
+
+.trophy-progress-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.trophy-mini-track {
+  height: 5px;
+  background: var(--bg-surface);
+  border-radius: var(--radius-pill);
+  overflow: hidden;
+  border: 1px solid var(--border-subtle);
+}
+
+.trophy-mini-fill {
+  height: 100%;
+  background: var(--accent-math);
+  border-radius: var(--radius-pill);
+  transition: width 0.3s ease;
+}
+
+.trophy-mini-info {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+}
+
+.trophy-top-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.35rem;
+}
+
+.trophy-status-pill {
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 0.15rem 0.5rem;
+  border-radius: var(--radius-pill);
+}
+
+.trophy-status-pill.status-unlocked {
+  background: rgba(16, 185, 129, 0.15);
+  color: var(--accent-success);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.trophy-status-pill.status-locked {
+  background: var(--bg-surface);
+  color: var(--text-dim);
+  border: 1px solid var(--border-subtle);
+}
+
+.trophy-how-to {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-left: 3px solid var(--accent-math);
+  border-radius: var(--radius-sm);
+  padding: 0.65rem 0.75rem;
+  margin: 0.6rem 0 1rem;
+  font-size: 0.8rem;
+  line-height: 1.45;
+}
+
+.trophy-card.unlocked .trophy-how-to {
+  border-left-color: var(--accent-success);
+  background: rgba(16, 185, 129, 0.05);
+}
+
+.how-to-label {
+  display: block;
+  font-weight: 700;
+  font-size: 0.75rem;
+  color: var(--text-main);
+  margin-bottom: 0.25rem;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.how-to-desc {
+  color: var(--text-muted);
+}
+
+/* ==========================================================================
+   Banner Titolo Supremo (Completamento di tutti i 20 titoli del portale)
+   ========================================================================== */
+.trophy-master-banner {
+  background: linear-gradient(135deg, rgba(251, 191, 36, 0.08) 0%, rgba(139, 92, 246, 0.08) 50%, var(--bg-surface-elevated) 100%);
+  border: 2px solid rgba(251, 191, 36, 0.35);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 1.5rem;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+  transition: var(--transition);
+}
+
+.trophy-master-banner:hover {
+  border-color: var(--accent-gold);
+  box-shadow: 0 6px 25px var(--accent-gold-glow);
+}
+
+.trophy-master-banner.unlocked {
+  background: linear-gradient(135deg, rgba(251, 191, 36, 0.18) 0%, rgba(16, 185, 129, 0.12) 100%);
+  border-color: var(--accent-gold);
+  box-shadow: 0 0 30px var(--accent-gold-glow);
+}
+
+.master-banner-badge-wrap {
+  width: 72px;
+  height: 72px;
+  border-radius: var(--radius-md);
+  background: linear-gradient(135deg, rgba(251, 191, 36, 0.2), rgba(245, 158, 11, 0.1));
+  border: 2px solid rgba(251, 191, 36, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.4rem;
+  box-shadow: var(--shadow-sm);
+  flex-shrink: 0;
+}
+
+.trophy-master-banner.unlocked .master-banner-badge-wrap {
+  background: linear-gradient(135deg, #fbbf24, #f59e0b);
+  border-color: #fbbf24;
+  animation: bounce 2.5s infinite ease-in-out;
+}
+
+.master-banner-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.master-banner-top {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 0.4rem;
+  flex-wrap: wrap;
+}
+
+.master-banner-pill {
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  background: rgba(251, 191, 36, 0.18);
+  color: var(--accent-gold);
+  border: 1px solid rgba(251, 191, 36, 0.35);
+  padding: 0.2rem 0.6rem;
+  border-radius: var(--radius-pill);
+}
+
+.master-status-tag {
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 0.2rem 0.6rem;
+  border-radius: var(--radius-pill);
+}
+
+.master-status-tag.tag-unlocked {
+  background: rgba(16, 185, 129, 0.2);
+  color: var(--accent-success);
+  border: 1px solid rgba(16, 185, 129, 0.4);
+}
+
+.master-status-tag.tag-locked {
+  background: var(--bg-surface);
+  color: var(--text-dim);
+  border: 1px solid var(--border-subtle);
+}
+
+.master-banner-title {
+  font-size: 1.35rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.2rem;
+}
+
+.master-banner-sub {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-bottom: 0.6rem;
+}
+
+.master-how-to {
+  border-left-color: var(--accent-gold);
+  background: rgba(0, 0, 0, 0.2);
+  margin: 0.4rem 0 0;
+}
+
+.master-banner-progress {
+  min-width: 200px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.master-progress-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.master-progress-label strong {
+  font-family: var(--font-mono);
+  color: var(--accent-gold);
+  font-size: 0.95rem;
+}
+
+.master-track {
+  height: 8px;
+  background: var(--bg-surface-elevated);
+  border-radius: var(--radius-pill);
+  overflow: hidden;
+  border: 1px solid var(--border-subtle);
+}
+
+.master-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent-math), var(--accent-gold));
+  border-radius: var(--radius-pill);
+  transition: width 0.5s ease;
+}
+
+.master-progress-sub {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  text-align: right;
+}
+
+@media (max-width: 768px) {
+  .trophy-board {
+    padding: 1.25rem 1rem;
+  }
+
+  .trophy-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .trophy-header-stats {
+    width: 100%;
+    gap: 0.5rem;
+  }
+
+  .trophy-stat-pill {
+    flex: 1;
+    justify-content: center;
+    font-size: 0.8rem;
+    padding: 0.4rem 0.65rem;
+  }
+
+  /* Scorrimento orizzontale touch per i filtri */
+  .trophy-filter-row {
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    padding-bottom: 0.6rem;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .trophy-filter-row::-webkit-scrollbar {
+    display: none;
+  }
+
+  .trophy-pill {
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .trophy-master-banner {
+    grid-template-columns: 1fr;
+    text-align: center;
+    gap: 1rem;
+    padding: 1.25rem 1rem;
+  }
+
+  .master-banner-badge-wrap {
+    margin: 0 auto;
+  }
+
+  .master-banner-top {
+    justify-content: center;
+  }
+
+  .master-banner-progress {
+    min-width: 100%;
+  }
+
+  .trophy-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .trophy-header-left {
+    gap: 0.75rem;
+  }
+
+  .trophy-main-badge {
+    width: 46px;
+    height: 46px;
+    font-size: 1.8rem;
+  }
+
+  .trophy-title {
+    font-size: 1.25rem;
+  }
+
+  .trophy-subtitle {
+    font-size: 0.85rem;
+  }
+
+  .master-banner-title {
+    font-size: 1.15rem;
+  }
+
+  .master-banner-badge-wrap {
+    width: 58px;
+    height: 58px;
+    font-size: 1.9rem;
+  }
+
+  .trophy-stat-pill {
+    font-size: 0.72rem;
+    padding: 0.35rem 0.55rem;
+  }
+
+  .trophy-card {
+    padding: 1rem;
+  }
+}
+

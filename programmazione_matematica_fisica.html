@@ -1,0 +1,2511 @@
+<!DOCTYPE html>
+<html lang="it" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Programmazione Didattica: Matematica, Fisica e Informatica - Liceo Scienze Umane</title>
+  <meta name="description" content="Piano programmatico per unità didattiche di Matematica e Fisica per il Liceo delle Scienze Umane, conforme al 100% alle nuove Indicazioni Nazionali.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --font-main: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      
+      /* Dark Theme (Default) */
+      --bg-body: #0a0e17;
+      --bg-surface: #111827;
+      --bg-surface-elevated: #1a2337;
+      --bg-surface-glass: rgba(17, 24, 39, 0.75);
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --border-accent: rgba(56, 189, 248, 0.25);
+      
+      --text-main: #f1f5f9;
+      --text-muted: #94a3b8;
+      --text-dim: #64748b;
+      
+      --accent-math: #38bdf8;
+      --accent-math-glow: rgba(56, 189, 248, 0.15);
+      --accent-math-border: rgba(56, 189, 248, 0.3);
+      --accent-math-gradient: linear-gradient(135deg, #38bdf8, #818cf8);
+      
+      --accent-phys: #f59e0b;
+      --accent-phys-glow: rgba(245, 158, 11, 0.15);
+      --accent-phys-border: rgba(245, 158, 11, 0.3);
+      --accent-phys-gradient: linear-gradient(135deg, #fbbf24, #f43f5e);
+
+      --accent-info: #10b981;
+      --accent-info-glow: rgba(16, 185, 129, 0.15);
+      
+      --q1-color: #10b981;
+      --q1-bg: rgba(16, 185, 129, 0.12);
+      --q2-color: #8b5cf6;
+      --q2-bg: rgba(139, 92, 246, 0.12);
+      
+      --test-color: #f43f5e;
+      --test-bg: rgba(244, 63, 94, 0.12);
+      
+      --book-color: #3b82f6;
+      --book-bg: rgba(59, 130, 246, 0.1);
+      
+      --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.2);
+      --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.3);
+      --shadow-lg: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+      --shadow-glow: 0 0 20px rgba(56, 189, 248, 0.15);
+      
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 18px;
+      --radius-xl: 24px;
+      
+      --transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    [data-theme="light"] {
+      --bg-body: #f8fafc;
+      --bg-surface: #ffffff;
+      --bg-surface-elevated: #f1f5f9;
+      --bg-surface-glass: rgba(255, 255, 255, 0.85);
+      --border-subtle: rgba(0, 0, 0, 0.08);
+      --border-accent: rgba(2, 132, 199, 0.25);
+      
+      --text-main: #0f172a;
+      --text-muted: #475569;
+      --text-dim: #94a3b8;
+      
+      --accent-math: #0284c7;
+      --accent-math-glow: rgba(2, 132, 199, 0.12);
+      --accent-math-border: rgba(2, 132, 199, 0.25);
+      --accent-math-gradient: linear-gradient(135deg, #0284c7, #4f46e5);
+      
+      --accent-phys: #d97706;
+      --accent-phys-glow: rgba(217, 119, 6, 0.12);
+      --accent-phys-border: rgba(217, 119, 6, 0.25);
+      --accent-phys-gradient: linear-gradient(135deg, #d97706, #e11d48);
+
+      --accent-info: #059669;
+      --accent-info-glow: rgba(5, 150, 105, 0.12);
+      
+      --q1-color: #059669;
+      --q1-bg: rgba(5, 150, 105, 0.1);
+      --q2-color: #7c3aed;
+      --q2-bg: rgba(124, 58, 237, 0.1);
+      
+      --test-color: #e11d48;
+      --test-bg: rgba(225, 29, 72, 0.1);
+      
+      --book-color: #2563eb;
+      --book-bg: rgba(37, 99, 235, 0.08);
+      
+      --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.07);
+      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08);
+      --shadow-glow: 0 0 15px rgba(2, 132, 199, 0.1);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font-main);
+      background-color: var(--bg-body);
+      color: var(--text-main);
+      line-height: 1.6;
+      min-height: 100vh;
+      transition: background-color 0.3s ease, color 0.3s ease;
+      background-image: 
+        radial-gradient(circle at 15% 10%, rgba(56, 189, 248, 0.05) 0%, transparent 40%),
+        radial-gradient(circle at 85% 60%, rgba(245, 158, 11, 0.04) 0%, transparent 45%);
+      background-attachment: fixed;
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem 5rem;
+    }
+
+    header {
+      margin-bottom: 2.5rem;
+      position: relative;
+    }
+
+    .header-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.25rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .badge-top {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.4rem 0.9rem;
+      border-radius: 9999px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-subtle);
+      color: var(--accent-math);
+    }
+
+    .badge-top .pulse-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--q1-color);
+      box-shadow: 0 0 8px var(--q1-color);
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    .btn-action {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.55rem 1rem;
+      border-radius: var(--radius-md);
+      font-size: 0.85rem;
+      font-weight: 600;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-main);
+      cursor: pointer;
+      transition: var(--transition);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .btn-action:hover {
+      background: var(--bg-surface-elevated);
+      border-color: var(--border-accent);
+      transform: translateY(-1px);
+    }
+
+    .btn-action.primary {
+      background: var(--accent-math-gradient);
+      color: #ffffff;
+      border: none;
+      box-shadow: 0 4px 12px rgba(56, 189, 248, 0.3);
+    }
+
+    .btn-action.primary:hover {
+      box-shadow: 0 6px 16px rgba(56, 189, 248, 0.45);
+      transform: translateY(-2px);
+    }
+
+    .btn-action.info-highlight {
+      border-color: rgba(16, 185, 129, 0.4);
+      color: var(--accent-info);
+    }
+
+    h1 {
+      font-size: clamp(1.8rem, 4vw, 2.75rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.2;
+      margin-bottom: 0.75rem;
+      background: linear-gradient(135deg, var(--text-main) 30%, var(--text-muted) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .header-desc {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      max-width: 900px;
+      line-height: 1.6;
+    }
+
+    /* Key Metrics Bar */
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .metric-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 1.25rem;
+      box-shadow: var(--shadow-sm);
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .metric-card:hover {
+      border-color: var(--border-accent);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .metric-card::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background: var(--metric-color, var(--accent-math));
+    }
+
+    .metric-title {
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-dim);
+      margin-bottom: 0.35rem;
+    }
+
+    .metric-value {
+      font-size: 1.85rem;
+      font-weight: 800;
+      color: var(--text-main);
+      display: flex;
+      align-items: baseline;
+      gap: 0.3rem;
+    }
+
+    .metric-value span {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--text-muted);
+    }
+
+    .metric-sub {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-top: 0.25rem;
+    }
+
+    /* Sticky Filter Bar */
+    .filter-wrapper {
+      position: sticky;
+      top: 1rem;
+      z-index: 100;
+      background: var(--bg-surface-glass);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-xl);
+      padding: 1rem 1.25rem;
+      margin-bottom: 2.5rem;
+      box-shadow: var(--shadow-lg);
+      transition: var(--transition);
+    }
+
+    .filter-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .filter-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      align-items: center;
+    }
+
+    .filter-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-dim);
+      margin-right: 0.25rem;
+    }
+
+    .pill-btn {
+      padding: 0.45rem 0.9rem;
+      border-radius: 9999px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: var(--transition);
+      user-select: none;
+    }
+
+    .pill-btn:hover {
+      color: var(--text-main);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .pill-btn.active {
+      background: var(--accent-math);
+      color: #0b0f19;
+      font-weight: 700;
+      border-color: var(--accent-math);
+      box-shadow: 0 2px 8px var(--accent-math-glow);
+    }
+
+    .pill-btn.active.phys-btn {
+      background: var(--accent-phys);
+      color: #0b0f19;
+      border-color: var(--accent-phys);
+      box-shadow: 0 2px 8px var(--accent-phys-glow);
+    }
+
+    .search-box {
+      position: relative;
+      flex-grow: 1;
+      max-width: 320px;
+      min-width: 220px;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 0.5rem 1rem 0.5rem 2.4rem;
+      border-radius: 9999px;
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-main);
+      font-family: var(--font-main);
+      font-size: 0.85rem;
+      outline: none;
+      transition: var(--transition);
+    }
+
+    .search-box input:focus {
+      border-color: var(--accent-math);
+      box-shadow: 0 0 0 3px var(--accent-math-glow);
+    }
+
+    .search-box svg {
+      position: absolute;
+      left: 0.85rem;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 16px;
+      height: 16px;
+      fill: none;
+      stroke: var(--text-dim);
+      stroke-width: 2;
+    }
+
+    /* Modal / Drawer Overlays */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(8px);
+      z-index: 999;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+    }
+
+    .modal-overlay.active {
+      display: flex;
+    }
+
+    .modal-content {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-xl);
+      max-width: 920px;
+      width: 100%;
+      max-height: 85vh;
+      overflow-y: auto;
+      padding: 2.25rem;
+      box-shadow: var(--shadow-lg);
+      position: relative;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 1.25rem;
+      right: 1.25rem;
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-main);
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 1.2rem;
+      font-weight: 700;
+      transition: var(--transition);
+    }
+
+    .modal-close:hover {
+      background: var(--test-color);
+      color: white;
+    }
+
+    /* Year Section */
+    .year-section {
+      margin-bottom: 3.5rem;
+      transition: var(--transition);
+    }
+
+    .year-section.hidden {
+      display: none;
+    }
+
+    .year-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      border-bottom: 2px solid var(--border-subtle);
+      padding-bottom: 1rem;
+      margin-bottom: 1.75rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .year-title-wrap {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .year-number {
+      font-size: 1.25rem;
+      font-weight: 800;
+      min-width: 54px;
+      height: 52px;
+      padding: 0 0.5rem;
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-subtle);
+      color: var(--accent-math);
+      white-space: nowrap;
+    }
+
+    .year-title {
+      font-size: 1.55rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+
+    .year-subtitle {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .year-tags {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .tag {
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 0.3rem 0.75rem;
+      border-radius: 9999px;
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+    }
+
+    .tag.q1 {
+      color: var(--q1-color);
+      background: var(--q1-bg);
+      border-color: rgba(16, 185, 129, 0.2);
+    }
+
+    .tag.q2 {
+      color: var(--q2-color);
+      background: var(--q2-bg);
+      border-color: rgba(139, 92, 246, 0.2);
+    }
+
+    .tag.test-tag {
+      color: var(--test-color);
+      background: var(--test-bg);
+      border-color: rgba(244, 63, 94, 0.2);
+    }
+
+    .tag.info-tag {
+      color: var(--accent-info);
+      background: rgba(16, 185, 129, 0.15);
+      border-color: rgba(16, 185, 129, 0.3);
+    }
+
+    /* Quadrimestre Subheading */
+    .quad-divider {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin: 2rem 0 1.25rem;
+    }
+
+    .quad-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.4rem 1rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .quad-badge.q1 {
+      background: var(--q1-bg);
+      color: var(--q1-color);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+
+    .quad-badge.q2 {
+      background: var(--q2-bg);
+      color: var(--q2-color);
+      border: 1px solid rgba(139, 92, 246, 0.3);
+    }
+
+    .quad-line {
+      flex-grow: 1;
+      height: 1px;
+      background: var(--border-subtle);
+    }
+
+    .quad-info {
+      font-size: 0.85rem;
+      color: var(--text-dim);
+    }
+
+    /* Unit Cards Grid */
+    .units-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.25rem;
+    }
+
+    @media (min-width: 900px) {
+      .units-grid.two-cols {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .unit-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      box-shadow: var(--shadow-sm);
+      transition: var(--transition);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .unit-card:hover {
+      border-color: var(--card-accent-border, var(--border-accent));
+      box-shadow: var(--shadow-md);
+      transform: translateY(-2px);
+    }
+
+    .unit-card.math {
+      --card-accent: var(--accent-math);
+      --card-accent-glow: var(--accent-math-glow);
+      --card-accent-border: var(--accent-math-border);
+    }
+
+    .unit-card.phys {
+      --card-accent: var(--accent-phys);
+      --card-accent-glow: var(--accent-phys-glow);
+      --card-accent-border: var(--accent-phys-border);
+    }
+
+    .unit-card.hidden {
+      display: none !important;
+    }
+
+    .unit-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 0.85rem;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    .unit-badges {
+      display: flex;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+    }
+
+    .subject-pill {
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 0.25rem 0.65rem;
+      border-radius: var(--radius-sm);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .subject-pill.math {
+      background: var(--accent-math-glow);
+      color: var(--accent-math);
+      border: 1px solid var(--accent-math-border);
+    }
+
+    .subject-pill.phys {
+      background: var(--accent-phys-glow);
+      color: var(--accent-phys);
+      border: 1px solid var(--accent-phys-border);
+    }
+
+    .period-pill {
+      font-size: 0.75rem;
+      font-weight: 500;
+      padding: 0.25rem 0.65rem;
+      border-radius: var(--radius-sm);
+      background: var(--bg-surface-elevated);
+      color: var(--text-muted);
+      border: 1px solid var(--border-subtle);
+    }
+
+    .unit-id {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-dim);
+    }
+
+    .unit-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      line-height: 1.35;
+      margin-bottom: 0.75rem;
+      color: var(--text-main);
+    }
+
+    .unit-overview {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 1.25rem;
+      flex-grow: 1;
+    }
+
+    /* Accordion Toggle */
+    .details-toggle {
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 0.65rem 1rem;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: var(--font-main);
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-main);
+      cursor: pointer;
+      transition: var(--transition);
+      margin-top: 0.5rem;
+    }
+
+    .details-toggle:hover {
+      background: var(--bg-surface-elevated);
+      border-color: var(--card-accent-border, var(--border-accent));
+      color: var(--card-accent, var(--accent-math));
+    }
+
+    .details-toggle svg {
+      width: 18px;
+      height: 18px;
+      transition: transform 0.25s ease;
+      stroke: currentColor;
+    }
+
+    .unit-card.expanded .details-toggle svg {
+      transform: rotate(180deg);
+    }
+
+    .unit-details {
+      display: none;
+      padding-top: 1.25rem;
+      margin-top: 1rem;
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    .unit-card.expanded .unit-details {
+      display: block;
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Detail Blocks */
+    .detail-block {
+      margin-bottom: 1.25rem;
+    }
+
+    .detail-block:last-child {
+      margin-bottom: 0;
+    }
+
+    .detail-header {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.5rem;
+    }
+
+    .detail-header.objectives { color: var(--accent-math); }
+    .unit-card.phys .detail-header.objectives { color: var(--accent-phys); }
+    .detail-header.info-block { color: var(--accent-info); }
+    .detail-header.books { color: var(--book-color); }
+    .detail-header.test { color: var(--test-color); }
+
+    .detail-list {
+      list-style-type: none;
+      font-size: 0.88rem;
+      color: var(--text-muted);
+    }
+
+    .detail-list li {
+      position: relative;
+      padding-left: 1.25rem;
+      margin-bottom: 0.4rem;
+      line-height: 1.5;
+    }
+
+    .detail-list li::before {
+      content: '•';
+      position: absolute;
+      left: 0.3rem;
+      color: var(--card-accent, var(--accent-math));
+      font-weight: bold;
+    }
+
+    .info-box {
+      background: rgba(16, 185, 129, 0.08);
+      border: 1px solid rgba(16, 185, 129, 0.25);
+      border-radius: var(--radius-sm);
+      padding: 0.85rem;
+      font-size: 0.85rem;
+      color: var(--text-main);
+      line-height: 1.5;
+      margin-top: 0.5rem;
+    }
+
+    .info-box strong {
+      color: var(--accent-info);
+    }
+
+    .book-box {
+      background: var(--book-bg);
+      border: 1px solid rgba(59, 130, 246, 0.2);
+      border-radius: var(--radius-sm);
+      padding: 0.85rem;
+      font-size: 0.85rem;
+      color: var(--text-main);
+      line-height: 1.5;
+    }
+
+    .book-box strong {
+      color: var(--book-color);
+    }
+
+    .test-box {
+      background: var(--test-bg);
+      border: 1px solid rgba(244, 63, 94, 0.2);
+      border-radius: var(--radius-sm);
+      padding: 0.85rem;
+      font-size: 0.85rem;
+      color: var(--text-main);
+      line-height: 1.5;
+    }
+
+    .test-box strong {
+      color: var(--test-color);
+    }
+
+    /* Comparison & Guide Tables */
+    .table-container {
+      overflow-x: auto;
+      margin: 1.5rem 0;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.9rem;
+    }
+
+    th, td {
+      padding: 0.85rem 1rem;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    th {
+      background: var(--bg-surface-elevated);
+      color: var(--text-main);
+      font-weight: 700;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: rgba(255, 255, 255, 0.02); }
+
+    .callout {
+      padding: 1.25rem;
+      border-radius: var(--radius-md);
+      margin: 1.5rem 0;
+      background: var(--bg-surface-elevated);
+      border-left: 4px solid var(--accent-math);
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+
+    .callout.amber { border-left-color: var(--accent-phys); }
+    .callout.green { border-left-color: var(--accent-info); }
+
+    .callout h4 {
+      font-size: 1rem;
+      margin-bottom: 0.4rem;
+      color: var(--text-main);
+    }
+
+    /* Print View Styles */
+    @media print {
+      body { background: #ffffff !important; color: #000000 !important; font-size: 11pt; }
+      .container { max-width: 100% !important; padding: 0 !important; }
+      .filter-wrapper, .header-actions, .badge-top, .details-toggle, .btn-action { display: none !important; }
+      .unit-details { display: block !important; }
+      .unit-card { border: 1px solid #ccc !important; box-shadow: none !important; page-break-inside: avoid; margin-bottom: 1.5rem !important; background: #ffffff !important; }
+      .year-section { page-break-before: always; }
+      .year-section:first-of-type { page-break-before: avoid; }
+      h1 { -webkit-text-fill-color: #000000 !important; color: #000000 !important; font-size: 18pt !important; }
+      .metric-card, .book-box, .test-box, .info-box { background: #f8fafc !important; color: #000000 !important; border: 1px solid #ddd !important; }
+    }
+
+    @media (max-width: 768px) {
+      .container { padding: 1rem; }
+      .filter-row { flex-direction: column; align-items: stretch; }
+      .search-box { max-width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+
+    <!-- Header Section -->
+    <header>
+      <div class="header-top">
+        <div class="badge-top">
+          <span class="pulse-dot"></span>
+          Conforme alle Nuove Indicazioni Nazionali Ministeriali
+        </div>
+        <div class="header-actions">
+          <button class="btn-action" id="btnThemeToggle" title="Cambia Tema">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+            <span id="themeText">Tema Chiaro</span>
+          </button>
+          <button class="btn-action info-highlight" id="btnOpenInformatica">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+            Checklist Informatica (100%)
+          </button>
+          <button class="btn-action" id="btnOpenTable">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="3" y1="15" x2="21" y2="15"></line><line x1="9" y1="3" x2="9" y2="21"></line><line x1="15" y1="3" x2="15" y2="21"></line></svg>
+            Quadro Verifiche
+          </button>
+          <button class="btn-action" id="btnOpenBooks">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+            Guida Libri di Testo
+          </button>
+          <button class="btn-action primary" id="btnPrint">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+            Stampa / PDF
+          </button>
+        </div>
+      </div>
+
+      <h1>Piano Disciplinare di Matematica e Fisica</h1>
+      <p class="header-desc">
+        Curricolo quinquennale per il <strong>Liceo delle Scienze Umane</strong>, strutturato per <strong>Unità Didattiche (UD)</strong> e conforme al 100% alle nuove Indicazioni Ministeriali.
+        Integrazione completa del nucleo <strong>Informatica</strong> (debugging, trace table, User Experience, IA), raccordo con la percezione e le scienze cognitive, e scansione precisa: <strong>4 verifiche scritte all'anno nel primo biennio</strong> e <strong>4 verifiche all'anno nel triennio</strong> (2 Mat + 2 Fis).
+      </p>
+    </header>
+
+    <!-- Key Metrics Dashboard -->
+    <div class="metrics-grid">
+      <div class="metric-card" style="--metric-color: #38bdf8;">
+        <div class="metric-title">Primo Biennio (Anni 1 - 2)</div>
+        <div class="metric-value">8 <span>UD</span></div>
+        <div class="metric-sub">Solo Matematica + Nucleo Informatica • 4 Verifiche/anno (2 a quadrimestre)</div>
+      </div>
+      <div class="metric-card" style="--metric-color: #f59e0b;">
+        <div class="metric-title">Secondo Biennio (Anni 3 - 4)</div>
+        <div class="metric-value">8 <span>UD</span></div>
+        <div class="metric-sub">4 Mat + 4 Fis • 1 Verifica a quadrimestre per disciplina</div>
+      </div>
+      <div class="metric-card" style="--metric-color: #8b5cf6;">
+        <div class="metric-title">Quinto Anno (Classe 5ª)</div>
+        <div class="metric-value">4 <span>UD</span></div>
+        <div class="metric-sub">2 Mat + 2 Fis • Analisi, Sistemi Complessi, Epistemologia ed IA</div>
+      </div>
+    </div>
+
+    <!-- Sticky Filter & Search Bar -->
+    <div class="filter-wrapper">
+      <div class="filter-row">
+        
+        <!-- Period Filters -->
+        <div class="filter-group">
+          <span class="filter-label">Ciclo:</span>
+          <button class="pill-btn active" data-filter-period="all">Tutti</button>
+          <button class="pill-btn" data-filter-period="primo-biennio">Primo Biennio</button>
+          <button class="pill-btn" data-filter-period="secondo-biennio">Secondo Biennio</button>
+          <button class="pill-btn" data-filter-period="quinto-anno">Quinto Anno</button>
+        </div>
+
+        <!-- Subject Filters -->
+        <div class="filter-group">
+          <span class="filter-label">Materia:</span>
+          <button class="pill-btn active" data-filter-subject="all">Tutte</button>
+          <button class="pill-btn" data-filter-subject="math">Matematica</button>
+          <button class="pill-btn phys-btn" data-filter-subject="phys">Fisica</button>
+        </div>
+
+        <!-- Term Filters -->
+        <div class="filter-group">
+          <span class="filter-label">Quadrimestre:</span>
+          <button class="pill-btn active" data-filter-term="all">Tutti</button>
+          <button class="pill-btn" data-filter-term="q1">1° Quadrimestre</button>
+          <button class="pill-btn" data-filter-term="q2">2° Quadrimestre</button>
+        </div>
+
+        <!-- Live Search Box -->
+        <div class="search-box">
+          <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          <input type="text" id="searchInput" placeholder="Cerca algoritmo, debugging, Bayes, coniche...">
+        </div>
+
+        <!-- Expand / Collapse All -->
+        <div class="filter-group">
+          <button class="btn-action" id="btnToggleAll">Espandi Tutti</button>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- PRIMO BIENNIO (CLASSI 1ª e 2ª) -->
+    <!-- ========================================== -->
+    <section class="year-section" id="primo-biennio" data-period="primo-biennio">
+      <div class="year-header">
+        <div class="year-title-wrap">
+          <div class="year-number">1°-2°</div>
+          <div>
+            <h2 class="year-title">Primo Biennio (Classi 1ª e 2ª)</h2>
+            <div class="year-subtitle">Solo Matematica • 3 ore settimanali • 8 Unità Didattiche (8 Verifiche Scritte Totali)</div>
+          </div>
+        </div>
+        <div class="year-tags">
+          <span class="tag q1">Classe 1ª: 4 UD</span>
+          <span class="tag q2">Classe 2ª: 4 UD</span>
+          <span class="tag info-tag">Informatica Integrata</span>
+          <span class="tag test-tag">8 Verifiche Scritte Totali</span>
+        </div>
+      </div>
+
+      <!-- Classe 1ª • 1° Quadrimestre -->
+      <div class="quad-divider" data-term="q1" data-period="primo-biennio">
+        <span class="quad-badge q1">Classe 1ª • 1° Quadrimestre</span>
+        <div class="quad-line"></div>
+        <span class="quad-info">Settembre – Gennaio • 2 Verifiche Scritte</span>
+      </div>
+
+      <div class="units-grid two-cols">
+
+        <!-- UD 1.1 -->
+        <div class="unit-card math" data-year="1" data-period="primo-biennio" data-term="q1" data-subject="math">
+          <div class="unit-top">
+            <div class="unit-badges">
+              <span class="subject-pill math">Matematica</span>
+              <span class="period-pill">Settembre – Metà Novembre</span>
+              <span class="tag test-tag">Verifica Scritta 1</span>
+            </div>
+            <span class="unit-id">UD 1.1</span>
+          </div>
+          <h3 class="unit-title">Insiemi numerici, Logica del pensiero matematico e Primi algoritmi</h3>
+          <p class="unit-overview">
+            Operazioni e proprietà in ℕ, ℤ, ℚ; dimostrazione dell'infinità dei numeri primi; logica proposizionale e dimostrazione per assurdo; algoritmi, strutture di controllo e tracciamento dello stato.
+          </p>
+
+          <button class="details-toggle">
+            <span>Dettagli didattici e indicazioni</span>
+            <svg viewBox="0 0 24 24" fill="none"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </button>
+
+          <div class="unit-details">
+            <div class="detail-block">
+              <div class="detail-header objectives">Obiettivi &amp; Conoscenze Ministeriali</div>
+              <ul class="detail-list">
+                <li>Calcolo con numeri interi e razionali; proprietà delle operazioni e strategie di calcolo mentale.</li>
+                <li>Rappresentazione dei numeri sulla retta orientata, ordini di grandezza, scale graduate e notazione scientifica.</li>
+                <li>Proprietà delle potenze a esponente intero; numeri primi ed <strong>esplicita dimostrazione euclidea dell'infinità dei numeri primi</strong>.</li>
+                <li><strong>Nucleo trasversale di Logica e Linguaggio</strong>: connettivi logici («e», «o», «non», «se... allora»), identificazione di ipotesi/tesi e <strong>dimostrazione per assurdo</strong>. Operazioni e relazioni tra insiemi.</li>
+              </ul>
+              
+              <div class="info-box">
+                <strong>Focus Nucleo Informatica (Indicazioni Ministeriali)</strong>:
+                <br>• Definizione di <strong>algoritmo</strong> come sequenza finita di passi determinati;
+                <br>• Scrittura di semplici programmi con <strong>strutture di controllo sequenziali e condizionali</strong> (<code>if-then-else</code>) e utilizzo di <strong>variabili</strong>;
+                <br>• Valutazione dell'esito di un programma seguendone i passi ed eseguendo il <strong>tracciamento dello stato delle variabili (tabelle di traccia / trace table)</strong>.
+              </div>
+            </div>
+
+            <div class="detail-block">
+              <div class="detail-header test">Verifica Sommativa Scritta (N. 1)</div>
+              <div class="test-box">
+                <strong>Focus della Verifica</strong>: Calcolo numerico razionale ragionato, potenze, traduzione di enunciati logici con connettivi, applicazione della dimostrazione per assurdo e tracciamento dello stato di un algoritmo (tabella di traccia).
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- UD 1.2 -->
+        <div class="unit-card math" data-year="1" data-period="primo-biennio" data-term="q1" data-subject="math">
+          <div class="unit-top">
+            <div class="unit-badges">
+              <span class="subject-pill math">Matematica</span>
+              <span class="period-pill">Metà Novembre – Fine Gennaio</span>
+              <span class="tag test-tag">Verifica Scritta 2</span>
+            </div>
+            <span class="unit-id">UD 1.2</span>
+          </div>
+          <h3 class="unit-title">Calcolo letterale, Modellizzazione ed Equazioni di primo grado</h3>
+          <p class="unit-overview">
+            Dal linguaggio verbale alle formule; monomi, polinomi, prodotti notevoli essenziali; risoluzione e discussione parametrica di equazioni lineari ax = b; modellizzazione di problemi reali.
+          </p>
+
+          <button class="details-toggle">
+            <span>Dettagli didattici e indicazioni</span>
+            <svg viewBox="0 0 24 24" fill="none"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </button>
+
+          <div class="unit-details">
+            <div class="detail-block">
+              <div class="detail-header objectives">Obiettivi &amp; Conoscenze Ministeriali</div>
+              <ul class="detail-list">
+                <li>Traduzione in formule di istruzioni espresse a parole e viceversa.</li>
+                <li>Operazioni con monomi e polinomi; prodotti notevoli fondamentali: <strong>quadrato di un binomio</strong> e <strong>differenza di due quadrati</strong>.</li>
+                <li>Scomposizioni essenziali e somma di semplici frazioni algebriche, evitando tecnicismi fini a se stessi.</li>
+                <li>Equazioni di primo grado in una incognita: riconduzione alla forma canonica <code>ax = b</code> e discussione rigorosa dei casi: determinata (<code>a ≠ 0</code>), indeterminata (<code>a = 0, b = 0</code>), impossibile (<code>a = 0, b ≠ 0</code>).</li>
+                <li>Modellizzazione e risoluzione di problemi della realtà sociale e quotidiana attraverso equazioni lineari.</li>
+              </ul>
+
+              <div class="info-box">
+                <strong>Focus Nucleo Informatica</strong>:
+                <br>• Traduzione di formule algebriche in espressioni computazionali e assegnazioni a variabili;
+                <br>• Analisi degli algoritmi per la risoluzione dell'equazione lineare con diramazione condizionale sui parametri <code>a</code> e <code>b</code>.
+              </div>
+            </div>
+
+            <div class="detail-block">
+              <div class="detail-header test">Verifica Sommativa Scritta (N. 2)</div>
+              <div class="test-box">
+                <strong>Focus della Verifica</strong>: Manipolazione di espressioni algebriche essenziali, prodotti notevoli, equazioni di primo grado con discussione parametrica e risoluzione di problemi di modellizzazione.
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Classe 1ª • 2° Quadrimestre -->
+      <div class="quad-divider" data-term="q2" data-period="primo-biennio">
+        <span class="quad-badge q2">Classe 1ª • 2° Quadrimestre</span>
+        <div class="quad-line"></div>
+        <span class="quad-info">Febbraio – Giugno • 2 Verifiche Scritte</span>
+      </div>
+
+      <div class="units-grid two-cols">
+
+        <!-- UD 1.3 -->
+        <div class="unit-card math" data-year="1" data-period="primo-biennio" data-term="q2" data-subject="math">
+          <div class="unit-top">
+            <div class="unit-badges">
+              <span class="subject-pill math">Matematica</span>
+              <span class="period-pill">Febbraio – Metà Aprile</span>
+              <span class="tag test-tag">Verifica Scritta 3</span>
+            </div>
+            <span class="unit-id">UD 1.3</span>
+          </div>
+          <h3 class="unit-title">Geometria euclidea razionale: Assiomi, Figure piane ed Aree</h3>
+          <p class="unit-overview">
+            La geometria come sistema teorico deduttivo; il ruolo del V postulato; proprietà dimostrate dei triangoli e dei parallelogrammi; equivalenza di superfici ed aree.
+          </p>
+
+          <button class="details-toggle">
+            <span>Dettagli didattici e indicazioni</span>
+            <svg viewBox="0 0 24 24" fill="none"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </button>
+
+          <div class="unit-details">
+            <div class="detail-block">
+              <div class="detail-header objectives">Obiettivi &amp; Conoscenze Ministeriali</div>
+              <ul class="detail-list">
+                <li>Struttura assiomatica della geometria: significato e uso corretto dei termini <em>assioma, definizione, teorema, dimostrazione</em>; riflessione sul ruolo fondativo del <strong>V postulato di Euclide</strong>.</li>
+                <li>Rette parallele, perpendicolari e criteri di congruenza dei triangoli.</li>
+                <li>Dimostrazioni deduttive classiche: proprietà dei <strong>parallelogrammi</strong>, rettangoli, rombi e quadrati.</li>
+                <li>Equivalenza delle figure piane: determinazione di perimetro e area mediante processi di scomposizione e ricomposizione.</li>
+                <li>Semplici trasformazioni geometriche nel piano (isometrie: traslazioni, simmetrie).</li>
+              </ul>
+
+              <div class="info-box">
+                <strong>Raccordo Digitale &amp; Strumenti</strong>:
+                <br>• Utilizzo di software di geometria dinamica (GeoGebra) per congetturare proprietà prima della dimostrazione formale e verificare le proprietà delle isometrie.
+              </div>
+            </div>
+
+            <div class="detail-block">
+              <div class="detail-header test">Verifica Sommativa Scritta (N. 3)</div>
+              <div class="test-box">
+                <strong>Focus della Verifica</strong>: Dimostrazioni guidate su triangoli e parallelogrammi, calcolo deduttivo di aree ed equivalenze per scomposizione, definizioni del sistema assiomatico.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- UD 1.4 -->
+        <div class="unit-card math" data-year="1" data-period="primo-biennio" data-term="q2" data-subject="math">
+          <div class="unit-top">
+            <div class="unit-badges">
+              <span class="subject-pill math">Matematica</span>
+              <span class="period-pill">Metà Aprile – Giugno</span>
+              <span class="tag test-tag">Verifica Scritta 4</span>
+            </div>
+            <span class="unit-id">UD 1.4</span>
+          </div>
+          <h3 class="unit-title">Analisi dei dati, Statistica descrittiva, Algoritmi ed Esperienza Utente (UX)</h3>
+          <p class="unit-overview">
+            Rilevazione e scale; distribuzioni di frequenza; media, mediana, percentili, IQR e box-plot; algoritmi di ricerca/ordinamento su numeri e parole; debugging, UX ed etica dell'IA.
+          </p>
+
+          <button class="details-toggle">
+            <span>Dettagli didattici e indicazioni</span>
+            <svg viewBox="0 0 24 24" fill="none"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </button>
+
+          <div class="unit-details">
+            <div class="detail-block">
+              <div class="detail-header objectives">Obiettivi &amp; Conoscenze Ministeriali</div>
+              <ul class="detail-list">
+                <li>Raccolta, organizzazione e archiviazione dati; caratteri qualitativi e quantitativi su scale nominali, ordinali, a intervalli e rapporti (in contesti sociali e psicologici).</li>
+                <li>Distribuzioni di frequenze (assolute, relative, percentuali) e rappresentazioni grafiche appropriate.</li>
+                <li>Indici di posizione: media aritmetica, mediana, <strong>percentili e quartili</strong>.</li>
+                <li>Indici di dispersione: campo di variazione e <strong>distanza interquartile (IQR)</strong>; costruzione e interpretazione di <strong>grafici box-plot (scatola e baffi)</strong> per confrontare distribuzioni.</li>
+              </ul>
+
+              <div class="info-box">
+                <strong>Focus Nucleo Informatica Integrale (Indicazioni Ministeriali)</strong>:
+                <br>• <strong>Debugging</strong>: analizzare un algoritmo o programma per comprenderne il comportamento, <em>identificarne eventuali difetti e correggerli</em>;
+                <br>• Concetti di esecuzione automatica, <strong>correttezza ed efficienza</strong> di algoritmi e programmi;
+                <br>• Algoritmi di <strong>ricerca ed ordinamento</strong> applicati sia a sequenze di numeri sia a <strong>sequenze di parole (stringhe)</strong>;
+                <br>• Relazioni tra le modalità di <strong>rappresentazione dei dati</strong> e l'efficacia della loro elaborazione;
+                <br>• <strong>Il punto di vista dell'utente (User Experience)</strong>: bisogni, competenze e contesto d'uso nella realizzazione di soluzioni informatiche;
+                <br>• Conseguenze sociali, culturali ed <strong>etiche</strong> degli strumenti informatici e dei sistemi di <strong>Intelligenza Artificiale</strong>.
+              </div>
+            </div>
+
+            <div class="detail-block">
+              <div class="detail-header test">Verifica Sommativa Scritta (N. 4)</div>
+              <div class="test-box">
+                <strong>Focus della Verifica</strong>: Rappresentazione tabulare/grafica di indagini sociali, calcolo di media, mediana e quartili, costruzione e confronto di box-plot, analisi/debugging di un algoritmo di ricerca o ordinamento e quesiti su correttezza ed etica dei dati.
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Classe 2ª • 1° Quadrimestre -->
+      <div class="quad-divider" data-term="q1" data-period="primo-biennio">
+        <span class="quad-badge q1">Classe 2ª • 1° Quadrimestre</span>
+        <div class="quad-line"></div>
+        <span class="quad-info">Settembre – Gennaio • 2 Verifiche Scritte</span>
+      </div>
+
+      <div class="units-grid two-cols">
+
+        <!-- UD 2.1 -->
+        <div class="unit-card math" data-year="2" data-period="primo-biennio" data-term="q1" data-subject="math">
+          <div class="unit-top">
+            <div class="unit-badges">
+              <span class="subject-pill math">Matematica</span>
+              <span class="period-pill">Settembre – Novembre</span>
+              <span class="tag test-tag">Verifica Scritta 1</span>
+            </div>
+            <span class="unit-id">UD 2.1</span>
+          </div>
+          <h3 class="unit-title">Numeri reali, Radicali ed Equazioni di secondo grado</h3>
+          <p class="unit-overview">
+            Dai razionali ai reali; il simbolo √a come numero; razionalizzazioni essenziali (b+√a)⁻¹; formula risolutiva delle equazioni di 2° grado, scomposizione e problemi.
+          </p>
+
+          <button class="details-toggle">
+            <span>Dettagli didattici e indicazioni</span>
+            <svg viewBox="0 0 24 24" fill="none"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </button>
+
+          <div class="unit-details">
+            <div class="detail-block">
+              <div class="detail-header objectives">Obiettivi &amp; Conoscenze Ministeriali</div>
+              <ul class="detail-list">
+                <li>Insufficienza dei razionali: numeri positivi non esprimibili come quadrato di una frazione (dimostrazione dell'irrazionalità di √2).</li>
+                <li>Il simbolo <code>√a</code> come numero reale; proprietà delle radici non negative; razionalizzazione mirata di espressioni nella forma canonica <code>(b + √a)⁻¹</code>.</li>
+                <li>L'insieme dei numeri reali ℝ in corrispondenza biunivoca con i punti della retta; inclusione di ℚ, π e radici; chiusura rispetto alle operazioni ed estrazione di radice di non negativi.</li>
+                <li>Equazioni di secondo grado in una incognita: giustificazione teorica della formula risolutiva generale tramite completamento del quadrato; metodi per scomposizione; discussione del segno di Δ.</li>
+                <li>Risoluzione di problemi geometrici e concreti mediante equazioni quadratiche.</li>
+              </ul>
+
+              <div class="info-box">
+                <strong>Focus Nucleo Informatica</strong>:
+                <br>• Implementazione algoritmica della formula risolutiva di 2° grado con gestione delle diramazioni (Δ > 0, Δ = 0, Δ < 0);
+                <br>• Riflessione sull'approssimazione numerica dei numeri irrazionali nei linguaggi di programmazione (virgola mobile ed errori di arrotondamento).
+              </div>
+            </div>
+
+            <div class="detail-block">
+              <div class="detail-header test">Verifica Sommativa Scritta (N. 1)</div>
+              <div class="test-box">
+                <strong>Focus della Verifica</strong>: Calcolo con radicali reali, razionalizzazioni canoniche, equazioni complete e incomplete di 2° grado, risoluzione di problemi geometrico-reali.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- UD 2.2 -->
+        <div class="unit-card math" data-year="2" data-period="primo-biennio" data-term="q1" data-subject="math">
+          <div class="unit-top">
+            <div class="unit-badges">
+              <span class="subject-pill math">Matematica</span>
+              <span class="period-pill">Metà Novembre – Fine Gennaio</span>
+              <span class="tag test-tag">Verifica Scritta 2</span>
+            </div>
+            <span class="unit-id">UD 2.2</span>
+          </div>
+          <h3 class="unit-title">Il concetto di Funzione, Grafici qualitativi e Trasformazioni</h3>
+          <p class="unit-overview">
+            Funzioni elementari base (x², x³, 1/x, √x, |x|); funzione inversa; trasformazioni grafiche con parametri; studio qualitativo di zeri e segno; modelli reali anche a tratti.
+          </p>
+
+          <button class="details-toggle">
+            <span>Dettagli didattici e indicazioni</span>
+            <svg viewBox="0 0 24 24" fill="none"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </button>
+
+          <div class="unit-details">
+            <div class="detail-block">
+              <div class="detail-header objectives">Obiettivi &amp; Conoscenze Ministeriali</div>
+              <ul class="detail-list">
+                <li>Funzione come corrispondenza tra insiemi; forme di rappresentazione (formule, tabelle, grafici cartesiani, descrizioni verbali).</li>
+                <li>Studio qualitativo dei grafici delle famiglie fondamentali a partire da <code>y = x</code>:<br>
+                  <code>y = x²,  y = x³,  y = 1/x,  y = √x,  y = |x|</code></li>
+                <li><strong>Funzione inversa</strong>: <code>x = √y</code> (per y ≥ 0) come inversa di <code>y = x²</code>; estensione alle radici n-esime.</li>
+                <li><strong>Trasformazioni geometriche di grafici</strong> al variare dei parametri: <code>a·f(x), f(ax), f(x-b), f(x)+c</code> (dilatazioni, contrazioni, traslazioni).</li>
+                <li>Studio qualitativo di zeri e segno di funzioni combinate <code>y = g(x)</code> per risolvere equazioni <code>g(x)=0</code> e disequazioni <code>g(x)>0</code> via grafica.</li>
+                <li>Modelli di fenomeni reali descritti anche tramite funzioni definite a tratti.</li>
+              </ul>
+
+              <div class="info-box">
+                <strong>Focus Nucleo Informatica &amp; Coding</strong>:
+                <br>• Algoritmi per il calcolo tabulare dei valori di una funzione (cicli di iterazione <code>for</code> / <code>while</code>);
+                <br>• Tracciamento automatico di grafici tramite ambienti computazionali o fogli di calcolo.
+              </div>
+            </div>
+
+            <div class="detail-block">
+              <div class="detail-header test">Verifica Sommativa Scritta (N. 2)</div>
+              <div class="test-box">
+                <strong>Focus della Verifica</strong>: Tracciamento qualitativo di grafici per punti notevoli, deduzione di grafici traslati/dilatati, individuazione grafica del segno e degli zeri di funzioni.
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Classe 2ª • 2° Quadrimestre -->
+      <div class="quad-divider" data-term="q2" data-period="primo-biennio">
+        <span class="quad-badge q2">Classe 2ª • 2° Quadrimestre</span>
+        <div class="quad-line"></div>
+        <span class="quad-info">Febbraio – Giugno • 2 Verifiche Scritte</span>
+      </div>
+
+      <div class="units-grid two-cols">
+
+        <!-- UD 2.3 -->
+        <div class="unit-card math" data-year="2" data-period="primo-biennio" data-term="q2" data-subject="math">
+          <div class="unit-top">
+            <div class="unit-badges">
+              <span class="subject-pill math">Matematica</span>
+              <span class="period-pill">Febbraio – Aprile</span>
+              <span class="tag test-tag">Verifica Scritta 3</span>
+            </div>
+            <span class="unit-id">UD 2.3</span>
+          </div>
+          <h3 class="unit-title">Sistemi lineari, Teoremi classici, Similitudine e Solidi nello spazio</h3>
+          <p class="unit-overview">
+            Sistemi di equazioni a due incognite; cerchio e angoli; teoremi di Euclide e Pitagora; similitudine; visualizzazione di solidi nello spazio e legge di variazione di scala.
+          </p>
+
+          <button class="details-toggle">
+            <span>Dettagli didattici e indicazioni</span>
+            <svg viewBox="0 0 24 24" fill="none"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </button>
+
+          <div class="unit-details">
+            <div class="detail-block">
+              <div class="detail-header objectives">Obiettivi &amp; Conoscenze Ministeriali</div>
+              <ul class="detail-list">
+                <li>Sistemi lineari di due equazioni in due incognite: risoluzione algebrica e interpretazione geometrica nel piano cartesiano (intersezione tra rette).</li>
+                <li>Geometria del cerchio: circonferenza, cerchio, corde, secanti; relazione fondamentale tra angoli al centro e angoli alla circonferenza.</li>
+                <li><strong>Teorema di Pitagora e suo inverso</strong>; <strong>Teoremi di Euclide</strong> (primo e secondo) con dimostrazioni deduttive.</li>
+                <li>Proporzionalità e <strong>criteri di similitudine per i triangoli</strong>.</li>
+                <li>Geometria dello spazio: rappresentazione di poliedri e solidi di rotazione elementari; calcolo di aree superficiali e volumi.</li>
+                <li><strong>Cambiamenti di scala</strong>: spiegazione del diverso comportamento rispetto al fattore k di lunghezza (∝ k), area (∝ k²) e volume (∝ k³) e relative implicazioni biologiche ed architettoniche.</li>
+              </ul>
+            </div>
+
+            <div class="detail-block">
+              <div class="detail-header test">Verifica Sommativa Scritta (N. 3)</div>
+              <div class="test-box">
+                <strong>Focus della Verifica</strong>: Sistemi lineari algebrici e grafici, problemi dimostrativi con Pitagora/Euclide/similitudine, calcolo di volumi e applicazione delle leggi di scala.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- UD 2.4 -->
+        <div class="unit-card math" data-year="2" data-period="primo-biennio" data-term="q2" data-subject="math">
+          <div class="unit-top">
+            <div class="unit-badges">
+              <span class="subject-pill math">Matematica</span>
+              <span class="period-pill">Metà Aprile – Giugno</span>
+              <span class="tag test-tag">Verifica Scritta 4</span>
+            </div>
+            <span class="unit-id">UD 2.4</span>
+          </div>
+          <h3 class="unit-title">Introduzione alla Probabilità, Simulazione Algoritmica e Rischio</h3>
+          <p class="unit-overview">
+            Esperimenti aleatori; probabilità classica ed empirica; additività sugli eventi disgiunti; simulazione al calcolatore di esperimenti aleatori (Monte Carlo); fallacie e stima del rischio.
+          </p>
+
+          <button class="details-toggle">
+            <span>Dettagli didattici e indicazioni</span>
+            <svg viewBox="0 0 24 24" fill="none"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </button>
+
+          <div class="unit-details">
+            <div class="detail-block">
+              <div class="detail-header objectives">Obiettivi &amp; Conoscenze Ministeriali</div>
+              <ul class="detail-list">
+                <li>Esperimenti aleatori ideali (dadi, monete, urne); spazio degli eventi Ω ed evento come sottoinsieme.</li>
+                <li>Valutazione della probabilità: concezione classica (eventi equiprobabili) e frequentista (dati statistici).</li>
+                <li>La probabilità come funzione <code>P: ℰ → [0, 1]</code>; assioma di <strong>additività sugli eventi disgiunti</strong> (<code>P(A ∪ B) = P(A) + P(B)</code> se <code>A ∩ B = ∅</code>).</li>
+                <li>Calcolo della probabilità di eventi contrari, unione di eventi compatibili e semplici eventi composti.</li>
+                <li>Applicazioni alle scienze umane: decostruzione delle fallacie del gioco d'azzardo (fallacia dello scommettitore) e percezione psicologica del rischio.</li>
+              </ul>
+
+              <div class="info-box">
+                <strong>Focus Nucleo Informatica &amp; Simulazione</strong>:
+                <br>• Generazione di numeri pseudocasuali tramite codice o fogli di calcolo;
+                <br>• <strong>Simulazione computazionale di esperimenti aleatori</strong> (lanci ripetuti di monete/dadi) per verificare empiricamente la convergenza statistica (legge empirica del caso).
+              </div>
+            </div>
+
+            <div class="detail-block">
+              <div class="detail-header test">Verifica Sommativa Scritta (N. 4)</div>
+              <div class="test-box">
+                <strong>Focus della Verifica</strong>: Formalizzazione di spazi campionari ed eventi, calcolo di probabilità per eventi disgiunti e contrari, risoluzione di problemi decisionali in condizioni di incertezza.
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- ========================================== -->
+    <!-- SECONDO BIENNIO (CLASSI 3ª e 4ª) -->
+    <!-- ========================================== -->
+    <section class="year-section" id="secondo-biennio" data-period="secondo-biennio">
+      <div class="year-header">
+        <div class="year-title-wrap">
+          <div class="year-number">3°-4°</div>
+          <div>
+            <h2 class="year-title">Secondo Biennio (Classi 3ª e 4ª)</h2>
+            <div class="year-subtitle">Matematica (2h) e Fisica (2h) • 8 Unità Didattiche (8 Verifiche Scritte Totali)</div>
+          </div>
+        </div>
+        <div class="year-tags">
+          <span class="tag q1">Classe 3ª: 4 UD</span>
+          <span class="tag q2">Classe 4ª: 4 UD</span>
+          <span class="tag test-tag">8 Verifiche Scritte Totali (2 Mat + 2 Fis all'anno)</span>
+        </div>
+      </div>
+
+      <!-- Classe 3ª • 1° Quadrimestre -->
+      <div class="quad-divider" data-term="q1" data-period="secondo-biennio">
+        <span class="quad-badge q1">Classe 3ª • 1° Quadrimestre</span>
+        <div class="quad-line"></div>
+        <span class="quad-info">Settembre – Gennaio • 1 Verifica Matematica + 1 Verifica Fisica</span>
+      </div>
+
+      <div class="units-grid two-cols">
+
+        <!-- UD 3.M1 (Matematica) -->
+        <div class="unit-card math" data-year="3" data-period="secondo-biennio" data-term="q1" data-subject="math">
+          <div class="unit-top">
+            <div class="unit-badges">
+              <span class="subject-pill math">Matematica</span>
+              <span class="period-pill">Settembre – Gennaio</span>
+              <span class="tag test-tag">Verifica Mat 1</span>
+            </div>
+            <span class="unit-id">UD 3.M1</span>
+          </div>
+          <h3 class="unit-title">Vettori, Geometria Analitica del Piano e Sistemi Lineari</h3>
+          <p class="unit-overview">
+            Vettori e combinazioni lineari; retta generata da un vettore ed equazione cartesiana; discussione grafica dei sistemi lineari; cenni al piano generato da due vettori.
+          </p>
+
+          <button class="details-toggle">
+            <span>Dettagli didattici e indicazioni</span>
+            <svg viewBox="0 0 24 24" fill="none"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </button>
+
+          <div class="unit-details">
+            <div class="detail-block">
+              <div class="detail-header objectives">Obiettivi &amp; Conoscenze Ministeriali</div>
+              <ul class="detail-list">
+                <li>Vettori e coordinate cartesiane: grandezze vettoriali, componenti cartesiane, somma e combinazione lineare di vettori con coefficienti assegnati.</li>
+                <li>Retta generata da un vettore non nullo; equazioni cartesiane ed esplicite della retta (<code>y = mx + q</code>); condizioni di parallelismo e perpendicolarità.</li>
+                <li>Risolubilità e discussione geometrica di sistemi lineari (rette incidenti, parallele, coincidenti).</li>
+                <li>Introduzione al piano generato da due vettori non allineati nello spazio tridimensionale.</li>
+                <li>Trasformazioni geometriche e comportamento lineare.</li>
+              </ul>
+            </div>
+
+            <div class="detail-block">
+              <div class="detail-header test">Verifica Sommativa Scritta (Matematica N. 1)</div>
+              <div class="test-box">
+                <strong>Focus della Verifica</strong>: Operazioni e combinazioni di vettori, equazioni della retta, fasci e rette perpendicolari/parallele, risoluzione e discussione geometrica di sistemi lineari.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- UD 3.F1 (Fisica) -->
+        <div class="unit-card phys" data-year="3" data-period="secondo-biennio" data-term="q1" data-subject="phys">
+          <div class="unit-top">
+            <div class="unit-badges">
+              <span class="subject-pill phys">Fisica</span>
+              <span class="period-pill">Settembre – Gennaio</span>
+              <span class="tag test-tag">Verifica Fis 1</span>
+            </div>
+            <span class="unit-id">UD 3.F1</span>
+          </div>
+          <h3 class="unit-title">Grandezze fisiche, Misura e Cinematica del punto materiale</h3>
+          <p class="unit-overview">
+            Metodo sperimentale, incertezze e notazione scientifica; scalari e vettori; cinematica unidimensionale: grafici spazio-tempo (MRU), velocità-tempo (MRUA) e caduta dei gravi.
+          </p>
+
+          <button class="details-toggle">
+            <span>Dettagli didattici e indicazioni</span>
+            <svg viewBox="0 0 24 24" fill="none"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </button>
+
+          <div class="unit-details">
+            <div class="detail-block">
+              <div class="detail-header objectives">Obiettivi &amp; Conoscenze Ministeriali</div>
+              <ul class="detail-list">
+                <li>Metodo scientifico e definizione operativa delle grandezze fisiche; Sistema Internazionale (SI), notazione scientifica, ordini di grandezza e cifre significative.</li>
+                <li>Grandezze scalari e grandezze vettoriali: scomposizione e operazioni con i vettori.</li>
+                <li>Modello del punto materiale: sistema di riferimento, traiettoria, posizione, spostamento.</li>
+                <li>Velocità media e istantanea; legge oraria e grafici spazio-tempo del <strong>Moto Rettilineo Uniforme (MRU)</strong>.</li>
+                <li>Accelerazione media e istantanea; grafici velocità-tempo del <strong>Moto Rettilineo Uniformemente Accelerato (MRUA)</strong>.</li>
+                <li>Il moto verticale di <strong>caduta libera dei gravi</strong> sotto l'azione della gravità terrestre (g).</li>
+              </ul>
+            </div>
+
+            <div class="detail-block">
+              <div class="detail-header test">Verifica Sommativa Scritta (Fisica N. 1)</div>
+              <div class="test-box">
+                <strong>Focus della Verifica</strong>: Calcolo di equivalenze e incertezze, operazioni vettoriali, lettura ed estrazione di dati da grafici spazio-tempo e velocità-tempo, problemi di MRU e caduta libera.
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Classe 3ª • 2° Quadrimestre -->
+      <div class="quad-divider" data-term="q2" data-period="secondo-biennio">
+        <span class="quad-badge q2">Classe 3ª • 2° Quadrimestre</span>
+        <div class="quad-line"></div>
+        <span class="quad-info">Febbraio – Giugno • 1 Verifica Matematica + 1 Verifica Fisica</span>
+      </div>
+
+      <div class="units-grid two-cols">
+
+        <!-- UD 3.M2 (Matematica) -->
+        <div class="unit-card math" data-year="3" data-period="secondo-biennio" data-term="q2" data-subject="math">
+          <div class="unit-top">
+            <div class="unit-badges">
+              <span class="subject-pill math">Matematica</span>
+              <span class="period-pill">Febbraio – Giugno</span>
+              <span class="tag test-tag">Verifica Mat 2</span>
+            </div>
+            <span class="unit-id">UD 3.M2</span>
+          </div>
+          <h3 class="unit-title">Modelli quadratici, Coniche e Avvio al Calcolo Differenziale e Integrale</h3>
+          <p class="unit-overview">
+            La parabola traslata y = m(x-p)² + q; coniche e simmetrie; nozione intuitiva di rapporto incrementale, derivata (velocità istantanea/pendenza) e integrale (area sottografico).
+          </p>
+
+          <button class="details-toggle">
+            <span>Dettagli didattici e indicazioni</span>
+            <svg viewBox="0 0 24 24" fill="none"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </button>
+
+          <div class="unit-details">
+            <div class="detail-block">
+              <div class="detail-header objectives">Obiettivi &amp; Conoscenze Ministeriali</div>
+              <ul class="detail-list">
+                <li>Studio sistematico della parabola nella forma canonica con vertice esplicito <code>y = m(x-p)² + q</code>.</li>
+                <li>Le coniche (circonferenza, parabola, ellisse, iperbole): origine come sezioni coniche, vertici, assi di simmetria; trattazione di tratti di conica come funzioni <code>y = f(x)</code> o <code>x = g(y)</code>; valore storico e artistico delle coniche.</li>
+                <li><strong>Avvio intuitivo al Calcolo differenziale e integrale (novità per il secondo biennio)</strong>:
+                  <br>• Rapporto incrementale: pendenza della retta secante e velocità media.
+                  <br>• <strong>Idea intuitiva di derivata</strong>: pendenza della retta tangente e velocità istantanea; grafico della funzione derivata per funzioni semplici.
+                  <br>• <strong>Idea intuitiva di integrale</strong>: area del sottografico mediante approssimazione con funzioni costanti a tratti (somme di rettangoli), interpretata come lavoro o spazio percorso.
+                </li>
+              </ul>
+            </div>
+
+            <div class="detail-block">
+              <div class="detail-header test">Verifica Sommativa Scritta (Matematica N. 2)</div>
+              <div class="test-box">
+                <strong>Focus della Verifica</strong>: Grafico e simmetrie di coniche canoniche, calcolo e significato geometrico del rapporto incrementale, stima di derivate e integrali qualitativi su funzioni elementari.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- UD 3.F2 (Fisica) -->
+        <div class="unit-card phys" data-year="3" data-period="secondo-biennio" data-term="q2" data-subject="phys">
+          <div class="unit-top">
+            <div class="unit-badges">
+              <span class="subject-pill phys">Fisica</span>
+              <span class="period-pill">Febbraio – Giugno</span>
+              <span class="tag test-tag">Verifica Fis 2</span>
+            </div>
+            <span class="unit-id">UD 3.F2</span>
+          </div>
+          <h3 class="unit-title">I Princìpi della Dinamica, Moti su piano inclinato e Conservazione dell'energia</h3>
+          <p class="unit-overview">
+            Concetto di forza, attrito e peso; i tre princìpi di Newton e relatività galileiana; dinamica sul piano inclinato; lavoro, energia cinetica, potenziale e conservazione dell'energia e della quantità di moto.
+          </p>
+
+          <button class="details-toggle">
+            <span>Dettagli didattici e indicazioni</span>
+            <svg viewBox="0 0 24 24" fill="none"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </button>
+
+          <div class="unit-details">
+            <div class="detail-block">
+              <div class="detail-header objectives">Obiettivi &amp; Conoscenze Ministeriali</div>
+              <ul class="detail-list">
+                <li>Concetto di forza come interazione tra sistemi fisici; forze di contatto e forze a distanza; forza-peso e forze di attrito statico e dinamico.</li>
+                <li>I <strong>tre princìpi della dinamica newtoniana</strong>: primo principio (inerzia), sistemi inerziali e principio di relatività galileiana; secondo principio (<code>F = ma</code>); terzo principio (azione e reazione).</li>
+                <li>Dinamica del moto lungo un <strong>piano inclinato</strong> con scomposizione vettoriale delle forze (parallela e normale).</li>
+                <li>Lavoro di una forza e potenza; energia cinetica (<code>Ek = ½mv²</code>); forze conservative ed energia potenziale gravitazionale (<code>Ep = mgh</code>).</li>
+                <li><strong>Principio di conservazione dell'energia meccanica</strong> e principio di conservazione dell'energia totale in presenza di attriti dissipativi (calore).</li>
+                <li>Quantità di moto (<code>p = mv</code>) e sua conservazione in sistemi isolati (urti unidimensionali semplici).</li>
+              </ul>
+            </div>
+
+            <div class="detail-block">
+              <div class="detail-header test">Verifica Sommativa Scritta (Fisica N. 2)</div>
+              <div class="test-box">
+                <strong>Focus della Verifica</strong>: Applicazione delle leggi di Newton a corpi su piani orizzontali e inclinati con attrito, bilancio energetico e conservazione dell'energia meccanica, conservazione della quantità di moto.
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Classe 4ª • 1° Quadrimestre -->
+      <div class="quad-divider" data-term="q1" data-period="secondo-biennio">
+        <span class="quad-badge q1">Classe 4ª • 1° Quadrimestre</span>
+        <div class="quad-line"></div>
+        <span class="quad-info">Settembre – Gennaio • 1 Verifica Matematica + 1 Verifica Fisica</span>
+      </div>
+
+      <div class="units-grid two-cols">
+
+        <!-- UD 4.M1 (Matematica) -->
+        <div class="unit-card math" data-year="4" data-period="secondo-biennio" data-term="q1" data-subject="math">
+          <div class="unit-top">
+            <div class="unit-badges">
+              <span class="subject-pill math">Matematica</span>
+              <span class="period-pill">Settembre – Gennaio</span>
+              <span class="tag test-tag">Verifica Mat 1</span>
+            </div>
+            <span class="unit-id">UD 4.M1</span>
+          </div>
+          <h3 class="unit-title">Funzioni Esponenziali, Logaritmi e Goniometria per le Onde</h3>
+          <p class="unit-overview">
+            Crescita e decadimento esponenziale; logaritmi e scale sensoriali; trigonometria del triangolo rettangolo ed estensione a ℝ; formule di addizione; modelli sinusoidali y = Asin(kx+φ).
+          </p>
+
+          <button class="details-toggle">
+            <span>Dettagli didattici e indicazioni</span>
+            <svg viewBox="0 0 24 24" fill="none"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </button>
+
+          <div class="unit-details">
+            <div class="detail-block">
+              <div class="detail-header objectives">Obiettivi &amp; Conoscenze Ministeriali</div>
+              <ul class="detail-list">
+                <li>La funzione esponenziale <code>f(x) = aˣ</code> (con a > 0): estensione ai numeri reali, proprietà e grafico; modelli di crescita demografica e decadimento applicati a contesti naturali e sociali.</li>
+                <li>La funzione logaritmica <code>y = log_a(x)</code> come inversa dell'esponenziale; proprietà algebriche fondamentali, grafico e importanza storica del logaritmo nel calcolo. Scale logaritmiche nelle scienze umane (decibel, scala psicofisica di Weber-Fechner).</li>
+                <li>Semplici equazioni e disequazioni esponenziali e logaritmiche.</li>
+                <li>Trigonometria: rapporti tra i lati di un triangolo rettangolo ed estensione delle funzioni goniometriche (seno, coseno, tangente) sulla circonferenza goniometrica per angoli reali.</li>
+                <li>Formule di addizione e sottrazione per seno e coseno e loro significato geometrico e fisico.</li>
+                <li><strong>Modelli ondulatori</strong>: studio qualitativo delle funzioni della forma <code>y = A·sin(kx + φ)</code> e interpretazione fisica dei parametri (ampiezza A, pulsazione/frequenza tramite k, sfasamento φ).</li>
+              </ul>
+            </div>
+
+            <div class="detail-block">
+              <div class="detail-header test">Verifica Sommativa Scritta (Matematica N. 1)</div>
+              <div class="test-box">
+                <strong>Focus della Verifica</strong>: Proprietà ed equazioni esponenziali e logaritmiche, risoluzione di triangoli rettangoli, tracciamento ed interpretazione di curve sinusoidali ondulatorie <code>y = A·sin(kx + φ)</code>.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- UD 4.F1 (Fisica) -->
+        <div class="unit-card phys" data-year="4" data-period="secondo-biennio" data-term="q1" data-subject="phys">
+          <div class="unit-top">
+            <div class="unit-badges">
+              <span class="subject-pill phys">Fisica</span>
+              <span class="period-pill">Settembre – Gennaio</span>
+              <span class="tag test-tag">Verifica Fis 1</span>
+            </div>
+            <span class="unit-id">UD 4.F1</span>
+          </div>
+          <h3 class="unit-title">Moti periodici, Gravitazione universale, Onde meccaniche ed Acustica</h3>
+          <p class="unit-overview">
+            Moto circolare uniforme e armonico (massa-molla); leggi di Keplero e legge di Newton (campo gravitazionale); onde meccaniche, acustica e psicoacustica della percezione dei suoni.
+          </p>
+
+          <button class="details-toggle">
+            <span>Dettagli didattici e indicazioni</span>
+            <svg viewBox="0 0 24 24" fill="none"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </button>
+
+          <div class="unit-details">
+            <div class="detail-block">
+              <div class="detail-header objectives">Obiettivi &amp; Conoscenze Ministeriali</div>
+              <ul class="detail-list">
+                <li>Moti periodici: moto circolare uniforme (periodo, frequenza, velocità tangenziale e angolare, accelerazione centripeta).</li>
+                <li>Moto armonico: cinematica dell'oscillatore e legge oraria; modello del sistema massa-molla e del pendolo semplice.</li>
+                <li>Gravitazione: le tre leggi empiriche di Keplero; legge di <strong>gravitazione universale</strong> di Newton; introduzione concettuale al <strong>campo gravitazionale</strong>.</li>
+                <li>Onde meccaniche: oscillazioni trasversali e longitudinali; grandezze caratteristiche (ampiezza, lunghezza d'onda λ, frequenza f, velocità v = λf); principio di sovrapposizione e interferenza.</li>
+                <li><strong>Acustica e percezione sonora</strong>: il suono come onda di pressione; altezza (frequenza), intensità (ampiezza e decibel), timbro (forma d'onda); risonanza e riflessione (eco); fisiologia della percezione uditiva umana.</li>
+              </ul>
+            </div>
+
+            <div class="detail-block">
+              <div class="detail-header test">Verifica Sommativa Scritta (Fisica N. 1)</div>
+              <div class="test-box">
+                <strong>Focus della Verifica</strong>: Calcolo di parametri cinematici del moto circolare e armonico, applicazione delle leggi di Keplero e gravitazione, calcolo della relazione d'onda (v = λf) e interpretazione delle caratteristiche dei suoni.
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Classe 4ª • 2° Quadrimestre -->
+      <div class="quad-divider" data-term="q2" data-period="secondo-biennio">
+        <span class="quad-badge q2">Classe 4ª • 2° Quadrimestre</span>
+        <div class="quad-line"></div>
+        <span class="quad-info">Febbraio – Giugno • 1 Verifica Matematica + 1 Verifica Fisica</span>
+      </div>
+
+      <div class="units-grid two-cols">
+
+        <!-- UD 4.M2 (Matematica) -->
+        <div class="unit-card math" data-year="4" data-period="secondo-biennio" data-term="q2" data-subject="math">
+          <div class="unit-top">
+            <div class="unit-badges">
+              <span class="subject-pill math">Matematica</span>
+              <span class="period-pill">Febbraio – Giugno</span>
+              <span class="tag test-tag">Verifica Mat 2</span>
+            </div>
+            <span class="unit-id">UD 4.M2</span>
+          </div>
+          <h3 class="unit-title">Statistica bivariata, Teorema di Bayes, Distribuzioni ed Elaborazione Digitale</h3>
+          <p class="unit-overview">
+            Tabelle di contingenza a doppia entrata (frequenze congiunte/marginali); varianza e deviazione standard; probabilità condizionata e Teorema di Bayes; distribuzione binomiale e variabili continue; software di analisi dati.
+          </p>
+
+          <button class="details-toggle">
+            <span>Dettagli didattici e indicazioni</span>
+            <svg viewBox="0 0 24 24" fill="none"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </button>
+
+          <div class="unit-details">
+            <div class="detail-block">
+              <div class="detail-header objectives">Obiettivi &amp; Conoscenze Ministeriali</div>
+              <ul class="detail-list">
+                <li>Statistica a due variabili per scienze umane e sociali: <strong>tabelle a doppia entrata (tabelle di contingenza)</strong> con frequenze congiunte, marginali e condizionate per caratteri categorici.</li>
+                <li>Valutazione qualitativa e quantitativa della dipendenza/indipendenza tra variabili; concetti intuitivi di associazione e correlazione.</li>
+                <li>Indici di dispersione avanzati per variabili quantitative: calcolo e interpretazione di <strong>varianza</strong> e <strong>deviazione standard (scarto quadratico medio σ)</strong>.</li>
+                <li>Probabilità condizionata <code>P(A|B)</code> ed eventi stocasticamente indipendenti.</li>
+                <li><strong>Formula di Bayes</strong>: deduzione, significato epistemologico e applicazione a contesti quotidiani (affidabilità di test diagnostici, bias di conferma, falsi positivi).</li>
+                <li>Distribuzioni di probabilità: la <strong>distribuzione binomiale</strong>; introduzione intuitiva al concetto di variabile aleatoria continua, funzione di densità, area come probabilità e funzione di ripartizione (curva normale di Gauss).</li>
+              </ul>
+
+              <div class="info-box">
+                <strong>Focus Strumenti Informatici &amp; AI (Indicazioni Ministeriali)</strong>:
+                <br>• Rappresentazione dei dati in forme che ne consentano l'elaborazione e l'analisi;
+                <br>• Utilizzo di <strong>strumenti informatici e digitali (fogli elettronici / Python)</strong>, inclusi quelli basati su <strong>Intelligenza Artificiale</strong> per l'analisi di pattern e anomalie nei dati.
+              </div>
+            </div>
+
+            <div class="detail-block">
+              <div class="detail-header test">Verifica Sommativa Scritta (Matematica N. 2)</div>
+              <div class="test-box">
+                <strong>Focus della Verifica</strong>: Lettura e calcolo di frequenze su tabelle a doppia entrata, calcolo di varianza e deviazione standard, applicazione del Teorema di Bayes a scenari medico-sociali, problemi con la distribuzione binomiale.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- UD 4.F2 (Fisica) -->
+        <div class="unit-card phys" data-year="4" data-period="secondo-biennio" data-term="q2" data-subject="phys">
+          <div class="unit-top">
+            <div class="unit-badges">
+              <span class="subject-pill phys">Fisica</span>
+              <span class="period-pill">Febbraio – Giugno</span>
+              <span class="tag test-tag">Verifica Fis 2</span>
+            </div>
+            <span class="unit-id">UD 4.F2</span>
+          </div>
+          <h3 class="unit-title">Termologia ed Equilibrio termico, Ottica geometrica e Luce</h3>
+          <p class="unit-overview">
+            Temperatura operativa vs sensazione termica; scale Celsius e Kelvin; calore, calorimetria e passaggi di stato; propagazione della luce, riflessione, rifrazione (Snell), lenti e ottica dell'occhio umano.
+          </p>
+
+          <button class="details-toggle">
+            <span>Dettagli didattici e indicazioni</span>
+            <svg viewBox="0 0 24 24" fill="none"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </button>
+
+          <div class="unit-details">
+            <div class="detail-block">
+              <div class="detail-header objectives">Obiettivi &amp; Conoscenze Ministeriali</div>
+              <ul class="detail-list">
+                <li>Definizione operativa di temperatura; termometri e dilatazione termica; equilibrio termico.</li>
+                <li><strong>Scale termometriche</strong>: scala Celsius e scala assoluta Kelvin (<code>T = t + 273,15</code>).</li>
+                <li>Distinzione concettuale rigorosa tra <strong>temperatura oggettiva</strong> e <strong>sensazione termica soggettiva</strong> (fisiologia della percezione del caldo e del freddo).</li>
+                <li>Calore come energia in transito; capacità termica, calore specifico ed equazione fondamentale della calorimetria (<code>Q = c·m·ΔT</code>); calore latente e cambiamenti di stato.</li>
+                <li>Ottica geometrica: modello del raggio e propagazione rettilinea della luce; ombre e penombre.</li>
+                <li>Riflessione della luce: leggi della riflessione, specchi piani e sferici; rifrazione della luce e <strong>Legge di Snell</strong>; riflessione totale e angolo limite (fibre ottiche).</li>
+                <li>Dispersione prismatica della luce bianca nello spettro visibile; lenti sottili convergenti e divergenti; <strong>funzionamento ottico dell'occhio umano</strong> e correzione dei difetti visivi (miopia, ipermetropia, presbiopia).</li>
+              </ul>
+            </div>
+
+            <div class="detail-block">
+              <div class="detail-header test">Verifica Sommativa Scritta (Fisica N. 2)</div>
+              <div class="test-box">
+                <strong>Focus della Verifica</strong>: Problemi di equilibrio termico con calorimetro, conversioni di scala Kelvin-Celsius, applicazione della legge di Snell e riflessione totale, costruzione grafica delle immagini attraverso specchi e lenti sottili.
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- ========================================== -->
+    <!-- QUINTO ANNO (CLASSE 5ª) -->
+    <!-- ========================================== -->
+    <section class="year-section" id="quinto-anno" data-period="quinto-anno">
+      <div class="year-header">
+        <div class="year-title-wrap">
+          <div class="year-number">5°</div>
+          <div>
+            <h2 class="year-title">Quinto Anno (Classe 5ª)</h2>
+            <div class="year-subtitle">Matematica (2h) e Fisica (2h) • 4 Unità Didattiche (4 Verifiche Scritte Totali)</div>
+          </div>
+        </div>
+        <div class="year-tags">
+          <span class="tag q1">1° Quadrimestre: 1 Mat + 1 Fis</span>
+          <span class="tag q2">2° Quadrimestre: 1 Mat + 1 Fis</span>
+          <span class="tag test-tag">4 Verifiche Scritte Totali (2 Mat + 2 Fis)</span>
+        </div>
+      </div>
+
+      <!-- 1° Quadrimestre -->
+      <div class="quad-divider" data-term="q1" data-period="quinto-anno">
+        <span class="quad-badge q1">1° Quadrimestre</span>
+        <div class="quad-line"></div>
+        <span class="quad-info">Settembre – Gennaio • 1 Verifica Matematica + 1 Verifica Fisica</span>
+      </div>
+
+      <div class="units-grid two-cols">
+
+        <!-- UD 5.M1 (Matematica) -->
+        <div class="unit-card math" data-year="5" data-period="quinto-anno" data-term="q1" data-subject="math">
+          <div class="unit-top">
+            <div class="unit-badges">
+              <span class="subject-pill math">Matematica</span>
+              <span class="period-pill">Settembre – Gennaio</span>
+              <span class="tag test-tag">Verifica Mat 1</span>
+            </div>
+            <span class="unit-id">UD 5.M1</span>
+          </div>
+          <h3 class="unit-title">Limiti, Continuità e Calcolo Differenziale</h3>
+          <p class="unit-overview">
+            Concetto intuitivo ed operativo di limite (asintoti orizzontali/verticali); continuità e discontinuità; formalizzazione della derivata, retta tangente e regole di derivazione di funzioni elementari e composte.
+          </p>
+
+          <button class="details-toggle">
+            <span>Dettagli didattici e indicazioni</span>
+            <svg viewBox="0 0 24 24" fill="none"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </button>
+
+          <div class="unit-details">
+            <div class="detail-block">
+              <div class="detail-header objectives">Obiettivi &amp; Conoscenze Ministeriali</div>
+              <ul class="detail-list">
+                <li>Definizione operativa del concetto di limite di una funzione e di una successione, con approccio intuitivo e geometrico (comportamento asintotico), <em>senza pretesa di dimostrare ogni affermazione con l'approccio formale ε-δ</em>.</li>
+                <li>Continuità di una funzione e interpretazione geometrica dei punti di discontinuità.</li>
+                <li>Formalizzazione rigorosa della <strong>derivata</strong> come limite del rapporto incrementale per h → 0; significato geometrico (pendenza retta tangente) e fisico (tasso istantaneo di variazione).</li>
+                <li>Equazione cartesiana della retta tangente al grafico in un punto: <code>y - f(x₀) = f'(x₀)(x - x₀)</code>.</li>
+                <li>Derivata delle funzioni elementari: potenze <code>xⁿ</code>, esponenziali (<code>eˣ, aˣ</code>), logaritmi (<code>ln x</code>), seno e coseno.</li>
+                <li>Regole di derivazione: somma, prodotto, quoziente e derivata della <strong>funzione composta</strong> (<code>[f(g(x))]' = f'(g(x))·g'(x)</code>).</li>
+              </ul>
+            </div>
+
+            <div class="detail-block">
+              <div class="detail-header test">Verifica Sommativa Scritta (Matematica N. 1)</div>
+              <div class="test-box">
+                <strong>Focus della Verifica</strong>: Calcolo di limiti operativi con asintoti, continuità di funzioni a tratti, calcolo formale di derivate prime con regole di derivazione ed equazione della retta tangente.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- UD 5.F1 (Fisica) -->
+        <div class="unit-card phys" data-year="5" data-period="quinto-anno" data-term="q1" data-subject="phys">
+          <div class="unit-top">
+            <div class="unit-badges">
+              <span class="subject-pill phys">Fisica</span>
+              <span class="period-pill">Settembre – Gennaio</span>
+              <span class="tag test-tag">Verifica Fis 1</span>
+            </div>
+            <span class="unit-id">UD 5.F1</span>
+          </div>
+          <h3 class="unit-title">Termodinamica ed Elettromagnetismo classico</h3>
+          <p class="unit-overview">
+            1° e 2° principio della termodinamica, entropia e freccia del tempo; carica elettrica e Legge di Coulomb; campo elettrico e potenziale; corrente continua, leggi di Ohm; campo magnetico ed induzione EM.
+          </p>
+
+          <button class="details-toggle">
+            <span>Dettagli didattici e indicazioni</span>
+            <svg viewBox="0 0 24 24" fill="none"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </button>
+
+          <div class="unit-details">
+            <div class="detail-block">
+              <div class="detail-header objectives">Obiettivi &amp; Conoscenze Ministeriali</div>
+              <ul class="detail-list">
+                <li>Termodinamica: concetti di sistema (aperto, chiuso, isolato), ambiente e universo termodinamico; trasformazioni reversibili e irreversibili.</li>
+                <li><strong>Primo principio della termodinamica</strong>: calore Q, lavoro W ed energia interna U (<code>ΔU = Q - W</code>).</li>
+                <li><strong>Secondo principio della termodinamica</strong>: rendimento delle macchine termiche, concetto di entropia, irreversibilità naturale e freccia del tempo.</li>
+                <li>Elettrostatica: la carica elettrica, quantizzazione e conservazione; la <strong>Legge di Coulomb</strong>.</li>
+                <li>Il <strong>Campo Elettrico</strong> (<code>E = F/q</code>), linee di campo e potenziale elettrico; moto di cariche in campi elettrici uniformi.</li>
+                <li>Corrente elettrica e circuiti: intensità di corrente, <strong>prima e seconda legge di Ohm</strong>; resistori in serie e parallelo; potenza ed effetto Joule (<code>P = VI</code>).</li>
+                <li>Magnetismo: campo magnetico B, forza di Lorentz; <strong>Induzione elettromagnetica</strong> e Legge di Faraday-Neumann-Lenz (forza elettromotrice indotta).</li>
+              </ul>
+            </div>
+
+            <div class="detail-block">
+              <div class="detail-header test">Verifica Sommativa Scritta (Fisica N. 1)</div>
+              <div class="test-box">
+                <strong>Focus della Verifica</strong>: Bilancio energetico del 1° principio e calcolo del rendimento, forza di Coulomb e campo elettrico, risoluzione di circuiti ohmici elementari (serie/parallelo), calcolo della fem indotta da variazioni di flusso magnetico.
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- 2° Quadrimestre -->
+      <div class="quad-divider" data-term="q2" data-period="quinto-anno">
+        <span class="quad-badge q2">2° Quadrimestre</span>
+        <div class="quad-line"></div>
+        <span class="quad-info">Febbraio – Giugno • 1 Verifica Matematica + 1 Verifica Fisica</span>
+      </div>
+
+      <div class="units-grid two-cols">
+
+        <!-- UD 5.M2 (Matematica) -->
+        <div class="unit-card math" data-year="5" data-period="quinto-anno" data-term="q2" data-subject="math">
+          <div class="unit-top">
+            <div class="unit-badges">
+              <span class="subject-pill math">Matematica</span>
+              <span class="period-pill">Febbraio – Giugno</span>
+              <span class="tag test-tag">Verifica Mat 2</span>
+            </div>
+            <span class="unit-id">UD 5.M2</span>
+          </div>
+          <h3 class="unit-title">Studio di Funzione, Ottimizzazione, Teorema del Calcolo ed Epistemologia</h3>
+          <p class="unit-overview">
+            Studio dell'andamento tramite derivata prima; problemi di ottimizzazione socio-economica; integrale definito e Teorema Fondamentale; epistemologia, bias cognitivi, stereotipi di genere e metacognizione.
+          </p>
+
+          <button class="details-toggle">
+            <span>Dettagli didattici e indicazioni</span>
+            <svg viewBox="0 0 24 24" fill="none"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </button>
+
+          <div class="unit-details">
+            <div class="detail-block">
+              <div class="detail-header objectives">Obiettivi &amp; Conoscenze Ministeriali</div>
+              <ul class="detail-list">
+                <li>Studio del segno della derivata prima per determinare monotonia (crescenza/decrescenza), punti stazionari, massimi e minimi relativi.</li>
+                <li>Risoluzione di problemi di <strong>modellizzazione ed ottimizzazione</strong> applicati all'economia e alle scienze sociali (massimizzazione dell'utilità, minimizzazione dei costi, curve di apprendimento).</li>
+                <li>Calcolo integrale: primitiva e integrale indefinito; integrale definito come area del sottografico.</li>
+                <li><strong>Teorema Fondamentale del Calcolo Integrale (Torricelli-Barrow)</strong>: enunciato, significato concettuale (collegamento tra derivata e integrale) e calcolo delle aree piane: <code>∫ f(x)dx = F(b) - F(a)</code>.</li>
+              </ul>
+
+              <div class="info-box">
+                <strong>Approfondimenti Epistemologici &amp; Scienze Umane (Testo Ministeriale)</strong>:
+                <br>• <strong>Geometrie non euclidee</strong> e crisi del V postulato (teorie assiomatiche alternative);
+                <br>• Modelli a <strong>reti e grafi</strong> applicati alla sociologia e alle neuroscienze;
+                <br>• Metodi di analisi dati nella psicologia e nelle scienze sociali;
+                <br>• Analisi dei <strong>bias cognitivi</strong> legati alla percezione e interpretazione di dati quantitativi;
+                <br>• I processi cognitivi coinvolti nel <strong>problem-solving matematico</strong>;
+                <br>• <strong>Gli stereotipi di genere in matematica</strong> e loro decostruzione socio-culturale;
+                <br>• Strumenti di <strong>Intelligenza Artificiale nell'apprendimento della matematica</strong>;
+                <br>• <strong>Riflessione metacognitiva</strong> retrospettiva per il superamento dell'ansia da matematica e la valorizzazione della sua duplice natura strumentale e culturale.
+              </div>
+            </div>
+
+            <div class="detail-block">
+              <div class="detail-header test">Verifica Sommativa Scritta (Matematica N. 2)</div>
+              <div class="test-box">
+                <strong>Focus della Verifica</strong>: Studio completo dell'andamento di una funzione (dominio, zeri, asintoti, derivata prima, massimi/minimi), risoluzione di un problema di ottimizzazione applicata, calcolo di aree mediante integrale definito.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- UD 5.F2 (Fisica) -->
+        <div class="unit-card phys" data-year="5" data-period="quinto-anno" data-term="q2" data-subject="phys">
+          <div class="unit-top">
+            <div class="unit-badges">
+              <span class="subject-pill phys">Fisica</span>
+              <span class="period-pill">Febbraio – Giugno</span>
+              <span class="tag test-tag">Verifica Fis 2</span>
+            </div>
+            <span class="unit-id">UD 5.F2</span>
+          </div>
+          <h3 class="unit-title">Onde Elettromagnetiche e Vista, Fisica Quantistica, Sistemi Complessi ed IA</h3>
+          <p class="unit-overview">
+            Spettro elettromagnetico; luce, visione retinica (coni/bastoncelli) e percezione del colore; quanti di Planck-Einstein, dualismo e indeterminazione; teoria dei sistemi complessi, emergenza ed impatto dell'IA.
+          </p>
+
+          <button class="details-toggle">
+            <span>Dettagli didattici e indicazioni</span>
+            <svg viewBox="0 0 24 24" fill="none"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </button>
+
+          <div class="unit-details">
+            <div class="detail-block">
+              <div class="detail-header objectives">Obiettivi &amp; Conoscenze Ministeriali</div>
+              <ul class="detail-list">
+                <li>Onde elettromagnetiche e velocità c; <strong>lo spettro elettromagnetico completo</strong> (onde radio, microonde, infrarosso, visibile, UV, raggi X, raggi gamma) e loro applicazioni.</li>
+                <li><strong>Luce, Visione e Scienze Cognitive (nucleo d'indirizzo)</strong>: correlazione tra proprietà fisiche della luce e percezione visiva; fotorecettori della retina (coni per visione tricromatica RGB, bastoncelli per luminosità/movimento); sintesi additiva e sottrattiva dei colori; elaborazione cerebrale delle immagini.</li>
+                <li><strong>Fisica Quantistica (approccio concettuale e qualitativo)</strong>: crisi della fisica classica (corpo nero ed effetto fotoelettrico; fotoni di Einstein <code>E = hf</code>); dualismo onda-corpuscolo di De Broglie; principio di indeterminazione di Heisenberg; quantizzazione dei livelli energetici di Bohr; <strong>implicazioni epistemologiche</strong> per le scienze cognitive (il ruolo dell'osservatore nella misura).</li>
+                <li><strong>Fisica dei Sistemi Complessi</strong>: non-linearità, retroazione (feedback); <strong>auto-organizzazione e fenomeni emergenti</strong> (il comportamento collettivo irriducibile alla somma delle parti); sensibilità alle condizioni iniziali (effetto farfalla); rilevanza per la psicologia sociale, lo studio dei gruppi, le reti neurali e l'ecologia.</li>
+                <li><strong>Fisica del Novecento, Intelligenza Artificiale e Società</strong>: transistor, calcolo quantistico e qubit; valutazione critica e scientifica dell'impatto dell'IA sulla validazione dei modelli scientifici e sulla gestione dell'informazione.</li>
+              </ul>
+            </div>
+
+            <div class="detail-block">
+              <div class="detail-header test">Verifica Sommativa Scritta (Fisica N. 2)</div>
+              <div class="test-box">
+                <strong>Focus della Verifica</strong>: Onde elettromagnetiche e spettro, spiegazione scientifica dei meccanismi di visione e colore, quesiti concettuali sui princìpi quantistici (fotone, dualismo, indeterminazione) e analisi di un modello di sistema complesso applicato a dinamiche sociali o cognitive.
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </div> <!-- /container -->
+
+  <!-- ========================================== -->
+  <!-- MODAL: CHECKLIST INFORMATICA (100%) -->
+  <!-- ========================================== -->
+  <div class="modal-overlay" id="modalInformatica">
+    <div class="modal-content">
+      <button class="modal-close" id="btnCloseInformatica">&times;</button>
+      <h2 style="margin-bottom: 0.5rem; font-size: 1.5rem; color: var(--accent-info);">Checklist Ministeriale Informatica (Copertura 100%)</h2>
+      <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.5rem;">
+        Confronto puntuale tra tutti i requisiti letterali del nucleo <strong>Informatica</strong> nelle Indicazioni Nazionali e la loro esatta collocazione nel nostro piano didattico.
+      </p>
+
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Prescrizione Ministeriale (Indicazioni Nazionali)</th>
+              <th>Collocazione nel Programma</th>
+              <th>Stato</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Analizzare e comprendere algoritmi, identificare difetti e correggerli (Debugging)</strong></td>
+              <td>Classe 1ª (UD 1.1 e UD 1.4)</td>
+              <td><strong style="color:var(--accent-info)">✓ Presente</strong></td>
+            </tr>
+            <tr>
+              <td><strong>Scrivere programmi con strutture di controllo (sequenza, selezione, cicli), condizioni e variabili</strong></td>
+              <td>Classe 1ª (UD 1.1) e Classe 2ª (UD 2.2)</td>
+              <td><strong style="color:var(--accent-info)">✓ Presente</strong></td>
+            </tr>
+            <tr>
+              <td><strong>Valutare l'esito di un programma seguendone i passi e tenendo traccia delle variabili (Trace Table / Stato)</strong></td>
+              <td>Classe 1ª (UD 1.1 e UD 1.4)</td>
+              <td><strong style="color:var(--accent-info)">✓ Presente</strong></td>
+            </tr>
+            <tr>
+              <td><strong>Esecuzione automatica, correttezza ed efficienza degli algoritmi</strong></td>
+              <td>Classe 1ª (UD 1.4)</td>
+              <td><strong style="color:var(--accent-info)">✓ Presente</strong></td>
+            </tr>
+            <tr>
+              <td><strong>Algoritmi di ricerca e ordinamento applicati a sequenze di numeri o di parole (stringhe)</strong></td>
+              <td>Classe 1ª (UD 1.4)</td>
+              <td><strong style="color:var(--accent-info)">✓ Presente</strong></td>
+            </tr>
+            <tr>
+              <td><strong>Relazione tra modalità di rappresentazione dei dati ed efficacia della loro elaborazione</strong></td>
+              <td>Classe 1ª (UD 1.4) e Classe 4ª (UD 4.M2)</td>
+              <td><strong style="color:var(--accent-info)">✓ Presente</strong></td>
+            </tr>
+            <tr>
+              <td><strong>Il punto di vista dell'utente (User Experience / bisogni, competenze, contesto d'uso)</strong></td>
+              <td>Classe 1ª (UD 1.4)</td>
+              <td><strong style="color:var(--accent-info)">✓ Presente</strong></td>
+            </tr>
+            <tr>
+              <td><strong>Conseguenze sociali, culturali ed etiche degli strumenti informatici e dell'Intelligenza Artificiale</strong></td>
+              <td>Classe 1ª (UD 1.4) e Classe 5ª (UD 5.F2)</td>
+              <td><strong style="color:var(--accent-info)">✓ Presente</strong></td>
+            </tr>
+            <tr>
+              <td><strong>Simulazione computazionale di esperimenti aleatori e metodo Monte Carlo</strong></td>
+              <td>Classe 2ª (UD 2.4)</td>
+              <td><strong style="color:var(--accent-info)">✓ Presente</strong></td>
+            </tr>
+            <tr>
+              <td><strong>Elaborazione dati e tabelle di contingenza con strumenti digitali e software AI</strong></td>
+              <td>Classe 4ª (UD 4.M2)</td>
+              <td><strong style="color:var(--accent-info)">✓ Presente</strong></td>
+            </tr>
+            <tr>
+              <td><strong>Strumenti di Intelligenza Artificiale nell'apprendimento e decostruzione di bias/stereotipi</strong></td>
+              <td>Classe 5ª (UD 5.M2 e UD 5.F2)</td>
+              <td><strong style="color:var(--accent-info)">✓ Presente</strong></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout green">
+        <h4>Integrazione Metodologica Umanistica</h4>
+        Nel Liceo delle Scienze Umane, l'informatica non è una disciplina di mera codifica tecnica: è lo studio dei linguaggi formali, dei processi cognitivi dell'interazione uomo-macchina (User Experience) e delle implicazioni etiche e sociologiche dell'elaborazione automatica delle informazioni e dell'Intelligenza Artificiale.
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ========================================== -->
+  <!-- MODAL: QUADRO SINOTTICO VERIFICHE -->
+  <!-- ========================================== -->
+  <div class="modal-overlay" id="modalTable">
+    <div class="modal-content">
+      <button class="modal-close" id="btnCloseTable">&times;</button>
+      <h2 style="margin-bottom: 0.5rem; font-size: 1.5rem;">Quadro Sinottico delle Verifiche Scritte</h2>
+      <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.5rem;">
+        Ripartizione ufficiale delle <strong>20 verifiche scritte</strong> previste nel quinquennio: 4 verifiche scritte formali per ciascun anno di corso.
+      </p>
+
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Anno di Corso</th>
+              <th>Disciplina</th>
+              <th>1° Quadrimestre (Verifiche)</th>
+              <th>2° Quadrimestre (Verifiche)</th>
+              <th>Totale Verifiche Anno</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Classe 1ª</strong></td>
+              <td><span class="subject-pill math">Matematica</span></td>
+              <td><strong>2 verifiche</strong><br><small style="color:var(--text-muted)">UD 1.1 e UD 1.2</small></td>
+              <td><strong>2 verifiche</strong><br><small style="color:var(--text-muted)">UD 1.3 e UD 1.4</small></td>
+              <td><strong style="color:var(--test-color)">4 Verifiche Scritte</strong></td>
+            </tr>
+            <tr>
+              <td><strong>Classe 2ª</strong></td>
+              <td><span class="subject-pill math">Matematica</span></td>
+              <td><strong>2 verifiche</strong><br><small style="color:var(--text-muted)">UD 2.1 e UD 2.2</small></td>
+              <td><strong>2 verifiche</strong><br><small style="color:var(--text-muted)">UD 2.3 e UD 2.4</small></td>
+              <td><strong style="color:var(--test-color)">4 Verifiche Scritte</strong></td>
+            </tr>
+            <tr>
+              <td><strong>Classe 3ª</strong></td>
+              <td>
+                <span class="subject-pill math">Matematica</span><br>
+                <span class="subject-pill phys" style="margin-top:4px; display:inline-block;">Fisica</span>
+              </td>
+              <td>
+                <strong>1 verifica Mat</strong> (UD 3.M1)<br>
+                <strong>1 verifica Fis</strong> (UD 3.F1)
+              </td>
+              <td>
+                <strong>1 verifica Mat</strong> (UD 3.M2)<br>
+                <strong>1 verifica Fis</strong> (UD 3.F2)
+              </td>
+              <td><strong style="color:var(--test-color)">4 Verifiche Scritte</strong><br><small style="color:var(--text-muted)">(2 Mat + 2 Fis)</small></td>
+            </tr>
+            <tr>
+              <td><strong>Classe 4ª</strong></td>
+              <td>
+                <span class="subject-pill math">Matematica</span><br>
+                <span class="subject-pill phys" style="margin-top:4px; display:inline-block;">Fisica</span>
+              </td>
+              <td>
+                <strong>1 verifica Mat</strong> (UD 4.M1)<br>
+                <strong>1 verifica Fis</strong> (UD 4.F1)
+              </td>
+              <td>
+                <strong>1 verifica Mat</strong> (UD 4.M2)<br>
+                <strong>1 verifica Fis</strong> (UD 4.F2)
+              </td>
+              <td><strong style="color:var(--test-color)">4 Verifiche Scritte</strong><br><small style="color:var(--text-muted)">(2 Mat + 2 Fis)</small></td>
+            </tr>
+            <tr>
+              <td><strong>Classe 5ª</strong></td>
+              <td>
+                <span class="subject-pill math">Matematica</span><br>
+                <span class="subject-pill phys" style="margin-top:4px; display:inline-block;">Fisica</span>
+              </td>
+              <td>
+                <strong>1 verifica Mat</strong> (UD 5.M1)<br>
+                <strong>1 verifica Fis</strong> (UD 5.F1)
+              </td>
+              <td>
+                <strong>1 verifica Mat</strong> (UD 5.M2)<br>
+                <strong>1 verifica Fis</strong> (UD 5.F2)
+              </td>
+              <td><strong style="color:var(--test-color)">4 Verifiche Scritte</strong><br><small style="color:var(--text-muted)">(2 Mat + 2 Fis)</small></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout">
+        <h4>Nota Didattico-Istituzionale</h4>
+        Il monte ore del Liceo delle Scienze Umane prevede 3 ore settimanali di Matematica nel primo biennio (dove non è prevista Fisica) e 2 ore di Matematica + 2 ore di Fisica nel secondo biennio e quinto anno. 
+        La scansione proposta garantisce una perfetta regolarità di valutazione (1 prova formale scritta a quadrimestre per ciascuna disciplina del triennio, e 2 a quadrimestre per la matematica del biennio), consentendo di programmare con sufficiente anticipo le scadenze didattiche.
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ========================================== -->
+  <!-- MODAL: GUIDA AI LIBRI DI TESTO -->
+  <!-- ========================================== -->
+  <div class="modal-overlay" id="modalBooks">
+    <div class="modal-content">
+      <button class="modal-close" id="btnCloseBooks">&times;</button>
+      <h2 style="margin-bottom: 0.5rem; font-size: 1.5rem;">Guida Operativa ai Testi di Testo in Uso</h2>
+      <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.5rem;">
+        Criteri metodologici per utilizzare i testi disponibili colmando il divario con le nuove Indicazioni Ministeriali.
+      </p>
+
+      <div class="callout" style="border-left-color: var(--accent-math);">
+        <h4>1. I 5 Volumi di «Appunti di Matematica» (Magni et al. – Progetto Matematica in Rete)</h4>
+        Questi libri riflettono l'impostazione tradizionale pre-riforma. Per adeguarli alle nuove Indicazioni è fondamentale attenersi ai seguenti criteri:
+        <ul style="margin-top: 0.5rem; padding-left: 1.25rem; line-height: 1.6;">
+          <li><strong>Cosa Sfoltire/Tagliare</strong>: Eliminare la pletora di espressioni algebriche chilometriche nel 1° anno; espungere i radicali doppi e le razionalizzazioni complesse nel 2° anno; eliminare lo studio infinito dei fasci di coniche algebrici nel 3° anno; evitare l'eccesso di formule goniometriche (prostaferesi/Werner) nel 4° anno e le forme indeterminate acrobatiche nel 5° anno.</li>
+          <li><strong>Cosa Anticipare</strong>: Le <em>famiglie di funzioni elementari</em> (x², x³, 1/x, √x, |x|) e le <em>trasformazioni geometriche dei grafici</em> con parametri vanno affrontate <strong>già nel 1° biennio (Classe 2ª)</strong> anziché al 4° anno. I <em>primi elementi intuitivi del Calcolo infinitesimale</em> (rapporto incrementale e derivata/integrale intuitivi) vanno avviati <strong>già al 3° anno</strong>.</li>
+          <li><strong>Cosa Integrare</strong>: La <em>distanza interquartile (IQR)</em>, i <em>grafici box-plot</em>, il <em>debugging</em> e la <em>User Experience</em> nel 1° anno; la simulazione computazionale nel 2° anno; le <em>tabelle di contingenza a doppia entrata</em>, la <em>formula di Bayes</em> e le <em>distribuzioni continue</em> nel 4° anno; la riflessione epistemologica su geometrie non euclidee, bias cognitivi, <em>stereotipi di genere in matematica</em> ed IA nel 5° anno.</li>
+        </ul>
+      </div>
+
+      <div class="callout amber" style="border-left-color: var(--accent-phys);">
+        <h4>2. I 3 Volumi «L'Amaldi per i Licei Scientifici.blu» (Ugo Amaldi – Zanichelli)</h4>
+        I manuali Amaldi per lo scientifico sono concepiti per un percorso con 3-5 ore settimanali e un apparato matematico avanzato. Per il Liceo delle Scienze Umane (2 ore settimanali):
+        <ul style="margin-top: 0.5rem; padding-left: 1.25rem; line-height: 1.6;">
+          <li><strong>Cosa Omettere Tassativamente</strong>: Tutti i formalismi vettoriali differenziali e integrali (Teorema di Gauss integrale, legge di Ampère-Maxwell differenziale); la dinamica rotazionale del corpo rigido (momenti d'inerzia con integrali); la fluidodinamica avanzata (Bernoulli, viscosità di Stokes); la relatività ristretta formale con trasformazioni di Lorentz.</li>
+          <li><strong>Cosa Selezionare con Cura</strong>: La cinematica e dinamica newtoniana unidimensionale essenziale; i princìpi di conservazione dell'energia meccanica e totale; la calorimetria e i passaggi di stato; l'ottica geometrica essenziale e i circuiti ohmici in corrente continua.</li>
+          <li><strong>Il Valore Aggiunto per le Scienze Umane</strong>: Far leva su ciò che collega la fisica alla percezione e alla cognizione: <em>temperatura oggettiva vs sensazione termica corporea</em>; <em>acustica, timbro e psicoacustica</em>; <em>ottica dell'occhio umano, coni/bastoncelli e percezione del colore</em>; e nel 5° anno, la <em>fisica dei sistemi complessi (emergenza, auto-organizzazione, effetto farfalla)</em> applicata alla psicologia e alle dinamiche sociali.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ========================================== -->
+  <!-- JAVASCRIPT LOGIC -->
+  <!-- ========================================== -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+
+      // State
+      let currentPeriod = 'all';
+      let currentSubject = 'all';
+      let currentTerm = 'all';
+      let searchQuery = '';
+
+      // Elements
+      const yearSections = document.querySelectorAll('.year-section');
+      const unitCards = document.querySelectorAll('.unit-card');
+      const quadDividers = document.querySelectorAll('.quad-divider');
+      const searchInput = document.getElementById('searchInput');
+
+      // Modals
+      const modalTable = document.getElementById('modalTable');
+      const modalBooks = document.getElementById('modalBooks');
+      const modalInformatica = document.getElementById('modalInformatica');
+
+      const btnOpenTable = document.getElementById('btnOpenTable');
+      const btnCloseTable = document.getElementById('btnCloseTable');
+      const btnOpenBooks = document.getElementById('btnOpenBooks');
+      const btnCloseBooks = document.getElementById('btnCloseBooks');
+      const btnOpenInformatica = document.getElementById('btnOpenInformatica');
+      const btnCloseInformatica = document.getElementById('btnCloseInformatica');
+
+      btnOpenTable.addEventListener('click', () => modalTable.classList.add('active'));
+      btnCloseTable.addEventListener('click', () => modalTable.classList.remove('active'));
+      modalTable.addEventListener('click', (e) => {
+        if (e.target === modalTable) modalTable.classList.remove('active');
+      });
+
+      btnOpenBooks.addEventListener('click', () => modalBooks.classList.add('active'));
+      btnCloseBooks.addEventListener('click', () => modalBooks.classList.remove('active'));
+      modalBooks.addEventListener('click', (e) => {
+        if (e.target === modalBooks) modalBooks.classList.remove('active');
+      });
+
+      btnOpenInformatica.addEventListener('click', () => modalInformatica.classList.add('active'));
+      btnCloseInformatica.addEventListener('click', () => modalInformatica.classList.remove('active'));
+      modalInformatica.addEventListener('click', (e) => {
+        if (e.target === modalInformatica) modalInformatica.classList.remove('active');
+      });
+
+      // Escape to close modals
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          modalTable.classList.remove('active');
+          modalBooks.classList.remove('active');
+          modalInformatica.classList.remove('active');
+        }
+      });
+
+      // Filter Logic
+      function applyFilters() {
+        const query = searchQuery.toLowerCase().trim();
+
+        yearSections.forEach(section => {
+          const sectionPeriod = section.getAttribute('data-period');
+          let periodVisible = (currentPeriod === 'all' || currentPeriod === sectionPeriod);
+
+          let sectionHasVisibleCards = false;
+
+          const cards = section.querySelectorAll('.unit-card');
+          cards.forEach(card => {
+            const cardTerm = card.getAttribute('data-term');
+            const cardSubject = card.getAttribute('data-subject');
+            const cardText = card.textContent.toLowerCase();
+
+            const matchPeriod = periodVisible;
+            const matchTerm = (currentTerm === 'all' || currentTerm === cardTerm);
+            const matchSubject = (currentSubject === 'all' || currentSubject === cardSubject);
+            const matchSearch = (!query || cardText.includes(query));
+
+            if (matchPeriod && matchTerm && matchSubject && matchSearch) {
+              card.classList.remove('hidden');
+              sectionHasVisibleCards = true;
+            } else {
+              card.classList.add('hidden');
+            }
+          });
+
+          // Check dividers visibility
+          const dividers = section.querySelectorAll('.quad-divider');
+          dividers.forEach(div => {
+            const divTerm = div.getAttribute('data-term');
+            const matchTerm = (currentTerm === 'all' || currentTerm === divTerm);
+            const nextGrid = div.nextElementSibling;
+            const hasVisibleCard = nextGrid && nextGrid.classList.contains('units-grid')
+              ? Array.from(nextGrid.querySelectorAll('.unit-card')).some(c => !c.classList.contains('hidden'))
+              : true;
+
+            div.style.display = (matchTerm && hasVisibleCard) ? 'flex' : 'none';
+          });
+
+          if (periodVisible && sectionHasVisibleCards) {
+            section.classList.remove('hidden');
+          } else {
+            section.classList.add('hidden');
+          }
+        });
+      }
+
+      // Period Buttons
+      document.querySelectorAll('[data-filter-period]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('[data-filter-period]').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          currentPeriod = btn.getAttribute('data-filter-period');
+          applyFilters();
+        });
+      });
+
+      // Subject Buttons
+      document.querySelectorAll('[data-filter-subject]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('[data-filter-subject]').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          currentSubject = btn.getAttribute('data-filter-subject');
+          applyFilters();
+        });
+      });
+
+      // Term Buttons
+      document.querySelectorAll('[data-filter-term]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('[data-filter-term]').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          currentTerm = btn.getAttribute('data-filter-term');
+          applyFilters();
+        });
+      });
+
+      // Search input live
+      searchInput.addEventListener('input', (e) => {
+        searchQuery = e.target.value;
+        applyFilters();
+      });
+
+      // Card Accordion Toggles
+      unitCards.forEach(card => {
+        const toggleBtn = card.querySelector('.details-toggle');
+        if (toggleBtn) {
+          toggleBtn.addEventListener('click', () => {
+            card.classList.toggle('expanded');
+          });
+        }
+      });
+
+      // Expand / Collapse All
+      let allExpanded = false;
+      const btnToggleAll = document.getElementById('btnToggleAll');
+      btnToggleAll.addEventListener('click', () => {
+        allExpanded = !allExpanded;
+        unitCards.forEach(card => {
+          if (allExpanded) {
+            card.classList.add('expanded');
+          } else {
+            card.classList.remove('expanded');
+          }
+        });
+        btnToggleAll.textContent = allExpanded ? 'Comprimi Tutti' : 'Espandi Tutti';
+      });
+
+      // Theme Toggle
+      const btnThemeToggle = document.getElementById('btnThemeToggle');
+      const themeText = document.getElementById('themeText');
+      const htmlEl = document.documentElement;
+
+      btnThemeToggle.addEventListener('click', () => {
+        const currentTheme = htmlEl.getAttribute('data-theme');
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        htmlEl.setAttribute('data-theme', newTheme);
+        themeText.textContent = newTheme === 'dark' ? 'Tema Chiaro' : 'Tema Scuro';
+      });
+
+      // Print Button
+      document.getElementById('btnPrint').addEventListener('click', () => {
+        unitCards.forEach(card => card.classList.add('expanded'));
+        window.print();
+      });
+
+    });
+  </script>
+</body>
+</html>

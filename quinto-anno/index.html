@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="it" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lavori in Corso • Quinto Anno • le comode lezioni d'Ivano</title>
+  <meta name="description" content="Pagina in allestimento per il Quinto Anno (5° Anno) di Matematica e Fisica del Liceo delle Scienze Umane verso l'Esame di Stato.">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Stili Condivisi comode -->
+  <link rel="stylesheet" href="../shared/css/comode.css">
+
+  <style>
+    .wip-hero {
+      text-align: center;
+      padding: 3.5rem 1.5rem 2.5rem;
+      background: linear-gradient(180deg, var(--bg-surface) 0%, var(--bg-surface-elevated) 100%);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 2.5rem;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .wip-hero::before {
+      content: '';
+      position: absolute;
+      top: -30px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 420px;
+      height: 140px;
+      background: radial-gradient(circle, rgba(168, 85, 247, 0.2) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .wip-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.4rem 1rem;
+      border-radius: var(--radius-pill);
+      font-size: 0.82rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      background: rgba(168, 85, 247, 0.15);
+      color: var(--accent-purple);
+      border: 1px solid rgba(168, 85, 247, 0.35);
+      margin-bottom: 1.25rem;
+    }
+
+    .wip-icon-large {
+      font-size: 3.8rem;
+      margin-bottom: 1rem;
+      display: inline-block;
+      animation: pulseWip 2.5s infinite ease-in-out;
+    }
+
+    @keyframes pulseWip {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.08); }
+    }
+
+    .wip-title {
+      font-size: 2.2rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.75rem;
+      line-height: 1.25;
+    }
+
+    .wip-title span {
+      background: linear-gradient(135deg, var(--accent-purple), #ec4899);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .wip-desc {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      max-width: 680px;
+      margin: 0 auto 2rem;
+      line-height: 1.6;
+    }
+
+    .wip-actions {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn-wip-primary {
+      background: var(--accent-math);
+      color: #0b0f19;
+      padding: 0.75rem 1.6rem;
+      border-radius: var(--radius-pill);
+      font-weight: 800;
+      font-size: 0.95rem;
+      text-decoration: none;
+      transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .btn-wip-primary:hover {
+      background: #7dd3fc;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 14px var(--accent-math-glow);
+    }
+
+    .btn-wip-secondary {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-main);
+      padding: 0.75rem 1.6rem;
+      border-radius: var(--radius-pill);
+      font-weight: 700;
+      font-size: 0.95rem;
+      text-decoration: none;
+      transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .btn-wip-secondary:hover {
+      border-color: var(--border-accent);
+      transform: translateY(-2px);
+    }
+
+    /* Programma UDA in preparazione */
+    .wip-program-section {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .wip-program-header {
+      margin-bottom: 1.5rem;
+      border-bottom: 1px solid var(--border-subtle);
+      padding-bottom: 1rem;
+    }
+
+    .wip-program-title {
+      font-size: 1.25rem;
+      font-weight: 800;
+      margin-bottom: 0.35rem;
+    }
+
+    .wip-program-sub {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+    }
+
+    .wip-udas-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .wip-uda-card {
+      background: var(--bg-surface-elevated);
+      border: 1px dashed var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 1.25rem;
+      position: relative;
+    }
+
+    .wip-uda-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.5rem;
+    }
+
+    .wip-pill {
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 0.2rem 0.55rem;
+      border-radius: var(--radius-pill);
+    }
+
+    .wip-pill.math {
+      background: rgba(56, 189, 248, 0.12);
+      color: var(--accent-math);
+    }
+
+    .wip-pill.phys {
+      background: rgba(245, 158, 11, 0.12);
+      color: var(--accent-gold);
+    }
+
+    .wip-status-badge {
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--text-dim);
+    }
+
+    .wip-card-title {
+      font-size: 1rem;
+      font-weight: 800;
+      margin-bottom: 0.35rem;
+    }
+
+    .wip-card-topic {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      line-height: 1.45;
+    }
+
+    .wip-trophy-target {
+      margin-top: 0.75rem;
+      font-size: 0.75rem;
+      color: var(--accent-gold);
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body data-theme="dark">
+
+  <div class="container">
+    <!-- Navbar Superiore con Gamification e Controlli -->
+    <nav class="navbar">
+      <a href="../index.html" class="brand">
+        📐 comode<span>.</span>
+      </a>
+      <div class="nav-actions">
+        <div class="gamification-widget" title="Il tuo livello attuale e punti XP">
+          <span class="level-badge user-level-val">Liv. 1 🌱</span>
+          <span class="xp-counter user-xp-val">0 XP</span>
+        </div>
+        <button id="audioToggleBtn" class="icon-btn" aria-label="Attiva o disattiva audio">
+          🔊 <span class="nav-text">Suoni</span>
+        </button>
+        <button id="themeToggleBtn" class="theme-toggle-btn" aria-label="Cambia tema chiaro/scuro">
+          <span id="themeIcon">☀️</span>
+          <span id="themeLabel">Chiaro</span>
+        </button>
+      </div>
+    </nav>
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumbs">
+      <a href="../index.html">le comode lezioni d'Ivano</a>
+      <span class="sep">/</span>
+      <span class="current">Quinto Anno (5° Anno)</span>
+    </div>
+
+    <!-- Hero Lavori in Corso -->
+    <header class="wip-hero">
+      <div class="wip-badge">
+        🚧 Modulo in Allestimento Didattico
+      </div>
+      <div>
+        <span class="wip-icon-large">🎓</span>
+      </div>
+      <h1 class="wip-title">
+        Lavori in Corso: <span>Quinto Anno</span>
+      </h1>
+      <p class="wip-desc">
+        I moduli didattici di <strong>Matematica &amp; Fisica</strong> per l'ultimo anno del Liceo delle Scienze Umane e la preparazione all'<strong>Esame di Stato</strong> sono attualmente in fase di allestimento pedagogico.
+      </p>
+      <div class="wip-actions">
+        <a href="../primo-biennio/index.html" class="btn-wip-primary">
+          Vai al Primo Biennio (UDA 1.1 Attiva) →
+        </a>
+        <a href="../index.html" class="btn-wip-secondary">
+          ← Torna alla Home Page
+        </a>
+      </div>
+    </header>
+
+    <!-- Sezione Piano Didattico Quinto Anno in Sviluppo -->
+    <section class="wip-program-section">
+      <div class="wip-program-header">
+        <h2 class="wip-program-title">📋 Il Percorso del Quinto Anno (In Arrivo)</h2>
+        <p class="wip-program-sub">
+          Ecco le 4 Unità Didattiche avanzate e i titoli previsti per l'Esame di Stato:
+        </p>
+      </div>
+
+      <div class="wip-udas-grid">
+        <div class="wip-uda-card">
+          <div class="wip-uda-top">
+            <span class="wip-pill math">UDA 5.M1 • Matematica</span>
+            <span class="wip-status-badge">In sviluppo ⏳</span>
+          </div>
+          <div class="wip-card-title">Limiti, Continuità e Derivate</div>
+          <div class="wip-card-topic">Analisi infinitesimale, calcolo dei limiti, continuità e calcolo differenziale.</div>
+          <div class="wip-trophy-target">🏆 Titolo: <em>Signore dell'Infinitesimo</em> 🌀</div>
+        </div>
+
+        <div class="wip-uda-card">
+          <div class="wip-uda-top">
+            <span class="wip-pill phys">UDA 5.F1 • Fisica</span>
+            <span class="wip-status-badge">In sviluppo ⏳</span>
+          </div>
+          <div class="wip-card-title">Termodinamica ed Elettromagnetismo</div>
+          <div class="wip-card-topic">Entropia, macchine termiche, campo elettrico e induzione di Faraday.</div>
+          <div class="wip-trophy-target">🏆 Titolo: <em>Custode dell'Entropia &amp; dei Campi</em> 🔋</div>
+        </div>
+
+        <div class="wip-uda-card">
+          <div class="wip-uda-top">
+            <span class="wip-pill math">UDA 5.M2 • Matematica</span>
+            <span class="wip-status-badge">In sviluppo ⏳</span>
+          </div>
+          <div class="wip-card-title">Studio di Funzione, Integrali ed Epistemologia</div>
+          <div class="wip-card-topic">Studio completo di funzioni reali, integrali definiti e filosofia della scienza.</div>
+          <div class="wip-trophy-target">🏆 Titolo: <em>Filosofo della Scienza</em> 📜</div>
+        </div>
+
+        <div class="wip-uda-card">
+          <div class="wip-uda-top">
+            <span class="wip-pill phys">UDA 5.F2 • Fisica</span>
+            <span class="wip-status-badge">In sviluppo ⏳</span>
+          </div>
+          <div class="wip-card-title">Onde EM, Quanti, Sistemi Complessi e IA</div>
+          <div class="wip-card-topic">Fisica moderna, quanti, modelli di complessità e intelligenza artificiale.</div>
+          <div class="wip-trophy-target">🏆 Titolo: <em>Visionario dei Sistemi Complessi</em> 🧠</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer style="margin-top: 4rem; padding-top: 2rem; border-top: 1px solid var(--border-subtle); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; color: var(--text-muted); font-size: 0.85rem;">
+      <div>
+        <a href="../index.html" style="color: var(--accent-math); text-decoration: none; font-weight: 700;">
+          ← Torna alle comode lezioni d'Ivano
+        </a>
+      </div>
+      <div>
+        <strong>comode</strong> • Liceo delle Scienze Umane
+      </div>
+    </footer>
+  </div>
+
+  <!-- Script Condivisi comode -->
+  <script src="../shared/js/audio.js"></script>
+  <script src="../shared/js/theme.js"></script>
+  <script src="../shared/js/gamification.js"></script>
+  <script src="../shared/js/comode.js"></script>
+</body>
+</html>

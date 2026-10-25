@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="it" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Primo Biennio • le comode lezioni d'Ivano</title>
+  <meta name="description" content="Unità Didattiche di Matematica per il Primo Biennio del Liceo delle Scienze Umane. Problem Solving, Inquiry-Based Learning e Gamification.">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Stili Condivisi comode -->
+  <link rel="stylesheet" href="../shared/css/comode.css">
+
+  <style>
+    .cycle-hero {
+      margin-bottom: 2rem;
+      text-align: center;
+      padding: 2.25rem 1.5rem;
+      background: linear-gradient(180deg, var(--bg-surface) 0%, var(--bg-surface-elevated) 100%);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .cycle-hero::before {
+      content: '';
+      position: absolute;
+      top: -30px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 380px;
+      height: 120px;
+      background: radial-gradient(circle, var(--accent-math-glow) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .cycle-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.35rem 0.85rem;
+      border-radius: var(--radius-pill);
+      font-size: 0.8rem;
+      font-weight: 700;
+      background: rgba(56, 189, 248, 0.12);
+      color: var(--accent-math);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      margin-bottom: 0.85rem;
+    }
+
+    .cycle-title {
+      font-size: 2rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.5rem;
+      line-height: 1.25;
+    }
+
+    .cycle-title span {
+      background: linear-gradient(135deg, var(--accent-math), var(--accent-purple));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .cycle-desc {
+      font-size: 1rem;
+      color: var(--text-muted);
+      max-width: 680px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    /* Notice Banner */
+    .status-alert-box {
+      background: rgba(56, 189, 248, 0.08);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      border-left: 4px solid var(--accent-math);
+      border-radius: var(--radius-md);
+      padding: 1rem 1.25rem;
+      margin-bottom: 2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+
+    .status-alert-box .icon {
+      font-size: 1.5rem;
+      flex-shrink: 0;
+    }
+
+    /* Card Attiva UDA 1.1 */
+    .active-uda-card {
+      background: linear-gradient(145deg, var(--bg-surface) 0%, var(--bg-surface-elevated) 100%);
+      border: 2px solid var(--accent-math);
+      border-radius: var(--radius-lg);
+      padding: 1.75rem;
+      margin-bottom: 2.5rem;
+      text-decoration: none;
+      color: inherit;
+      display: block;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 4px 20px var(--accent-math-glow);
+      transition: var(--transition);
+    }
+
+    .active-uda-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 30px var(--accent-math-glow);
+      border-color: #60a5fa;
+    }
+
+    .active-tag-ribbon {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.75rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      background: rgba(16, 185, 129, 0.15);
+      color: var(--accent-success);
+      border: 1px solid rgba(16, 185, 129, 0.35);
+      padding: 0.25rem 0.65rem;
+      border-radius: var(--radius-pill);
+      margin-bottom: 0.85rem;
+    }
+
+    .active-uda-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-bottom: 0.75rem;
+    }
+
+    .active-uda-title {
+      font-size: 1.5rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+
+    .active-uda-desc {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 1.25rem;
+      max-width: 800px;
+    }
+
+    .active-uda-meta {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-bottom: 1.5rem;
+      font-size: 0.85rem;
+    }
+
+    .active-meta-pill {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      padding: 0.3rem 0.75rem;
+      border-radius: var(--radius-pill);
+      color: var(--text-muted);
+    }
+
+    .active-meta-pill strong {
+      color: var(--text-main);
+    }
+
+    .btn-enter-uda {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: var(--accent-math);
+      color: #0b0f19;
+      font-weight: 800;
+      font-size: 0.95rem;
+      padding: 0.75rem 1.5rem;
+      border-radius: var(--radius-pill);
+      transition: var(--transition);
+      box-shadow: 0 4px 14px var(--accent-math-glow);
+    }
+
+    .active-uda-card:hover .btn-enter-uda {
+      background: #7dd3fc;
+      transform: translateX(4px);
+    }
+
+    /* Griglia UDA Future */
+    .future-udas-section {
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    .future-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1rem;
+      margin-top: 1.25rem;
+    }
+
+    .future-card {
+      background: var(--bg-surface);
+      border: 1px dashed var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 1.25rem;
+      opacity: 0.75;
+      transition: var(--transition);
+    }
+
+    .future-card:hover {
+      opacity: 1;
+      border-color: var(--border-accent);
+    }
+
+    .future-card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.6rem;
+    }
+
+    .future-pill {
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--text-dim);
+      background: var(--bg-surface-elevated);
+      padding: 0.2rem 0.5rem;
+      border-radius: var(--radius-pill);
+    }
+
+    .future-badge {
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--accent-gold);
+      background: rgba(245, 158, 11, 0.1);
+      border: 1px solid rgba(245, 158, 11, 0.25);
+      padding: 0.15rem 0.5rem;
+      border-radius: var(--radius-pill);
+    }
+
+    .future-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin-bottom: 0.35rem;
+    }
+
+    .future-topic {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+  </style>
+</head>
+<body data-theme="dark">
+
+  <div class="container">
+    <!-- Navbar Superiore con Gamification e Controlli -->
+    <nav class="navbar">
+      <a href="../index.html" class="brand">
+        📐 comode<span>.</span>
+      </a>
+      <div class="nav-actions">
+        <div class="gamification-widget" title="Il tuo livello attuale e punti XP">
+          <span class="level-badge user-level-val">Liv. 1 🌱</span>
+          <span class="xp-counter user-xp-val">0 XP</span>
+        </div>
+        <button id="audioToggleBtn" class="icon-btn" aria-label="Attiva o disattiva audio">
+          🔊 <span class="nav-text">Suoni</span>
+        </button>
+        <button id="themeToggleBtn" class="theme-toggle-btn" aria-label="Cambia tema chiaro/scuro">
+          <span id="themeIcon">☀️</span>
+          <span id="themeLabel">Chiaro</span>
+        </button>
+      </div>
+    </nav>
+
+    <!-- Breadcrumb di navigazione -->
+    <div class="breadcrumbs">
+      <a href="../index.html">le comode lezioni d'Ivano</a>
+      <span class="sep">/</span>
+      <span class="current">Primo Biennio (1° e 2° Anno)</span>
+    </div>
+
+    <!-- Hero Primo Biennio -->
+    <header class="cycle-hero">
+      <div class="cycle-badge">
+        📐 Primo Biennio • Matematica • Scienze Umane
+      </div>
+      <h1 class="cycle-title">
+        Primo Biennio: <span>Fondamenti &amp; Problem Solving</span>
+      </h1>
+      <p class="cycle-desc">
+        Costruisci i concetti matematici attraverso la scoperta guidata: dai gettoni numerici per il calcolo mentale, alle frazioni come taglie, fino alla logica e al modulo CLIL in lingua inglese.
+      </p>
+    </header>
+
+    <!-- Notice Banner -->
+    <div class="status-alert-box">
+      <span class="icon">ℹ️</span>
+      <div>
+        <strong>Unità Didattica Attiva:</strong> Al momento è disponibile e accessibile l'<strong>UDA 1.1</strong> con i primi due laboratori didattici. Le altre 7 UDA del Primo Biennio sono in arrivo a breve con la programmazione completa!
+      </div>
+    </div>
+
+    <!-- ======================================================== -->
+    <!-- UNICO LINK ATTIVO: UDA 1.1                               -->
+    <!-- ======================================================== -->
+    <a href="uda-1.1-insiemi-logica-algoritmi/index.html" class="active-uda-card">
+      <div class="active-tag-ribbon">
+        🟢 UDA 1.1 DISPONIBILE ORA
+      </div>
+      
+      <div class="active-uda-header">
+        <div>
+          <h2 class="active-uda-title">UDA 1.1: Insiemi, Logica e Algoritmi</h2>
+          <div style="font-size: 0.85rem; color: var(--accent-math); font-weight: 700; margin-top: 0.2rem;">
+            Matematica • 1° Anno Liceo delle Scienze Umane
+          </div>
+        </div>
+        <div style="text-align: right;">
+          <span style="font-family: var(--font-mono); font-size: 0.9rem; font-weight: 800; color: var(--accent-gold); background: rgba(245, 158, 11, 0.12); padding: 0.3rem 0.75rem; border-radius: var(--radius-pill); border: 1px solid rgba(245, 158, 11, 0.25);">
+            +130 XP Totali
+          </span>
+        </div>
+      </div>
+
+      <p class="active-uda-desc">
+        Accedi all'ambiente con le due lezioni preparate: calcolo confortevole con numeri interi e razionali, gettoni numerici, frazioni come taglie e la lezione speciale CLIL con sintesi vocale madrelingua.
+      </p>
+
+      <div class="active-uda-meta">
+        <span class="active-meta-pill">📚 <strong>2 Lezioni</strong> Interattive</span>
+        <span class="active-meta-pill">🏆 Titolo: <strong>Architetto della Logica</strong> 📐</span>
+        <span class="active-meta-pill">🌍 Modulo <strong>CLIL Inglese</strong> Incluso</span>
+      </div>
+
+      <div>
+        <span class="btn-enter-uda">
+          Entra nell'UDA 1.1 &amp; Visualizza le Lezioni →
+        </span>
+      </div>
+    </a>
+
+    <!-- ======================================================== -->
+    <!-- ANTEPRIMA PROSSIME UDA DEL PRIMO BIENNIO                 -->
+    <!-- ======================================================== -->
+    <section class="future-udas-section">
+      <div style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 0.5rem;">
+        <h3 style="font-size: 1.25rem; font-weight: 800;">
+          ⏳ Altre Unità Didattiche del Primo Biennio (In arrivo)
+        </h3>
+        <span style="font-size: 0.85rem; color: var(--text-muted);">
+          Presto disponibili secondo la programmazione ministeriale
+        </span>
+      </div>
+
+      <div class="future-grid">
+        <div class="future-card">
+          <div class="future-card-top">
+            <span class="future-pill">UDA 1.2 • 1° Anno</span>
+            <span class="future-badge">In arrivo</span>
+          </div>
+          <div class="future-title">Calcolo Letterale ed Equazioni</div>
+          <div class="future-topic">Monomi, polinomi, prodotti notevoli ed equazioni di primo grado. Titolo: <em>Mastro Algebrista</em> ⚖️</div>
+        </div>
+
+        <div class="future-card">
+          <div class="future-card-top">
+            <span class="future-pill">UDA 1.3 • 1° Anno</span>
+            <span class="future-badge">In arrivo</span>
+          </div>
+          <div class="future-title">Geometria Euclidea e Aree</div>
+          <div class="future-topic">Dimostrazioni su triangoli, poligoni e calcolo ragionato delle aree. Titolo: <em>Geometra di Mileto</em> 🏛️</div>
+        </div>
+
+        <div class="future-card">
+          <div class="future-card-top">
+            <span class="future-pill">UDA 1.4 • 1° Anno</span>
+            <span class="future-badge">In arrivo</span>
+          </div>
+          <div class="future-title">Dati, Statistica Descrittiva e UX</div>
+          <div class="future-topic">Indagini statistiche, frequenze, indici di posizione e test di usabilità. Titolo: <em>Scienziato dei Dati &amp; UX</em> 📊</div>
+        </div>
+
+        <div class="future-card">
+          <div class="future-card-top">
+            <span class="future-pill">UDA 2.1 • 2° Anno</span>
+            <span class="future-badge">In arrivo</span>
+          </div>
+          <div class="future-title">Reali, Radicali e 2° Grado</div>
+          <div class="future-topic">I numeri reali, le proprietà dei radicali ed equazioni di secondo grado. Titolo: <em>Esploratore dell'Infinito Reale</em> ♾️</div>
+        </div>
+
+        <div class="future-card">
+          <div class="future-card-top">
+            <span class="future-pill">UDA 2.2 • 2° Anno</span>
+            <span class="future-badge">In arrivo</span>
+          </div>
+          <div class="future-title">Funzioni, Grafici e Trasformazioni</div>
+          <div class="future-topic">Piano cartesiano, funzioni e trasformazioni geometriche. Titolo: <em>Cartografo delle Funzioni</em> 📈</div>
+        </div>
+
+        <div class="future-card">
+          <div class="future-card-top">
+            <span class="future-pill">UDA 2.3 • 2° Anno</span>
+            <span class="future-badge">In arrivo</span>
+          </div>
+          <div class="future-title">Sistemi Lineari, Similitudine e Solidi</div>
+          <div class="future-topic">Metodi di risoluzione, geometria dei solidi e similitudine. Titolo: <em>Scultore delle Dimensioni</em> 🧊</div>
+        </div>
+
+        <div class="future-card">
+          <div class="future-card-top">
+            <span class="future-pill">UDA 2.4 • 2° Anno</span>
+            <span class="future-badge">In arrivo</span>
+          </div>
+          <div class="future-title">Probabilità, Simulazione e Rischio</div>
+          <div class="future-topic">Simulazioni probabilistiche e valutazione del rischio nelle decisioni. Titolo: <em>Tattico dell'Incertezza</em> 🎲</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer style="margin-top: 4rem; padding-top: 2rem; border-top: 1px solid var(--border-subtle); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; color: var(--text-muted); font-size: 0.85rem;">
+      <div>
+        <a href="../index.html" style="color: var(--accent-math); text-decoration: none; font-weight: 700;">
+          ← Torna alle comode lezioni d'Ivano
+        </a>
+      </div>
+      <div>
+        <strong>comode</strong> • Liceo delle Scienze Umane
+      </div>
+    </footer>
+  </div>
+
+  <!-- Script Condivisi comode -->
+  <script src="../shared/js/audio.js"></script>
+  <script src="../shared/js/theme.js"></script>
+  <script src="../shared/js/gamification.js"></script>
+  <script src="../shared/js/comode.js"></script>
+</body>
+</html>

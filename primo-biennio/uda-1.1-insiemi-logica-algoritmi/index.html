@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="it" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UDA 1.1: Insiemi, Logica e Algoritmi • le comode lezioni d'Ivano</title>
+  <meta name="description" content="Laboratori interattivi di Matematica per l'UDA 1.1 del Liceo delle Scienze Umane: Calcolo con Interi e Razionali e Modulo CLIL in lingua inglese.">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Stili Condivisi comode -->
+  <link rel="stylesheet" href="../../shared/css/comode.css">
+
+  <style>
+    .uda-hero {
+      margin-bottom: 2rem;
+      text-align: center;
+      padding: 2.25rem 1.5rem;
+      background: linear-gradient(180deg, var(--bg-surface) 0%, var(--bg-surface-elevated) 100%);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .uda-hero::before {
+      content: '';
+      position: absolute;
+      top: -30px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 400px;
+      height: 120px;
+      background: radial-gradient(circle, var(--accent-math-glow) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .uda-badge-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.35rem 0.85rem;
+      border-radius: var(--radius-pill);
+      font-size: 0.8rem;
+      font-weight: 700;
+      background: rgba(56, 189, 248, 0.12);
+      color: var(--accent-math);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      margin-bottom: 0.85rem;
+    }
+
+    .uda-title {
+      font-size: 2rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.5rem;
+      line-height: 1.25;
+    }
+
+    .uda-title span {
+      background: linear-gradient(135deg, var(--accent-math), var(--accent-purple));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .uda-desc {
+      font-size: 1rem;
+      color: var(--text-muted);
+      max-width: 700px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    /* Warning Callout: Lezioni Temporanee */
+    .temp-notice-banner {
+      background: linear-gradient(135deg, rgba(245, 158, 11, 0.1) 0%, rgba(245, 158, 11, 0.04) 100%);
+      border: 2px dashed rgba(245, 158, 11, 0.45);
+      border-radius: var(--radius-md);
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 2.5rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      box-shadow: 0 4px 16px rgba(245, 158, 11, 0.08);
+    }
+
+    .temp-notice-icon {
+      font-size: 2rem;
+      line-height: 1;
+      flex-shrink: 0;
+    }
+
+    .temp-notice-title {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: var(--accent-gold);
+      margin-bottom: 0.35rem;
+    }
+
+    .temp-notice-text {
+      font-size: 0.92rem;
+      color: var(--text-muted);
+      line-height: 1.55;
+    }
+
+    /* Griglia Lezioni */
+    .lessons-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .lesson-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 1.75rem;
+      display: flex;
+      flex-direction: column;
+      transition: var(--transition);
+      text-decoration: none;
+      color: inherit;
+      position: relative;
+    }
+
+    .lesson-card:hover {
+      border-color: var(--accent-math);
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .lesson-card.clil:hover {
+      border-color: var(--accent-purple);
+    }
+
+    .lesson-card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+
+    .lesson-badge {
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 0.25rem 0.65rem;
+      border-radius: var(--radius-pill);
+    }
+
+    .lesson-badge.math {
+      background: rgba(56, 189, 248, 0.12);
+      color: var(--accent-math);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+    }
+
+    .lesson-badge.clil {
+      background: rgba(168, 85, 247, 0.12);
+      color: var(--accent-purple);
+      border: 1px solid rgba(168, 85, 247, 0.25);
+    }
+
+    .lesson-xp {
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      font-weight: 800;
+      color: var(--accent-gold);
+      background: rgba(245, 158, 11, 0.12);
+      padding: 0.25rem 0.65rem;
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(245, 158, 11, 0.25);
+    }
+
+    .lesson-card-title {
+      font-size: 1.3rem;
+      font-weight: 800;
+      margin-bottom: 0.6rem;
+      line-height: 1.3;
+    }
+
+    .lesson-card-desc {
+      font-size: 0.92rem;
+      color: var(--text-muted);
+      line-height: 1.55;
+      margin-bottom: 1.5rem;
+      flex-grow: 1;
+    }
+
+    .lesson-card-features {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 1.5rem 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .lesson-card-features li {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .lesson-card-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-main);
+      padding: 0.75rem 1.25rem;
+      border-radius: var(--radius-md);
+      font-size: 0.92rem;
+      font-weight: 700;
+      transition: var(--transition);
+      margin-top: auto;
+    }
+
+    .lesson-card:hover .lesson-card-btn {
+      background: var(--accent-math);
+      color: #0b0f19;
+      border-color: var(--accent-math);
+    }
+
+    .lesson-card.clil:hover .lesson-card-btn {
+      background: var(--accent-purple);
+      color: #fff;
+      border-color: var(--accent-purple);
+    }
+
+    /* Box Avanzamento Titolo UDA */
+    .uda-trophy-status-box {
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      margin-bottom: 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1.25rem;
+    }
+
+    .uda-trophy-left {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .uda-trophy-icon {
+      font-size: 2.2rem;
+      width: 54px;
+      height: 54px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  </style>
+</head>
+<body data-theme="dark">
+
+  <div class="container">
+    <!-- Navbar Superiore con Gamification e Controlli -->
+    <nav class="navbar">
+      <a href="../../index.html" class="brand">
+        📐 comode<span>.</span>
+      </a>
+      <div class="nav-actions">
+        <div class="gamification-widget" title="Il tuo livello attuale e punti XP">
+          <span class="level-badge user-level-val">Liv. 1 🌱</span>
+          <span class="xp-counter user-xp-val">0 XP</span>
+        </div>
+        <button id="audioToggleBtn" class="icon-btn" aria-label="Attiva o disattiva audio">
+          🔊 <span class="nav-text">Suoni</span>
+        </button>
+        <button id="themeToggleBtn" class="theme-toggle-btn" aria-label="Cambia tema chiaro/scuro">
+          <span id="themeIcon">☀️</span>
+          <span id="themeLabel">Chiaro</span>
+        </button>
+      </div>
+    </nav>
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumbs">
+      <a href="../../index.html">le comode lezioni d'Ivano</a>
+      <span class="sep">/</span>
+      <a href="../index.html">Primo Biennio</a>
+      <span class="sep">/</span>
+      <span class="current">UDA 1.1: Insiemi, Logica e Algoritmi</span>
+    </div>
+
+    <!-- Hero UDA 1.1 -->
+    <header class="uda-hero">
+      <div class="uda-badge-pill">
+        📐 Matematica • 1° Anno Liceo delle Scienze Umane
+      </div>
+      <h1 class="uda-title">
+        UDA 1.1: <span>Insiemi, Logica e Algoritmi</span>
+      </h1>
+      <p class="uda-desc">
+        Allena le tue capacità di problem solving: scopri come calcolare comodamente attraverso i gettoni numerici, visualizzare le frazioni come taglie e sperimentare il modulo CLIL in lingua inglese.
+      </p>
+    </header>
+
+    <!-- ======================================================== -->
+    <!-- AVVISO SPECIALE: LEZIONI TEMPORANEE                      -->
+    <!-- ======================================================== -->
+    <div class="temp-notice-banner">
+      <div class="temp-notice-icon">⚠️</div>
+      <div>
+        <div class="temp-notice-title">Nota Didattica sulle Lezioni</div>
+        <div class="temp-notice-text">
+          Le due lezioni sottostanti <strong>sono temporanee</strong> e costituiscono l'anteprima interattiva e sperimentale del progetto didattico <em>comode</em>. <strong>Presto arriveranno le versioni definitive e complete, insieme a tutte le altre UDA del piano di studi!</strong>
+        </div>
+      </div>
+    </div>
+
+    <!-- ======================================================== -->
+    <!-- LE DUE LEZIONI PREPARATE                                 -->
+    <!-- ======================================================== -->
+    <div class="lessons-grid">
+      <!-- Lezione 1.1 -->
+      <a href="lezione-01-calcolo-interi-razionali.html" class="lesson-card">
+        <div class="lesson-card-top">
+          <span class="lesson-badge math">Lezione Curricolare 1.1</span>
+          <span class="lesson-xp">+60 XP</span>
+        </div>
+        <h3 class="lesson-card-title">Calcolo con Numeri Interi e Razionali</h3>
+        <p class="lesson-card-desc">
+          Rappresentazioni comode in ℕ, ℤ, ℚ, gettoni numerici per il calcolo mentale, frazioni come taglie, semplificazione in croce e compiti di realtà guidati.
+        </p>
+        <ul class="lesson-card-features">
+          <li>✓ Gettoni numerici interattivi (Coppie a 100)</li>
+          <li>✓ Linea dei numeri interattiva per gli interi relativi</li>
+          <li>✓ Laboratorio di frazioni con taglia comune (m.c.m.)</li>
+          <li>✓ Sfida di verifica con autovalutazione immediata</li>
+        </ul>
+        <div class="lesson-card-btn">
+          Inizia il Laboratorio 1.1 →
+        </div>
+      </a>
+
+      <!-- Lezione CLIL -->
+      <a href="lezione-clil-numbers-mind-strategies.html" class="lesson-card clil">
+        <div class="lesson-card-top">
+          <span class="lesson-badge clil">Modulo CLIL • Inglese</span>
+          <span class="lesson-xp">+70 XP</span>
+        </div>
+        <h3 class="lesson-card-title">CLIL: Numbers &amp; Mental Strategies</h3>
+        <p class="lesson-card-desc">
+          Immergiti nell'inglese scientifico internazionale: ascolta la pronuncia madrelingua guidata con la Web Speech API, impara i termini chiave e risolvi task autentici in inglese.
+        </p>
+        <ul class="lesson-card-features">
+          <li>✓ Pronuncia madrelingua nativa con sintesi vocale</li>
+          <li>✓ Flashcard e glossario interattivo bilingue</li>
+          <li>✓ Task autentico: The Baker's Recipe Problem</li>
+          <li>✓ Quiz finale di verifica linguistico-matematica</li>
+        </ul>
+        <div class="lesson-card-btn">
+          Esplora la Lezione CLIL →
+        </div>
+      </a>
+    </div>
+
+    <!-- Status Box Titolo UDA 1.1 -->
+    <div class="uda-trophy-status-box" id="udaTrophyStatusBox">
+      <div class="uda-trophy-left">
+        <div class="uda-trophy-icon">📐</div>
+        <div>
+          <div style="font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.04em; color: var(--text-muted); font-weight: 700;">
+            Titolo in palio per questa UDA
+          </div>
+          <div style="font-size: 1.15rem; font-weight: 800; color: var(--text-main);" id="udaTitleName">
+            Architetto della Logica
+          </div>
+          <div style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.2rem;">
+            🎯 <strong>Cosa fare per acquisirlo:</strong> Completa entrambe le lezioni soprastanti per sbloccare questo titolo nella tua Bacheca.
+          </div>
+        </div>
+      </div>
+      <div id="udaStatusActionWrap">
+        <span style="font-size: 0.85rem; font-weight: 700; color: var(--text-muted); background: var(--bg-surface); padding: 0.45rem 1rem; border-radius: var(--radius-pill); border: 1px solid var(--border-subtle);">
+          Completa le 2 lezioni per il titolo
+        </span>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer style="margin-top: 4rem; padding-top: 2rem; border-top: 1px solid var(--border-subtle); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; color: var(--text-muted); font-size: 0.85rem;">
+      <div style="display: flex; gap: 1.25rem;">
+        <a href="../index.html" style="color: var(--accent-math); text-decoration: none; font-weight: 700;">
+          ← Torna al Primo Biennio
+        </a>
+        <a href="../../index.html" style="color: var(--text-muted); text-decoration: none;">
+          Home Page
+        </a>
+      </div>
+      <div>
+        <strong>comode</strong> • Liceo delle Scienze Umane
+      </div>
+    </footer>
+  </div>
+
+  <!-- Script Condivisi comode -->
+  <script src="../../shared/js/audio.js"></script>
+  <script src="../../shared/js/theme.js"></script>
+  <script src="../../shared/js/gamification.js"></script>
+  <script src="../../shared/js/comode.js"></script>
+  <script>
+    // Aggiorna lo stato del titolo dell'UDA 1.1 nella pagina
+    document.addEventListener('DOMContentLoaded', () => {
+      if (window.ComodeGamification) {
+        const isDone = window.ComodeGamification.isUDAUnlocked('uda-1.1');
+        const boxWrap = document.getElementById('udaStatusActionWrap');
+        if (boxWrap && isDone) {
+          boxWrap.innerHTML = `
+            <span style="display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.85rem; font-weight: 700; color: var(--accent-success); background: rgba(16, 185, 129, 0.15); padding: 0.45rem 1rem; border-radius: var(--radius-pill); border: 1px solid rgba(16, 185, 129, 0.35);">
+              ✓ Titolo Conquistato!
+            </span>
+          `;
+        }
+      }
+    });
+  </script>
+</body>
+</html>

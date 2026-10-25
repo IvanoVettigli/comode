@@ -1,0 +1,2510 @@
+<!DOCTYPE html>
+<html lang="it" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lezione 1.1: Calcolo con Interi e Razionali • comode</title>
+  <meta name="description" content="Lezione interattiva per il 1° Anno del Liceo delle Scienze Umane: Insiemi numerici, proprietà delle operazioni, addizione/sottrazione di frazioni e calcolo mentale guidato.">
+  
+  <!-- Font Google -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- KaTeX per rendering matematico -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+
+  <!-- CSS Condiviso comode -->
+  <link rel="stylesheet" href="../../shared/css/comode.css">
+  <!-- Stili specifici visualizzatori Lezione 1.1 -->
+  <style>
+/* ==========================================================================
+   comode — lezione-01.css
+   Stili specifici per i laboratori e i visualizzatori della Lezione 1.1
+   (Calcolo con Numeri Interi e Razionali)
+   ========================================================================== */
+
+/* Step interni ai laboratori */
+.step-card {
+  background: var(--bg-surface-elevated);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 1.25rem;
+  margin-top: 1rem;
+}
+
+.step-header {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 0.6rem;
+}
+
+.step-tag {
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--accent-math);
+}
+
+.step-content {
+  font-size: 0.95rem;
+}
+
+/* Laboratorio 1: Gettoni numerici interattivi (Coppie a 100) */
+.interactive-tokens-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin: 1rem 0;
+  align-items: center;
+}
+
+.num-token {
+  background: var(--bg-surface);
+  border: 2px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 0.6rem 1.1rem;
+  font-family: var(--font-mono);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--text-main);
+  cursor: pointer;
+  user-select: none;
+  transition: var(--transition);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.num-token:hover {
+  border-color: var(--accent-math);
+  transform: translateY(-2px);
+}
+
+.num-token.selected {
+  border-color: var(--accent-math);
+  background: var(--accent-math-glow);
+  color: var(--accent-math);
+  box-shadow: 0 0 12px var(--accent-math-glow);
+}
+
+.num-token.paired {
+  border-color: var(--accent-success);
+  background: rgba(16, 185, 129, 0.15);
+  color: var(--accent-success);
+  pointer-events: none;
+}
+
+/* Laboratorio 2: Modello ad Area Rettangolare */
+.area-model-container {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 1.25rem;
+  margin: 1.25rem 0;
+  text-align: center;
+}
+
+.area-svg {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Laboratorio 3: Retta Orientata Interattiva */
+.number-line-container {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 1.25rem;
+  margin: 1.25rem 0;
+  overflow-x: auto;
+}
+
+.nl-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.nl-btn {
+  background: var(--bg-surface-elevated);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-muted);
+  padding: 0.45rem 0.85rem;
+  border-radius: var(--radius-pill);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.nl-btn:hover, .nl-btn.active {
+  border-color: var(--accent-math);
+  color: var(--text-main);
+  background: var(--accent-math-glow);
+}
+
+/* Laboratorio 4: Semplificazione in Croce delle Frazioni */
+.fraction-math-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 1.5rem;
+  background: var(--bg-surface);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-subtle);
+  margin: 1.25rem 0;
+  font-family: var(--font-mono);
+  font-size: 1.4rem;
+  flex-wrap: wrap;
+}
+
+.fraction-col {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.frac-item {
+  padding: 0.3rem 0.75rem;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: var(--transition);
+  position: relative;
+  user-select: none;
+}
+
+.frac-item:hover {
+  background: var(--accent-math-glow);
+  color: var(--accent-math);
+}
+
+.frac-item.selected {
+  outline: 2px solid var(--accent-math);
+  background: var(--accent-math-glow);
+  color: var(--accent-math);
+}
+
+.frac-item.cancelled {
+  color: var(--text-dim);
+  text-decoration: line-through;
+  pointer-events: none;
+}
+
+.frac-replacement {
+  position: absolute;
+  top: -14px;
+  right: -8px;
+  font-size: 0.85rem;
+  color: var(--accent-success);
+  font-weight: 700;
+  background: var(--bg-surface-elevated);
+  padding: 0.1rem 0.35rem;
+  border-radius: 4px;
+  border: 1px solid var(--accent-success);
+}
+
+.frac-line {
+  width: 100%;
+  height: 2px;
+  background: var(--text-main);
+  margin: 4px 0;
+}
+
+.math-op {
+  font-size: 1.5rem;
+  color: var(--text-dim);
+}
+
+/* Laboratorio 6: Palestra Mentale (Gym Flash Cards) */
+.gym-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.25rem;
+  margin-top: 1rem;
+}
+
+.gym-card {
+  background: var(--bg-surface-elevated);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+}
+
+.gym-card.solved {
+  border-color: rgba(16, 185, 129, 0.4);
+  background: rgba(16, 185, 129, 0.05);
+}
+
+.gym-badge {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--accent-purple);
+  text-transform: uppercase;
+  margin-bottom: 0.4rem;
+}
+
+.gym-question {
+  font-size: 1.05rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+}
+
+/* Modello Barre Frazionarie SVG */
+.fraction-bars-container {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 1.25rem;
+  margin: 1.25rem 0;
+  text-align: center;
+}
+
+/* Input inline e verificatori */
+.verify-box {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-subtle);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.inline-input {
+  background: var(--bg-surface);
+  border: 1.5px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  color: var(--text-main);
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  padding: 0.45rem 0.85rem;
+  width: 140px;
+  outline: none;
+  transition: var(--transition);
+}
+
+.inline-input:focus {
+  border-color: var(--accent-math);
+  box-shadow: 0 0 0 3px var(--accent-math-glow);
+}
+
+.btn-action {
+  background: var(--accent-math);
+  color: #0b0f19;
+  border: none;
+  font-weight: 700;
+  font-size: 0.88rem;
+  padding: 0.55rem 1.2rem;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: var(--transition);
+}
+
+.btn-action:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px var(--accent-math-glow);
+}
+
+.feedback-msg {
+  font-size: 0.88rem;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.35rem 0.75rem;
+  border-radius: var(--radius-pill);
+}
+
+.feedback-msg.success {
+  background: rgba(16, 185, 129, 0.15);
+  color: var(--accent-success);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.feedback-msg.error {
+  background: rgba(244, 63, 94, 0.15);
+  color: var(--accent-danger);
+  border: 1px solid rgba(244, 63, 94, 0.3);
+}
+
+/* Laboratorio 7: Compito di Realtà & Modello a Barre di Ripartizione */
+.real-task-banner {
+  background: linear-gradient(135deg, rgba(56, 189, 248, 0.12), rgba(139, 92, 246, 0.12));
+  border: 1.5px solid var(--border-accent);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  margin: 1.25rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.real-task-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.real-task-badge {
+  background: var(--accent-math-gradient);
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 800;
+  padding: 0.35rem 0.85rem;
+  border-radius: var(--radius-pill);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.sim-control-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  background: var(--bg-surface-elevated);
+  padding: 0.85rem 1.25rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-subtle);
+  margin-bottom: 1rem;
+}
+
+.sim-group {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.sim-label {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+
+.sim-btn-pill {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-main);
+  padding: 0.4rem 0.85rem;
+  border-radius: var(--radius-pill);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.sim-btn-pill:hover {
+  border-color: var(--accent-math);
+  color: var(--accent-math);
+}
+
+.sim-btn-pill.active {
+  background: var(--accent-math-glow);
+  border-color: var(--accent-math);
+  color: var(--accent-math);
+  font-weight: 700;
+}
+
+.bar-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+  justify-content: center;
+  margin-top: 1rem;
+  font-size: 0.88rem;
+}
+
+.legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+}
+
+.legend-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 4px;
+}
+
+/* Tabella Rubrica Compito di Realtà */
+.rubric-container {
+  overflow-x: auto;
+  margin: 1.25rem 0;
+}
+
+.rubric-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.88rem;
+  text-align: left;
+}
+
+.rubric-table th, .rubric-table td {
+  padding: 0.85rem 1rem;
+  border: 1px solid var(--border-subtle);
+}
+
+.rubric-table th {
+  background: var(--bg-surface-elevated);
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.rubric-table td {
+  background: var(--bg-surface);
+  color: var(--text-muted);
+  vertical-align: top;
+}
+
+.rubric-table td strong {
+  color: var(--text-main);
+}
+
+  </style>
+</head>
+<body data-theme="dark" data-lesson-id="pb-1.1-l01" data-xp="60" data-unit="uda-1.1">
+
+  <div class="container">
+      <!-- Navigation Bar con Gamification e Controlli -->
+    <nav class="navbar">
+      <a href="../../index.html" class="brand">
+        comode<span>.</span>
+      </a>
+      <div class="nav-actions">
+        <div class="gamification-widget" title="Il tuo livello e punti XP">
+          <span class="level-badge user-level-val">Liv. 1 🌱</span>
+          <span class="xp-counter user-xp-val">0 XP</span>
+        </div>
+        <button id="audioToggleBtn" class="icon-btn" aria-label="Attiva o disattiva audio">
+          🔊 <span class="nav-text">Suoni</span>
+        </button>
+        <button id="themeToggleBtn" class="theme-toggle-btn" aria-label="Cambia tema">
+          <span id="themeIcon">☀️ </span>
+          <span id="themeLabel">Chiaro</span>
+        </button>
+      </div>
+    </nav>
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumbs">
+      <a href="../../index.html">Home</a>
+      <span class="sep">/</span>
+      <a href="../index.html">Primo Biennio</a>
+      <span class="sep">/</span>
+      <a href="index.html">UDA 1.1: Insiemi, Logica e Algoritmi</a>
+      <span class="sep">/</span>
+      <span class="current">Lezione 1.1</span>
+    </div>
+
+    <!-- Hero Card -->
+    <header class="hero-card">
+      <div class="hero-badges">
+        <span class="badge badge-primary">Matematica • 1° Anno</span>
+        <span class="badge badge-secondary">UDA 1.1 • Insiemi, Logica e Algoritmi</span>
+        <span class="badge badge-meta">Metodologia: Problem Solving</span>
+      </div>
+      <h1 class="hero-title">Calcolo con Numeri Interi e Razionali</h1>
+      <p class="hero-desc">
+        La matematica delle <em>"rappresentazioni comode"</em>: impara a manipolare i numeri $\mathbb{N}, \mathbb{Z}, \mathbb{Q}$, sommare e sottrarre frazioni trovando la taglia comune, risolvere problemi di ripartizione e compiti di realtà con il modello a barre ed applicare strategie di calcolo mentale con zero sforzo.
+      </p>
+
+      <!-- Progress Tracker -->
+      <div class="progress-bar-card">
+        <div class="progress-label">
+          <span>🎯 Progresso Laboratori Guidati:</span>
+          <span class="progress-score" id="progressScore">0 / 7 completati</span>
+        </div>
+        <div class="progress-track">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+      </div>
+    </header>
+
+    <!-- PREREQUISITI & OBIETTIVI ("COSA SAPRAI FARE") -->
+    <div class="prereq-objectives-grid">
+      <!-- Card Prerequisiti -->
+      <div class="prereq-card">
+        <div class="card-top-label prereq">
+          <span>🔑</span> Prerequisiti Consigliati
+        </div>
+        <h2 class="po-title">Cosa ti serve prima di iniziare</h2>
+        <ul class="po-list">
+          <li>
+            <span class="po-icon">✓</span>
+            <div><strong>Operazioni di base in ℕ:</strong> tabelline, moltiplicazioni e divisioni elementari.</div>
+          </li>
+          <li>
+            <span class="po-icon">✓</span>
+            <div><strong>Frazioni intuitive:</strong> idea di frazione come divisione di un intero in parti uguali.</div>
+          </li>
+          <li>
+            <span class="po-icon">✓</span>
+            <div><strong>Numeri con segno nella realtà:</strong> concetto intuitivo di "debito vs credito" o temperatura.</div>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Card Obiettivi -->
+      <div class="objectives-card">
+        <div class="card-top-label objectives">
+          <span>🎯</span> Competenze in Uscita
+        </div>
+        <h2 class="po-title">Cosa saprai fare alla fine della lezione</h2>
+        <ul class="po-list">
+          <li>
+            <span class="po-icon">🚀</span>
+            <div><strong>Scegliere la forma comoda:</strong> passare con disinvoltura da decimali a frazioni ($0,5 \leftrightarrow \frac{1}{2}$) per annullare i calcoli complessi.</div>
+          </li>
+          <li>
+            <span class="po-icon">🚀</span>
+            <div><strong>Calcolo mentale rapido:</strong> moltiplicare istantaneamente numeri come $15 \times 98$ usando la distributiva $100 - 2$.</div>
+          </li>
+          <li>
+            <span class="po-icon">🚀</span>
+            <div><strong>Taglie comuni e semplificazioni:</strong> sommare frazioni ragionando sulle porzioni e semplificare in croce prima di moltiplicare.</div>
+          </li>
+          <li>
+            <span class="po-icon">🚀</span>
+            <div><strong>Risolvere problemi di ripartizione reale:</strong> utilizzare il modello a barre (<em>bar model</em>) e le frazioni complementari per suddividere budget e risorse sociali senza formule mnemoniche.</div>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+
+    <!-- SEZIONE 1: TEORIA FLASH SCHEMATICA -->
+    <section class="theory-wrapper">
+      <div class="section-header">
+        <h2 class="section-title">
+          <span class="icon">⚡</span> Scheda Teoria Flash: Le Coordinate di Base
+        </h2>
+        <button id="toggleTheoryBtn" class="collapse-btn">
+          <span>Nascondi Teoria</span> ▴
+        </button>
+      </div>
+
+      <div id="theoryContent" class="theory-grid">
+        
+        <!-- Box 1: Gli Insiemi Numerici -->
+        <div class="theory-card">
+          <div class="theory-card-header">
+            <span class="pill-num">1</span>
+            <span>Gli Insiemi Numerici ($\mathbb{N} \subset \mathbb{Z} \subset \mathbb{Q}$)</span>
+          </div>
+          <ul class="theory-list">
+            <li><strong>$\mathbb{N}$ (Naturali)</strong>: $\{0, 1, 2, ...\}$ per contare. Chiuso solo per $+$ e $\times$.</li>
+            <li><strong>$\mathbb{Z}$ (Interi)</strong>: include gli <em>opposti</em> $(-n)$. Risolve $a - b$ quando $b > a$. Chiuso per $+$ e $-$.</li>
+            <li><strong>$\mathbb{Q}$ (Razionali)</strong>: frazioni $\frac{m}{n}$ con $n \neq 0$. Introduce l'<em>inverso</em> $\frac{1}{a}$. Chiuso anche per $\div$ ($\neq 0$).</li>
+          </ul>
+        </div>
+
+        <!-- Box 2: Proprietà Armi-Segrete -->
+        <div class="theory-card">
+          <div class="theory-card-header">
+            <span class="pill-num">2</span>
+            <span>Le 4 Proprietà delle Operazioni</span>
+          </div>
+          <ul class="theory-list">
+            <li><strong>Commutativa</strong>: $a + b = b + a$ e $a \cdot b = b \cdot a$ (scambia l'ordine a piacere).</li>
+            <li><strong>Associativa</strong>: $(a + b) + c = a + (b + c)$ (raggruppa le coppie più comode).</li>
+            <li><strong>Distributiva</strong>: $a \cdot (b \pm c) = a \cdot b \pm a \cdot c$ (spezza moltiplicazioni complesse).</li>
+            <li><strong>Elementi Neutri & Inversi</strong>: $a + 0 = a$, $a \cdot 1 = a$; $a + (-a) = 0$; $a \cdot \frac{1}{a} = 1$.</li>
+          </ul>
+        </div>
+
+        <!-- Box 3: La Rappresentazione "Comoda" -->
+        <div class="theory-card">
+          <div class="theory-card-header">
+            <span class="pill-num">3</span>
+            <span>L'Abito Comodo del Numero</span>
+          </div>
+          <ul class="theory-list">
+            <li>Ogni numero razionale ha infinite vesti: $0,25 = \frac{1}{4} = 25\% = 25 \times 10^{-2}$.</li>
+            <li><strong>Regola aurea</strong>: trasforma il decimale in frazione se moltiplichi o dividi (es. $\times 0,125 \iff \div 8$).</li>
+            <li><strong>Compensazione</strong>: aggiungi e togli la stessa quantità ($98 + 45 = 100 + 43$).</li>
+          </ul>
+        </div>
+
+        <!-- Box 4: Segni & Vettori sulla Retta -->
+        <div class="theory-card">
+          <div class="theory-card-header">
+            <span class="pill-num">4</span>
+            <span>La Dinamica del Segno in $\mathbb{Z}$</span>
+          </div>
+          <ul class="theory-list">
+            <li><strong>Il segno meno</strong> indica un <em>cambio di verso</em> sulla retta numerica (l'opposto).</li>
+            <li>Sottrarre un debito arricchisce: $a - (-b) = a + b$.</li>
+            <li><strong>Regola dei segni</strong>: $(-) \cdot (-) = (+)$ perché l'opposto dell'inversione ripristina il verso concorde.</li>
+          </ul>
+        </div>
+
+        <!-- Box 5: Somma e Sottrazione di Frazioni (NEW) -->
+        <div class="theory-card">
+          <div class="theory-card-header">
+            <span class="pill-num">5</span>
+            <span>Somma &amp; Sottrazione in $\mathbb{Q}$ (La Taglia Comune)</span>
+          </div>
+          <ul class="theory-list">
+            <li><strong>Mai sommare i denominatori!</strong> $\frac{1}{2} + \frac{1}{3} \neq \frac{2}{5}$. Servono fette della stessa taglia comune (il m.c.m.).</li>
+            <li><strong>m.c.m. senza fatica</strong>: se i denominatori sono primi tra loro, moltiplica ($3 \times 4 = 12$); se uno è multiplo dell'altro, prendi il maggiore ($4$ e $12 \to 12$).</li>
+            <li><strong>Intero $\pm$ Frazione</strong>: $1 - \frac{a}{b} = \frac{b-a}{b}$ (es. $1 - \frac{3}{7} = \frac{4}{7}$); per $n \pm \frac{a}{b}$ trasforma $n = \frac{n \cdot b}{b}$.</li>
+          </ul>
+        </div>
+
+        <!-- Box 6: Problemi di Ripartizione & Frazioni Complementari -->
+        <div class="theory-card">
+          <div class="theory-card-header">
+            <span class="pill-num">6</span>
+            <span>Problemi di Ripartizione &amp; Frazioni Complementari</span>
+          </div>
+          <ul class="theory-list">
+            <li><strong>Conservazione del Tutto</strong>: quando una risorsa si ripartisce, la somma delle quote frazionarie deve dare l'intero: $f_A + f_B + f_C = 1$.</li>
+            <li><strong>Frazione Complementare (Residuo)</strong>: se conosci le quote già stanziate, la quota restante è $1 - (f_A + f_B)$.</li>
+            <li><strong>La "Taglia Comune" e l'Unità Frazionaria</strong>: trovando il m.c.m. dei denominatori si divide la risorsa in mattoncini uguali; 1 mattoncino vale $\frac{\text{Totale}}{\text{Denominatore comune}}$. Le quote in euro sono poi semplici moltiplicazioni!</li>
+          </ul>
+        </div>
+
+        <!-- Quote Metacognitiva -->
+        <div class="quote-box">
+          <span style="font-size: 1.6rem;">💡</span>
+          <div>
+            <strong>Indicazioni Ministeriali (Liceo Scienze Umane)</strong>: 
+            <em>«...operare con numeri interi e razionali scegliendo, a seconda dei casi, rappresentazioni comode per il calcolo o per l'intuizione...»</em> Non eseguire algoritmi a memoria: cerca la logica prima di calcolare!
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SEZIONE 2: LABORATORI INTERATTIVI GUIDATI (SCAFFOLDING) -->
+    <main>
+      
+      <div class="section-header">
+        <h2 class="section-title">
+          <span class="icon">🔬</span> Laboratori Guidati di Calcolo Mentale
+        </h2>
+      </div>
+
+      <!-- ==========================================
+           LABORATORIO 1: LA DANZA DEI COMPLEMENTI
+           ========================================== -->
+      <article class="lab-card" id="lab1">
+        <span class="lab-badge">Laboratorio 1 • Commutativa &amp; Associativa</span>
+        <h3 class="lab-title">La Danza dei Complementi (Coppie a 100)</h3>
+        <p class="lab-intro">
+          Come calcoleresti a mente questa somma senza incolonnare? <br>
+          <strong>Problema</strong>: Trova il totale di $37 + 64 + 63 + 36$.
+        </p>
+
+        <div class="step-box">
+          <div class="step-header">
+            <span class="step-tag">Passo 1: Accoppia i numeri complementari</span>
+          </div>
+          <div class="step-content">
+            <p>Clicca su due numeri alla volta la cui somma forma una "centinaia tonda" ($100$):</p>
+            
+            <div class="interactive-tokens-row" id="lab1Tokens">
+              <button class="num-token" data-val="37" onclick="handleLab1Select(this)">37</button>
+              <button class="num-token" data-val="64" onclick="handleLab1Select(this)">64</button>
+              <button class="num-token" data-val="63" onclick="handleLab1Select(this)">63</button>
+              <button class="num-token" data-val="36" onclick="handleLab1Select(this)">36</button>
+            </div>
+
+            <div id="lab1PairFeedback" style="font-size: 0.9rem; font-weight: 600; min-height: 24px;"></div>
+
+            <button class="hint-btn" onclick="toggleHint('hint1')">
+              <span>💡 Suggerimento Metacognitivo</span>
+            </button>
+            <div id="hint1" class="hint-text">
+              Guarda le unità: per fare 10, il $7$ cerca il $3$ ($37+63=100$), mentre il $4$ cerca il $6$ ($64+36=100$)! Questa è l'applicazione simultanea della <em>proprietà commutativa</em> (spostare) e <em>associativa</em> (unire).
+            </div>
+          </div>
+        </div>
+
+        <div class="step-box" id="lab1Step2" style="display: none;">
+          <div class="step-header">
+            <span class="step-tag">Passo 2: Sintesi Immediata</span>
+          </div>
+          <div class="step-content">
+            <p>Grazie alla riscrittura comoda: $(37 + 63) + (64 + 36) = 100 + 100$.</p>
+            <div class="verify-box">
+              <label for="lab1Input" style="font-weight: 600;">Quanto fa il totale finale?</label>
+              <input type="number" id="lab1Input" class="inline-input" placeholder="Risultato">
+              <button class="btn-action" onclick="verifyLab1()">Verifica</button>
+              <span id="lab1FinalMsg" class="feedback-msg" style="display: none;"></span>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- ==========================================
+           LABORATORIO 2: LA DISTRIBUTIVA GEOMETRICA
+           ========================================== -->
+      <article class="lab-card" id="lab2">
+        <span class="lab-badge">Laboratorio 2 • Proprietà Distributiva</span>
+        <h3 class="lab-title">Il Modello ad Area: Spezza e Conquista</h3>
+        <p class="lab-intro">
+          Vogliamo calcolare a mente: <strong>$98 \times 15$</strong>. <br>
+          Invece di incolonnare con il riporto, vediamo $98$ come una differenza comoda: $(100 - 2)$.
+        </p>
+
+        <div class="area-model-container">
+          <svg class="area-svg" viewBox="0 0 540 160" width="540" height="160">
+            <rect x="20" y="30" width="400" height="90" fill="rgba(56, 189, 248, 0.15)" stroke="var(--accent-math)" stroke-width="2" rx="4"></rect>
+            <text x="220" y="80" fill="var(--text-main)" font-size="14" font-weight="700" text-anchor="middle">100 × 15 = 1500</text>
+            <text x="220" y="22" fill="var(--accent-math)" font-size="13" font-weight="700" text-anchor="middle">Base comoda: 100</text>
+            <text x="10" y="80" fill="var(--text-muted)" font-size="13" font-weight="700" text-anchor="middle">15</text>
+
+            <rect x="425" y="30" width="80" height="90" fill="rgba(244, 63, 94, 0.15)" stroke="var(--accent-danger)" stroke-dasharray="4" stroke-width="2" rx="4"></rect>
+            <text x="465" y="80" fill="var(--accent-danger)" font-size="13" font-weight="700" text-anchor="middle">- 30</text>
+            <text x="465" y="22" fill="var(--accent-danger)" font-size="12" font-weight="700" text-anchor="middle">Togli 2</text>
+          </svg>
+          <div style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem;">
+            Area desiderata = Rettangolo blu ($100 \times 15$) MENO rettangolo rosso tratteggiato ($2 \times 15$)
+          </div>
+        </div>
+
+        <div class="step-box">
+          <div class="step-header">
+            <span class="step-tag">Risoluzione guidata a blocchi</span>
+          </div>
+          <div class="step-content">
+            <p>Completa la catena logica:</p>
+            <div style="font-family: var(--font-mono); margin: 0.85rem 0; font-size: 1rem; line-height: 2;">
+              $98 \times 15 = (100 - 2) \times 15$ <br>
+              $= (100 \times 15) - ($ 
+              <input type="number" id="lab2Part1" class="inline-input" style="width: 60px;" placeholder="2">
+              $\times 15)$ <br>
+              $= 1500 - $
+              <input type="number" id="lab2Part2" class="inline-input" style="width: 70px;" placeholder="30">
+              $= $
+              <input type="number" id="lab2Result" class="inline-input" style="width: 90px;" placeholder="Totale">
+            </div>
+
+            <div class="verify-box">
+              <button class="btn-action" onclick="verifyLab2()">Verifica Passaggi</button>
+              <button class="hint-btn" onclick="toggleHint('hint2')">
+                <span>💡 Come sottrarre 30 da 1500 al volo?</span>
+              </button>
+              <span id="lab2Msg" class="feedback-msg" style="display: none;"></span>
+            </div>
+            
+            <div id="hint2" class="hint-text">
+              $1500 - 30$: togli prima decine dal centinaio: $100 - 30 = 70$. Quindi $1400 + 70 = 1470$!
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- ==========================================
+           LABORATORIO 3: LA RETTA DEI SEGNI IN Z
+           ========================================== -->
+      <article class="lab-card" id="lab3">
+        <span class="lab-badge">Laboratorio 3 • Struttura di ℤ &amp; Opposti</span>
+        <h3 class="lab-title">La Retta Numerica Dinamica: Sottrarre un Debito</h3>
+        <p class="lab-intro">
+          Perché <strong>$-3 - (-5) = +2$</strong>? Visualizzalo come spostamento di un esploratore orientato sulla retta numerica.
+        </p>
+
+        <div class="number-line-container">
+          <div class="nl-controls">
+            <button class="nl-btn active" onclick="setNlCase(-3, -5, 'minus')">Caso 1: -3 - (-5)</button>
+            <button class="nl-btn" onclick="setNlCase(2, 6, 'minus')">Caso 2: 2 - 6</button>
+            <button class="nl-btn" onclick="setNlCase(-4, 7, 'plus')">Caso 3: -4 + 7</button>
+          </div>
+
+          <svg id="nlSvg" viewBox="0 0 700 120" width="700" height="120" style="display: block; margin: 0 auto;"></svg>
+
+          <div id="nlExplanation" style="margin-top: 0.85rem; font-size: 0.95rem; font-weight: 500;"></div>
+        </div>
+
+        <div class="step-box">
+          <div class="step-header">
+            <span class="step-tag">La Sfida di Riflessione Deduttiva</span>
+          </div>
+          <div class="step-content">
+            <p>
+              Dimostriamo perché $(-2) \times (-3) = +6$ senza formule magiche. <br>
+              Sappiamo che per la proprietà dell'elemento neutro: <br>
+              $(-2) \times [3 + (-3)] = (-2) \times 0 = 0$. <br>
+              Applicando la proprietà distributiva: <br>
+              $(-2 \times 3) + [(-2) \times (-3)] = 0 \implies -6 + \mathbf{X} = 0$.
+            </p>
+
+            <div class="verify-box">
+              <label for="lab3Input" style="font-weight: 600;">Quale valore deve assumere $\mathbf{X}$ per annullare $-6$?</label>
+              <input type="number" id="lab3Input" class="inline-input" placeholder="+6">
+              <button class="btn-action" onclick="verifyLab3()">Conferma Deduzione</button>
+              <span id="lab3Msg" class="feedback-msg" style="display: none;"></span>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- ==========================================
+           LABORATORIO 4: SEMPLIFICA PRIMA DI CALCOLARE
+           ========================================== -->
+      <article class="lab-card" id="lab4">
+        <span class="lab-badge">Laboratorio 4 • Razionali ℚ &amp; Semplificazione</span>
+        <h3 class="lab-title">L'Arte della Frazione Comoda: Semplifica in Croce</h3>
+        <p class="lab-intro">
+          <strong>Calcola</strong>: $\frac{21}{20} \times \frac{25}{14}$. <br>
+          <em>Trappola da evitare</em>: moltiplicare $21 \times 25 = 525$ e $20 \times 14 = 280$. Un calcolo pesante e inutile! <br>
+          <em>Strategia comoda</em>: Clicca su un numeratore e un denominatore per cancellare il loro divisore comune.
+        </p>
+
+        <div class="fraction-math-box" id="fracBox">
+          <div class="fraction-col">
+            <div class="frac-item" id="f_num1" data-val="21" onclick="selectFracItem('f_num1')">21</div>
+            <div class="frac-line"></div>
+            <div class="frac-item" id="f_den1" data-val="20" onclick="selectFracItem('f_den1')">20</div>
+          </div>
+
+          <div class="math-op">×</div>
+
+          <div class="fraction-col">
+            <div class="frac-item" id="f_num2" data-val="25" onclick="selectFracItem('f_num2')">25</div>
+            <div class="frac-line"></div>
+            <div class="frac-item" id="f_den2" data-val="14" onclick="selectFracItem('f_den2')">14</div>
+          </div>
+
+          <div class="math-op">=</div>
+
+          <div style="font-size: 1.1rem; color: var(--text-muted);" id="fracSummary">
+            (Seleziona due termini da semplificare)
+          </div>
+        </div>
+
+        <div class="step-box">
+          <div class="step-header">
+            <span class="step-tag">Calcolo Finale dei Fattori Ridotti</span>
+          </div>
+          <div class="step-content">
+            <p>Dopo aver diviso $21$ e $14$ per $7$, e $25$ e $20$ per $5$, inserisci la frazione ridotta ai minimi termini:</p>
+            
+            <div class="verify-box">
+              <label style="font-weight: 600;">Risultato:</label>
+              <input type="number" id="lab4Num" class="inline-input" style="width: 70px;" placeholder="Num">
+              <span style="font-size: 1.2rem; font-weight: bold;">/</span>
+              <input type="number" id="lab4Den" class="inline-input" style="width: 70px;" placeholder="Den">
+              <button class="btn-action" onclick="verifyLab4()">Verifica Frazione</button>
+              <span id="lab4Msg" class="feedback-msg" style="display: none;"></span>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- ==========================================
+           LABORATORIO 5: SOMMA E SOTTRAZIONE FRAZIONI (NEW)
+           ========================================== -->
+      <article class="lab-card" id="lab5">
+        <span class="lab-badge">Laboratorio 5 • Addizione &amp; Sottrazione in ℚ</span>
+        <h3 class="lab-title">La Taglia Comune: Sommare e Sottrarre Frazioni con Intuizione</h3>
+        <p class="lab-intro">
+          Perché non si possono sommare direttamente i numeratori? <br>
+          Se sommi $\frac{1}{3} + \frac{1}{4}$, non ottieni $\frac{2}{7}$! Un terzo di barra e un quarto di barra hanno <em>taglie diverse</em>. Bisogna prima suddividerle in parti identiche (il <strong>minimo comune denominatore</strong>).
+        </p>
+
+        <!-- Visualizzatore Interattivo a Barre Dinamiche -->
+        <div class="area-model-container">
+          <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 0.5rem; margin-bottom: 0.75rem;">
+            <span style="font-weight: 700; font-size: 0.95rem;">Visualizzatore Frazionario Dinamico: $\frac{1}{3} + \frac{1}{4}$</span>
+            <button id="btnSplitBars" class="btn-action" style="padding: 0.35rem 0.85rem; font-size: 0.8rem;" onclick="toggleFractionBars()">
+              Suddividi nella taglia comune (12esimi) ➔
+            </button>
+          </div>
+
+          <svg id="fracBarSvg" viewBox="0 0 540 180" width="540" height="180" style="max-width: 100%; height: auto;"></svg>
+
+          <div id="barExplText" style="font-size: 0.88rem; color: var(--text-muted); margin-top: 0.5rem;">
+            Stato iniziale: 1 fetta da $\frac{1}{3}$ e 1 fetta da $\frac{1}{4}$ non hanno la stessa taglia. Clicca sul pulsante sopra per uniformare la taglia!
+          </div>
+        </div>
+
+        <!-- Sfida 1: Denominatore già multiplo -->
+        <div class="step-box">
+          <div class="step-header">
+            <span class="step-tag">Sfida 1: Denominatori "uno multiplo dell'altro"</span>
+          </div>
+          <div class="step-content">
+            <p>
+              Calcola: $\frac{3}{4} - \frac{5}{12}$. <br>
+              <em>Strategia furba</em>: $12$ è già multiplo di $4$ ($4 \times 3 = 12$). Non serve fare $4 \times 12 = 48$! <br>
+              Basta trasformare solo $\frac{3}{4}$ moltiplicando numeratore e denominatore per $3$:
+            </p>
+
+            <div style="font-family: var(--font-mono); margin: 0.85rem 0; font-size: 1rem; line-height: 2;">
+              $\frac{3}{4} = \frac{3 \times 3}{4 \times 3} = \frac{\mathbf{?}}{12}$ ➔
+              <input type="number" id="lab5A_numEquiv" class="inline-input" style="width: 60px;" placeholder="9"> $/ 12$ <br>
+              Quindi: $\frac{3}{4} - \frac{5}{12} = \frac{\mathbf{?} - 5}{12} = \frac{\mathbf{?}}{12}$ <br>
+              Riduci ai minimi termini la frazione finale:
+            </div>
+
+            <div class="verify-box">
+              <label style="font-weight: 600;">Frazione ridotta finale:</label>
+              <input type="number" id="lab5A_finalNum" class="inline-input" style="width: 70px;" placeholder="Num">
+              <span style="font-size: 1.2rem; font-weight: bold;">/</span>
+              <input type="number" id="lab5A_finalDen" class="inline-input" style="width: 70px;" placeholder="Den">
+              <button class="btn-action" onclick="verifyLab5PartA()">Verifica Sfida 1</button>
+              <button class="hint-btn" onclick="toggleHint('hint5A')">💡 Come semplificare?</button>
+              <span id="lab5AMsg" class="feedback-msg" style="display: none;"></span>
+            </div>
+
+            <div id="hint5A" class="hint-text">
+              $9 - 5 = 4$. Ottieni $\frac{4}{12}$. Dividi sia sopra che sotto per $4$: $\frac{4 \div 4}{12 \div 4} = \frac{1}{3}$!
+            </div>
+          </div>
+        </div>
+
+        <!-- Sfida 2: Intero MENO frazione -->
+        <div class="step-box">
+          <div class="step-header">
+            <span class="step-tag">Sfida 2: Intero MENO Frazione (La Regola della Torta)</span>
+          </div>
+          <div class="step-content">
+            <p>
+              Calcola mentalmente: <strong>$2 - \frac{3}{5}$</strong>. <br>
+              Hai $2$ torte intere e mangi $\frac{3}{5}$ di torta. Quanta torta ti rimane?
+            </p>
+
+            <div class="verify-box">
+              <label style="font-weight: 600;">Risultato in frazione:</label>
+              <input type="number" id="lab5B_Num" class="inline-input" style="width: 70px;" placeholder="Num">
+              <span style="font-size: 1.2rem; font-weight: bold;">/</span>
+              <input type="number" id="lab5B_Den" class="inline-input" style="width: 70px;" placeholder="Den">
+              <button class="btn-action" onclick="verifyLab5PartB()">Verifica Sfida 2</button>
+              <button class="hint-btn" onclick="toggleHint('hint5B')">💡 Due scorciatoie mentali</button>
+              <span id="lab5BMsg" class="feedback-msg" style="display: none;"></span>
+            </div>
+
+            <div id="hint5B" class="hint-text">
+              <strong>Metodo 1 (Impropria)</strong>: Trasforma $2$ in quinti: $2 = \frac{10}{5}$. Allora $\frac{10 - 3}{5} = \frac{7}{5}$! <br>
+              <strong>Metodo 2 (Misto)</strong>: Lascia $1$ torta intatta e togli $\frac{3}{5}$ dalla seconda: $1 - \frac{3}{5} = \frac{2}{5}$. Risultato: $1 + \frac{2}{5} = \frac{7}{5}$!
+            </div>
+          </div>
+        </div>
+
+      </article>
+
+      <!-- ==========================================
+           LABORATORIO 6: PALESTRA DI CALCOLO MENTALE
+           ========================================== -->
+      <article class="lab-card" id="lab6">
+        <span class="lab-badge">Laboratorio 6 • Palestra &amp; Scienze Umane</span>
+        <h3 class="lab-title">Flash Mental Gym: Problemi Reali &amp; Euristica</h3>
+        <p class="lab-intro">
+          Quattro situazioni tipiche in contesti sociali, economici e psicologici risolvibili in meno di 5 secondi scegliendo la veste comoda del numero!
+        </p>
+
+        <div class="gym-grid">
+          
+          <!-- Gym 1 -->
+          <div class="gym-card" id="gym1">
+            <div>
+              <div class="gym-badge">1. Sconto Percentuale</div>
+              <div class="gym-question">Un libro per il test di psicologia costa 48€ ed ha uno sconto del <strong>25%</strong>. Quanto risparmi?</div>
+            </div>
+            <div>
+              <div class="verify-box" style="border:none; padding:0; margin-top:0.75rem;">
+                <input type="number" id="gym1In" class="inline-input" style="width:85px;" placeholder="€">
+                <button class="btn-action" onclick="verifyGym(1, 12, 'hintGym1', '25% è comodamente 1/4! Quindi 48 : 4 = 12€')">OK</button>
+              </div>
+              <button class="hint-btn" onclick="toggleHint('hintGym1')">💡 Trucco</button>
+              <div id="hintGym1" class="hint-text">Trasforma $25\% = \frac{25}{100} = \frac{1}{4}$. Fare il $25\%$ equivale a dividere a metà due volte ($48 \to 24 \to 12$).</div>
+            </div>
+          </div>
+
+          <!-- Gym 2 -->
+          <div class="gym-card" id="gym2">
+            <div>
+              <div class="gym-badge">2. Raddoppia e Dimezza</div>
+              <div class="gym-question">Un sondaggio ha <strong>15 domande</strong> somministrate a <strong>36 persone</strong>. Quante risposte totali?</div>
+            </div>
+            <div>
+              <div class="verify-box" style="border:none; padding:0; margin-top:0.75rem;">
+                <input type="number" id="gym2In" class="inline-input" style="width:85px;" placeholder="Totale">
+                <button class="btn-action" onclick="verifyGym(2, 540, 'hintGym2', 'Raddoppia 15 (diventa 30) e dimezza 36 (diventa 18): 30 x 18 = 540!')">OK</button>
+              </div>
+              <button class="hint-btn" onclick="toggleHint('hintGym2')">💡 Trucco</button>
+              <div id="hintGym2" class="hint-text">Raddoppia il primo e dimezza il secondo: $15 \times 36 = 30 \times 18$. Poi $3 \times 18 = 54$ e aggiungi lo zero $\to 540$!</div>
+            </div>
+          </div>
+
+          <!-- Gym 3 -->
+          <div class="gym-card" id="gym3">
+            <div>
+              <div class="gym-badge">3. Divisione con Virgola</div>
+              <div class="gym-question">Calcola a mente senza decimali: <strong>$210 \div 3,5$</strong>.</div>
+            </div>
+            <div>
+              <div class="verify-box" style="border:none; padding:0; margin-top:0.75rem;">
+                <input type="number" id="gym3In" class="inline-input" style="width:85px;" placeholder="Quoziente">
+                <button class="btn-action" onclick="verifyGym(3, 60, 'hintGym3', 'Raddoppia entrambi: 210 x 2 = 420; 3,5 x 2 = 7. Quindi 420 : 7 = 60!')">OK</button>
+              </div>
+              <button class="hint-btn" onclick="toggleHint('hintGym3')">💡 Trucco</button>
+              <div id="hintGym3" class="hint-text">Proprietà invariantiva della divisione: moltiplica dividendo e divisore per 2. $210 \times 2 = 420$; $3,5 \times 2 = 7$. $420 \div 7 = 60$!</div>
+            </div>
+          </div>
+
+          <!-- Gym 4 -->
+          <div class="gym-card" id="gym4">
+            <div>
+              <div class="gym-badge">4. Il Test Attitudinale</div>
+              <div class="gym-question">75 candidati su 300 hanno passato la prova. A quale frazione ridotta corrisponde?</div>
+            </div>
+            <div>
+              <div class="verify-box" style="border:none; padding:0; margin-top:0.75rem;">
+                <input type="text" id="gym4In" class="inline-input" style="width:85px;" placeholder="1/4">
+                <button class="btn-action" onclick="verifyGym4()">OK</button>
+              </div>
+              <button class="hint-btn" onclick="toggleHint('hintGym4')">💡 Trucco</button>
+              <div id="hintGym4" class="hint-text">Nota che $75 \times 2 = 150$ e $150 \times 2 = 300$. Quindi $75 \times 4 = 300$. La frazione è $1/4$ ($25\%$)!</div>
+            </div>
+          </div>
+
+        </div>
+      </article>
+
+      <!-- ==========================================
+           LABORATORIO 7: COMPITO DI REALTÀ & MODELLO A BARRE
+           I PROBLEMI DI RIPARTIZIONE CON LE FRAZIONI
+           ========================================== -->
+      <article class="lab-card" id="lab7">
+        <span class="lab-badge">Laboratorio 7 • Compito di Realtà &amp; Modello a Barre</span>
+        <h3 class="lab-title">La Ripartizione del Fondo Sociale di Comunità</h3>
+        <p class="lab-intro">
+          Come si risolve un problema di divisione di risorse nella vita reale senza ricorrere a formule complicate? <br>
+          <strong>Scenario autentico (Scienze Umane)</strong>: Una cooperativa sociale studentesca vince un bando di comunità con un budget di <strong><span id="lab7BudgetValueDisplay">2.400 €</span></strong> da ripartire tra tre servizi educativi per la scuola e il quartiere:
+        </p>
+
+        <!-- Banner Compito di Realtà -->
+        <div class="real-task-banner">
+          <div class="real-task-header">
+            <span class="real-task-badge">🤝 Compito di Realtà • Gestione Risorse</span>
+            <span style="font-size: 0.85rem; font-weight: 700; color: var(--accent-math);">Liceo Scienze Umane • Modello Sociale</span>
+          </div>
+          <div style="font-size: 0.95rem; line-height: 1.6;">
+            I tre progetti approvati dall'assemblea:
+            <ul style="margin: 0.5rem 0 0.5rem 1.25rem;">
+              <li>📘 <strong>Spazio Studio &amp; Inclusione BES/DSA</strong>: riceve esattamente <strong>$\frac{1}{3}$</strong> del fondo totale.</li>
+              <li>🎭 <strong>Laboratorio Teatrale &amp; Relazione d'Aiuto</strong>: riceve esattamente <strong>$\frac{2}{5}$</strong> del fondo totale.</li>
+              <li>💬 <strong>Sportello di Ascolto Psicologico</strong>: riceve <strong>l'intera quota rimanente</strong>.</li>
+            </ul>
+            <em>La sfida per la classe</em>: Qual è la frazione spettante allo Sportello d'Ascolto? E a quanti euro corrisponde ciascun progetto?
+          </div>
+        </div>
+
+        <!-- Barra Controlli Simulatore -->
+        <div class="sim-control-bar">
+          <div class="sim-group" id="budgetBtnGroup">
+            <span class="sim-label">Budget Totale:</span>
+            <button class="sim-btn-pill" onclick="setLab7Budget(1800, this)">1.800 €</button>
+            <button class="sim-btn-pill active" onclick="setLab7Budget(2400, this)">2.400 € (Standard)</button>
+            <button class="sim-btn-pill" onclick="setLab7Budget(3000, this)">3.000 €</button>
+          </div>
+
+          <div class="sim-group" id="stageBtnGroup">
+            <span class="sim-label">Fase Modello a Barre:</span>
+            <button class="sim-btn-pill" onclick="setLab7Stage('separate', this)">1. Taglie Diverse</button>
+            <button class="sim-btn-pill" onclick="setLab7Stage('common', this)">2. Taglia Comune (15esimi)</button>
+            <button class="sim-btn-pill active" onclick="setLab7Stage('assigned', this)">3. Assegna &amp; Residuo</button>
+            <button class="sim-btn-pill" onclick="setLab7Stage('euro', this)">4. Valore in Euro (€)</button>
+          </div>
+        </div>
+
+        <!-- Visualizzatore SVG del Modello a Barre Dinamico -->
+        <div class="area-model-container">
+          <svg id="allocationBarSvg" viewBox="0 0 700 170" width="700" height="170" style="max-width: 100%; height: auto; display: block; margin: 0 auto;"></svg>
+
+          <!-- Spiegazione Dinamica Fase -->
+          <div id="lab7StageExpl" style="font-size: 0.92rem; color: var(--text-main); margin-top: 0.85rem; padding: 0.75rem; background: var(--bg-surface-elevated); border-radius: var(--radius-sm); border: 1px solid var(--border-subtle);">
+            Caricamento del modello a barre...
+          </div>
+
+          <!-- Legenda Colori -->
+          <div class="bar-legend">
+            <span class="legend-item"><span class="legend-dot" style="background: var(--accent-math);"></span> Spazio Studio ($\frac{1}{3} = \frac{5}{15}$)</span>
+            <span class="legend-item"><span class="legend-dot" style="background: var(--accent-purple);"></span> Lab Teatrale ($\frac{2}{5} = \frac{6}{15}$)</span>
+            <span class="legend-item"><span class="legend-dot" style="background: var(--accent-success);"></span> Sportello Ascolto (Residuo: $\frac{4}{15}$)</span>
+          </div>
+        </div>
+
+        <!-- 4 Step Guidati di Risoluzione -->
+        <div class="step-box">
+          <div class="step-header">
+            <span class="step-tag">Tappa 1: Somma delle Quote Già Assegnate</span>
+          </div>
+          <div class="step-content">
+            <p>
+              Uniformando $\frac{1}{3}$ e $\frac{2}{5}$ alla taglia comune dei $15$esimi: <br>
+              $\frac{1}{3} = \frac{5}{15}$ e $\frac{2}{5} = \frac{6}{15}$. Quanto fa la loro somma?
+            </p>
+            <div class="verify-box">
+              <label style="font-weight: 600;">Quota totale già stanziata:</label>
+              <input type="number" id="lab7_step1Num" class="inline-input" style="width: 70px;" placeholder="Num">
+              <span style="font-size: 1.2rem; font-weight: bold;">/</span>
+              <input type="number" id="lab7_step1Den" class="inline-input" style="width: 70px;" placeholder="Den">
+              <button class="btn-action" onclick="verifyLab7Step1()">Verifica Tappa 1</button>
+              <span id="lab7_step1Msg" class="feedback-msg" style="display: none;"></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="step-box">
+          <div class="step-header">
+            <span class="step-tag">Tappa 2: La Frazione Complementare (Sportello Ascolto)</span>
+          </div>
+          <div class="step-content">
+            <p>
+              L'intero budget corrisponde a $\frac{15}{15}$. Sottraendo la parte già stanziata ($\frac{11}{15}$), quale frazione rimane per lo Sportello di Ascolto? <br>
+              $1 - \frac{11}{15} = \frac{15}{15} - \frac{11}{15} = \frac{\mathbf{?}}{\mathbf{?}}$
+            </p>
+            <div class="verify-box">
+              <label style="font-weight: 600;">Frazione rimanente:</label>
+              <input type="number" id="lab7_step2Num" class="inline-input" style="width: 70px;" placeholder="Num">
+              <span style="font-size: 1.2rem; font-weight: bold;">/</span>
+              <input type="number" id="lab7_step2Den" class="inline-input" style="width: 70px;" placeholder="Den">
+              <button class="btn-action" onclick="verifyLab7Step2()">Verifica Tappa 2</button>
+              <span id="lab7_step2Msg" class="feedback-msg" style="display: none;"></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="step-box">
+          <div class="step-header">
+            <span class="step-tag">Tappa 3: Il Valore dell'Unità Frazionaria (1 Mattoncino)</span>
+          </div>
+          <div class="step-content">
+            <p>
+              Il budget totale viene diviso in $15$ mattoncini uguali. Quanto vale <strong>un singolo mattoncino ($\frac{1}{15}$)</strong> in euro? <br>
+              <em id="lab7HintBudgetCalc">Calcolo: Totale ÷ 15</em>
+            </p>
+            <div class="verify-box">
+              <label style="font-weight: 600;">Valore di 1 mattoncino:</label>
+              <input type="number" id="lab7_step3Val" class="inline-input" style="width: 100px;" placeholder="€">
+              <button class="btn-action" onclick="verifyLab7Step3()">Verifica Tappa 3</button>
+              <span id="lab7_step3Msg" class="feedback-msg" style="display: none;"></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="step-box">
+          <div class="step-header">
+            <span class="step-tag">Tappa 4: Il Budget Finale dello Sportello d'Ascolto</span>
+          </div>
+          <div class="step-content">
+            <p>
+              Lo Sportello d'Ascolto ha diritto a $4$ mattoncini. Moltiplica il numero di mattoncini per il valore di ciascuno trovato al passo 3: <br>
+              $4 \times (\text{Valore di 1 mattoncino}) = \mathbf{? \text{ €}}$
+            </p>
+            <div class="verify-box">
+              <label style="font-weight: 600;">Quota in Euro (€):</label>
+              <input type="number" id="lab7_step4Val" class="inline-input" style="width: 110px;" placeholder="€">
+              <button class="btn-action" onclick="verifyLab7Step4()">Verifica Tappa 4 &amp; Completa Lab</button>
+              <span id="lab7_step4Msg" class="feedback-msg" style="display: none;"></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- SCHEDA OPERATIVA COMPITO DI REALTÀ PER LA CLASSE (PROJECT WORK) -->
+        <div class="step-box" style="border: 2px dashed var(--accent-math); background: rgba(56, 189, 248, 0.04); margin-top: 2rem;">
+          <div class="step-header">
+            <span class="step-tag" style="color: var(--accent-math);">📋 Scheda Operativa • Compito di Realtà Autentico</span>
+          </div>
+          <div class="step-content">
+            <h4 style="font-size: 1.15rem; margin-bottom: 0.5rem; color: var(--text-main);">
+              Project Work di Gruppo: «Il Bilancio Partecipativo della Consulta Giovanile»
+            </h4>
+            <p style="margin-bottom: 0.85rem; font-size: 0.93rem; color: var(--text-muted);">
+              Questo compito di realtà può essere svolto in classe in coppie o piccoli gruppi cooperativi. Simula la redazione di un bilancio reale per un progetto di comunità.
+            </p>
+
+            <div style="background: var(--bg-surface-elevated); padding: 1rem; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle); margin-bottom: 1rem; font-size: 0.9rem;">
+              <strong>La Situazione-Problema:</strong> <br>
+              Il Comune mette a disposizione della Consulta Studentesca un fondo di <strong>3.600 €</strong> per tre iniziative di benessere sociale:
+              <ul style="margin: 0.4rem 0 0.4rem 1.25rem;">
+                <li>1. <strong>Campagna Anti-Bullismo &amp; Inclusione</strong>: $\frac{1}{4}$ del fondo.</li>
+                <li>2. <strong>Laboratorio Podcast &amp; Giornalismo Sociale</strong>: $\frac{5}{12}$ del fondo.</li>
+                <li>3. <strong>Aula Relax &amp; Biblioteca del Benessere</strong>: la rimanenza del fondo.</li>
+              </ul>
+              <strong>Richieste per gli studenti:</strong>
+              <ol style="margin: 0.4rem 0 0.4rem 1.25rem; line-height: 1.6;">
+                <li>Disegna sul quaderno il <em>modello a barre</em> (nastro frazionario) individuando la taglia comune dei dodicesimi ($12$).</li>
+                <li>Calcola la frazione complementare dell'Aula Relax attraverso la somma e la sottrazione di frazioni.</li>
+                <li>Determina l'importo in euro per ciascuna iniziativa e verifica che la somma sia esattamente 3.600 €.</li>
+                <li><strong>Riflessione interdisciplinare (Scienze Umane)</strong>: Scrivi un breve commento (10-15 righe) motivando se questa ripartizione delle risorse risponde a criteri di equità sociale e benessere della comunità scolastica.</li>
+              </ol>
+            </div>
+
+            <!-- Rubrica di Valutazione delle Competenze -->
+            <div class="rubric-container">
+              <table class="rubric-table">
+                <thead>
+                  <tr>
+                    <th>Dimensione di Competenza</th>
+                    <th>Livello Base (Iniziale)</th>
+                    <th>Livello Intermedio</th>
+                    <th>Livello Avanzato (Eccellente)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Rappresentazione con Modello a Barre</strong></td>
+                    <td>Rappresenta le frazioni solo in modo disomogeneo senza evidenziare la taglia comune.</td>
+                    <td>Costruisce la barra dei dodicesimi e individua visivamente le porzioni assegnate.</td>
+                    <td>Disegna un modello a barre impeccabile, corredato da scale graduate, legende cromatiche e indicazione dell'unità frazionaria.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Calcolo Razionale &amp; Ripartizione</strong></td>
+                    <td>Esegue i calcoli con qualche incertezza o sommando erroneamente i denominatori.</td>
+                    <td>Calcola correttamente la frazione complementare ($1 - \frac{8}{12} = \frac{4}{12}$) e ricava gli importi in euro.</td>
+                    <td>Dimostra padronanza assoluta: semplifica $\frac{4}{12} \to \frac{1}{3}$, calcola a mente l'unità frazionaria ($300$ €) e verifica la quadratura.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Argomentazione Sociale (Scienze Umane)</strong></td>
+                    <td>Si limita a elencare i numeri senza commentare le finalità sociali.</td>
+                    <td>Collega i dati numerici ai bisogni della scuola in modo coerente.</td>
+                    <td>Argomenta con lessico delle scienze umane i concetti di equità, prevenzione del disagio e bilancio partecipativo.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+          </div>
+        </div>
+
+      </article>
+
+    </main>
+
+    <!-- SEZIONE FLASHCARDS DI AUTOVALUTAZIONE (TEST RIPETIBILE ALL'INFINITO) -->
+    <section class="flashcard-section" id="flashcardSection">
+      <div class="section-header">
+        <h2 class="section-title">
+          <span class="icon">🃏</span> Flashcards di Autovalutazione (+15 XP per carta)
+        </h2>
+        <span class="tag info-tag" style="background: rgba(56, 189, 248, 0.12); color: var(--accent-math); padding: 0.25rem 0.65rem; border-radius: 9999px; font-size: 0.8rem; font-weight: 700;">
+          🔁 Tentativi Infiniti
+        </span>
+      </div>
+      <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1.5rem;">
+        Mettiti alla prova con le flashcard operative. Ogni risposta corretta ti assegna <strong>+15 XP</strong>.
+        Puoi ripetere il test tutte le volte che vuoi per consolidare i concetti e perfezionare il tuo punteggio!
+      </p>
+
+      <div id="lessonFlashcardDeck"></div>
+    </section>
+
+
+    <!-- BOX SINTESI & TAKEAWAY METODOLOGICO -->
+    <footer class="final-recap" id="finalRecap">
+      <div class="recap-icon">🎓</div>
+      <h2 class="recap-title">Ottimo Lavoro! Il Pensiero Comodo è Attivo</h2>
+      <p class="recap-subtitle">
+        Nel Liceo delle Scienze Umane la matematica allena la mente a cercare percorsi ottimali, cogliere le strutture nascoste e riflettere sulle proprie strategie cognitive.
+      </p>
+
+      <div class="takeaways-row">
+        <div class="takeaway-item">
+          <strong>1. La Forma è Funzione</strong>
+          <p>Trasforma i numeri in una forma comoda ($0,5 \to \frac{1}{2}$, $99 \to 100-1$) prima di agire.</p>
+        </div>
+        <div class="takeaway-item">
+          <strong>2. Taglie Comuni in ℚ</strong>
+          <p>Per sommare frazioni cerca subito multipli evidenti; per moltiplicare semplifica prima in croce.</p>
+        </div>
+        <div class="takeaway-item">
+          <strong>3. Invarianze &amp; Proprietà</strong>
+          <p>Usa la commutativa per riordinare, l'associativa per creare decine/centinaia, la distributiva per spezzare.</p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- CARD DI COMPLETAMENTO GAMIFICATION -->
+    <div class="completion-card" id="lessonCompletionCard">
+      <div class="completion-icon">🏆</div>
+      <h3 class="completion-title">Hai completato la Lezione 1.1?</h3>
+      <p class="completion-desc">
+        Congratulazioni per aver esplorato le strategie del "pensiero comodo"! Registra il tuo traguardo per guadagnare i tuoi punti esperienza (+60 XP) e salire di livello.
+      </p>
+      <button id="btnCompleteLesson" class="btn-complete">
+        ✨ Segna come Completata (+60 XP)
+      </button>
+    </div>
+
+  </div>
+
+  <!-- Scripts Condivisi comode (Audio, Tema, Gamification, KaTeX) -->
+  <script src="../../shared/js/audio.js"></script>
+  <script src="../../shared/js/theme.js"></script>
+  <script src="../../shared/js/gamification.js"></script>
+  <script src="../../shared/js/components.js"></script>
+  <script src="../../shared/js/flashcards.js"></script>
+  <script src="../../shared/js/comode.js"></script>
+
+  <!-- Logica Specifica Laboratori Lezione 1.1 -->
+  <script>
+/**
+ * comode — lezione-01.js
+ * Logica interattiva specifica per i 6 laboratori della Lezione 1.1:
+ * - Lab 1: Gettoni e coppie a 100
+ * - Lab 2: Proprietà distributiva e modello ad area
+ * - Lab 3: Retta orientata interattiva SVG
+ * - Lab 4: Semplificazione in croce delle frazioni
+ * - Lab 5: Taglie comuni e barre frazionarie SVG
+ * - Lab 6: Palestra mentale di calcolo rapido
+ * - Lab 7: Modello a barre e problemi di ripartizione (Compito di realtà)
+ */
+
+function initLesson() {
+  renderNumberLine(-3, -5, 'minus');
+  renderFractionBars();
+  renderAllocationBar();
+
+  // Inizializzazione Mazzo Flashcards con Mastery Learning (Tentativi Infiniti)
+  if (window.ComodeFlashcards) {
+    ComodeFlashcards.init('lessonFlashcardDeck', {
+      deckId: 'pb-1.1-flashcards',
+      xpPerCard: 15,
+      completionXP: 25,
+      cards: [
+        {
+          category: 'Rappresentazioni Comode',
+          question: 'Qual è la rappresentazione più comoda per calcolare a mente $48 \\times 0,25$?',
+          options: [
+            'Eseguire l\'algoritmo in colonna con la virgola',
+            'Sostituire $0,25$ con $\\frac{1}{4}$, calcolando $48 : 4 = 12$',
+            'Moltiplicare $48 \\times 25$ e poi dividere per 100',
+            'Calcolare $(40 \\times 0,25) + (8 \\times 0,25)$'
+          ],
+          correct: 1,
+          explanation: 'Sostituire $0,25$ con la frazione equivalente $\\frac{1}{4}$ trasforma una moltiplicazione decimale in una divisione per 4: $48 : 4 = 12$!'
+        },
+        {
+          category: 'Proprietà Distributiva',
+          question: 'Come conviene scomporre $18 \\times 99$ per calcolarlo a mente in meno di tre secondi?',
+          options: [
+            '$18 \\times (90 + 9)$',
+            '$18 \\times (100 - 1) = 1800 - 18 = 1782$',
+            '$(20 - 2) \\times 99$',
+            '$(10 + 8) \\times (100 - 1)$'
+          ],
+          correct: 1,
+          explanation: 'Riconoscere $99$ come $100 - 1$ consente di calcolare $1800 - 18 = 1782$ all\'istante senza alcun riporto.'
+        },
+        {
+          category: 'Taglie Comuni in ℚ',
+          question: 'Perché nell\'addizione $\\frac{1}{3} + \\frac{1}{4}$ non si possono sommare direttamente numeratori e denominatori ($\\frac{2}{7}$)?',
+          options: [
+            'Perché una regola astratta vieta di toccare i denominatori',
+            'Perché le fette hanno taglia (dimensione) diversa: dobbiamo prima uniformarle in dodicesimi ($\\frac{4}{12} + \\frac{3}{12} = \\frac{7}{12}$)',
+            'Perché $\\frac{2}{7}$ è un numero troppo piccolo',
+            'Perché prima bisogna convertire sempre in numeri decimali'
+          ],
+          correct: 1,
+          explanation: 'Una frazione rappresenta una misura: non puoi sommare fette di grandezze diverse senza prima portarle alla stessa unità di misura (la taglia comune dei dodicesimi).'
+        },
+        {
+          category: 'Numeri Relativi e Retta Orientata',
+          question: 'Sulla retta orientata, cosa significa intuitivamente l\'operazione $-3 - (-5)$?',
+          options: [
+            'Partire da $-3$ e arretrare verso sinistra di 5 passi fino a $-8$',
+            'Partire da $-3$ e togliere un debito di 5: togliere un debito arricchisce e fa avanzare di 5 passi verso destra fino a $+2$',
+            'Moltiplicare i due segni negativi e calcolare $-3 - 5 = -8$',
+            'Calcolare la distanza assoluta tra i due numeri negativi'
+          ],
+          correct: 1,
+          explanation: 'Sottrarre un numero negativo inverte il moto: togliere un debito di 5 equivale ad aggiungere un credito di 5, muovendosi a destra fino a $-3 + 5 = +2$.'
+        },
+        {
+          category: 'Problemi di Ripartizione & Frazioni Complementari',
+          question: 'In un progetto sociale con budget ripartito, il Settore A riceve $\\frac{1}{3}$ e il Settore B riceve $\\frac{2}{5}$ del totale. Quale frazione rimane per il Settore C?',
+          options: [
+            '$\\frac{2}{15}$',
+            '$\\frac{4}{15}$',
+            '$\\frac{3}{8}$',
+            '$\\frac{7}{15}$'
+          ],
+          correct: 1,
+          explanation: 'La somma delle quote assegnate è $\\frac{1}{3} + \\frac{2}{5} = \\frac{5+6}{15} = \\frac{11}{15}$. La quota rimanente per il Settore C è la frazione complementare rispetto all\'intero: $1 - \\frac{11}{15} = \\frac{4}{15}$!'
+        }
+      ]
+    });
+  }
+}
+
+if (document.readyState !== 'loading') {
+  initLesson();
+} else {
+  document.addEventListener('DOMContentLoaded', initLesson);
+}
+
+// Sistema di avanzamento interno ai 7 laboratori
+const completedLabs = new Set();
+
+function markLabCompleted(labNumber) {
+  if (!completedLabs.has(labNumber)) {
+    completedLabs.add(labNumber);
+    const card = document.getElementById(`lab${labNumber}`);
+    if (card) card.classList.add('completed');
+
+    // Gamification & Audio Integration
+    if (window.ComodeAudio) window.ComodeAudio.playSuccess();
+    if (window.ComodeGamification) {
+      window.ComodeGamification.addXP(10, `Laboratorio ${labNumber} completato!`);
+    }
+
+    updateProgress();
+  }
+}
+
+function updateProgress() {
+  const count = completedLabs.size;
+  const pct = (count / 7) * 100;
+  const fill = document.getElementById('progressFill');
+  const score = document.getElementById('progressScore');
+  if (fill) fill.style.width = pct + '%';
+  if (score) score.textContent = `${count} / 7 completati`;
+
+  if (count === 7) {
+    if (window.ComodeAudio) window.ComodeAudio.playLevelUp();
+    const recap = document.getElementById('lessonCompletionCard') || document.getElementById('finalRecap');
+    if (recap) {
+      recap.scrollIntoView({ behavior: 'smooth' });
+    }
+  }
+}
+
+/* ========================================================
+   LABORATORIO 1: COPPIE A 100
+   ======================================================== */
+let lab1Selected = [];
+let lab1PairsFound = 0;
+
+function handleLab1Select(btn) {
+  if (btn.classList.contains('paired')) return;
+
+  if (window.ComodeAudio) window.ComodeAudio.playClick();
+
+  if (btn.classList.contains('selected')) {
+    btn.classList.remove('selected');
+    lab1Selected = lab1Selected.filter(b => b !== btn);
+    return;
+  }
+
+  btn.classList.add('selected');
+  lab1Selected.push(btn);
+
+  if (lab1Selected.length === 2) {
+    const val1 = parseInt(lab1Selected[0].getAttribute('data-val'), 10);
+    const val2 = parseInt(lab1Selected[1].getAttribute('data-val'), 10);
+    const fb = document.getElementById('lab1PairFeedback');
+
+    if (val1 + val2 === 100) {
+      if (window.ComodeAudio) window.ComodeAudio.playSuccess();
+      lab1Selected[0].classList.remove('selected');
+      lab1Selected[1].classList.remove('selected');
+      lab1Selected[0].classList.add('paired');
+      lab1Selected[1].classList.add('paired');
+      lab1PairsFound++;
+      fb.innerHTML = `<span style="color:var(--accent-success)">✨ Ottimo: ${val1} + ${val2} = 100!</span>`;
+
+      if (lab1PairsFound === 2) {
+        document.getElementById('lab1Step2').style.display = 'block';
+        fb.innerHTML = `<span style="color:var(--accent-success)">🎉 Bravissimo! Tutte le coppie a 100 individuate. Ora concludi il passo 2.</span>`;
+      }
+    } else {
+      if (window.ComodeAudio) window.ComodeAudio.playError();
+      fb.innerHTML = `<span style="color:var(--accent-danger)">${val1} + ${val2} = ${val1+val2} (non fa 100). Riprova!</span>`;
+      setTimeout(() => {
+        lab1Selected.forEach(b => b.classList.remove('selected'));
+        lab1Selected = [];
+      }, 800);
+      return;
+    }
+    lab1Selected = [];
+  }
+}
+
+function verifyLab1() {
+  const input = document.getElementById('lab1Input');
+  const msg = document.getElementById('lab1FinalMsg');
+  const val = parseInt(input.value.trim(), 10);
+
+  msg.style.display = 'inline-flex';
+  if (val === 200) {
+    msg.className = 'feedback-msg success';
+    msg.textContent = 'Corretto! 100 + 100 = 200. Fatto in un secondo!';
+    markLabCompleted(1);
+  } else {
+    if (window.ComodeAudio) window.ComodeAudio.playError();
+    msg.className = 'feedback-msg error';
+    msg.textContent = 'Rivedi la somma: hai due coppie da 100 ciascuna...';
+  }
+}
+
+/* ========================================================
+   LABORATORIO 2: PROPRIETÀ DISTRIBUTIVA
+   ======================================================== */
+function verifyLab2() {
+  const p1 = parseInt(document.getElementById('lab2Part1').value.trim(), 10);
+  const p2 = parseInt(document.getElementById('lab2Part2').value.trim(), 10);
+  const res = parseInt(document.getElementById('lab2Result').value.trim(), 10);
+  const msg = document.getElementById('lab2Msg');
+
+  msg.style.display = 'inline-flex';
+  if (p1 === 2 && p2 === 30 && res === 1470) {
+    msg.className = 'feedback-msg success';
+    msg.textContent = 'Perfetto! 1500 - 30 = 1470. Calcolo mentale riuscito!';
+    markLabCompleted(2);
+  } else {
+    if (window.ComodeAudio) window.ComodeAudio.playError();
+    msg.className = 'feedback-msg error';
+    msg.textContent = 'Controlla i passaggi: 98 = (100 - 2). Quindi 2 × 15 = 30, e 1500 - 30 = ?';
+  }
+}
+
+/* ========================================================
+   LABORATORIO 3: RETTA NUMERICA INTERATTIVA
+   ======================================================== */
+function setNlCase(start, delta, op) {
+  if (window.ComodeAudio) window.ComodeAudio.playClick();
+  document.querySelectorAll('.nl-btn').forEach(btn => btn.classList.remove('active'));
+  if (window.event && window.event.target) {
+    window.event.target.classList.add('active');
+  }
+  renderNumberLine(start, delta, op);
+}
+
+function renderNumberLine(start, delta, op) {
+  const svg = document.getElementById('nlSvg');
+  if (!svg) return;
+  svg.innerHTML = '';
+
+  const minVal = -10;
+  const maxVal = 10;
+  const stepWidth = 32;
+  const originX = 350;
+  const originY = 65;
+
+  const axis = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+  axis.setAttribute('x1', '20');
+  axis.setAttribute('y1', originY);
+  axis.setAttribute('x2', '680');
+  axis.setAttribute('y2', originY);
+  axis.setAttribute('stroke', 'var(--text-muted)');
+  axis.setAttribute('stroke-width', '2');
+  svg.appendChild(axis);
+
+  for (let i = minVal; i <= maxVal; i++) {
+    const x = originX + (i * stepWidth);
+    const tick = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+    tick.setAttribute('x1', x);
+    tick.setAttribute('y1', originY - (i === 0 ? 8 : 4));
+    tick.setAttribute('x2', x);
+    tick.setAttribute('y2', originY + (i === 0 ? 8 : 4));
+    tick.setAttribute('stroke', i === 0 ? 'var(--accent-math)' : 'var(--border-subtle)');
+    tick.setAttribute('stroke-width', i === 0 ? '2.5' : '1.5');
+    svg.appendChild(tick);
+
+    if (i % 2 === 0 || i === 0) {
+      const txt = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+      txt.setAttribute('x', x);
+      txt.setAttribute('y', originY + 22);
+      txt.setAttribute('fill', i === 0 ? 'var(--accent-math)' : 'var(--text-dim)');
+      txt.setAttribute('font-size', '11');
+      txt.setAttribute('font-family', 'var(--font-mono)');
+      txt.setAttribute('font-weight', i === 0 ? '700' : '400');
+      txt.setAttribute('text-anchor', 'middle');
+      txt.textContent = i;
+      svg.appendChild(txt);
+    }
+  }
+
+  const startX = originX + (start * stepWidth);
+  const endVal = (op === 'minus') ? (start - delta) : (start + delta);
+  const endX = originX + (endVal * stepWidth);
+
+  const pStart = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+  pStart.setAttribute('cx', startX);
+  pStart.setAttribute('cy', originY);
+  pStart.setAttribute('r', '6');
+  pStart.setAttribute('fill', 'var(--accent-warning)');
+  svg.appendChild(pStart);
+
+  const arcPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+  const midX = (startX + endX) / 2;
+  const arcHeight = Math.abs(endX - startX) > 100 ? 35 : 24;
+  const d = `M ${startX} ${originY} Q ${midX} ${originY - arcHeight} ${endX} ${originY}`;
+  arcPath.setAttribute('d', d);
+  arcPath.setAttribute('fill', 'none');
+  arcPath.setAttribute('stroke', 'var(--accent-success)');
+  arcPath.setAttribute('stroke-width', '2.5');
+  arcPath.setAttribute('stroke-dasharray', '4');
+  svg.appendChild(arcPath);
+
+  const pEnd = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+  pEnd.setAttribute('cx', endX);
+  pEnd.setAttribute('cy', originY);
+  pEnd.setAttribute('r', '7');
+  pEnd.setAttribute('fill', 'var(--accent-success)');
+  svg.appendChild(pEnd);
+
+  const expl = document.getElementById('nlExplanation');
+  if (expl) {
+    if (op === 'minus' && delta < 0) {
+      expl.innerHTML = `Partiamo da <span style="color:var(--accent-warning);font-weight:700;">${start}</span>. Sottrarre un debito di <span style="color:var(--accent-danger);font-weight:700;">${delta}</span> inverte il moto e ci fa avanzare verso destra di ${Math.abs(delta)} passi! Arrivo: <span style="color:var(--accent-success);font-weight:700;">${endVal}</span>.`;
+    } else if (op === 'minus') {
+      expl.innerHTML = `Partiamo da <span style="color:var(--accent-warning);font-weight:700;">${start}</span>. Sottraiamo ${delta} (moto verso sinistra). Arrivo: <span style="color:var(--accent-success);font-weight:700;">${endVal}</span>.`;
+    } else {
+      expl.innerHTML = `Partiamo da <span style="color:var(--accent-warning);font-weight:700;">${start}</span>. Aggiungiamo ${delta} (moto verso destra). Arrivo: <span style="color:var(--accent-success);font-weight:700;">${endVal}</span>.`;
+    }
+  }
+}
+
+function verifyLab3() {
+  const raw = document.getElementById('lab3Input').value.trim().replace(/^\+/, '').replace(/^x\s*=\s*/i, '');
+  const val = parseInt(raw, 10);
+  const msg = document.getElementById('lab3Msg');
+  msg.style.display = 'inline-flex';
+
+  if (val === 6) {
+    msg.className = 'feedback-msg success';
+    msg.textContent = 'Esatto! -6 + (+6) = 0. Dunque (-2) × (-3) deve fare necessariamente +6!';
+    markLabCompleted(3);
+  } else {
+    if (window.ComodeAudio) window.ComodeAudio.playError();
+    msg.className = 'feedback-msg error';
+    msg.textContent = 'Qual è l\'opposto esatto di -6 per ottenere 0 come somma?';
+  }
+}
+
+/* ========================================================
+   LABORATORIO 4: SEMPLIFICAZIONE INCROCIATA
+   ======================================================== */
+let selectedFracItem = null;
+let simplifiedPairs = 0;
+
+function selectFracItem(id) {
+  const el = document.getElementById(id);
+  if (!el || el.classList.contains('cancelled')) return;
+
+  if (window.ComodeAudio) window.ComodeAudio.playClick();
+
+  if (!selectedFracItem) {
+    selectedFracItem = el;
+    el.classList.add('selected');
+    document.getElementById('fracSummary').textContent = `Selezionato ${el.textContent}. Ora clicca un partner (num ↔ den).`;
+    return;
+  }
+
+  if (selectedFracItem === el) {
+    el.classList.remove('selected');
+    selectedFracItem = null;
+    document.getElementById('fracSummary').textContent = '(Seleziona due termini da semplificare)';
+    return;
+  }
+
+  const id1 = selectedFracItem.id;
+  const id2 = el.id;
+
+  const isNum1 = id1.includes('num');
+  const isNum2 = id2.includes('num');
+
+  if ((isNum1 && isNum2) || (!isNum1 && !isNum2)) {
+    if (window.ComodeAudio) window.ComodeAudio.playError();
+    document.getElementById('fracSummary').innerHTML = `<span style="color:var(--accent-danger)">Errore: devi abbinare un Numeratore con un Denominatore!</span>`;
+    selectedFracItem.classList.remove('selected');
+    selectedFracItem = null;
+    return;
+  }
+
+  if ((id1.includes('21') || id2.includes('21')) || (id1 === 'f_num1' && id2 === 'f_den2') || (id2 === 'f_num1' && id1 === 'f_den2')) {
+    applyCancellation('f_num1', '3', 'f_den2', '2', 7);
+  } else if ((id1 === 'f_num2' && id2 === 'f_den1') || (id2 === 'f_num2' && id1 === 'f_den1')) {
+    applyCancellation('f_num2', '5', 'f_den1', '4', 5);
+  } else {
+    if (window.ComodeAudio) window.ComodeAudio.playError();
+    document.getElementById('fracSummary').innerHTML = `<span style="color:var(--accent-warning)">Questi due termini non hanno divisori comuni evidenti. Prova con 21 e 14 (divisibili per 7), oppure 25 e 20 (divisibili per 5)!</span>`;
+    selectedFracItem.classList.remove('selected');
+    selectedFracItem = null;
+  }
+}
+
+function applyCancellation(idNum, newNum, idDen, newDen, factor) {
+  const elNum = document.getElementById(idNum);
+  const elDen = document.getElementById(idDen);
+
+  if (window.ComodeAudio) window.ComodeAudio.playSuccess();
+
+  elNum.classList.add('cancelled');
+  elDen.classList.add('cancelled');
+  elNum.classList.remove('selected');
+  elDen.classList.remove('selected');
+
+  const repNum = document.createElement('span');
+  repNum.className = 'frac-replacement';
+  repNum.textContent = newNum;
+  elNum.appendChild(repNum);
+
+  const repDen = document.createElement('span');
+  repDen.className = 'frac-replacement';
+  repDen.textContent = newDen;
+  elDen.appendChild(repDen);
+
+  simplifiedPairs++;
+  document.getElementById('fracSummary').innerHTML = `<span style="color:var(--accent-success)">✨ Semplificato per ${factor}! Restano: ${newNum} al numeratore e ${newDen} al denominatore.</span>`;
+  selectedFracItem = null;
+}
+
+function verifyLab4() {
+  const num = parseInt(document.getElementById('lab4Num').value.trim(), 10);
+  const den = parseInt(document.getElementById('lab4Den').value.trim(), 10);
+  const msg = document.getElementById('lab4Msg');
+
+  msg.style.display = 'inline-flex';
+  if (num === 15 && den === 8) {
+    msg.className = 'feedback-msg success';
+    msg.textContent = 'Magnifico! 3 × 5 = 15; 4 × 2 = 8. Frazione ridotta: 15/8 senza calcolatrice!';
+    markLabCompleted(4);
+  } else {
+    if (window.ComodeAudio) window.ComodeAudio.playError();
+    msg.className = 'feedback-msg error';
+    msg.textContent = 'Calcola: al numeratore è rimasto 3 × 5, al denominatore 4 × 2...';
+  }
+}
+
+/* ========================================================
+   LABORATORIO 5: ADDIZIONE E SOTTRAZIONE FRAZIONI
+   ======================================================== */
+let isSplit12 = false;
+let lab5PartADone = false;
+let lab5PartBDone = false;
+
+function toggleFractionBars() {
+  if (window.ComodeAudio) window.ComodeAudio.playClick();
+  isSplit12 = !isSplit12;
+  const btn = document.getElementById('btnSplitBars');
+  const expl = document.getElementById('barExplText');
+
+  if (isSplit12) {
+    btn.innerHTML = '⬅️ Torna alla suddivisione originaria';
+    expl.innerHTML = '✨ <strong>Taglia comune trovata (dodicesimi)!</strong> Ora 1 fetta da 1/3 corrisponde esattamente a <strong>4 fette da 1/12</strong>, e 1 fetta da 1/4 corrisponde a <strong>3 fette da 1/12</strong>. La somma è immediata: 4 + 3 = <strong>7 fette da 1/12 (7/12)</strong>!';
+  } else {
+    btn.innerHTML = 'Suddividi nella taglia comune (12esimi) ➔';
+    expl.innerHTML = 'Stato iniziale: 1 fetta da 1/3 e 1 fetta da 1/4 non hanno la stessa taglia. Clicca sul pulsante sopra per uniformare la taglia!';
+  }
+  renderFractionBars();
+}
+
+function renderFractionBars() {
+  const svg = document.getElementById('fracBarSvg');
+  if (!svg) return;
+  svg.innerHTML = '';
+
+  const startX = 60;
+  const totalWidth = 440;
+  const barHeight = 26;
+
+  // Barra 1: 1/3
+  const lbl1 = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+  lbl1.setAttribute('x', 15);
+  lbl1.setAttribute('y', 38);
+  lbl1.setAttribute('fill', 'var(--text-main)');
+  lbl1.setAttribute('font-size', '13');
+  lbl1.setAttribute('font-weight', '700');
+  lbl1.textContent = '1/3';
+  svg.appendChild(lbl1);
+
+  if (!isSplit12) {
+    const segW = totalWidth / 3;
+    for (let i = 0; i < 3; i++) {
+      const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+      rect.setAttribute('x', startX + i * segW);
+      rect.setAttribute('y', 20);
+      rect.setAttribute('width', segW);
+      rect.setAttribute('height', barHeight);
+      rect.setAttribute('fill', i === 0 ? 'var(--accent-math)' : 'var(--bg-surface-elevated)');
+      rect.setAttribute('stroke', 'var(--border-subtle)');
+      rect.setAttribute('rx', '3');
+      svg.appendChild(rect);
+    }
+  } else {
+    const segW = totalWidth / 12;
+    for (let i = 0; i < 12; i++) {
+      const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+      rect.setAttribute('x', startX + i * segW);
+      rect.setAttribute('y', 20);
+      rect.setAttribute('width', segW);
+      rect.setAttribute('height', barHeight);
+      rect.setAttribute('fill', i < 4 ? 'var(--accent-math)' : 'var(--bg-surface-elevated)');
+      rect.setAttribute('stroke', i < 4 ? '#0284c7' : 'var(--border-subtle)');
+      rect.setAttribute('rx', '2');
+      svg.appendChild(rect);
+    }
+    const txtA = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+    txtA.setAttribute('x', startX + (4 * segW) / 2);
+    txtA.setAttribute('y', 38);
+    txtA.setAttribute('fill', '#0b0f19');
+    txtA.setAttribute('font-size', '11');
+    txtA.setAttribute('font-weight', '800');
+    txtA.setAttribute('text-anchor', 'middle');
+    txtA.textContent = '4/12';
+    svg.appendChild(txtA);
+  }
+
+  // Barra 2: 1/4
+  const lbl2 = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+  lbl2.setAttribute('x', 15);
+  lbl2.setAttribute('y', 83);
+  lbl2.setAttribute('fill', 'var(--text-main)');
+  lbl2.setAttribute('font-size', '13');
+  lbl2.setAttribute('font-weight', '700');
+  lbl2.textContent = '1/4';
+  svg.appendChild(lbl2);
+
+  if (!isSplit12) {
+    const segW = totalWidth / 4;
+    for (let i = 0; i < 4; i++) {
+      const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+      rect.setAttribute('x', startX + i * segW);
+      rect.setAttribute('y', 65);
+      rect.setAttribute('width', segW);
+      rect.setAttribute('height', barHeight);
+      rect.setAttribute('fill', i === 0 ? 'var(--accent-purple)' : 'var(--bg-surface-elevated)');
+      rect.setAttribute('stroke', 'var(--border-subtle)');
+      rect.setAttribute('rx', '3');
+      svg.appendChild(rect);
+    }
+  } else {
+    const segW = totalWidth / 12;
+    for (let i = 0; i < 12; i++) {
+      const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+      rect.setAttribute('x', startX + i * segW);
+      rect.setAttribute('y', 65);
+      rect.setAttribute('width', segW);
+      rect.setAttribute('height', barHeight);
+      rect.setAttribute('fill', i < 3 ? 'var(--accent-purple)' : 'var(--bg-surface-elevated)');
+      rect.setAttribute('stroke', i < 3 ? '#6d28d9' : 'var(--border-subtle)');
+      rect.setAttribute('rx', '2');
+      svg.appendChild(rect);
+    }
+    const txtB = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+    txtB.setAttribute('x', startX + (3 * segW) / 2);
+    txtB.setAttribute('y', 83);
+    txtB.setAttribute('fill', '#ffffff');
+    txtB.setAttribute('font-size', '11');
+    txtB.setAttribute('font-weight', '800');
+    txtB.setAttribute('text-anchor', 'middle');
+    txtB.textContent = '3/12';
+    svg.appendChild(txtB);
+  }
+
+  // Separatore somma
+  const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+  line.setAttribute('x1', startX);
+  line.setAttribute('y1', 106);
+  line.setAttribute('x2', startX + totalWidth);
+  line.setAttribute('y2', 106);
+  line.setAttribute('stroke', 'var(--border-subtle)');
+  line.setAttribute('stroke-dasharray', '3');
+  svg.appendChild(line);
+
+  // Barra 3: Somma
+  const lbl3 = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+  lbl3.setAttribute('x', 15);
+  lbl3.setAttribute('y', 140);
+  lbl3.setAttribute('fill', 'var(--accent-success)');
+  lbl3.setAttribute('font-size', '13');
+  lbl3.setAttribute('font-weight', '800');
+  lbl3.textContent = '∑';
+  svg.appendChild(lbl3);
+
+  if (!isSplit12) {
+    const box = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+    box.setAttribute('x', startX);
+    box.setAttribute('y', 120);
+    box.setAttribute('width', totalWidth);
+    box.setAttribute('height', barHeight);
+    box.setAttribute('fill', 'rgba(255,255,255,0.02)');
+    box.setAttribute('stroke', 'var(--accent-warning)');
+    box.setAttribute('stroke-dasharray', '4');
+    box.setAttribute('rx', '4');
+    svg.appendChild(box);
+
+    const txt = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+    txt.setAttribute('x', startX + totalWidth / 2);
+    txt.setAttribute('y', 138);
+    txt.setAttribute('fill', 'var(--accent-warning)');
+    txt.setAttribute('font-size', '12');
+    txt.setAttribute('font-weight', '600');
+    txt.setAttribute('text-anchor', 'middle');
+    txt.textContent = 'Taglie diverse: impossibile sommare prima di uniformare!';
+    svg.appendChild(txt);
+  } else {
+    const segW = totalWidth / 12;
+    for (let i = 0; i < 12; i++) {
+      const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+      rect.setAttribute('x', startX + i * segW);
+      rect.setAttribute('y', 120);
+      rect.setAttribute('width', segW);
+      rect.setAttribute('height', barHeight);
+      if (i < 4) {
+        rect.setAttribute('fill', 'var(--accent-math)');
+      } else if (i < 7) {
+        rect.setAttribute('fill', 'var(--accent-purple)');
+      } else {
+        rect.setAttribute('fill', 'var(--bg-surface-elevated)');
+      }
+      rect.setAttribute('stroke', i < 7 ? 'var(--accent-success)' : 'var(--border-subtle)');
+      rect.setAttribute('rx', '2');
+      svg.appendChild(rect);
+    }
+
+    const txtTot = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+    txtTot.setAttribute('x', startX + (7 * segW) / 2);
+    txtTot.setAttribute('y', 138);
+    txtTot.setAttribute('fill', '#ffffff');
+    txtTot.setAttribute('font-size', '12');
+    txtTot.setAttribute('font-weight', '800');
+    txtTot.setAttribute('text-anchor', 'middle');
+    txtTot.textContent = '4 + 3 = 7/12';
+    svg.appendChild(txtTot);
+  }
+}
+
+function verifyLab5PartA() {
+  const equiv = parseInt(document.getElementById('lab5A_numEquiv').value.trim(), 10);
+  const num = parseInt(document.getElementById('lab5A_finalNum').value.trim(), 10);
+  const den = parseInt(document.getElementById('lab5A_finalDen').value.trim(), 10);
+  const msg = document.getElementById('lab5AMsg');
+  msg.style.display = 'inline-flex';
+
+  if (equiv === 9 && ((num === 1 && den === 3) || (num === 4 && den === 12))) {
+    if (num === 4 && den === 12) {
+      if (window.ComodeAudio) window.ComodeAudio.playHint();
+      msg.className = 'feedback-msg error';
+      msg.textContent = 'Bene: fa 4/12! Ora dividi sopra e sotto per 4 per ridurla ai minimi termini.';
+      return;
+    }
+    msg.className = 'feedback-msg success';
+    msg.textContent = 'Esatto! 3/4 = 9/12; (9 - 5)/12 = 4/12 = 1/3!';
+    lab5PartADone = true;
+    checkLab5Complete();
+  } else {
+    if (window.ComodeAudio) window.ComodeAudio.playError();
+    msg.className = 'feedback-msg error';
+    msg.textContent = 'Controlla: 3 × 3 = 9; poi 9 - 5 = 4. Riduci 4/12 dividendo per 4.';
+  }
+}
+
+function verifyLab5PartB() {
+  const num = parseInt(document.getElementById('lab5B_Num').value.trim(), 10);
+  const den = parseInt(document.getElementById('lab5B_Den').value.trim(), 10);
+  const msg = document.getElementById('lab5BMsg');
+  msg.style.display = 'inline-flex';
+
+  if (num === 7 && den === 5) {
+    msg.className = 'feedback-msg success';
+    msg.textContent = 'Perfetto! 2 = 10/5, quindi (10 - 3)/5 = 7/5 (oppure 1 torta e 2/5). Calcolo lampo riuscito!';
+    lab5PartBDone = true;
+    checkLab5Complete();
+  } else {
+    if (window.ComodeAudio) window.ComodeAudio.playError();
+    msg.className = 'feedback-msg error';
+    msg.textContent = 'Due interi equivalgono a quanti quinti? 2 × 5 = 10 quinti...';
+  }
+}
+
+function checkLab5Complete() {
+  if (lab5PartADone && lab5PartBDone) {
+    markLabCompleted(5);
+  }
+}
+
+/* ========================================================
+   LABORATORIO 6: PALESTRA MENTALE (GYM)
+   ======================================================== */
+let gymSolvedCount = 0;
+
+function verifyGym(index, expected, hintId, successReason) {
+  const input = document.getElementById(`gym${index}In`);
+  const val = parseFloat(input.value.trim());
+  const card = document.getElementById(`gym${index}`);
+
+  if (val === expected) {
+    if (window.ComodeAudio) window.ComodeAudio.playSuccess();
+    card.classList.add('solved');
+    input.disabled = true;
+    const btn = card.querySelector('.btn-action');
+    btn.disabled = true;
+    btn.textContent = '✓ Risolto';
+    btn.style.background = 'var(--accent-success)';
+
+    const hintEl = document.getElementById(hintId);
+    hintEl.innerHTML = `<strong>Corretto!</strong> ${successReason}`;
+    hintEl.classList.add('visible');
+
+    gymSolvedCount++;
+    if (gymSolvedCount >= 3) {
+      markLabCompleted(6);
+    }
+  } else {
+    if (window.ComodeAudio) window.ComodeAudio.playError();
+    alert('Riprova: apri il trucco per visualizzare la scorciatoia mentale comoda!');
+  }
+}
+
+function verifyGym4() {
+  const input = document.getElementById('gym4In');
+  const val = input.value.trim().replace(/\s+/g, '');
+  const card = document.getElementById('gym4');
+
+  if (val === '1/4' || val === '0.25' || val === '0,25') {
+    if (window.ComodeAudio) window.ComodeAudio.playSuccess();
+    card.classList.add('solved');
+    input.disabled = true;
+    const btn = card.querySelector('.btn-action');
+    btn.disabled = true;
+    btn.textContent = '✓ Risolto';
+    btn.style.background = 'var(--accent-success)';
+
+    const hintEl = document.getElementById('hintGym4');
+    hintEl.innerHTML = `<strong>Corretto!</strong> 75/300 = 1/4 (il 25% degli studenti).`;
+    hintEl.classList.add('visible');
+
+    gymSolvedCount++;
+    if (gymSolvedCount >= 3) {
+      markLabCompleted(6);
+    }
+  } else {
+    if (window.ComodeAudio) window.ComodeAudio.playError();
+    alert('Riprova: 75 sta in 300 esattamente quante volte? Prova a scrivere la frazione ridotta (es. 1/4).');
+  }
+}
+
+/* ========================================================
+   LABORATORIO 7: COMPITO DI REALTÀ & MODELLO A BARRE
+   ======================================================== */
+let lab7Budget = 2400;
+let lab7Stage = 'assigned'; // 'separate', 'common', 'assigned', 'euro'
+let lab7StepsDone = { s1: false, s2: false, s3: false, s4: false };
+
+function setLab7Budget(amount, btn) {
+  lab7Budget = amount;
+  if (window.ComodeAudio) window.ComodeAudio.playClick();
+  document.querySelectorAll('#budgetBtnGroup .sim-btn-pill').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  const d = document.getElementById('lab7BudgetValueDisplay');
+  if (d) d.textContent = `${amount.toLocaleString('it-IT')} €`;
+  renderAllocationBar();
+  const unitVal = amount / 15;
+  const h = document.getElementById('lab7HintBudgetCalc');
+  if (h) h.textContent = `Calcolo: ${amount} ÷ 15 = ${unitVal} € per mattoncino`;
+}
+
+function setLab7Stage(stage, btn) {
+  lab7Stage = stage;
+  if (window.ComodeAudio) window.ComodeAudio.playClick();
+  document.querySelectorAll('#stageBtnGroup .sim-btn-pill').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  renderAllocationBar();
+}
+
+function renderAllocationBar() {
+  const svg = document.getElementById('allocationBarSvg');
+  if (!svg) return;
+  svg.innerHTML = '';
+
+  const totalW = 620;
+  const startX = 40;
+  const startY = 35;
+  const barH = 42;
+  const unitVal = lab7Budget / 15;
+
+  // Bracket superiore del budget totale
+  const topText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+  topText.setAttribute('x', startX + totalW / 2);
+  topText.setAttribute('y', 20);
+  topText.setAttribute('fill', 'var(--text-main)');
+  topText.setAttribute('font-size', '13');
+  topText.setAttribute('font-weight', '800');
+  topText.setAttribute('text-anchor', 'middle');
+  topText.textContent = `Budget Totale della Comunità: ${lab7Budget.toLocaleString('it-IT')} € (L'Intero = 1)`;
+  svg.appendChild(topText);
+
+  // Linea orizzontale o bracket sopra
+  const topBracket = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+  topBracket.setAttribute('x1', startX);
+  topBracket.setAttribute('y1', 25);
+  topBracket.setAttribute('x2', startX + totalW);
+  topBracket.setAttribute('y2', 25);
+  topBracket.setAttribute('stroke', 'var(--border-accent)');
+  topBracket.setAttribute('stroke-width', '2');
+  svg.appendChild(topBracket);
+
+  const explEl = document.getElementById('lab7StageExpl');
+
+  if (lab7Stage === 'separate') {
+    if (explEl) {
+      explEl.innerHTML = `<strong>1. Taglie Disomogenee:</strong> Spazio Studio riceve $\\frac{1}{3}$, Lab Teatrale riceve $\\frac{2}{5}$, e lo Sportello Ascolto riceve il resto (?). Le fette non hanno la stessa taglia: come possiamo confrontarle o calcolare il residuo?`;
+    }
+
+    // Disegna nastro diviso in 3 parti sopra
+    const w3 = totalW / 3;
+    for (let i = 0; i < 3; i++) {
+      const r = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+      r.setAttribute('x', startX + i * w3);
+      r.setAttribute('y', startY);
+      r.setAttribute('width', w3);
+      r.setAttribute('height', barH);
+      r.setAttribute('fill', i === 0 ? 'var(--accent-math)' : 'var(--bg-surface-elevated)');
+      r.setAttribute('stroke', 'var(--border-subtle)');
+      r.setAttribute('stroke-width', '1.5');
+      r.setAttribute('rx', '4');
+      svg.appendChild(r);
+    }
+    const t3 = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+    t3.setAttribute('x', startX + w3 / 2);
+    t3.setAttribute('y', startY + 26);
+    t3.setAttribute('fill', '#0b0f19');
+    t3.setAttribute('font-size', '13');
+    t3.setAttribute('font-weight', '800');
+    t3.setAttribute('text-anchor', 'middle');
+    t3.textContent = '1/3 Spazio Studio';
+    svg.appendChild(t3);
+
+    // Barra 2 sotto: divisa in 5 parti
+    const w5 = totalW / 5;
+    for (let i = 0; i < 5; i++) {
+      const r = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+      r.setAttribute('x', startX + i * w5);
+      r.setAttribute('y', startY + 55);
+      r.setAttribute('width', w5);
+      r.setAttribute('height', barH);
+      r.setAttribute('fill', i < 2 ? 'var(--accent-purple)' : 'var(--bg-surface-elevated)');
+      r.setAttribute('stroke', 'var(--border-subtle)');
+      r.setAttribute('stroke-width', '1.5');
+      r.setAttribute('rx', '4');
+      svg.appendChild(r);
+    }
+    const t5 = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+    t5.setAttribute('x', startX + w5);
+    t5.setAttribute('y', startY + 81);
+    t5.setAttribute('fill', '#ffffff');
+    t5.setAttribute('font-size', '13');
+    t5.setAttribute('font-weight', '800');
+    t5.setAttribute('text-anchor', 'middle');
+    t5.textContent = '2/5 Lab Teatrale';
+    svg.appendChild(t5);
+
+    // Domanda residuo
+    const tRem = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+    tRem.setAttribute('x', startX + totalW / 2);
+    tRem.setAttribute('y', startY + 125);
+    tRem.setAttribute('fill', 'var(--accent-warning)');
+    tRem.setAttribute('font-size', '13');
+    tRem.setAttribute('font-weight', '700');
+    tRem.setAttribute('text-anchor', 'middle');
+    tRem.textContent = '❓ Quanto resta esattamente allo Sportello di Ascolto? Serve una taglia comune!';
+    svg.appendChild(tRem);
+
+    if (window.renderMathInElement) {
+      window.renderMathInElement(explEl, { delimiters: [{left: "$", right: "$", display: false}] });
+    }
+    return;
+  }
+
+  // Per le fasi 'common', 'assigned', 'euro'
+  const segW = totalW / 15;
+
+  if (lab7Stage === 'common') {
+    if (explEl) {
+      explEl.innerHTML = `<strong>2. La Taglia Comune (15esimi):</strong> Il m.c.m.(3, 5) = 15. Abbiamo suddiviso l'intero budget di ${lab7Budget.toLocaleString('it-IT')} € in <strong>15 mattoncini identici</strong>. Ciascun mattoncino vale $\\frac{1}{15}$ del budget!`;
+    }
+    for (let i = 0; i < 15; i++) {
+      const r = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+      r.setAttribute('x', startX + i * segW);
+      r.setAttribute('y', startY + 15);
+      r.setAttribute('width', segW);
+      r.setAttribute('height', barH);
+      r.setAttribute('fill', 'var(--bg-surface-elevated)');
+      r.setAttribute('stroke', 'var(--accent-math)');
+      r.setAttribute('stroke-width', '1.5');
+      r.setAttribute('rx', '2');
+      svg.appendChild(r);
+
+      const tIdx = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+      tIdx.setAttribute('x', startX + i * segW + segW / 2);
+      tIdx.setAttribute('y', startY + 41);
+      tIdx.setAttribute('fill', 'var(--text-dim)');
+      tIdx.setAttribute('font-size', '11');
+      tIdx.setAttribute('font-weight', '700');
+      tIdx.setAttribute('text-anchor', 'middle');
+      tIdx.textContent = `${i + 1}`;
+      svg.appendChild(tIdx);
+    }
+
+    const tInf = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+    tInf.setAttribute('x', startX + totalW / 2);
+    tInf.setAttribute('y', startY + 80);
+    tInf.setAttribute('fill', 'var(--accent-math)');
+    tInf.setAttribute('font-size', '13');
+    tInf.setAttribute('font-weight', '700');
+    tInf.setAttribute('text-anchor', 'middle');
+    tInf.textContent = `15 celle uguali • Ciascuna cella = 1/15 del totale`;
+    svg.appendChild(tInf);
+
+  } else if (lab7Stage === 'assigned') {
+    if (explEl) {
+      explEl.innerHTML = `<strong>3. Assegnazione Frazionaria &amp; Quota Rimanente:</strong> Spazio Studio $\\frac{1}{3} = \\frac{5}{15}$ (5 celle blu); Lab Teatrale $\\frac{2}{5} = \\frac{6}{15}$ (6 celle viola). Somma assegnata: $5 + 6 = 11$ celle. Rimangono scoperte <strong>$15 - 11 = 4$ celle verdi</strong> per lo Sportello Ascolto ($\\frac{4}{15}$)!`;
+    }
+
+    for (let i = 0; i < 15; i++) {
+      const r = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+      r.setAttribute('x', startX + i * segW);
+      r.setAttribute('y', startY + 15);
+      r.setAttribute('width', segW);
+      r.setAttribute('height', barH);
+      if (i < 5) {
+        r.setAttribute('fill', 'var(--accent-math)');
+        r.setAttribute('stroke', '#0284c7');
+      } else if (i < 11) {
+        r.setAttribute('fill', 'var(--accent-purple)');
+        r.setAttribute('stroke', '#6d28d9');
+      } else {
+        r.setAttribute('fill', 'var(--accent-success)');
+        r.setAttribute('stroke', '#059669');
+      }
+      r.setAttribute('stroke-width', '1.5');
+      r.setAttribute('rx', '2');
+      svg.appendChild(r);
+    }
+
+    // Scritte di gruppo sotto la barra
+    const tA = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+    tA.setAttribute('x', startX + (5 * segW) / 2);
+    tA.setAttribute('y', startY + 41);
+    tA.setAttribute('fill', '#0b0f19');
+    tA.setAttribute('font-size', '12');
+    tA.setAttribute('font-weight', '800');
+    tA.setAttribute('text-anchor', 'middle');
+    tA.textContent = '1/3 = 5/15';
+    svg.appendChild(tA);
+
+    const tB = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+    tB.setAttribute('x', startX + 5 * segW + (6 * segW) / 2);
+    tB.setAttribute('y', startY + 41);
+    tB.setAttribute('fill', '#ffffff');
+    tB.setAttribute('font-size', '12');
+    tB.setAttribute('font-weight', '800');
+    tB.setAttribute('text-anchor', 'middle');
+    tB.textContent = '2/5 = 6/15';
+    svg.appendChild(tB);
+
+    const tC = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+    tC.setAttribute('x', startX + 11 * segW + (4 * segW) / 2);
+    tC.setAttribute('y', startY + 41);
+    tC.setAttribute('fill', '#0b0f19');
+    tC.setAttribute('font-size', '12');
+    tC.setAttribute('font-weight', '800');
+    tC.setAttribute('text-anchor', 'middle');
+    tC.textContent = 'Restano: 4/15';
+    svg.appendChild(tC);
+
+    const tSub = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+    tSub.setAttribute('x', startX + totalW / 2);
+    tSub.setAttribute('y', startY + 80);
+    tSub.setAttribute('fill', 'var(--text-main)');
+    tSub.setAttribute('font-size', '13');
+    tSub.setAttribute('font-weight', '700');
+    tSub.setAttribute('text-anchor', 'middle');
+    tSub.textContent = `Frazione Complementare: 1 - (5/15 + 6/15) = 15/15 - 11/15 = 4/15`;
+    svg.appendChild(tSub);
+
+  } else if (lab7Stage === 'euro') {
+    const euroA = 5 * unitVal;
+    const euroB = 6 * unitVal;
+    const euroC = 4 * unitVal;
+
+    if (explEl) {
+      explEl.innerHTML = `<strong>4. Traduzione Economica delle Quote:</strong> 1 cella ($\\frac{1}{15}$) = $${lab7Budget} \\div 15 = \\mathbf{${unitVal}\\text{ €}}$. Spazio Studio (5 celle) = $5 \\times ${unitVal} = \\mathbf{${euroA.toLocaleString('it-IT')}\\text{ €}}$; Lab Teatrale (6 celle) = $6 \\times ${unitVal} = \\mathbf{${euroB.toLocaleString('it-IT')}\\text{ €}}$; Sportello Ascolto (4 celle) = $4 \\times ${unitVal} = \\mathbf{${euroC.toLocaleString('it-IT')}\\text{ €}}$. Verifica: $${euroA} + ${euroB} + ${euroC} = ${lab7Budget}\\text{ €}$!`;
+    }
+
+    for (let i = 0; i < 15; i++) {
+      const r = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+      r.setAttribute('x', startX + i * segW);
+      r.setAttribute('y', startY + 15);
+      r.setAttribute('width', segW);
+      r.setAttribute('height', barH);
+      if (i < 5) {
+        r.setAttribute('fill', 'var(--accent-math)');
+        r.setAttribute('stroke', '#0284c7');
+      } else if (i < 11) {
+        r.setAttribute('fill', 'var(--accent-purple)');
+        r.setAttribute('stroke', '#6d28d9');
+      } else {
+        r.setAttribute('fill', 'var(--accent-success)');
+        r.setAttribute('stroke', '#059669');
+      }
+      r.setAttribute('stroke-width', '1.5');
+      r.setAttribute('rx', '2');
+      svg.appendChild(r);
+    }
+
+    const tA = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+    tA.setAttribute('x', startX + (5 * segW) / 2);
+    tA.setAttribute('y', startY + 41);
+    tA.setAttribute('fill', '#0b0f19');
+    tA.setAttribute('font-size', '12');
+    tA.setAttribute('font-weight', '800');
+    tA.setAttribute('text-anchor', 'middle');
+    tA.textContent = `${euroA} €`;
+    svg.appendChild(tA);
+
+    const tB = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+    tB.setAttribute('x', startX + 5 * segW + (6 * segW) / 2);
+    tB.setAttribute('y', startY + 41);
+    tB.setAttribute('fill', '#ffffff');
+    tB.setAttribute('font-size', '12');
+    tB.setAttribute('font-weight', '800');
+    tB.setAttribute('text-anchor', 'middle');
+    tB.textContent = `${euroB} €`;
+    svg.appendChild(tB);
+
+    const tC = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+    tC.setAttribute('x', startX + 11 * segW + (4 * segW) / 2);
+    tC.setAttribute('y', startY + 41);
+    tC.setAttribute('fill', '#0b0f19');
+    tC.setAttribute('font-size', '12');
+    tC.setAttribute('font-weight', '800');
+    tC.setAttribute('text-anchor', 'middle');
+    tC.textContent = `${euroC} €`;
+    svg.appendChild(tC);
+
+    const tSub = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+    tSub.setAttribute('x', startX + totalW / 2);
+    tSub.setAttribute('y', startY + 80);
+    tSub.setAttribute('fill', 'var(--accent-success)');
+    tSub.setAttribute('font-size', '13');
+    tSub.setAttribute('font-weight', '700');
+    tSub.setAttribute('text-anchor', 'middle');
+    tSub.textContent = `Quadratura Perfetta del Budget: ${euroA}€ + ${euroB}€ + ${euroC}€ = ${lab7Budget.toLocaleString('it-IT')} € (100%)`;
+    svg.appendChild(tSub);
+  }
+
+  if (window.renderMathInElement && explEl) {
+    window.renderMathInElement(explEl, { delimiters: [{left: "$", right: "$", display: false}] });
+  }
+}
+
+function verifyLab7Step1() {
+  const num = parseInt(document.getElementById('lab7_step1Num').value.trim(), 10);
+  const den = parseInt(document.getElementById('lab7_step1Den').value.trim(), 10);
+  const msg = document.getElementById('lab7_step1Msg');
+  msg.style.display = 'inline-flex';
+
+  if (num === 11 && den === 15) {
+    if (window.ComodeAudio) window.ComodeAudio.playSuccess();
+    msg.className = 'feedback-msg success';
+    msg.textContent = 'Esatto! 1/3 (5/15) + 2/5 (6/15) = 11/15 del budget già stanziato.';
+    lab7StepsDone.s1 = true;
+    checkLab7Complete();
+  } else {
+    if (window.ComodeAudio) window.ComodeAudio.playError();
+    msg.className = 'feedback-msg error';
+    msg.textContent = 'Calcola: 1/3 = 5/15; 2/5 = 6/15. Somma: 5 + 6 = ? su 15.';
+  }
+}
+
+function verifyLab7Step2() {
+  const num = parseInt(document.getElementById('lab7_step2Num').value.trim(), 10);
+  const den = parseInt(document.getElementById('lab7_step2Den').value.trim(), 10);
+  const msg = document.getElementById('lab7_step2Msg');
+  msg.style.display = 'inline-flex';
+
+  if (num === 4 && den === 15) {
+    if (window.ComodeAudio) window.ComodeAudio.playSuccess();
+    msg.className = 'feedback-msg success';
+    msg.textContent = 'Perfetto! L\'intero è 15/15. Togliendo 11/15 restano 4/15 per lo Sportello Ascolto!';
+    lab7StepsDone.s2 = true;
+    checkLab7Complete();
+  } else {
+    if (window.ComodeAudio) window.ComodeAudio.playError();
+    msg.className = 'feedback-msg error';
+    msg.textContent = 'Sottrai dall\'intero 15/15 la frazione 11/15: quanti quindicesimi rimangono?';
+  }
+}
+
+function verifyLab7Step3() {
+  const val = parseInt(document.getElementById('lab7_step3Val').value.trim(), 10);
+  const msg = document.getElementById('lab7_step3Msg');
+  msg.style.display = 'inline-flex';
+  const expectedUnit = lab7Budget / 15;
+
+  if (val === expectedUnit) {
+    if (window.ComodeAudio) window.ComodeAudio.playSuccess();
+    msg.className = 'feedback-msg success';
+    msg.textContent = `Bravissimo! Ciascuno dei 15 mattoncini vale esattamente ${expectedUnit} €.`;
+    lab7StepsDone.s3 = true;
+    checkLab7Complete();
+  } else {
+    if (window.ComodeAudio) window.ComodeAudio.playError();
+    msg.className = 'feedback-msg error';
+    msg.textContent = `Dividi il budget totale (${lab7Budget} €) per il denominatore comune 15: ${lab7Budget} ÷ 15 = ?`;
+  }
+}
+
+function verifyLab7Step4() {
+  const val = parseInt(document.getElementById('lab7_step4Val').value.trim(), 10);
+  const msg = document.getElementById('lab7_step4Msg');
+  msg.style.display = 'inline-flex';
+  const unit = lab7Budget / 15;
+  const expectedTotal = 4 * unit;
+
+  if (val === expectedTotal) {
+    if (window.ComodeAudio) window.ComodeAudio.playSuccess();
+    msg.className = 'feedback-msg success';
+    msg.textContent = `Ottimo lavoro! 4 mattoncini × ${unit} € = ${expectedTotal} € per lo Sportello Ascolto!`;
+    lab7StepsDone.s4 = true;
+    checkLab7Complete();
+  } else {
+    if (window.ComodeAudio) window.ComodeAudio.playError();
+    msg.className = 'feedback-msg error';
+    msg.textContent = `Lo Sportello ha 4 mattoncini, e ognuno vale ${unit} €. Calcola 4 × ${unit} = ?`;
+  }
+}
+
+function checkLab7Complete() {
+  if (lab7StepsDone.s1 && lab7StepsDone.s2 && lab7StepsDone.s3 && lab7StepsDone.s4) {
+    markLabCompleted(7);
+  }
+}
+
+  </script>
+</body>
+</html>

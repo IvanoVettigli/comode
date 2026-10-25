@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="it" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Titolo Lezione • comode</title>
+  <meta name="description" content="Descrizione della lezione interattiva comode per il Liceo delle Scienze Umane.">
+  
+  <!-- Font Google -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- KaTeX per rendering matematico -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+
+  <!-- CSS Condiviso comode:
+       NOTA: per il Primo Biennio il percorso è: ../../shared/css/comode.css
+             per il Secondo Biennio e Quinto Anno è: ../../../shared/css/comode.css -->
+  <link rel="stylesheet" href="../../shared/css/comode.css">
+
+  <style>
+    /* Inserisci qui eventuali stili specifici e visualizzatori grafici/SVG di QUESTA lezione */
+  </style>
+</head>
+<body data-theme="dark" data-lesson-id="id-univoco-lezione" data-xp="60" data-unit="uda-x.x">
+
+  <div class="container">
+    
+    <!-- NAVBAR CONDIVISA -->
+    <nav class="navbar">
+      <a href="../../index.html" class="brand">
+        comode<span>.</span>
+      </a>
+      <div class="nav-actions">
+        <div class="gamification-widget" title="Il tuo livello e punti XP">
+          <span class="level-badge user-level-val">Liv. 1 🌱</span>
+          <span class="xp-counter user-xp-val">0 XP</span>
+        </div>
+        <button id="audioToggleBtn" class="icon-btn" aria-label="Attiva o disattiva audio">
+          🔊 <span class="nav-text">Suoni</span>
+        </button>
+        <button id="themeToggleBtn" class="theme-toggle-btn" aria-label="Cambia tema">
+          <span id="themeIcon">☀️ </span>
+          <span id="themeLabel">Chiaro</span>
+        </button>
+      </div>
+    </nav>
+
+    <!-- BREADCRUMBS -->
+    <div class="breadcrumbs">
+      <a href="../../index.html">Home</a>
+      <span class="sep">/</span>
+      <a href="../index.html">Ciclo</a>
+      <span class="sep">/</span>
+      <span>UDA X.X: Nome Unità</span>
+      <span class="sep">/</span>
+      <span class="current">Lezione X.X</span>
+    </div>
+
+    <!-- HERO CARD -->
+    <header class="hero-card">
+      <div class="hero-badges">
+        <span class="badge badge-primary">Materia • Anno</span>
+        <span class="badge badge-secondary">UDA X.X • Titolo UDA</span>
+        <span class="badge badge-meta">Metodologia: Problem Solving</span>
+      </div>
+      <h1 class="hero-title">Titolo Principale della Lezione</h1>
+      <p class="hero-desc">
+        Sottotitolo o introduzione orientata alla comprensione intuitiva e al problem solving cognitivo.
+      </p>
+
+      <!-- Barra avanzamento laboratori -->
+      <div class="progress-bar-card">
+        <div class="progress-label">
+          <span>🎯 Progresso Attività:</span>
+          <span class="progress-score" id="progressScore">0 / 3 completati</span>
+        </div>
+        <div class="progress-track">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+      </div>
+    </header>
+
+    <!-- ========================================================
+         PREREQUISITI & OBIETTIVI ("COSA SAPRAI FARE")
+         ======================================================== -->
+    <div class="prereq-objectives-grid">
+      <!-- Card Prerequisiti -->
+      <div class="prereq-card">
+        <div class="card-top-label prereq">
+          <span>🔑</span> Prerequisiti Consigliati
+        </div>
+        <h2 class="po-title">Cosa ti serve prima di iniziare</h2>
+        <ul class="po-list">
+          <li>
+            <span class="po-icon">✓</span>
+            <div><strong>Prerequisito 1:</strong> Concetto di base necessario.</div>
+          </li>
+          <li>
+            <span class="po-icon">✓</span>
+            <div><strong>Prerequisito 2:</strong> Proprietà o operazione già affrontata in precedenza.</div>
+          </li>
+          <li>
+            <span class="po-icon">✓</span>
+            <div><strong>Prerequisito 3:</strong> Esperienza intuitiva o modello reale.</div>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Card Obiettivi -->
+      <div class="objectives-card">
+        <div class="card-top-label objectives">
+          <span>🎯</span> Competenze in Uscita
+        </div>
+        <h2 class="po-title">Cosa saprai fare alla fine della lezione</h2>
+        <ul class="po-list">
+          <li>
+            <span class="po-icon">🚀</span>
+            <div><strong>Competenza 1:</strong> Abilità pratica e autonoma acquisita.</div>
+          </li>
+          <li>
+            <span class="po-icon">🚀</span>
+            <div><strong>Competenza 2:</strong> Strategia di calcolo o modellizzazione appresa.</div>
+          </li>
+          <li>
+            <span class="po-icon">🚀</span>
+            <div><strong>Competenza 3:</strong> Capacità di argomentare e validare la soluzione.</div>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- SEZIONE 1: TEORIA FLASH COLLASSABILE -->
+    <section class="theory-wrapper">
+      <div class="section-header">
+        <h2 class="section-title">
+          <span class="icon">⚡</span> Scheda Teoria Flash: Le Coordinate di Base
+        </h2>
+        <button id="toggleTheoryBtn" class="collapse-btn">
+          <span>Nascondi Teoria</span> ▴
+        </button>
+      </div>
+
+      <div id="theoryContent" class="theory-grid">
+        <div class="theory-card">
+          <div class="theory-card-header">
+            <span class="theory-num">01</span>
+            <h3 class="theory-title">Concetto Chiave</h3>
+          </div>
+          <div class="theory-body">
+            <p>Spiegazione concisa, chiara ed essenziale con formule KaTeX come $a^2 + b^2 = c^2$.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SEZIONE 2: LABORATORI INTERATTIVI GUIDATI -->
+    <main class="labs-container">
+      <div class="section-header">
+        <h2 class="section-title">
+          <span class="icon">🧪</span> Laboratori Operativi di Problem Solving
+        </h2>
+      </div>
+
+      <!-- Esempio Laboratorio 1 -->
+      <article class="lab-card" id="lab1">
+        <div class="lab-badge-row">
+          <span class="lab-tag">Laboratorio 1</span>
+          <span class="lab-xp-badge">+10 XP</span>
+        </div>
+        <h3 class="lab-title">Titolo del Laboratorio</h3>
+        <p class="lab-question">Domanda o problema applicativo concreto da esplorare.</p>
+        
+        <!-- Contenuto interattivo / controlli -->
+        <div class="verify-box">
+          <input type="text" id="lab1Input" class="inline-input" placeholder="Tua risposta...">
+          <button class="btn-action" onclick="verifyLab1()">Verifica Risposta</button>
+          <span id="lab1Msg" class="feedback-msg" style="display: none;"></span>
+        </div>
+      </article>
+    </main>
+
+    <!-- ========================================================
+         SEZIONE FLASHCARDS DI AUTOVALUTAZIONE (TEST RIPETIBILE ALL'INFINITO)
+         ======================================================== -->
+    <section class="flashcard-section" id="flashcardSection">
+      <div class="section-header">
+        <h2 class="section-title">
+          <span class="icon">🃏</span> Flashcards di Autovalutazione (+15 XP per carta)
+        </h2>
+        <span class="tag info-tag" style="background: rgba(56, 189, 248, 0.12); color: var(--accent-math); padding: 0.25rem 0.65rem; border-radius: 9999px; font-size: 0.8rem; font-weight: 700;">
+          🔁 Tentativi Infiniti
+        </span>
+      </div>
+      <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1.5rem;">
+        Mettiti alla prova con le flashcard operative. Ogni risposta corretta ti assegna <strong>+15 XP</strong>.
+        Puoi ripetere il test tutte le volte che vuoi per consolidare i concetti e perfezionare il tuo punteggio!
+      </p>
+
+      <!-- Il mazzo viene popolato dinamicamente via JS da ComodeFlashcards.init -->
+      <div id="lessonFlashcardDeck"></div>
+    </section>
+
+    <!-- SINTESI E TAKEAWAY -->
+    <footer class="final-recap" id="finalRecap">
+      <div class="recap-icon">🎓</div>
+      <h2 class="recap-title">Takeaway della Lezione</h2>
+      <p class="recap-subtitle">I concetti e le strategie da portare con te.</p>
+      <div class="takeaways-row">
+        <div class="takeaway-item">
+          <strong>1. Primo Principio</strong>
+          <p>Sintesi del principio chiave appreso.</p>
+        </div>
+        <div class="takeaway-item">
+          <strong>2. Strategia Operativa</strong>
+          <p>Come applicarlo nei problemi successivi.</p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- CARD DI COMPLETAMENTO GAMIFICATION -->
+    <div class="completion-card" id="lessonCompletionCard">
+      <div class="completion-icon">🏆</div>
+      <h3 class="completion-title">Hai completato la Lezione?</h3>
+      <p class="completion-desc">
+        Registra il tuo traguardo per guadagnare i tuoi punti esperienza finali (+60 XP) e salire di livello!
+      </p>
+      <button id="btnCompleteLesson" class="btn-complete">
+        ✨ Segna come Completata (+60 XP)
+      </button>
+    </div>
+
+  </div>
+
+  <!-- SCRIPTS CONDIVISI COMODE -->
+  <!-- Modifica il percorso relativo se la lezione si trova a 3 livelli di profondità (../../../shared/js/...) -->
+  <script src="../../shared/js/audio.js"></script>
+  <script src="../../shared/js/theme.js"></script>
+  <script src="../../shared/js/gamification.js"></script>
+  <script src="../../shared/js/components.js"></script>
+  <script src="../../shared/js/flashcards.js"></script>
+  <script src="../../shared/js/comode.js"></script>
+
+  <!-- LOGICA SPECIFICA DELLA LEZIONE -->
+  <script>
+    function initLesson() {
+      // Inizializza il Mazzo Flashcards
+      if (window.ComodeFlashcards) {
+        ComodeFlashcards.init('lessonFlashcardDeck', {
+          deckId: 'deck-id-univoco',
+          xpPerCard: 15,
+          completionXP: 25,
+          cards: [
+            {
+              category: 'Categoria 1',
+              question: 'Domanda o quesito con formule KaTeX $$x^2 = 4$$?',
+              options: [
+                'Opzione errata A',
+                'Opzione corretta B ($$x = \\pm 2$$)',
+                'Opzione errata C',
+                'Opzione errata D'
+              ],
+              correct: 1, // Indice 0-based della risposta corretta
+              explanation: 'Spiegazione concettuale per motivare la risposta corretta.'
+            }
+          ]
+        });
+      }
+    }
+
+    if (document.readyState !== 'loading') {
+      initLesson();
+    } else {
+      document.addEventListener('DOMContentLoaded', initLesson);
+    }
+
+    function verifyLab1() {
+      // Esempio verifica laboratorio
+      const val = document.getElementById('lab1Input').value.trim();
+      const msg = document.getElementById('lab1Msg');
+      msg.style.display = 'inline-flex';
+      if (val === '42') {
+        if (window.ComodeAudio) window.ComodeAudio.playSuccess();
+        if (window.ComodeGamification) window.ComodeGamification.addXP(10, 'Laboratorio 1 completato!');
+        msg.className = 'feedback-msg success';
+        msg.textContent = 'Esatto!';
+      } else {
+        if (window.ComodeAudio) window.ComodeAudio.playError();
+        msg.className = 'feedback-msg error';
+        msg.textContent = 'Riprova!';
+      }
+    }
+  </script>
+</body>
+</html>
