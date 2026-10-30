@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CLIL Lesson: Numbers & Mental Strategies • comode</title>
+  <title>CLIL Lesson: Numbers &amp; Mental Strategies • comode</title>
   <meta name="description" content="CLIL Interactive Lesson for Liceo delle Scienze Umane: Numbers, Mental Strategies and Fractions in English with native audio pronunciation.">
 
   <!-- Google Fonts -->
@@ -11,10 +11,10 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-  <!-- KaTeX -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+  <!-- KaTeX 0.19.1 -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.19.1/dist/katex.min.css" crossorigin="anonymous">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.19.1/dist/katex.min.js" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.19.1/dist/contrib/auto-render.min.js" crossorigin="anonymous"></script>
 
   <!-- CSS Condiviso comode -->
   <link rel="stylesheet" href="../../shared/css/comode.css">
@@ -44,6 +44,7 @@
       margin: 1rem 0;
       font-style: italic;
       color: var(--text-main);
+      line-height: 1.75;
     }
 
     .clil-translation-toggle {
@@ -72,6 +73,7 @@
       margin-top: 0.6rem;
       font-size: 0.9rem;
       color: var(--text-muted);
+      line-height: 1.7;
     }
 
     .clil-translation-box.visible {
@@ -86,7 +88,7 @@
     <!-- Navbar -->
     <nav class="navbar">
       <a href="../../index.html" class="brand">
-        comode<span>.</span>
+        📐 comode<span>.</span>
       </a>
       <div class="nav-actions">
         <div class="gamification-widget" title="Il tuo livello e punti XP">
@@ -97,7 +99,7 @@
           🔊 <span class="nav-text">Suoni</span>
         </button>
         <button id="themeToggleBtn" class="theme-toggle-btn" aria-label="Cambia tema">
-          <span id="themeIcon">☀️ </span>
+          <span id="themeIcon">☀️</span>
           <span id="themeLabel">Chiaro</span>
         </button>
       </div>
@@ -179,21 +181,21 @@
           </li>
           <li>
             <span class="po-icon">🚀</span>
-            <div><strong>Explain Smart Strategies:</strong> describe distributive shortcuts and cross-simplifications in English.</div>
+            <div><strong>Explain Smart Strategies:</strong> describe distributive shortcuts and cross-simplifications in English and complete the final CLIL Operational Worksheet.</div>
           </li>
         </ul>
       </div>
     </div>
 
-    <!-- SEZIONE 1: INTERACTIVE BILINGUAL GLOSSARY CON AUDIO -->
-    <section class="clil-glossary-card">
+    <!-- SEZIONE 1: INTERACTIVE BILINGUAL GLOSSARY & THEORY REFERENCE CON AUDIO -->
+    <section class="clil-glossary-card" id="clil-glossary">
       <div class="clil-glossary-header">
         <div>
           <h2 style="font-size: 1.35rem; font-weight: 800; display: flex; align-items: center; gap: 0.5rem;">
-            <span>🎧</span> Interactive Bilingual Math Glossary
+            <span>🎧</span> Interactive Bilingual Math Glossary &amp; Theory Reference
           </h2>
           <p style="color: var(--text-muted); font-size: 0.95rem; margin-top: 0.25rem;">
-            Click on <strong>🔊 Listen</strong> next to any word to hear its native English pronunciation powered by Web Speech API.
+            Click on <strong>🔊 Listen</strong> next to any word to hear its native English pronunciation powered by Web Speech API. Each row serves as a theoretical anchor linked to the tasks below.
           </p>
         </div>
         <span class="tag info-tag" style="background: rgba(168, 85, 247, 0.12); color: var(--accent-purple); padding: 0.35rem 0.8rem; border-radius: 9999px; font-weight: 700; font-size: 0.85rem;">
@@ -207,89 +209,89 @@
             <tr>
               <th style="min-width: 220px;">English Term &amp; Audio</th>
               <th style="min-width: 180px;">Italian Equivalent</th>
-              <th>Math Definition &amp; Context</th>
+              <th>Math Theory &amp; Operational Context</th>
             </tr>
           </thead>
           <tbody>
-            <tr>
+            <tr id="clil-th-integers">
               <td>
                 <div class="term-en">
-                  <span>Whole Numbers / Integers</span>
+                  <span>1. Whole Numbers / Integers</span>
                   <button class="speech-btn" onclick="speakWord('integers')">🔊 Listen</button>
                 </div>
               </td>
               <td><span class="term-it">Numeri Interi ($\mathbb{Z}$)</span></td>
-              <td><span class="term-context">Numbers without fractional parts: positive, negative and zero ($\{\dots, -2, -1, 0, 1, 2, \dots\}$).</span></td>
+              <td><span class="term-context">Directed numbers without fractional parts: positive, negative and zero ($\{\dots, -2, -1, 0, 1, 2, \dots\}$); subtracting a negative moves right ($a - (-b) = a + b$).</span></td>
             </tr>
-            <tr>
+            <tr id="clil-th-rational">
               <td>
                 <div class="term-en">
-                  <span>Rational Numbers</span>
+                  <span>2. Rational Numbers</span>
                   <button class="speech-btn" onclick="speakWord('rational numbers')">🔊 Listen</button>
                 </div>
               </td>
               <td><span class="term-it">Numeri Razionali ($\mathbb{Q}$)</span></td>
-              <td><span class="term-context">Any number expressible as the quotient $\frac{a}{b}$ of two integers ($b \neq 0$).</span></td>
+              <td><span class="term-context">Any number expressible as the quotient $\frac{a}{b}$ of two integers ($b \neq 0$), or as a terminating/repeating decimal ($0.25 = \frac{1}{4}$).</span></td>
             </tr>
-            <tr>
+            <tr id="clil-th-num-den">
               <td>
                 <div class="term-en">
-                  <span>Numerator &amp; Denominator</span>
+                  <span>3. Numerator &amp; Denominator</span>
                   <button class="speech-btn" onclick="speakWord('numerator and denominator')">🔊 Listen</button>
                 </div>
               </td>
               <td><span class="term-it">Numeratore e Denominatore</span></td>
-              <td><span class="term-context">In $\frac{3}{4}$, 3 is the numerator (how many slices) and 4 is the denominator (the slice size).</span></td>
+              <td><span class="term-context">In $\frac{3}{4}$, $3$ is the numerator (how many slices) and $4$ is the denominator (the slice size / unit partition).</span></td>
             </tr>
-            <tr>
+            <tr id="clil-th-common-den">
               <td>
                 <div class="term-en">
-                  <span>Common Denominator</span>
+                  <span>4. Common Denominator</span>
                   <button class="speech-btn" onclick="speakWord('common denominator')">🔊 Listen</button>
                 </div>
               </td>
               <td><span class="term-it">Denominatore Comune</span></td>
-              <td><span class="term-context">A shared multiple of the denominators needed to add or subtract fractions: $\frac{1}{3} + \frac{1}{4} = \frac{7}{12}$.</span></td>
+              <td><span class="term-context">A shared multiple of the denominators needed to add or subtract fractions of equal size: $\frac{1}{3} + \frac{1}{4} = \frac{4}{12} + \frac{3}{12} = \frac{7}{12}$.</span></td>
             </tr>
-            <tr>
+            <tr id="clil-th-reciprocal">
               <td>
                 <div class="term-en">
-                  <span>Reciprocal</span>
+                  <span>5. Reciprocal</span>
                   <button class="speech-btn" onclick="speakWord('reciprocal')">🔊 Listen</button>
                 </div>
               </td>
               <td><span class="term-it">Inverso / Reciproco</span></td>
-              <td><span class="term-context">The multiplicative inverse: the reciprocal of $\frac{3}{5}$ is $\frac{5}{3}$ because $\frac{3}{5} \times \frac{5}{3} = 1$.</span></td>
+              <td><span class="term-context">The multiplicative inverse: the reciprocal of $\frac{3}{5}$ is $\frac{5}{3}$ because $\frac{3}{5} \times \frac{5}{3} = 1$. Dividing by a fraction equals multiplying by its reciprocal.</span></td>
             </tr>
-            <tr>
+            <tr id="clil-th-cross">
               <td>
                 <div class="term-en">
-                  <span>Cross-Simplification</span>
+                  <span>6. Cross-Simplification</span>
                   <button class="speech-btn" onclick="speakWord('cross simplification')">🔊 Listen</button>
                 </div>
               </td>
               <td><span class="term-it">Semplificazione in croce</span></td>
-              <td><span class="term-context">Cancelling common factors between numerators and denominators before multiplying: $\frac{21}{20} \times \frac{25}{14}$.</span></td>
+              <td><span class="term-context">Cancelling common factors between numerators and denominators <em>before</em> multiplying: $\frac{3}{8} \times \frac{2}{5} = \frac{3}{4 \times 5} = \frac{3}{20}$.</span></td>
             </tr>
-            <tr>
+            <tr id="clil-th-distributive">
               <td>
                 <div class="term-en">
-                  <span>Distributive Property</span>
+                  <span>7. Distributive Property</span>
                   <button class="speech-btn" onclick="speakWord('distributive property')">🔊 Listen</button>
                 </div>
               </td>
               <td><span class="term-it">Proprietà Distributiva</span></td>
-              <td><span class="term-context">Multiplying a sum by multiplying each addend separately: $a \times (b + c) = ab + ac$.</span></td>
+              <td><span class="term-context">Multiplying a sum or difference by multiplying each term separately: $a \times (b \pm c) = ab \pm ac$.</span></td>
             </tr>
-            <tr>
+            <tr id="clil-th-mental">
               <td>
                 <div class="term-en">
-                  <span>Mental Computation</span>
+                  <span>8. Mental Computation</span>
                   <button class="speech-btn" onclick="speakWord('mental computation')">🔊 Listen</button>
                 </div>
               </td>
               <td><span class="term-it">Calcolo Mentale Guidato</span></td>
-              <td><span class="term-context">Calculating accurately in your mind by choosing comfortable representations ($48 \times 0.25 = 48 : 4 = 12$).</span></td>
+              <td><span class="term-context">Calculating accurately in your mind by choosing comfortable representations ($36 \times 0.25 = 36 \times \frac{1}{4} = 9$).</span></td>
             </tr>
           </tbody>
         </table>
@@ -312,10 +314,22 @@
           <span class="lab-xp-badge">+15 XP</span>
         </div>
         <h3 class="lab-title">The High School Social Survey</h3>
-        
+
+        <!-- Collegamento Teoria <-> Pratica -->
+        <div class="theory-link-box">
+          <span class="tl-icon">🔗</span>
+          <div>
+            <strong>Theory ↔ Practice Connection (Collegamento Teoria ↔ Pratica):</strong> This task deepens
+            <a href="#clil-th-rational" class="theory-link-anchor" onclick="event.preventDefault(); scrollToTheory('clil-th-rational');">Theory 2 • Rational Numbers ($\mathbb{Q}$)</a>
+            and
+            <a href="#clil-th-cross" class="theory-link-anchor" onclick="event.preventDefault(); scrollToTheory('clil-th-cross');">Theory 6 • Cross-Simplification</a>
+            (finding a <em>fraction of a fraction</em> of a population by cancelling common factors before multiplying).
+          </div>
+        </div>
+
         <div class="clil-lab-prompt">
-          "A group of sociology students surveyed <strong>400 high school teenagers</strong> about their leisure reading habits. 
-          They found that <strong>$\frac{3}{8}$</strong> of the students read non-fiction articles, and <strong>$\frac{2}{5}$</strong> of those non-fiction readers are specifically interested in psychology essays. 
+          "A group of sociology students surveyed <strong>400 high school teenagers</strong> about their leisure reading habits.
+          They found that <strong>$\frac{3}{8}$</strong> of the students read non-fiction articles, and <strong>$\frac{2}{5}$</strong> of those non-fiction readers are specifically interested in psychology essays.
           How many students in total read psychology essays?"
         </div>
 
@@ -326,7 +340,7 @@
           Un gruppo di studenti di sociologia ha intervistato 400 liceali. Hanno rilevato che i $\frac{3}{8}$ leggono saggistica e i $\frac{2}{5}$ di questi sono specificamente interessati a saggi di psicologia. Quanti studenti in totale leggono saggi di psicologia?
         </div>
 
-        <p style="margin-top: 1rem; font-size: 0.95rem;">
+        <p style="margin-top: 1rem; font-size: 0.95rem; line-height: 1.75;">
           💡 <strong>Mental Shortcut (Cross-Simplification):</strong><br>
           We need to calculate $\frac{3}{8} \times \frac{2}{5} \times 400$. Notice that $\frac{3}{8} \times \frac{2}{5} = \frac{3 \times 1}{4 \times 5} = \frac{3}{20}$.<br>
           Now calculate $\frac{3}{20} \times 400$: since $400 : 20 = 20$, then $3 \times 20 = \dots$
@@ -348,8 +362,20 @@
         </div>
         <h3 class="lab-title">Library Book Order with Smart Multiplication</h3>
 
+        <!-- Collegamento Teoria <-> Pratica -->
+        <div class="theory-link-box">
+          <span class="tl-icon">🔗</span>
+          <div>
+            <strong>Theory ↔ Practice Connection (Collegamento Teoria ↔ Pratica):</strong> This task deepens
+            <a href="#clil-th-distributive" class="theory-link-anchor" onclick="event.preventDefault(); scrollToTheory('clil-th-distributive');">Theory 7 • Distributive Property</a>
+            and
+            <a href="#clil-th-mental" class="theory-link-anchor" onclick="event.preventDefault(); scrollToTheory('clil-th-mental');">Theory 8 • Mental Computation</a>
+            (rewriting a factor near a round tens boundary as $19 = 20 - 1$ to compute $(a - b) \times c = ac - bc$ effortlessly).
+          </div>
+        </div>
+
         <div class="clil-lab-prompt">
-          "The school library is purchasing <strong>19 copies</strong> of a Developmental Psychology handbook. Each copy costs <strong>€35</strong>. 
+          "The school library is purchasing <strong>19 copies</strong> of a Developmental Psychology handbook. Each copy costs <strong>€35</strong>.
           Instead of doing long vertical multiplication on paper, the school secretary uses the <em>distributive property</em>:
           $$19 \times 35 = (20 - 1) \times 35 = (20 \times 35) - (1 \times 35)$$
           What is the total cost in Euros?"
@@ -362,7 +388,7 @@
           La biblioteca scolastica acquista 19 copie di un manuale di psicologia dello sviluppo a 35€ ciascuna. Usando $(20 - 1) \times 35$, calcola mentalmente la spesa totale.
         </div>
 
-        <p style="margin-top: 1rem; font-size: 0.95rem;">
+        <p style="margin-top: 1rem; font-size: 0.95rem; line-height: 1.7;">
           💡 <strong>Mental Computation:</strong><br>
           $20 \times 35 = 700$. Now subtract $1 \times 35 = 35$: calculate $700 - 35 = \dots$
         </p>
@@ -388,10 +414,114 @@
         </span>
       </div>
       <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1.5rem;">
-        Test your mathematical understanding and English scientific vocabulary. You can repeat this test as many times as you want to reach 100% mastery!
+        Test your mathematical understanding and English scientific vocabulary. Answer options are automatically shuffled at every attempt so you focus on concepts, not positions!
       </p>
 
       <div id="clilFlashcardDeck"></div>
+    </section>
+
+
+    <!-- ========================================================
+         SEZIONE 4 (OBBLIGATORIA IN TUTTE LE LEZIONI):
+         COMPITO DI REALTÀ FINALE — SCHEDA OPERATIVA (ASSEGNO PER CASA)
+         ======================================================== -->
+    <section class="homework-section" id="homeworkSection">
+      <div class="section-header">
+        <h2 class="section-title">
+          <span class="icon">📋</span> Final Reality Task — Scheda Operativa CLIL (Assegno per Casa)
+        </h2>
+      </div>
+
+      <article class="scheda-operativa-card">
+        <div class="scheda-top-bar">
+          <div class="scheda-badge-group">
+            <span class="scheda-badge homework">🏠 Assegno per Casa / Homework</span>
+            <span class="scheda-badge modality">👤 Individuale o 👥 In Gruppo</span>
+          </div>
+          <button type="button" class="btn-print-sheet" onclick="window.print()">
+            🖨️ Stampa Scheda Operativa
+          </button>
+        </div>
+
+        <h3 class="scheda-title">CLIL Operational Worksheet: «The Baker's Recipe &amp; School Solidarity Bake Sale»</h3>
+
+        <!-- Collegamento Teoria <-> Pratica -->
+        <div class="theory-link-box">
+          <span class="tl-icon">🔗</span>
+          <div>
+            <strong>Theory ↔ Practice Connection (Collegamento Teoria ↔ Pratica):</strong> This final reality task integrates
+            <a href="#clil-th-common-den" class="theory-link-anchor" onclick="event.preventDefault(); scrollToTheory('clil-th-common-den');">Theory 4 • Common Denominator</a>,
+            <a href="#clil-th-cross" class="theory-link-anchor" onclick="event.preventDefault(); scrollToTheory('clil-th-cross');">Theory 6 • Cross-Simplification</a>,
+            and
+            <a href="#clil-th-distributive" class="theory-link-anchor" onclick="event.preventDefault(); scrollToTheory('clil-th-distributive');">Theory 7 • Distributive Property</a>
+            in an authentic cooperative planning scenario.
+          </div>
+        </div>
+
+        <div class="scheda-delivery-callout">
+          <strong>📅 Modalità di svolgimento e consegna (How to complete &amp; submit):</strong> Puoi svolgere questa Scheda Operativa <strong>da solo</strong> oppure <strong>lavorando in gruppo</strong> con i tuoi compagni, ma ciascuno studente deve <strong>portare la scheda compilata per la lezione successiva</strong> (stampata o ricopiata ordinatamente sul quaderno).
+        </div>
+
+        <!-- Intestazione compilabile per la stampa o quaderno -->
+        <div class="scheda-student-fields">
+          <div class="scheda-field-item">
+            <span class="scheda-field-label">Student Name (Studente / Studentessa):</span>
+            <div class="scheda-field-line"></div>
+          </div>
+          <div class="scheda-field-item">
+            <span class="scheda-field-label">Class &amp; Date (Classe &amp; Data):</span>
+            <div class="scheda-field-line"></div>
+          </div>
+          <div class="scheda-field-item">
+            <span class="scheda-field-label">Mode (Solo / Group Members):</span>
+            <div class="scheda-field-line"></div>
+          </div>
+        </div>
+
+        <div class="scheda-problem-box">
+          <strong>The Real-World Scenario (La Situazione-Problema):</strong><br>
+          Your Human Sciences class is organizing an international <em>Solidarity Bake Sale</em> to fund books for a partner school library. A traditional oat-cake recipe for <strong>1 baking tray</strong> requires:
+          <ul>
+            <li><strong>Flour (Farina):</strong> $\frac{3}{8}\text{ kg}$ per tray</li>
+            <li><strong>Brown Sugar (Zucchero di canna):</strong> $\frac{1}{4}\text{ kg}$ per tray</li>
+            <li><strong>Oat Flakes (Fiocchi d'avena):</strong> $\frac{1}{6}\text{ kg}$ per tray</li>
+          </ul>
+          Your team decides to bake <strong>24 trays</strong> in total, selling each tray for <strong>€19</strong>.
+          <ol>
+            <li><strong>Common Denominator (Taglia Comune):</strong> Compute the total dry weight of <em>1 single tray</em> ($\frac{3}{8} + \frac{1}{4} + \frac{1}{6}\text{ kg}$) by finding the lowest common denominator and writing the step in English.</li>
+            <li><strong>Cross-Simplification (Semplificazione in Croce):</strong> Calculate how many kilograms of flour, brown sugar, and oat flakes are needed for <strong>24 trays</strong> by cross-simplifying each fraction with $24$ before multiplying.</li>
+            <li><strong>Distributive Mental Strategy (Calcolo Mentale Distributivo):</strong> If all $24$ trays are sold at <strong>€19</strong> each, compute the gross revenue $24 \times 19$ mentally using $24 \times (20 - 1)$, then subtract €76 of ingredient expenses to find the net charity fund.</li>
+            <li><strong>Bilingual Reflection (Scienze Umane &amp; CLIL):</strong> Write 4–5 sentences in English (using at least 3 terms from the Glossary) explaining how clear quantitative planning supports teamwork and social solidarity projects.</li>
+          </ol>
+        </div>
+
+        <div class="rubric-container">
+          <table class="rubric-table">
+            <thead>
+              <tr>
+                <th>Competence Dimension</th>
+                <th>Basic Level</th>
+                <th>Intermediate Level</th>
+                <th>Advanced Level</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Rational Operations &amp; Mental Strategies</strong></td>
+                <td>Computes quantities using standard algorithms with minor arithmetic slips.</td>
+                <td>Correctly applies common denominators, cross-simplification, and distributive multiplication.</td>
+                <td>Executes all steps fluently with smart representations and verifies consistency across totals.</td>
+              </tr>
+              <tr>
+                <td><strong>Scientific English &amp; Human Sciences Reflection</strong></td>
+                <td>Uses 1–2 English math terms with limited explanation.</td>
+                <td>Uses at least 3 glossary terms accurately to describe the solution steps.</td>
+                <td>Articulates a clear, reflective bilingual commentary connecting math planning and cooperative action.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </article>
     </section>
 
 
@@ -414,7 +544,7 @@
         </div>
         <div class="takeaway-item">
           <strong>3. Metacognitive Reasoning</strong>
-          <p>Explaining your problem-solving strategy in English proves deep mathematical mastery.</p>
+          <p>Explaining your problem-solving strategy in English and bringing your completed Worksheet proves deep mastery.</p>
         </div>
       </div>
     </footer>
@@ -424,7 +554,7 @@
       <div class="completion-icon">🌍</div>
       <h3 class="completion-title">Have you completed the CLIL Lesson?</h3>
       <p class="completion-desc">
-        Congratulations for tackling mathematics in English! Claim your achievement to earn +70 XP and unlock the <strong>CLIL Explorer</strong> status.
+        Congratulations for tackling mathematics in English! Claim your achievement to earn +70 XP, unlock the <strong>CLIL Explorer</strong> status, and remember to bring your completed Operational Worksheet next class.
       </p>
       <button id="btnCompleteLesson" class="btn-complete" style="background: linear-gradient(135deg, #a855f7, #38bdf8);">
         ✨ Mark as Completed (+70 XP)
@@ -517,6 +647,8 @@
           cards: [
             {
               category: 'Scientific Vocabulary',
+              theoryRef: 'Theory 5 • Reciprocal (Inverso Moltiplicativo)',
+              theoryTargetId: 'clil-th-reciprocal',
               question: 'What is the <em>reciprocal</em> (multiplicative inverse) of the fraction $\\frac{3}{5}$?',
               options: [
                 '$-\\frac{3}{5}$',
@@ -525,22 +657,26 @@
                 '$0.6$'
               ],
               correct: 1,
-              explanation: 'The reciprocal swaps the numerator and denominator: $\\frac{3}{5} \\times \\frac{5}{3} = 1$. It turns multiplication into division!'
+              explanation: 'The reciprocal swaps the numerator and denominator: $\\frac{3}{5} \\times \\frac{5}{3} = 1$. Dividing by a fraction means multiplying by its reciprocal!'
             },
             {
               category: 'Smart Computation',
+              theoryRef: 'Theory 2 & 8 • Rational Numbers & Mental Computation',
+              theoryTargetId: 'clil-th-mental',
               question: 'Which is the fastest mental strategy to calculate $36 \\times 0.25$ in your head?',
               options: [
                 'Multiply $36 \\times 25$ on paper, then divide by 100',
-                'Recognize that $0.25 = \\frac{1}{4}$, and divide $36 : 4 = 9$',
-                'Compute $(30 \\times 0.25) + (6 \\times 0.25)$',
-                'Convert to percentages: calculate 25% of 36 with an algorithm'
+                'Compute $(30 \\times 0.25) + (6 \\times 0.25)$ step by step',
+                'Convert to percentages and apply a written proportion',
+                'Recognize that $0.25 = \\frac{1}{4}$, and divide $36 : 4 = 9$'
               ],
-              correct: 1,
-              explanation: 'Replacing the decimal $0.25$ with the fraction $\\frac{1}{4}$ turns multiplication into half of a half: $36 \\to 18 \\to 9$!'
+              correct: 3,
+              explanation: 'Replacing the decimal $0.25$ with the comfortable fraction $\\frac{1}{4}$ turns multiplication into half of a half: $36 \\to 18 \\to 9$!'
             },
             {
               category: 'Fractions in English',
+              theoryRef: 'Theory 4 • Common Denominator (Taglia Comune)',
+              theoryTargetId: 'clil-th-common-den',
               question: 'Why do we need a <em>common denominator</em> to compute $\\frac{1}{3} + \\frac{1}{4}$?',
               options: [
                 'Because the slices have different sizes: we must convert them to equal twelfths ($\\frac{4}{12} + \\frac{3}{12} = \\frac{7}{12}$)',
@@ -553,15 +689,17 @@
             },
             {
               category: 'Directed Numbers',
+              theoryRef: 'Theory 1 • Whole Numbers / Integers in ℤ',
+              theoryTargetId: 'clil-th-integers',
               question: 'On the directed number line, what is the meaning of the operation $-4 - (-6)$?',
               options: [
                 'Start at $-4$ and step 6 units to the left to reach $-10$',
-                'Start at $-4$ and remove a debt of 6: subtracting a negative moves 6 steps to the right, landing at $+2$',
                 'Multiply both negative signs and calculate $-4 - 6 = -10$',
+                'Start at $-4$ and remove a debt of 6: subtracting a negative moves 6 steps to the right, landing at $+2$',
                 'Calculate the absolute geometric distance between $-4$ and $-6$'
               ],
-              correct: 1,
-              explanation: 'Taking away a negative moves to the right: $-4 - (-6) = -4 + 6 = +2$!'
+              correct: 2,
+              explanation: 'Taking away a negative (removing a debt) moves to the right on the number line: $-4 - (-6) = -4 + 6 = +2$!'
             }
           ]
         });

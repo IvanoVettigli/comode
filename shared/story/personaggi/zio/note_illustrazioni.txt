@@ -1,0 +1,69 @@
+SCHEDA PERSONAGGIO — ZIO
+===================================
+
+DATI FISICI
+-----------
+Eta':         circa 38 anni
+Altezza:      1,65 m
+Peso:         75 kg
+Corporatura:  Leggermente robusta, piu' tarchiata e compatta del papa'
+Capelli:      Biondo cenere scuro (un tono piu' scuro del biondo cenere
+              ufficiale), corti
+Occhi:        Verde chiaro (come il papa')
+Carnagione:   Chiara
+Barba:        Si', non lunga ma ben presente e visibile,
+              curata e folta
+Lineamenti:   Amichevoli, simpatici
+
+
+ABBIGLIAMENTO
+--------------
+Magliettina:  A mezze maniche (t-shirt), verde oliva
+Pantaloni:    Pinocchietto (pantaloni a 3/4 sotto il ginocchio),
+              color kaki/beige
+Scarpe:       Casual
+Occhiali:     Rettangolari con montatura sottile
+
+
+STILE ILLUSTRATIVO
+-------------------
+Tecnica:      Acquerello e matita colorata
+Tono:         Caldo, delicato, luminoso
+Target:       Bambini 4-7 anni
+
+
+NOTE PER LE ILLUSTRAZIONI
+---------------------------
+- La corporatura piu' robusta e compatta rispetto al papa' e' un
+  tratto distintivo fondamentale (piu' basso e piu' largo)
+- La barba e' un tratto distintivo fondamentale: non e' lunga
+  ma e' sempre ben presente e visibile in ogni inquadratura.
+  Lo distingue nettamente dal papa' (che e' sbarbato)
+- I capelli biondo cenere scuro sono simili ma visibilmente piu'
+  scuri di quelli della protagonista
+- Gli occhi verde chiaro sono uguali a quelli del papa' (fratelli)
+- Il pinocchietto (pantaloni a 3/4) e' un elemento di abbigliamento
+  caratteristico e riconoscibile
+- L'espressione deve trasmettere simpatia e calore familiare
+- Lo stile casual e sportivo lo differenzia dal look del papa'
+
+
+CONFRONTO CON IL PAPA'
+------------------------
+                    Papa'               Zio
+Altezza:            1,75 m              1,65 m
+Peso:               68 kg               75 kg
+Corporatura:        Snella              Robusta/tarchiata
+Capelli:            Brizzolati          Biondo cenere scuro
+Barba:              No                  Si' (corta ma visibile)
+Occhi:              Verde chiaro        Verde chiaro (uguali)
+Occhiali:           Si'                 Si'
+
+
+IMMAGINI DI RIFERIMENTO
+-------------------------
+
+01_vista_frontale.jpg        — Posa dritta, sorriso allegro
+02_vista_tre_quarti.jpg      — Posa rilassata, braccia incrociate
+03_vista_laterale.jpg        — Profilo completo, espressione calma
+04_vista_posteriore.jpg      — Di spalle, sguardo laterale

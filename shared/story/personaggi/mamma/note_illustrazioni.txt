@@ -1,0 +1,46 @@
+SCHEDA PERSONAGGIO — MAMMA
+===================================
+
+DATI FISICI
+-----------
+Eta':         circa 34 anni
+Altezza:      1,80 m
+Corporatura:  Asciutta e longilinea
+Capelli:      Scuri (castano scuro/marrone), lunghi, ondulati
+Occhi:        Grandi, marroni
+Carnagione:   Piu' scura (olivastra/ambrata)
+Lineamenti:   Eleganti, belli
+
+
+ABBIGLIAMENTO
+--------------
+Magliettina:  T-shirt aderente, colore corallo/rosa tenue
+Pantaloni:    Jeans classici, azzurri
+Scarpe:       Sneakers casual chiare
+
+
+STILE ILLUSTRATIVO
+-------------------
+Tecnica:      Acquerello e matita colorata
+Tono:         Caldo, delicato, luminoso
+Target:       Bambini 4-7 anni
+
+
+NOTE PER LE ILLUSTRAZIONI
+---------------------------
+- La carnagione piu' scura rispetto al papa' e alla figlia e' un
+  elemento visivo importante per distinguere i personaggi
+- Gli occhi grandi e marroni sono molto espressivi
+- Il fisico e' alto e slanciato (la piu' alta della famiglia)
+- I capelli scuri e lunghi sono un contrasto con quelli biondo cenere
+  della figlia e brizzolati del papa'
+- L'espressione deve trasmettere calore materno e dolcezza
+- Il look casual e' moderno e giovanile
+
+
+IMMAGINI DI RIFERIMENTO
+-------------------------
+01_vista_frontale.jpg        — Posa dritta, sorriso caloroso
+02_vista_tre_quarti.jpg      — Posa naturale e rilassata
+03_vista_laterale.jpg        — Profilo completo, espressione serena
+04_vista_posteriore.jpg      — Di spalle, si gira mostrando il profilo

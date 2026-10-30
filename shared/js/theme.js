@@ -18,8 +18,11 @@ class ComodeTheme {
     });
   }
 
-  applyTheme(theme, animate = true) {
+  applyTheme(theme) {
     document.documentElement.setAttribute('data-theme', theme);
+    if (document.body) {
+      document.body.setAttribute('data-theme', theme);
+    }
     localStorage.setItem(this.storageKey, theme);
     this.updateIcons(theme);
   }
@@ -43,6 +46,8 @@ class ComodeTheme {
   }
 
   bindButtons() {
+    const savedTheme = localStorage.getItem(this.storageKey) || 'dark';
+    this.applyTheme(savedTheme);
     const btn = document.getElementById('themeToggleBtn');
     if (btn && !btn._comodeBound) {
       btn._comodeBound = true;

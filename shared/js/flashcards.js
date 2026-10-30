@@ -1,7 +1,9 @@
 /**
  * comode — flashcards.js
  * Motore per Flashcard interattive con test ripetibili all'infinito e gamification (XP).
- * Rispetta il principio dell'apprendimento per padronanza (Mastery Learning).
+ * Rispetta il principio dell'apprendimento per padronanza (Mastery Learning),
+ * rimescola automaticamente l'ordine delle opzioni A/B/C/D ad ogni tentativo
+ * ed evidenzia il collegamento esplicito con la teoria.
  */
 
 class ComodeFlashcardDeck {
@@ -9,7 +11,9 @@ class ComodeFlashcardDeck {
     this.container = document.getElementById(containerId);
     if (!this.container) return;
 
-    this.cards = options.cards || [];
+    this.rawCards = Array.isArray(options.cards) ? options.cards : [];
+    this.shuffleOptions = options.shuffleOptions !== false;
+    this.cards = [];
     this.deckId = options.deckId || containerId;
     this.xpPerCard = options.xpPerCard || 10;
     this.completionXP = options.completionXP || 20;
@@ -18,7 +22,59 @@ class ComodeFlashcardDeck {
     this.answered = false;
     this.hasEarnedXPThisRun = false;
 
+    this.prepareCards();
     this.render();
+  }
+
+  /**
+   * Clona le carte e, se abilitato, mescola le opzioni con algoritmo Fisher-Yates
+   * aggiornando l'indice della risposta corretta ed evitando sequenze costanti.
+   */
+  prepareCards() {
+    this.cards = this.rawCards.map(raw => {
+      const clonedOptions = Array.isArray(raw.options) ? [...raw.options] : [];
+      let correctIdx = typeof raw.correct === 'number' ? raw.correct : 0;
+
+      if (this.shuffleOptions && raw.shuffleOptions !== false && clonedOptions.length > 1) {
+        const indexed = clonedOptions.map((text, idx) => ({
+          text,
+          isCorrect: idx === correctIdx
+        }));
+
+        for (let i = indexed.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          const tmp = indexed[i];
+          indexed[i] = indexed[j];
+          indexed[j] = tmp;
+        }
+
+        return {
+          ...raw,
+          options: indexed.map(item => item.text),
+          correct: indexed.findIndex(item => item.isCorrect)
+        };
+      }
+
+      return {
+        ...raw,
+        options: clonedOptions,
+        correct: correctIdx
+      };
+    });
+
+    // Garantisce che in mazzi con >= 3 carte la lettera corretta non sia mai identica per tutte le carte
+    if (this.shuffleOptions && this.cards.length >= 3) {
+      const firstCorrect = this.cards[0].correct;
+      const allSame = this.cards.every(c => c.correct === firstCorrect && c.options.length > 1);
+      if (allSame) {
+        const lastCard = this.cards[this.cards.length - 1];
+        const swapWith = (lastCard.correct + 1) % lastCard.options.length;
+        const tmp = lastCard.options[lastCard.correct];
+        lastCard.options[lastCard.correct] = lastCard.options[swapWith];
+        lastCard.options[swapWith] = tmp;
+        lastCard.correct = swapWith;
+      }
+    }
   }
 
   render() {
@@ -37,6 +93,27 @@ class ComodeFlashcardDeck {
     const currentNum = this.currentIndex + 1;
     const progressPct = ((currentNum - 1) / total) * 100;
 
+    let theoryBadgeHtml = '';
+    if (card.theoryRef) {
+      if (card.theoryTargetId) {
+        theoryBadgeHtml = `
+          <div>
+            <button type="button" class="theory-ref-pill" onclick="scrollToTheory('${card.theoryTargetId}')">
+              🔗 ${card.theoryRef}
+            </button>
+          </div>
+        `;
+      } else {
+        theoryBadgeHtml = `
+          <div>
+            <span class="theory-ref-pill" style="cursor: default;">
+              🔗 ${card.theoryRef}
+            </span>
+          </div>
+        `;
+      }
+    }
+
     this.container.innerHTML = `
       <div class="flashcard-box">
         <div class="flashcard-topbar">
@@ -51,6 +128,7 @@ class ComodeFlashcardDeck {
         </div>
 
         <div class="flashcard-body">
+          ${theoryBadgeHtml}
           <div class="flashcard-category">${card.category || 'Mettiti alla prova'}</div>
           <h3 class="flashcard-question">${card.question}</h3>
           ${card.context ? `<p class="flashcard-context">${card.context}</p>` : ''}
@@ -69,9 +147,7 @@ class ComodeFlashcardDeck {
       </div>
     `;
 
-    // Render KaTeX if formulas are present
     this.renderMath(this.container);
-
     this.answered = false;
   }
 
@@ -79,15 +155,20 @@ class ComodeFlashcardDeck {
     const target = element || this.container;
     if (!target) return;
 
+    if (window.ComodeComponents && typeof window.ComodeComponents.renderMath === 'function') {
+      window.ComodeComponents.renderMath(target);
+      return;
+    }
+
     const doRender = () => {
-      if (window.renderMathInElement) {
+      if (typeof window.renderMathInElement === 'function') {
         try {
-          renderMathInElement(target, {
+          window.renderMathInElement(target, {
             delimiters: [
-              { left: '$$', right: '$$', display: false },
+              { left: '$$', right: '$$', display: true },
+              { left: '\\[', right: '\\]', display: true },
               { left: '$', right: '$', display: false },
-              { left: '\\(', right: '\\)', display: false },
-              { left: '\\[', right: '\\]', display: true }
+              { left: '\\(', right: '\\)', display: false }
             ],
             throwOnError: false
           });
@@ -97,10 +178,10 @@ class ComodeFlashcardDeck {
       }
     };
 
-    if (window.renderMathInElement) {
+    if (typeof window.renderMathInElement === 'function') {
       doRender();
     } else {
-      setTimeout(doRender, 150);
+      window.addEventListener('load', doRender, { once: true });
     }
   }
 
@@ -184,7 +265,7 @@ class ComodeFlashcardDeck {
 
         <div class="summary-actions">
           <button class="btn-retry-deck" onclick="ComodeFlashcards.restart('${this.container.id}')">
-            🔄 Ripeti il Test (Tentativi Infiniti)
+            🔄 Ripeti il Test (Opzioni Rimescolate)
           </button>
         </div>
       </div>
@@ -196,6 +277,7 @@ class ComodeFlashcardDeck {
     this.currentIndex = 0;
     this.score = 0;
     this.answered = false;
+    this.prepareCards();
     this.render();
   }
 }

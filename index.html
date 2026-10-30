@@ -294,35 +294,6 @@
       color: #fff;
       border-color: var(--accent-purple);
     }
-
-    .portal-footer {
-      margin-top: 4rem;
-      padding-top: 2rem;
-      border-top: 1px solid var(--border-subtle);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 1rem;
-      color: var(--text-muted);
-      font-size: 0.85rem;
-    }
-
-    .reset-btn {
-      background: transparent;
-      border: 1px solid var(--border-subtle);
-      color: var(--text-muted);
-      font-size: 0.78rem;
-      padding: 0.35rem 0.75rem;
-      border-radius: var(--radius-pill);
-      cursor: pointer;
-      transition: var(--transition);
-    }
-
-    .reset-btn:hover {
-      color: var(--accent-danger);
-      border-color: var(--accent-danger);
-    }
   </style>
 </head>
 <body data-theme="dark">
@@ -334,6 +305,9 @@
         📐 comode<span>.</span>
       </a>
       <div class="nav-actions">
+        <a href="ringraziamenti.html" class="icon-btn" title="Ringraziamenti e Riconoscimenti" style="text-decoration: none;">
+          🙏 <span class="nav-text">Ringraziamenti</span>
+        </a>
         <div class="gamification-widget" title="Il tuo livello attuale e punti XP">
           <span class="level-badge user-level-val">Liv. 1 🌱</span>
           <span class="xp-counter user-xp-val">0 XP</span>
@@ -363,10 +337,27 @@
       </p>
       <div class="hub-quick-stats">
         <span class="hub-stat-item">📐 20 UDA Curricolari</span>
+        <span class="hub-stat-item">📖 1 Favola Interattiva per ogni UDA</span>
         <span class="hub-stat-item">🏆 20 Titoli + 1 Titolo Supremo</span>
         <span class="hub-stat-item">🔒 Privacy 100% Locale (Zero Cookie / Zero Dati)</span>
       </div>
     </header>
+
+    <!-- ======================================================== -->
+    <!-- PROMEMORIA PROGETTUALE: FAVOLA INTERATTIVA PER OGNI UDA  -->
+    <!-- ======================================================== -->
+    <div class="memo-banner" role="note" aria-label="Promemoria didattico">
+      <div class="memo-banner-icon">📖</div>
+      <div>
+        <div class="memo-banner-title">
+          <span>Una Favola Interattiva per ogni UDA</span>
+          <span class="memo-tag-pill">📌 Promemoria</span>
+        </div>
+        <p class="memo-banner-desc">
+          Per <strong>ogni Unità Didattica di Apprendimento (UDA)</strong> sarà presente una <strong>Favola Interattiva</strong>, pensata per esplorare i concetti di Matematica e Fisica attraverso la narrazione, l'immaginazione e scelte guidate. Inoltre, al termine di <strong>tutte le lezioni</strong> è previsto un <strong>Compito di Realtà finale (Scheda Operativa)</strong> come assegno per casa: gli studenti possono svolgerlo da soli o in gruppo, portando la scheda compilata per la lezione successiva.
+        </p>
+      </div>
+    </div>
 
 
     <!-- ======================================================== -->
@@ -474,7 +465,10 @@
       <div>
         <strong>le comode lezioni d'Ivano</strong> • Matematica &amp; Fisica per il Liceo delle Scienze Umane
       </div>
-      <div style="display: flex; align-items: center; gap: 1rem;">
+      <div style="display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;">
+        <a href="ringraziamenti.html" style="color: var(--accent-math); text-decoration: none; font-weight: 600; display: inline-flex; align-items: center; gap: 0.35rem;">
+          🙏 Ringraziamenti
+        </a>
         <button class="reset-btn" onclick="window.ComodeGamification.resetProgress()" title="Azzera i punti e i titoli su questo dispositivo">
           🔄 Azzera Progressi Locali
         </button>

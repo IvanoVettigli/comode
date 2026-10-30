@@ -1,0 +1,1666 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>I Numeri — La favola di Vela e le fragole</title>
+  <!-- Google Fonts Preconnect -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Stili Condivisi Storybook comode -->
+  <link rel="stylesheet" href="../../shared/css/storybook.css">
+</head>
+<body>
+
+  <!-- Canvas particelle/coriandoli -->
+  <canvas id="fx-canvas"></canvas>
+
+  <!-- Header dell'applicazione -->
+  <header class="storybook-header">
+    <div class="brand-title" id="btn-home" title="Torna all'inizio">
+      <div class="brand-strawberry-icon">🍓</div>
+      <div class="brand-text">
+        <h1>I NUMERI</h1>
+        <span>La favola di Vela e le fragole</span>
+      </div>
+    </div>
+
+    <div class="progress-center">
+      <div class="page-indicator-pill">
+        <span>📖</span>
+        <span id="page-counter-label">Pagina 1 di 17</span>
+      </div>
+      <div class="progress-track">
+        <div class="progress-fill" id="progress-bar-fill" style="width: 5.8%;"></div>
+      </div>
+    </div>
+
+        <div class="header-actions">
+      <a href="index.html" class="icon-btn" title="Torna all'UDA 1.1" style="text-decoration: none;">
+        <span>📐</span>
+      </a>
+      <a href="../../index.html" class="icon-btn" title="Torna alla Home" style="text-decoration: none;">
+        <span>🏠</span>
+      </a>
+      <button class="icon-btn" id="btn-sound-toggle" title="Attiva/Disattiva Suoni">
+        <span id="sound-icon">🔊</span>
+      </button>
+      <button class="icon-btn" id="btn-toc" title="Indice delle Pagine">
+        <span>📚</span>
+      </button>
+      <button class="icon-btn" id="btn-fullscreen" title="Schermo Intero">
+        <span>⛶</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Spazio di lavoro principale (Doppia Scheda Libro + Interazione) -->
+  <main class="storybook-container">
+
+    <!-- COLONNA SINISTRA: Pagina del Libro (Illustrazione + Testo poetico) -->
+    <section class="story-page-card" id="story-card">
+      <div class="illustration-frame" id="illustration-container">
+        <span class="page-number-tag" id="page-tag-badge">Pag. 1</span>
+        <img id="page-image" src="illustrazioni-favola/pagina_01.jpg" alt="Illustrazione della favola" onerror="handleImageError(this)">
+        <div class="illustration-art-canvas" id="page-art-fallback" style="display: none;">
+          <div class="art-badge" id="fallback-icon">🍓</div>
+          <div class="art-scene-desc" id="fallback-desc">Illustrazione in arrivo</div>
+        </div>
+      </div>
+
+      <div class="story-text-container">
+        <div class="page-title" id="page-header-title">✨ L'Inizio del Viaggio</div>
+        <div class="verses-box" id="page-verses">
+          <!-- I versi della pagina vengono iniettati via JavaScript -->
+        </div>
+
+        <div class="story-text-toolbar">
+          <button class="read-aloud-btn" id="btn-read-aloud">
+            <span>🗣️</span>
+            <span id="read-label">Ascolta la favola</span>
+          </button>
+          <div style="font-size: 0.85rem; color: var(--color-text-muted); font-weight: 600;">
+            Usa le frecce ⬅️ ➡️ della tastiera
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- COLONNA DESTRA: Spazio Interattivo (Micro-attività per avanzare) -->
+    <section class="interactive-stage-card" id="interactive-card">
+      <div class="stage-header">
+        <div class="stage-icon-badge" id="stage-badge-icon">✨</div>
+        <div class="stage-info">
+          <h2 id="stage-instruction-title">Interagisci con la storia!</h2>
+          <p id="stage-instruction-subtitle">Completa l'azione per sbloccare la pagina successiva</p>
+        </div>
+      </div>
+
+      <div class="interactive-playground" id="playground-stage">
+        <!-- Area dinamica iniettata via JavaScript per ogni singola pagina -->
+      </div>
+
+      <!-- Banner di Congratulazioni quando l'azione è completata -->
+      <div class="completion-banner" id="completion-overlay">
+        <div class="celebration-badge" id="celebration-emoji">🌟</div>
+        <h3 id="celebration-title">Bravissimo!</h3>
+        <p id="celebration-desc">Hai scoperto il segreto di questa pagina!</p>
+      </div>
+
+      <div class="stage-footer">
+        <button class="nav-btn nav-btn-prev" id="btn-prev-page" disabled>
+          <span>⬅️</span>
+          <span>Precedente</span>
+        </button>
+
+        <button class="nav-btn nav-btn-next" id="btn-next-page">
+          <span id="next-btn-text">Avanti</span>
+          <span>➡️</span>
+        </button>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- MODAL: Indice rapido delle pagine -->
+  <div class="modal-overlay" id="toc-modal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>📚 Indice delle Pagine</h3>
+        <button class="icon-btn" id="btn-close-toc">✕</button>
+      </div>
+      <div class="modal-body" id="toc-list">
+        <!-- Generato dinamicamente via JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       JAVASCRIPT LOGIC & STORY ENGINE
+       ========================================================================== -->
+  <script>
+    /* ==========================================================================
+       1. DATA DELLA FAVOLA (17 PAGINE DALLA VERSIONE 2)
+       ========================================================================== */
+    const STORY_PAGES = [
+      {
+        page: 1,
+        title: "La Bimba Vela",
+        image: "illustrazioni-favola/pagina_01.jpg",
+        fallbackIcon: "👧🏼✨",
+        fallbackDesc: "Vela nella sua cameretta con la luce dorata del mattino",
+        verses: `C'era una volta una bimba speciale,
+di nome Vela, allegra e geniale.
+Capelli biondo cenere, calze rosse ai piedi,
+occhi verde scuro e un sorriso — la vedi?`,
+        instruction: "Sveglia Vela e fai entrare la luce del sole!",
+        subInstruction: "Tocca la finestra per aprire le tende e far sorgere il sole",
+        stageType: "window"
+      },
+      {
+        page: 2,
+        title: "Voglia di Fragole",
+        image: "illustrazioni-favola/pagina_02.jpg",
+        fallbackIcon: "🏃🏼‍♀️🍓",
+        fallbackDesc: "Vela corre in cucina senza scarpe con le calze rosse al ginocchio da mamma e papà",
+        verses: `Un bel mattino d'estate si svegliò
+e una gran voglia di fragole le arrivò.
+Corse in cucina saltellando felice:
+"Mamma! Papà!" con gran gioia le dice,
+
+"Ne voglio tante, una grande scorpacciata!
+Fragole rosse, per una dolce mattinata!"
+La mamma rise e disse: "Va bene, tesoro —
+ma insieme contiamole: son dolci come l'oro!"`,
+        instruction: "Corri in cucina!",
+        subInstruction: "Fai 3 passi saltando sulle impronte di Vela",
+        stageType: "footsteps"
+      },
+      {
+        page: 3,
+        title: "La Prima Fragola (1)",
+        image: "illustrazioni-favola/pagina_03.jpg",
+        fallbackIcon: "🍓🍽️",
+        fallbackDesc: "Mamma posa UNA fragola nel piatto bianco di Vela",
+        verses: `La mamma prese una fragola dal cestino:
+"UNA, la prima! Sul tuo bel piattino!"
+Vela la guardò: era rossa e lucente,
+ma UNA soltanto non era sufficiente!
+
+"Una soltanto?!" Vela protestò,
+"ne voglio di più!" e il piedino pestò.`,
+        instruction: "Metti UNA fragola nel piatto!",
+        subInstruction: "Tocca il cestino per posare la prima fragola, poi pesta il piedino",
+        stageType: "plate-one"
+      },
+      {
+        page: 4,
+        title: "Contiamo fino a Cinque (5)",
+        image: "illustrazioni-favola/pagina_04.jpg",
+        fallbackIcon: "🖐️🍓",
+        fallbackDesc: "Papà aggiunge fragole al piatto e Vela conta sulle dita (fino a 5)",
+        verses: `Il papà ne aggiunse: "Ecco DUE ed ecco TRE!
+Rosse e profumate, tutte quante per te!"
+"QUATTRO!" il papà — "e CINQUE!" la mammina.
+Vela contava sulle dita della manina.
+
+"Uno, due, tre, quattro e cinque!" — che mattina!
+Tutta una mano aperta, allegra e birichina.`,
+        instruction: "Conta fino a 5 con le dita!",
+        subInstruction: "Tocca le fragole per aggiungere dita alla manina",
+        stageType: "plate-five"
+      },
+      {
+        page: 5,
+        title: "Fino a Nove! (9)",
+        image: "illustrazioni-favola/pagina_05.jpg",
+        fallbackIcon: "👐🏼🍓",
+        fallbackDesc: "Vela alza 9 dita (solo il decimo ditino è ancora piegato), piatto con 9 fragole",
+        verses: `"Ne voglio ancora!" Vela richiedeva.
+"SEI!" disse il papà, e Vela sorrideva.
+"SETTE! E poi OTTO!" gridava tutta fiera,
+alzando le ditine come una bandiera.
+
+"E NOVE!" disse la mamma, e Vela soddisfatta
+contò nove ditine in fila tutta esatta:
+ne restava solo uno ancora piegato,
+il decimo ditino, lì mezzo addormentato!`,
+        instruction: "Conta da 6 a 9!",
+        subInstruction: "Tocca le nuove fragole fino ad alzare 9 dita (ne resterà 1 piegato!)",
+        stageType: "plate-nine"
+      },
+      {
+        page: 6,
+        title: "Le Nove Cifre",
+        image: "illustrazioni-favola/pagina_06.jpg",
+        fallbackIcon: "🔢👨🏻‍🏫",
+        fallbackDesc: "Papà spiega a Vela il significato delle prime 9 cifre",
+        verses: `"Brava, Vela!" disse il papà raggiante,
+"hai scoperto le CIFRE — è molto importante!
+Da UNO fino a NOVE son segni speciali,
+simboli preziosi, tra loro tutti uguali:
+
+Uno, due, tre, quattro, cinque, sei,
+sette, otto e nove — che brava che tu sei!"`,
+        instruction: "La lavagna magica delle cifre!",
+        subInstruction: "Tocca tutti i numeri da 1 a 9 per ascoltarne il suono",
+        stageType: "digits-board"
+      },
+      {
+        page: 7,
+        title: "La Decima Fragola e il Mistero del 10",
+        image: "illustrazioni-favola/pagina_07.jpg",
+        fallbackIcon: "👐🏼❓",
+        fallbackDesc: "Vela apre tutte e 10 le dita per la decima fragola: ma come si scrive il 10 se le cifre sono 9?",
+        verses: `"Ma io ne voglio ANCORA!" esclamò la bambina,
+e la decima fragola scese sul piattino in cucina!
+Vela aprì l'ultimo dito: "Son DIECI in tutto quanto!
+Due mani tutte piene, che meraviglia, che incanto!
+
+Ma le cifre son NOVE... mamma e papà,
+per scrivere il DIECI, adesso come si fa?"`,
+        instruction: "Aggiungi la decima fragola e apri il 10° dito!",
+        subInstruction: "Hai 10 dita aperte ma solo 9 cifre: tocca per scoprire l'enigma!",
+        stageType: "tenth-mystery"
+      },
+      {
+        page: 8,
+        title: "La Magia del Dieci (10)",
+        image: "illustrazioni-favola/pagina_08.jpg",
+        fallbackIcon: "🔟✨",
+        fallbackDesc: "Papà scrive 1 e 0 sul foglietto: 1 decina (due mani piene) e 0 unità!",
+        verses: `Il papà prese un foglio e disegnò
+un UNO e uno ZERO, e poi le spiegò:
+"Hai UNA decina — due mani piene qua —
+e ZERO ditine sciolte più in là!
+
+L'UNO e lo ZERO, vicini vicini,
+scrivono il DIECI per tutti i bambini!
+Quando una cifra sola non basta più,
+se ne mettono DUE, guarda un po' quassù!"`,
+        instruction: "Unisci l'1 e lo 0!",
+        subInstruction: "Tocca il pulsante per unire le cifre e creare il 10",
+        stageType: "combine-ten"
+      },
+      {
+        page: 9,
+        title: "La Grande Corsa fino a 20",
+        image: "illustrazioni-favola/pagina_09.jpg",
+        fallbackIcon: "🧺🍓",
+        fallbackDesc: "Mamma arriva con un cesto grandioso: contiamo fino a 20!",
+        verses: `La mamma arrivò con un cesto grandioso:
+"Contiamo insieme, sarà meraviglioso!"
+"DIECI, UNDICI, DODICI!" contò in allegria,
+"TREDICI, QUATTORDICI!" che bella magia!
+
+"QUINDICI, SEDICI, DICIASSETTE!" a gran voce,
+"DICIOTTO, DICIANNOVE!" sempre più veloce:
+"E infine ecco il VENTI!" gridò per la festa,
+con venti fragoline e un gran sorriso in testa!`,
+        instruction: "Fai la volata fino a 20!",
+        subInstruction: "Tocca il cestone per far sgorgare le fragole fino a 20",
+        stageType: "sprint-twenty"
+      },
+      {
+        page: 10,
+        title: "Il Salto delle Decine",
+        image: "illustrazioni-favola/pagina_10.jpg",
+        fallbackIcon: "🦘💯",
+        fallbackDesc: "Vela con le guance rosse: trenta, quaranta, cinquanta... CENTO!",
+        verses: `"E dopo il VENTI?" chiese Vela golosa,
+masticando una fragola grande e succosa.
+"Si salta di dieci!" disse il papà contento,
+"TRENTA, QUARANTA, CINQUANTA — che portento!
+
+SESSANTA, SETTANTA, OTTANTA, NOVANTA,
+e poi arriva il CENTO — il numero che incanta!"`,
+        instruction: "Salta di 10 in 10 fino a 100!",
+        subInstruction: "Tocca le pietre delle decine in ordine",
+        stageType: "tens-stones"
+      },
+      {
+        page: 11,
+        title: "Cento Fragole! (100)",
+        image: "illustrazioni-favola/pagina_11.jpg",
+        fallbackIcon: "🏔️🍓",
+        fallbackDesc: "Vela in piedi circondata da montagne di fragole",
+        verses: `"CENTO?!" gridò Vela, con grande emozione,
+"cento fragole rosse, che gran colazione!"
+E mamma e papà portavano cestoni,
+di fragole bellissime, a grandi montagnoni!
+
+"Centouno! Centodue!" contava lì su,
+e i numeri crescevano, salendo sempre più!`,
+        instruction: "Fai piovere 100 fragole!",
+        subInstruction: "Tocca la montagna per moltiplicare le fragole",
+        stageType: "hundred-mountain"
+      },
+      {
+        page: 12,
+        title: "L'Infinito come le Stelle (∞)",
+        image: "illustrazioni-favola/pagina_12.jpg",
+        fallbackIcon: "🌌⭐",
+        fallbackDesc: "Sera: papà e Vela guardano le stelle infinite dalla finestra",
+        verses: `Ma a un certo punto Vela si fermò,
+e con gli occhi grandi al papà domandò:
+"Papà, dimmi una cosa: i numeri hanno una fine?
+C'è un numero in cima, oltre il confine?"
+
+Il papà la strinse e le indicò le stelle:
+"I numeri non finiscono, son come fiammelle!
+Dopo CENTO viene MILLE, lo imparerai,
+e dopo MILLE il MILIONE troverai!
+
+Poi viene il MILIARDO, e se guardi lassù,
+puoi sempre aggiungerne uno, uno in più:
+i numeri sono INFINITI, senza un tetto,
+come le stelle in cielo, te lo prometto!"`,
+        instruction: "Accendi le stelle dell'Infinito!",
+        subInstruction: "Tocca il cielo per scoprire Mille, Milione, Miliardo e l'Infinito",
+        stageType: "infinity-sky"
+      },
+      {
+        page: 13,
+        title: "Gnam! Il Conto alla Rovescia",
+        image: "illustrazioni-favola/pagina_13.jpg",
+        fallbackIcon: "😋🍓",
+        fallbackDesc: "Vela mangia le fragole una a una: il piatto si svuota",
+        verses: `E intanto Vela mangiava, una per una:
+le fragole sparivano come stelle alla luna.
+Una dopo l'altra, con gran appetito,
+ogni fragola mangiata, si leccava pure il dito!
+
+"Nove, otto, sette e sei..."
+"Son quasi finite, le mangio tutte, ehi!"
+"Cinque, quattro, tre, due, una!"
+E nel grande piatto non ne restò nessuna!`,
+        instruction: "Mangia le fragole a ritroso!",
+        subInstruction: "Tocca ogni fragola per mangiarla: 9, 8, 7, 6, 5, 4, 3, 2, 1!",
+        stageType: "eat-countdown"
+      },
+      {
+        page: 14,
+        title: "Il Piatto Vuoto",
+        image: "illustrazioni-favola/pagina_14.jpg",
+        fallbackIcon: "🍽️👀",
+        fallbackDesc: "Vela guarda il piatto completamente vuoto: non ce n'è nessuna!",
+        verses: `Vela guardò il piatto: era tutto pulito!
+Ci passò sopra in tondo la punta del dito.
+"Mamma, papà... quante fragole ci sono?"
+"Contale!" disse il papà con un dolce tono.
+
+"Ma... non ce n'è nessuna! Neanche una!
+Il piatto è vuoto e tondo come la luna!"`,
+        instruction: "Cerca sul piatto vuoto!",
+        subInstruction: "Passa il dito sul piatto per controllare quante fragole sono rimaste",
+        stageType: "empty-plate"
+      },
+      {
+        page: 15,
+        title: "La Nascita dello Zero (0)",
+        image: "illustrazioni-favola/pagina_15.jpg",
+        fallbackIcon: "⭕👑",
+        fallbackDesc: "Papà disegna un grande 0: la decima cifra essenziale",
+        verses: `"Quando nel piatto non resta più niente,"
+disse il papà, "c'è una cifra splendente!
+Si chiama ZERO, è tondo come un anello,
+e vuol dire 'nessuno' — non è proprio bello?
+
+Lo ZERO sembra niente, ma è prezioso assai:
+senza lo ZERO, il DIECI non lo scriverai!
+Con le NOVE cifre fa DIECI in tutto quanto:
+ZERO, UNO, DUE, TRE... fino a NOVE, che incanto!
+
+Con queste DIECI cifre, tienile bene a mente,
+si scrivono i numeri tutti, ma proprio interamente:
+dal numero più piccolo a quello più gigante,
+basta combinarle: son magiche, tutte quante!"`,
+        instruction: "Accendi il magico ZERO!",
+        subInstruction: "Tocca il grande anello dello zero per rivelare le 10 cifre",
+        stageType: "magic-zero"
+      },
+      {
+        page: 16,
+        title: "Un Dolce Abbraccio",
+        image: "illustrazioni-favola/pagina_16.jpg",
+        fallbackIcon: "🥰🍓",
+        fallbackDesc: "Vela abbraccia mamma e papà con le guance tinte di succo",
+        verses: `Vela sorrise col visino colorato
+di succo di fragola appena mangiato.
+Abbracciò mamma e papà, con tanto affetto:
+"I numeri sono belli, ve lo prometto!
+
+Oggi ho imparato a contare le cose
+con DIECI cifre, come DIECI piccole rose.
+Dallo ZERO fino al NOVE, i mattoni per contare:
+con loro ogni numero posso immaginare!"`,
+        instruction: "Regala un grande abbraccio!",
+        subInstruction: "Tocca il cuore per stringere mamma e papà in un abbraccio",
+        stageType: "family-hug"
+      },
+      {
+        page: 17,
+        title: "I Numeri Dappertutto!",
+        image: "illustrazioni-favola/pagina_17.jpg",
+        fallbackIcon: "🦋🌸",
+        fallbackDesc: "Vela nel giardino conta fiori, api, farfalle e coccinelle",
+        verses: `E da quel giorno Vela contava ogni cosa:
+le farfalle nel prato, le api sulla rosa,
+i passi nel giardino, le stelle della sera,
+le nuvole nel cielo a primavera!
+
+Perché i numeri, amici, sono dappertutto:
+nel fiore che sboccia, nel seme e nel frutto.
+Basta saper contare, basta guardar con cura,
+e il mondo si riempie di numeri e avventura!
+
+✨ FINE ✨`,
+        instruction: "Trova e conta i tesori nel prato!",
+        subInstruction: "Tocca le farfalle, api e fiorellini per completare il diploma!",
+        stageType: "garden-finale"
+      }
+    ];
+
+    /* ==========================================================================
+       2. STATO DELL'APPLICAZIONE
+       ========================================================================== */
+    let currentPageIndex = 0;
+    let isSoundEnabled = true;
+    let completedPages = new Set();
+    let currentSpeechUtterance = null;
+
+    /* ==========================================================================
+       3. SINTETIZZATORE AUDIO WEB (Zero dipendenze esterne)
+       ========================================================================== */
+    let audioCtx = null;
+
+    function getAudioContext() {
+      if (!audioCtx) {
+        const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+        if (AudioContextClass) {
+          audioCtx = new AudioContextClass();
+        }
+      }
+      if (audioCtx && audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+      return audioCtx;
+    }
+
+    const SoundFX = {
+      pop(freq = 440) {
+        if (!isSoundEnabled) return;
+        const ctx = getAudioContext();
+        if (!ctx) return;
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(freq, ctx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(freq * 1.5, ctx.currentTime + 0.08);
+        gain.gain.setValueAtTime(0.3, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.1);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start();
+        osc.stop(ctx.currentTime + 0.1);
+      },
+
+      chime(step = 0) {
+        if (!isSoundEnabled) return;
+        const scale = [261.63, 293.66, 329.63, 349.23, 392.00, 440.00, 493.88, 523.25, 587.33, 659.25];
+        const freq = scale[step % scale.length];
+        const ctx = getAudioContext();
+        if (!ctx) return;
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(freq, ctx.currentTime);
+        gain.gain.setValueAtTime(0.35, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.35);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start();
+        osc.stop(ctx.currentTime + 0.35);
+      },
+
+      crunch() {
+        if (!isSoundEnabled) return;
+        const ctx = getAudioContext();
+        if (!ctx) return;
+        // Crea un suono croccante da morso
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'sawtooth';
+        osc.frequency.setValueAtTime(320, ctx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(80, ctx.currentTime + 0.15);
+        gain.gain.setValueAtTime(0.4, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.15);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start();
+        osc.stop(ctx.currentTime + 0.15);
+      },
+
+      thump() {
+        if (!isSoundEnabled) return;
+        const ctx = getAudioContext();
+        if (!ctx) return;
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(140, ctx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(45, ctx.currentTime + 0.12);
+        gain.gain.setValueAtTime(0.5, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.12);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start();
+        osc.stop(ctx.currentTime + 0.12);
+      },
+
+      fanfare() {
+        if (!isSoundEnabled) return;
+        const ctx = getAudioContext();
+        if (!ctx) return;
+        const notes = [261.63, 329.63, 392.00, 523.25];
+        notes.forEach((freq, idx) => {
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(freq, ctx.currentTime + idx * 0.1);
+          gain.gain.setValueAtTime(0, ctx.currentTime + idx * 0.1);
+          gain.gain.linearRampToValueAtTime(0.3, ctx.currentTime + idx * 0.1 + 0.02);
+          gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + idx * 0.1 + 0.4);
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.start(ctx.currentTime + idx * 0.1);
+          osc.stop(ctx.currentTime + idx * 0.1 + 0.45);
+        });
+      },
+
+      sparkle() {
+        if (!isSoundEnabled) return;
+        const ctx = getAudioContext();
+        if (!ctx) return;
+        for (let i = 0; i < 5; i++) {
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.type = 'sine';
+          const freq = 600 + Math.random() * 800;
+          osc.frequency.setValueAtTime(freq, ctx.currentTime + i * 0.05);
+          gain.gain.setValueAtTime(0.2, ctx.currentTime + i * 0.05);
+          gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + i * 0.05 + 0.15);
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.start(ctx.currentTime + i * 0.05);
+          osc.stop(ctx.currentTime + i * 0.05 + 0.18);
+        }
+      }
+    };
+
+    /* ==========================================================================
+       4. MOTORE CORIANDOLI & PARTICELLE CANVAS
+       ========================================================================== */
+    const canvas = document.getElementById('fx-canvas');
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    function spawnConfetti(originX = window.innerWidth / 2, originY = window.innerHeight / 2, count = 40) {
+      const colors = ['#E63946', '#FFB703', '#2A9D8F', '#FF3366', '#38B000', '#FFD166'];
+      for (let i = 0; i < count; i++) {
+        const angle = Math.random() * Math.PI * 2;
+        const speed = 4 + Math.random() * 9;
+        particles.push({
+          x: originX,
+          y: originY,
+          vx: Math.cos(angle) * speed,
+          vy: Math.sin(angle) * speed - 3,
+          size: 6 + Math.random() * 8,
+          color: colors[Math.floor(Math.random() * colors.length)],
+          rotation: Math.random() * 360,
+          rotationSpeed: (Math.random() - 0.5) * 12,
+          gravity: 0.25,
+          opacity: 1,
+          decay: 0.015 + Math.random() * 0.015,
+          isStrawberry: Math.random() > 0.8
+        });
+      }
+    }
+
+    function renderParticles() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for (let i = particles.length - 1; i >= 0; i--) {
+        const p = particles[i];
+        p.x += p.vx;
+        p.y += p.vy;
+        p.vy += p.gravity;
+        p.rotation += p.rotationSpeed;
+        p.opacity -= p.decay;
+
+        if (p.opacity <= 0) {
+          particles.splice(i, 1);
+          continue;
+        }
+
+        ctx.save();
+        ctx.globalAlpha = Math.max(0, p.opacity);
+        ctx.translate(p.x, p.y);
+        ctx.rotate((p.rotation * Math.PI) / 180);
+
+        if (p.isStrawberry) {
+          ctx.font = `${p.size * 2}px sans-serif`;
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'middle';
+          ctx.fillText('🍓', 0, 0);
+        } else {
+          ctx.fillStyle = p.color;
+          ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size * 0.7);
+        }
+        ctx.restore();
+      }
+      requestAnimationFrame(renderParticles);
+    }
+    requestAnimationFrame(renderParticles);
+
+    /* ==========================================================================
+       5. SPEECH SYNTHESIS (LETTURA AD ALTA VOCE IN ITALIANO)
+       ========================================================================== */
+    const btnReadAloud = document.getElementById('btn-read-aloud');
+    const readLabel = document.getElementById('read-label');
+
+    function stopSpeaking() {
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+      }
+      btnReadAloud.classList.remove('speaking');
+      readLabel.textContent = "Ascolta la favola";
+    }
+
+    function toggleSpeechNarration() {
+      if (!('speechSynthesis' in window)) {
+        alert("La sintesi vocale non è supportata dal tuo browser.");
+        return;
+      }
+
+      if (window.speechSynthesis.speaking) {
+        stopSpeaking();
+        return;
+      }
+
+      const curPage = STORY_PAGES[currentPageIndex];
+      const textToRead = curPage.verses.replace(/[*_#]/g, '');
+
+      currentSpeechUtterance = new SpeechSynthesisUtterance(textToRead);
+      currentSpeechUtterance.lang = 'it-IT';
+      currentSpeechUtterance.rate = 0.95; // ritmo dolce per bambini
+      currentSpeechUtterance.pitch = 1.05;
+
+      const voices = window.speechSynthesis.getVoices();
+      const italianVoice = voices.find(v => v.lang.startsWith('it'));
+      if (italianVoice) {
+        currentSpeechUtterance.voice = italianVoice;
+      }
+
+      currentSpeechUtterance.onstart = () => {
+        btnReadAloud.classList.add('speaking');
+        readLabel.textContent = "In lettura...";
+      };
+
+      currentSpeechUtterance.onend = () => {
+        btnReadAloud.classList.remove('speaking');
+        readLabel.textContent = "Ascolta la favola";
+      };
+
+      currentSpeechUtterance.onerror = () => {
+        btnReadAloud.classList.remove('speaking');
+        readLabel.textContent = "Ascolta la favola";
+      };
+
+      window.speechSynthesis.speak(currentSpeechUtterance);
+    }
+
+    btnReadAloud.addEventListener('click', toggleSpeechNarration);
+
+    /* ==========================================================================
+       6. GESTIONE IMMAGINE CON FALLBACK DINAMICO
+       ========================================================================== */
+    function handleImageError(img) {
+      const curPage = STORY_PAGES[currentPageIndex];
+      img.style.display = 'none';
+      const fallbackBox = document.getElementById('page-art-fallback');
+      const fallbackIcon = document.getElementById('fallback-icon');
+      const fallbackDesc = document.getElementById('fallback-desc');
+      
+      fallbackBox.style.display = 'flex';
+      fallbackIcon.textContent = curPage.fallbackIcon || '🍓';
+      fallbackDesc.textContent = curPage.fallbackDesc || 'Favola di Vela';
+    }
+
+    /* ==========================================================================
+       7. RENDER DELLA PAGINA CORRENTE
+       ========================================================================== */
+    function renderPage(pageIdx) {
+      stopSpeaking();
+      currentPageIndex = pageIdx;
+      const data = STORY_PAGES[pageIdx];
+
+      // Aggiorna indicatori Header
+      document.getElementById('page-counter-label').textContent = `Pagina ${data.page} di ${STORY_PAGES.length}`;
+      const progressPercent = ((data.page) / STORY_PAGES.length) * 100;
+      document.getElementById('progress-bar-fill').style.width = `${progressPercent}%`;
+
+      // Aggiorna Colonna Sinistra (Testo e Immagine)
+      document.getElementById('page-tag-badge').textContent = `Pag. ${data.page}`;
+      document.getElementById('page-header-title').textContent = `✨ ${data.title}`;
+      
+      // Formatta i versi evidenziando numeri chiave
+      const formattedVerses = data.verses
+        .replace(/(UNA|UNO|DUE|TRE|QUATTRO|CINQUE|SEI|SETTE|OTTO|NOVE|DIECI|VENTI|CENTO|MILLE|MILIONE|MILIARDO|INFINITI|ZERO)/g, '<span class="highlight">$1</span>');
+      document.getElementById('page-verses').innerHTML = formattedVerses;
+
+      // Gestione Immagine
+      const imgElem = document.getElementById('page-image');
+      const fallbackBox = document.getElementById('page-art-fallback');
+      imgElem.style.display = 'block';
+      fallbackBox.style.display = 'none';
+      imgElem.src = data.image;
+
+      // Aggiorna Istruzioni dello Stage
+      document.getElementById('stage-instruction-title').textContent = data.instruction;
+      document.getElementById('stage-instruction-subtitle').textContent = data.subInstruction;
+      document.getElementById('stage-badge-icon').textContent = data.fallbackIcon.slice(0, 2) || '🍓';
+
+      // Nascondi eventuale banner di completamento precedente
+      const completionOverlay = document.getElementById('completion-overlay');
+      completionOverlay.classList.remove('show');
+
+      // Bottoni di navigazione
+      const btnPrev = document.getElementById('btn-prev-page');
+      const btnNext = document.getElementById('btn-next-page');
+      btnPrev.disabled = (pageIdx === 0);
+
+      // Se la pagina è già stata completata in precedenza, sblocca Next
+      if (completedPages.has(data.page)) {
+        btnNext.disabled = false;
+        btnNext.classList.remove('highlight-pulse');
+        document.getElementById('next-btn-text').textContent = (pageIdx === STORY_PAGES.length - 1) ? "Ricomincia" : "Avanti";
+      } else {
+        // Richiede interazione per avanzare
+        btnNext.disabled = true;
+        btnNext.classList.remove('highlight-pulse');
+        document.getElementById('next-btn-text').textContent = "Avanti";
+      }
+
+      // Costruisci il playground interattivo per questa specifica pagina
+      buildInteractiveStage(data);
+    }
+
+    /* Azione di successo: sblocca la pagina successiva */
+    function completeCurrentPage(celebrationTitle = "Bravissimo!", celebrationDesc = "Hai sbloccato la prossima pagina!") {
+      const curPage = STORY_PAGES[currentPageIndex];
+      completedPages.add(curPage.page);
+
+      SoundFX.fanfare();
+      spawnConfetti(window.innerWidth * 0.75, window.innerHeight * 0.5, 45);
+
+      const banner = document.getElementById('completion-overlay');
+      document.getElementById('celebration-title').textContent = celebrationTitle;
+      document.getElementById('celebration-desc').textContent = celebrationDesc;
+      banner.classList.add('show');
+
+      const btnNext = document.getElementById('btn-next-page');
+      btnNext.disabled = false;
+      btnNext.classList.add('highlight-pulse');
+
+      setTimeout(() => {
+        banner.classList.remove('show');
+      }, 2000);
+    }
+
+    /* ==========================================================================
+       8. FABBRICA DELLE ATTIVITÀ INTERATTIVE (STAGE BUILDER)
+       ========================================================================== */
+    function buildInteractiveStage(data) {
+      const stage = document.getElementById('playground-stage');
+      stage.innerHTML = '';
+
+      switch (data.stageType) {
+
+        /* --- Pagina 1: Sveglia il Sole e Vela --- */
+        case 'window': {
+          const wrap = document.createElement('div');
+          wrap.className = 'window-scene';
+          wrap.innerHTML = `
+            <div class="magic-window" id="window-target" title="Tocca per aprire le tende e far sorgere il sole!">
+              <div class="magic-sun" id="sun-target">☀️</div>
+              <div class="curtains" id="curtains-target">
+                <div class="curtain-left"></div>
+                <div class="curtain-right"></div>
+              </div>
+            </div>
+            <div style="font-family: var(--font-display); font-size: 1.15rem; color: #C2410C; font-weight: 600;">
+              👇 Tocca la finestra per svegliare Vela!
+            </div>
+          `;
+          stage.appendChild(wrap);
+
+          let opened = false;
+          const win = wrap.querySelector('#window-target');
+          win.addEventListener('click', () => {
+            if (opened) return;
+            opened = true;
+            SoundFX.chime(4);
+            SoundFX.sparkle();
+            wrap.querySelector('#curtains-target').classList.add('open');
+            wrap.querySelector('#sun-target').classList.add('risen');
+            setTimeout(() => {
+              completeCurrentPage("Il Sole è spuntato!", "Vela si è svegliata con un sorriso radioso!");
+            }, 600);
+          });
+          break;
+        }
+
+        /* --- Pagina 2: 3 Passi verso la cucina --- */
+        case 'footsteps': {
+          const wrap = document.createElement('div');
+          wrap.className = 'footsteps-track';
+          wrap.innerHTML = `
+            <div style="font-family: var(--font-display); font-size: 1.2rem; color: var(--color-strawberry-dark); font-weight: 600; text-align: center;">
+              Tocca le impronte in ordine per correre al tavolo!
+            </div>
+            <div class="steps-row">
+              <button class="footprint-btn" data-step="1">🐾</button>
+              <button class="footprint-btn" data-step="2">🐾</button>
+              <button class="footprint-btn" data-step="3">🐾</button>
+            </div>
+            <div style="font-size: 2.8rem;">🥣🍓👨‍👩‍👧</div>
+          `;
+          stage.appendChild(wrap);
+
+          let currentStep = 1;
+          const btns = wrap.querySelectorAll('.footprint-btn');
+          btns.forEach(btn => {
+            btn.addEventListener('click', () => {
+              const stepVal = parseInt(btn.dataset.step);
+              if (stepVal === currentStep) {
+                btn.classList.add('stepped');
+                SoundFX.thump();
+                SoundFX.pop(300 + currentStep * 80);
+                currentStep++;
+                if (currentStep > 3) {
+                  setTimeout(() => {
+                    completeCurrentPage("Sei arrivata in cucina!", "Mamma e Papà ti aspettano con le fragole!");
+                  }, 400);
+                }
+              } else if (stepVal < currentStep) {
+                SoundFX.pop(400);
+              } else {
+                SoundFX.thump();
+              }
+            });
+          });
+          break;
+        }
+
+        /* --- Pagina 3: Piatto con UNA fragola --- */
+        case 'plate-one': {
+          const wrap = document.createElement('div');
+          wrap.className = 'strawberry-plate-area';
+          wrap.innerHTML = `
+            <div class="plate" id="plate-target" title="Tocca per aggiungere 1 fragola">
+              <!-- Fragola iniettata al tap -->
+            </div>
+            <div style="display: flex; gap: 12px; align-items: center;">
+              <button class="nav-btn" id="btn-add-strawberry" style="background: #E63946; color: white;">
+                🍓 Metti 1 Fragola
+              </button>
+              <button class="nav-btn" id="btn-stomp" style="background: #F59E0B; color: white; display: none;">
+                👣 Pesta il piedino!
+              </button>
+            </div>
+          `;
+          stage.appendChild(wrap);
+
+          const plate = wrap.querySelector('#plate-target');
+          const btnAdd = wrap.querySelector('#btn-add-strawberry');
+          const btnStomp = wrap.querySelector('#btn-stomp');
+          let hasStrawberry = false;
+
+          function addStrawberry() {
+            if (hasStrawberry) return;
+            hasStrawberry = true;
+            SoundFX.pop(500);
+            plate.innerHTML = `<span class="interactive-strawberry" style="font-size: 4rem;">🍓</span>`;
+            btnAdd.style.display = 'none';
+            btnStomp.style.display = 'inline-flex';
+            SoundFX.chime(0);
+          }
+
+          btnAdd.addEventListener('click', addStrawberry);
+          plate.addEventListener('click', addStrawberry);
+
+          btnStomp.addEventListener('click', () => {
+            SoundFX.thump();
+            SoundFX.thump();
+            btnStomp.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+              completeCurrentPage("UNA fragola!", "Ma a Vela una sola non basta: ne vuole di più!");
+            }, 400);
+          });
+          break;
+        }
+
+        /* --- Pagina 4: Contiamo fino a 5 --- */
+        case 'plate-five': {
+          const wrap = document.createElement('div');
+          wrap.className = 'strawberry-plate-area';
+          wrap.innerHTML = `
+            <div class="plate" id="plate-target">
+              <span class="interactive-strawberry">🍓</span>
+            </div>
+            <div class="finger-hand-display" id="hand-display">
+              <div class="finger-indicator active">1</div>
+              <div class="finger-indicator">2</div>
+              <div class="finger-indicator">3</div>
+              <div class="finger-indicator">4</div>
+              <div class="finger-indicator">5</div>
+            </div>
+            <button class="nav-btn" id="btn-add-more" style="background: #E63946; color: white;">
+              ➕ Aggiungi Fragola (2, 3, 4, 5)
+            </button>
+          `;
+          stage.appendChild(wrap);
+
+          let count = 1;
+          const plate = wrap.querySelector('#plate-target');
+          const btnAdd = wrap.querySelector('#btn-add-more');
+          const fingers = wrap.querySelectorAll('.finger-indicator');
+
+          function addNext() {
+            if (count >= 5) return;
+            count++;
+            SoundFX.pop(350 + count * 50);
+            SoundFX.chime(count - 1);
+            
+            const s = document.createElement('span');
+            s.className = 'interactive-strawberry';
+            s.textContent = '🍓';
+            plate.appendChild(s);
+
+            fingers[count - 1].classList.add('active');
+
+            if (count === 5) {
+              btnAdd.style.display = 'none';
+              setTimeout(() => {
+                completeCurrentPage("Tutta la mano: 5!", "Uno, due, tre, quattro e cinque fragole!");
+              }, 500);
+            }
+          }
+
+          btnAdd.addEventListener('click', addNext);
+          plate.addEventListener('click', addNext);
+          break;
+        }
+
+        /* --- Pagina 5: Contiamo fino a 9 --- */
+        case 'plate-nine': {
+          const wrap = document.createElement('div');
+          wrap.className = 'strawberry-plate-area';
+          wrap.innerHTML = `
+            <div class="plate" id="plate-target">
+              ${' <span class="interactive-strawberry">🍓</span>'.repeat(5)}
+            </div>
+            <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap; justify-content: center;">
+              <span style="font-weight: 700; color: #10B981;">Manina 1: 5 dita 🖐️</span>
+              <span>➕</span>
+              <div class="finger-hand-display" style="margin: 0;">
+                <div class="finger-indicator" id="f-6">6</div>
+                <div class="finger-indicator" id="f-7">7</div>
+                <div class="finger-indicator" id="f-8">8</div>
+                <div class="finger-indicator" id="f-9">9</div>
+                <div class="finger-indicator" id="f-10" title="10° ditino ancora piegato" style="opacity: 0.45; border-style: dashed;">10</div>
+              </div>
+            </div>
+            <button class="nav-btn" id="btn-count-to-nine" style="background: #E63946; color: white;">
+              ➕ Tocca per contare: 6, 7, 8, 9
+            </button>
+          `;
+          stage.appendChild(wrap);
+
+          let current = 5;
+          const plate = wrap.querySelector('#plate-target');
+          const btnAdd = wrap.querySelector('#btn-count-to-nine');
+
+          function addNextToNine() {
+            if (current >= 9) return;
+            current++;
+            SoundFX.pop(400 + current * 40);
+            SoundFX.chime(current - 1);
+
+            const s = document.createElement('span');
+            s.className = 'interactive-strawberry';
+            s.textContent = '🍓';
+            plate.appendChild(s);
+
+            const finger = wrap.querySelector(`#f-${current}`);
+            if (finger) finger.classList.add('active');
+
+            if (current === 9) {
+              btnAdd.style.display = 'none';
+              setTimeout(() => {
+                completeCurrentPage("Fino a 9 dita!", "9 fragole e 9 dita alzate: resta solo il 10° ditino ancora piegato!");
+              }, 500);
+            }
+          }
+
+          btnAdd.addEventListener('click', addNextToNine);
+          plate.addEventListener('click', addNextToNine);
+          break;
+        }
+
+        /* --- Pagina 6: La Lavagna delle 9 Cifre --- */
+        case 'digits-board': {
+          const wrap = document.createElement('div');
+          wrap.style.display = 'flex';
+          wrap.style.flexDirection = 'column';
+          wrap.style.alignItems = 'center';
+          wrap.style.gap = '16px';
+          wrap.innerHTML = `
+            <div class="digits-board">
+              ${[1, 2, 3, 4, 5, 6, 7, 8, 9].map(n => `
+                <button class="digit-btn" data-digit="${n}">${n}</button>
+              `).join('')}
+            </div>
+            <div id="digits-score" style="font-family: var(--font-display); font-weight: 700; color: #1E293B;">
+              Toccate: 0 su 9
+            </div>
+          `;
+          stage.appendChild(wrap);
+
+          let pressedSet = new Set();
+          const btns = wrap.querySelectorAll('.digit-btn');
+          const scoreLabel = wrap.querySelector('#digits-score');
+
+          btns.forEach(btn => {
+            btn.addEventListener('click', () => {
+              const num = parseInt(btn.dataset.digit);
+              SoundFX.chime(num - 1);
+              btn.classList.add('pressed');
+              pressedSet.add(num);
+              scoreLabel.textContent = `Toccate: ${pressedSet.size} su 9`;
+
+              if (pressedSet.size === 9) {
+                setTimeout(() => {
+                  completeCurrentPage("Tutte le 9 Cifre!", "Da 1 a 9 sono 9 simboli speciali... ma per scrivere il 10 cosa servirà?");
+                }, 500);
+              }
+            });
+          });
+          break;
+        }
+
+        /* --- Pagina 7: Il mistero della decima fragola --- */
+        case 'tenth-mystery': {
+          const wrap = document.createElement('div');
+          wrap.className = 'strawberry-plate-area';
+          wrap.innerHTML = `
+            <div class="plate" id="plate-target">
+              ${' <span class="interactive-strawberry" style="font-size: 2rem;">🍓</span>'.repeat(9)}
+            </div>
+            <div id="mystery-box" style="font-family: var(--font-display); font-size: 1.5rem; font-weight: 700; color: #475569; text-align: center;">
+              🖐️ + 4 dita alzate (1 ditino piegato)
+            </div>
+            <button class="nav-btn" id="btn-add-tenth" style="background: #E63946; color: white;">
+              🍓 Aggiungi la DECIMA Fragola e apri il 10° dito!
+            </button>
+          `;
+          stage.appendChild(wrap);
+
+          let added = false;
+          const btnAdd = wrap.querySelector('#btn-add-tenth');
+          const plate = wrap.querySelector('#plate-target');
+          const mysteryBox = wrap.querySelector('#mystery-box');
+
+          btnAdd.addEventListener('click', () => {
+            if (added) return;
+            added = true;
+            SoundFX.pop(650);
+            SoundFX.chime(9);
+
+            const s = document.createElement('span');
+            s.className = 'interactive-strawberry';
+            s.style.fontSize = '2rem';
+            s.textContent = '🍓';
+            plate.appendChild(s);
+
+            mysteryBox.innerHTML = '👐🏼 <strong>10 dita aperte!</strong> Ma le cifre sono solo 9... come si scrive DIECI? ❓';
+            mysteryBox.style.color = '#E63946';
+            btnAdd.style.display = 'none';
+
+            setTimeout(() => {
+              completeCurrentPage("10 dita, ma 9 cifre!", "Due mani tutte piene! Ma le cifre singole arrivano a 9: scopriamo il trucco di Papà!");
+            }, 600);
+          });
+          break;
+        }
+
+        /* --- Pagina 8: Combina 1 e 0 per fare 10 --- */
+        case 'combine-ten': {
+          const wrap = document.createElement('div');
+          wrap.className = 'combine-digits-zone';
+          wrap.innerHTML = `
+            <div class="notebook-paper" id="paper-notebook">
+              <div class="merge-badge left">1</div>
+              <div style="font-size: 2.5rem; color: #9CA3AF;">➕</div>
+              <div class="merge-badge right">0</div>
+            </div>
+            <button class="nav-btn" id="btn-merge-ten" style="background: #F59E0B; color: white;">
+              ✨ Unisci le Cifre!
+            </button>
+          `;
+          stage.appendChild(wrap);
+
+          let merged = false;
+          const paper = wrap.querySelector('#paper-notebook');
+          const btnMerge = wrap.querySelector('#btn-merge-ten');
+
+          btnMerge.addEventListener('click', () => {
+            if (merged) return;
+            merged = true;
+            paper.classList.add('merged');
+            SoundFX.fanfare();
+            SoundFX.sparkle();
+            btnMerge.style.display = 'none';
+
+            setTimeout(() => {
+              completeCurrentPage("Ecco il DIECI (10)!", "L'1 e lo 0 messi vicini formano un nuovo grandioso numero!");
+            }, 700);
+          });
+          break;
+        }
+
+        /* --- Pagina 9: Corsa da 10 a 20 --- */
+        case 'sprint-twenty': {
+          const wrap = document.createElement('div');
+          wrap.style.display = 'flex';
+          wrap.style.flexDirection = 'column';
+          wrap.style.alignItems = 'center';
+          wrap.style.gap = '20px';
+          wrap.innerHTML = `
+            <div style="font-family: var(--font-display); font-size: 4rem; font-weight: 700; color: #E63946;" id="sprint-counter">
+              10
+            </div>
+            <button class="nav-btn" id="btn-sprint" style="background: #E63946; color: white; padding: 20px 36px; font-size: 1.3rem;">
+              🧺 Tocca il Cestino!
+            </button>
+            <div style="font-weight: 600; color: #6B7280;">Tocca velocemente fino a 20!</div>
+          `;
+          stage.appendChild(wrap);
+
+          let count = 10;
+          const counterLabel = wrap.querySelector('#sprint-counter');
+          const btnSprint = wrap.querySelector('#btn-sprint');
+
+          btnSprint.addEventListener('click', () => {
+            if (count >= 20) return;
+            count++;
+            counterLabel.textContent = count;
+            SoundFX.pop(300 + (count - 10) * 35);
+            SoundFX.chime(count % 10);
+            spawnConfetti(window.innerWidth * 0.75, window.innerHeight * 0.5, 8);
+
+            if (count === 20) {
+              btnSprint.style.display = 'none';
+              setTimeout(() => {
+                completeCurrentPage("VENTI fragole!", "11, 12, 13... fino a 20! Che scorpacciata!");
+              }, 500);
+            }
+          });
+          break;
+        }
+
+        /* --- Pagina 10: Pietre delle Decine (30-100) --- */
+        case 'tens-stones': {
+          const wrap = document.createElement('div');
+          wrap.style.display = 'flex';
+          wrap.style.flexDirection = 'column';
+          wrap.style.alignItems = 'center';
+          wrap.style.gap = '16px';
+          const tens = [30, 40, 50, 60, 70, 80, 90, 100];
+          wrap.innerHTML = `
+            <div class="stepping-stones-river">
+              ${tens.map((t, idx) => `
+                <button class="stone-btn" data-val="${t}" data-idx="${idx}">${t}</button>
+              `).join('')}
+            </div>
+            <div id="tens-current-label" style="font-family: var(--font-display); font-weight: 700; color: #0284C7;">
+              Prossimo salto: 30
+            </div>
+          `;
+          stage.appendChild(wrap);
+
+          let expectedIdx = 0;
+          const btns = wrap.querySelectorAll('.stone-btn');
+          const currentLabel = wrap.querySelector('#tens-current-label');
+
+          btns.forEach(btn => {
+            btn.addEventListener('click', () => {
+              const idx = parseInt(btn.dataset.idx);
+              if (idx === expectedIdx) {
+                btn.classList.add('stepped');
+                SoundFX.pop(300 + idx * 40);
+                SoundFX.chime(idx);
+                expectedIdx++;
+
+                if (expectedIdx < tens.length) {
+                  currentLabel.textContent = `Prossimo salto: ${tens[expectedIdx]}`;
+                } else {
+                  currentLabel.textContent = `👑 ARRIVATI A 100!`;
+                  setTimeout(() => {
+                    completeCurrentPage("Arrivati a CENTO!", "30, 40, 50, 60, 70, 80, 90 e... 100!");
+                  }, 500);
+                }
+              } else {
+                SoundFX.thump();
+              }
+            });
+          });
+          break;
+        }
+
+        /* --- Pagina 11: Montagna di 100 fragole --- */
+        case 'hundred-mountain': {
+          const wrap = document.createElement('div');
+          wrap.style.display = 'flex';
+          wrap.style.flexDirection = 'column';
+          wrap.style.alignItems = 'center';
+          wrap.style.gap = '16px';
+          wrap.innerHTML = `
+            <div style="font-size: 5rem; cursor: pointer;" id="mountain-emoji">
+              🏔️🍓
+            </div>
+            <div style="font-family: var(--font-display); font-size: 2.2rem; font-weight: 700; color: #E63946;" id="hundred-label">
+              100 Fragole!
+            </div>
+            <button class="nav-btn" id="btn-count-more-hundred" style="background: #E63946; color: white;">
+              🍓 Conta ancora: 101, 102...!
+            </button>
+          `;
+          stage.appendChild(wrap);
+
+          let hundredCount = 100;
+          const label = wrap.querySelector('#hundred-label');
+          const btnMore = wrap.querySelector('#btn-count-more-hundred');
+          const mountain = wrap.querySelector('#mountain-emoji');
+
+          function tapHundred() {
+            if (hundredCount >= 105) return;
+            hundredCount++;
+            label.textContent = `${hundredCount} Fragole!`;
+            SoundFX.pop(400 + (hundredCount - 100) * 50);
+            SoundFX.sparkle();
+            spawnConfetti(window.innerWidth * 0.75, window.innerHeight * 0.5, 12);
+
+            if (hundredCount >= 105) {
+              btnMore.style.display = 'none';
+              setTimeout(() => {
+                completeCurrentPage("Centouno, Centodue...!", "E avanti senza fermarsi più!");
+              }, 500);
+            }
+          }
+
+          btnMore.addEventListener('click', tapHundred);
+          mountain.addEventListener('click', tapHundred);
+          break;
+        }
+
+        /* --- Pagina 12: Verso l'Infinito (Stelle) --- */
+        case 'infinity-sky': {
+          const wrap = document.createElement('div');
+          wrap.style.width = '100%';
+          wrap.innerHTML = `
+            <div class="sky-box" id="sky-click-zone">
+              <div class="constellation-text" id="star-number-display">✨ Tocca il cielo ✨</div>
+              <div style="color: #94A3B8; font-weight: 600; font-size: 0.9rem;">
+                Tocca per accendere: Mille ➡️ Milione ➡️ Miliardo ➡️ Infinito
+              </div>
+            </div>
+          `;
+          stage.appendChild(wrap);
+
+          const sky = wrap.querySelector('#sky-click-zone');
+          const display = wrap.querySelector('#star-number-display');
+          const steps = ['1.000 (Mille)', '1.000.000 (Milione)', '1.000.000.000 (Miliardo)', '∞ INFINITO'];
+          let curStarStep = 0;
+
+          sky.addEventListener('click', () => {
+            if (curStarStep >= steps.length) return;
+            display.textContent = steps[curStarStep];
+            SoundFX.sparkle();
+            SoundFX.chime(curStarStep * 2 + 1);
+            spawnConfetti(window.innerWidth * 0.75, window.innerHeight * 0.5, 20);
+            curStarStep++;
+
+            if (curStarStep === steps.length) {
+              setTimeout(() => {
+                completeCurrentPage("I Numeri sono INFINITI!", "Come le stelle in cielo: non finiscono mai!");
+              }, 600);
+            }
+          });
+          break;
+        }
+
+        /* --- Pagina 13: Gnam! Conto alla rovescia (9 a 1) --- */
+        case 'eat-countdown': {
+          const wrap = document.createElement('div');
+          wrap.className = 'strawberry-plate-area';
+          wrap.innerHTML = `
+            <div style="font-family: var(--font-display); font-size: 2.2rem; font-weight: 700; color: #E63946;" id="countdown-label">
+              Fragole rimaste: 9
+            </div>
+            <div class="plate" id="eating-plate">
+              ${[9, 8, 7, 6, 5, 4, 3, 2, 1].map(n => `
+                <span class="interactive-strawberry eat-berry" data-num="${n}" title="Mangiami!">🍓</span>
+              `).join('')}
+            </div>
+          `;
+          stage.appendChild(wrap);
+
+          let left = 9;
+          const label = wrap.querySelector('#countdown-label');
+          const berries = wrap.querySelectorAll('.eat-berry');
+
+          berries.forEach(berry => {
+            berry.addEventListener('click', () => {
+              if (berry.style.visibility === 'hidden') return;
+              berry.style.visibility = 'hidden';
+              SoundFX.crunch();
+              left--;
+              label.textContent = left > 0 ? `Fragole rimaste: ${left}` : "Piatto vuoto: 0!";
+
+              if (left === 0) {
+                setTimeout(() => {
+                  completeCurrentPage("Gnam! Tutto mangiato!", "Nove, otto, sette, sei, cinque, quattro, tre, due... UNA!");
+                }, 500);
+              }
+            });
+          });
+          break;
+        }
+
+        /* --- Pagina 14: Il piatto vuoto (0) --- */
+        case 'empty-plate': {
+          const wrap = document.createElement('div');
+          wrap.className = 'strawberry-plate-area';
+          wrap.innerHTML = `
+            <div class="plate" id="empty-check-plate" style="cursor: pointer;">
+              <span style="color: #9CA3AF; font-size: 1.1rem; font-weight: 600;">(Piatto pulitissimo)</span>
+            </div>
+            <div id="empty-status" style="font-family: var(--font-display); font-size: 1.3rem; color: #4B5563; font-weight: 600;">
+              👇 Tocca il piatto per controllare quante fragole ci sono
+            </div>
+          `;
+          stage.appendChild(wrap);
+
+          let checked = false;
+          const plate = wrap.querySelector('#empty-check-plate');
+          const status = wrap.querySelector('#empty-status');
+
+          plate.addEventListener('click', () => {
+            if (checked) return;
+            checked = true;
+            SoundFX.pop(250);
+            status.textContent = "Fragole trovate: ZERO! Nessuna!";
+            status.style.color = "#E63946";
+
+            setTimeout(() => {
+              completeCurrentPage("Non c'è nessuna fragola!", "Come si chiama il numero per indicare il niente?");
+            }, 500);
+          });
+          break;
+        }
+
+        /* --- Pagina 15: La Magia dello Zero --- */
+        case 'magic-zero': {
+          const wrap = document.createElement('div');
+          wrap.style.display = 'flex';
+          wrap.style.flexDirection = 'column';
+          wrap.style.alignItems = 'center';
+          wrap.style.gap = '20px';
+          wrap.innerHTML = `
+            <div style="width: 140px; height: 140px; border-radius: 50%; border: 10px solid #F59E0B; display: flex; align-items: center; justify-content: center; font-family: var(--font-display); font-size: 4.5rem; font-weight: 700; color: #F59E0B; cursor: pointer; box-shadow: 0 0 30px rgba(245, 158, 11, 0.4);" id="big-zero-target" title="Tocca lo Zero!">
+              0
+            </div>
+            <div style="font-family: var(--font-display); font-size: 1.1rem; color: #374151; font-weight: 600; text-align: center;">
+              Tocca lo ZERO per accendere la DECIMA cifra!
+            </div>
+            <div id="ten-digits-row" style="display: none; gap: 8px; flex-wrap: wrap; justify-content: center;">
+              ${[0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map(n => `
+                <span style="background: #10B981; color: white; padding: 6px 14px; border-radius: 10px; font-family: var(--font-display); font-size: 1.2rem; font-weight: 700;">${n}</span>
+              `).join('')}
+            </div>
+          `;
+          stage.appendChild(wrap);
+
+          let zeroActive = false;
+          const zero = wrap.querySelector('#big-zero-target');
+          const row = wrap.querySelector('#ten-digits-row');
+
+          zero.addEventListener('click', () => {
+            if (zeroActive) return;
+            zeroActive = true;
+            SoundFX.fanfare();
+            SoundFX.sparkle();
+            row.style.display = 'flex';
+
+            setTimeout(() => {
+              completeCurrentPage("Le 10 Cifre Fondamentali!", "Dallo 0 al 9: i mattoni per costruire TUTTI i numeri del mondo!");
+            }, 600);
+          });
+          break;
+        }
+
+        /* --- Pagina 16: Abbraccio di Famiglia --- */
+        case 'family-hug': {
+          const wrap = document.createElement('div');
+          wrap.style.display = 'flex';
+          wrap.style.flexDirection = 'column';
+          wrap.style.alignItems = 'center';
+          wrap.style.gap = '20px';
+          wrap.innerHTML = `
+            <div style="font-size: 5rem; cursor: pointer;" id="family-hug-emojis">
+              👨‍👩‍👧
+            </div>
+            <button class="nav-btn" id="btn-hug-action" style="background: #FF3366; color: white; padding: 18px 36px; font-size: 1.25rem;">
+              💖 Fai un Grande Abbraccio!
+            </button>
+          `;
+          stage.appendChild(wrap);
+
+          let hugged = false;
+          const btnHug = wrap.querySelector('#btn-hug-action');
+          const emojis = wrap.querySelector('#family-hug-emojis');
+
+          function doHug() {
+            if (hugged) return;
+            hugged = true;
+            SoundFX.sparkle();
+            SoundFX.fanfare();
+            emojis.textContent = '🥰💖🍓';
+            emojis.style.transform = 'scale(1.25)';
+            spawnConfetti(window.innerWidth * 0.75, window.innerHeight * 0.5, 40);
+
+            setTimeout(() => {
+              completeCurrentPage("Che dolce abbraccio!", "Vela ha imparato a contare con gioia e amore!");
+            }, 600);
+          }
+
+          btnHug.addEventListener('click', doHug);
+          emojis.addEventListener('click', doHug);
+          break;
+        }
+
+        /* --- Pagina 17: Giardino Finale --- */
+        case 'garden-finale': {
+          const wrap = document.createElement('div');
+          wrap.style.display = 'flex';
+          wrap.style.flexDirection = 'column';
+          wrap.style.alignItems = 'center';
+          wrap.style.gap = '14px';
+          wrap.style.width = '100%';
+          wrap.innerHTML = `
+            <div class="garden-meadow" id="meadow-field">
+              <span class="garden-creature" style="top: 20px; left: 30px;">🦋</span>
+              <span class="garden-creature" style="top: 80px; right: 50px;">🦋</span>
+              <span class="garden-creature" style="top: 160px; left: 100px;">🦋</span>
+              <span class="garden-creature" style="bottom: 30px; left: 40px;">🐝</span>
+              <span class="garden-creature" style="bottom: 40px; right: 40px;">🐝</span>
+              <span class="garden-creature" style="bottom: 25px; left: 180px;">🌸</span>
+              <span class="garden-creature" style="bottom: 60px; right: 120px;">🌸</span>
+              <span class="garden-creature" style="top: 30px; right: 140px;">☁️</span>
+            </div>
+            <div id="garden-count-label" style="font-family: var(--font-display); font-size: 1.25rem; font-weight: 700; color: #15803D;">
+              Elementi contati: 0 su 8
+            </div>
+          `;
+          stage.appendChild(wrap);
+
+          let countedGarden = 0;
+          const label = wrap.querySelector('#garden-count-label');
+          const creatures = wrap.querySelectorAll('.garden-creature');
+
+          creatures.forEach(c => {
+            c.addEventListener('click', () => {
+              if (c.classList.contains('counted')) return;
+              c.classList.add('counted');
+              countedGarden++;
+              SoundFX.pop(300 + countedGarden * 60);
+              SoundFX.chime(countedGarden);
+              label.textContent = `Elementi contati: ${countedGarden} su 8`;
+
+              if (countedGarden === 8) {
+                setTimeout(() => {
+                  completeCurrentPage("🎓 DIPLOMA DEI NUMERI!", "Congratulazioni! Ora conosci il segreto dei numeri infiniti!");
+                }, 500);
+              }
+            });
+          });
+          break;
+        }
+
+        default:
+          break;
+      }
+    }
+
+    /* ==========================================================================
+       9. NAVIGAZIONE E GESTIONE EVENTI
+       ========================================================================== */
+    const btnPrevPage = document.getElementById('btn-prev-page');
+    const btnNextPage = document.getElementById('btn-next-page');
+
+    btnPrevPage.addEventListener('click', () => {
+      if (currentPageIndex > 0) {
+        renderPage(currentPageIndex - 1);
+      }
+    });
+
+    btnNextPage.addEventListener('click', () => {
+      if (currentPageIndex < STORY_PAGES.length - 1) {
+        renderPage(currentPageIndex + 1);
+      } else {
+        // Ritorna all'inizio se completata tutta la favola
+        renderPage(0);
+      }
+    });
+
+    // Supporto Tasti Freccia da Tastiera
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' && !btnNextPage.disabled) {
+        btnNextPage.click();
+      } else if (e.key === 'ArrowLeft' && !btnPrevPage.disabled) {
+        btnPrevPage.click();
+      }
+    });
+
+    // Bottone Home sul Brand
+    document.getElementById('btn-home').addEventListener('click', () => {
+      renderPage(0);
+    });
+
+    // Toggle Suoni
+    const btnSoundToggle = document.getElementById('btn-sound-toggle');
+    const soundIcon = document.getElementById('sound-icon');
+    btnSoundToggle.addEventListener('click', () => {
+      isSoundEnabled = !isSoundEnabled;
+      soundIcon.textContent = isSoundEnabled ? '🔊' : '🔇';
+      btnSoundToggle.classList.toggle('active', isSoundEnabled);
+    });
+
+    // Toggle Schermo Intero
+    const btnFullscreen = document.getElementById('btn-fullscreen');
+    btnFullscreen.addEventListener('click', () => {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(() => {});
+      } else {
+        document.exitFullscreen().catch(() => {});
+      }
+    });
+
+    // Modal Indice delle Pagine
+    const tocModal = document.getElementById('toc-modal');
+    const btnToc = document.getElementById('btn-toc');
+    const btnCloseToc = document.getElementById('btn-close-toc');
+    const tocList = document.getElementById('toc-list');
+
+    function populateToc() {
+      tocList.innerHTML = '';
+      STORY_PAGES.forEach((item, idx) => {
+        const chip = document.createElement('div');
+        chip.className = `page-jump-chip ${idx === currentPageIndex ? 'active-chip' : ''}`;
+        chip.innerHTML = `
+          <span style="font-size: 1.5rem;">${item.fallbackIcon ? item.fallbackIcon.slice(0, 2) : '📖'}</span>
+          <span class="chip-num">Pag. ${item.page}</span>
+          <span class="chip-title">${item.title}</span>
+        `;
+        chip.addEventListener('click', () => {
+          tocModal.classList.remove('open');
+          renderPage(idx);
+        });
+        tocList.appendChild(chip);
+      });
+    }
+
+    btnToc.addEventListener('click', () => {
+      populateToc();
+      tocModal.classList.add('open');
+    });
+
+    btnCloseToc.addEventListener('click', () => {
+      tocModal.classList.remove('open');
+    });
+
+    tocModal.addEventListener('click', (e) => {
+      if (e.target === tocModal) {
+        tocModal.classList.remove('open');
+      }
+    });
+
+    /* ==========================================================================
+       10. INIZIALIZZAZIONE ALL'AVVIO
+       ========================================================================== */
+    window.addEventListener('DOMContentLoaded', () => {
+      renderPage(0);
+    });
+  </script>
+</body>
+</html>

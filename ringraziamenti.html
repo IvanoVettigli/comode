@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="it" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ringraziamenti &amp; Riconoscimenti • le comode lezioni d'Ivano</title>
+  <meta name="description" content="Ringraziamenti, crediti e riconoscimenti per le persone, i progetti e le comunità che hanno reso possibile e continuano a ispirare le comode lezioni d'Ivano.">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Stili Condivisi comode -->
+  <link rel="stylesheet" href="shared/css/comode.css">
+
+  <style>
+    /* Stili dedicati per la pagina Ringraziamenti */
+    .thanks-hero {
+      margin-bottom: 2.5rem;
+      text-align: center;
+      padding: 3rem 1.5rem 2.5rem;
+      background: linear-gradient(180deg, var(--bg-surface) 0%, var(--bg-surface-elevated) 100%);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .thanks-hero::before {
+      content: '';
+      position: absolute;
+      top: -40px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 440px;
+      height: 150px;
+      background: radial-gradient(circle, var(--accent-purple) 0%, transparent 70%);
+      opacity: 0.25;
+      pointer-events: none;
+    }
+
+    .thanks-hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.4rem 0.95rem;
+      border-radius: var(--radius-pill);
+      font-size: 0.82rem;
+      font-weight: 700;
+      background: rgba(168, 85, 247, 0.12);
+      color: var(--accent-purple);
+      border: 1px solid rgba(168, 85, 247, 0.25);
+      margin-bottom: 1.25rem;
+    }
+
+    .thanks-title {
+      font-size: clamp(2rem, 4vw, 2.7rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      margin-bottom: 0.85rem;
+      line-height: 1.2;
+    }
+
+    .thanks-title span {
+      background: linear-gradient(135deg, var(--accent-purple), var(--accent-math));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .thanks-desc {
+      font-size: 1.12rem;
+      color: var(--text-muted);
+      max-width: 780px;
+      margin: 0 auto 1.75rem;
+      line-height: 1.65;
+      font-weight: 500;
+    }
+
+    .thanks-hero-pills {
+      display: flex;
+      justify-content: center;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    .thanks-hero-pill {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      padding: 0.4rem 0.9rem;
+      border-radius: var(--radius-pill);
+    }
+
+    /* Avviso di predisposizione sezione */
+    .status-notice {
+      background: rgba(168, 85, 247, 0.08);
+      border: 1px solid rgba(168, 85, 247, 0.25);
+      border-left: 4px solid var(--accent-purple);
+      border-radius: var(--radius-md);
+      padding: 1.15rem 1.35rem;
+      margin-bottom: 2.75rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.95rem;
+      font-size: 0.92rem;
+      line-height: 1.55;
+    }
+
+    .status-notice .icon {
+      font-size: 1.5rem;
+      line-height: 1;
+      flex-shrink: 0;
+    }
+
+    /* Griglie e Card dei Ringraziamenti */
+    .thanks-category-block {
+      margin-bottom: 3.5rem;
+    }
+
+    .category-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1.25rem;
+      padding-bottom: 0.65rem;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .category-header h2 {
+      font-size: 1.35rem;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+      margin: 0;
+    }
+
+    .category-header .cat-badge {
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 0.2rem 0.6rem;
+      border-radius: var(--radius-pill);
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    .cat-badge.pedagogy {
+      background: rgba(56, 189, 248, 0.12);
+      color: var(--accent-math);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+    }
+
+    .cat-badge.students {
+      background: rgba(16, 185, 129, 0.12);
+      color: var(--accent-success);
+      border: 1px solid rgba(16, 185, 129, 0.25);
+    }
+
+    .cat-badge.tech {
+      background: rgba(245, 158, 11, 0.12);
+      color: var(--accent-gold);
+      border: 1px solid rgba(245, 158, 11, 0.25);
+    }
+
+    .cat-badge.special {
+      background: rgba(168, 85, 247, 0.12);
+      color: var(--accent-purple);
+      border: 1px solid rgba(168, 85, 247, 0.25);
+    }
+
+    .thanks-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+      gap: 1.35rem;
+    }
+
+    .thanks-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      transition: var(--transition);
+      position: relative;
+    }
+
+    .thanks-card:hover {
+      border-color: var(--border-accent);
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .thanks-card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 0.85rem;
+      gap: 0.5rem;
+    }
+
+    .thanks-icon {
+      font-size: 2rem;
+      line-height: 1;
+    }
+
+    .thanks-tag {
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 0.2rem 0.55rem;
+      border-radius: var(--radius-pill);
+      background: var(--bg-surface-elevated);
+      color: var(--text-muted);
+      border: 1px solid var(--border-subtle);
+      font-family: var(--font-mono);
+    }
+
+    .thanks-card-name {
+      font-size: 1.18rem;
+      font-weight: 800;
+      margin-bottom: 0.25rem;
+      line-height: 1.3;
+    }
+
+    .thanks-card-role {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--accent-math);
+      margin-bottom: 0.75rem;
+    }
+
+    .thanks-card-role.purple {
+      color: var(--accent-purple);
+    }
+
+    .thanks-card-role.gold {
+      color: var(--accent-gold);
+    }
+
+    .thanks-card-role.green {
+      color: var(--accent-success);
+    }
+
+    .thanks-card-body {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.55;
+      flex-grow: 1;
+    }
+
+    .thanks-card-meta {
+      margin-top: 0.9rem;
+      padding-top: 0.65rem;
+      border-top: 1px dashed var(--border-subtle);
+      font-family: var(--font-mono);
+      font-size: 0.76rem;
+      color: var(--text-dim);
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+
+    .thanks-card-quote {
+      margin-top: 1rem;
+      padding-top: 0.75rem;
+      border-top: 1px dashed var(--border-subtle);
+      font-style: italic;
+      font-size: 0.85rem;
+      color: var(--text-dim);
+    }
+
+    /* Card placeholder per nuovi inserimenti */
+    .thanks-card.placeholder {
+      border: 1px dashed var(--border-subtle);
+      background: transparent;
+      opacity: 0.75;
+    }
+
+    .thanks-card.placeholder:hover {
+      opacity: 1;
+      border-color: var(--accent-purple);
+      background: rgba(168, 85, 247, 0.03);
+    }
+
+    /* Box Dedica Studenti Full-Width */
+    .students-dedication-card {
+      background: linear-gradient(145deg, var(--bg-surface) 0%, var(--bg-surface-elevated) 100%);
+      border: 1px solid var(--border-subtle);
+      border-left: 5px solid var(--accent-success);
+      border-radius: var(--radius-lg);
+      padding: 1.75rem 2rem;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .students-dedication-card h3 {
+      font-size: 1.3rem;
+      font-weight: 800;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      color: var(--text-main);
+    }
+
+    .students-dedication-card p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      line-height: 1.6;
+      margin-bottom: 0.75rem;
+    }
+
+    .students-dedication-card p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* Sezione Partecipa e Contribuisci */
+    .contribute-box {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      text-align: center;
+      margin-top: 3.5rem;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .contribute-box h3 {
+      font-size: 1.3rem;
+      font-weight: 800;
+      margin-bottom: 0.5rem;
+    }
+
+    .contribute-box p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      max-width: 620px;
+      margin: 0 auto 1.5rem;
+      line-height: 1.6;
+    }
+
+    .contribute-actions {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn-action-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--accent-math);
+      color: #0b0f19;
+      padding: 0.65rem 1.25rem;
+      border-radius: var(--radius-md);
+      font-weight: 700;
+      font-size: 0.9rem;
+      text-decoration: none;
+      transition: var(--transition);
+      border: 1px solid var(--accent-math);
+    }
+
+    .btn-action-primary:hover {
+      background: #7dd3fc;
+      transform: translateY(-2px);
+    }
+
+    .btn-action-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--bg-surface-elevated);
+      color: var(--text-main);
+      padding: 0.65rem 1.25rem;
+      border-radius: var(--radius-md);
+      font-weight: 700;
+      font-size: 0.9rem;
+      text-decoration: none;
+      transition: var(--transition);
+      border: 1px solid var(--border-subtle);
+    }
+
+    .btn-action-secondary:hover {
+      border-color: var(--border-accent);
+      transform: translateY(-2px);
+    }
+  </style>
+</head>
+<body data-theme="dark">
+
+  <div class="container">
+    <!-- Navbar Superiore con Widget Gamification e Controlli -->
+    <nav class="navbar">
+      <a href="index.html" class="brand">
+        📐 comode<span>.</span>
+      </a>
+      <div class="nav-actions">
+        <a href="index.html" class="icon-btn" title="Torna alla Home" style="text-decoration: none;">
+          🏠 <span class="nav-text">Home</span>
+        </a>
+        <div class="gamification-widget" title="Il tuo livello attuale e punti XP">
+          <span class="level-badge user-level-val">Liv. 1 🌱</span>
+          <span class="xp-counter user-xp-val">0 XP</span>
+        </div>
+        <button id="audioToggleBtn" class="icon-btn" aria-label="Attiva o disattiva audio">
+          🔊 <span class="nav-text">Suoni</span>
+        </button>
+        <button id="themeToggleBtn" class="theme-toggle-btn" aria-label="Cambia tema chiaro/scuro">
+          <span id="themeIcon">☀️</span>
+          <span id="themeLabel">Chiaro</span>
+        </button>
+      </div>
+    </nav>
+
+    <!-- Breadcrumb di navigazione -->
+    <div class="breadcrumbs">
+      <a href="index.html">Home</a>
+      <span class="sep">/</span>
+      <span class="current">Ringraziamenti</span>
+    </div>
+
+    <!-- ======================================================== -->
+    <!-- HERO HEADER: RINGRAZIAMENTI                              -->
+    <!-- ======================================================== -->
+    <header class="thanks-hero">
+      <div class="thanks-hero-badge">
+        🙏 Gratitudine • Collaborazione • Open Education
+      </div>
+      <h1 class="thanks-title">
+        I nostri <span>Ringraziamenti</span>
+      </h1>
+      <p class="thanks-desc">
+        Un ambiente didattico accogliente, stimolante e confortevole nasce sempre dall'incontro di menti, buone pratiche e generosità intellettuale. In questo spazio diamo voce alla gratitudine verso chi ispira, sostiene e arricchisce ogni giorno <em>le comode lezioni d'Ivano</em>.
+      </p>
+      <div class="thanks-hero-pills">
+        <span class="thanks-hero-pill">💡 Ispirazione Pedagogica</span>
+        <span class="thanks-hero-pill">🌱 Studentesse &amp; Studenti</span>
+        <span class="thanks-hero-pill">💻 Software Libero &amp; Standard Web</span>
+        <span class="thanks-hero-pill">🔄 Spazio Aperto e Predisposto</span>
+      </div>
+    </header>
+
+    <!-- Box Informativo di Predisposizione -->
+    <div class="status-notice">
+      <div class="icon">✨</div>
+      <div>
+        <strong>Sezione in continuo arricchimento:</strong> questa pagina è stata predisposta per accogliere i nomi, le menzioni, le collaborazioni e le comunità di riferimento della piattaforma. I blocchi sottostanti sono strutturati per essere progressivamente caricati con dediche personali e crediti formali.
+      </div>
+    </div>
+
+
+    <!-- ======================================================== -->
+    <!-- SEZIONE 1: ISPIRAZIONE PEDAGOGICA & METODOLOGICA         -->
+    <!-- ======================================================== -->
+    <section class="thanks-category-block">
+      <div class="category-header">
+        <h2>💡 Ispirazione Pedagogica &amp; Didattica</h2>
+        <span class="cat-badge pedagogy">Metodo &amp; Visione</span>
+      </div>
+
+      <div class="thanks-grid">
+        <!-- Card George Polya & Euristiche -->
+        <article class="thanks-card">
+          <div class="thanks-card-top">
+            <div class="thanks-icon">🧩</div>
+            <span class="thanks-tag">Problem Solving</span>
+          </div>
+          <h3 class="thanks-card-name">George Pólya &amp; Singapore Math</h3>
+          <div class="thanks-card-role">Modello Euristico &amp; Approccio CPA</div>
+          <div class="thanks-card-body">
+            Per aver insegnato che la risoluzione di problemi non è mera esecuzione di formule, ma un'avventura del pensiero fondata sulla comprensione attiva, sul metodo Concreto-Pittorico-Astratto e sulla riflessione metacognitiva.
+          </div>
+          <div class="thanks-card-quote">
+            "Se non riesci a risolvere un problema, ce n'è uno più facile che puoi risolvere: trovalo!"
+          </div>
+        </article>
+
+        <!-- Card Comunità Liceo Scienze Umane -->
+        <article class="thanks-card">
+          <div class="thanks-card-top">
+            <div class="thanks-icon">🏛️</div>
+            <span class="thanks-tag">Scuola &amp; Umanesimo</span>
+          </div>
+          <h3 class="thanks-card-name">Liceo delle Scienze Umane</h3>
+          <div class="thanks-card-role">Identità Culturale &amp; Interdisciplinarità</div>
+          <div class="thanks-card-body">
+            A tutti i docenti e agli educatori che promuovono una visione integrata della cultura: dove la matematica e la fisica dialogano con la psicologia, l'antropologia, la sociologia e la pedagogia.
+          </div>
+          <div class="thanks-card-quote">
+            La scienza e l'uomo si illuminano a vicenda.
+          </div>
+        </article>
+
+        <!-- Placeholder per Maestri e Formatori -->
+        <article class="thanks-card placeholder">
+          <div class="thanks-card-top">
+            <div class="thanks-icon">🖋️</div>
+            <span class="thanks-tag">Spazio Disponibile</span>
+          </div>
+          <h3 class="thanks-card-name">Mentori, Colleghi &amp; Formatori</h3>
+          <div class="thanks-card-role purple">Menzioni personali in caricamento</div>
+          <div class="thanks-card-body">
+            Spazio predisposto per i colleghi, i formatori e i compagni di viaggio con cui sono stati discussi e affinati i singoli percorsi, le verifiche scritte e le rubriche di valutazione.
+          </div>
+          <div class="thanks-card-quote">
+            [Caricamento in corso dei ringraziamenti dedicati...]
+          </div>
+        </article>
+      </div>
+    </section>
+
+
+    <!-- ======================================================== -->
+    <!-- SEZIONE 2: STUDENTI E STUDENTESSE                        -->
+    <!-- ======================================================== -->
+    <section class="thanks-category-block">
+      <div class="category-header">
+        <h2>🌱 Alle Studentesse e agli Studenti</h2>
+        <span class="cat-badge students">Il Cuore di comode</span>
+      </div>
+
+      <div class="students-dedication-card">
+        <h3>
+          <span>🎓</span> A voi, per cui ogni lezione è stata immaginata e resa comoda
+        </h3>
+        <p>
+          Il ringraziamento più profondo va alle ragazze e ai ragazzi che ogni giorno siedono tra i banchi: per ogni sguardo perplesso che ci ha spinti a cercare una spiegazione più chiara, per ogni <em>"prof, ora ha senso!"</em> che ha ripagato ore di preparazione, e per la curiosità con cui manipolate i gettoni, esplorate i grafici e mettete alla prova le vostre strategie.
+        </p>
+        <p>
+          Nessuna UDA sarebbe nata senza il vostro contributo attivo e senza la consapevolezza che <strong>la matematica e la fisica sono per tutti</strong>, quando il terreno di apprendimento è accogliente e rispettoso dei tempi di ciascuno.
+        </p>
+      </div>
+    </section>
+
+
+    <!-- ======================================================== -->
+    <!-- SEZIONE 3: ECOSISTEMA TECNOLOGICO E OPEN SOURCE          -->
+    <!-- ======================================================== -->
+    <section class="thanks-category-block">
+      <div class="category-header">
+        <h2>💻 Standard Web, Librerie &amp; Software Libero</h2>
+        <span class="cat-badge tech">Stack Tecnologico Open Source</span>
+      </div>
+
+      <div class="thanks-grid">
+        <!-- KaTeX -->
+        <article class="thanks-card">
+          <div class="thanks-card-top">
+            <div class="thanks-icon">∑</div>
+            <span class="thanks-tag">KaTeX v0.19.1</span>
+          </div>
+          <h3 class="thanks-card-name">KaTeX (Khan Academy)</h3>
+          <div class="thanks-card-role gold">Motore di Rendering Matematico &amp; Tipografico</div>
+          <div class="thanks-card-body">
+            Libreria JavaScript sincrona ad altissime prestazioni per la resa tipografica LaTeX di frazioni, radici ed equazioni, protetta da fogli di stile dedicati e priva di ricalcoli di layout pesanti.
+          </div>
+          <div class="thanks-card-meta">
+            <span>Licenza: MIT</span>
+            <span>CDN: jsDelivr</span>
+          </div>
+        </article>
+
+        <!-- Web Audio & Web Speech -->
+        <article class="thanks-card">
+          <div class="thanks-card-top">
+            <div class="thanks-icon">🔊</div>
+            <span class="thanks-tag">W3C Native API</span>
+          </div>
+          <h3 class="thanks-card-name">Web Audio &amp; Web Speech API</h3>
+          <div class="thanks-card-role">Sintesi Audio Procedurale &amp; Pronuncia CLIL</div>
+          <div class="thanks-card-body">
+            Standard nativi del browser utilizzati in <code>audio.js</code> e <code>speech.js</code> per generare feedback sonori armonici in tempo reale e pronuncia madrelingua inglese con 0 file <code>.mp3</code> esterni e 0 tracciamento cloud.
+          </div>
+          <div class="thanks-card-meta">
+            <span>Standard: W3C</span>
+            <span>Dipendenze: 0 KB</span>
+          </div>
+        </article>
+
+        <!-- Web Storage & SVG Nativo -->
+        <article class="thanks-card">
+          <div class="thanks-card-top">
+            <div class="thanks-icon">🛡️</div>
+            <span class="thanks-tag">W3C Storage &amp; SVG</span>
+          </div>
+          <h3 class="thanks-card-name">Web Storage API &amp; SVG Vettoriale</h3>
+          <div class="thanks-card-role">Gamification Privacy-First &amp; Grafica Dinamica</div>
+          <div class="thanks-card-body">
+            Persistenza locale su <code>localStorage</code> per punti XP, livelli e titoli UDA (100% conforme GDPR, zero database o cookie) abbinata a grafica vettoriale SVG inline per retta orientata e modelli frazionari.
+          </div>
+          <div class="thanks-card-meta">
+            <span>Privacy: 100% Locale</span>
+            <span>Zero Cookie</span>
+          </div>
+        </article>
+
+        <!-- Google Fonts -->
+        <article class="thanks-card">
+          <div class="thanks-card-top">
+            <div class="thanks-icon">🔤</div>
+            <span class="thanks-tag">SIL OFL 1.1</span>
+          </div>
+          <h3 class="thanks-card-name">Plus Jakarta Sans &amp; JetBrains Mono</h3>
+          <div class="thanks-card-role green">Tipografia Didattica &amp; Monospazio Algebrico</div>
+          <div class="thanks-card-body">
+            Famiglie tipografiche open source selezionate per l'alta leggibilità nella prosa didattica inclusiva (<code>Plus Jakarta Sans</code>) e per l'allineamento rigoroso di cifre, segni ed espressioni (<code>JetBrains Mono</code>).
+          </div>
+          <div class="thanks-card-meta">
+            <span>Licenza: SIL OFL 1.1</span>
+            <span>Google Fonts</span>
+          </div>
+        </article>
+
+        <!-- GitHub & Web Standards -->
+        <article class="thanks-card">
+          <div class="thanks-card-top">
+            <div class="thanks-icon">🌐</div>
+            <span class="thanks-tag">HTML5 • CSS3 • ES6+</span>
+          </div>
+          <h3 class="thanks-card-name">GitHub &amp; Architettura Open Web</h3>
+          <div class="thanks-card-role purple">Zero-Build Architecture &amp; Hosting Aperto</div>
+          <div class="thanks-card-body">
+            Architettura modulare in Vanilla JavaScript (ES6+) e CSS Custom Properties senza bundler né framework pesanti: ogni lezione funziona istantaneamente su LIM, tablet, smartphone e connessioni scolastiche a bassa banda.
+          </div>
+          <div class="thanks-card-meta">
+            <span>Build Step: Nessuno</span>
+            <span>GitHub Pages</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+
+    <!-- ======================================================== -->
+    <!-- SEZIONE 4: MENZIONI SPECIALI & SPAZIO DEDICATO           -->
+    <!-- ======================================================== -->
+    <section class="thanks-category-block">
+      <div class="category-header">
+        <h2>✨ Menzioni Speciali &amp; Spazio Collaborazioni</h2>
+        <span class="cat-badge special">Riconoscimenti Futuri</span>
+      </div>
+
+      <div class="thanks-grid">
+        <article class="thanks-card placeholder">
+          <div class="thanks-card-top">
+            <div class="thanks-icon">⭐</div>
+            <span class="thanks-tag">Spazio 1</span>
+          </div>
+          <h3 class="thanks-card-name">Revisori &amp; Suggeritori Didattici</h3>
+          <div class="thanks-card-role">Predisposto per future menzioni</div>
+          <div class="thanks-card-body">
+            Spazio riservato per chiunque segnalerà migliorie, correzioni o varianti di problemi stimolanti per arricchire l'archivio delle lezioni.
+          </div>
+        </article>
+
+        <article class="thanks-card placeholder">
+          <div class="thanks-card-top">
+            <div class="thanks-icon">🤝</div>
+            <span class="thanks-tag">Spazio 2</span>
+          </div>
+          <h3 class="thanks-card-name">Istituti &amp; Reti di Scuole</h3>
+          <div class="thanks-card-role">Predisposto per collaborazioni</div>
+          <div class="thanks-card-body">
+            Spazio per le scuole e i dipartimenti disciplinari che sperimenteranno o adotteranno i moduli laboratoriali di <em>comode</em>.
+          </div>
+        </article>
+      </div>
+    </section>
+
+
+    <!-- ======================================================== -->
+    <!-- CALLOUT CONTRIBUISCI O SEGNALA                           -->
+    <!-- ======================================================== -->
+    <div class="contribute-box">
+      <h3>Vuoi suggerire un ringraziamento o collaborare?</h3>
+      <p>
+        Se hai partecipato a una sperimentazione, se hai una buona pratica da condividere o se hai notato un dettaglio da perfezionare, la porta è sempre aperta.
+      </p>
+      <div class="contribute-actions">
+        <a href="index.html" class="btn-action-primary">
+          ← Torna all'Hub Iniziale
+        </a>
+        <a href="https://github.com/IvanoVettigli/comode" target="_blank" rel="noopener" class="btn-action-secondary">
+          Repository GitHub del Progetto →
+        </a>
+      </div>
+    </div>
+
+
+    <!-- Footer -->
+    <footer class="portal-footer">
+      <div>
+        <strong>le comode lezioni d'Ivano</strong> • Matematica &amp; Fisica per il Liceo delle Scienze Umane
+      </div>
+      <div style="display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;">
+        <a href="index.html" style="color: var(--accent-math); text-decoration: none; font-weight: 600;">
+          ← Home
+        </a>
+        <button class="reset-btn" onclick="window.ComodeGamification.resetProgress()" title="Azzera i punti e i titoli su questo dispositivo">
+          🔄 Azzera Progressi Locali
+        </button>
+        <a href="https://github.com/IvanoVettigli/comode" target="_blank" rel="noopener" style="color: var(--text-muted); text-decoration: none;">
+          Repository GitHub →
+        </a>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Script Condivisi comode -->
+  <script src="shared/js/audio.js"></script>
+  <script src="shared/js/theme.js"></script>
+  <script src="shared/js/gamification.js"></script>
+  <script src="shared/js/comode.js"></script>
+</body>
+</html>

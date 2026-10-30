@@ -312,6 +312,14 @@ class ComodeGamification {
     }
   }
 
+  getXP() {
+    return this.profile.xp;
+  }
+
+  getLevel() {
+    return this.getLevelInfo();
+  }
+
   getLevelInfo(xp = this.profile.xp) {
     let current = this.levels[0];
     for (let i = this.levels.length - 1; i >= 0; i--) {
@@ -417,6 +425,10 @@ class ComodeGamification {
     if (newlyUnlocked) {
       this.saveProfile();
     }
+  }
+
+  markLessonCompleted(lessonId, xpReward = 50) {
+    this.completeLesson(lessonId, xpReward);
   }
 
   completeLesson(lessonId, xpReward = 50) {

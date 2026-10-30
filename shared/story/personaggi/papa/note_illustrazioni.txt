@@ -1,0 +1,49 @@
+SCHEDA PERSONAGGIO — PAPA'
+===================================
+
+DATI FISICI
+-----------
+Eta':         circa 40 anni
+Altezza:      1,75 m
+Peso:         68 kg
+Corporatura:  Snella, media
+Capelli:      Corti, brizzolati (base bionda che inizia a diventare bianca)
+Occhi:        Verde chiaro
+Carnagione:   Chiara
+Barba:        Assente (viso sbarbato)
+Lineamenti:   Dolci, affascinanti
+
+
+ABBIGLIAMENTO
+--------------
+Maglietta:    A maniche lunghe, blu navy
+Pantaloni:    Jeans classici, azzurri
+Scarpe:       Casual scure (sneakers/stringate)
+Occhiali:     Rettangolari con montatura sottile
+
+
+STILE ILLUSTRATIVO
+-------------------
+Tecnica:      Acquerello e matita colorata
+Tono:         Caldo, delicato, luminoso
+Target:       Bambini 4-7 anni
+
+
+NOTE PER LE ILLUSTRAZIONI
+---------------------------
+- I capelli brizzolati sono un tratto distintivo: base bionda con ciocche
+  bianche/grigie ben visibili, soprattutto alle tempie
+- Gli occhiali rettangolari con montatura sottile vanno sempre presenti
+- Il viso e' sempre sbarbato e pulito
+- L'espressione deve trasmettere dolcezza e calore paterno
+- Corporatura snella ma non magra, proporzionata
+- Gli occhi verde chiaro (diversi dal verde scuro della figlia)
+  sono un elemento di connessione genetica col personaggio
+
+
+IMMAGINI DI RIFERIMENTO
+-------------------------
+01_vista_frontale.jpg        — Posa dritta, sorriso gentile
+02_vista_tre_quarti.jpg      — Posa rilassata, mano in tasca
+03_vista_laterale.jpg        — Profilo completo, espressione calma
+04_vista_posteriore.jpg      — Di spalle, si gira mostrando il profilo

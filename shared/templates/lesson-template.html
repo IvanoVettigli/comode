@@ -11,10 +11,10 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-  <!-- KaTeX per rendering matematico -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+  <!-- KaTeX 0.19.1 per rendering matematico -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.19.1/dist/katex.min.css" crossorigin="anonymous">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.19.1/dist/katex.min.js" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.19.1/dist/contrib/auto-render.min.js" crossorigin="anonymous"></script>
 
   <!-- CSS Condiviso comode:
        NOTA: per il Primo Biennio il percorso è: ../../shared/css/comode.css
@@ -22,7 +22,8 @@
   <link rel="stylesheet" href="../../shared/css/comode.css">
 
   <style>
-    /* Inserisci qui eventuali stili specifici e visualizzatori grafici/SVG di QUESTA lezione */
+    /* Inserisci qui eventuali stili specifici e visualizzatori grafici/SVG di QUESTA lezione.
+       ATTENZIONE: non usare mai classi riservate interne a KaTeX (.frac-line, .mfrac, .vlist, .strut, .base, .mord). */
   </style>
 </head>
 <body data-theme="dark" data-lesson-id="id-univoco-lezione" data-xp="60" data-unit="uda-x.x">
@@ -32,7 +33,7 @@
     <!-- NAVBAR CONDIVISA -->
     <nav class="navbar">
       <a href="../../index.html" class="brand">
-        comode<span>.</span>
+        📐 comode<span>.</span>
       </a>
       <div class="nav-actions">
         <div class="gamification-widget" title="Il tuo livello e punti XP">
@@ -43,7 +44,7 @@
           🔊 <span class="nav-text">Suoni</span>
         </button>
         <button id="themeToggleBtn" class="theme-toggle-btn" aria-label="Cambia tema">
-          <span id="themeIcon">☀️ </span>
+          <span id="themeIcon">☀️</span>
           <span id="themeLabel">Chiaro</span>
         </button>
       </div>
@@ -55,7 +56,7 @@
       <span class="sep">/</span>
       <a href="../index.html">Ciclo</a>
       <span class="sep">/</span>
-      <span>UDA X.X: Nome Unità</span>
+      <a href="index.html">UDA X.X: Nome Unità</a>
       <span class="sep">/</span>
       <span class="current">Lezione X.X</span>
     </div>
@@ -127,13 +128,13 @@
           </li>
           <li>
             <span class="po-icon">🚀</span>
-            <div><strong>Competenza 3:</strong> Capacità di argomentare e validare la soluzione.</div>
+            <div><strong>Competenza 3:</strong> Capacità di argomentare e validare la soluzione nella Scheda Operativa.</div>
           </li>
         </ul>
       </div>
     </div>
 
-    <!-- SEZIONE 1: TEORIA FLASH COLLASSABILE -->
+    <!-- SEZIONE 1: TEORIA FLASH COLLASSABILE (con ID per i link dagli esercizi) -->
     <section class="theory-wrapper">
       <div class="section-header">
         <h2 class="section-title">
@@ -145,19 +146,19 @@
       </div>
 
       <div id="theoryContent" class="theory-grid">
-        <div class="theory-card">
+        <div class="theory-card" id="teoria-1">
           <div class="theory-card-header">
-            <span class="theory-num">01</span>
-            <h3 class="theory-title">Concetto Chiave</h3>
+            <span class="theory-num">1</span>
+            <h3 class="theory-title">Concetto Chiave 1</h3>
           </div>
           <div class="theory-body">
-            <p>Spiegazione concisa, chiara ed essenziale con formule KaTeX come $a^2 + b^2 = c^2$.</p>
+            <p>Spiegazione concisa, chiara ed essenziale con formule KaTeX come $\frac{a}{b} + \frac{c}{d} = \frac{ad + bc}{bd}$.</p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- SEZIONE 2: LABORATORI INTERATTIVI GUIDATI -->
+    <!-- SEZIONE 2: LABORATORI INTERATTIVI GUIDATI (OGNI ESERCIZIO DEVE LINKARE LA TEORIA) -->
     <main class="labs-container">
       <div class="section-header">
         <h2 class="section-title">
@@ -172,6 +173,17 @@
           <span class="lab-xp-badge">+10 XP</span>
         </div>
         <h3 class="lab-title">Titolo del Laboratorio</h3>
+
+        <!-- OBBLIGATORIO: Collegamento esplicito Teoria <-> Pratica -->
+        <div class="theory-link-box">
+          <span class="tl-icon">🔗</span>
+          <div>
+            <strong>Collegamento Teoria ↔ Pratica:</strong> Questo esercizio approfondisce
+            <a href="#teoria-1" class="theory-link-anchor" onclick="event.preventDefault(); scrollToTheory('teoria-1');">Teoria 1 • Concetto Chiave 1</a>,
+            mostrando come la proprietà teorica si traduce in una strategia operativa concreta.
+          </div>
+        </div>
+
         <p class="lab-question">Domanda o problema applicativo concreto da esplorare.</p>
         
         <!-- Contenuto interattivo / controlli -->
@@ -184,7 +196,7 @@
     </main>
 
     <!-- ========================================================
-         SEZIONE FLASHCARDS DI AUTOVALUTAZIONE (TEST RIPETIBILE ALL'INFINITO)
+         SEZIONE 3: FLASHCARDS DI AUTOVALUTAZIONE (RIPETIBILE ALL'INFINITO)
          ======================================================== -->
     <section class="flashcard-section" id="flashcardSection">
       <div class="section-header">
@@ -197,11 +209,104 @@
       </div>
       <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1.5rem;">
         Mettiti alla prova con le flashcard operative. Ogni risposta corretta ti assegna <strong>+15 XP</strong>.
-        Puoi ripetere il test tutte le volte che vuoi per consolidare i concetti e perfezionare il tuo punteggio!
+        Puoi ripetere il test tutte le volte che vuoi (le opzioni vengono rimescolate ad ogni tentativo)!
       </p>
 
       <!-- Il mazzo viene popolato dinamicamente via JS da ComodeFlashcards.init -->
       <div id="lessonFlashcardDeck"></div>
+    </section>
+
+    <!-- ========================================================
+         SEZIONE 4 (OBBLIGATORIA IN TUTTE LE LEZIONI):
+         COMPITO DI REALTÀ FINALE — SCHEDA OPERATIVA (ASSEGNO PER CASA)
+         ======================================================== -->
+    <section class="homework-section" id="homeworkSection">
+      <div class="section-header">
+        <h2 class="section-title">
+          <span class="icon">📋</span> Compito di Realtà Finale: Scheda Operativa (Assegno per Casa)
+        </h2>
+      </div>
+
+      <article class="scheda-operativa-card">
+        <div class="scheda-top-bar">
+          <div class="scheda-badge-group">
+            <span class="scheda-badge homework">🏠 Assegno per Casa</span>
+            <span class="scheda-badge modality">👤 Individuale o 👥 In Gruppo</span>
+          </div>
+          <button type="button" class="btn-print-sheet" onclick="window.print()">
+            🖨️ Stampa Scheda Operativa
+          </button>
+        </div>
+
+        <h3 class="scheda-title">Scheda Operativa: «Titolo del Compito di Realtà»</h3>
+
+        <!-- Collegamento Teoria <-> Pratica anche per il Compito di Realtà -->
+        <div class="theory-link-box">
+          <span class="tl-icon">🔗</span>
+          <div>
+            <strong>Collegamento Teoria ↔ Pratica:</strong> Questo compito di realtà integra e consolida
+            <a href="#teoria-1" class="theory-link-anchor" onclick="event.preventDefault(); scrollToTheory('teoria-1');">Teoria 1 • Concetto Chiave 1</a>
+            applicandolo a un problema reale legato alle Scienze Umane.
+          </div>
+        </div>
+
+        <div class="scheda-delivery-callout">
+          <strong>📅 Modalità di svolgimento e consegna:</strong> Puoi svolgere questo compito di realtà <strong>da solo</strong> oppure <strong>lavorando in gruppo</strong> con i tuoi compagni, ma ciascuno studente deve <strong>portare la Scheda Operativa compilata per la lezione successiva</strong>.
+        </div>
+
+        <!-- Intestazione compilabile per la stampa o trascrizione sul quaderno -->
+        <div class="scheda-student-fields">
+          <div class="scheda-field-item">
+            <span class="scheda-field-label">Studente / Studentessa:</span>
+            <div class="scheda-field-line"></div>
+          </div>
+          <div class="scheda-field-item">
+            <span class="scheda-field-label">Classe &amp; Data:</span>
+            <div class="scheda-field-line"></div>
+          </div>
+          <div class="scheda-field-item">
+            <span class="scheda-field-label">Modalità (Solo / Componenti Gruppo):</span>
+            <div class="scheda-field-line"></div>
+          </div>
+        </div>
+
+        <div class="scheda-problem-box">
+          <strong>La Situazione-Problema:</strong><br>
+          Descrizione del contesto reale e autentico per il Liceo delle Scienze Umane.
+          <ol>
+            <li><strong>Modellizzazione:</strong> Rappresenta i dati del problema con uno schema visivo o matematico.</li>
+            <li><strong>Risoluzione e Verifica:</strong> Esegui i calcoli scegliendo la rappresentazione più comoda e verifica il risultato.</li>
+            <li><strong>Riflessione Interdisciplinare (Scienze Umane):</strong> Argomenta in un breve commento il significato sociale, cognitivo o civico dei risultati ottenuti.</li>
+          </ol>
+        </div>
+
+        <div class="rubric-container">
+          <table class="rubric-table">
+            <thead>
+              <tr>
+                <th>Dimensione di Competenza</th>
+                <th>Livello Base</th>
+                <th>Livello Intermedio</th>
+                <th>Livello Avanzato</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Modellizzazione &amp; Calcolo</strong></td>
+                <td>Imposta il problema in modo parziale con qualche incertezza operativa.</td>
+                <td>Modella correttamente la situazione e giunge al risultato esatto.</td>
+                <td>Sceglie strategie comode ed eleganti, verificando autonomamente la coerenza dei risultati.</td>
+              </tr>
+              <tr>
+                <td><strong>Argomentazione (Scienze Umane)</strong></td>
+                <td>Riporta i dati numerici senza collegarli al contesto umano/sociale.</td>
+                <td>Interpreta i risultati in modo coerente con la situazione proposta.</td>
+                <td>Argomenta con proprietà di linguaggio interdisciplinare e spirito critico personale.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </article>
     </section>
 
     <!-- SINTESI E TAKEAWAY -->
@@ -216,7 +321,7 @@
         </div>
         <div class="takeaway-item">
           <strong>2. Strategia Operativa</strong>
-          <p>Come applicarlo nei problemi successivi.</p>
+          <p>Come applicarlo nei problemi successivi e nella Scheda Operativa per casa.</p>
         </div>
       </div>
     </footer>
@@ -226,7 +331,7 @@
       <div class="completion-icon">🏆</div>
       <h3 class="completion-title">Hai completato la Lezione?</h3>
       <p class="completion-desc">
-        Registra il tuo traguardo per guadagnare i tuoi punti esperienza finali (+60 XP) e salire di livello!
+        Registra il tuo traguardo per guadagnare i tuoi punti esperienza finali (+60 XP) e ricorda di compilare la Scheda Operativa per la prossima lezione!
       </p>
       <button id="btnCompleteLesson" class="btn-complete">
         ✨ Segna come Completata (+60 XP)
@@ -247,7 +352,7 @@
   <!-- LOGICA SPECIFICA DELLA LEZIONE -->
   <script>
     function initLesson() {
-      // Inizializza il Mazzo Flashcards
+      // Inizializza il Mazzo Flashcards (distribuisci sempre le risposte corrette su indici variati 0, 1, 2, 3!)
       if (window.ComodeFlashcards) {
         ComodeFlashcards.init('lessonFlashcardDeck', {
           deckId: 'deck-id-univoco',
@@ -256,14 +361,16 @@
           cards: [
             {
               category: 'Categoria 1',
-              question: 'Domanda o quesito con formule KaTeX $$x^2 = 4$$?',
+              theoryRef: 'Teoria 1 • Concetto Chiave 1',
+              theoryTargetId: 'teoria-1',
+              question: 'Domanda o quesito con formule KaTeX $x^2 = \\frac{9}{4}$?',
               options: [
-                'Opzione errata A',
-                'Opzione corretta B ($$x = \\pm 2$$)',
-                'Opzione errata C',
-                'Opzione errata D'
+                'Ipotesi errata ($x = \\frac{9}{2}$)',
+                'Ipotesi errata ($x = \\frac{3}{4}$)',
+                'Risposta corretta ($x = \\pm \\frac{3}{2}$)',
+                'Ipotesi errata ($x = \\pm \\frac{9}{16}$)'
               ],
-              correct: 1, // Indice 0-based della risposta corretta
+              correct: 2, // Indice 0-based: varia sempre tra 0 (A), 1 (B), 2 (C), 3 (D)
               explanation: 'Spiegazione concettuale per motivare la risposta corretta.'
             }
           ]
@@ -278,7 +385,6 @@
     }
 
     function verifyLab1() {
-      // Esempio verifica laboratorio
       const val = document.getElementById('lab1Input').value.trim();
       const msg = document.getElementById('lab1Msg');
       msg.style.display = 'inline-flex';

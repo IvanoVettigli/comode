@@ -1,0 +1,46 @@
+SCHEDA PERSONAGGIO — PROTAGONISTA
+===================================
+
+DATI FISICI
+-----------
+Età:          5 anni
+Altezza:      1,20 m
+Capelli:      Biondo cenere, lunghi, ondulati
+Occhi:        Verde scuro
+Carnagione:   Chiara
+Lineamenti:   Delicati, nasino piccolo, guance rosee
+
+
+ABBIGLIAMENTO — DIVISA SCOLASTICA INGLESE
+------------------------------------------
+Camicetta:    Bianca, con colletto tondo (Peter Pan collar)
+Gonna:        Nera, a pieghe
+Calze:        Rosse, al ginocchio, a maglia
+Scarpe:       Mary Jane scure (marroni/nere) con cinturino
+
+
+STILE ILLUSTRATIVO
+-------------------
+Tecnica:      Acquerello e matita colorata
+Tono:         Caldo, delicato, luminoso
+Target:       Bambini 4-7 anni
+
+
+NOTE PER LE ILLUSTRAZIONI
+---------------------------
+- Le calze rosse sono un elemento distintivo e riconoscibile
+- Le guance rosee vanno sempre presenti
+- I capelli ondulati biondo cenere devono arrivare oltre le spalle
+- Gli occhi verde scuro sono grandi e espressivi
+- Usare queste immagini come riferimento per mantenere la coerenza
+  visiva del personaggio in tutte le illustrazioni delle favole
+
+
+IMMAGINI DI RIFERIMENTO
+-------------------------
+01_vista_frontale.jpg        — Posa dritta, volto e divisa ben visibili
+02_vista_tre_quarti.jpg      — Posa naturale con la manina alzata per salutare
+03_vista_laterale.jpg        — Profilo completo con espressione curiosa
+04_vista_posteriore.jpg      — Di spalle, si gira leggermente mostrando il profilo
+05_espressioni_facciali.jpg  — 4 espressioni: felice, curiosa, pensierosa, sorpresa
+06_pose_azione.jpg           — 3 pose: studia al banco, corre, indica la lavagna

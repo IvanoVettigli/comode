@@ -1,98 +1,137 @@
 # comode — Living Styleguide & Developer Reference
 
-> **Guida centrale per lo sviluppo delle lezioni di `comode`**  
-> *Consulta sempre questo file prima di scrivere nuove lezioni o aggiungere codice. Utilizza i mattoncini CSS, i moduli JavaScript e le librerie già presenti per mantenere il codice DRY, uniforme e privo di dipendenze inutili.*
+> **Guida architetturale e didattica per lo sviluppo di `comode`**  
+> *Consulta sempre questo documento prima di creare nuove UDA, scrivere lezioni o modificare gli stili. Utilizza esclusivamente i token CSS, i moduli JavaScript e le librerie approvate per mantenere il codice DRY, modulare, accessibile e privo di dipendenze superflue.*
 
 ---
 
 ## 1. Architettura delle Cartelle & Percorsi Relativi
 
-Il progetto adotta la **Variante 2 (Radice per Ciclo di Studi)**:
+Il progetto adotta un'architettura **Zero-Build, Modulare e Organizzata per Ciclo di Studi**:
 
 ```text
 comode/
 ├── shared/
 │   ├── css/
-│   │   ├── theme.css           # Token di design, colori, reset e dark/light theme
-│   │   ├── components.css      # Componenti UI (Navbar, Hero, Prerequisiti, Teoria, Lab, Flashcard, CLIL)
-│   │   ├── gamification.css    # Toast, badge livelli, barra XP, completion card
-│   │   └── comode.css          # Master stylesheet (@import di tutti i css)
+│   │   ├── theme.css              # Design tokens, palette dark/light, reset e scudo globale KaTeX
+│   │   ├── components.css         # Componenti UI (Navbar, Teoria, Theory-Link, Lab, Flashcard, Scheda Operativa, Stampa)
+│   │   ├── gamification.css       # Toast notifiche, badge livelli, barra XP, completion card
+│   │   ├── storybook.css          # Design system e stili dedicati alle Favole Interattive
+│   │   └── comode.css             # Master stylesheet (@import centralizzato di tutti i CSS)
 │   ├── js/
-│   │   ├── audio.js            # Sintetizzatore Web Audio API (zero file mp3)
-│   │   ├── theme.js            # Switcher tema chiaro/scuro persistente
-│   │   ├── gamification.js     # Motore XP, livelli, toast e completamento lezioni
-│   │   ├── components.js       # KaTeX auto-render, accordion teoria, toggle hint
-│   │   ├── flashcards.js       # Mazzo flashcard con Mastery Learning (tentativi infiniti)
-│   │   ├── speech.js           # Sintesi vocale madrelingua Web Speech API per lezioni CLIL
-│   │   └── comode.js           # Master loader e bind DOM
-│   └── templates/
-│       └── lesson-template.html # Template standard pronto da duplicare
+│   │   ├── audio.js               # Sintetizzatore procedurale Web Audio API (zero file .mp3)
+│   │   ├── theme.js               # Switcher tema chiaro/scuro persistente su html e body
+│   │   ├── gamification.js        # Motore XP, livelli, titoli UDA, toast e completamento lezioni
+│   │   ├── components.js          # Rendering KaTeX DRY, scrollToTheory(), accordion teoria, toggleHint()
+│   │   ├── flashcards.js          # Mazzo flashcard Mastery Learning con shuffle anti-ripetizione
+│   │   ├── speech.js              # Sintesi vocale madrelingua Web Speech API per lezioni CLIL
+│   │   └── comode.js              # Bootstrapper centrale al DOMContentLoaded
+│   ├── story/
+│   │   └── personaggi/            # Schede visive dei personaggi fissi (Vela, mamma, papà, zio)
+│   ├── templates/
+│   │   ├── lesson-template.html   # Template standard per nuove lezioni curricolari
+│   │   └── story-template.html    # Template standard per nuove favole interattive
+│   └── REFERENCE.md               # Questa guida di riferimento tecnico e didattico
 ├── primo-biennio/
+│   ├── index.html                 # Hub delle 8 UDA di Matematica del 1° e 2° anno
 │   ├── uda-1.1-insiemi-logica-algoritmi/
-│   │   ├── lezione-01-calcolo-interi-razionali.html  # Singolo file autonomo
-│   │   └── lezione-clil-numbers-mind-strategies.html
+│   │   ├── index.html                                # Hub dell'UDA (Favola, 5 lezioni curricolari, CLIL, titolo UDA)
+│   │   ├── favola-interattiva-i-numeri.html          # Favola Interattiva dell'UDA 1.1 (Vela e le fragole)
+│   │   ├── illustrazioni-favola/                     # Tavole illustrate della favola dell'UDA
+│   │   ├── lezione-01-calcolo-interi-razionali.html  # Lezione 1.1 (Attiva)
+│   │   ├── lezione-02-retta-scale-notazione.html     # Lezione 1.2 (In sviluppo)
+│   │   ├── lezione-03-potenze-numeri-primi-euclide.html # Lezione 1.3 (In sviluppo)
+│   │   ├── lezione-04-insiemi-logica-linguaggio.html # Lezione 1.4 (In sviluppo)
+│   │   ├── lezione-05-primi-algoritmi-flowchart.html # Lezione 1.5 (In sviluppo)
+│   │   └── lezione-clil-numbers-mind-strategies.html # Modulo CLIL in lingua inglese (Attiva)
 │   └── ... (altre 7 UDA)
 ├── secondo-biennio/
-│   ├── matematica/ (4 UDA)
-│   └── fisica/ (4 UDA)
+│   ├── index.html                 # Hub 3° e 4° anno (Matematica & Fisica)
+│   ├── matematica/                # 4 UDA di Matematica (3.M1, 3.M2, 4.M1, 4.M2)
+│   └── fisica/                    # 4 UDA di Fisica (3.F1, 3.F2, 4.F1, 4.F2)
 ├── quinto-anno/
-│   ├── matematica/ (2 UDA)
-│   └── fisica/ (2 UDA)
-└── index.html                  # Hub iniziale della piattaforma
+│   ├── index.html                 # Hub 5° anno (Matematica & Fisica)
+│   ├── matematica/                # 2 UDA di Matematica (5.M1, 5.M2)
+│   └── fisica/                    # 2 UDA di Fisica (5.F1, 5.F2)
+├── programmazione_matematica_fisica.html # Piano programmatico quinquennale interattivo
+├── ringraziamenti.html            # Crediti pedagogici, dedica studenti e stack open source
+├── index.html                     # Home page del portale web
+└── README.md                      # Documentazione generale del progetto
 ```
 
 ### ⚠️ Regola dei Percorsi Relativi (Depth)
-- **Primo Biennio** (`primo-biennio/uda-X.X/`): si trova a **2 livelli di profondità**.  
-  `href="../../shared/css/comode.css"` e `src="../../shared/js/..."`.
-- **Secondo Biennio & Quinto Anno** (`secondo-biennio/matematica/uda-X.X/`): si trova a **3 livelli di profondità**.  
-  `href="../../../shared/css/comode.css"` e `src="../../../shared/js/..."`.
+- **Pagine nella root** (`index.html`, `ringraziamenti.html`): profondità **0** → `shared/css/comode.css`.
+- **Hub di Ciclo** (`primo-biennio/index.html`, `secondo-biennio/index.html`, `quinto-anno/index.html`): profondità **1** → `../shared/css/comode.css`.
+- **UDA del Primo Biennio** (`primo-biennio/uda-X.X/`): profondità **2** → `../../shared/css/comode.css` e `../../shared/js/...`.
+- **UDA del Secondo Biennio & Quinto Anno** (`secondo-biennio/matematica/uda-X.X/`): profondità **3** → `../../../shared/css/comode.css` e `../../../shared/js/...`.
 
 ---
 
-## 2. Dipendenze Esterne Autorizzate
+## 2. Stack Tecnologico, Librerie Esterne & Web API Native
 
-Per garantire caricamenti istantanei, privacy degli studenti e funzionamento offline/a bassa banda:
-1. **Google Fonts (CDN):**
-   - `Plus Jakarta Sans` (pesi 300, 400, 500, 600, 700, 800) per testo e UI.
-   - `JetBrains Mono` (pesi 400, 500, 600, 700) per numeri, algebra e formule monospazio.
-2. **KaTeX 0.16.9 (CDN jsDelivr):**
-   - `katex.min.css`, `katex.min.js`, `contrib/auto-render.min.js`.
-3. **Nessun file `.mp3` o libreria audio esterna:**
-   - La riproduzione audio è affidata a `shared/js/audio.js` tramite **Web Audio API nativa** (generazione procedurale di onde sinusoidali: clic, success chime, error thud, hint chime, fanfare level-up).
-4. **Nessun servizio cloud esterno per le lezioni CLIL:**
-   - La pronuncia inglese dei termini scientifici è generata via **Web Speech API nativa** (`shared/js/speech.js`).
+Per garantire **caricamenti istantanei su reti scolastiche**, **totale conformità GDPR** (zero cookie, zero database esterni) e **manutenibilità a lungo termine** senza step di compilazione, il progetto utilizza esclusivamente le seguenti tecnologie:
+
+| Libreria / Standard | Versione / Specifica | Licenza | Risorsa / Modulo | Ruolo & Motivazione Ingegneristica |
+| :--- | :--- | :--- | :--- | :--- |
+| **KaTeX** | `v0.19.1` | MIT | CDN `jsDelivr` + `shared/js/components.js` | Rendering tipografico LaTeX sincrono e ultraveloce (~5× più rapido di MathJax, nessun reflow asincrono), ideale per frazioni ed espressioni su LIM e dispositivi mobili. |
+| **Plus Jakarta Sans** | Variabile (`300..800`) | SIL OFL 1.1 | CDN `Google Fonts` | Font geometrico ad alta leggibilità per testi didattici, consegne e interfaccia inclusiva. |
+| **JetBrains Mono** | Variabile (`400..700`) | SIL OFL 1.1 | CDN `Google Fonts` | Font monospazio con distinzione netta dei glifi algebrici (`1`/`l`/`I`, `0`/`O`, segni `+`/`−`) per input numerici, gettoni e badge XP. |
+| **Web Audio API** | Standard W3C | Nativa Browser | `shared/js/audio.js` | Sintesi procedurale in tempo reale (onde sinusoidali/triangolari per click, chime di successo, errore morbido, hint e fanfara level-up) con **0 KB** di file `.mp3`. |
+| **Web Speech API** | Standard W3C | Nativa Browser | `shared/js/speech.js` | Sintesi vocale `SpeechSynthesis` (`en-US` / `en-GB`) per la pronuncia madrelingua nei glossari CLIL senza chiamate a servizi cloud esterni. |
+| **Web Storage API** | Standard W3C | Nativa Browser | `shared/js/gamification.js`, `theme.js` | Persistenza 100% locale su `localStorage` di punti XP, livelli, titoli UDA, tema chiaro/scuro e preferenza audio. |
+| **SVG 2 Inline** | Standard W3C | Nativa Browser | Markup HTML/JS delle lezioni | Visualizzatori vettoriali interattivi nitidi a qualsiasi zoom (retta orientata in $\mathbb{Z}$, torte/barre frazionarie, diagrammi geometrici e fisici). |
+
+### Inclusione Standard di KaTeX `0.19.1` nel `<head>`
+```html
+<!-- KaTeX 0.19.1 per rendering matematico -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.19.1/dist/katex.min.css" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.19.1/dist/katex.min.js" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.19.1/dist/contrib/auto-render.min.js" crossorigin="anonymous"></script>
+```
+
+> [!CAUTION]
+> **Regola Anti-Collisione CSS con KaTeX (Protezione Frazioni):**  
+> Non definire **mai** nei blocchi `<style>` delle lezioni classi CSS con nomi usati internamente dal DOM di KaTeX:  
+> `.frac-line`, `.mfrac`, `.vlist`, `.vlist-t`, `.vlist-r`, `.strut`, `.pstrut`, `.base`, `.mord`, `.mbin`, `.mrel`, `.mop`, `.msupsub`.  
+> In passato una regola custom `.frac-line { height: 2px; margin: 4px 0; }` spostava la linea di frazione sopra il numeratore. `shared/css/theme.css` include ora uno **scudo globale** (`.katex .mfrac .frac-line`), ma usa sempre prefissi specifici per i componenti custom della lezione (es. `.cross-frac-divider`, `.lab-bar-line`).
 
 ---
 
 ## 3. Token di Design CSS (`shared/css/theme.css`)
 
-Utilizza **esclusivamente** queste variabili CSS, evitando colori esadecimali hardcodati:
+Utilizza **esclusivamente** le variabili CSS del tema, evitando colori esadecimali hardcodati:
 
 | Variabile CSS | Scopo / Significato | Valore Dark (Default) | Valore Light |
 | :--- | :--- | :--- | :--- |
-| `--bg-canvas` | Sfondo principale pagina | `#090d16` | `#f8fafc` |
-| `--bg-surface` | Sfondo card e box standard | `#111827` | `#ffffff` |
-| `--bg-surface-elevated` | Sfondo elementi interattivi/hover | `#1f2937` | `#f1f5f9` |
+| `--bg-body` *(alias `--bg-canvas`)* | Sfondo principale pagina | `#090d16` | `#f8fafc` |
+| `--bg-surface` | Sfondo card e contenitori | `#111827` | `#ffffff` |
+| `--bg-surface-elevated` | Sfondo elementi interattivi / hover | `#1a2337` | `#f1f5f9` |
+| `--bg-glass` *(alias `--bg-surface-glass`)* | Superficie semitrasparente navbar/toast | `rgba(17, 24, 39, 0.85)` | `rgba(255, 255, 255, 0.9)` |
 | `--border-subtle` | Bordi di separazione e card | `rgba(255, 255, 255, 0.08)` | `rgba(0, 0, 0, 0.08)` |
-| `--text-main` | Testo primario ad alto contrasto | `#f3f4f6` | `#0f172a` |
-| `--text-muted` | Testo secondario, sottotitoli | `#9ca3af` | `#64748b` |
-| `--accent-math` | Colore identitario Matematica / Primario | `#38bdf8` (Azzurro Cielo) | `#0284c7` |
-| `--accent-physics` | Colore identitario Fisica | `#f59e0b` (Ambra) | `#d97706` |
-| `--accent-success` | Risposte corrette, completamento | `#10b981` (Smeraldo) | `#059669` |
-| `--accent-danger` | Risposte errate, reset | `#f43f5e` (Rosa Corallo) | `#e11d48` |
-| `--accent-warning` | Suggerimenti, prerequisiti | `#f59e0b` (Ambra) | `#d97706` |
-| `--accent-purple` | CLIL, Metacognizione, Flashcards | `#a855f7` (Viola) | `#9333ea` |
-| `--font-sans` | Famiglia tipografica principale | `'Plus Jakarta Sans', sans-serif` |
-| `--font-mono` | Numeri, algebra, codice | `'JetBrains Mono', monospace` |
+| `--border-accent` | Bordo evidenziato / focus attivo | `rgba(56, 189, 248, 0.25)` | `rgba(2, 132, 199, 0.25)` |
+| `--text-main` | Testo primario ad alto contrasto | `#f1f5f9` | `#0f172a` |
+| `--text-muted` | Testo secondario e descrizioni | `#94a3b8` | `#475569` |
+| `--text-dim` | Etichette terziarie e metadati | `#64748b` | `#94a3b8` |
+| `--accent-math` | Colore identitario Matematica | `#38bdf8` | `#0284c7` |
+| `--accent-math-gradient` | Gradiente bottoni/barre Matematica | `linear-gradient(135deg, #0284c7, #6366f1)` | `linear-gradient(135deg, #0284c7, #4f46e5)` |
+| `--accent-phys` *(alias `--accent-physics`)* | Colore identitario Fisica | `#f59e0b` | `#d97706` |
+| `--accent-phys-gradient` | Gradiente bottoni/barre Fisica | `linear-gradient(135deg, #d97706, #e11d48)` | `linear-gradient(135deg, #d97706, #e11d48)` |
+| `--accent-success` | Risposte corrette, completamento, assegno | `#10b981` | `#059669` |
+| `--accent-warning` | Suggerimenti (*hints*), prerequisiti | `#f59e0b` | `#d97706` |
+| `--accent-danger` | Risposte errate, reset | `#f43f5e` | `#e11d48` |
+| `--accent-purple` | CLIL, Favole interattive, Metacognizione | `#8b5cf6` | `#7c3aed` |
+| `--accent-gold` | Punti XP, trofei e titoli UDA | `#fbbf24` | `#d97706` |
+| `--font-main` *(alias `--font-sans`)* | Famiglia tipografica principale | `'Plus Jakarta Sans', sans-serif` | *(invariato)* |
+| `--font-mono` | Numeri, algebra, codice | `'JetBrains Mono', monospace` | *(invariato)* |
 
 ---
 
 ## 4. Catalogo Componenti HTML / CSS (`shared/css/components.css`)
 
-### 4.1 Barra di Navigazione (`.navbar`)
+### 4.1 Barra di Navigazione (`.navbar`) & Breadcrumbs (`.breadcrumbs`)
 ```html
 <nav class="navbar">
-  <a href="../../index.html" class="brand">comode<span>.</span></a>
+  <a href="../../index.html" class="brand">📐 comode<span>.</span></a>
   <div class="nav-actions">
     <div class="gamification-widget" title="Il tuo livello e punti XP">
       <span class="level-badge user-level-val">Liv. 1 🌱</span>
@@ -102,23 +141,19 @@ Utilizza **esclusivamente** queste variabili CSS, evitando colori esadecimali ha
     <button id="themeToggleBtn" class="theme-toggle-btn" aria-label="Tema"><span id="themeIcon">☀️</span> <span id="themeLabel">Chiaro</span></button>
   </div>
 </nav>
-```
 
-### 4.2 Breadcrumb (`.breadcrumbs`)
-```html
 <div class="breadcrumbs">
   <a href="../../index.html">Home</a><span class="sep">/</span>
   <a href="../index.html">Primo Biennio</a><span class="sep">/</span>
-  <span>UDA 1.1: Insiemi, Logica e Algoritmi</span><span class="sep">/</span>
+  <a href="index.html">UDA 1.1: Insiemi, Logica e Algoritmi</a><span class="sep">/</span>
   <span class="current">Lezione 1.1</span>
 </div>
 ```
 
-### 4.3 Prerequisiti & Competenze in Uscita (`.prereq-objectives-grid`)
+### 4.2 Prerequisiti & Competenze in Uscita (`.prereq-objectives-grid`)
 *Obbligatorio in ogni lezione, subito dopo la Hero Card:*
 ```html
 <div class="prereq-objectives-grid">
-  <!-- Prerequisiti -->
   <div class="prereq-card">
     <div class="card-top-label prereq"><span>🔑</span> Prerequisiti Consigliati</div>
     <h2 class="po-title">Cosa ti serve prima di iniziare</h2>
@@ -126,8 +161,6 @@ Utilizza **esclusivamente** queste variabili CSS, evitando colori esadecimali ha
       <li><span class="po-icon">✓</span><div><strong>Concetto 1:</strong> Descrizione prerequisito.</div></li>
     </ul>
   </div>
-
-  <!-- Obiettivi / Competenze -->
   <div class="objectives-card">
     <div class="card-top-label objectives"><span>🎯</span> Competenze in Uscita</div>
     <h2 class="po-title">Cosa saprai fare alla fine della lezione</h2>
@@ -138,7 +171,51 @@ Utilizza **esclusivamente** queste variabili CSS, evitando colori esadecimali ha
 </div>
 ```
 
-### 4.4 Laboratorio Operativo di Problem Solving (`.lab-card`)
+### 4.3 Scheda Teoria Flash con Ancore Univoche (`#teoria-1`, `#teoria-2`, ...)
+Ogni card teorica **deve** avere un attributo `id` univoco (`teoria-1`, `teoria-2`, ecc.) affinché ogni esercizio possa puntare direttamente al riferimento teorico corrispondente:
+```html
+<section class="theory-wrapper">
+  <div class="section-header">
+    <h2 class="section-title"><span class="icon">⚡</span> Scheda Teoria Flash</h2>
+    <button id="toggleTheoryBtn" class="collapse-btn"><span>Nascondi Teoria</span> ▴</button>
+  </div>
+  <div id="theoryContent" class="theory-grid">
+    <div class="theory-card" id="teoria-1">
+      <div class="theory-card-header">
+        <span class="theory-num">1</span>
+        <h3 class="theory-title">Proprietà Commutativa e Associativa</h3>
+      </div>
+      <div class="theory-body">
+        <p>Sintesi operativa con formule KaTeX nitide come $\frac{a}{b} + \frac{c}{d} = \frac{ad + bc}{bd}$.</p>
+      </div>
+    </div>
+  </div>
+</section>
+```
+
+### 4.4 Collegamento Esplicito Teoria ↔ Pratica (`.theory-link-box` e `.theory-ref-pill`)
+> [!IMPORTANT]
+> **Standard Didattico Obbligatorio:**  
+> **Ogni esercizio proposto** (laboratorio guidato, sotto-sfida, esercizio di Palestra Mentale, flashcard e Scheda Operativa finale) deve esplicitare quale pezzo di teoria sta approfondendo, utilizzando `.theory-link-box` (nei laboratori e nella Scheda Operativa) o `.theory-ref-pill` (nelle card compatte e nelle flashcard) con `scrollToTheory('teoria-N')`.
+
+```html
+<!-- Box esteso per Laboratori e Schede Operative -->
+<div class="theory-link-box">
+  <span class="tl-icon">🔗</span>
+  <div>
+    <strong>Collegamento Teoria ↔ Pratica:</strong> Questo esercizio approfondisce
+    <a href="#teoria-1" class="theory-link-anchor" onclick="event.preventDefault(); scrollToTheory('teoria-1');">Teoria 1 • Proprietà Commutativa e Associativa</a>,
+    applicandole per riordinare e raggruppare mentalmente le coppie complementari a 100.
+  </div>
+</div>
+
+<!-- Pillola compatta per singoli esercizi in griglia (es. Palestra Mentale) -->
+<a href="#teoria-1" class="theory-ref-pill" onclick="event.preventDefault(); scrollToTheory('teoria-1');">
+  🔗 Rif. Teoria 1 • Commutativa &amp; Associativa
+</a>
+```
+
+### 4.5 Laboratorio Operativo con Hint e Verifica (`.lab-card`)
 ```html
 <article class="lab-card" id="lab1">
   <div class="lab-badge-row">
@@ -146,90 +223,90 @@ Utilizza **esclusivamente** queste variabili CSS, evitando colori esadecimali ha
     <span class="lab-xp-badge">+10 XP</span>
   </div>
   <h3 class="lab-title">Titolo Problema</h3>
+
+  <div class="theory-link-box">
+    <span class="tl-icon">🔗</span>
+    <div>
+      <strong>Collegamento Teoria ↔ Pratica:</strong> Approfondisce
+      <a href="#teoria-1" class="theory-link-anchor" onclick="event.preventDefault(); scrollToTheory('teoria-1');">Teoria 1 • Titolo Concetto</a>.
+    </div>
+  </div>
+
   <p class="lab-question">Descrizione del contesto applicativo.</p>
 
+  <button type="button" class="hint-btn" onclick="toggleHint('hintLab1')">💡 Mostra Suggerimento</button>
+  <div id="hintLab1" class="hint-text">Suggerimento euristico graduale...</div>
+
   <div class="verify-box">
-    <input type="text" id="lab1In" class="inline-input" placeholder="Tua risposta...">
+    <input type="text" id="lab1Input" class="inline-input" placeholder="Tua risposta...">
     <button class="btn-action" onclick="verifyLab1()">Verifica Risposta</button>
     <span id="lab1Msg" class="feedback-msg" style="display: none;"></span>
   </div>
 </article>
 ```
 
-### 4.5 Sezione Flashcards con Ripetizione Illimitata (`.flashcard-section`)
+### 4.6 Compito di Realtà Finale — Scheda Operativa per Casa (`.homework-section`)
+> [!IMPORTANT]
+> **Obbligatorio in TUTTE le lezioni (curricolari e CLIL):**  
+> Ogni lezione si conclude con un **Compito di Realtà finale strutturato come Scheda Operativa (Assegno per Casa)**. Gli studenti possono svolgerlo **da soli o lavorando in gruppo**, ma ciascuno deve **portare la scheda compilata per la lezione successiva**. Il componente include il pulsante `window.print()` supportato da regole `@media print` dedicate.
+
 ```html
-<section class="flashcard-section" id="flashcardSection">
+<section class="homework-section" id="homeworkSection">
   <div class="section-header">
-    <h2 class="section-title"><span class="icon">🃏</span> Flashcards di Autovalutazione (+15 XP per carta)</h2>
-    <span class="tag info-tag" style="background: rgba(56, 189, 248, 0.12); color: var(--accent-math); padding: 0.25rem 0.65rem; border-radius: 9999px; font-size: 0.8rem; font-weight: 700;">🔁 Tentativi Infiniti</span>
+    <h2 class="section-title"><span class="icon">📋</span> Compito di Realtà Finale: Scheda Operativa (Assegno per Casa)</h2>
   </div>
-  <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1.5rem;">
-    Mettiti alla prova con le flashcard operative. Puoi ripetere il test tutte le volte che vuoi!
-  </p>
-  <div id="lessonFlashcardDeck"></div>
+  <article class="scheda-operativa-card">
+    <div class="scheda-top-bar">
+      <div class="scheda-badge-group">
+        <span class="scheda-badge homework">🏠 Assegno per Casa</span>
+        <span class="scheda-badge modality">👤 Individuale o 👥 In Gruppo</span>
+      </div>
+      <button type="button" class="btn-print-sheet" onclick="window.print()">🖨️ Stampa Scheda Operativa</button>
+    </div>
+
+    <h3 class="scheda-title">Scheda Operativa: «Titolo del Compito di Realtà»</h3>
+
+    <div class="theory-link-box">
+      <span class="tl-icon">🔗</span>
+      <div>
+        <strong>Collegamento Teoria ↔ Pratica:</strong> Integra
+        <a href="#teoria-1" class="theory-link-anchor" onclick="event.preventDefault(); scrollToTheory('teoria-1');">Teoria 1 • Concetto Chiave</a>.
+      </div>
+    </div>
+
+    <div class="scheda-delivery-callout">
+      <strong>📅 Modalità di svolgimento e consegna:</strong> Puoi svolgere questo compito di realtà <strong>da solo</strong> oppure <strong>lavorando in gruppo</strong>, ma ciascuno studente deve <strong>portare la Scheda Operativa compilata per la lezione successiva</strong>.
+    </div>
+
+    <div class="scheda-student-fields">
+      <div class="scheda-field-item"><span class="scheda-field-label">Studente / Studentessa:</span><div class="scheda-field-line"></div></div>
+      <div class="scheda-field-item"><span class="scheda-field-label">Classe &amp; Data:</span><div class="scheda-field-line"></div></div>
+      <div class="scheda-field-item"><span class="scheda-field-label">Modalità (Solo / Gruppo):</span><div class="scheda-field-line"></div></div>
+    </div>
+
+    <div class="scheda-problem-box">
+      <strong>La Situazione-Problema:</strong> Testo del problema autentico e tracce operative numerate...
+    </div>
+  </article>
 </section>
 ```
 
-### 4.6 Tabella Glossario Bilingue CLIL con Audio (`.clil-glossary-card`)
-```html
-<div class="clil-glossary-card">
-  <div class="clil-glossary-header">
-    <h3 style="font-size: 1.2rem; font-weight: 800;">📖 Interactive Bilingual Glossary</h3>
-    <span style="font-size: 0.85rem; color: var(--text-muted);">Clicca sull'icona 🔊 per ascoltare la corretta pronuncia</span>
-  </div>
-  <div class="clil-table-wrapper">
-    <table class="clil-table">
-      <thead>
-        <tr><th>English Term</th><th>Termine Italiano</th><th>Math Context & Example</th></tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>
-            <span class="term-en">Common Denominator</span>
-            <button class="speech-btn" onclick="speakWord('common denominator')">🔊 Pronounce</button>
-          </td>
-          <td><span class="term-it">Denominatore Comune</span></td>
-          <td><span class="term-context">The lowest shared multiple used to add fractions ($1/3 + 1/4 = 7/12$).</span></td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-</div>
-```
-
-### 4.7 Card di Completamento Gamification (`.completion-card`)
-```html
-<div class="completion-card" id="lessonCompletionCard">
-  <div class="completion-icon">🏆</div>
-  <h3 class="completion-title">Hai completato la Lezione?</h3>
-  <p class="completion-desc">Registra il tuo traguardo per guadagnare i tuoi punti esperienza finali (+60 XP) e salire di livello!</p>
-  <button id="btnCompleteLesson" class="btn-complete">✨ Segna come Completata (+60 XP)</button>
-</div>
-```
+### 4.7 Promemoria Progettuali (`.memo-banner` e `.uda-memo-note`)
+Per evidenziare promemoria editoriali o contenuti in arrivo nelle pagine Hub:
+- `.memo-banner`: banner evidenziato full-width (usato in `index.html` per ricordare che ogni UDA avrà una **Favola Interattiva**).
+- `.uda-memo-note.math` / `.uda-memo-note.phys`: box promemoria all'interno delle card UDA in sviluppo (es. `UDA 4.M1` Educazione finanziaria + Astronomia/Eclissi/Longitudine; `UDA 5.F1` Fac-simili bollette luce, acqua e gas).
 
 ---
 
 ## 5. API JavaScript Centralizzate
 
-### 5.1 `window.ComodeAudio` (`shared/js/audio.js`)
-Generatore sonoro procedurale non intrusivo:
-- `ComodeAudio.playClick()`: Clic discreto al tocco dei bottoni.
-- `ComodeAudio.playSuccess()`: Armonico ascendente a due toni per risposta corretta.
-- `ComodeAudio.playError()`: Tono sordo e smorzato per errore didattico non penalizzante.
-- `ComodeAudio.playHint()`: Campanellino per apertura suggerimento/trucco.
-- `ComodeAudio.playLevelUp()`: Fanfara di 4 note per avanzamento livello.
-- `ComodeAudio.toggleMute()`: Inverte stato audio (salvato in `localStorage`).
+### 5.1 `window.ComodeComponents` (`shared/js/components.js`)
+- `ComodeComponents.renderMath(target = document.body)`: Esegue KaTeX auto-render (`$$...$$`, `\[...\]`, `$...$`, `\(...\)`) sull'elemento indicato, attendendo automaticamente `window.load` se gli script `defer` di KaTeX non sono ancora pronti.
+- `ComodeComponents.scrollToTheory(theoryId)` / `window.scrollToTheory(theoryId)`: Riapre automaticamente l'accordion della teoria se era chiuso, scorre dolcemente fino a `#theoryId` ed evidenzia la card/riga con `.theory-highlight`.
+- `window.toggleHint(hintId)`: Mostra/nasconde `.hint-text` riproducendo il suono dedicato.
 
-### 5.2 `window.ComodeGamification` (`shared/js/gamification.js`)
-Persistenza automatica su `localStorage` (`comode_xp`, `comode_completed_lessons`):
-- `ComodeGamification.addXP(amount, reason)`: Assegna punti XP e mostra toast di notifica animato in alto a destra.
-- `ComodeGamification.getXP()`: Restituisce il punteggio XP totale dell'utente.
-- `ComodeGamification.getLevel()`: Calcola il livello (da Liv. 1 🌱 *Novizio* a Liv. 10 👑 *Maestro Assoluto*).
-- `ComodeGamification.markLessonCompleted(lessonId, rewardXP)`: Salva il completamento della lezione (impedisce farming di completamenti multipli ma permette di rieseguire i laboratori).
-
-### 5.3 `window.ComodeFlashcards` (`shared/js/flashcards.js`)
-Motore di quiz a flashcard basato su **Mastery Learning**:
-- Inizializzazione:
+### 5.2 `window.ComodeFlashcards` (`shared/js/flashcards.js`)
+Motore di autovalutazione basato su **Mastery Learning** con rimescolamento automatico Fisher-Yates delle opzioni ad ogni avvio e ad ogni `Ripeti Test` (con guardia anti-uniformità che impedisce a tutte le domande di avere la stessa lettera corretta):
 ```javascript
 ComodeFlashcards.init('lessonFlashcardDeck', {
   deckId: 'pb-1.1-flashcards',
@@ -237,43 +314,48 @@ ComodeFlashcards.init('lessonFlashcardDeck', {
   completionXP: 25,
   cards: [
     {
-      category: 'Nome Categoria',
-      question: 'Testo domanda con formule KaTeX $48 \\times 0,25$?',
+      category: 'Frazioni & Decimali',
+      theoryRef: 'Teoria 3 • Moltiplicare per 0,25 = 1/4',
+      theoryTargetId: 'teoria-3',
+      question: 'Qual è la strategia più comoda per calcolare $48 \\times 0,25$?',
       options: [
-        'Opzione A',
-        'Opzione B corretta ($x = \\pm 2$)',
-        'Opzione C',
-        'Opzione D'
+        'Moltiplicare in colonna per 25 e dividere per 100',
+        'Scomporre 48 in fattori primi',
+        'Trasformare $0,25 = \\frac{1}{4}$ e dividere $48 : 4 = 12$',
+        'Approssimare per eccesso a $48 \\times 0,3$'
       ],
-      correct: 1, // Indice 0-based
-      explanation: 'Spiegazione concettuale mostrata subito dopo la risposta.'
+      correct: 2, // Varia sempre gli indici statici tra 0 (A), 1 (B), 2 (C), 3 (D)!
+      explanation: 'Sostituire $0,25$ con $\\frac{1}{4}$ trasforma il prodotto nella metà della metà.'
     }
   ]
 });
 ```
 
 > [!IMPORTANT]
-> **Regola d'oro KaTeX nelle stringhe JavaScript:**  
-> Nelle stringhe JS scrivi **sempre il doppio backslash** per i comandi LaTeX (`$\\frac{1}{4}$`, `$a \\times b$`, `$\\pm 2$`).  
-> Se scrivi `\frac` con backslash singolo, JavaScript lo interpreta come carattere speciale di controllo *Form Feed* (`\f`) rompendo la visualizzazione della frazione!
+> **Due regole d'oro per le Flashcards:**
+> 1. **Doppio backslash in JavaScript:** Nelle stringhe JS scrivi **sempre** `$\\frac{a}{b}$`, `$\\times$`, `$\\mathbb{Q}$`. Con un solo backslash `"\frac"` diventa il carattere ASCII *Form Feed* (`\f`) corrompendo la formula!
+> 2. **Distribuzione delle risposte corrette:** Anche se `flashcards.js` rimescola dinamicamente le opzioni a runtime, nel codice sorgente distribuisci sempre `correct` in modo equilibrato tra `0`, `1`, `2` e `3` (mai tutte le carte con `correct: 1`!).
 
-### 5.4 `window.ComodeSpeech` (`shared/js/speech.js`)
-Sintesi vocale madrelingua per lezioni CLIL:
-- `ComodeSpeech.speak(text, lang = 'en-US')`
-- Oppure direttamente da HTML: `<button onclick="speakWord('reciprocal')">🔊 Ascolta</button>`
+### 5.3 `window.ComodeAudio` (`shared/js/audio.js`)
+- `playClick()`, `playSuccess()`, `playError()`, `playHint()`, `playLevelUp()`, `toggleMute()`.
 
-### 5.5 `window.ComodeTheme` (`shared/js/theme.js`)
-- `ComodeTheme.toggleTheme()`: Alterna tema scuro (`data-theme="dark"`) e chiaro (`data-theme="light"`).
+### 5.4 `window.ComodeGamification` (`shared/js/gamification.js`)
+- `addXP(amount, reason)`, `getXP()`, `getLevel()`, `markLessonCompleted(lessonId, xpReward)`, `isUDAUnlocked(udaId)`, `resetProgress()`.
+
+### 5.5 `window.ComodeSpeech` (`shared/js/speech.js`) & `window.ComodeTheme` (`shared/js/theme.js`)
+- `speakWord('cross simplification')` / `ComodeSpeech.speak(text, 'en-US')`.
+- `ComodeTheme.toggle()` / `ComodeTheme.applyTheme('dark' | 'light')`.
 
 ---
 
-## 6. Checklist di Creazione Nuova Lezione
+## 6. Checklist di Qualità per Nuove UDA e Lezioni
 
-Prima di pubblicare una nuova lezione:
-1. [ ] Hai duplicato `shared/templates/lesson-template.html`?
-2. [ ] I percorsi relativi a `shared/` rispettano la profondità (`../../` per biennio, `../../../` per triennio)?
-3. [ ] Sono presenti le due card **Prerequisiti** e **Competenze in Uscita**?
-4. [ ] Le frazioni nelle flashcard usano il doppio backslash (`$\\frac{a}{b}$`)?
-5. [ ] Il tag `body` ha `data-lesson-id="univoco"` e `data-xp="60"`?
-6. [ ] C'è esattamente **1 solo file HTML** all'interno della cartella dell'UDA?
-7. [ ] Se è una lezione **CLIL**, è presente il glossario bilingue con bottoni `speakWord(...)` e problemi in inglese?
+Prima di pubblicare una nuova UDA o lezione, verifica tutti i punti seguenti:
+1. [ ] **Struttura UDA completa:** La cartella dell'UDA prevede il proprio `index.html`, le lezioni curricolari, il modulo CLIL e **1 Favola Interattiva** dedicata all'UDA?
+2. [ ] **Template & Percorsi:** Hai duplicato `shared/templates/lesson-template.html` verificando la profondità dei percorsi relativi (`../../` per Primo Biennio, `../../../` per Secondo Biennio e Quinto Anno)?
+3. [ ] **KaTeX `0.19.1` & Protezione Frazioni:** Stai caricando KaTeX `0.19.1` e non hai usato nessuna classe CSS riservata (`.frac-line`, `.mfrac`, `.vlist`, `.strut`) negli stili custom?
+4. [ ] **Prerequisiti & Competenze:** Sono presenti entrambe le card `.prereq-card` e `.objectives-card`?
+5. [ ] **Collegamento Teoria ↔ Pratica ovunque:** Ogni card teorica ha un `id` (`teoria-1`, `teoria-2`, ...) e **ogni singolo esercizio, task, palestra mentale, flashcard e scheda operativa** mostra esplicitamente quale punto di teoria approfondisce?
+6. [ ] **Flashcards equilibrate e con `\\frac`:** Le risposte corrette nel sorgente sono distribuite su lettere diverse (`0, 1, 2, 3`), ogni carta ha `theoryRef` + `theoryTargetId`, e tutte le formule LaTeX in JS usano il doppio backslash?
+7. [ ] **Compito di Realtà Finale — Scheda Operativa per Casa:** La lezione termina con `<section class="homework-section">` stampabile, specificando che gli studenti possono lavorare da soli o in gruppo ma devono portare la scheda compilata per la lezione successiva?
+8. [ ] **Zero `alert()` bloccanti:** Tutti i feedback agli studenti usano `.feedback-msg` inline e `ComodeAudio`?

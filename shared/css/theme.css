@@ -21,8 +21,10 @@
   /* Palette Disciplinare & Accenti */
   --accent-math: #38bdf8;
   --accent-math-glow: rgba(56, 189, 248, 0.18);
+  --accent-math-gradient: linear-gradient(135deg, #0284c7, #6366f1);
   --accent-phys: #f59e0b;
   --accent-phys-glow: rgba(245, 158, 11, 0.18);
+  --accent-phys-gradient: linear-gradient(135deg, #d97706, #e11d48);
 
   --accent-success: #10b981;
   --accent-success-glow: rgba(16, 185, 129, 0.2);
@@ -32,6 +34,12 @@
   --accent-purple: #8b5cf6;
   --accent-gold: #fbbf24;
   --accent-gold-glow: rgba(251, 191, 36, 0.25);
+
+  /* Alias semantici per retrocompatibilità tra moduli */
+  --bg-canvas: var(--bg-body);
+  --bg-surface-glass: var(--bg-glass);
+  --accent-physics: var(--accent-phys);
+  --font-sans: var(--font-main);
 
   /* Ombre ed Effetti */
   --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.2);
@@ -61,8 +69,10 @@
 
   --accent-math: #0284c7;
   --accent-math-glow: rgba(2, 132, 199, 0.12);
+  --accent-math-gradient: linear-gradient(135deg, #0284c7, #4f46e5);
   --accent-phys: #d97706;
   --accent-phys-glow: rgba(217, 119, 6, 0.12);
+  --accent-phys-gradient: linear-gradient(135deg, #d97706, #e11d48);
 
   --accent-success: #059669;
   --accent-success-glow: rgba(5, 150, 105, 0.15);
@@ -105,4 +115,41 @@ body::before {
     radial-gradient(circle at 90% 80%, rgba(139, 92, 246, 0.08) 0%, transparent 40%);
   pointer-events: none;
   z-index: -1;
+}
+
+/* ==========================================================================
+   Protezione Globale Rendering Matematico KaTeX
+   Impedisce a reset CSS globali (box-sizing: border-box) o classi custom
+   (es. .frac-line) di disallineare linee di frazione, radici o matrici
+   in tutte le UDA presenti e future.
+   ========================================================================== */
+.katex,
+.katex *,
+.katex *::before,
+.katex *::after {
+  box-sizing: content-box;
+}
+
+.katex {
+  line-height: 1.25;
+  font-size: 1.06em;
+}
+
+.katex .mfrac .frac-line {
+  display: inline-block !important;
+  width: 100% !important;
+  height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  background: transparent !important;
+  border-top: 0 !important;
+  border-left: 0 !important;
+  border-right: 0 !important;
+  border-bottom-style: solid !important;
+}
+
+.katex-display {
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 0.35rem 0;
 }

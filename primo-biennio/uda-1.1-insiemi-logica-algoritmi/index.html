@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>UDA 1.1: Insiemi, Logica e Algoritmi • le comode lezioni d'Ivano</title>
-  <meta name="description" content="Laboratori interattivi di Matematica per l'UDA 1.1 del Liceo delle Scienze Umane: Calcolo con Interi e Razionali e Modulo CLIL in lingua inglese.">
+  <meta name="description" content="Laboratori interattivi di Matematica per l'UDA 1.1 del Liceo delle Scienze Umane: favola interattiva, calcolo con interi e razionali, retta orientata, potenze, numeri primi, logica, algoritmi e modulo CLIL.">
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -18,7 +18,7 @@
     .uda-hero {
       margin-bottom: 2rem;
       text-align: center;
-      padding: 2.25rem 1.5rem;
+      padding: 2.5rem 1.5rem;
       background: linear-gradient(180deg, var(--bg-surface) 0%, var(--bg-surface-elevated) 100%);
       border: 1px solid var(--border-subtle);
       border-radius: var(--radius-lg);
@@ -33,8 +33,8 @@
       top: -30px;
       left: 50%;
       transform: translateX(-50%);
-      width: 400px;
-      height: 120px;
+      width: 440px;
+      height: 130px;
       background: radial-gradient(circle, var(--accent-math-glow) 0%, transparent 70%);
       pointer-events: none;
     }
@@ -54,7 +54,7 @@
     }
 
     .uda-title {
-      font-size: 2rem;
+      font-size: clamp(1.8rem, 3.5vw, 2.3rem);
       font-weight: 800;
       letter-spacing: -0.02em;
       margin-bottom: 0.5rem;
@@ -70,44 +70,12 @@
     .uda-desc {
       font-size: 1rem;
       color: var(--text-muted);
-      max-width: 700px;
+      max-width: 720px;
       margin: 0 auto;
       line-height: 1.6;
     }
 
-    /* Warning Callout: Lezioni Temporanee */
-    .temp-notice-banner {
-      background: linear-gradient(135deg, rgba(245, 158, 11, 0.1) 0%, rgba(245, 158, 11, 0.04) 100%);
-      border: 2px dashed rgba(245, 158, 11, 0.45);
-      border-radius: var(--radius-md);
-      padding: 1.25rem 1.5rem;
-      margin-bottom: 2.5rem;
-      display: flex;
-      align-items: flex-start;
-      gap: 1rem;
-      box-shadow: 0 4px 16px rgba(245, 158, 11, 0.08);
-    }
-
-    .temp-notice-icon {
-      font-size: 2rem;
-      line-height: 1;
-      flex-shrink: 0;
-    }
-
-    .temp-notice-title {
-      font-size: 1.05rem;
-      font-weight: 800;
-      color: var(--accent-gold);
-      margin-bottom: 0.35rem;
-    }
-
-    .temp-notice-text {
-      font-size: 0.92rem;
-      color: var(--text-muted);
-      line-height: 1.55;
-    }
-
-    /* Griglia Lezioni */
+    /* Griglia Lezioni Curricolari */
     .lessons-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -128,13 +96,13 @@
       position: relative;
     }
 
-    .lesson-card:hover {
+    .lesson-card:not(.pending):hover {
       border-color: var(--accent-math);
       transform: translateY(-4px);
       box-shadow: var(--shadow-md);
     }
 
-    .lesson-card.clil:hover {
+    .lesson-card.clil:not(.pending):hover {
       border-color: var(--accent-purple);
     }
 
@@ -164,6 +132,12 @@
       border: 1px solid rgba(168, 85, 247, 0.25);
     }
 
+    .lesson-badge.wip {
+      background: rgba(245, 158, 11, 0.12);
+      color: var(--accent-gold);
+      border: 1px solid rgba(245, 158, 11, 0.25);
+    }
+
     .lesson-xp {
       font-family: var(--font-mono);
       font-size: 0.82rem;
@@ -176,7 +150,7 @@
     }
 
     .lesson-card-title {
-      font-size: 1.3rem;
+      font-size: 1.25rem;
       font-weight: 800;
       margin-bottom: 0.6rem;
       line-height: 1.3;
@@ -186,7 +160,7 @@
       font-size: 0.92rem;
       color: var(--text-muted);
       line-height: 1.55;
-      margin-bottom: 1.5rem;
+      margin-bottom: 1.35rem;
       flex-grow: 1;
     }
 
@@ -196,15 +170,22 @@
       margin: 0 0 1.5rem 0;
       display: flex;
       flex-direction: column;
-      gap: 0.4rem;
+      gap: 0.45rem;
       font-size: 0.85rem;
       color: var(--text-muted);
     }
 
     .lesson-card-features li {
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       gap: 0.5rem;
+      line-height: 1.45;
+    }
+
+    .lesson-card-features li span.bullet {
+      color: var(--accent-math);
+      font-weight: 700;
+      flex-shrink: 0;
     }
 
     .lesson-card-btn {
@@ -223,13 +204,13 @@
       margin-top: auto;
     }
 
-    .lesson-card:hover .lesson-card-btn {
+    .lesson-card:not(.pending):hover .lesson-card-btn {
       background: var(--accent-math);
       color: #0b0f19;
       border-color: var(--accent-math);
     }
 
-    .lesson-card.clil:hover .lesson-card-btn {
+    .lesson-card.clil:not(.pending):hover .lesson-card-btn {
       background: var(--accent-purple);
       color: #fff;
       border-color: var(--accent-purple);
@@ -240,7 +221,7 @@
       background: var(--bg-surface-elevated);
       border: 1px solid var(--border-subtle);
       border-radius: var(--radius-lg);
-      padding: 1.5rem;
+      padding: 1.5rem 1.75rem;
       margin-bottom: 2.5rem;
       display: flex;
       align-items: center;
@@ -309,71 +290,186 @@
         UDA 1.1: <span>Insiemi, Logica e Algoritmi</span>
       </h1>
       <p class="uda-desc">
-        Allena le tue capacità di problem solving: scopri come calcolare comodamente attraverso i gettoni numerici, visualizzare le frazioni come taglie e sperimentare il modulo CLIL in lingua inglese.
+        Dall'intuizione del calcolo mentale e delle frazioni fino alla deduzione logica formale e ai diagrammi di flusso: esplora la favola narrativa, affronta i laboratori operativi e consolida ogni lezione con la Scheda Operativa per casa.
       </p>
     </header>
 
-    <!-- ======================================================== -->
-    <!-- AVVISO SPECIALE: LEZIONI TEMPORANEE                      -->
-    <!-- ======================================================== -->
-    <div class="temp-notice-banner">
-      <div class="temp-notice-icon">⚠️</div>
-      <div>
-        <div class="temp-notice-title">Nota Didattica sulle Lezioni</div>
-        <div class="temp-notice-text">
-          Le due lezioni sottostanti <strong>sono temporanee</strong> e costituiscono l'anteprima interattiva e sperimentale del progetto didattico <em>comode</em>. <strong>Presto arriveranno le versioni definitive e complete, insieme a tutte le altre UDA del piano di studi!</strong>
-        </div>
-      </div>
-    </div>
 
     <!-- ======================================================== -->
-    <!-- LE DUE LEZIONI PREPARATE                                 -->
+    <!-- 1. VETRINA FAVOLA INTERATTIVA DELL'UDA 1.1               -->
     <!-- ======================================================== -->
+    <section class="story-feature-card">
+      <div class="story-feature-badge">
+        <span>📖 Favola Interattiva dell'UDA 1.1</span>
+        <span class="story-tag-pill">17 Scene Narrate &amp; Interattive</span>
+      </div>
+      <div class="story-feature-content">
+        <div class="story-feature-visual">
+          <img src="illustrazioni-favola/pagina_01.jpg" alt="Vela e le fragole" class="story-cover-img" onerror="this.style.display='none'">
+          <div class="story-cover-fallback">🍓✨</div>
+        </div>
+        <div class="story-feature-info">
+          <span class="story-kicker">Matematica Narrativa • Problem Solving Intuitivo</span>
+          <h2 class="story-feature-title">I Numeri: <span>La favola di Vela e le fragole</span></h2>
+          <p class="story-feature-desc">
+            Vela si sveglia d'estate con una gran voglia di fragole: per mangiarle dovrà prima imparare a contarle con le dita! Da 1 a 9, scoprirà la nascita magica del dieci, il mistero del piatto vuoto con lo zero e la vertigine dell'infinito come le stelle del cielo.
+          </p>
+          <div class="story-feature-meta">
+            <span>✨ 17 pagine con micro-attività interattive</span>
+            <span>🗣️ Lettura ad alta voce con sintesi vocale</span>
+            <span>🎵 Feedback sonori armonici procedurali</span>
+          </div>
+          <a href="favola-interattiva-i-numeri.html" class="story-feature-btn">
+            🍓 Ascolta ed Esplora la Favola Interattiva →
+          </a>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ======================================================== -->
+    <!-- 2. LEZIONI CURRICOLARI & MODULO CLIL                     -->
+    <!-- ======================================================== -->
+    <div class="section-header" style="margin-bottom: 1.5rem;">
+      <h2 class="section-title">
+        <span class="icon">🧪</span> Le Lezioni del Modulo (5 Lezioni + 1 Modulo CLIL)
+      </h2>
+    </div>
+
     <div class="lessons-grid">
-      <!-- Lezione 1.1 -->
+
+      <!-- Lezione 1.1 (ATTIVA) -->
       <a href="lezione-01-calcolo-interi-razionali.html" class="lesson-card">
         <div class="lesson-card-top">
-          <span class="lesson-badge math">Lezione Curricolare 1.1</span>
+          <span class="lesson-badge math">Lezione 1.1 • Attiva ✅</span>
           <span class="lesson-xp">+60 XP</span>
         </div>
         <h3 class="lesson-card-title">Calcolo con Numeri Interi e Razionali</h3>
         <p class="lesson-card-desc">
-          Rappresentazioni comode in ℕ, ℤ, ℚ, gettoni numerici per il calcolo mentale, frazioni come taglie, semplificazione in croce e compiti di realtà guidati.
+          Rappresentazioni comode in ℕ, ℤ, ℚ, gettoni numerici per il calcolo mentale, frazioni come taglie, semplificazione in croce e collegamento esplicito Teoria ↔ Pratica.
         </p>
         <ul class="lesson-card-features">
-          <li>✓ Gettoni numerici interattivi (Coppie a 100)</li>
-          <li>✓ Linea dei numeri interattiva per gli interi relativi</li>
-          <li>✓ Laboratorio di frazioni con taglia comune (m.c.m.)</li>
-          <li>✓ Sfida di verifica con autovalutazione immediata</li>
+          <li><span class="bullet">✓</span> <span>Gettoni interattivi &amp; retta orientata in ℤ</span></li>
+          <li><span class="bullet">✓</span> <span>Frazioni come taglie &amp; semplificazione in croce</span></li>
+          <li><span class="bullet">✓</span> <span>Flashcard operative con opzioni rimescolate</span></li>
+          <li><span class="bullet">✓</span> <span>Assegno per casa: Scheda Operativa «Il Bilancio Partecipativo»</span></li>
         </ul>
         <div class="lesson-card-btn">
           Inizia il Laboratorio 1.1 →
         </div>
       </a>
 
-      <!-- Lezione CLIL -->
+      <!-- Lezione 1.2 (IN SVILUPPO) -->
+      <div class="lesson-card pending">
+        <div class="lesson-card-top">
+          <span class="lesson-badge wip">Lezione 1.2 • In sviluppo ⏳</span>
+          <span class="lesson-xp">+60 XP</span>
+        </div>
+        <h3 class="lesson-card-title">Retta Orientata, Scale Graduate e Notazione Scientifica</h3>
+        <p class="lesson-card-desc">
+          Posizionamento geometrico e densità dei razionali sulla retta numerica, ordini di grandezza, potenze di 10, scale lineari vs logaritmiche e percezione psicofisica umana.
+        </p>
+        <ul class="lesson-card-features">
+          <li><span class="bullet">⏳</span> <span>Esploratore vettoriale SVG con zoom continuo sulla retta</span></li>
+          <li><span class="bullet">⏳</span> <span>Percezione umana e legge di Weber-Fechner nei sensi</span></li>
+          <li><span class="bullet">⏳</span> <span>Ordini di grandezza: dal diametro atomico alle galassie</span></li>
+          <li><span class="bullet">⏳</span> <span>Assegno per casa: Scheda Operativa «Decodificare Scale Distorte nei Media»</span></li>
+        </ul>
+        <div class="lesson-card-btn pending">
+          ⏳ In arrivo a breve
+        </div>
+      </div>
+
+      <!-- Lezione 1.3 (IN SVILUPPO) -->
+      <div class="lesson-card pending">
+        <div class="lesson-card-top">
+          <span class="lesson-badge wip">Lezione 1.3 • In sviluppo ⏳</span>
+          <span class="lesson-xp">+60 XP</span>
+        </div>
+        <h3 class="lesson-card-title">Potenze, Numeri Primi e la Dimostrazione di Euclide</h3>
+        <p class="lesson-card-desc">
+          Proprietà algebriche delle potenze ad esponente intero in ℤ, scomposizione moltiplicativa, Crivello di Eratostene ed esplicita dimostrazione euclidea dell'infinità dei numeri primi.
+        </p>
+        <ul class="lesson-card-features">
+          <li><span class="bullet">⏳</span> <span>Dimostrazione euclidea passo-passo dell'infinità dei primi</span></li>
+          <li><span class="bullet">⏳</span> <span>Crivello di Eratostene interattivo per setacciare i fattori</span></li>
+          <li><span class="bullet">⏳</span> <span>Dalle tavolette babilonesi alla crittografia RSA di WhatsApp</span></li>
+          <li><span class="bullet">⏳</span> <span>Assegno per casa: Scheda Operativa «Come i Primi Proteggono la Privacy»</span></li>
+        </ul>
+        <div class="lesson-card-btn pending">
+          ⏳ In arrivo a breve
+        </div>
+      </div>
+
+      <!-- Lezione 1.4 (IN SVILUPPO) -->
+      <div class="lesson-card pending">
+        <div class="lesson-card-top">
+          <span class="lesson-badge wip">Lezione 1.4 • In sviluppo ⏳</span>
+          <span class="lesson-xp">+60 XP</span>
+        </div>
+        <h3 class="lesson-card-title">Insiemi, Logica e Linguaggio, Dimostrazione per Assurdo</h3>
+        <p class="lesson-card-desc">
+          Operazioni tra insiemi (unione, intersezione, differenza), connettivi logici («e», «o», «non», «se... allora»), identificazione rigorosa di ipotesi/tesi e dimostrazione per assurdo.
+        </p>
+        <ul class="lesson-card-features">
+          <li><span class="bullet">⏳</span> <span>Diagrammi di Eulero-Venn interattivi e tavole di verità</span></li>
+          <li><span class="bullet">⏳</span> <span>Il test di selezione di Wason: i bias cognitivi nel condizionale</span></li>
+          <li><span class="bullet">⏳</span> <span>Tecnica della dimostrazione per assurdo applicata e discussa</span></li>
+          <li><span class="bullet">⏳</span> <span>Assegno per casa: Scheda Operativa «Smascherare Fallacie nei Discorsi Pubblici»</span></li>
+        </ul>
+        <div class="lesson-card-btn pending">
+          ⏳ In arrivo a breve
+        </div>
+      </div>
+
+      <!-- Lezione 1.5 (IN SVILUPPO) -->
+      <div class="lesson-card pending">
+        <div class="lesson-card-top">
+          <span class="lesson-badge wip">Lezione 1.5 • In sviluppo ⏳</span>
+          <span class="lesson-xp">+60 XP</span>
+        </div>
+        <h3 class="lesson-card-title">Primi Algoritmi, Diagrammi di Flusso e Pensiero Computazionale</h3>
+        <p class="lesson-card-desc">
+          Concetto di algoritmo (finitezza, determinismo, non ambiguità), diagrammi a blocchi (sequenza, scelta se/altrimenti, cicli ripetuti) e algoritmi numerici storici (MCD di Euclide, ricerca binaria).
+        </p>
+        <ul class="lesson-card-features">
+          <li><span class="bullet">⏳</span> <span>Simulatore visivo di flowchart a blocchi logici</span></li>
+          <li><span class="bullet">⏳</span> <span>Algoritmo delle divisioni successive di Euclide passo dopo passo</span></li>
+          <li><span class="bullet">⏳</span> <span>Psicologia cognitiva dei compiti procedurali vs euristiche</span></li>
+          <li><span class="bullet">⏳</span> <span>Assegno per casa: Scheda Operativa «Algoritmo di Triage Scolastico e Sociale»</span></li>
+        </ul>
+        <div class="lesson-card-btn pending">
+          ⏳ In arrivo a breve
+        </div>
+      </div>
+
+      <!-- Lezione CLIL (ATTIVA) -->
       <a href="lezione-clil-numbers-mind-strategies.html" class="lesson-card clil">
         <div class="lesson-card-top">
-          <span class="lesson-badge clil">Modulo CLIL • Inglese</span>
+          <span class="lesson-badge clil">Modulo CLIL • Inglese ✅</span>
           <span class="lesson-xp">+70 XP</span>
         </div>
         <h3 class="lesson-card-title">CLIL: Numbers &amp; Mental Strategies</h3>
         <p class="lesson-card-desc">
-          Immergiti nell'inglese scientifico internazionale: ascolta la pronuncia madrelingua guidata con la Web Speech API, impara i termini chiave e risolvi task autentici in inglese.
+          Immergiti nell'inglese scientifico internazionale: ascolta la pronuncia madrelingua guidata con la Web Speech API, impara i termini chiave e risolvi task autentici in lingua inglese.
         </p>
         <ul class="lesson-card-features">
-          <li>✓ Pronuncia madrelingua nativa con sintesi vocale</li>
-          <li>✓ Flashcard e glossario interattivo bilingue</li>
-          <li>✓ Task autentico: The Baker's Recipe Problem</li>
-          <li>✓ Quiz finale di verifica linguistico-matematica</li>
+          <li><span class="bullet">✓</span> <span>Pronuncia madrelingua nativa con sintesi vocale Web Speech API</span></li>
+          <li><span class="bullet">✓</span> <span>Glossario bilingue &amp; collegamento esplicito Theory ↔ Practice</span></li>
+          <li><span class="bullet">✓</span> <span>Flashcard bilingui con opzioni rimescolate ad ogni tentativo</span></li>
+          <li><span class="bullet">✓</span> <span>Assegno per casa: CLIL Worksheet «The Solidarity Bake Sale»</span></li>
         </ul>
         <div class="lesson-card-btn">
           Esplora la Lezione CLIL →
         </div>
       </a>
+
     </div>
 
-    <!-- Status Box Titolo UDA 1.1 -->
+
+    <!-- ======================================================== -->
+    <!-- 3. BOX TITOLO IN PALIO PER L'UDA 1.1                     -->
+    <!-- ======================================================== -->
     <div class="uda-trophy-status-box" id="udaTrophyStatusBox">
       <div class="uda-trophy-left">
         <div class="uda-trophy-icon">📐</div>
@@ -385,13 +481,13 @@
             Architetto della Logica
           </div>
           <div style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.2rem;">
-            🎯 <strong>Cosa fare per acquisirlo:</strong> Completa entrambe le lezioni soprastanti per sbloccare questo titolo nella tua Bacheca.
+            🎯 <strong>Cosa fare per acquisirlo:</strong> Esplora la Favola Interattiva e completa le lezioni dell'UDA per conquistare questo titolo nella tua Bacheca.
           </div>
         </div>
       </div>
       <div id="udaStatusActionWrap">
         <span style="font-size: 0.85rem; font-weight: 700; color: var(--text-muted); background: var(--bg-surface); padding: 0.45rem 1rem; border-radius: var(--radius-pill); border: 1px solid var(--border-subtle);">
-          Completa le 2 lezioni per il titolo
+          Completa le lezioni per il titolo
         </span>
       </div>
     </div>

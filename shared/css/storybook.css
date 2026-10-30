@@ -1,0 +1,1154 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Quicksand:wght@500;600;700&display=swap');
+
+/* ==========================================================================
+   comode — storybook.css (Design system e stili delle favole interattive)
+   ========================================================================== */
+    :root {
+      --font-display: 'Fredoka', cursive, system-ui, -apple-system, sans-serif;
+      --font-body: 'Quicksand', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+      --color-bg: #FFFDF9;
+      --color-bg-alt: #FFF4E6;
+      --color-primary: #E63946;
+      --color-primary-dark: #C92A37;
+      --color-primary-light: #FF6B7A;
+      --color-strawberry: #FF3366;
+      --color-strawberry-dark: #D61A4C;
+      --color-strawberry-leaf: #38B000;
+      
+      --color-secondary: #FFB703;
+      --color-secondary-dark: #FB8500;
+      --color-accent: #2A9D8F;
+      --color-accent-light: #E0F5F2;
+      
+      --color-night: #0F172A;
+      --color-night-blue: #1E293B;
+      
+      --color-text: #2D3142;
+      --color-text-muted: #6B7280;
+      --color-card-bg: rgba(255, 255, 255, 0.95);
+      --color-card-border: rgba(230, 57, 70, 0.15);
+      
+      --shadow-sm: 0 4px 12px rgba(230, 57, 70, 0.08);
+      --shadow-md: 0 10px 25px rgba(230, 57, 70, 0.12);
+      --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.1);
+      --shadow-interactive: 0 12px 28px rgba(230, 57, 70, 0.25);
+
+      --radius-sm: 12px;
+      --radius-md: 20px;
+      --radius-lg: 32px;
+      --radius-full: 9999px;
+
+      --transition-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+      --transition-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* ==========================================================================
+       GLOBAL STYLES & RESET
+       ========================================================================== */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background: radial-gradient(circle at 10% 20%, #FFF5EB 0%, #FFFDF9 60%, #FFF0F2 100%);
+      color: var(--color-text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Sfondo a pois e fragoline fluttuanti */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background-image: 
+        radial-gradient(rgba(230, 57, 70, 0.06) 2px, transparent 2px),
+        radial-gradient(rgba(255, 183, 3, 0.06) 2px, transparent 2px);
+      background-size: 40px 40px;
+      background-position: 0 0, 20px 20px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Canvas per coriandoli e particelle */
+    #fx-canvas {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 999;
+    }
+
+    /* ==========================================================================
+       HEADER & NAVIGATION BAR
+       ========================================================================== */
+    header.storybook-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255, 255, 255, 0.88);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 2px solid rgba(230, 57, 70, 0.1);
+      padding: 10px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .brand-title {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+    }
+
+    .brand-strawberry-icon {
+      font-size: 2rem;
+      filter: drop-shadow(0 4px 6px rgba(230, 57, 70, 0.3));
+      animation: gentle-wobble 3s infinite ease-in-out;
+    }
+
+    .brand-text h1 {
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--color-primary-dark);
+      letter-spacing: -0.5px;
+      line-height: 1.1;
+    }
+
+    .brand-text span {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--color-secondary-dark);
+    }
+
+    /* Controlli centrali: progresso e navigazione */
+    .progress-center {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      flex: 1;
+      max-width: 480px;
+    }
+
+    .page-indicator-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--color-bg-alt);
+      border: 1px solid rgba(251, 133, 0, 0.25);
+      padding: 4px 16px;
+      border-radius: var(--radius-full);
+      font-family: var(--font-display);
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--color-secondary-dark);
+    }
+
+    .progress-track {
+      width: 100%;
+      height: 8px;
+      background: rgba(0, 0, 0, 0.06);
+      border-radius: var(--radius-full);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--color-secondary), var(--color-primary));
+      border-radius: var(--radius-full);
+      transition: width 0.4s var(--transition-smooth);
+    }
+
+    /* Bottoni header a destra */
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .icon-btn {
+      background: white;
+      border: 2px solid rgba(230, 57, 70, 0.15);
+      color: var(--color-text);
+      width: 42px;
+      height: 42px;
+      border-radius: var(--radius-full);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: all 0.2s var(--transition-bounce);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .icon-btn:hover {
+      transform: translateY(-2px) scale(1.05);
+      border-color: var(--color-primary);
+      box-shadow: var(--shadow-md);
+      color: var(--color-primary);
+    }
+
+    .icon-btn:active {
+      transform: translateY(1px) scale(0.95);
+    }
+
+    .icon-btn.active {
+      background: var(--color-primary);
+      color: white;
+      border-color: var(--color-primary-dark);
+    }
+
+    /* ==========================================================================
+       MAIN STORYBOOK WORKSPACE (SPLIT VIEW)
+       ========================================================================== */
+    main.storybook-container {
+      flex: 1;
+      width: 100%;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 24px;
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 32px;
+      align-items: stretch;
+      position: relative;
+      z-index: 1;
+    }
+
+    @media (max-width: 1024px) {
+      main.storybook-container {
+        grid-template-columns: 1fr;
+        gap: 24px;
+        padding: 16px;
+      }
+    }
+
+    /* ==========================================================================
+       LEFT COLUMN: STORYBOOK PAGE (ILLUSTRATION + POEM)
+       ========================================================================== */
+    .story-page-card {
+      background: var(--color-card-bg);
+      border-radius: var(--radius-lg);
+      border: 2px solid var(--color-card-border);
+      box-shadow: var(--shadow-lg);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      transition: transform 0.3s var(--transition-smooth);
+    }
+
+    /* Decorazione cornice libro */
+    .story-page-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      width: 12px;
+      background: linear-gradient(90deg, rgba(0,0,0,0.12), transparent);
+      pointer-events: none;
+      z-index: 10;
+    }
+
+    /* Cornice dell'illustrazione */
+    .illustration-frame {
+      position: relative;
+      width: 100%;
+      height: 440px;
+      background: #FFE8E8;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-bottom: 2px solid rgba(230, 57, 70, 0.1);
+    }
+
+    @media (max-width: 768px) {
+      .illustration-frame {
+        height: 280px;
+      }
+    }
+
+    .illustration-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      transition: transform 0.6s ease;
+    }
+
+    .illustration-frame:hover img {
+      transform: scale(1.02);
+    }
+
+    /* Fallback illustrativo elegante per pagine 9-17 */
+    .illustration-art-canvas {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 30px;
+      text-align: center;
+      background: radial-gradient(circle at center, #FFF4E6 0%, #FFE3E6 100%);
+    }
+
+    .art-badge {
+      font-size: 5rem;
+      margin-bottom: 12px;
+      filter: drop-shadow(0 10px 15px rgba(0,0,0,0.1));
+      animation: float-soft 3s ease-in-out infinite;
+    }
+
+    .art-scene-desc {
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--color-primary-dark);
+      max-width: 420px;
+      background: rgba(255, 255, 255, 0.85);
+      padding: 10px 20px;
+      border-radius: var(--radius-full);
+      border: 1px dashed rgba(230, 57, 70, 0.3);
+    }
+
+    /* Badge numero di pagina nell'angolo dell'immagine */
+    .page-number-tag {
+      position: absolute;
+      top: 18px;
+      right: 18px;
+      background: rgba(255, 255, 255, 0.95);
+      color: var(--color-primary-dark);
+      font-family: var(--font-display);
+      font-size: 1rem;
+      font-weight: 700;
+      padding: 6px 16px;
+      border-radius: var(--radius-full);
+      box-shadow: var(--shadow-sm);
+      border: 2px solid rgba(230, 57, 70, 0.2);
+      z-index: 5;
+    }
+
+    /* Sezione testo della favola */
+    .story-text-container {
+      padding: 32px 36px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+    }
+
+    @media (max-width: 768px) {
+      .story-text-container {
+        padding: 20px;
+      }
+    }
+
+    .page-title {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      color: var(--color-secondary-dark);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .verses-box {
+      font-family: var(--font-body);
+      font-size: 1.35rem;
+      line-height: 1.8;
+      color: #1F2937;
+      font-weight: 600;
+      white-space: pre-line;
+      text-shadow: 0 1px 1px rgba(255, 255, 255, 0.8);
+      position: relative;
+    }
+
+    .verses-box .highlight {
+      color: var(--color-primary);
+      font-weight: 700;
+      background: rgba(230, 57, 70, 0.08);
+      padding: 2px 6px;
+      border-radius: 6px;
+    }
+
+    .story-text-toolbar {
+      margin-top: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      border-top: 1px dashed rgba(0, 0, 0, 0.1);
+      padding-top: 16px;
+    }
+
+    .read-aloud-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: white;
+      border: 2px solid rgba(42, 157, 143, 0.3);
+      color: var(--color-accent);
+      padding: 8px 18px;
+      border-radius: var(--radius-full);
+      font-family: var(--font-display);
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s var(--transition-bounce);
+    }
+
+    .read-aloud-btn:hover {
+      background: var(--color-accent);
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(42, 157, 143, 0.25);
+    }
+
+    .read-aloud-btn.speaking {
+      background: var(--color-accent);
+      color: white;
+      animation: pulse-border 1.5s infinite;
+    }
+
+    /* ==========================================================================
+       RIGHT COLUMN: INTERACTIVE STAGE & MISSION
+       ========================================================================== */
+    .interactive-stage-card {
+      background: white;
+      border-radius: var(--radius-lg);
+      border: 3px solid #FFCCD5;
+      box-shadow: var(--shadow-lg);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+      min-height: 580px;
+    }
+
+    .stage-header {
+      background: linear-gradient(135deg, #FFF0F3, #FFE5EC);
+      padding: 16px 24px;
+      border-bottom: 2px solid #FFCCD5;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .stage-icon-badge {
+      font-size: 1.8rem;
+      background: white;
+      width: 48px;
+      height: 48px;
+      border-radius: var(--radius-full);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--shadow-sm);
+      border: 2px solid #FFCCD5;
+      flex-shrink: 0;
+    }
+
+    .stage-info h2 {
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      color: var(--color-strawberry-dark);
+      line-height: 1.2;
+    }
+
+    .stage-info p {
+      font-size: 0.88rem;
+      color: var(--color-text-muted);
+      font-weight: 600;
+    }
+
+    /* Area centrale di gioco interattivo */
+    .interactive-playground {
+      flex: 1;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      background: radial-gradient(circle at center, #FFFFFF 0%, #FFFDFB 100%);
+      overflow: hidden;
+    }
+
+    /* Feedback di missione completata */
+    .completion-banner {
+      position: absolute;
+      inset: 0;
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(8px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      padding: 24px;
+      text-align: center;
+      opacity: 0;
+      pointer-events: none;
+      transform: scale(0.9);
+      transition: all 0.4s var(--transition-bounce);
+      z-index: 50;
+    }
+
+    .completion-banner.show {
+      opacity: 1;
+      pointer-events: auto;
+      transform: scale(1);
+    }
+
+    .celebration-badge {
+      font-size: 4rem;
+      animation: bounce-in 0.6s var(--transition-bounce);
+    }
+
+    .completion-banner h3 {
+      font-family: var(--font-display);
+      font-size: 1.8rem;
+      color: var(--color-primary-dark);
+    }
+
+    .completion-banner p {
+      font-size: 1.1rem;
+      color: var(--color-text-muted);
+      max-width: 320px;
+    }
+
+    /* Piede dello stage: pulsante Avanza nella storia */
+    .stage-footer {
+      padding: 16px 24px;
+      background: #FAFAFA;
+      border-top: 2px solid #F0F0F0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .nav-btn {
+      font-family: var(--font-display);
+      font-size: 1.05rem;
+      font-weight: 700;
+      padding: 14px 28px;
+      border-radius: var(--radius-full);
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      transition: all 0.25s var(--transition-bounce);
+    }
+
+    .nav-btn-prev {
+      background: white;
+      color: var(--color-text-muted);
+      border: 2px solid #E5E7EB;
+    }
+
+    .nav-btn-prev:hover:not(:disabled) {
+      color: var(--color-text);
+      border-color: #D1D5DB;
+      transform: translateX(-3px);
+    }
+
+    .nav-btn-prev:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
+    .nav-btn-next {
+      background: linear-gradient(135deg, var(--color-primary), var(--color-strawberry-dark));
+      color: white;
+      box-shadow: 0 8px 20px rgba(230, 57, 70, 0.35);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .nav-btn-next:hover:not(:disabled) {
+      transform: translateY(-2px) scale(1.03);
+      box-shadow: 0 12px 28px rgba(230, 57, 70, 0.45);
+    }
+
+    .nav-btn-next:active:not(:disabled) {
+      transform: translateY(1px);
+    }
+
+    .nav-btn-next:disabled {
+      background: #D1D5DB;
+      box-shadow: none;
+      cursor: not-allowed;
+    }
+
+    .nav-btn-next.highlight-pulse {
+      animation: pulse-ring 1.8s infinite;
+    }
+
+    /* ==========================================================================
+       SPECIFIC INTERACTIVE MINI-GAMES FOR EACH PAGE
+       ========================================================================== */
+
+    /* --- Pagina 1: Sveglia il Sole e Vela --- */
+    .window-scene {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .magic-window {
+      width: 200px;
+      height: 200px;
+      border-radius: 100px 100px 20px 20px;
+      background: #8ecae6;
+      border: 8px solid #FFE4B5;
+      box-shadow: var(--shadow-md);
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.3s var(--transition-bounce);
+    }
+
+    .magic-window:hover {
+      transform: scale(1.04);
+    }
+
+    .magic-sun {
+      position: absolute;
+      width: 90px;
+      height: 90px;
+      background: #FFB703;
+      border-radius: 50%;
+      bottom: -45px;
+      left: calc(50% - 45px);
+      box-shadow: 0 0 40px #FFB703;
+      transition: all 0.8s var(--transition-bounce);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.2rem;
+    }
+
+    .magic-sun.risen {
+      bottom: 50px;
+      background: #FB8500;
+      box-shadow: 0 0 60px #FFB703, 0 0 100px #FFD166;
+    }
+
+    .curtains {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      pointer-events: none;
+      transition: all 0.8s ease;
+    }
+
+    .curtain-left, .curtain-right {
+      flex: 1;
+      height: 100%;
+      background: #FF6B7A;
+      transition: transform 0.8s var(--transition-smooth);
+    }
+
+    .curtains.open .curtain-left {
+      transform: translateX(-90%);
+    }
+
+    .curtains.open .curtain-right {
+      transform: translateX(90%);
+    }
+
+    /* --- Pagina 2: Corsa in Cucina (3 passi) --- */
+    .footsteps-track {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 24px;
+      width: 100%;
+    }
+
+    .steps-row {
+      display: flex;
+      gap: 30px;
+      align-items: center;
+    }
+
+    .footprint-btn {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      background: white;
+      border: 3px dashed #E63946;
+      color: #E63946;
+      font-size: 1.8rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s var(--transition-bounce);
+    }
+
+    .footprint-btn:hover:not(.stepped) {
+      transform: scale(1.15) rotate(-10deg);
+      background: #FFF0F3;
+    }
+
+    .footprint-btn.stepped {
+      background: #E63946;
+      color: white;
+      border-style: solid;
+      transform: scale(1.05);
+      box-shadow: 0 6px 18px rgba(230, 57, 70, 0.3);
+    }
+
+    /* --- Piatto con Fragole e Contatore --- */
+    .strawberry-plate-area {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      width: 100%;
+    }
+
+    .plate {
+      width: 250px;
+      height: 250px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 40% 40%, #FFFFFF, #F3F4F6 80%, #E5E7EB 100%);
+      border: 8px solid white;
+      box-shadow: inset 0 6px 12px rgba(0,0,0,0.06), 0 16px 36px rgba(0,0,0,0.12);
+      position: relative;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      gap: 8px;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .interactive-strawberry {
+      font-size: 2.5rem;
+      cursor: pointer;
+      display: inline-block;
+      transition: transform 0.25s var(--transition-bounce);
+      animation: pop-in 0.3s var(--transition-bounce);
+      filter: drop-shadow(0 4px 6px rgba(0,0,0,0.15));
+    }
+
+    .interactive-strawberry:hover {
+      transform: scale(1.25) rotate(15deg);
+    }
+
+    .interactive-strawberry:active {
+      transform: scale(0.9);
+    }
+
+    .finger-hand-display {
+      display: flex;
+      gap: 12px;
+      margin-top: 10px;
+    }
+
+    .finger-indicator {
+      width: 38px;
+      height: 48px;
+      background: #FEE2E2;
+      border: 2px solid #FCA5A5;
+      border-radius: 12px 12px 4px 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #991B1B;
+      transition: all 0.3s var(--transition-bounce);
+    }
+
+    .finger-indicator.active {
+      background: #E63946;
+      border-color: #991B1B;
+      color: white;
+      transform: translateY(-8px);
+      box-shadow: 0 6px 12px rgba(230, 57, 70, 0.3);
+    }
+
+    /* --- Lavagna delle Cifre 1-9 (Pagina 6) --- */
+    .digits-board {
+      background: #2D3748;
+      border: 8px solid #8D6E63;
+      border-radius: var(--radius-md);
+      padding: 20px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      width: 100%;
+      max-width: 300px;
+      box-shadow: inset 0 4px 8px rgba(0,0,0,0.3), var(--shadow-md);
+    }
+
+    .digit-btn {
+      width: 64px;
+      height: 64px;
+      border-radius: 16px;
+      background: #3B82F6;
+      border: none;
+      color: white;
+      font-family: var(--font-display);
+      font-size: 2rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 0 #1D4ED8;
+      transition: all 0.2s var(--transition-bounce);
+    }
+
+    .digit-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 7px 0 #1D4ED8;
+    }
+
+    .digit-btn:active, .digit-btn.pressed {
+      transform: translateY(3px);
+      box-shadow: 0 1px 0 #1D4ED8;
+      background: #10B981;
+    }
+
+    /* --- Pagina 8: Combinazione 1 + 0 = 10 --- */
+    .combine-digits-zone {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 24px;
+      width: 100%;
+    }
+
+    .notebook-paper {
+      width: 100%;
+      max-width: 320px;
+      height: 220px;
+      background: #FFFBEB;
+      border: 2px solid #FDE68A;
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-md);
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      background-image: repeating-linear-gradient(#FFFBEB 0px, #FFFBEB 24px, #FDE68A 25px);
+    }
+
+    .merge-badge {
+      font-family: var(--font-display);
+      font-size: 4rem;
+      font-weight: 700;
+      width: 90px;
+      height: 110px;
+      background: white;
+      border: 3px solid #E63946;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #E63946;
+      box-shadow: var(--shadow-sm);
+      transition: all 0.4s var(--transition-bounce);
+    }
+
+    .notebook-paper.merged .merge-badge.left {
+      transform: translateX(35px);
+      background: #FFD166;
+      color: #78350F;
+      border-color: #B45309;
+    }
+
+    .notebook-paper.merged .merge-badge.right {
+      transform: translateX(-35px);
+      background: #FFD166;
+      color: #78350F;
+      border-color: #B45309;
+    }
+
+    /* --- Pagina 10: Pietre delle Decine --- */
+    .stepping-stones-river {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+      max-width: 340px;
+      padding: 16px;
+      background: #E0F2FE;
+      border-radius: var(--radius-lg);
+      border: 3px dashed #7DD3FC;
+    }
+
+    .stone-btn {
+      width: 68px;
+      height: 52px;
+      border-radius: 20px;
+      background: #94A3B8;
+      border: 2px solid #64748B;
+      color: white;
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.25s var(--transition-bounce);
+    }
+
+    .stone-btn:hover {
+      transform: translateY(-4px) scale(1.05);
+    }
+
+    .stone-btn.stepped {
+      background: #F59E0B;
+      border-color: #B45309;
+      transform: scale(1.08);
+      box-shadow: 0 4px 12px rgba(245, 158, 11, 0.4);
+    }
+
+    /* --- Pagina 12: Cielo Notturno e Costellazioni --- */
+    .sky-box {
+      width: 100%;
+      height: 280px;
+      background: radial-gradient(circle at top, #1E293B, #0F172A);
+      border-radius: var(--radius-lg);
+      border: 3px solid #334155;
+      position: relative;
+      overflow: hidden;
+      cursor: crosshair;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+    }
+
+    .constellation-text {
+      font-family: var(--font-display);
+      font-size: 3rem;
+      font-weight: 700;
+      color: #F8FAFC;
+      text-shadow: 0 0 20px #38BDF8, 0 0 40px #818CF8;
+      animation: float-soft 3s ease-in-out infinite;
+    }
+
+    .twinkle-star {
+      position: absolute;
+      background: white;
+      border-radius: 50%;
+      animation: twinkle 1.5s infinite ease-in-out alternate;
+    }
+
+    /* --- Pagina 17: Giardino Finale con Creature --- */
+    .garden-meadow {
+      width: 100%;
+      height: 320px;
+      background: linear-gradient(180deg, #BAE6FD 0%, #BBF7D0 60%, #4ADE80 100%);
+      border-radius: var(--radius-lg);
+      border: 3px solid #86EFAC;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .garden-creature {
+      position: absolute;
+      font-size: 2.2rem;
+      cursor: pointer;
+      transition: transform 0.2s var(--transition-bounce);
+      filter: drop-shadow(0 4px 6px rgba(0,0,0,0.15));
+    }
+
+    .garden-creature:hover {
+      transform: scale(1.3) rotate(15deg);
+    }
+
+    .garden-creature.counted {
+      filter: grayscale(0.5) opacity(0.6);
+      transform: scale(0.9);
+      pointer-events: none;
+    }
+
+    /* ==========================================================================
+       MODAL: INDICE DELLE PAGINE (DRAWER / OVERLAY)
+       ========================================================================== */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.6);
+      backdrop-filter: blur(8px);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .modal-overlay.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal-card {
+      background: white;
+      width: 100%;
+      max-width: 720px;
+      max-height: 85vh;
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-lg);
+      border: 3px solid var(--color-primary-light);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      transform: scale(0.92);
+      transition: transform 0.3s var(--transition-bounce);
+    }
+
+    .modal-overlay.open .modal-card {
+      transform: scale(1);
+    }
+
+    .modal-header {
+      padding: 18px 24px;
+      background: #FFF0F3;
+      border-bottom: 2px solid #FFCCD5;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .modal-header h3 {
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      color: var(--color-primary-dark);
+    }
+
+    .modal-body {
+      padding: 24px;
+      overflow-y: auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+      gap: 14px;
+    }
+
+    .page-jump-chip {
+      background: var(--color-bg);
+      border: 2px solid rgba(230, 57, 70, 0.15);
+      border-radius: var(--radius-md);
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      transition: all 0.2s var(--transition-bounce);
+      text-align: center;
+    }
+
+    .page-jump-chip:hover {
+      background: #FFF0F3;
+      border-color: var(--color-primary);
+      transform: translateY(-3px);
+    }
+
+    .page-jump-chip.active-chip {
+      background: var(--color-primary);
+      border-color: var(--color-primary-dark);
+      color: white;
+    }
+
+    .page-jump-chip .chip-num {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      font-weight: 700;
+    }
+
+    .page-jump-chip .chip-title {
+      font-size: 0.75rem;
+      font-weight: 600;
+      line-height: 1.1;
+    }
+
+    /* ==========================================================================
+       KEYFRAME ANIMATIONS
+       ========================================================================== */
+    @keyframes gentle-wobble {
+      0%, 100% { transform: rotate(0deg); }
+      25% { transform: rotate(-8deg); }
+      75% { transform: rotate(8deg); }
+    }
+
+    @keyframes float-soft {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    @keyframes pop-in {
+      0% { transform: scale(0); opacity: 0; }
+      70% { transform: scale(1.2); }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    @keyframes bounce-in {
+      0% { transform: scale(0.3); opacity: 0; }
+      50% { transform: scale(1.15); }
+      70% { transform: scale(0.9); }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    @keyframes pulse-ring {
+      0% { box-shadow: 0 0 0 0 rgba(230, 57, 70, 0.6); }
+      70% { box-shadow: 0 0 0 16px rgba(230, 57, 70, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(230, 57, 70, 0); }
+    }
+
+    @keyframes pulse-border {
+      0%, 100% { border-color: rgba(42, 157, 143, 0.4); }
+      50% { border-color: rgba(42, 157, 143, 1); box-shadow: 0 0 12px rgba(42, 157, 143, 0.4); }
+    }
+
+    @keyframes twinkle {
+      0% { opacity: 0.3; transform: scale(0.8); }
+      100% { opacity: 1; transform: scale(1.2); }
+    }
