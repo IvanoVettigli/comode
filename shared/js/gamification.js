@@ -42,8 +42,8 @@ class ComodeGamification {
         cycle: 'primo-biennio',
         cycleLabel: 'Primo Biennio',
         subject: 'Matematica',
-        requiredLessons: ['pb-1.1-l01', 'pb-1.1-clil'],
-        howToEarn: 'Completa la Lezione 1.1 (Calcolo Interi e Razionali) e la Lezione CLIL (Numbers & Mental Strategies).'
+        requiredLessons: ['pb-1.1-l01', 'pb-1.1-l02', 'pb-1.1-l03', 'pb-1.1-l04', 'pb-1.1-l05', 'pb-1.1-clil'],
+        howToEarn: 'Completa tutte le 5 lezioni curricolari dell’UDA 1.1 (1.1 – 1.5) e il Modulo CLIL in lingua inglese.'
       },
       {
         id: 'uda-1.2',

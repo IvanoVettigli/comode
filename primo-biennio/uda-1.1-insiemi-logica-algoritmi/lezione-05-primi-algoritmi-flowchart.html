@@ -1,0 +1,1880 @@
+<!DOCTYPE html>
+<html lang="it" data-theme="dark">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lezione 1.5: Primi Algoritmi, Diagrammi di Flusso e Pensiero Computazionale • comode</title>
+  <meta name="description"
+    content="Lezione interattiva di Matematica e Informatica per il 1° anno del Liceo delle Scienze Umane: concetto di algoritmo, variabili, tabelle di traccia, diagrammi di flusso, MCD di Euclide, ricerca binaria ed euristiche cognitive.">
+
+  <!-- Font Google -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+
+  <!-- KaTeX 0.19.1 per rendering matematico -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.19.1/dist/katex.min.css" crossorigin="anonymous">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.19.1/dist/katex.min.js" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.19.1/dist/contrib/auto-render.min.js"
+    crossorigin="anonymous"></script>
+
+  <!-- Master Stylesheet Condiviso -->
+  <link rel="stylesheet" href="../../shared/css/comode.css">
+
+  <style>
+    /* ==========================================================================
+       Stili Specifici Lezione 1.5 (prefisso .l05- anti-collisione KaTeX)
+       ========================================================================== */
+
+    .l05-stage {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 1.25rem;
+      margin: 1.15rem 0;
+    }
+
+    .l05-controls-row {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+      margin-bottom: 1rem;
+    }
+
+    .l05-pill-btn {
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+      font-family: inherit;
+      padding: 0.45rem 0.9rem;
+      border-radius: var(--radius-pill);
+      font-size: 0.84rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .l05-pill-btn:hover,
+    .l05-pill-btn.active {
+      border-color: var(--accent-math);
+      color: var(--text-main);
+      background: var(--accent-math-glow);
+    }
+
+    .l05-pill-btn.purple.active,
+    .l05-pill-btn.purple:hover {
+      border-color: var(--accent-purple);
+      background: rgba(139, 92, 246, 0.16);
+      color: var(--text-main);
+    }
+
+    /* Pseudocodice & Tabelle di Traccia */
+    .l05-pseudocode-box {
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-accent);
+      border-left: 4px solid var(--accent-math);
+      border-radius: var(--radius-sm);
+      padding: 1rem 1.15rem;
+      font-family: var(--font-mono);
+      font-size: 0.88rem;
+      line-height: 1.75;
+      color: var(--text-main);
+      overflow-x: auto;
+    }
+
+    .l05-code-kw {
+      color: var(--accent-purple);
+      font-weight: 800;
+    }
+
+    .l05-code-num {
+      color: var(--text-dim);
+      margin-right: 0.6rem;
+      user-select: none;
+    }
+
+    .l05-trace-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-family: var(--font-mono);
+      font-size: 0.86rem;
+      text-align: center;
+      margin-top: 0.85rem;
+    }
+
+    .l05-trace-table th,
+    .l05-trace-table td {
+      padding: 0.58rem 0.5rem;
+      border: 1px solid var(--border-subtle);
+    }
+
+    .l05-trace-table th {
+      background: var(--bg-surface-elevated);
+      color: var(--accent-math);
+    }
+
+    .l05-trace-table tr.highlight-step {
+      background: rgba(16, 185, 129, 0.14);
+      font-weight: 800;
+    }
+
+    /* Flowchart SVG Interattivo */
+    .l05-flow-wrap {
+      text-align: center;
+      overflow-x: auto;
+    }
+
+    .l05-flow-node {
+      transition: all 0.25s ease;
+    }
+
+    .l05-flow-node.lit {
+      stroke: var(--accent-success) !important;
+      stroke-width: 3px !important;
+      fill: rgba(16, 185, 129, 0.18) !important;
+    }
+
+    .l05-select {
+      background: var(--bg-surface-elevated);
+      color: var(--text-main);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 0.4rem 0.65rem;
+      font-family: var(--font-mono);
+      font-size: 0.86rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    /* Laboratorio 4: Barra Ricerca Binaria */
+    .l05-bsearch-bar {
+      display: grid;
+      grid-template-columns: repeat(20, 1fr);
+      gap: 3px;
+      margin: 0.85rem 0;
+    }
+
+    .l05-bsearch-seg {
+      height: 26px;
+      border-radius: 3px;
+      background: rgba(56, 189, 248, 0.28);
+      border: 1px solid rgba(56, 189, 248, 0.45);
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-main);
+      transition: var(--transition);
+    }
+
+    .l05-bsearch-seg.discarded {
+      background: var(--bg-surface-elevated);
+      border-color: var(--border-subtle);
+      opacity: 0.28;
+    }
+
+    .l05-bsearch-seg.found {
+      background: rgba(16, 185, 129, 0.4);
+      border-color: var(--accent-success);
+      font-weight: 800;
+    }
+
+    /* Laboratorio 5: Psicologia Cognitiva Sistema 1 vs Sistema 2 */
+    .l05-cog-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(235px, 1fr));
+      gap: 0.95rem;
+      margin-top: 0.75rem;
+    }
+
+    .l05-cog-card {
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 1rem;
+    }
+
+    /* Laboratorio 6: Palestra Mentale */
+    .gym-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.25rem;
+      margin-top: 1rem;
+    }
+
+    .gym-card {
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .gym-card.solved {
+      border-color: rgba(16, 185, 129, 0.45);
+      background: rgba(16, 185, 129, 0.05);
+    }
+
+    .gym-badge {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--accent-purple);
+      text-transform: uppercase;
+      margin-bottom: 0.4rem;
+    }
+
+    .gym-question {
+      font-size: 0.98rem;
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+      line-height: 1.6;
+    }
+
+    .l05-triage-diagram {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 1rem;
+      margin: 1rem 0 1.25rem;
+      text-align: center;
+      overflow-x: auto;
+    }
+  </style>
+</head>
+
+<body data-theme="dark" data-lesson-id="pb-1.1-l05" data-xp="60" data-unit="uda-1.1">
+
+  <div class="container">
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+      <a href="../../index.html" class="brand">
+        📐 comode<span>.</span>
+      </a>
+      <div class="nav-actions">
+        <div class="gamification-widget" title="Il tuo livello e punti XP">
+          <span class="level-badge user-level-val">Liv. 1 🌱</span>
+          <span class="xp-counter user-xp-val">0 XP</span>
+        </div>
+        <button id="audioToggleBtn" class="icon-btn" aria-label="Attiva o disattiva audio">
+          🔊 <span class="nav-text">Suoni</span>
+        </button>
+        <button id="themeToggleBtn" class="theme-toggle-btn" aria-label="Cambia tema">
+          <span id="themeIcon">☀️</span>
+          <span id="themeLabel">Chiaro</span>
+        </button>
+      </div>
+    </nav>
+
+    <!-- Breadcrumbs -->
+    <div class="breadcrumbs">
+      <a href="../../index.html">Home</a>
+      <span class="sep">/</span>
+      <a href="../index.html">Primo Biennio</a>
+      <span class="sep">/</span>
+      <a href="index.html">UDA 1.1: Insiemi, Logica e Algoritmi</a>
+      <span class="sep">/</span>
+      <span class="current">Lezione 1.5</span>
+    </div>
+
+    <!-- Hero Card -->
+    <header class="hero-card">
+      <div class="hero-badges">
+        <span class="badge badge-primary">Matematica &amp; Informatica • 1° Anno</span>
+        <span class="badge badge-secondary">UDA 1.1 • Insiemi, Logica e Algoritmi</span>
+        <span class="badge badge-meta">Flowchart, Trace Table &amp; Scienze Cognitive</span>
+      </div>
+      <h1 class="hero-title">Primi Algoritmi, Diagrammi di Flusso e Pensiero Computazionale</h1>
+      <p class="hero-desc">
+        Come si trasforma un'idea in una procedura infallibile eseguibile da un essere umano o da un computer? Impara a
+        progettare <strong>diagrammi di flusso</strong>, a tracciare lo stato delle <strong>variabili</strong> con le
+        <em>tabelle di traccia</em>, a eseguire l'<strong>algoritmo di Euclide</strong> e la <strong>ricerca
+          binaria</strong>, confrontandoli con le <em>euristiche</em> della mente umana.
+      </p>
+
+      <!-- Progress Tracker -->
+      <div class="progress-bar-card">
+        <div class="progress-label">
+          <span>🎯 Progresso Laboratori Guidati:</span>
+          <span class="progress-score" id="progressScore">0 / 6 completati</span>
+        </div>
+        <div class="progress-track">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+      </div>
+    </header>
+
+    <!-- ========================================================
+         PREREQUISITI & OBIETTIVI ("COSA SAPRAI FARE")
+         ======================================================== -->
+    <div class="prereq-objectives-grid">
+      <div class="prereq-card">
+        <div class="card-top-label prereq">
+          <span>🔑</span> Prerequisiti Consigliati
+        </div>
+        <h2 class="po-title">Cosa ti serve prima di iniziare</h2>
+        <ul class="po-list">
+          <li>
+            <span class="po-icon">✓</span>
+            <div><strong>Divisione intera con quoziente e resto:</strong> saper scrivere $a = b \cdot q + r$ (es. $17 :
+              5 = 3$ con resto $2$).</div>
+          </li>
+          <li>
+            <span class="po-icon">✓</span>
+            <div><strong>Potenze di $2$ e M.C.D.:</strong> conoscere $2^5 = 32, 2^7 = 128, 2^{10} = 1024$ e il
+              significato di Massimo Comune Divisore (Lezione 1.3).</div>
+          </li>
+          <li>
+            <span class="po-icon">✓</span>
+            <div><strong>Condizioni logiche V/F:</strong> valutare condizioni con $>, <, =$ e connettivi «e / o»
+              (Lezione 1.4).</div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="objectives-card">
+        <div class="card-top-label objectives">
+          <span>🎯</span> Competenze in Uscita
+        </div>
+        <h2 class="po-title">Cosa saprai fare alla fine della lezione</h2>
+        <ul class="po-list">
+          <li>
+            <span class="po-icon">🚀</span>
+            <div><strong>Riconoscere e progettare un algoritmo:</strong> verificare finitezza, non ambiguità e
+              determinismo e leggere i blocchi di un <em>flowchart</em>.</div>
+          </li>
+          <li>
+            <span class="po-icon">🚀</span>
+            <div><strong>Costruire Tabelle di Traccia (*Trace Table*):</strong> seguire passo dopo passo l'evoluzione
+              delle variabili in sequenze, scelte <code>se-allora-altrimenti</code> e cicli.</div>
+          </li>
+          <li>
+            <span class="po-icon">🚀</span>
+            <div><strong>Applicare M.C.D. di Euclide e Ricerca Binaria:</strong> calcolare il M.C.D. per divisioni
+              successive e dimezzare gli intervalli di ricerca.</div>
+          </li>
+          <li>
+            <span class="po-icon">🚀</span>
+            <div><strong>Distinguere Algoritmi ed Euristiche:</strong> confrontare procedure esatte e scorciatoie
+              cognitive umane nella Scheda Operativa di triage scolastico.</div>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+
+    <!-- ========================================================
+         SEZIONE 1: SCHEDA TEORIA FLASH (6 Ancore #teoria-1..6)
+         ======================================================== -->
+    <section class="theory-wrapper">
+      <div class="section-header">
+        <h2 class="section-title">
+          <span class="icon">⚡</span> Scheda Teoria Flash: Algoritmi, Variabili e Flowchart
+        </h2>
+        <button id="toggleTheoryBtn" class="collapse-btn">
+          <span>Nascondi Teoria</span> ▴
+        </button>
+      </div>
+
+      <div id="theoryContent" class="theory-grid">
+
+        <!-- Teoria 1 -->
+        <div class="theory-card" id="teoria-1">
+          <div class="theory-card-header">
+            <span class="pill-num">1</span>
+            <span>Che cos'è un Algoritmo? (4 Proprietà)</span>
+          </div>
+          <ul class="theory-list">
+            <li>Un <strong>algoritmo</strong> (dal nome del matematico persiano <em>al-Khwārizmī</em>, IX sec.) è una
+              sequenza ordinata di istruzioni che trasforma dati di <strong>Input</strong> in un <strong>Output</strong>.
+            </li>
+            <li>Deve rispettare 4 requisiti: <strong>1. Finitezza</strong> (termina sempre in un numero finito di
+              passi); <strong>2. Non ambiguità</strong> (niente frasi vaghe come «aggiungi un pizzico»);
+              <strong>3. Determinismo</strong> (stesso input $\to$ stesso output); <strong>4. Generalità</strong> (vale
+              per tutta una classe di dati).</li>
+          </ul>
+        </div>
+
+        <!-- Teoria 2 -->
+        <div class="theory-card" id="teoria-2">
+          <div class="theory-card-header">
+            <span class="pill-num">2</span>
+            <span>Variabili, Assegnazione ($\leftarrow$) e Tabella di Traccia</span>
+          </div>
+          <ul class="theory-list">
+            <li>Una <strong>variabile</strong> è un contenitore con un nome che custodisce un valore aggiornabile nel
+              tempo.</li>
+            <li>L'istruzione <code>x ← x + 3</code> <strong>non è un'equazione</strong>, ma un'<strong>assegnazione</strong>:
+              calcola prima la destra usando il vecchio valore di <code>x</code> e salva il risultato dentro
+              <code>x</code>!</li>
+            <li>La <strong>Tabella di Traccia (*Trace Table*)</strong> annota riga per riga i valori assunti da tutte le
+              variabili per prevedere l'esito del programma e scovare errori (<em>debugging</em>).</li>
+          </ul>
+        </div>
+
+        <!-- Teoria 3 -->
+        <div class="theory-card" id="teoria-3">
+          <div class="theory-card-header">
+            <span class="pill-num">3</span>
+            <span>Diagrammi di Flusso &amp; Strutture di Controllo</span>
+          </div>
+          <ul class="theory-list">
+            <li><strong>Geometria dei blocchi</strong>: <em>Ovale</em> = Inizio/Fine; <em>Parallelogramma</em> =
+              Input/Output; <em>Rettangolo</em> = Azione/Assegnazione; <em>Rombo</em> = Condizione logica (rami
+              <strong>Vero / Falso</strong>).</li>
+            <li><strong>Teorema di Böhm-Jacopini (1966)</strong>: qualunque algoritmo si può scrivere combinando solo
+              <strong>3 strutture</strong>: <strong>Sequenza</strong>, <strong>Selezione</strong>
+              (<code>se ... allora ... altrimenti</code>) e <strong>Iterazione</strong> (ciclo <code>mentre</code>).
+            </li>
+          </ul>
+        </div>
+
+        <!-- Teoria 4 -->
+        <div class="theory-card" id="teoria-4">
+          <div class="theory-card-header">
+            <span class="pill-num">4</span>
+            <span>Algoritmo di Euclide delle Divisioni Successive</span>
+          </div>
+          <ul class="theory-list">
+            <li>Come trovare $\text{M.C.D.}(a, b)$ su numeri grandi senza scomporli in fattori primi?</li>
+            <li>Si usa la proprietà $\text{M.C.D.}(a, b) = \text{M.C.D.}(b, r)$, dove $r$ è il <strong>resto</strong> di
+              $a : b$:
+              <br>• <strong>Ciclo:</strong> finché $b \neq 0$, calcola il resto $r$ di $a : b$, poi poni
+              <code>a ← b</code> e <code>b ← r</code>.
+              <br>• Quando $b$ diventa $0$, il valore rimasto in $a$ è il <strong>M.C.D.</strong>!
+            </li>
+          </ul>
+        </div>
+
+        <!-- Teoria 5 -->
+        <div class="theory-card" id="teoria-5">
+          <div class="theory-card-header">
+            <span class="pill-num">5</span>
+            <span>Ricerca Lineare vs Ricerca Binaria</span>
+          </div>
+          <ul class="theory-list">
+            <li><strong>Ricerca Lineare</strong> (lista disordinata): controlli un elemento dopo l'altro; nel caso
+              peggiore servono <strong>$N$ controlli</strong>.</li>
+            <li><strong>Ricerca Binaria</strong> (lista <em>ordinata</em>): controlli sempre l'elemento centrale e scarti
+              metà lista ad ogni domanda! Bastano $k$ passi con $2^k \ge N$ (su $1\,000$ nomi ordinati bastano
+              <strong>$10$ passi</strong> perché $2^{10} = 1\,024$!).</li>
+          </ul>
+        </div>
+
+        <!-- Teoria 6 -->
+        <div class="theory-card" id="teoria-6">
+          <div class="theory-card-header">
+            <span class="pill-num">6</span>
+            <span>Psicologia Cognitiva: Algoritmi vs Euristiche</span>
+          </div>
+          <ul class="theory-list">
+            <li>Gli psicologi <em>Herbert Simon</em> e <em>Daniel Kahneman</em> distinguono due strategie nella mente
+              umana:</li>
+            <li><strong>Algoritmo (*Sistema 2*, lento e analitico)</strong>: procedura passo-passo che garantisce il
+              risultato esatto, ma richiede tempo e concentrazione.</li>
+            <li><strong>Euristica (*Sistema 1*, veloce e intuitivo)</strong>: scorciatoia mentale rapida ed economica per
+              decidere nella vita quotidiana, ma esposta a trabocchetti cognitivi (<em>bias</em>).</li>
+          </ul>
+        </div>
+
+        <!-- Quote Interdisciplinare Scienze Umane -->
+        <div class="quote-box">
+          <span class="quote-icon">🤖</span>
+          <div class="quote-text">
+            <strong>Ponte con la Psicologia &amp; Sociologia:</strong> Un computer esegue miliardi di istruzioni al
+            secondo senza mai distrarsi, ma non comprende il contesto umano; un essere umano usa brillanti
+            <em>euristiche</em> intuitive ed empatiche, ma può cadere in pregiudizi se non controlla i passaggi. Saper
+            unire rigore algoritmico e sensibilità umana è la chiave della cittadinanza contemporanea.
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- ========================================================
+         SEZIONE 2: I 6 LABORATORI INTERATTIVI
+         ======================================================== -->
+    <main class="labs-container">
+
+      <!-- ======================================================
+           LABORATORIO 1: SIMULATORE VISIVO DI FLOWCHART
+           ====================================================== -->
+      <article class="lab-card" id="lab1">
+        <div class="lab-header">
+          <div class="lab-badge-group">
+            <span class="lab-number">Laboratorio 1 • Selezione Condizionale</span>
+            <span class="xp-pill">+10 XP</span>
+          </div>
+        </div>
+
+        <h3 class="lab-title">Simulatore Visivo di Flowchart: Lo Sconto della Cooperativa Scolastica</h3>
+
+        <div class="theory-link-box">
+          <span class="tl-icon">🔗</span>
+          <div>
+            <strong>Collegamento Teoria ↔ Pratica:</strong> Questo laboratorio visualizza la
+            <a href="#teoria-1" class="theory-link-anchor"
+              onclick="event.preventDefault(); scrollToTheory('teoria-1');">Teoria 1 • Determinismo dell'Algoritmo</a>
+            e la
+            <a href="#teoria-3" class="theory-link-anchor"
+              onclick="event.preventDefault(); scrollToTheory('teoria-3');">Teoria 3 • Blocchi del Flowchart e Selezione
+              <code>se-allora-altrimenti</code></a>.
+          </div>
+        </div>
+
+        <p class="lab-objective">
+          Scegli qui sotto i dati di <strong>Input</strong> (`spesa` e `tessera`) e premi <strong>▶️ Simula
+            Percorso</strong>: guarda quali blocchi e quali rami dei rombi si illuminano fino all'Output!
+        </p>
+
+        <div class="l05-stage">
+          <div class="l05-controls-row">
+            <label style="font-size: 0.86rem; font-weight: 700;">Input <code>spesa</code>:</label>
+            <select id="flowSpesaSel" class="l05-select" onchange="simulateFlowchart()">
+              <option value="36">36 €</option>
+              <option value="22">22 €</option>
+            </select>
+            <label style="font-size: 0.86rem; font-weight: 700; margin-left: 0.35rem;">Input <code>tessera</code>:</label>
+            <select id="flowTesseraSel" class="l05-select" onchange="simulateFlowchart()">
+              <option value="si">Sì</option>
+              <option value="no">No</option>
+            </select>
+            <button type="button" class="l05-pill-btn active" onclick="simulateFlowchart()">▶️ Simula Percorso</button>
+          </div>
+
+          <div class="l05-flow-wrap">
+            <svg viewBox="0 0 580 350" style="width: 100%; max-width: 560px; height: auto;">
+              <!-- Ovale INIZIO + Input -->
+              <rect id="fn-start" class="l05-flow-node" x="200" y="10" width="180" height="34" rx="17"
+                fill="var(--bg-surface-elevated)" stroke="var(--accent-math)" stroke-width="2" />
+              <text x="290" y="31" font-size="12" font-weight="800" text-anchor="middle" fill="var(--text-main)"
+                font-family="var(--font-mono)">INIZIO • Leggi dati</text>
+
+              <line x1="290" y1="44" x2="290" y2="66" stroke="var(--text-muted)" stroke-width="1.8" />
+
+              <!-- Rombo 1: spesa >= 30? -->
+              <polygon id="fn-cond1" class="l05-flow-node" points="290,66 385,100 290,134 195,100"
+                fill="var(--bg-surface-elevated)" stroke="var(--accent-purple)" stroke-width="2" />
+              <text x="290" y="104" font-size="11.5" font-weight="800" text-anchor="middle" fill="var(--text-main)"
+                font-family="var(--font-mono)">spesa ≥ 30 ?</text>
+
+              <!-- Rami Rombo 1 -->
+              <polyline points="195,100 115,100 115,142" fill="none" stroke="var(--accent-success)" stroke-width="1.8" />
+              <text x="150" y="93" font-size="11" font-weight="800" fill="var(--accent-success)">VERO</text>
+              <polyline points="385,100 465,100 465,142" fill="none" stroke="var(--accent-danger)" stroke-width="1.8" />
+              <text x="415" y="93" font-size="11" font-weight="800" fill="var(--accent-danger)">FALSO</text>
+
+              <!-- Azioni Rombo 1 -->
+              <rect id="fn-act1T" class="l05-flow-node" x="45" y="142" width="140" height="34" rx="6"
+                fill="var(--bg-surface-elevated)" stroke="var(--border-subtle)" stroke-width="2" />
+              <text x="115" y="163" font-size="11.5" font-weight="700" text-anchor="middle" fill="var(--text-main)"
+                font-family="var(--font-mono)">sconto ← 5</text>
+
+              <rect id="fn-act1F" class="l05-flow-node" x="395" y="142" width="140" height="34" rx="6"
+                fill="var(--bg-surface-elevated)" stroke="var(--border-subtle)" stroke-width="2" />
+              <text x="465" y="163" font-size="11.5" font-weight="700" text-anchor="middle" fill="var(--text-main)"
+                font-family="var(--font-mono)">sconto ← 0</text>
+
+              <!-- Riconvergenza verso Rombo 2 -->
+              <polyline points="115,176 115,195 290,195 290,210" fill="none" stroke="var(--text-muted)"
+                stroke-width="1.6" />
+              <polyline points="465,176 465,195 290,195" fill="none" stroke="var(--text-muted)" stroke-width="1.6" />
+
+              <!-- Rombo 2: tessera = Sì? -->
+              <polygon id="fn-cond2" class="l05-flow-node" points="290,210 385,242 290,274 195,242"
+                fill="var(--bg-surface-elevated)" stroke="var(--accent-purple)" stroke-width="2" />
+              <text x="290" y="246" font-size="11.5" font-weight="800" text-anchor="middle" fill="var(--text-main)"
+                font-family="var(--font-mono)">tessera = Sì?</text>
+
+              <!-- Ramo VERO Rombo 2 -->
+              <polyline points="195,242 115,242 115,298 190,298" fill="none" stroke="var(--accent-success)"
+                stroke-width="1.8" />
+              <text x="148" y="235" font-size="11" font-weight="800" fill="var(--accent-success)">VERO</text>
+              <rect id="fn-act2T" class="l05-flow-node" x="28" y="256" width="160" height="32" rx="6"
+                fill="var(--bg-surface-elevated)" stroke="var(--border-subtle)" stroke-width="2" />
+              <text x="108" y="276" font-size="11" font-weight="700" text-anchor="middle" fill="var(--text-main)"
+                font-family="var(--font-mono)">sconto ← sconto + 2</text>
+
+              <!-- Ramo FALSO Rombo 2 -->
+              <polyline points="385,242 445,242 445,316 390,316" fill="none" stroke="var(--accent-danger)"
+                stroke-width="1.8" />
+              <text x="405" y="235" font-size="11" font-weight="800" fill="var(--accent-danger)">FALSO</text>
+
+              <!-- Calcolo Finale & Output -->
+              <rect id="fn-end" class="l05-flow-node" x="190" y="298" width="200" height="38" rx="18"
+                fill="var(--bg-surface-elevated)" stroke="var(--accent-math)" stroke-width="2" />
+              <text x="290" y="321" font-size="11.5" font-weight="800" text-anchor="middle" fill="var(--text-main)"
+                font-family="var(--font-mono)">finale ← spesa − sconto</text>
+            </svg>
+          </div>
+
+          <div id="flowSimOutput"
+            style="margin-top: 0.65rem; text-align: center; font-size: 0.92rem; color: var(--text-muted);"></div>
+        </div>
+
+        <div class="step-box">
+          <div class="step-header">
+            <span class="step-tag">Esegui Tu il Flowchart su Due Nuovi Clienti</span>
+            <a href="#teoria-3" class="theory-ref-pill" onclick="event.preventDefault(); scrollToTheory('teoria-3');">
+              🔗 Rif. Teoria 3 • Rami Vero / Falso nei Rombi
+            </a>
+          </div>
+          <div class="step-content">
+            <p>
+              Seguendo esattamente i blocchi del diagramma di flusso qui sopra, calcola il prezzo <code>finale</code> da
+              pagare per:<br>
+              • <strong>Cliente A:</strong> <code>spesa = 35 €</code> e <code>tessera = Sì</code>.<br>
+              • <strong>Cliente B:</strong> <code>spesa = 18 €</code> e <code>tessera = Sì</code>.
+            </p>
+            <button type="button" class="hint-btn" onclick="toggleHint('hintLab1')">💡 Mostra Suggerimento</button>
+            <div id="hintLab1" class="hint-text">
+              • Per <strong>A</strong> ($35 \ge 30$ è Vero): `sconto` parte da $5$, poi con `tessera = Sì` diventa $5 +
+              2 = 7$, quindi `finale` $= 35 - 7 = 28$ €.<br>
+              • Per <strong>B</strong> ($18 \ge 30$ è Falso): `sconto` parte da $0$, poi con `tessera = Sì` diventa $0 +
+              2 = 2$, quindi `finale` $= 18 - 2 = 16$ €.
+            </div>
+            <div class="verify-box" style="margin-top: 0.75rem;">
+              <label style="font-weight: 700;">Cliente A (€):</label>
+              <input type="number" id="lab1OutA" class="inline-input" style="width: 80px;" placeholder="€">
+              <label style="font-weight: 700; margin-left: 0.4rem;">Cliente B (€):</label>
+              <input type="number" id="lab1OutB" class="inline-input" style="width: 80px;" placeholder="€">
+              <button class="btn-action" onclick="verifyLab1()">Verifica Output</button>
+              <span id="lab1Msg" class="feedback-msg" style="display: none;"></span>
+            </div>
+          </div>
+        </div>
+      </article>
+
+
+      <!-- ======================================================
+           LABORATORIO 2: VARIABILI & TABELLA DI TRACCIA (TRACE TABLE)
+           ====================================================== -->
+      <article class="lab-card" id="lab2">
+        <div class="lab-header">
+          <div class="lab-badge-group">
+            <span class="lab-number">Laboratorio 2 • Nucleo Informatica</span>
+            <span class="xp-pill">+10 XP</span>
+          </div>
+        </div>
+
+        <h3 class="lab-title">Tracciamento dello Stato delle Variabili (Tabella di Traccia)</h3>
+
+        <div class="theory-link-box">
+          <span class="tl-icon">🔗</span>
+          <div>
+            <strong>Collegamento Teoria ↔ Pratica:</strong> Questo laboratorio allena direttamente la competenza
+            informatica ministeriale della
+            <a href="#teoria-2" class="theory-link-anchor"
+              onclick="event.preventDefault(); scrollToTheory('teoria-2');">Teoria 2 • Variabili, Assegnazione e Trace
+              Table</a>.
+          </div>
+        </div>
+
+        <p class="lab-objective">
+          Prima osserva nell'<strong>Esempio Animato</strong> come un ciclo aggiorna passo dopo passo le variabili
+          <code>i</code> e <code>somma</code>; poi compila tu lo stato finale dell'algoritmo nella sfida sotto!
+        </p>
+
+        <div class="l05-stage">
+          <div style="font-weight: 800; font-size: 0.92rem; margin-bottom: 0.5rem;">
+            Esempio Guida: Come funziona un ciclo <code>mentre</code> nella Tabella di Traccia
+          </div>
+          <div class="l05-pseudocode-box">
+            <div><span class="l05-code-num">1</span>somma ← 0 ; i ← 1</div>
+            <div><span class="l05-code-num">2</span><span class="l05-code-kw">mentre</span> (i ≤ 3) <span
+                class="l05-code-kw">esegui</span>:</div>
+            <div><span class="l05-code-num">3</span>&nbsp;&nbsp;&nbsp;somma ← somma + i</div>
+            <div><span class="l05-code-num">4</span>&nbsp;&nbsp;&nbsp;i ← i + 1</div>
+            <div><span class="l05-code-num">5</span><span class="l05-code-kw">scrivi</span> somma</div>
+          </div>
+
+          <div class="l05-controls-row" style="margin-top: 0.85rem; margin-bottom: 0.35rem;">
+            <button type="button" class="l05-pill-btn active" onclick="advanceDemoTrace()">➕ Aggiungi Passo alla Tabella
+              di Traccia</button>
+            <button type="button" class="l05-pill-btn" onclick="resetDemoTrace()">🔄 Ricomincia Traccia</button>
+          </div>
+
+          <div style="overflow-x: auto;">
+            <table class="l05-trace-table">
+              <thead>
+                <tr>
+                  <th>Passo</th>
+                  <th>Istruzione eseguita</th>
+                  <th>Condizione (i ≤ 3)</th>
+                  <th>Variabile <code>i</code></th>
+                  <th>Variabile <code>somma</code></th>
+                </tr>
+              </thead>
+              <tbody id="demoTraceBody"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="step-box">
+          <div class="step-header">
+            <span class="step-tag">Tocca a Te: Traccia lo Stato Finale delle Variabili</span>
+            <a href="#teoria-2" class="theory-ref-pill" onclick="event.preventDefault(); scrollToTheory('teoria-2');">
+              🔗 Rif. Teoria 2 • Assegnazione <code>x ← x + 5</code>
+            </a>
+          </div>
+          <div class="step-content">
+            <p>Segui riga per riga questo programma e scrivi i valori finali contenuti nelle tre variabili
+              <code>x</code>, <code>y</code> e <code>totale</code> al termine dell'esecuzione:</p>
+            <div class="l05-pseudocode-box" style="margin: 0.6rem 0;">
+              <div><span class="l05-code-num">1</span>x ← 4</div>
+              <div><span class="l05-code-num">2</span>y ← 10</div>
+              <div><span class="l05-code-num">3</span><span class="l05-code-kw">se</span> (y &gt; 6) <span
+                  class="l05-code-kw">allora</span></div>
+              <div><span class="l05-code-num">4</span>&nbsp;&nbsp;&nbsp;x ← x + 5</div>
+              <div><span class="l05-code-num">5</span>&nbsp;&nbsp;&nbsp;y ← y − 3</div>
+              <div><span class="l05-code-num">6</span><span class="l05-code-kw">altrimenti</span></div>
+              <div><span class="l05-code-num">7</span>&nbsp;&nbsp;&nbsp;x ← x − 1</div>
+              <div><span class="l05-code-num">8</span>totale ← x + y</div>
+            </div>
+            <button type="button" class="hint-btn" onclick="toggleHint('hintLab2')">💡 Mostra Suggerimento</button>
+            <div id="hintLab2" class="hint-text">
+              Alla riga 3, $y$ vale $10$, quindi $10 > 6$ è <strong>Vero</strong>! Entriamo nel ramo `allora` (righe 4 e
+              5) e saltiamo `altrimenti`: `x` diventa $4 + 5 = 9$, `y` diventa $10 - 3 = 7$, e alla riga 8 `totale`
+              diventa $9 + 7$!
+            </div>
+            <div class="verify-box" style="margin-top: 0.75rem;">
+              <label style="font-weight: 700;"><code>x</code> finale:</label>
+              <input type="number" id="lab2VarX" class="inline-input" style="width: 72px;" placeholder="x">
+              <label style="font-weight: 700;"><code>y</code> finale:</label>
+              <input type="number" id="lab2VarY" class="inline-input" style="width: 72px;" placeholder="y">
+              <label style="font-weight: 700;"><code>totale</code>:</label>
+              <input type="number" id="lab2VarTot" class="inline-input" style="width: 78px;" placeholder="tot">
+              <button class="btn-action" onclick="verifyLab2()">Verifica Traccia</button>
+              <span id="lab2Msg" class="feedback-msg" style="display: none;"></span>
+            </div>
+          </div>
+        </div>
+      </article>
+
+
+      <!-- ======================================================
+           LABORATORIO 3: ALGORITMO DI EUCLIDE DELLE DIVISIONI SUCCESSIVE
+           ====================================================== -->
+      <article class="lab-card" id="lab3">
+        <div class="lab-header">
+          <div class="lab-badge-group">
+            <span class="lab-number">Laboratorio 3 • Algoritmi Storici</span>
+            <span class="xp-pill">+10 XP</span>
+          </div>
+        </div>
+
+        <h3 class="lab-title">L'Algoritmo di Euclide delle Divisioni Successive Passo dopo Passo</h3>
+
+        <div class="theory-link-box">
+          <span class="tl-icon">🔗</span>
+          <div>
+            <strong>Collegamento Teoria ↔ Pratica:</strong> Questo laboratorio esegue la
+            <a href="#teoria-4" class="theory-link-anchor"
+              onclick="event.preventDefault(); scrollToTheory('teoria-4');">Teoria 4 • M.C.D. per Divisioni Successive
+              ($a \leftarrow b, b \leftarrow r$)</a>,
+            il più antico algoritmo non banale giunto fino a noi (*Elementi*, Libro VII).
+          </div>
+        </div>
+
+        <p class="lab-objective">
+          Inserisci due numeri interi positivi qualsiasi (o usa i pulsanti rapidi) per generare istantaneamente la
+          <strong>Tabella di Traccia delle divisioni con resto</strong> fino a $r = 0$!
+        </p>
+
+        <div class="l05-stage">
+          <div class="l05-controls-row">
+            <button type="button" class="l05-pill-btn active" onclick="loadEuclidGcd(84, 30)">Esempio: (84, 30)</button>
+            <button type="button" class="l05-pill-btn" onclick="loadEuclidGcd(252, 105)">Esempio: (252, 105)</button>
+            <button type="button" class="l05-pill-btn" onclick="loadEuclidGcd(119, 34)">Esempio: (119, 34)</button>
+          </div>
+          <div class="l05-controls-row">
+            <label style="font-family: var(--font-mono); font-size: 0.86rem;">a =</label>
+            <input type="number" id="euclidInA" class="inline-input" style="width: 90px;" value="84" min="1" max="99999">
+            <label style="font-family: var(--font-mono); font-size: 0.86rem;">b =</label>
+            <input type="number" id="euclidInB" class="inline-input" style="width: 90px;" value="30" min="1" max="99999">
+            <button type="button" class="l05-pill-btn purple active" onclick="computeEuclidGcdTable()">⚡ Calcola Passi di
+              Euclide</button>
+          </div>
+
+          <div style="overflow-x: auto;">
+            <table class="l05-trace-table">
+              <thead>
+                <tr>
+                  <th>Iterazione</th>
+                  <th>Dividendo <code>a</code></th>
+                  <th>Divisore <code>b</code></th>
+                  <th>Quoziente <code>q</code></th>
+                  <th>Resto <code>r = a mod b</code></th>
+                  <th>Scorrimento per il passo dopo</th>
+                </tr>
+              </thead>
+              <tbody id="euclidGcdBody"></tbody>
+            </table>
+          </div>
+          <div id="euclidGcdResult"
+            style="margin-top: 0.75rem; text-align: center; font-weight: 800; color: var(--accent-success);"></div>
+        </div>
+
+        <div class="step-box">
+          <div class="step-header">
+            <span class="step-tag">Calcola a Mano un M.C.D. con Euclide</span>
+            <a href="#teoria-4" class="theory-ref-pill" onclick="event.preventDefault(); scrollToTheory('teoria-4');">
+              🔗 Rif. Teoria 4 • $\text{M.C.D.}(a, b) = \text{M.C.D.}(b, r)$
+            </a>
+          </div>
+          <div class="step-content">
+            <p>
+              Esegui sul quaderno (senza usare la calcolatrice sopra!) i passi dell'algoritmo di Euclide per
+              <strong>$a = 90$</strong> e <strong>$b = 54$</strong>:<br>
+              1. Quanto vale il <strong>primo resto $r_1$</strong> della divisione $90 : 54$?<br>
+              2. Proseguendo fino a resto $0$, quanto vale il <strong>$\text{M.C.D.}(90, 54)$</strong>?
+            </p>
+            <button type="button" class="hint-btn" onclick="toggleHint('hintLab3')">💡 Mostra Suggerimento</button>
+            <div id="hintLab3" class="hint-text">
+              • Passo 1: $90 = 54 \times 1 + 36 \implies r_1 = 36$.<br>
+              • Passo 2: scorri $a \leftarrow 54, b \leftarrow 36$: $54 = 36 \times 1 + 18 \implies r_2 = 18$.<br>
+              • Passo 3: scorri $a \leftarrow 36, b \leftarrow 18$: $36 = 18 \times 2 + 0 \implies$ resto zero! L'ultimo
+              divisore è $18$.
+            </div>
+            <div class="verify-box" style="margin-top: 0.75rem;">
+              <label style="font-weight: 700;">Primo resto $r_1$:</label>
+              <input type="number" id="lab3FirstRem" class="inline-input" style="width: 80px;" placeholder="r1">
+              <label style="font-weight: 700; margin-left: 0.4rem;">M.C.D.(90, 54):</label>
+              <input type="number" id="lab3FinalGcd" class="inline-input" style="width: 80px;" placeholder="MCD">
+              <button class="btn-action" onclick="verifyLab3()">Verifica Euclide</button>
+              <span id="lab3Msg" class="feedback-msg" style="display: none;"></span>
+            </div>
+          </div>
+        </div>
+      </article>
+
+
+      <!-- ======================================================
+           LABORATORIO 4: RICERCA BINARIA (DIMEZZARE L'INTERVALLO)
+           ====================================================== -->
+      <article class="lab-card" id="lab4">
+        <div class="lab-header">
+          <div class="lab-badge-group">
+            <span class="lab-number">Laboratorio 4 • Efficienza Computazionale</span>
+            <span class="xp-pill">+10 XP</span>
+          </div>
+        </div>
+
+        <h3 class="lab-title">La Potenza della Ricerca Binaria: Dimezzare per Trovare in un Lampo</h3>
+
+        <div class="theory-link-box">
+          <span class="tl-icon">🔗</span>
+          <div>
+            <strong>Collegamento Teoria ↔ Pratica:</strong> Questo laboratorio mostra in azione la
+            <a href="#teoria-5" class="theory-link-anchor"
+              onclick="event.preventDefault(); scrollToTheory('teoria-5');">Teoria 5 • Ricerca Lineare vs Ricerca Binaria
+              ($2^k \ge N$)</a>.
+          </div>
+        </div>
+
+        <p class="lab-objective">
+          Il computer ha nascosto un numero segreto tra $1$ e $20$ nell'elenco ordinato qui sotto. Clicca su
+          <strong>🎯 Interroga il Punto Centrale</strong> e guarda come ogni singola domanda butta via <strong>metà
+            delle caselle</strong> in un colpo solo!
+        </p>
+
+        <div class="l05-stage">
+          <div id="bsearchBar" class="l05-bsearch-bar"></div>
+          <div class="l05-controls-row" style="margin-top: 0.85rem; margin-bottom: 0.4rem;">
+            <button type="button" class="l05-pill-btn active" onclick="stepBinarySearchDemo()">🎯 Interroga il Punto
+              Centrale</button>
+            <button type="button" class="l05-pill-btn" onclick="resetBinarySearchDemo()">🎲 Nuovo Numero Segreto</button>
+          </div>
+          <div id="bsearchStatus" style="text-align: center; font-size: 0.9rem; color: var(--text-muted);"></div>
+        </div>
+
+        <div class="step-box">
+          <div class="step-header">
+            <span class="step-tag">Sfida sulla Strategia del Dimezzamento</span>
+            <a href="#teoria-5" class="theory-ref-pill" onclick="event.preventDefault(); scrollToTheory('teoria-5');">
+              🔗 Rif. Teoria 5 • Passi Massimi $2^k \ge N$
+            </a>
+          </div>
+          <div class="step-content">
+            <p>
+              <strong>1. Aggiornare gli estremi:</strong> Cerchi un numero segreto intero tra $1$ e $100$.<br>
+              • Domanda 1: provi $50$ $\to$ risposta: <em>«Il numero segreto è <strong>maggiore</strong> di $50$»</em>
+              (intervallo rimasto: da $51$ a $100$).<br>
+              • Domanda 2: provi $75$ $\to$ risposta: <em>«Il numero segreto è <strong>minore</strong> di $75$»</em>.<br>
+              Qual è adesso il <strong>nuovo estremo massimo</strong> intero ancora possibile? (Attenzione: $75$ stesso è
+              stato appena escluso!)<br>
+              <strong>2. Numero massimo di domande:</strong> In un registro elettronico con <strong>$32$ cognomi in
+                ordine alfabetico</strong>, quante domande al massimo servono alla ricerca binaria nel caso peggiore?
+              ($2^k = 32 \implies k = \dots$)
+            </p>
+            <button type="button" class="hint-btn" onclick="toggleHint('hintLab4')">💡 Mostra Suggerimento</button>
+            <div id="hintLab4" class="hint-text">
+              1. Se il numero intero è strettamente <em>minore di $75$</em>, l'intero più grande possibile sotto $75$ è
+              $74$ (l'intervallo diventa $[51, 74]$)!<br>
+              2. Calcola le potenze di $2$: $2^1=2, 2^2=4, 2^3=8, 2^4=16, 2^5=32 \implies 5$ domande!
+            </div>
+            <div class="verify-box" style="margin-top: 0.75rem;">
+              <label style="font-weight: 700;">Nuovo massimo:</label>
+              <input type="number" id="lab4MaxBound" class="inline-input" style="width: 80px;" placeholder="max">
+              <label style="font-weight: 700; margin-left: 0.4rem;">Max domande su 32:</label>
+              <input type="number" id="lab4Steps32" class="inline-input" style="width: 80px;" placeholder="k">
+              <button class="btn-action" onclick="verifyLab4()">Verifica Ricerca</button>
+              <span id="lab4Msg" class="feedback-msg" style="display: none;"></span>
+            </div>
+          </div>
+        </div>
+      </article>
+
+
+      <!-- ======================================================
+           LABORATORIO 5: PSICOLOGIA COGNITIVA (ALGORITMI VS EURISTICHE)
+           ====================================================== -->
+      <article class="lab-card" id="lab5">
+        <div class="lab-header">
+          <div class="lab-badge-group">
+            <span class="lab-number">Laboratorio 5 • Scienze Umane &amp; Cognizione</span>
+            <span class="xp-pill">+10 XP</span>
+          </div>
+        </div>
+
+        <h3 class="lab-title">Mente Umana vs Computer: Procedura Algoritmica o Euristica Intuitiva?</h3>
+
+        <div class="theory-link-box">
+          <span class="tl-icon">🔗</span>
+          <div>
+            <strong>Collegamento Teoria ↔ Pratica:</strong> Questo laboratorio esplora la
+            <a href="#teoria-6" class="theory-link-anchor"
+              onclick="event.preventDefault(); scrollToTheory('teoria-6');">Teoria 6 • Psicologia Cognitiva dei Compiti
+              Procedurali vs Euristiche (Sistema 1 e Sistema 2)</a>.
+          </div>
+        </div>
+
+        <div class="l05-stage">
+          <div class="l05-controls-row">
+            <button type="button" class="l05-pill-btn purple active" onclick="showCogScenario(0, this)">📚 Scelta in
+              Libreria</button>
+            <button type="button" class="l05-pill-btn purple" onclick="showCogScenario(1, this)">🚑 Triage di
+              Emergenza</button>
+            <button type="button" class="l05-pill-btn purple" onclick="showCogScenario(2, this)">🧠 Trappola del
+              Sistema 1</button>
+          </div>
+          <div id="cogScenarioBox" class="l05-cog-grid"></div>
+        </div>
+
+        <div class="step-box">
+          <div class="step-header">
+            <span class="step-tag">Il Celebre Test di Riflessione Cognitiva (Kahneman &amp; Frederick)</span>
+            <a href="#teoria-6" class="theory-ref-pill" onclick="event.preventDefault(); scrollToTheory('teoria-6');">
+              🔗 Rif. Teoria 6 • Fermare l'Impulso Euristico con la Verifica
+            </a>
+          </div>
+          <div class="step-content">
+            <p>
+              Leggi con attenzione e <strong>non fidarti della prima risposta istintiva</strong> del tuo <em>Sistema
+                1</em>:<br>
+              <em>«In cartoleria un evidenziatore e una gomma costano insieme <strong>$1,10\text{ €}$</strong> ($110$
+                centesimi). L'evidenziatore costa <strong>$1,00\text{ €}$ ($100$ centesimi) in più</strong> della gomma.
+                Quanti <strong>centesimi</strong> costa la gomma?»</em>
+            </p>
+            <button type="button" class="hint-btn" onclick="toggleHint('hintLab5')">💡 Mostra Controllo
+              Algoritmico</button>
+            <div id="hintLab5" class="hint-text">
+              L'euristica veloce grida subito «$10$ centesimi!». Ma eseguiamo una <strong>verifica algoritmica</strong>:
+              se la gomma costasse $10$ centesimi e l'evidenziatore $100$ centesimi in più ($110$), insieme costerebbero
+              $10 + 110 = 120$ centesimi ($1,20\text{ €}$), sbagliato! Dimezza quei $10$ centesimi: prova con $5$
+              centesimi!
+            </div>
+            <div class="verify-box" style="margin-top: 0.75rem;">
+              <label style="font-weight: 700;">Costo della gomma (in centesimi):</label>
+              <input type="number" id="lab5CrtInput" class="inline-input" style="width: 90px;" placeholder="cent.">
+              <button class="btn-action" onclick="verifyLab5()">Verifica con Sistema 2</button>
+              <span id="lab5Msg" class="feedback-msg" style="display: none;"></span>
+            </div>
+          </div>
+        </div>
+      </article>
+
+
+      <!-- ======================================================
+           LABORATORIO 6: PALESTRA MENTALE (4 SFIDE RAPIDE)
+           ====================================================== -->
+      <article class="lab-card" id="lab6">
+        <div class="lab-header">
+          <div class="lab-badge-group">
+            <span class="lab-number">Laboratorio 6 • Palestra Mentale</span>
+            <span class="xp-pill">+10 XP</span>
+          </div>
+        </div>
+
+        <h3 class="lab-title">4 Sfide Rapide su Variabili, Cicli, Resti e Dimezzamenti</h3>
+
+        <div class="theory-link-box">
+          <span class="tl-icon">🔗</span>
+          <div>
+            <strong>Collegamento Teoria ↔ Pratica:</strong> Risolvi le 4 schede rapide di pensiero computazionale
+            facendo riferimento alla pillola teorica indicata su ciascuna.
+          </div>
+        </div>
+
+        <div class="gym-grid">
+          <!-- Gym 1 -->
+          <div class="gym-card" id="l05gym1">
+            <div>
+              <div class="gym-badge">Sfida 1 • Catena di Assegnazioni</div>
+              <a href="#teoria-2" class="theory-ref-pill"
+                onclick="event.preventDefault(); scrollToTheory('teoria-2');">
+                🔗 Rif. Teoria 2 • Stato Variabile
+              </a>
+              <div class="gym-question">
+                Esegui in ordine: <code>a ← 6</code>, poi <code>a ← a × 2</code>, infine <code>a ← a − 5</code>. Quanto
+                vale <code>a</code> alla fine?
+              </div>
+            </div>
+            <div>
+              <div style="display: flex; gap: 0.5rem; align-items: center;">
+                <input type="text" id="l05gym1Input" class="inline-input" style="width: 100%;" placeholder="a = ?">
+                <button class="btn-action" onclick="checkL05Gym(1, 7)" style="padding: 0.5rem 0.9rem;">OK</button>
+              </div>
+              <div id="l05gym1Feedback" style="font-size: 0.82rem; margin-top: 0.45rem; font-weight: 600;"></div>
+            </div>
+          </div>
+
+          <!-- Gym 2 -->
+          <div class="gym-card" id="l05gym2">
+            <div>
+              <div class="gym-badge">Sfida 2 • Uscita da un Ciclo</div>
+              <a href="#teoria-3" class="theory-ref-pill"
+                onclick="event.preventDefault(); scrollToTheory('teoria-3');">
+                🔗 Rif. Teoria 3 • Ciclo <code>mentre</code>
+              </a>
+              <div class="gym-question">
+                Parti da <code>n ← 1</code> e ripeti <code>n ← n × 2</code> <strong>mentre</strong> <code>n &lt; 20</code>.
+                Con quale valore di <code>n</code> il ciclo si ferma?
+              </div>
+            </div>
+            <div>
+              <div style="display: flex; gap: 0.5rem; align-items: center;">
+                <input type="text" id="l05gym2Input" class="inline-input" style="width: 100%;" placeholder="n finale...">
+                <button class="btn-action" onclick="checkL05Gym(2, 32)" style="padding: 0.5rem 0.9rem;">OK</button>
+              </div>
+              <div id="l05gym2Feedback" style="font-size: 0.82rem; margin-top: 0.45rem; font-weight: 600;"></div>
+            </div>
+          </div>
+
+          <!-- Gym 3 -->
+          <div class="gym-card" id="l05gym3">
+            <div>
+              <div class="gym-badge">Sfida 3 • Passo di Euclide</div>
+              <a href="#teoria-4" class="theory-ref-pill"
+                onclick="event.preventDefault(); scrollToTheory('teoria-4');">
+                🔗 Rif. Teoria 4 • Resto Divisione
+              </a>
+              <div class="gym-question">
+                Nel primo passo dell'algoritmo di Euclide per calcolare $\text{M.C.D.}(75, 20)$, quanto vale il resto di
+                $75 : 20$?
+              </div>
+            </div>
+            <div>
+              <div style="display: flex; gap: 0.5rem; align-items: center;">
+                <input type="text" id="l05gym3Input" class="inline-input" style="width: 100%;" placeholder="Resto...">
+                <button class="btn-action" onclick="checkL05Gym(3, 15)" style="padding: 0.5rem 0.9rem;">OK</button>
+              </div>
+              <div id="l05gym3Feedback" style="font-size: 0.82rem; margin-top: 0.45rem; font-weight: 600;"></div>
+            </div>
+          </div>
+
+          <!-- Gym 4 -->
+          <div class="gym-card" id="l05gym4">
+            <div>
+              <div class="gym-badge">Sfida 4 • Raddoppio Binario</div>
+              <a href="#teoria-5" class="theory-ref-pill"
+                onclick="event.preventDefault(); scrollToTheory('teoria-5');">
+                🔗 Rif. Teoria 5 • $2^k$ Elementi
+              </a>
+              <div class="gym-question">
+                Con $10$ domande la ricerca binaria esplora fino a $2^{10} = 1024$ voci ordinate. Fino a quante voci
+                esplora con <strong>$11$ domande</strong>?
+              </div>
+            </div>
+            <div>
+              <div style="display: flex; gap: 0.5rem; align-items: center;">
+                <input type="text" id="l05gym4Input" class="inline-input" style="width: 100%;" placeholder="Voci...">
+                <button class="btn-action" onclick="checkL05Gym(4, 2048)" style="padding: 0.5rem 0.9rem;">OK</button>
+              </div>
+              <div id="l05gym4Feedback" style="font-size: 0.82rem; margin-top: 0.45rem; font-weight: 600;"></div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+    </main>
+
+
+    <!-- ========================================================
+         SEZIONE 3: FLASHCARDS DI AUTOVALUTAZIONE (MASTERY LEARNING)
+         ======================================================== -->
+    <section class="flashcard-section" id="flashcardSection">
+      <div class="section-header">
+        <h2 class="section-title">
+          <span class="icon">🃏</span> Flashcards di Autovalutazione (+15 XP per carta)
+        </h2>
+        <span class="tag info-tag"
+          style="background: rgba(56, 189, 248, 0.12); color: var(--accent-math); padding: 0.25rem 0.65rem; border-radius: 9999px; font-size: 0.8rem; font-weight: 700;">
+          🔁 Tentativi Infiniti
+        </span>
+      </div>
+      <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1.5rem;">
+        Verifica i concetti chiave su algoritmi, tabelle di traccia, flowchart, Euclide ed euristiche con opzioni
+        rimescolate ad ogni tentativo!
+      </p>
+
+      <div id="lessonFlashcardDeck"></div>
+    </section>
+
+
+    <!-- ========================================================
+         SEZIONE 4 (OBBLIGATORIA): COMPITO DI REALTÀ FINALE
+         SCHEDA OPERATIVA PER CASA
+         ======================================================== -->
+    <section class="homework-section" id="homeworkSection">
+      <div class="section-header">
+        <h2 class="section-title">
+          <span class="icon">📋</span> Compito di Realtà Finale: Scheda Operativa (Assegno per Casa)
+        </h2>
+      </div>
+
+      <article class="scheda-operativa-card">
+        <div class="scheda-top-bar">
+          <div class="scheda-badge-group">
+            <span class="scheda-badge homework">🏠 Assegno per Casa</span>
+            <span class="scheda-badge modality">👤 Da Soli oppure 👥 In Gruppo</span>
+          </div>
+          <button type="button" class="btn-print-sheet" onclick="window.print()">
+            🖨️ Stampa Scheda Operativa
+          </button>
+        </div>
+
+        <h3 class="scheda-title">
+          Scheda Operativa: «Algoritmo di Triage Scolastico e Sociale»
+        </h3>
+
+        <div class="theory-link-box">
+          <span class="tl-icon">🔗</span>
+          <div>
+            <strong>Collegamento Teoria ↔ Pratica:</strong> Questo compito di realtà integra la
+            <a href="#teoria-1" class="theory-link-anchor"
+              onclick="event.preventDefault(); scrollToTheory('teoria-1');">Teoria 1 • Non Ambiguità e Finitezza</a>,
+            la <a href="#teoria-2" class="theory-link-anchor"
+              onclick="event.preventDefault(); scrollToTheory('teoria-2');">Teoria 2 • Tabella di Traccia</a>,
+            la <a href="#teoria-3" class="theory-link-anchor"
+              onclick="event.preventDefault(); scrollToTheory('teoria-3');">Teoria 3 • Flowchart con Selezione
+              Annidata</a>
+            e la <a href="#teoria-6" class="theory-link-anchor"
+              onclick="event.preventDefault(); scrollToTheory('teoria-6');">Teoria 6 • Algoritmi vs Empatia ed
+              Euristiche Umane</a>.
+          </div>
+        </div>
+
+        <div class="scheda-delivery-callout">
+          <strong>📅 Modalità di lavoro e consegna (Assegno per Casa):</strong> Puoi svolgere questo compito di realtà
+          <strong>da solo</strong> oppure <strong>lavorando in gruppo</strong>, ma ciascuno studente deve
+          <strong>portare la Scheda Operativa compilata per la lezione successiva</strong>.
+        </div>
+
+        <!-- Campi Studente per Stampa -->
+        <div class="scheda-student-fields">
+          <div class="scheda-field-item">
+            <span class="scheda-field-label">Studente / Studentessa:</span>
+            <div class="scheda-field-line"></div>
+          </div>
+          <div class="scheda-field-item">
+            <span class="scheda-field-label">Classe &amp; Data:</span>
+            <div class="scheda-field-line"></div>
+          </div>
+          <div class="scheda-field-item">
+            <span class="scheda-field-label">Modalità (Individuale / Componenti del Gruppo):</span>
+            <div class="scheda-field-line"></div>
+          </div>
+        </div>
+
+        <div class="scheda-problem-box">
+          <strong>La Situazione-Problema (Organizzazione Scolastica, Informatica &amp; Scienze Umane):</strong><br>
+          La commissione <em>Benessere &amp; Accoglienza</em> del Liceo vuole creare una procedura trasparente di
+          <strong>triage</strong> (smistamento delle richieste di supporto degli studenti) per indirizzare ogni ragazzo
+          verso il servizio più adatto secondo queste regole:
+          <ul>
+            <li>Input per ogni richiesta: <code>disagio_emotivo</code> (Sì / No), <code>materie_insuff</code> (numero
+              intero $\ge 0$), <code>assenze_mese</code> (numero intero $\ge 0$).</li>
+            <li><strong>Regola 1:</strong> <code>se (disagio_emotivo = Sì)</code> $\to$ assegna subito
+              <code>priorita ← "ALTA - Sportello Psicologico"</code>.</li>
+            <li><strong>Regola 2:</strong> <code>altrimenti</code>, <code>se (materie_insuff ≥ 2 OPPURE assenze_mese ≥ 5)</code>
+              $\to$ assegna <code>priorita ← "MEDIA - Tutoraggio Pari &amp; Metodo di Studio"</code>.</li>
+            <li><strong>Regola 3:</strong> <code>altrimenti</code> $\to$ assegna
+              <code>priorita ← "BASE - Sportello Orientamento"</code>.</li>
+          </ul>
+
+          <!-- Schema SVG del Triage Scolastico -->
+          <div class="l05-triage-diagram">
+            <svg viewBox="0 0 640 135" style="width: 100%; max-width: 620px; height: auto;">
+              <rect x="10" y="42" width="125" height="48" rx="22" fill="none" stroke="currentColor" stroke-width="1.6" />
+              <text x="72" y="63" font-size="11" font-weight="bold" text-anchor="middle" fill="currentColor">INPUT</text>
+              <text x="72" y="79" font-size="10" font-family="monospace" text-anchor="middle"
+                fill="currentColor">richiesta</text>
+
+              <line x1="135" y1="66" x2="170" y2="66" stroke="currentColor" stroke-width="1.6" />
+
+              <polygon points="245,25 320,66 245,107 170,66" fill="none" stroke="currentColor" stroke-width="1.6" />
+              <text x="245" y="63" font-size="10.5" font-weight="bold" text-anchor="middle"
+                fill="currentColor">disagio =</text>
+              <text x="245" y="77" font-size="10.5" font-weight="bold" text-anchor="middle" fill="currentColor">Sì ?</text>
+
+              <!-- Ramo Sì in alto -->
+              <polyline points="245,25 245,12 485,12" fill="none" stroke="#10b981" stroke-width="1.6" />
+              <text x="355" y="25" font-size="10" font-weight="bold" fill="#10b981">VERO → ALTA (Psicologo)</text>
+
+              <!-- Ramo No verso secondo rombo -->
+              <line x1="320" y1="66" x2="365" y2="66" stroke="#f43f5e" stroke-width="1.6" />
+              <text x="342" y="58" font-size="10" font-weight="bold" text-anchor="middle" fill="#f43f5e">NO</text>
+
+              <polygon points="455,25 545,66 455,107 365,66" fill="none" stroke="currentColor" stroke-width="1.6" />
+              <text x="455" y="63" font-size="10" font-weight="bold" text-anchor="middle" fill="currentColor">insuff ≥ 2
+                O</text>
+              <text x="455" y="77" font-size="10" font-weight="bold" text-anchor="middle" fill="currentColor">assenze ≥
+                5?</text>
+
+              <line x1="545" y1="66" x2="625" y2="66" stroke="#10b981" stroke-width="1.6" />
+              <text x="585" y="56" font-size="9.5" font-weight="bold" text-anchor="middle" fill="#10b981">SÌ →
+                MEDIA</text>
+
+              <polyline points="455,107 455,124 625,124" fill="none" stroke="currentColor" stroke-width="1.5" />
+              <text x="545" y="119" font-size="9.5" font-weight="bold" text-anchor="middle" fill="currentColor">NO →
+                BASE</text>
+            </svg>
+          </div>
+
+          <strong>Consegne da svolgere per la prossima lezione:</strong>
+          <ol>
+            <li><strong>Disegno completo del Flowchart (Teoria 3):</strong> Ridisegna sul quaderno il diagramma di
+              flusso completo usando le forme geometriche corrette (Ovale per Inizio/Fine, Parallelogramma per Input e
+              Output, Rombi per le decisioni e Rettangoli per le assegnazioni di <code>priorita</code>).</li>
+            <li><strong>Tabella di Traccia su 3 Casi Reali (Teoria 2):</strong> Costruisci una Tabella di Traccia e
+              simula passo dopo passo l'esito dell'algoritmo per questi tre studenti:
+              <br>• <em>Caso 1 (Sara):</em> <code>disagio_emotivo = No</code>, <code>materie_insuff = 1</code>,
+              <code>assenze_mese = 6</code>. (Attenzione al connettivo logico <strong>OPPURE</strong>!).
+              <br>• <em>Caso 2 (Luca):</em> <code>disagio_emotivo = Sì</code>, <code>materie_insuff = 0</code>,
+              <code>assenze_mese = 1</code>.
+              <br>• <em>Caso 3 (Amir):</em> <code>disagio_emotivo = No</code>, <code>materie_insuff = 1</code>,
+              <code>assenze_mese = 2</code>.
+            </li>
+            <li><strong>Debugging della Non Ambiguità (Teoria 1):</strong> Una prima bozza scritta a parole diceva:
+              <em>«Se lo studente ha fatto parecchie assenze ed è un po' in difficoltà, mandalo al tutoraggio»</em>.
+              Spiega perché quella frase <strong>non è un algoritmo</strong> e quali proprietà fondamentali viola.</li>
+            <li><strong>Riflessione Scienze Umane (Etica degli Algoritmi):</strong> Oggi algoritmi automatici vengono
+              usati anche per assegnare borse di studio, selezionare curricula o gestire code sanitarie. Scrivi 8–12
+              righe discutendo: quali vantaggi porta un algoritmo chiaro (imparzialità, rapidità) e perché nelle
+              decisioni delicate sulle persone è comunque indispensabile affiancare all'algoritmo l'ascolto empatico di
+              un professionista umano?</li>
+          </ol>
+        </div>
+
+        <!-- Rubrica di Valutazione -->
+        <div class="rubric-container">
+          <table class="rubric-table">
+            <thead>
+              <tr>
+                <th>Dimensione di Competenza</th>
+                <th>Livello Base</th>
+                <th>Livello Intermedio</th>
+                <th>Livello Avanzato</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Flowchart &amp; Non Ambiguità</strong></td>
+                <td>Rappresenta la sequenza dei passi ma confonde alcune forme dei blocchi (es. rombi e rettangoli).
+                </td>
+                <td>Usa correttamente tutti i blocchi standard del flowchart e spiega il difetto di ambiguità della
+                  bozza verbale.</td>
+                <td>Progetta un flowchart pulito e rigoroso collegando esplicitamente non ambiguità, determinismo e
+                  finitezza.</td>
+              </tr>
+              <tr>
+                <td><strong>Tabella di Traccia &amp; Logica</strong></td>
+                <td>Traccia correttamente i casi semplici ma sbaglia la valutazione dell'<code>OPPURE</code> nel Caso 1.
+                </td>
+                <td>Compila senza errori la Tabella di Traccia per tutti e tre gli studenti (Sara: MEDIA, Luca: ALTA,
+                  Amir: BASE).</td>
+                <td>Traccia con precisione tutte le variabili e le condizioni booleane intermedie motivando ogni
+                  diramazione.</td>
+              </tr>
+              <tr>
+                <td><strong>Riflessione Critica (Scienze Umane)</strong></td>
+                <td>Esprime un'opinione breve sul rapporto uomo-macchina senza riferirsi al contesto del triage.</td>
+                <td>Confronta con equilibrio equità procedurale dell'algoritmo e necessità dell'ascolto umano.</td>
+                <td>Argomenta con maturità interdisciplinare vantaggi, limiti ed etica dei sistemi decisionali
+                  algoritmici nei servizi alla persona.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </article>
+    </section>
+
+
+    <!-- SINTESI & TAKEAWAY -->
+    <footer class="final-recap" id="finalRecap">
+      <div class="recap-icon">⚙️</div>
+      <h2 class="recap-title">Takeaway della Lezione 1.5</h2>
+      <p class="recap-subtitle">
+        Pensare algoritmicamente significa scomporre problemi complessi in passi limpidi, verificabili e senza ambiguità.
+      </p>
+      <div class="takeaways-row">
+        <div class="takeaway-item">
+          <strong>1. Variabili &amp; Trace Table</strong>
+          <p><code>x ← x + 1</code> aggiorna lo stato in memoria: la Tabella di Traccia è il tuo microscopio per capire
+            qualunque programma.</p>
+        </div>
+        <div class="takeaway-item">
+          <strong>2. Eleganza &amp; Velocità</strong>
+          <p>Le divisioni successive di Euclide e la ricerca binaria ($2^k \ge N$) risolvono in pochi passi problemi
+            giganteschi.</p>
+        </div>
+        <div class="takeaway-item">
+          <strong>3. Algoritmi &amp; Umanità</strong>
+          <p>Affianca sempre il controllo del <em>Sistema 2</em> alle tue intuizioni e porta la Scheda sul Triage
+            Scolastico alla prossima lezione!</p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- CARD DI COMPLETAMENTO GAMIFICATION -->
+    <div class="completion-card" id="lessonCompletionCard">
+      <div class="completion-icon">🏆</div>
+      <h3 class="completion-title">Hai completato la Lezione 1.5?</h3>
+      <p class="completion-desc">
+        Registra il tuo traguardo per guadagnare i punti esperienza della lezione (+60 XP) e porta la Scheda Operativa
+        «Algoritmo di Triage Scolastico e Sociale» alla prossima lezione!
+      </p>
+      <button id="btnCompleteLesson" class="btn-complete">
+        ✨ Segna come Completata (+60 XP)
+      </button>
+    </div>
+
+  </div>
+
+  <!-- Scripts Condivisi comode -->
+  <script src="../../shared/js/audio.js"></script>
+  <script src="../../shared/js/theme.js"></script>
+  <script src="../../shared/js/gamification.js"></script>
+  <script src="../../shared/js/components.js"></script>
+  <script src="../../shared/js/flashcards.js"></script>
+  <script src="../../shared/js/comode.js"></script>
+
+  <!-- Logica Interattiva Lezione 1.5 -->
+  <script>
+    const completedLabs = new Set();
+
+    function markLabCompleted(labNum) {
+      if (!completedLabs.has(labNum)) {
+        completedLabs.add(labNum);
+        const card = document.getElementById(`lab${labNum}`);
+        if (card) card.classList.add('completed');
+
+        if (window.ComodeAudio) window.ComodeAudio.playSuccess();
+        if (window.ComodeGamification) {
+          window.ComodeGamification.addXP(10, `Lezione 1.5 • Laboratorio ${labNum} completato!`);
+        }
+        updateLessonProgress();
+      }
+    }
+
+    function updateLessonProgress() {
+      const count = completedLabs.size;
+      const pct = (count / 6) * 100;
+      const fill = document.getElementById('progressFill');
+      const score = document.getElementById('progressScore');
+      if (fill) fill.style.width = pct + '%';
+      if (score) score.textContent = `${count} / 6 completati`;
+
+      if (count === 6) {
+        if (window.ComodeAudio) window.ComodeAudio.playLevelUp();
+      }
+    }
+
+
+    /* ========================================================
+       LABORATORIO 1: SIMULATORE VISIVO DI FLOWCHART
+       ======================================================== */
+    function simulateFlowchart() {
+      const spesa = parseInt(document.getElementById('flowSpesaSel').value, 10);
+      const tessera = document.getElementById('flowTesseraSel').value;
+
+      ['fn-start', 'fn-cond1', 'fn-act1T', 'fn-act1F', 'fn-cond2', 'fn-act2T', 'fn-end'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.classList.remove('lit');
+      });
+
+      const cond1 = (spesa >= 30);
+      let sconto = cond1 ? 5 : 0;
+      const cond2 = (tessera === 'si');
+      if (cond2) sconto += 2;
+      const finale = spesa - sconto;
+
+      const activeIds = ['fn-start', 'fn-cond1', cond1 ? 'fn-act1T' : 'fn-act1F', 'fn-cond2'];
+      if (cond2) activeIds.push('fn-act2T');
+      activeIds.push('fn-end');
+
+      activeIds.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.classList.add('lit');
+      });
+
+      const out = document.getElementById('flowSimOutput');
+      if (out) {
+        out.innerHTML = `Percorso attivo: <code>spesa = ${spesa} €</code> (${cond1 ? '≥ 30 VERO → sconto = 5' : '< 30 FALSO → sconto = 0'}) → <code>tessera = ${cond2 ? 'Sì (+2 €)' : 'No (+0 €)'}</code> → <strong style="color:var(--accent-success);">Output finale = ${finale} €</strong>`;
+      }
+    }
+
+    function verifyLab1() {
+      const outA = parseInt(document.getElementById('lab1OutA').value.trim(), 10);
+      const outB = parseInt(document.getElementById('lab1OutB').value.trim(), 10);
+      const msg = document.getElementById('lab1Msg');
+      msg.style.display = 'inline-flex';
+
+      if (outA === 28 && outB === 16) {
+        msg.className = 'feedback-msg success';
+        msg.textContent = 'Perfetto! Cliente A: 35 − (5 + 2) = 28 €; Cliente B: 18 − (0 + 2) = 16 €!';
+        markLabCompleted(1);
+      } else {
+        if (window.ComodeAudio) window.ComodeAudio.playError();
+        msg.className = 'feedback-msg error';
+        if (outA !== 28) {
+          msg.textContent = 'Controlla Cliente A (spesa 35 ≥ 30 → sconto 5, più tessera Sì → +2 = 7 € di sconto): 35 − 7 = 28 €!';
+        } else {
+          msg.textContent = 'Cliente A (28 €) è giusto! Per Cliente B (18 < 30 → primo sconto 0, più tessera Sì → +2): 18 − 2 = 16 €!';
+        }
+      }
+    }
+
+
+    /* ========================================================
+       LABORATORIO 2: TABELLA DI TRACCIA (TRACE TABLE)
+       ======================================================== */
+    const demoTraceSteps = [
+      { step: 1, instr: 'Riga 1: somma ← 0 ; i ← 1', cond: '—', i: 1, somma: 0 },
+      { step: 2, instr: 'Righe 2–4 (1° giro)', cond: '1 ≤ 3 (VERO)', i: 2, somma: 1 },
+      { step: 3, instr: 'Righe 2–4 (2° giro)', cond: '2 ≤ 3 (VERO)', i: 3, somma: 3 },
+      { step: 4, instr: 'Righe 2–4 (3° giro)', cond: '3 ≤ 3 (VERO)', i: 4, somma: 6 },
+      { step: 5, instr: 'Riga 2 → Riga 5 (Uscita!)', cond: '4 ≤ 3 (FALSO)', i: 4, somma: '6 (Output)' }
+    ];
+    let demoStepCount = 1;
+
+    function renderDemoTrace() {
+      const tbody = document.getElementById('demoTraceBody');
+      if (!tbody) return;
+      tbody.innerHTML = demoTraceSteps.slice(0, demoStepCount).map((r, idx) => `
+        <tr class="${idx === demoStepCount - 1 ? 'highlight-step' : ''}">
+          <td>${r.step}</td>
+          <td>${r.instr}</td>
+          <td>${r.cond}</td>
+          <td>${r.i}</td>
+          <td>${r.somma}</td>
+        </tr>
+      `).join('');
+    }
+
+    function advanceDemoTrace() {
+      if (window.ComodeAudio) window.ComodeAudio.playClick();
+      if (demoStepCount < demoTraceSteps.length) {
+        demoStepCount++;
+        renderDemoTrace();
+      }
+    }
+
+    function resetDemoTrace() {
+      if (window.ComodeAudio) window.ComodeAudio.playClick();
+      demoStepCount = 1;
+      renderDemoTrace();
+    }
+
+    function verifyLab2() {
+      const vx = parseInt(document.getElementById('lab2VarX').value.trim(), 10);
+      const vy = parseInt(document.getElementById('lab2VarY').value.trim(), 10);
+      const vt = parseInt(document.getElementById('lab2VarTot').value.trim(), 10);
+      const msg = document.getElementById('lab2Msg');
+      msg.style.display = 'inline-flex';
+
+      if (vx === 9 && vy === 7 && vt === 16) {
+        msg.className = 'feedback-msg success';
+        msg.textContent = 'Tracciamento impeccabile! Poiché 10 > 6 è Vero: x = 4 + 5 = 9, y = 10 − 3 = 7 e totale = 16!';
+        markLabCompleted(2);
+      } else {
+        if (window.ComodeAudio) window.ComodeAudio.playError();
+        msg.className = 'feedback-msg error';
+        msg.textContent = 'Controlla le righe 4 e 5 (poiché y=10 > 6 è Vero): x diventa 4 + 5 = 9, y diventa 10 − 3 = 7 e totale = 9 + 7 = 16!';
+      }
+    }
+
+
+    /* ========================================================
+       LABORATORIO 3: ALGORITMO DI EUCLIDE (DIVISIONI SUCCESSIVE)
+       ======================================================== */
+    function loadEuclidGcd(a, b) {
+      if (window.ComodeAudio) window.ComodeAudio.playClick();
+      document.getElementById('euclidInA').value = a;
+      document.getElementById('euclidInB').value = b;
+      computeEuclidGcdTable();
+    }
+
+    function computeEuclidGcdTable() {
+      let a = Math.max(1, parseInt(document.getElementById('euclidInA').value, 10) || 84);
+      let b = Math.max(1, parseInt(document.getElementById('euclidInB').value, 10) || 30);
+      const origA = a;
+      const origB = b;
+
+      const rows = [];
+      let iter = 1;
+      while (b !== 0 && iter <= 30) {
+        const q = Math.floor(a / b);
+        const r = a % b;
+        rows.push({
+          iter,
+          a,
+          b,
+          q,
+          r,
+          next: r === 0 ? `STOP! Resto 0 → M.C.D. = ${b}` : `a ← ${b}, b ← ${r}`
+        });
+        a = b;
+        b = r;
+        iter++;
+      }
+
+      const tbody = document.getElementById('euclidGcdBody');
+      if (tbody) {
+        tbody.innerHTML = rows.map((r, i) => `
+          <tr class="${i === rows.length - 1 ? 'highlight-step' : ''}">
+            <td>${r.iter}</td>
+            <td>${r.a}</td>
+            <td>${r.b}</td>
+            <td>${r.q}</td>
+            <td>${r.r}</td>
+            <td>${r.next}</td>
+          </tr>
+        `).join('');
+      }
+      const res = document.getElementById('euclidGcdResult');
+      if (res) {
+        res.textContent = `✅ Terminato in ${rows.length} passaggi finiti: M.C.D.(${origA}, ${origB}) = ${a}`;
+      }
+    }
+
+    function verifyLab3() {
+      const r1 = parseInt(document.getElementById('lab3FirstRem').value.trim(), 10);
+      const g = parseInt(document.getElementById('lab3FinalGcd').value.trim(), 10);
+      const msg = document.getElementById('lab3Msg');
+      msg.style.display = 'inline-flex';
+
+      if (r1 === 36 && g === 18) {
+        msg.className = 'feedback-msg success';
+        msg.textContent = 'Esatto! 90 : 54 dà resto 36; poi 54 : 36 dà resto 18; infine 36 : 18 dà resto 0 → M.C.D. = 18!';
+        markLabCompleted(3);
+      } else {
+        if (window.ComodeAudio) window.ComodeAudio.playError();
+        msg.className = 'feedback-msg error';
+        if (r1 !== 36) {
+          msg.textContent = 'Nel primo passo calcola il resto di 90 : 54 → 90 − 54 = 36!';
+        } else {
+          msg.textContent = 'r₁ = 36 è giusto! Ora prosegui: 54 : 36 ha resto 18, e 36 : 18 ha resto 0, quindi M.C.D. = 18!';
+        }
+      }
+    }
+
+
+    /* ========================================================
+       LABORATORIO 4: DEMO RICERCA BINARIA (1..20)
+       ======================================================== */
+    let bsSecret = 14;
+    let bsLow = 1;
+    let bsHigh = 20;
+    let bsSteps = 0;
+    let bsFound = false;
+
+    function resetBinarySearchDemo() {
+      if (window.ComodeAudio) window.ComodeAudio.playClick();
+      bsSecret = Math.floor(Math.random() * 20) + 1;
+      bsLow = 1;
+      bsHigh = 20;
+      bsSteps = 0;
+      bsFound = false;
+      renderBinarySearchBar('Intervallo attivo: [1 .. 20]. Premi «Interroga il Punto Centrale»!');
+    }
+
+    function stepBinarySearchDemo() {
+      if (bsFound) return;
+      if (window.ComodeAudio) window.ComodeAudio.playClick();
+      bsSteps++;
+      const mid = Math.floor((bsLow + bsHigh) / 2);
+      if (mid === bsSecret) {
+        bsFound = true;
+        bsLow = mid;
+        bsHigh = mid;
+        if (window.ComodeAudio) window.ComodeAudio.playSuccess();
+        renderBinarySearchBar(`🎉 Trovato il numero segreto ${bsSecret} in soli ${bsSteps} passi (invece di scorrere tutta la fila)!`);
+      } else if (bsSecret > mid) {
+        bsLow = mid + 1;
+        renderBinarySearchBar(`Passo ${bsSteps}: provato il centro ${mid} → il segreto è MAGGIORE di ${mid}. Scartata metà sinistra! Nuovo intervallo: [${bsLow} .. ${bsHigh}].`);
+      } else {
+        bsHigh = mid - 1;
+        renderBinarySearchBar(`Passo ${bsSteps}: provato il centro ${mid} → il segreto è MINORE di ${mid}. Scartata metà destra! Nuovo intervallo: [${bsLow} .. ${bsHigh}].`);
+      }
+    }
+
+    function renderBinarySearchBar(note) {
+      const bar = document.getElementById('bsearchBar');
+      if (!bar) return;
+      bar.innerHTML = '';
+      for (let i = 1; i <= 20; i++) {
+        const d = document.createElement('div');
+        d.className = 'l05-bsearch-seg';
+        if (bsFound && i === bsSecret) d.classList.add('found');
+        else if (i < bsLow || i > bsHigh) d.classList.add('discarded');
+        d.textContent = i;
+        bar.appendChild(d);
+      }
+      const st = document.getElementById('bsearchStatus');
+      if (st) st.textContent = note;
+    }
+
+    function verifyLab4() {
+      const maxB = parseInt(document.getElementById('lab4MaxBound').value.trim(), 10);
+      const st32 = parseInt(document.getElementById('lab4Steps32').value.trim(), 10);
+      const msg = document.getElementById('lab4Msg');
+      msg.style.display = 'inline-flex';
+
+      if (maxB === 74 && st32 === 5) {
+        msg.className = 'feedback-msg success';
+        msg.textContent = 'Bravissimo! Escludendo 75 il massimo scende a 74 ([51, 74]), e poiché 2⁵ = 32 bastano al massimo 5 domande!';
+        markLabCompleted(4);
+      } else {
+        if (window.ComodeAudio) window.ComodeAudio.playError();
+        msg.className = 'feedback-msg error';
+        if (maxB !== 74) {
+          msg.textContent = 'Attenzione: se il numero intero segreto è MINORE di 75, anche 75 è escluso! Qual è l’intero subito prima di 75? (74)';
+        } else {
+          msg.textContent = '74 è esatto! Per 32 cognomi: 32 → 16 → 8 → 4 → 2 → 1, cioè 2⁵ = 32 → servono 5 domande!';
+        }
+      }
+    }
+
+
+    /* ========================================================
+       LABORATORIO 5: PSICOLOGIA COGNITIVA (ALGORITMI VS EURISTICHE)
+       ======================================================== */
+    const cogScenarios = [
+      {
+        eurTitle: '⚡ Approccio Euristico (Sistema 1)',
+        eurDesc: '<strong>In libreria per un regalo in 2 minuti:</strong> guardi lo scaffale dei consigliati, riconosci un autore già letto e scegli dalla quarta di copertina. Non esplori tutti i $15\\,000$ libri del negozio, ma trovi una buona soluzione in tempo utile (*razionalità limitata* di Herbert Simon).',
+        algTitle: '⚙️ Approccio Algoritmico (Sistema 2)',
+        algDesc: '<strong>Il computer della cassa della libreria:</strong> per cercare il codice ISBN nel catalogo ordinato di $15\\,000$ titoli usa la <em>ricerca binaria</em>: in al massimo $14$ confronti esatti ($2^{14} = 16\\,384$) trova prezzo e scaffale senza mai sbagliare.'
+      },
+      {
+        eurTitle: '⚡ Intuizione Clinica Rapida',
+        eurDesc: 'Un infermiere esperto coglie subito dal pallore e dal tono di voce di un paziente che c’è qualcosa di urgente, anche prima di compilare tutta la scheda.',
+        algTitle: '⚙️ Protocollo Algoritmico di Triage',
+        algDesc: 'Un diagramma di flusso medico controlla parametri oggettivi (saturazione $< 92\\%$, frequenza cardiaca, dolore toracico) per garantire che nessun paziente grave venga sottovalutato per stanchezza o distrazione.'
+      },
+      {
+        eurTitle: '⚡ Quando l’Euristica Cade in Trappola',
+        eurDesc: 'Davanti a numeri tondi come $1,10\\text{ €}$ e $1,00\\text{ €}$, il <em>Sistema 1</em> sottrae d’istinto $1,10 - 1,00 = 0,10$ senza accorgersi che così la differenza tra i due prezzi diventerebbe solo $0,90\\text{ €}$!',
+        algTitle: '⚙️ L’Algoritmo di Verifica ti Salva',
+        algDesc: 'Aggiungere un semplice blocco di controllo finale (<code>se gomma + evidenziatore = 110 E evidenziatore − gomma = 100</code>) smaschera subito l’errore intuitivo!'
+      }
+    ];
+
+    function showCogScenario(idx, btnEl) {
+      if (btnEl && window.ComodeAudio) window.ComodeAudio.playClick();
+      if (btnEl && btnEl.parentElement) {
+        btnEl.parentElement.querySelectorAll('.l05-pill-btn').forEach(b => b.classList.remove('active'));
+        btnEl.classList.add('active');
+      }
+      const box = document.getElementById('cogScenarioBox');
+      if (!box) return;
+      const s = cogScenarios[idx];
+      box.innerHTML = `
+        <div class="l05-cog-card" style="border-color:rgba(245,158,11,0.4);">
+          <div style="font-weight:800;color:var(--accent-gold);margin-bottom:0.35rem;">${s.eurTitle}</div>
+          <div style="font-size:0.88rem;color:var(--text-muted);line-height:1.55;">${s.eurDesc}</div>
+        </div>
+        <div class="l05-cog-card" style="border-color:rgba(56,189,248,0.4);">
+          <div style="font-weight:800;color:var(--accent-math);margin-bottom:0.35rem;">${s.algTitle}</div>
+          <div style="font-size:0.88rem;color:var(--text-muted);line-height:1.55;">${s.algDesc}</div>
+        </div>
+      `;
+      if (window.ComodeComponents) window.ComodeComponents.renderMath(box);
+    }
+
+    function verifyLab5() {
+      const val = parseInt(document.getElementById('lab5CrtInput').value.trim(), 10);
+      const msg = document.getElementById('lab5Msg');
+      msg.style.display = 'inline-flex';
+
+      if (val === 5) {
+        msg.className = 'feedback-msg success';
+        msg.textContent = '🧠 Sistema 2 vittorioso! Gomma = 5 cent, Evidenziatore = 105 cent → differenza 100 cent e somma 110 cent (1,10 €)!';
+        markLabCompleted(5);
+      } else if (val === 10) {
+        if (window.ComodeAudio) window.ComodeAudio.playError();
+        msg.className = 'feedback-msg error';
+        msg.textContent = 'Ecco l’euristica del Sistema 1! Se la gomma costasse 10 cent, l’evidenziatore (100 cent in più) costerebbe 110 cent e il totale sarebbe 120 cent (1,20 €)! Riprova dimezzando!';
+      } else {
+        if (window.ComodeAudio) window.ComodeAudio.playError();
+        msg.className = 'feedback-msg error';
+        msg.textContent = 'Fai la prova: cerca un numero di centesimi g tale che g + (g + 100) = 110 → 2g = 10 → g = 5!';
+      }
+    }
+
+
+    /* ========================================================
+       LABORATORIO 6: PALESTRA MENTALE (4 SFIDE)
+       ======================================================== */
+    const l05GymSolved = new Set();
+
+    function checkL05Gym(idx, expected) {
+      const raw = document.getElementById(`l05gym${idx}Input`).value.trim().replace(',', '.');
+      const val = parseFloat(raw);
+      const fb = document.getElementById(`l05gym${idx}Feedback`);
+      const card = document.getElementById(`l05gym${idx}`);
+
+      if (!isNaN(val) && Math.abs(val - expected) < 0.0001) {
+        if (window.ComodeAudio) window.ComodeAudio.playSuccess();
+        l05GymSolved.add(idx);
+        card.classList.add('solved');
+        fb.style.color = 'var(--accent-success)';
+        fb.textContent = '✓ Risposta esatta!';
+        if (l05GymSolved.size === 4) {
+          markLabCompleted(6);
+        }
+      } else {
+        if (window.ComodeAudio) window.ComodeAudio.playError();
+        fb.style.color = 'var(--accent-danger)';
+        const hints = {
+          1: 'Segui i passi: a = 6 → a = 6×2 = 12 → a = 12 − 5 = 7!',
+          2: 'Traccia n: 1 → 2 → 4 → 8 → 16 (ancora < 20, fa un altro giro!) → 32 (ora 32 < 20 è Falso e si ferma a 32)!',
+          3: '20 × 3 = 60, quindi 75 − 60 lascia resto 15!',
+          4: 'Ogni domanda in più raddoppia le voci: 1024 × 2 = 2048!'
+        };
+        fb.textContent = hints[idx];
+      }
+    }
+
+
+    /* ========================================================
+       INIZIALIZZAZIONE LEZIONE 1.5 & MAZZO FLASHCARDS
+       ======================================================== */
+    function initLesson() {
+      simulateFlowchart();
+      renderDemoTrace();
+      computeEuclidGcdTable();
+      renderBinarySearchBar('Intervallo attivo: [1 .. 20]. Premi «Interroga il Punto Centrale»!');
+      showCogScenario(0, null);
+
+      if (window.ComodeFlashcards) {
+        ComodeFlashcards.init('lessonFlashcardDeck', {
+          deckId: 'pb-1.1-l05-flashcards',
+          xpPerCard: 15,
+          completionXP: 25,
+          cards: [
+            {
+              category: 'Fondamenti di Informatica',
+              theoryRef: 'Teoria 1 • Le 4 Proprietà dell’Algoritmo',
+              theoryTargetId: 'teoria-1',
+              question: 'Perché l’istruzione «Cuoci la torta in forno finché ti sembra abbastanza dorata» <strong>non</strong> può far parte di un algoritmo rigoroso?',
+              options: [
+                'Perché viola la proprietà di <strong>non ambiguità</strong>: «abbastanza dorata» è soggettivo e non interpretabile in modo univoco da un esecutore',
+                'Perché parla di cucina anziché di numeri primi',
+                'Perché non usa numeri negativi',
+                'Perché termina troppo presto'
+              ],
+              correct: 0,
+              explanation: 'Ogni istruzione di un algoritmo deve essere non ambigua e deterministica (ad es. «cuoci a $180^\\circ\\text{C}$ per $35$ minuti»).'
+            },
+            {
+              category: 'Variabili & Trace Table',
+              theoryRef: 'Teoria 2 • Assegnazione a Variabile',
+              theoryTargetId: 'teoria-2',
+              question: 'In un algoritmo la variabile <code>punti</code> vale inizialmente $10$. Cosa accade eseguendo l’istruzione di assegnazione <code>punti ← punti + 4</code>?',
+              options: [
+                'L’algoritmo segnala un errore impossibile perché $10 \\neq 14$',
+                'Viene creata una seconda variabile mentre <code>punti</code> resta $10$',
+                'Viene letto il valore attuale ($10$), sommato $4$, e il nuovo valore $14$ sostituisce il precedente dentro <code>punti</code>',
+                'La variabile <code>punti</code> viene azzerata'
+              ],
+              correct: 2,
+              explanation: 'A differenza dell’uguale algebrico, la freccia di assegnazione <code>←</code> valuta l’espressione a destra con lo stato corrente e aggiorna la cella di memoria a sinistra.'
+            },
+            {
+              category: 'Diagrammi di Flusso',
+              theoryRef: 'Teoria 3 • Blocchi Standard del Flowchart',
+              theoryTargetId: 'teoria-3',
+              question: 'Nei diagrammi di flusso (<em>flowchart</em>), quale figura geometrica rappresenta una <strong>decisione condizionale</strong> (<code>se ... allora ... altrimenti</code>) da cui escono i due rami Vero e Falso?',
+              options: [
+                'Il rettangolo',
+                'Il rombo',
+                'L’ovale',
+                'Il parallelogramma'
+              ],
+              correct: 1,
+              explanation: 'Il rombo racchiude sempre una condizione logica booleana con due uscite (Vero / Falso); il rettangolo indica le azioni, il parallelogramma Input/Output e l’ovale Inizio/Fine.'
+            },
+            {
+              category: 'Algoritmi Numerici',
+              theoryRef: 'Teoria 4 & 5 • Euclide e Ricerca Binaria',
+              theoryTargetId: 'teoria-5',
+              question: 'Quale prerequisito è <strong>indispensabile</strong> affinché si possa applicare l’algoritmo di <strong>ricerca binaria</strong> su un elenco di dati?',
+              options: [
+                'Che l’elenco contenga solo numeri primi',
+                'Che l’elenco abbia meno di $20$ elementi',
+                'Che tutti gli elementi dell’elenco siano uguali tra loro',
+                'Che l’elenco sia già <strong>ordinato</strong> (es. in ordine crescente o alfabetico)'
+              ],
+              correct: 3,
+              explanation: 'Solo se la lista è ordinata possiamo sapere con certezza se il valore cercato si trova nella metà destra o nella metà sinistra rispetto all’elemento centrale!'
+            },
+            {
+              category: 'Scienze Cognitive',
+              theoryRef: 'Teoria 6 • Algoritmi vs Euristiche',
+              theoryTargetId: 'teoria-6',
+              question: 'In psicologia cognitiva, qual è la differenza principale tra un <strong>algoritmo</strong> e un’<strong>euristica</strong>?',
+              options: [
+                'L’euristica è usata solo dai computer, mentre l’algoritmo è usato solo dagli esseri umani',
+                'L’euristica garantisce sempre il risultato esatto, mentre l’algoritmo tira a indovinare',
+                'L’algoritmo è una procedura sistematica che garantisce la soluzione corretta, mentre l’euristica è una scorciatoia mentale rapida ed economica ma soggetta a possibili bias',
+                'Non c’è alcuna differenza tra i due concetti'
+              ],
+              correct: 2,
+              explanation: 'Le euristiche (Sistema 1) ci permettono di decidere rapidamente nella vita reale, ma nei problemi controintuitivi serve il controllo procedurale (Sistema 2) per evitare errori sistematici.'
+            }
+          ]
+        });
+      }
+    }
+
+    if (document.readyState !== 'loading') {
+      initLesson();
+    } else {
+      document.addEventListener('DOMContentLoaded', initLesson);
+    }
+  </script>
+</body>
+
+</html>
+

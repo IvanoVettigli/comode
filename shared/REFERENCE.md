@@ -30,19 +30,21 @@ comode/
 │   │   └── personaggi/            # Schede visive dei personaggi fissi (Vela, mamma, papà, zio)
 │   ├── templates/
 │   │   ├── lesson-template.html   # Template standard per nuove lezioni curricolari
-│   │   └── story-template.html    # Template standard per nuove favole interattive
+│   │   ├── story-template.html    # Template standard per nuove favole interattive
+│   │   └── exam-template.html     # Template standard per la simulazione della verifica scritta di modulo
 │   └── REFERENCE.md               # Questa guida di riferimento tecnico e didattico
 ├── primo-biennio/
 │   ├── index.html                 # Hub delle 8 UDA di Matematica del 1° e 2° anno
 │   ├── uda-1.1-insiemi-logica-algoritmi/
-│   │   ├── index.html                                # Hub dell'UDA (Favola, 5 lezioni curricolari, CLIL, titolo UDA)
+│   │   ├── index.html                                # Hub dell'UDA (Favola, 5 lezioni curricolari, CLIL, Simulazione verifica, titolo UDA)
 │   │   ├── favola-interattiva-i-numeri.html          # Favola Interattiva dell'UDA 1.1 (Vela e le fragole)
+│   │   ├── simulazione-verifica-uda-1.1.html         # Simulazione Verifica Scritta di Modulo (In preparazione)
 │   │   ├── illustrazioni-favola/                     # Tavole illustrate della favola dell'UDA
 │   │   ├── lezione-01-calcolo-interi-razionali.html  # Lezione 1.1 (Attiva)
-│   │   ├── lezione-02-retta-scale-notazione.html     # Lezione 1.2 (In sviluppo)
-│   │   ├── lezione-03-potenze-numeri-primi-euclide.html # Lezione 1.3 (In sviluppo)
-│   │   ├── lezione-04-insiemi-logica-linguaggio.html # Lezione 1.4 (In sviluppo)
-│   │   ├── lezione-05-primi-algoritmi-flowchart.html # Lezione 1.5 (In sviluppo)
+│   │   ├── lezione-02-retta-scale-notazione.html     # Lezione 1.2 (Attiva)
+│   │   ├── lezione-03-potenze-numeri-primi-euclide.html # Lezione 1.3 (Attiva)
+│   │   ├── lezione-04-insiemi-logica-linguaggio.html # Lezione 1.4 (Attiva)
+│   │   ├── lezione-05-primi-algoritmi-flowchart.html # Lezione 1.5 (Attiva)
 │   │   └── lezione-clil-numbers-mind-strategies.html # Modulo CLIL in lingua inglese (Attiva)
 │   └── ... (altre 7 UDA)
 ├── secondo-biennio/
@@ -296,6 +298,20 @@ Per evidenziare promemoria editoriali o contenuti in arrivo nelle pagine Hub:
 - `.memo-banner`: banner evidenziato full-width (usato in `index.html` per ricordare che ogni UDA avrà una **Favola Interattiva**).
 - `.uda-memo-note.math` / `.uda-memo-note.phys`: box promemoria all'interno delle card UDA in sviluppo (es. `UDA 4.M1` Educazione finanziaria + Astronomia/Eclissi/Longitudine; `UDA 5.F1` Fac-simili bollette luce, acqua e gas).
 
+### 4.8 Simulazione della Verifica Scritta di Modulo (`.exam-feature-card`, `.lesson-card.exam`)
+> [!IMPORTANT]
+> **Requisito Obbligatorio in OGNI Modulo / UDA:**  
+> Oltre alla Favola Interattiva e alle lezioni, **ogni modulo deve contenere una Simulazione della Verifica Scritta** (`simulazione-verifica-uda-X.X.html`), raggiungibile tramite la card dedicata `.exam-feature-card` nell'Hub di modulo.
+> La simulazione serve come **palestra per il compito in classe reale** e deve presentare:
+> 1. **Timer d'Esame Interattivo (60 minuti)** con controlli Avvia/Pausa/Reset;
+> 2. **Tre Sezioni Graduate:**
+>    - **Parte A (30 pt):** Quesiti concettuali a scelta multipla con **campo obbligatorio per la motivazione teorica** (caratteristica irrinunciabile per il Liceo delle Scienze Umane);
+>    - **Parte B (35 pt):** Esercizi di calcolo comodo, proprietà algebriche e dimostrazioni formali;
+>    - **Parte C (35 pt):** Compito di realtà interdisciplinare legato alle scienze sociali, psicologiche o civiche;
+> 3. **Griglia Ufficiale di Valutazione in Decimi (1–10)** con scala di conversione trasparente da 100 pt a voto ministeriale;
+> 4. **Pulsante `window.print()` per Stampa Cartacea:** Layout ottimizzato per stampare la prova su carta (con campi Studente, Data, Voto);
+> 5. **Gamification:** Assegnazione di **+80 XP** al completamento della simulazione.
+
 ---
 
 ## 5. API JavaScript Centralizzate
@@ -351,7 +367,7 @@ ComodeFlashcards.init('lessonFlashcardDeck', {
 ## 6. Checklist di Qualità per Nuove UDA e Lezioni
 
 Prima di pubblicare una nuova UDA o lezione, verifica tutti i punti seguenti:
-1. [ ] **Struttura UDA completa:** La cartella dell'UDA prevede il proprio `index.html`, le lezioni curricolari, il modulo CLIL e **1 Favola Interattiva** dedicata all'UDA?
+1. [ ] **Struttura UDA completa:** La cartella dell'UDA prevede il proprio `index.html`, le lezioni curricolari, il modulo CLIL, **1 Favola Interattiva** e **1 Simulazione della Verifica Scritta** dedicata al modulo?
 2. [ ] **Template & Percorsi:** Hai duplicato `shared/templates/lesson-template.html` verificando la profondità dei percorsi relativi (`../../` per Primo Biennio, `../../../` per Secondo Biennio e Quinto Anno)?
 3. [ ] **KaTeX `0.19.1` & Protezione Frazioni:** Stai caricando KaTeX `0.19.1` e non hai usato nessuna classe CSS riservata (`.frac-line`, `.mfrac`, `.vlist`, `.strut`) negli stili custom?
 4. [ ] **Prerequisiti & Competenze:** Sono presenti entrambe le card `.prereq-card` e `.objectives-card`?

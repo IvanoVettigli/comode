@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="it" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simulazione Verifica Scritta: UDA X.X • le comode lezioni d'Ivano</title>
+  <meta name="description" content="Template standard per la simulazione della verifica scritta di modulo per il Liceo delle Scienze Umane: quesiti concettuali, calcolo mentale, compito di realtà e griglia ministeriale.">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- KaTeX 0.19.1 per rendering matematico -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.19.1/dist/katex.min.css" crossorigin="anonymous">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.19.1/dist/katex.min.js" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.19.1/dist/contrib/auto-render.min.js" crossorigin="anonymous"></script>
+
+  <!-- Stili Condivisi comode:
+       NOTA: per il Primo Biennio il percorso è: ../../shared/css/comode.css
+             per il Secondo Biennio e Quinto Anno è: ../../../shared/css/comode.css -->
+  <link rel="stylesheet" href="../../shared/css/comode.css">
+
+  <style>
+    /* Inserisci qui eventuali stili specifici di QUESTA simulazione di verifica.
+       ATTENZIONE: non usare mai classi riservate interne a KaTeX (.frac-line, .mfrac, .vlist, .strut). */
+  </style>
+</head>
+<body data-theme="dark" data-lesson-id="uda-x.x-simulazione-verifica" data-xp="80" data-unit="uda-x.x">
+
+  <div class="container">
+    
+    <!-- NAVBAR CONDIVISA -->
+    <nav class="navbar">
+      <a href="../../index.html" class="brand">
+        📐 comode<span>.</span>
+      </a>
+      <div class="nav-actions">
+        <div class="gamification-widget" title="Il tuo livello e punti XP">
+          <span class="level-badge user-level-val">Liv. 1 🌱</span>
+          <span class="xp-counter user-xp-val">0 XP</span>
+        </div>
+        <button id="audioToggleBtn" class="icon-btn" aria-label="Attiva o disattiva audio">
+          🔊 <span class="nav-text">Suoni</span>
+        </button>
+        <button id="themeToggleBtn" class="theme-toggle-btn" aria-label="Cambia tema">
+          <span id="themeIcon">☀️</span>
+          <span id="themeLabel">Chiaro</span>
+        </button>
+      </div>
+    </nav>
+
+    <!-- BREADCRUMBS -->
+    <div class="breadcrumbs">
+      <a href="../../index.html">le comode lezioni d'Ivano</a>
+      <span class="sep">/</span>
+      <a href="../index.html">Ciclo di Studi</a>
+      <span class="sep">/</span>
+      <a href="index.html">UDA X.X: Nome Modulo</a>
+      <span class="sep">/</span>
+      <span class="current">Simulazione Verifica Scritta</span>
+    </div>
+
+    <!-- HEADER BANNER VERIFICA -->
+    <header class="exam-header-banner">
+      <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.85rem;">
+        <span class="badge" style="background: rgba(56, 189, 248, 0.12); color: var(--accent-math); border: 1px solid rgba(56, 189, 248, 0.25); font-weight: 700; padding: 0.25rem 0.65rem; border-radius: var(--radius-pill); font-size: 0.78rem;">
+          📐 Disciplina • Anno di Corso
+        </span>
+        <span class="badge" style="background: rgba(245, 158, 11, 0.15); color: var(--accent-gold); border: 1px solid rgba(245, 158, 11, 0.3); font-weight: 700; padding: 0.25rem 0.65rem; border-radius: var(--radius-pill); font-size: 0.78rem;">
+          📝 Prova Sommativa di Modulo (Simulazione)
+        </span>
+        <span class="badge" style="background: rgba(16, 185, 129, 0.12); color: var(--accent-success); border: 1px solid rgba(16, 185, 129, 0.25); font-weight: 700; padding: 0.25rem 0.65rem; border-radius: var(--radius-pill); font-size: 0.78rem;">
+          Griglia in Decimi (1–10)
+        </span>
+      </div>
+
+      <h1 style="font-size: clamp(1.8rem, 3.5vw, 2.3rem); font-weight: 800; letter-spacing: -0.02em; margin-bottom: 0.6rem;">
+        Simulazione Verifica Scritta: <span style="color: var(--accent-gold);">Titolo dell'UDA</span>
+      </h1>
+      <p style="font-size: 0.98rem; color: var(--text-muted); max-width: 820px; line-height: 1.6; margin-bottom: 1.25rem;">
+        Descrizione didattica della prova sommativa, obiettivi disciplinari misurati e indicazioni per la gestione autonoma del tempo e dei calcoli.
+      </p>
+
+      <!-- Barra Timer & Stampa -->
+      <div class="exam-timer-bar">
+        <div class="timer-display-wrap">
+          <span style="font-size: 0.85rem; font-weight: 700; color: var(--text-muted);">⏱️ Timer Prova:</span>
+          <div class="timer-clock" id="timerClock">60:00</div>
+        </div>
+        <div class="timer-actions">
+          <button type="button" class="btn-timer" id="btnStartTimer" onclick="startTimer()">▶️ Avvia Timer</button>
+          <button type="button" class="btn-timer" id="btnPauseTimer" onclick="pauseTimer()">⏸️ Pausa</button>
+          <button type="button" class="btn-timer" id="btnResetTimer" onclick="resetTimer()">🔄 Reset (60')</button>
+          <button type="button" class="btn-timer" style="border-color: var(--accent-math); color: var(--accent-math);" onclick="window.print()">🖨️ Stampa Verifica</button>
+        </div>
+      </div>
+    </header>
+
+    <!-- INTESTAZIONE CARTACEA STUDENTE -->
+    <div class="print-student-box">
+      <div class="print-field">
+        <label>Candidato / Candidata:</label>
+        <div class="line">________________________________________</div>
+      </div>
+      <div class="print-field">
+        <label>Classe &amp; Sezione:</label>
+        <div class="line">_____ • Liceo Scienze Umane</div>
+      </div>
+      <div class="print-field">
+        <label>Data di Svolgimento:</label>
+        <div class="line" id="examDateLine">___ / ___ / 2026</div>
+      </div>
+      <div class="print-field">
+        <label>Punteggio &amp; Voto:</label>
+        <div class="line">Punti: ___ / 100 • Voto: ___ / 10</div>
+      </div>
+    </div>
+
+    <!-- PARTE A: QUESITI CONCETTUALI (30 Punti) -->
+    <section class="exam-section" id="parteA">
+      <div class="exam-section-header">
+        <h2 class="exam-section-title">
+          <span>🧠</span> Parte A: Quesiti Concettuali &amp; Teoria Applicata
+        </h2>
+        <span class="exam-section-weight">30 Punti (4 quesiti da 7,5 pt)</span>
+      </div>
+
+      <!-- Quesito Modello 1 -->
+      <article class="exam-card-item">
+        <div class="exam-item-top">
+          <span class="exam-item-num">Quesito 1 • Concetto Chiave 1</span>
+          <span class="exam-item-points">7,5 Punti</span>
+        </div>
+        <p class="exam-item-prompt">Testo della domanda concettuale con opzioni e motivazione...</p>
+        <div class="exam-options-grid">
+          <label class="exam-option-label"><input type="radio" name="opt_q1" value="A"><span><strong>A)</strong> Opzione A</span></label>
+          <label class="exam-option-label"><input type="radio" name="opt_q1" value="B"><span><strong>B)</strong> Opzione B (Corretta)</span></label>
+          <label class="exam-option-label"><input type="radio" name="opt_q1" value="C"><span><strong>C)</strong> Opzione C</span></label>
+          <label class="exam-option-label"><input type="radio" name="opt_q1" value="D"><span><strong>D)</strong> Opzione D</span></label>
+        </div>
+        <div class="exam-justify-box">
+          <label>✍️ Giustifica la tua risposta richiamando la teoria di riferimento:</label>
+          <textarea class="exam-justify-textarea" placeholder="Argomentazione teorica..."></textarea>
+        </div>
+      </article>
+    </section>
+
+    <!-- PARTE B: CALCOLO E STRATEGIE (35 Punti) -->
+    <section class="exam-section" id="parteB">
+      <div class="exam-section-header">
+        <h2 class="exam-section-title">
+          <span>⚡</span> Parte B: Calcolo Comodo &amp; Esercizi Operativi
+        </h2>
+        <span class="exam-section-weight">35 Punti</span>
+      </div>
+      <!-- Esercizio Modello -->
+      <article class="exam-card-item">
+        <div class="exam-item-top">
+          <span class="exam-item-num">Esercizio B.1 • Strategia Operativa</span>
+          <span class="exam-item-points">12 Punti</span>
+        </div>
+        <p class="exam-item-prompt">Descrizione dell'esercizio operativo da svolgere...</p>
+        <div class="exam-justify-box">
+          <label>✍️ Mostra i passaggi algebrici o le strategie applicate:</label>
+          <textarea class="exam-justify-textarea" placeholder="Passaggi formali..."></textarea>
+        </div>
+      </article>
+    </section>
+
+    <!-- PARTE C: COMPITO DI REALTÀ (35 Punti) -->
+    <section class="exam-section" id="parteC">
+      <div class="exam-section-header">
+        <h2 class="exam-section-title">
+          <span>🌍</span> Parte C: Compito di Realtà di Modulo
+        </h2>
+        <span class="exam-section-weight">35 Punti</span>
+      </div>
+      <article class="exam-card-item">
+        <div class="exam-item-top">
+          <span class="exam-item-num">Problema di Realtà • Contesto Autentico</span>
+          <span class="exam-item-points">35 Punti</span>
+        </div>
+        <p class="exam-item-prompt">Situazione-problema interdisciplinare contestualizzata...</p>
+        <div class="exam-justify-box">
+          <label>✍️ Risoluzione e commento dei risultati:</label>
+          <textarea class="exam-justify-textarea" placeholder="Risoluzione del compito di realtà..."></textarea>
+        </div>
+      </article>
+    </section>
+
+    <!-- GRIGLIA DI VALUTAZIONE IN DECIMI -->
+    <section class="exam-section" id="griglia">
+      <div class="exam-section-header">
+        <h2 class="exam-section-title"><span>🎯</span> Griglia di Valutazione Ufficiale</h2>
+        <span class="exam-section-weight">Standard Ministeriale</span>
+      </div>
+      <table class="rubric-table">
+        <thead>
+          <tr>
+            <th>Criterio Didattico</th>
+            <th>Punti</th>
+            <th>Indicatori</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>1. Conoscenza e Linguaggio</strong></td>
+            <td>20 pt</td>
+            <td>Padronanza delle definizioni e del formalismo matematico.</td>
+          </tr>
+          <tr>
+            <td><strong>2. Calcolo Comodo &amp; Strategie</strong></td>
+            <td>25 pt</td>
+            <td>Applicazione consapevole delle proprietà e calcolo mentale.</td>
+          </tr>
+          <tr>
+            <td><strong>3. Rigore Logico &amp; Dimostrazioni</strong></td>
+            <td>25 pt</td>
+            <td>Coerenza argomentativa e deduzione formale.</td>
+          </tr>
+          <tr>
+            <td><strong>4. Modellizzazione &amp; Realtà</strong></td>
+            <td>30 pt</td>
+            <td>Traduzione del problema e completezza della soluzione.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- FOOTER CONDIVISO -->
+    <footer style="margin-top: 4rem; padding-top: 2rem; border-top: 1px solid var(--border-subtle); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; color: var(--text-muted); font-size: 0.85rem;">
+      <div style="display: flex; gap: 1.25rem;">
+        <a href="index.html" style="color: var(--accent-math); text-decoration: none; font-weight: 700;">
+          ← Torna all'UDA
+        </a>
+        <a href="../../index.html" style="color: var(--text-muted); text-decoration: none;">
+          Home Page
+        </a>
+      </div>
+      <div>
+        <strong>comode</strong> • Liceo delle Scienze Umane
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- Script Condivisi -->
+  <script src="../../shared/js/audio.js"></script>
+  <script src="../../shared/js/theme.js"></script>
+  <script src="../../shared/js/gamification.js"></script>
+  <script src="../../shared/js/components.js"></script>
+  <script src="../../shared/js/comode.js"></script>
+</body>
+</html>
+

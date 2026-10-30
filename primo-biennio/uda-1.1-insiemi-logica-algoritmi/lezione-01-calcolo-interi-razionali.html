@@ -750,7 +750,7 @@
            ========================================== -->
       <article class="lab-card" id="lab3">
         <span class="lab-badge">Laboratorio 3 • Struttura di ℤ &amp; Opposti</span>
-        <h3 class="lab-title">La Retta Numerica Dinamica: Sottrarre un Debito</h3>
+        <h3 class="lab-title">La Retta Numerica Dinamica: Spostamenti, Debiti e Calcolo del Resto</h3>
 
         <div class="theory-link-box">
           <span class="tl-icon">🔗</span>
@@ -761,26 +761,131 @@
               $\mathbb{Z}$</a>
             e la
             <a href="#teoria-4" class="theory-link-anchor"
-              onclick="event.preventDefault(); scrollToTheory('teoria-4');">Teoria 4 • Dinamica del Segno e Opposti</a>,
-            visualizzando $a - (-b) = a + b$ come inversione di verso sulla retta orientata.
+              onclick="event.preventDefault(); scrollToTheory('teoria-4');">Teoria 4 • Dinamica del Segno e Opposti</a>:
+            sottrarre un numero maggiore del credito posseduto genera un saldo negativo (debito: $2 - 6 = -4$), mentre
+            sottrarre un debito inverte la direzione e arricchisce il saldo ($a - (-b) = a + b$).
           </div>
         </div>
 
         <p class="lab-intro">
-          Perché <strong>$-3 - (-5) = +2$</strong>? Visualizzalo come spostamento di un esploratore orientato sulla
-          retta numerica.
+          Cosa succede quando affrontiamo spese che superano il credito in tasca come <strong>$2 - 6 = -4$</strong>?
+          E perché sottrarre un debito fa avanzare verso destra come in <strong>$-3 - (-5) = +2$</strong>?
+          Esploralo con la retta orientata interattiva e mettiti alla prova con le situazioni reali della cassa e del resto.
         </p>
 
         <div class="number-line-container">
           <div class="nl-controls">
-            <button class="nl-btn active" onclick="setNlCase(-3, -5, 'minus', this)">Caso 1: -3 - (-5)</button>
-            <button class="nl-btn" onclick="setNlCase(2, 6, 'minus', this)">Caso 2: 2 - 6</button>
-            <button class="nl-btn" onclick="setNlCase(-4, 7, 'plus', this)">Caso 3: -4 + 7</button>
+            <button class="nl-btn active" onclick="setNlCase(2, 6, 'minus', this)">Caso 1: 2 - 6 (Ti mancano 4 €)</button>
+            <button class="nl-btn" onclick="setNlCase(-3, -5, 'minus', this)">Caso 2: -3 - (-5) (Togliere un debito)</button>
+            <button class="nl-btn" onclick="setNlCase(-4, 7, 'plus', this)">Caso 3: -4 + 7 (Pagare e avere il resto)</button>
           </div>
 
           <svg id="nlSvg" viewBox="0 0 700 120" width="700" height="120" style="display: block; margin: 0 auto;"></svg>
 
           <div id="nlExplanation" style="margin-top: 0.85rem; font-size: 0.95rem; font-weight: 500;"></div>
+        </div>
+
+        <!-- SOTTO-SEZIONE ESERCIZI INTERATTIVI: DARE IL RESTO E GESTIRE I SALDI IN Z -->
+        <div class="step-box" style="margin-top: 1.5rem;">
+          <div class="step-header">
+            <span class="step-tag">🏪 La Cassa del Negozio: Calcoli in ℤ e Resto nella Realtà</span>
+            <button type="button" class="theory-ref-pill" style="margin-bottom: 0;"
+              onclick="scrollToTheory('teoria-1')">
+              🔗 Teoria 1 &amp; 4 • Saldi, Debiti e Opposti
+            </button>
+          </div>
+          <div class="step-content">
+            <p style="font-size: 0.95rem; line-height: 1.6; margin-bottom: 1.25rem;">
+              Quando compriamo qualcosa, diamo il resto o teniamo il conto di quanto dobbiamo dare, usiamo senza accorgercene i numeri positivi e negativi di $\mathbb{Z}$. Prova a risolvere queste 3 situazioni quotidiane:
+            </p>
+
+            <!-- Esercizio Cassa 1: In panetteria, lasciare in conto e pagare il giorno dopo -->
+            <div style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem; margin-bottom: 1.25rem;">
+              <div style="font-size: 0.8rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: var(--accent-math); margin-bottom: 0.35rem;">
+                Situazione 1 • In Panetteria: Lasciare in Conto e Saldare il Giorno Dopo ($2 - 6$)
+              </div>
+              <p style="font-size: 0.92rem; line-height: 1.55; margin-bottom: 0.85rem;">
+                Vai in panetteria a comprare la pizza per merenda: costa <strong>6 €</strong>, ma nel portafoglio hai solo una <strong>moneta da 2 €</strong>. Il panettiere ti conosce e ti dice: <em>«Lascia pure i 2 € che hai adesso, quello che manca me lo porti domani!»</em>
+              </p>
+              <div style="font-family: var(--font-mono); margin-bottom: 0.85rem; font-size: 0.95rem; display: flex; align-items: center; flex-wrap: wrap; gap: 0.5rem;">
+                <span>a) Di quanto sei "sotto" oggi (quanto devi ancora al panettiere)?</span>
+                <span>$2 - 6 =$</span>
+                <input type="number" id="cashEx1_a" class="inline-input" style="width: 70px;" placeholder="-4">
+                <span>€ (devi 4 €)</span>
+              </div>
+              <p style="font-size: 0.92rem; line-height: 1.55; margin-bottom: 0.85rem;">
+                Il giorno dopo torni in panetteria con una <strong>banconota da 10 €</strong> per pagare i <strong>4 €</strong> che gli dovevi:
+              </p>
+              <div style="font-family: var(--font-mono); margin-bottom: 1rem; font-size: 0.95rem; display: flex; align-items: center; flex-wrap: wrap; gap: 0.5rem;">
+                <span>b) Quanto resto ti dà il panettiere?</span>
+                <span>$-4 + 10 =$</span>
+                <input type="number" id="cashEx1_b" class="inline-input" style="width: 70px;" placeholder="6">
+                <span>€ di resto</span>
+              </div>
+              <div class="verify-box">
+                <button type="button" class="btn-action" onclick="verifyCashEx1()">Verifica Situazione 1</button>
+                <span id="cashEx1Msg" class="feedback-msg" style="display: none;"></span>
+              </div>
+            </div>
+
+            <!-- Esercizio Cassa 2: In pizzeria, dare 2 euro in moneta per avere 5 euro di banconota -->
+            <div style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem; margin-bottom: 1.25rem;">
+              <div style="font-size: 0.8rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: var(--accent-math); margin-bottom: 0.35rem;">
+                Situazione 2 • In Pizzeria: «Hai 2 € in moneta così ti do 5 € di carta?»
+              </div>
+              <p style="font-size: 0.92rem; line-height: 1.55; margin-bottom: 0.85rem;">
+                Alla cassa devi pagare <strong>17 €</strong> (quindi hai una spesa di <strong>$-17$ €</strong>). Hai una <strong>banconota da 20 €</strong>, ma per non ricevere tante monete di resto dai subito al cassiere una <strong>moneta da 2 €</strong>.
+              </p>
+              <div style="font-family: var(--font-mono); margin-bottom: 0.85rem; font-size: 0.95rem; display: flex; align-items: center; flex-wrap: wrap; gap: 0.5rem;">
+                <span>a) Dando subito la moneta da 2 €, quanto ti resta da pagare?</span>
+                <span>$-17 + 2 =$</span>
+                <input type="number" id="cashEx2_a" class="inline-input" style="width: 70px;" placeholder="-15">
+                <span>€ (restano 15 € da coprire)</span>
+              </div>
+              <p style="font-size: 0.92rem; line-height: 1.55; margin-bottom: 0.85rem;">
+                Ora consegni la <strong>banconota da 20 €</strong> per coprire i 15 € rimasti:
+              </p>
+              <div style="font-family: var(--font-mono); margin-bottom: 1rem; font-size: 0.95rem; display: flex; align-items: center; flex-wrap: wrap; gap: 0.5rem;">
+                <span>b) Quanto resto ti dà il cassiere in un'unica banconota da 5 €?</span>
+                <span>$-15 + 20 =$</span>
+                <input type="number" id="cashEx2_b" class="inline-input" style="width: 70px;" placeholder="5">
+                <span>€</span>
+              </div>
+              <div class="verify-box">
+                <button type="button" class="btn-action" onclick="verifyCashEx2()">Verifica Situazione 2</button>
+                <span id="cashEx2Msg" class="feedback-msg" style="display: none;"></span>
+              </div>
+            </div>
+
+            <!-- Esercizio Cassa 3: Al bar della scuola, cancellare un debito segnato per sbaglio -->
+            <div style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem;">
+              <div style="font-size: 0.8rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: var(--accent-math); margin-bottom: 0.35rem;">
+                Situazione 3 • Al Bar della Scuola: Cancellare un Debito Segnato per Sbaglio ($-8 - (-5)$)
+              </div>
+              <p style="font-size: 0.92rem; line-height: 1.55; margin-bottom: 0.85rem;">
+                Sul blocchetto del bar della scuola risulta che devi pagare <strong>8 €</strong> di merende arretrate (sei a <strong>$-8$ €</strong>). Controllando insieme al barista, però, vi accorgete che aveva segnato per sbaglio sul tuo nome anche un panino e una spremuta da <strong>5 €</strong> (un debito di <strong>$-5$ €</strong>) presi da un tuo compagno! Il barista allora <strong>cancella (toglie) quel debito di 5 €</strong> dal tuo conto.
+              </p>
+              <div style="font-family: var(--font-mono); margin-bottom: 0.85rem; font-size: 0.95rem; display: flex; align-items: center; flex-wrap: wrap; gap: 0.5rem;">
+                <span>a) Togliere un debito di 5 €: $-8 - (-5) = -8 + 5 =$</span>
+                <input type="number" id="cashEx3_a" class="inline-input" style="width: 70px;" placeholder="-3">
+                <span>€ (devi solo 3 €)</span>
+              </div>
+              <p style="font-size: 0.92rem; line-height: 1.55; margin-bottom: 0.85rem;">
+                Per pagare questi <strong>3 €</strong> che gli devi davvero, porgi al barista una <strong>banconota da 5 €</strong>:
+              </p>
+              <div style="font-family: var(--font-mono); margin-bottom: 1rem; font-size: 0.95rem; display: flex; align-items: center; flex-wrap: wrap; gap: 0.5rem;">
+                <span>b) Quanto resto ti dà il barista (in una moneta da 2 €)?</span>
+                <span>$-3 + 5 =$</span>
+                <input type="number" id="cashEx3_b" class="inline-input" style="width: 70px;" placeholder="2">
+                <span>€ di resto</span>
+              </div>
+              <div class="verify-box">
+                <button type="button" class="btn-action" onclick="verifyCashEx3()">Verifica Situazione 3</button>
+                <span id="cashEx3Msg" class="feedback-msg" style="display: none;"></span>
+              </div>
+            </div>
+
+          </div>
         </div>
 
         <div class="step-box">
@@ -1534,7 +1639,7 @@
      */
 
     function initLesson() {
-      renderNumberLine(-3, -5, 'minus');
+      renderNumberLine(2, 6, 'minus');
       renderFractionBars();
       renderAllocationBar();
 
@@ -1840,13 +1945,69 @@
 
       const expl = document.getElementById('nlExplanation');
       if (expl) {
-        if (op === 'minus' && delta < 0) {
-          expl.innerHTML = `Partiamo da <span style="color:var(--accent-warning);font-weight:700;">${start}</span>. Sottrarre un debito di <span style="color:var(--accent-danger);font-weight:700;">${delta}</span> inverte il moto e ci fa avanzare verso destra di ${Math.abs(delta)} passi! Arrivo: <span style="color:var(--accent-success);font-weight:700;">${endVal}</span>.`;
+        if (start === 2 && delta === 6 && op === 'minus') {
+          expl.innerHTML = `<strong>Caso 1 (2 − 6 = −4):</strong> Partiamo da <span style="color:var(--accent-warning);font-weight:700;">+2</span> (i 2 € che hai in tasca). Sottraiamo <span style="color:var(--accent-danger);font-weight:700;">6</span> (il costo della pizza): ci spostiamo di 6 passi a sinistra, superando lo zero e arrivando a <span style="color:var(--accent-success);font-weight:700;">−4</span>. <em>Nella realtà:</em> hai 2 €, la pizza costa 6 €, quindi ti mancano 4 € (devi 4 € al panettiere)!`;
+        } else if (op === 'minus' && delta < 0) {
+          expl.innerHTML = `<strong>Caso 2 (−3 − (−5) = +2):</strong> Partiamo da <span style="color:var(--accent-warning);font-weight:700;">${start}</span>. Togliere un debito di <span style="color:var(--accent-danger);font-weight:700;">${delta}</span> cambia il verso e ci fa andare a <strong>destra</strong> di ${Math.abs(delta)} passi! Arrivo: <span style="color:var(--accent-success);font-weight:700;">+${endVal}</span>. <em>Nella realtà:</em> se ti cancellano un debito di 5 € segnato per sbaglio, è come ricevere 5 €!`;
+        } else if (start === -4 && delta === 7 && op === 'plus') {
+          expl.innerHTML = `<strong>Caso 3 (−4 + 7 = +3):</strong> Partiamo da <span style="color:var(--accent-warning);font-weight:700;">−4</span> (i 4 € che devi pagare). Diamo <span style="color:var(--accent-math);font-weight:700;">+7 €</span> (spostamento verso destra di 7 passi): copriamo i 4 € che dovevamo e arriviamo a <span style="color:var(--accent-success);font-weight:700;">+3</span>. <em>Nella realtà:</em> 3 € è il resto che ci torna indietro!`;
         } else if (op === 'minus') {
           expl.innerHTML = `Partiamo da <span style="color:var(--accent-warning);font-weight:700;">${start}</span>. Sottraiamo ${delta} (moto verso sinistra). Arrivo: <span style="color:var(--accent-success);font-weight:700;">${endVal}</span>.`;
         } else {
           expl.innerHTML = `Partiamo da <span style="color:var(--accent-warning);font-weight:700;">${start}</span>. Aggiungiamo ${delta} (moto verso destra). Arrivo: <span style="color:var(--accent-success);font-weight:700;">${endVal}</span>.`;
         }
+      }
+    }
+
+    // Verifica Esercizi Cassa e Resto in Z
+    function verifyCashEx1() {
+      const a = parseInt(document.getElementById('cashEx1_a').value.trim(), 10);
+      const b = parseInt(document.getElementById('cashEx1_b').value.trim(), 10);
+      const msg = document.getElementById('cashEx1Msg');
+      msg.style.display = 'inline-flex';
+
+      if (a === -4 && b === 6) {
+        if (window.ComodeAudio) window.ComodeAudio.playSuccess();
+        msg.className = 'feedback-msg success';
+        msg.textContent = 'Esatto! Oggi ti mancano 4 € (2 - 6 = -4 €) e domani, pagando con 10 €, ricevi 6 € di resto (-4 + 10 = +6 €)!';
+      } else {
+        if (window.ComodeAudio) window.ComodeAudio.playError();
+        msg.className = 'feedback-msg error';
+        msg.textContent = 'Riprova: 2 - 6 fa -4 € (i 4 € che devi al panettiere); poi -4 + 10 dà +6 € di resto!';
+      }
+    }
+
+    function verifyCashEx2() {
+      const a = parseInt(document.getElementById('cashEx2_a').value.trim(), 10);
+      const b = parseInt(document.getElementById('cashEx2_b').value.trim(), 10);
+      const msg = document.getElementById('cashEx2Msg');
+      msg.style.display = 'inline-flex';
+
+      if (a === -15 && b === 5) {
+        if (window.ComodeAudio) window.ComodeAudio.playSuccess();
+        msg.className = 'feedback-msg success';
+        msg.textContent = 'Perfetto! Dando subito la moneta da 2 €, da -17 € passi a -15 €; con i 20 € ricevi -15 + 20 = 5 € in una sola banconota!';
+      } else {
+        if (window.ComodeAudio) window.ComodeAudio.playError();
+        msg.className = 'feedback-msg error';
+        msg.textContent = 'Controlla i passaggi: -17 + 2 = -15 € ancora da coprire; poi con la banconota da 20 €, quanto fa -15 + 20?';
+      }
+    }
+
+    function verifyCashEx3() {
+      const a = parseInt(document.getElementById('cashEx3_a').value.trim(), 10);
+      const b = parseInt(document.getElementById('cashEx3_b').value.trim(), 10);
+      const msg = document.getElementById('cashEx3Msg');
+      msg.style.display = 'inline-flex';
+
+      if (a === -3 && b === 2) {
+        if (window.ComodeAudio) window.ComodeAudio.playSuccess();
+        msg.className = 'feedback-msg success';
+        msg.textContent = 'Bravissimo! Togliere il debito di 5 € segnato per sbaglio fa -8 - (-5) = -3 €; pagando con 5 € ricevi 2 € di resto!';
+      } else {
+        if (window.ComodeAudio) window.ComodeAudio.playError();
+        msg.className = 'feedback-msg error';
+        msg.textContent = 'Attenzione: -8 - (-5) equivale a -8 + 5 = -3 € (devi solo 3 €). Poi pagando con 5 €, quanto fa -3 + 5?';
       }
     }
 

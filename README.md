@@ -22,6 +22,7 @@ Il nome del progetto trae ispirazione diretta dalle Indicazioni Nazionali del Mi
 3. **Collegamento Esplicito Teoria ↔ Pratica**: Ogni singolo esercizio, laboratorio interattivo o flashcard indica chiaramente quale principio teorico sta approfondendo (con link diretto alla pillola di teoria corrispondente), rendendo trasparente il ponte tra proprietà formali e strategie operative.
 4. **Modellizzazione della Realtà, Favole Interattive & Schede Operative**: Costante legame con contesti reali e interdisciplinari: ogni UDA include una **Favola Interattiva** narrativa e ogni lezione si chiude con un **Compito di Realtà Finale (Scheda Operativa per casa)** svolgibile da soli o in gruppo, da portare compilato per la lezione successiva.
 5. **Scaffolding, CLIL e Autovalutazione**: Problemi guida commentati, suggerimenti (*hints*) graduali, moduli CLIL con pronuncia madrelingua e flashcard *Mastery Learning* ripetibili con opzioni rimescolate dinamicamente.
+6. **Simulazione della Verifica Scritta in ogni Modulo**: Ogni UDA culmina con una prova sommativa simulata a tempo (60 minuti), strutturata in quesiti concettuali con motivazione teorica, esercizi di calcolo confortevole e frazioni, problema autentico di realtà e griglia di valutazione in decimi conforme alle Indicazioni Nazionali, stampabile o eseguibile online con feedback formativo immediato.
 
 ---
 
@@ -70,16 +71,22 @@ comode/
 │   │   └── personaggi/                  # Schede visive dei personaggi fissi (Vela, mamma, papà, zio)
 │   ├── templates/
 │   │   ├── lesson-template.html         # Template standard per nuove lezioni
-│   │   └── story-template.html          # Template standard per nuove favole interattive
+│   │   ├── story-template.html          # Template standard per nuove favole interattive
+│   │   └── exam-template.html           # Template standard per la simulazione della verifica scritta di modulo
 │   └── REFERENCE.md                     # Living Styleguide & Developer Reference
 │
 ├── primo-biennio/                       # 1° e 2° Anno: Solo Matematica (8 UDA)
 │   ├── index.html                       # Hub del Primo Biennio
 │   ├── uda-1.1-insiemi-logica-algoritmi/
-│   │   ├── index.html                   # Hub UDA 1.1 (Favola, 5 lezioni curricolari, CLIL)
+│   │   ├── index.html                   # Hub UDA 1.1 (Favola, 5 lezioni curricolari, CLIL, Simulazione verifica)
 │   │   ├── favola-interattiva-i-numeri.html # Favola interattiva di Vela e le fragole
+│   │   ├── simulazione-verifica-uda-1.1.html # Simulazione della verifica scritta di modulo (In preparazione)
 │   │   ├── illustrazioni-favola/        # Illustrazioni originali dell'episodio
 │   │   ├── lezione-01-calcolo-interi-razionali.html # Lezione 1.1 (Attiva)
+│   │   ├── lezione-02-retta-scale-notazione.html # Lezione 1.2 (Attiva)
+│   │   ├── lezione-03-potenze-numeri-primi-euclide.html # Lezione 1.3 (Attiva)
+│   │   ├── lezione-04-insiemi-logica-linguaggio.html # Lezione 1.4 (Attiva)
+│   │   ├── lezione-05-primi-algoritmi-flowchart.html # Lezione 1.5 (Attiva)
 │   │   └── lezione-clil-numbers-mind-strategies.html # Modulo CLIL (Attiva)
 │   ├── uda-1.2-calcolo-letterale-equazioni/
 │   ├── uda-1.3-geometria-euclidea-aree/

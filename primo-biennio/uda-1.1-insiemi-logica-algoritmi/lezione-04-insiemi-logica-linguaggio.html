@@ -1,0 +1,1903 @@
+<!DOCTYPE html>
+<html lang="it" data-theme="dark">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lezione 1.4: Insiemi, Logica e Linguaggio, Dimostrazione per Assurdo • comode</title>
+  <meta name="description"
+    content="Lezione interattiva di Matematica per il 1° anno del Liceo delle Scienze Umane: operazioni tra insiemi, diagrammi di Eulero-Venn, connettivi logici, tavole di verità, test cognitivo di Wason e dimostrazione per assurdo.">
+
+  <!-- Font Google -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+
+  <!-- KaTeX 0.19.1 per rendering matematico -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.19.1/dist/katex.min.css" crossorigin="anonymous">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.19.1/dist/katex.min.js" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.19.1/dist/contrib/auto-render.min.js"
+    crossorigin="anonymous"></script>
+
+  <!-- Master Stylesheet Condiviso -->
+  <link rel="stylesheet" href="../../shared/css/comode.css">
+
+  <style>
+    /* ==========================================================================
+       Stili Specifici Lezione 1.4 (prefisso .l04- anti-collisione KaTeX)
+       ========================================================================== */
+
+    .l04-stage {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 1.25rem;
+      margin: 1.15rem 0;
+    }
+
+    .l04-controls-row {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.55rem;
+      flex-wrap: wrap;
+      margin-bottom: 1rem;
+    }
+
+    .l04-pill-btn {
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+      font-family: inherit;
+      padding: 0.45rem 0.9rem;
+      border-radius: var(--radius-pill);
+      font-size: 0.84rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .l04-pill-btn:hover,
+    .l04-pill-btn.active {
+      border-color: var(--accent-math);
+      color: var(--text-main);
+      background: var(--accent-math-glow);
+    }
+
+    .l04-pill-btn.purple.active,
+    .l04-pill-btn.purple:hover {
+      border-color: var(--accent-purple);
+      background: rgba(139, 92, 246, 0.16);
+      color: var(--text-main);
+    }
+
+    .l04-venn-wrap {
+      text-align: center;
+      overflow-x: auto;
+    }
+
+    .l04-venn-caption {
+      margin-top: 0.75rem;
+      padding: 0.75rem 1rem;
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      text-align: center;
+      line-height: 1.55;
+    }
+
+    /* Laboratorio 2: Tavole di Verità Interattive */
+    .l04-truth-switches {
+      display: flex;
+      justify-content: center;
+      gap: 1.25rem;
+      flex-wrap: wrap;
+      margin-bottom: 1rem;
+    }
+
+    .l04-switch-card {
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 0.85rem 1.15rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .l04-tf-btn {
+      font-family: var(--font-mono);
+      font-weight: 800;
+      font-size: 0.9rem;
+      padding: 0.35rem 0.85rem;
+      border-radius: var(--radius-pill);
+      border: 1px solid var(--border-subtle);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .l04-tf-btn.is-true {
+      background: rgba(16, 185, 129, 0.18);
+      border-color: var(--accent-success);
+      color: var(--accent-success);
+    }
+
+    .l04-tf-btn.is-false {
+      background: rgba(244, 63, 94, 0.16);
+      border-color: var(--accent-danger);
+      color: var(--accent-danger);
+    }
+
+    .l04-truth-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-family: var(--font-mono);
+      font-size: 0.88rem;
+      text-align: center;
+    }
+
+    .l04-truth-table th,
+    .l04-truth-table td {
+      padding: 0.65rem 0.5rem;
+      border: 1px solid var(--border-subtle);
+    }
+
+    .l04-truth-table th {
+      background: var(--bg-surface-elevated);
+      color: var(--text-main);
+    }
+
+    .l04-truth-table tr.active-row {
+      background: rgba(56, 189, 248, 0.14);
+      font-weight: 800;
+    }
+
+    .l04-val-v {
+      color: var(--accent-success);
+      font-weight: 800;
+    }
+
+    .l04-val-f {
+      color: var(--accent-danger);
+      font-weight: 800;
+    }
+
+    /* Laboratorio 3: Test delle 4 Carte di Wason */
+    .l04-wason-deck {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(95px, 130px));
+      justify-content: center;
+      gap: 1rem;
+      margin: 1.1rem 0;
+    }
+
+    @media (max-width: 520px) {
+      .l04-wason-deck {
+        grid-template-columns: repeat(2, minmax(100px, 135px));
+      }
+    }
+
+    .l04-wason-card {
+      aspect-ratio: 3 / 4;
+      border-radius: var(--radius-md);
+      background: linear-gradient(145deg, var(--bg-surface-elevated), var(--bg-surface));
+      border: 2px solid var(--border-subtle);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: var(--transition);
+      user-select: none;
+      position: relative;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .l04-wason-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--accent-purple);
+    }
+
+    .l04-wason-card.selected {
+      border-color: var(--accent-purple);
+      background: rgba(139, 92, 246, 0.16);
+      box-shadow: 0 0 18px rgba(139, 92, 246, 0.28);
+      transform: translateY(-5px);
+    }
+
+    .l04-wason-symbol {
+      font-family: var(--font-mono);
+      font-size: 2.3rem;
+      font-weight: 800;
+      color: var(--text-main);
+    }
+
+    .l04-wason-sub {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      margin-top: 0.35rem;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    /* Laboratorio 4 & 5: Analisi Implicazione & Teatro dell'Assurdo */
+    .l04-logic-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 0.9rem;
+      margin-top: 0.85rem;
+    }
+
+    .l04-logic-card {
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 0.95rem;
+    }
+
+    .l04-logic-card.valid {
+      border-color: rgba(16, 185, 129, 0.45);
+    }
+
+    .l04-logic-card.trap {
+      border-color: rgba(244, 63, 94, 0.45);
+    }
+
+    .l04-assurdo-step {
+      background: var(--bg-surface-elevated);
+      border-left: 4px solid var(--accent-math);
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      padding: 0.85rem 1rem;
+      margin-bottom: 0.65rem;
+      font-size: 0.9rem;
+      line-height: 1.55;
+    }
+
+    .l04-assurdo-step.boom {
+      border-left-color: var(--accent-danger);
+      background: rgba(244, 63, 94, 0.08);
+    }
+
+    .l04-assurdo-step.qed {
+      border-left-color: var(--accent-success);
+      background: rgba(16, 185, 129, 0.08);
+    }
+
+    .l04-select {
+      background: var(--bg-surface);
+      color: var(--text-main);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 0.48rem 0.75rem;
+      font-family: inherit;
+      font-size: 0.88rem;
+      font-weight: 600;
+      max-width: 100%;
+    }
+
+    /* Laboratorio 6: Palestra Mentale */
+    .gym-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.25rem;
+      margin-top: 1rem;
+    }
+
+    .gym-card {
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .gym-card.solved {
+      border-color: rgba(16, 185, 129, 0.45);
+      background: rgba(16, 185, 129, 0.05);
+    }
+
+    .gym-badge {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--accent-purple);
+      text-transform: uppercase;
+      margin-bottom: 0.4rem;
+    }
+
+    .gym-question {
+      font-size: 0.98rem;
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+      line-height: 1.6;
+    }
+
+    .l04-fallacy-diagram {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 1rem;
+      margin: 1rem 0 1.25rem;
+      text-align: center;
+      overflow-x: auto;
+    }
+  </style>
+</head>
+
+<body data-theme="dark" data-lesson-id="pb-1.1-l04" data-xp="60" data-unit="uda-1.1">
+
+  <div class="container">
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+      <a href="../../index.html" class="brand">
+        📐 comode<span>.</span>
+      </a>
+      <div class="nav-actions">
+        <div class="gamification-widget" title="Il tuo livello e punti XP">
+          <span class="level-badge user-level-val">Liv. 1 🌱</span>
+          <span class="xp-counter user-xp-val">0 XP</span>
+        </div>
+        <button id="audioToggleBtn" class="icon-btn" aria-label="Attiva o disattiva audio">
+          🔊 <span class="nav-text">Suoni</span>
+        </button>
+        <button id="themeToggleBtn" class="theme-toggle-btn" aria-label="Cambia tema">
+          <span id="themeIcon">☀️</span>
+          <span id="themeLabel">Chiaro</span>
+        </button>
+      </div>
+    </nav>
+
+    <!-- Breadcrumbs -->
+    <div class="breadcrumbs">
+      <a href="../../index.html">Home</a>
+      <span class="sep">/</span>
+      <a href="../index.html">Primo Biennio</a>
+      <span class="sep">/</span>
+      <a href="index.html">UDA 1.1: Insiemi, Logica e Algoritmi</a>
+      <span class="sep">/</span>
+      <span class="current">Lezione 1.4</span>
+    </div>
+
+    <!-- Hero Card -->
+    <header class="hero-card">
+      <div class="hero-badges">
+        <span class="badge badge-primary">Matematica • 1° Anno</span>
+        <span class="badge badge-secondary">UDA 1.1 • Insiemi, Logica e Algoritmi</span>
+        <span class="badge badge-meta">Ragionamento &amp; Psicologia Cognitiva</span>
+      </div>
+      <h1 class="hero-title">Insiemi, Logica e Linguaggio, Dimostrazione per Assurdo</h1>
+      <p class="hero-desc">
+        Come si distingue un ragionamento rigoroso da un discorso ingannevole? Esplora le operazioni tra
+        <strong>insiemi</strong> con i diagrammi di Eulero-Venn, padroneggia i <strong>connettivi logici</strong>,
+        affronta il celebre <em>test psicologico delle 4 carte di Wason</em> e impara l'arte della
+        <strong>dimostrazione per assurdo</strong>.
+      </p>
+
+      <!-- Progress Tracker -->
+      <div class="progress-bar-card">
+        <div class="progress-label">
+          <span>🎯 Progresso Laboratori Guidati:</span>
+          <span class="progress-score" id="progressScore">0 / 6 completati</span>
+        </div>
+        <div class="progress-track">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+      </div>
+    </header>
+
+    <!-- ========================================================
+         PREREQUISITI & OBIETTIVI ("COSA SAPRAI FARE")
+         ======================================================== -->
+    <div class="prereq-objectives-grid">
+      <div class="prereq-card">
+        <div class="card-top-label prereq">
+          <span>🔑</span> Prerequisiti Consigliati
+        </div>
+        <h2 class="po-title">Cosa ti serve prima di iniziare</h2>
+        <ul class="po-list">
+          <li>
+            <span class="po-icon">✓</span>
+            <div><strong>Insiemi numerici $\mathbb{N}, \mathbb{Z}, \mathbb{Q}$:</strong> riconoscere naturali, interi,
+              pari, dispari e numeri primi (Lezioni 1.1 – 1.3).</div>
+          </li>
+          <li>
+            <span class="po-icon">✓</span>
+            <div><strong>Dimostrazione di Euclide:</strong> aver visto come un ragionamento mostra che una lista finita
+              di primi è impossibile (Lezione 1.3).</div>
+          </li>
+          <li>
+            <span class="po-icon">✓</span>
+            <div><strong>Analisi della frase in italiano:</strong> distinguere una condizione («se...») dalla sua
+              conseguenza («allora...»).</div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="objectives-card">
+        <div class="card-top-label objectives">
+          <span>🎯</span> Competenze in Uscita
+        </div>
+        <h2 class="po-title">Cosa saprai fare alla fine della lezione</h2>
+        <ul class="po-list">
+          <li>
+            <span class="po-icon">🚀</span>
+            <div><strong>Operare con gli Insiemi:</strong> calcolare unione $A \cup B$, intersezione $A \cap B$,
+              differenza $A \setminus B$ e risolvere sondaggi evitando doppi conteggi.</div>
+          </li>
+          <li>
+            <span class="po-icon">🚀</span>
+            <div><strong>Costruire Tavole di Verità:</strong> valutare proposizioni con «non» ($\neg$), «e» ($\land$),
+              «o» ($\lor$) e «se... allora» ($\Rightarrow$).</div>
+          </li>
+          <li>
+            <span class="po-icon">🚀</span>
+            <div><strong>Superare il Bias di Conferma (Test di Wason):</strong> distinguere ipotesi, tesi,
+              contronominale valida ($\neg q \Rightarrow \neg p$) e controesempi.</div>
+          </li>
+          <li>
+            <span class="po-icon">🚀</span>
+            <div><strong>Applicare la Dimostrazione per Assurdo:</strong> negare la tesi per dedurre una contraddizione
+              e smascherare fallacie nei discorsi pubblici.</div>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+
+    <!-- ========================================================
+         SEZIONE 1: SCHEDA TEORIA FLASH (6 Ancore #teoria-1..6)
+         ======================================================== -->
+    <section class="theory-wrapper">
+      <div class="section-header">
+        <h2 class="section-title">
+          <span class="icon">⚡</span> Scheda Teoria Flash: Insiemi, Logica e Assurdo
+        </h2>
+        <button id="toggleTheoryBtn" class="collapse-btn">
+          <span>Nascondi Teoria</span> ▴
+        </button>
+      </div>
+
+      <div id="theoryContent" class="theory-grid">
+
+        <!-- Teoria 1 -->
+        <div class="theory-card" id="teoria-1">
+          <div class="theory-card-header">
+            <span class="pill-num">1</span>
+            <span>Insiemi, Appartenenza e Sottoinsiemi</span>
+          </div>
+          <ul class="theory-list">
+            <li>Un <strong>insieme</strong> in senso matematico è un raggruppamento definito da un criterio
+              <em>oggettivo</em> (es. «i numeri primi minori di $10$», non «i film belli»).</li>
+            <li>Simboli base: $x \in A$ ($x$ appartiene ad $A$), $x \notin A$ (non appartiene), $\emptyset$ (insieme
+              vuoto, zero elementi), $A \subseteq B$ ($A$ è <strong>sottoinsieme</strong> di $B$: ogni elemento di $A$
+              sta anche in $B$, come $\mathbb{N} \subseteq \mathbb{Z} \subseteq \mathbb{Q}$).</li>
+          </ul>
+        </div>
+
+        <!-- Teoria 2 -->
+        <div class="theory-card" id="teoria-2">
+          <div class="theory-card-header">
+            <span class="pill-num">2</span>
+            <span>Operazioni tra Insiemi &amp; Doppio Conteggio</span>
+          </div>
+          <ul class="theory-list">
+            <li><strong>Intersezione $A \cap B$</strong>: elementi comuni che stanno in $A$ <strong>e</strong> in $B$.
+            </li>
+            <li><strong>Unione $A \cup B$</strong>: elementi che stanno in $A$ <strong>o</strong> in $B$ (o in
+              entrambi!).</li>
+            <li><strong>Differenza $A \setminus B$</strong>: elementi che stanno in $A$ ma <strong>non</strong> in $B$;
+              <strong>Complementare $\overline{A}$</strong>: elementi dell'universo $U$ fuori da $A$.</li>
+            <li><strong>Formula dei sondaggi</strong>: $|A \cup B| = |A| + |B| - |A \cap B|$ (si toglie l'intersezione
+              per non contare due volte chi è in mezzo!).</li>
+          </ul>
+        </div>
+
+        <!-- Teoria 3 -->
+        <div class="theory-card" id="teoria-3">
+          <div class="theory-card-header">
+            <span class="pill-num">3</span>
+            <span>Proposizioni e Connettivi («non», «e», «o»)</span>
+          </div>
+          <ul class="theory-list">
+            <li>Una <strong>proposizione logica</strong> è un'affermazione a cui si può attribuire senza ambiguità il
+              valore <strong>Vero (V)</strong> o <strong>Falso (F)</strong>.</li>
+            <li><strong>Negazione $\neg p$</strong> («non $p$»): inverte V in F e F in V (corrisponde al complementare
+              $\overline{A}$).</li>
+            <li><strong>Congiunzione $p \land q$</strong> («$p$ <strong>e</strong> $q$»): è Vera <em>solo se entrambe
+                sono Vere</em> (corrisponde a $A \cap B$).</li>
+            <li><strong>Disgiunzione inclusiva $p \lor q$</strong> («$p$ <strong>o</strong> $q$», latino <em>vel</em>):
+              basta che <em>almeno una sia Vera</em>; è Falsa solo se sono entrambe False (corrisponde a $A \cup B$).
+            </li>
+          </ul>
+        </div>
+
+        <!-- Teoria 4 -->
+        <div class="theory-card" id="teoria-4">
+          <div class="theory-card-header">
+            <span class="pill-num">4</span>
+            <span>Implicazione «Se $p$ allora $q$» ($p \Rightarrow q$)</span>
+          </div>
+          <ul class="theory-list">
+            <li>In $p \Rightarrow q$, $p$ è l'<strong>ipotesi</strong> (premessa) e $q$ è la <strong>tesi</strong>
+              (conseguenza). Pensa a una promessa: «Se piove ($p$), prendo l'ombrello ($q$)».</li>
+            <li>La promessa è infranta (<strong>Falsa</strong>) <strong>in un solo caso</strong>: quando $p$ è
+              <strong>Vera</strong> e $q$ è <strong>Falsa</strong>! Se non piove ($p$ Falsa), la promessa non è violata
+              comunque tu agisca.</li>
+            <li><strong>Contronominale valida</strong>: $p \Rightarrow q$ equivale sempre a $\neg q \Rightarrow \neg p$!
+              Attenzione invece alla <strong>fallacia dell'inversa</strong>: $q \Rightarrow p$ <em>non</em> è
+              garantita!</li>
+          </ul>
+        </div>
+
+        <!-- Teoria 5 -->
+        <div class="theory-card" id="teoria-5">
+          <div class="theory-card-header">
+            <span class="pill-num">5</span>
+            <span>Test di Wason, Bias di Conferma e Controesempi</span>
+          </div>
+          <ul class="theory-list">
+            <li><strong>Quantificatori</strong>: per dimostrare «Per ogni $x$ ($\forall x$)...» serve un ragionamento
+              generale; per smontarlo basta <strong>un solo controesempio</strong> ($\exists x$ che lo viola)!</li>
+            <li><strong>Test di Wason (1966)</strong>: la mente umana soffre del <em>bias di conferma</em> (cerca casi
+              $p \land q$ che confermano la propria idea), mentre per verificare rigorosamente $p \Rightarrow q$ bisogna
+              cercare eventuali controesempi controllando $p$ e $\neg q$!</li>
+          </ul>
+        </div>
+
+        <!-- Teoria 6 -->
+        <div class="theory-card" id="teoria-6">
+          <div class="theory-card-header">
+            <span class="pill-num">6</span>
+            <span>La Dimostrazione per Assurdo</span>
+          </div>
+          <ul class="theory-list">
+            <li>Come si dimostra un teorema «Ipotesi $I \Rightarrow$ Tesi $T$» quando la via diretta è difficile?</li>
+            <li><strong>Ricetta in 3 passi (*Reductio ad absurdum*)</strong>:
+              <br>1. Mantieni l'ipotesi $I$ e <strong>supponi per assurdo che la tesi sia falsa</strong> ($\neg T$);
+              <br>2. Deduci conseguenze logiche corrette finché arrivi a una <strong>contraddizione impossibile</strong>
+              (un <em>assurdo</em>!);
+              <br>3. Poiché una premessa che porta all'assurdo non può essere vera, $\neg T$ è falsa: dunque <strong>la
+                tesi $T$ è necessariamente vera!</strong>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Quote Interdisciplinare Scienze Umane -->
+        <div class="quote-box">
+          <span class="quote-icon">🧠</span>
+          <div class="quote-text">
+            <strong>Ponte con la Psicologia &amp; Educazione Civica:</strong> Lo psicologo cognitivo <em>Peter Wason</em>
+            e il filosofo della scienza <em>Karl Popper</em> hanno mostrato che la maturità del pensiero scientifico e
+            democratico non consiste nel raccogliere solo indizi che ci danno ragione (<em>bias di conferma</em>), ma
+            nel saper mettere alla prova le affermazioni cercando possibili <strong>controesempi</strong> e riconoscendo
+            le fallacie logiche nei dibattiti pubblici.
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- ========================================================
+         SEZIONE 2: I 6 LABORATORI INTERATTIVI
+         ======================================================== -->
+    <main class="labs-container">
+
+      <!-- ======================================================
+           LABORATORIO 1: DIAGRAMMI DI EULERO-VENN INTERATTIVI
+           ====================================================== -->
+      <article class="lab-card" id="lab1">
+        <div class="lab-header">
+          <div class="lab-badge-group">
+            <span class="lab-number">Laboratorio 1 • Insiemi &amp; Eulero-Venn</span>
+            <span class="xp-pill">+10 XP</span>
+          </div>
+        </div>
+
+        <h3 class="lab-title">Esploratore di Eulero-Venn &amp; Sondaggi Senza Doppi Conteggi</h3>
+
+        <div class="theory-link-box">
+          <span class="tl-icon">🔗</span>
+          <div>
+            <strong>Collegamento Teoria ↔ Pratica:</strong> Questo laboratorio collega la
+            <a href="#teoria-1" class="theory-link-anchor"
+              onclick="event.preventDefault(); scrollToTheory('teoria-1');">Teoria 1 • Insiemi</a>,
+            la <a href="#teoria-2" class="theory-link-anchor"
+              onclick="event.preventDefault(); scrollToTheory('teoria-2');">Teoria 2 • Operazioni &amp; Formula dei
+              Sondaggi</a>
+            e la <a href="#teoria-3" class="theory-link-anchor"
+              onclick="event.preventDefault(); scrollToTheory('teoria-3');">Teoria 3 • Connettivi «e», «o», «non»</a>.
+          </div>
+        </div>
+
+        <p class="lab-objective">
+          Clicca sulle operazioni insiemistiche qui sotto per illuminare la regione corrispondente nel diagramma di
+          Eulero-Venn e leggerne la traduzione immediata nel linguaggio quotidiano!
+        </p>
+
+        <div class="l04-stage">
+          <div class="l04-controls-row" id="vennControls">
+            <button type="button" class="l04-pill-btn active" onclick="setVennMode('inter', this)">$A \cap B$
+              (Intersezione)</button>
+            <button type="button" class="l04-pill-btn" onclick="setVennMode('union', this)">$A \cup B$ (Unione)</button>
+            <button type="button" class="l04-pill-btn" onclick="setVennMode('diffAB', this)">$A \setminus B$ (Solo
+              A)</button>
+            <button type="button" class="l04-pill-btn" onclick="setVennMode('diffBA', this)">$B \setminus A$ (Solo
+              B)</button>
+            <button type="button" class="l04-pill-btn" onclick="setVennMode('outside', this)">$\overline{A \cup B}$
+              (Nessuno dei due)</button>
+          </div>
+
+          <div class="l04-venn-wrap">
+            <svg id="vennSvg" viewBox="0 0 460 220" style="width: 100%; max-width: 460px; height: auto;">
+              <defs>
+                <clipPath id="clipCircleA">
+                  <circle cx="185" cy="112" r="72" />
+                </clipPath>
+                <clipPath id="clipCircleB">
+                  <circle cx="275" cy="112" r="72" />
+                </clipPath>
+                <mask id="maskOnlyA">
+                  <rect x="0" y="0" width="460" height="220" fill="black" />
+                  <circle cx="185" cy="112" r="72" fill="white" />
+                  <circle cx="275" cy="112" r="72" fill="black" />
+                </mask>
+                <mask id="maskOnlyB">
+                  <rect x="0" y="0" width="460" height="220" fill="black" />
+                  <circle cx="275" cy="112" r="72" fill="white" />
+                  <circle cx="185" cy="112" r="72" fill="black" />
+                </mask>
+                <mask id="maskOutside">
+                  <rect x="12" y="12" width="436" height="196" rx="14" fill="white" />
+                  <circle cx="185" cy="112" r="72" fill="black" />
+                  <circle cx="275" cy="112" r="72" fill="black" />
+                </mask>
+              </defs>
+
+              <!-- Rettangolo Universo U -->
+              <rect x="12" y="12" width="436" height="196" rx="14" fill="var(--bg-surface-elevated)"
+                stroke="var(--border-subtle)" stroke-width="2" />
+              <text x="26" y="34" font-size="12" font-weight="800" fill="var(--text-muted)"
+                font-family="var(--font-mono)">U (Classe = 26)</text>
+
+              <!-- Regioni evidenziabili -->
+              <rect id="vennOutsideFill" x="12" y="12" width="436" height="196" rx="14" fill="rgba(245, 158, 11, 0.28)"
+                mask="url(#maskOutside)" style="display:none;" />
+              <circle id="vennOnlyAFill" cx="185" cy="112" r="72" fill="rgba(56, 189, 248, 0.34)"
+                mask="url(#maskOnlyA)" style="display:none;" />
+              <circle id="vennOnlyBFill" cx="275" cy="112" r="72" fill="rgba(139, 92, 246, 0.34)"
+                mask="url(#maskOnlyB)" style="display:none;" />
+              <circle id="vennInterFill" cx="275" cy="112" r="72" fill="rgba(16, 185, 129, 0.42)"
+                clip-path="url(#clipCircleA)" />
+
+              <!-- Contorni cerchi A e B -->
+              <circle cx="185" cy="112" r="72" fill="none" stroke="var(--accent-math)" stroke-width="2.5" />
+              <circle cx="275" cy="112" r="72" fill="none" stroke="var(--accent-purple)" stroke-width="2.5" />
+
+              <!-- Etichette -->
+              <text x="142" y="65" font-size="13" font-weight="800" fill="var(--accent-math)"
+                text-anchor="middle">Teatro (A)</text>
+              <text x="318" y="65" font-size="13" font-weight="800" fill="var(--accent-purple)"
+                text-anchor="middle">Foto (B)</text>
+              <text x="148" y="117" font-size="13" font-weight="700" fill="var(--text-main)" text-anchor="middle"
+                font-family="var(--font-mono)">solo A</text>
+              <text x="230" y="117" font-size="13" font-weight="800" fill="var(--text-main)" text-anchor="middle"
+                font-family="var(--font-mono)">A ∩ B</text>
+              <text x="312" y="117" font-size="13" font-weight="700" fill="var(--text-main)" text-anchor="middle"
+                font-family="var(--font-mono)">solo B</text>
+            </svg>
+          </div>
+
+          <div id="vennCaption" class="l04-venn-caption">
+            <strong>Intersezione $A \cap B$ (Connettivo «E» $\land$):</strong> gli studenti che frequentano <em>sia</em>
+            il laboratorio di Teatro <em>sia</em> quello di Fotografia.
+          </div>
+        </div>
+
+        <div class="step-box">
+          <div class="step-header">
+            <span class="step-tag">Il Sondaggio dei Laboratori Pomeridiani</span>
+            <a href="#teoria-2" class="theory-ref-pill" onclick="event.preventDefault(); scrollToTheory('teoria-2');">
+              🔗 Rif. Teoria 2 • $|A \cup B| = |A| + |B| - |A \cap B|$
+            </a>
+          </div>
+          <div class="step-content">
+            <p>
+              In una classe prima di <strong>$26$ studenti</strong> ($U$), <strong>$15$</strong> si sono iscritti al
+              laboratorio di <em>Teatro</em> ($A$), <strong>$12$</strong> al laboratorio di <em>Fotografia</em> ($B$) e
+              <strong>$5$</strong> ragazzi frequentano <strong>entrambi i laboratori</strong> ($A \cap B$).<br>
+              1. Quanti studenti frequentano <strong>solo Teatro</strong> ($A \setminus B$)?<br>
+              2. Quanti studenti della classe <strong>non frequentano nessuno</strong> dei due laboratori
+              ($\overline{A \cup B}$)?
+            </p>
+            <button type="button" class="hint-btn" onclick="toggleHint('hintLab1')">💡 Mostra Suggerimento</button>
+            <div id="hintLab1" class="hint-text">
+              Parti sempre dal centro ($A \cap B = 5$)! Chi fa <em>solo Teatro</em> è $15 - 5 = 10$. Chi fa <em>solo
+                Fotografia</em> è $12 - 5 = 7$. Quindi nell'unione $A \cup B$ ci sono in tutto $10 + 5 + 7 = 22$
+              studenti. Quanti ne restano fuori su $26$?
+            </div>
+            <div class="verify-box" style="margin-top: 0.75rem;">
+              <label style="font-weight: 700;">Solo Teatro:</label>
+              <input type="number" id="lab1OnlyA" class="inline-input" style="width: 80px;" placeholder="N°">
+              <label style="font-weight: 700; margin-left: 0.4rem;">Nessuno dei due:</label>
+              <input type="number" id="lab1Outside" class="inline-input" style="width: 80px;" placeholder="N°">
+              <button class="btn-action" onclick="verifyLab1()">Verifica Sondaggio</button>
+              <span id="lab1Msg" class="feedback-msg" style="display: none;"></span>
+            </div>
+          </div>
+        </div>
+      </article>
+
+
+      <!-- ======================================================
+           LABORATORIO 2: TAVOLE DI VERITÀ & PROMESSE INFRANTE
+           ====================================================== -->
+      <article class="lab-card" id="lab2">
+        <div class="lab-header">
+          <div class="lab-badge-group">
+            <span class="lab-number">Laboratorio 2 • Connettivi &amp; Tavole di Verità</span>
+            <span class="xp-pill">+10 XP</span>
+          </div>
+        </div>
+
+        <h3 class="lab-title">Simulatore di Tavole di Verità: «E», «O» e la Promessa «Se... Allora»</h3>
+
+        <div class="theory-link-box">
+          <span class="tl-icon">🔗</span>
+          <div>
+            <strong>Collegamento Teoria ↔ Pratica:</strong> Questo laboratorio allena la
+            <a href="#teoria-3" class="theory-link-anchor"
+              onclick="event.preventDefault(); scrollToTheory('teoria-3');">Teoria 3 • Connettivi $\neg, \land,
+              \lor$</a>
+            e la
+            <a href="#teoria-4" class="theory-link-anchor"
+              onclick="event.preventDefault(); scrollToTheory('teoria-4');">Teoria 4 • Implicazione $p \Rightarrow
+              q$</a>:
+            clicca sugli interruttori di $p$ e $q$ per vedere come reagisce ogni riga della tavola di verità!
+          </div>
+        </div>
+
+        <p class="lab-objective">
+          Immagina la promessa: <strong>«Se piove ($p$), allora prendo l'ombrello ($q$)»</strong>. Cambia lo stato di $p$
+          e $q$ con i due bottoni qui sotto e osserva quale riga si illumina e quando la promessa $p \Rightarrow q$ viene
+          davvero infranta!
+        </p>
+
+        <div class="l04-stage">
+          <div class="l04-truth-switches">
+            <div class="l04-switch-card">
+              <div>
+                <div style="font-size: 0.76rem; color: var(--text-muted); font-weight: 700;">IPOTESI p («Piove»)</div>
+              </div>
+              <button type="button" id="btnToggleP" class="l04-tf-btn is-true" onclick="toggleTruthVar('p')">VERO
+                (V)</button>
+            </div>
+            <div class="l04-switch-card">
+              <div>
+                <div style="font-size: 0.76rem; color: var(--text-muted); font-weight: 700;">TESI q («Prendo ombrello»)
+                </div>
+              </div>
+              <button type="button" id="btnToggleQ" class="l04-tf-btn is-false" onclick="toggleTruthVar('q')">FALSO
+                (F)</button>
+            </div>
+          </div>
+
+          <div style="overflow-x: auto;">
+            <table class="l04-truth-table" id="liveTruthTable">
+              <thead>
+                <tr>
+                  <th>$p$</th>
+                  <th>$q$</th>
+                  <th>$\neg p$ (non $p$)</th>
+                  <th>$p \land q$ ($p$ e $q$)</th>
+                  <th>$p \lor q$ ($p$ o $q$)</th>
+                  <th>$p \Rightarrow q$ (Se $p$ allora $q$)</th>
+                </tr>
+              </thead>
+              <tbody id="truthTableBody"></tbody>
+            </table>
+          </div>
+
+          <div id="truthLiveExplain" class="l04-venn-caption"></div>
+        </div>
+
+        <div class="step-box">
+          <div class="step-header">
+            <span class="step-tag">Verifica la Logica dei Connettivi</span>
+            <a href="#teoria-4" class="theory-ref-pill" onclick="event.preventDefault(); scrollToTheory('teoria-4');">
+              🔗 Rif. Teoria 4 • Unico Caso Falso di $p \Rightarrow q$
+            </a>
+          </div>
+          <div class="step-content">
+            <p>
+              1. Su tutte le $4$ righe possibili della tavola di verità, in <strong>quanti casi</strong> l'implicazione
+              $p \Rightarrow q$ risulta <strong>Falsa</strong>?<br>
+              2. Se $p$ è <strong>Falsa</strong> e $q$ è <strong>Vera</strong>, qual è il valore di verità della formula
+              composta $(\neg p) \land q$? (Scrivi <code>V</code> oppure <code>F</code>).
+            </p>
+            <button type="button" class="hint-btn" onclick="toggleHint('hintLab2')">💡 Mostra Suggerimento</button>
+            <div id="hintLab2" class="hint-text">
+              1. Guarda l'ultima colonna della tabella: c'è una sola `F` (quando piove davvero, $p=\text{V}$, ma non
+              prendi l'ombrello, $q=\text{F}$).<br>
+              2. Se $p = \text{F}$, allora la sua negazione $\neg p$ diventa $\text{V}$! E $\text{V} \land \text{V}$
+              vale...
+            </div>
+            <div class="verify-box" style="margin-top: 0.75rem;">
+              <label style="font-weight: 700;">Casi con $p \Rightarrow q$ Falsa:</label>
+              <input type="number" id="lab2FalseCount" class="inline-input" style="width: 75px;" placeholder="N°">
+              <label style="font-weight: 700; margin-left: 0.4rem;">Valore di $(\neg p) \land q$:</label>
+              <input type="text" id="lab2CompoundVal" class="inline-input" style="width: 75px;" placeholder="V / F">
+              <button class="btn-action" onclick="verifyLab2()">Verifica Tavola</button>
+              <span id="lab2Msg" class="feedback-msg" style="display: none;"></span>
+            </div>
+          </div>
+        </div>
+      </article>
+
+
+      <!-- ======================================================
+           LABORATORIO 3: IL TEST DI SELEZIONE DI WASON (BIAS COGNITIVI)
+           ====================================================== -->
+      <article class="lab-card" id="lab3">
+        <div class="lab-header">
+          <div class="lab-badge-group">
+            <span class="lab-number">Laboratorio 3 • Psicologia del Ragionamento</span>
+            <span class="xp-pill">+10 XP</span>
+          </div>
+        </div>
+
+        <h3 class="lab-title">Il Test delle 4 Carte di Peter Wason: Sconfiggi il Bias di Conferma!</h3>
+
+        <div class="theory-link-box">
+          <span class="tl-icon">🔗</span>
+          <div>
+            <strong>Collegamento Teoria ↔ Pratica:</strong> Questo celebre esperimento di psicologia cognitiva mette
+            alla prova la
+            <a href="#teoria-4" class="theory-link-anchor"
+              onclick="event.preventDefault(); scrollToTheory('teoria-4');">Teoria 4 • Falsificazione di $p \Rightarrow
+              q$</a>
+            e la
+            <a href="#teoria-5" class="theory-link-anchor"
+              onclick="event.preventDefault(); scrollToTheory('teoria-5');">Teoria 5 • Test di Wason e Bias di
+              Conferma</a>.
+          </div>
+        </div>
+
+        <p class="lab-objective">
+          Sul tavolo ci sono <strong>4 carte</strong>: sappiamo per certo che ogni carta ha una <strong>lettera su un
+            lato</strong> e un <strong>numero sull'altro lato</strong>. Devi controllare se è rispettata questa regola:
+          <br><strong style="color: var(--accent-purple);">«Se su un lato c'è una VOCALE ($p$), allora sull'altro lato
+            c'è un NUMERO PARI ($q$)»</strong>.<br>
+          Clicca <strong>solo ed esclusivamente sulle carte che è indispensabile girare</strong> per scoprire se la
+          regola è violata (attenzione: l'$80\%$ degli adulti cade in una trappola psicologica!).
+        </p>
+
+        <div class="l04-stage">
+          <div class="l04-wason-deck">
+            <div class="l04-wason-card" id="wcard-A" onclick="toggleWasonCard('A')">
+              <span class="l04-wason-symbol">A</span>
+              <span class="l04-wason-sub">Vocale ($p$)</span>
+            </div>
+            <div class="l04-wason-card" id="wcard-K" onclick="toggleWasonCard('K')">
+              <span class="l04-wason-symbol">K</span>
+              <span class="l04-wason-sub">Consonante ($\neg p$)</span>
+            </div>
+            <div class="l04-wason-card" id="wcard-4" onclick="toggleWasonCard('4')">
+              <span class="l04-wason-symbol">4</span>
+              <span class="l04-wason-sub">Pari ($q$)</span>
+            </div>
+            <div class="l04-wason-card" id="wcard-7" onclick="toggleWasonCard('7')">
+              <span class="l04-wason-symbol">7</span>
+              <span class="l04-wason-sub">Dispari ($\neg q$)</span>
+            </div>
+          </div>
+
+          <button type="button" class="hint-btn" onclick="toggleHint('hintLab3')">💡 Mostra Suggerimento
+            Psicologico</button>
+          <div id="hintLab3" class="hint-text">
+            Chiediti: quale combinazione rende <strong>Falsa</strong> la regola $p \Rightarrow q$? Solo «Vocale da un
+            lato <strong>e</strong> Dispari dall'altro» ($p$ Vera e $q$ Falsa)!<br>
+            • Dietro <strong>A</strong> potrebbe esserci un dispari? Sì, va girata!<br>
+            • E se dietro il <strong>4</strong> ci fosse la consonante B? Violerebbe la regola? <em>No!</em> La regola
+            non vieta alle consonanti di avere un numero pari! Guarda invece il <strong>7</strong> (dispari)...
+          </div>
+
+          <div class="verify-box" style="justify-content: center; margin-top: 0.85rem;">
+            <button class="btn-action" onclick="verifyWasonSelection()">🔍 Gira e Verifica le Carte Selezionate</button>
+          </div>
+          <div id="lab3Msg" class="feedback-msg" style="display: none; margin-top: 0.75rem; width: 100%;"></div>
+        </div>
+      </article>
+
+
+      <!-- ======================================================
+           LABORATORIO 4: IPOTESI, TESI, CONTRONOMINALE & CONTROESEMPI
+           ====================================================== -->
+      <article class="lab-card" id="lab4">
+        <div class="lab-header">
+          <div class="lab-badge-group">
+            <span class="lab-number">Laboratorio 4 • Contronominale &amp; Controesempi</span>
+            <span class="xp-pill">+10 XP</span>
+          </div>
+        </div>
+
+        <h3 class="lab-title">Non Confondere l'Inversa con la Contronominale &amp; Caccia al Controesempio</h3>
+
+        <div class="theory-link-box">
+          <span class="tl-icon">🔗</span>
+          <div>
+            <strong>Collegamento Teoria ↔ Pratica:</strong> Questo laboratorio approfondisce la
+            <a href="#teoria-4" class="theory-link-anchor"
+              onclick="event.preventDefault(); scrollToTheory('teoria-4');">Teoria 4 • Contronominale ($\neg q
+              \Rightarrow \neg p$) vs Inversa ($q \Rightarrow p$)</a>
+            e la
+            <a href="#teoria-5" class="theory-link-anchor"
+              onclick="event.preventDefault(); scrollToTheory('teoria-5');">Teoria 5 • Quantificatore $\forall$ e
+              Controesempio</a>.
+          </div>
+        </div>
+
+        <div class="l04-stage">
+          <div style="font-weight: 800; font-size: 0.96rem; margin-bottom: 0.4rem;">
+            Esempio Guida: «Se abito a Firenze ($p$), allora abito in Toscana ($q$)» — VERA
+          </div>
+          <div class="l04-logic-grid">
+            <div class="l04-logic-card valid">
+              <div style="font-weight: 800; color: var(--accent-success); font-size: 0.85rem;">✅ CONTRONOMINALE ($\neg q
+                \Rightarrow \neg p$) — SEMPRE VERA</div>
+              <p style="font-size: 0.86rem; color: var(--text-muted); margin-top: 0.35rem;">
+                «Se <strong>non</strong> abito in Toscana, allora sicuramente <strong>non</strong> abito a Firenze»
+                (perché l'insieme Firenze è contenuto dentro Toscana!).
+              </p>
+            </div>
+            <div class="l04-logic-card trap">
+              <div style="font-weight: 800; color: var(--accent-danger); font-size: 0.85rem;">⚠️ INVERSA ($q \Rightarrow
+                p$) — FALLACIA LOGICA!</div>
+              <p style="font-size: 0.86rem; color: var(--text-muted); margin-top: 0.35rem;">
+                «Se abito in Toscana, allora abito a Firenze» — <strong>Falsa!</strong> Basta <em>un solo
+                  controesempio</em>: chi abita a Pisa o Siena!
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="step-box">
+          <div class="step-header">
+            <span class="step-tag">Allenamento su Controesempio e Contronominale</span>
+            <a href="#teoria-5" class="theory-ref-pill" onclick="event.preventDefault(); scrollToTheory('teoria-5');">
+              🔗 Rif. Teoria 5 • Smontare un «Per ogni» ($\forall$)
+            </a>
+          </div>
+          <div class="step-content">
+            <p>
+              <strong>1. Caccia al Controesempio:</strong> Giulia afferma: <em>«Per ogni numero primo $p$, la somma $p +
+                2$ è sempre un numero dispari»</em>. Trova l'<strong>unico numero primo $p$</strong> che fa da
+              controesempio e dimostra che la frase di Giulia è falsa!<br>
+              <strong>2. Deduci con la Contronominale:</strong> Sapendo che è vera la regola <em>«Se un numero naturale
+                termina con la cifra $0$, allora è divisibile per $5$»</em>, ti viene detto che il numero segreto $x$
+              <strong>non è divisibile per $5$</strong>. Quanti numeri di questo tipo possono terminare con la cifra
+              $0$? (Scrivi un numero).
+            </p>
+            <button type="button" class="hint-btn" onclick="toggleHint('hintLab4')">💡 Mostra Suggerimento</button>
+            <div id="hintLab4" class="hint-text">
+              1. Quasi tutti i numeri primi sono dispari (e dispari $+ 2 =$ dispari), ma qual è l'<strong>unico numero
+                primo pari</strong> visto nella Lezione 1.3?<br>
+              2. Per la contronominale $\neg q \Rightarrow \neg p$: «Se $x$ non è divisibile per $5$, allora $x$ non
+              termina per $0$», quindi ce ne sono esattamente zero (`0`)!
+            </div>
+            <div class="verify-box" style="margin-top: 0.75rem;">
+              <label style="font-weight: 700;">Controesempio $p$ =</label>
+              <input type="number" id="lab4CounterEx" class="inline-input" style="width: 80px;" placeholder="p">
+              <label style="font-weight: 700; margin-left: 0.4rem;">Quanti terminano per 0?</label>
+              <input type="number" id="lab4ContraCount" class="inline-input" style="width: 80px;" placeholder="N°">
+              <button class="btn-action" onclick="verifyLab4()">Verifica Logica</button>
+              <span id="lab4Msg" class="feedback-msg" style="display: none;"></span>
+            </div>
+          </div>
+        </div>
+      </article>
+
+
+      <!-- ======================================================
+           LABORATORIO 5: TECNICA DELLA DIMOSTRAZIONE PER ASSURDO
+           ====================================================== -->
+      <article class="lab-card" id="lab5">
+        <div class="lab-header">
+          <div class="lab-badge-group">
+            <span class="lab-number">Laboratorio 5 • Reductio ad Absurdum</span>
+            <span class="xp-pill">+10 XP</span>
+          </div>
+        </div>
+
+        <h3 class="lab-title">Il Teatro della Dimostrazione per Assurdo: Negare la Tesi per Vincere</h3>
+
+        <div class="theory-link-box">
+          <span class="tl-icon">🔗</span>
+          <div>
+            <strong>Collegamento Teoria ↔ Pratica:</strong> Questo laboratorio guida nell'uso concreto della
+            <a href="#teoria-6" class="theory-link-anchor"
+              onclick="event.preventDefault(); scrollToTheory('teoria-6');">Teoria 6 • Tecnica della Dimostrazione per
+              Assurdo</a>
+            su tre esempi completi prima di farti costruire i passaggi di una dimostrazione!
+          </div>
+        </div>
+
+        <p class="lab-objective">
+          Esplora le <strong>3 dimostrazioni per assurdo</strong> qui sotto: osserva come tutte seguano lo stesso
+          copione infallibile (<em>Supponi per assurdo $\neg T \to$ Ragiona $\to$ Boom! Contraddizione $\to$ Allora $T$
+            è vera!</em>).
+        </p>
+
+        <div class="l04-stage">
+          <div class="l04-controls-row">
+            <button type="button" class="l04-pill-btn purple active" onclick="showAssurdoCase(0, this)">1. Se $n^2$ è
+              pari $\Rightarrow n$ è pari</button>
+            <button type="button" class="l04-pill-btn purple" onclick="showAssurdoCase(1, this)">2. I 13 Amici e i
+              Compleanni</button>
+            <button type="button" class="l04-pill-btn purple" onclick="showAssurdoCase(2, this)">3. Nessun $4k+2$ è un
+              Quadrato</button>
+          </div>
+
+          <div id="assurdoDisplay"></div>
+        </div>
+
+        <div class="step-box">
+          <div class="step-header">
+            <span class="step-tag">Completa Tu una Dimostrazione per Assurdo</span>
+            <a href="#teoria-6" class="theory-ref-pill" onclick="event.preventDefault(); scrollToTheory('teoria-6');">
+              🔗 Rif. Teoria 6 • Negazione della Tesi &amp; Contraddizione
+            </a>
+          </div>
+          <div class="step-content">
+            <p>
+              Vogliamo dimostrare per assurdo il teorema: <strong>«Non esiste un numero naturale più grande di tutti gli
+                altri»</strong>.<br>
+              <strong>Passo 1:</strong> Quale frase dobbiamo assumere provvisoriamente all'inizio della dimostrazione
+              per assurdo?
+            </p>
+            <div style="margin: 0.55rem 0 0.85rem;">
+              <select id="lab5AssurdoSelect" class="l04-select">
+                <option value="0">-- Scegli il punto di partenza corretto --</option>
+                <option value="1">Supponiamo che i numeri naturali non contengano lo zero</option>
+                <option value="2">Supponiamo per assurdo la negazione della tesi: esiste un numero naturale massimo M
+                </option>
+                <option value="3">Supponiamo che la tesi sia già vera senza fare alcun calcolo</option>
+              </select>
+            </div>
+            <p>
+              <strong>Passo 2 (La Contraddizione):</strong> Se qualcuno pretendesse che il numero naturale massimo $M$
+              fosse $M = 999$, quale numero naturale immediatamente successivo ($M + 1$) costruiamo subito per mostrare
+              che $M$ <em>non</em> era il più grande di tutti?
+            </p>
+            <button type="button" class="hint-btn" onclick="toggleHint('hintLab5')">💡 Mostra Suggerimento</button>
+            <div id="hintLab5" class="hint-text">
+              Per assurdo si nega sempre la tesi («Non esiste un massimo» $\to$ negazione: «Esiste un massimo $M$»). Ma
+              aggiungendo $1$ ad ogni naturale si ottiene sempre un altro numero naturale più grande: $999 + 1 =
+              1000$!
+            </div>
+            <div class="verify-box" style="margin-top: 0.75rem;">
+              <label style="font-weight: 700;">Valore di $M + 1$:</label>
+              <input type="number" id="lab5NextNum" class="inline-input" style="width: 100px;" placeholder="M + 1">
+              <button class="btn-action" onclick="verifyLab5()">Verifica Dimostrazione</button>
+              <span id="lab5Msg" class="feedback-msg" style="display: none;"></span>
+            </div>
+          </div>
+        </div>
+      </article>
+
+
+      <!-- ======================================================
+           LABORATORIO 6: PALESTRA MENTALE (4 SFIDE RAPIDE)
+           ====================================================== -->
+      <article class="lab-card" id="lab6">
+        <div class="lab-header">
+          <div class="lab-badge-group">
+            <span class="lab-number">Laboratorio 6 • Palestra Mentale</span>
+            <span class="xp-pill">+10 XP</span>
+          </div>
+        </div>
+
+        <h3 class="lab-title">4 Sfide Rapide su Insiemi, Quantificatori e Tavole di Verità</h3>
+
+        <div class="theory-link-box">
+          <span class="tl-icon">🔗</span>
+          <div>
+            <strong>Collegamento Teoria ↔ Pratica:</strong> Completa le 4 schede rapide consultando, se serve, il
+            riferimento teorico dedicato su ciascuna scheda.
+          </div>
+        </div>
+
+        <div class="gym-grid">
+          <!-- Gym 1 -->
+          <div class="gym-card" id="l04gym1">
+            <div>
+              <div class="gym-badge">Sfida 1 • Inclusione-Esclusione</div>
+              <a href="#teoria-2" class="theory-ref-pill"
+                onclick="event.preventDefault(); scrollToTheory('teoria-2');">
+                🔗 Rif. Teoria 2 • Cardinalità $|A \cup B|$
+              </a>
+              <div class="gym-question">
+                Se $|A| = 14$, $|B| = 9$ e l'intersezione ha $|A \cap B| = 5$ elementi, quanti elementi contiene
+                l'unione $A \cup B$?
+              </div>
+            </div>
+            <div>
+              <div style="display: flex; gap: 0.5rem; align-items: center;">
+                <input type="text" id="l04gym1Input" class="inline-input" style="width: 100%;" placeholder="Elementi...">
+                <button class="btn-action" onclick="checkL04Gym(1, 18)" style="padding: 0.5rem 0.9rem;">OK</button>
+              </div>
+              <div id="l04gym1Feedback" style="font-size: 0.82rem; margin-top: 0.45rem; font-weight: 600;"></div>
+            </div>
+          </div>
+
+          <!-- Gym 2 -->
+          <div class="gym-card" id="l04gym2">
+            <div>
+              <div class="gym-badge">Sfida 2 • Proprietà Caratteristica</div>
+              <a href="#teoria-1" class="theory-ref-pill"
+                onclick="event.preventDefault(); scrollToTheory('teoria-1');">
+                🔗 Rif. Teoria 1 • Elencazione Insieme
+              </a>
+              <div class="gym-question">
+                Quanti elementi possiede l'insieme $S = \{x \in \mathbb{N} \mid 3 \le x < 8\}$? (Fai attenzione a $\le$
+                e $<$!).
+              </div>
+            </div>
+            <div>
+              <div style="display: flex; gap: 0.5rem; align-items: center;">
+                <input type="text" id="l04gym2Input" class="inline-input" style="width: 100%;" placeholder="N°...">
+                <button class="btn-action" onclick="checkL04Gym(2, 5)" style="padding: 0.5rem 0.9rem;">OK</button>
+              </div>
+              <div id="l04gym2Feedback" style="font-size: 0.82rem; margin-top: 0.45rem; font-weight: 600;"></div>
+            </div>
+          </div>
+
+          <!-- Gym 3 -->
+          <div class="gym-card" id="l04gym3">
+            <div>
+              <div class="gym-badge">Sfida 3 • Controesempio Minimo</div>
+              <a href="#teoria-5" class="theory-ref-pill"
+                onclick="event.preventDefault(); scrollToTheory('teoria-5');">
+                🔗 Rif. Teoria 5 • Falsificare $\forall$
+              </a>
+              <div class="gym-question">
+                Qual è il più piccolo numero naturale dispari $> 1$ che smonta la falsa frase <em>«Tutti i dispari $> 1$
+                  sono primi»</em>?
+              </div>
+            </div>
+            <div>
+              <div style="display: flex; gap: 0.5rem; align-items: center;">
+                <input type="text" id="l04gym3Input" class="inline-input" style="width: 100%;" placeholder="Numero...">
+                <button class="btn-action" onclick="checkL04Gym(3, 9)" style="padding: 0.5rem 0.9rem;">OK</button>
+              </div>
+              <div id="l04gym3Feedback" style="font-size: 0.82rem; margin-top: 0.45rem; font-weight: 600;"></div>
+            </div>
+          </div>
+
+          <!-- Gym 4 -->
+          <div class="gym-card" id="l04gym4">
+            <div>
+              <div class="gym-badge">Sfida 4 • Combinazioni Logiche</div>
+              <a href="#teoria-3" class="theory-ref-pill"
+                onclick="event.preventDefault(); scrollToTheory('teoria-3');">
+                🔗 Rif. Teoria 3 • Righe Tavola ($2^n$)
+              </a>
+              <div class="gym-question">
+                Con $2$ proposizioni $(p, q)$ la tavola di verità ha $2^2 = 4$ righe. Quante righe ha con $3$
+                proposizioni $(p, q, r)$?
+              </div>
+            </div>
+            <div>
+              <div style="display: flex; gap: 0.5rem; align-items: center;">
+                <input type="text" id="l04gym4Input" class="inline-input" style="width: 100%;" placeholder="Righe...">
+                <button class="btn-action" onclick="checkL04Gym(4, 8)" style="padding: 0.5rem 0.9rem;">OK</button>
+              </div>
+              <div id="l04gym4Feedback" style="font-size: 0.82rem; margin-top: 0.45rem; font-weight: 600;"></div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+    </main>
+
+
+    <!-- ========================================================
+         SEZIONE 3: FLASHCARDS DI AUTOVALUTAZIONE (MASTERY LEARNING)
+         ======================================================== -->
+    <section class="flashcard-section" id="flashcardSection">
+      <div class="section-header">
+        <h2 class="section-title">
+          <span class="icon">🃏</span> Flashcards di Autovalutazione (+15 XP per carta)
+        </h2>
+        <span class="tag info-tag"
+          style="background: rgba(56, 189, 248, 0.12); color: var(--accent-math); padding: 0.25rem 0.65rem; border-radius: 9999px; font-size: 0.8rem; font-weight: 700;">
+          🔁 Tentativi Infiniti
+        </span>
+      </div>
+      <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1.5rem;">
+        Metti alla prova la tua padronanza di insiemi, connettivi, test di Wason e dimostrazione per assurdo con opzioni
+        rimescolate ad ogni sessione!
+      </p>
+
+      <div id="lessonFlashcardDeck"></div>
+    </section>
+
+
+    <!-- ========================================================
+         SEZIONE 4 (OBBLIGATORIA): COMPITO DI REALTÀ FINALE
+         SCHEDA OPERATIVA PER CASA
+         ======================================================== -->
+    <section class="homework-section" id="homeworkSection">
+      <div class="section-header">
+        <h2 class="section-title">
+          <span class="icon">📋</span> Compito di Realtà Finale: Scheda Operativa (Assegno per Casa)
+        </h2>
+      </div>
+
+      <article class="scheda-operativa-card">
+        <div class="scheda-top-bar">
+          <div class="scheda-badge-group">
+            <span class="scheda-badge homework">🏠 Assegno per Casa</span>
+            <span class="scheda-badge modality">👤 Da Soli oppure 👥 In Gruppo</span>
+          </div>
+          <button type="button" class="btn-print-sheet" onclick="window.print()">
+            🖨️ Stampa Scheda Operativa
+          </button>
+        </div>
+
+        <h3 class="scheda-title">
+          Scheda Operativa: «Smascherare Fallacie nei Discorsi Pubblici»
+        </h3>
+
+        <div class="theory-link-box">
+          <span class="tl-icon">🔗</span>
+          <div>
+            <strong>Collegamento Teoria ↔ Pratica:</strong> Questo compito di realtà integra la
+            <a href="#teoria-2" class="theory-link-anchor"
+              onclick="event.preventDefault(); scrollToTheory('teoria-2');">Teoria 2 • Diagrammi di Eulero-Venn nei
+              Sondaggi</a>,
+            la <a href="#teoria-4" class="theory-link-anchor"
+              onclick="event.preventDefault(); scrollToTheory('teoria-4');">Teoria 4 • Implicazione, Contronominale e
+              Fallacia dell'Inversa</a>,
+            la <a href="#teoria-5" class="theory-link-anchor"
+              onclick="event.preventDefault(); scrollToTheory('teoria-5');">Teoria 5 • Controesempi e Bias di
+              Conferma</a>
+            e la <a href="#teoria-6" class="theory-link-anchor"
+              onclick="event.preventDefault(); scrollToTheory('teoria-6');">Teoria 6 • Ragionamento per Assurdo</a>.
+          </div>
+        </div>
+
+        <div class="scheda-delivery-callout">
+          <strong>📅 Modalità di lavoro e consegna (Assegno per Casa):</strong> Puoi svolgere questo compito di realtà
+          <strong>da solo</strong> oppure <strong>lavorando in gruppo</strong>, ma ciascuno studente deve
+          <strong>portare la Scheda Operativa compilata per la lezione successiva</strong>.
+        </div>
+
+        <!-- Campi Studente per Stampa -->
+        <div class="scheda-student-fields">
+          <div class="scheda-field-item">
+            <span class="scheda-field-label">Studente / Studentessa:</span>
+            <div class="scheda-field-line"></div>
+          </div>
+          <div class="scheda-field-item">
+            <span class="scheda-field-label">Classe &amp; Data:</span>
+            <div class="scheda-field-line"></div>
+          </div>
+          <div class="scheda-field-item">
+            <span class="scheda-field-label">Modalità (Individuale / Componenti del Gruppo):</span>
+            <div class="scheda-field-line"></div>
+          </div>
+        </div>
+
+        <div class="scheda-problem-box">
+          <strong>La Situazione-Problema (Educazione Civica, Retorica &amp; Pensiero Critico):</strong><br>
+          Nella pubblicità, nei talk show e nei post sui social compaiono spesso argomentazioni che <em>suonano</em>
+          convincenti ma contengono veri e propri errori di logica formale (chiamati <strong>fallacie logiche</strong>)
+          o conteggi insiemistici truccati.
+
+          <!-- Schema SVG: Deduzione Valida vs Fallacia dell'Inversa -->
+          <div class="l04-fallacy-diagram">
+            <svg viewBox="0 0 640 130" style="width: 100%; max-width: 620px; height: auto;">
+              <!-- Box Sinistro: Deduzioni Valide -->
+              <rect x="10" y="12" width="295" height="106" rx="10" fill="none" stroke="#10b981" stroke-width="1.8" />
+              <text x="157" y="34" font-size="12" font-weight="bold" text-anchor="middle" fill="#10b981">✅ DEDUZIONI
+                LOGICHE CORRETTE (da p ⇒ q)</text>
+              <text x="157" y="58" font-size="11" font-family="monospace" text-anchor="middle"
+                fill="currentColor">1. Modus Ponens: p è Vera → q è Vera</text>
+              <text x="157" y="80" font-size="11" font-family="monospace" text-anchor="middle"
+                fill="currentColor">2. Contronominale: q è Falsa → p è Falsa</text>
+              <text x="157" y="102" font-size="10" text-anchor="middle" fill="currentColor">(Garantite al 100% dalla
+                tavola di verità)</text>
+
+              <!-- Box Destro: Fallacie Frequenti -->
+              <rect x="335" y="12" width="295" height="106" rx="10" fill="none" stroke="#f43f5e" stroke-width="1.8" />
+              <text x="482" y="34" font-size="12" font-weight="bold" text-anchor="middle" fill="#f43f5e">⚠️ FALLACIE
+                INGANNEVOLI NEI DISCORSI</text>
+              <text x="482" y="58" font-size="11" font-family="monospace" text-anchor="middle"
+                fill="currentColor">1. Affermare q: «q è Vera → allora p è Vera»</text>
+              <text x="482" y="80" font-size="11" font-family="monospace" text-anchor="middle"
+                fill="currentColor">2. Negare p: «p è Falsa → allora q è Falsa»</text>
+              <text x="482" y="102" font-size="10" text-anchor="middle" fill="currentColor">(Trucchi classici di
+                slogan e pubblicità!)</text>
+            </svg>
+          </div>
+
+          <strong>Consegne da svolgere per la prossima lezione:</strong>
+          <ol>
+            <li><strong>Smascherare due slogan ingannevoli (Teoria 4):</strong> Analizza questi due messaggi individuando
+              <strong>ipotesi $p$</strong> e <strong>tesi $q$</strong> della regola di partenza e spiegando quale
+              fallacia commettono:
+              <br>• <em>Slogan A (Pubblicità):</em> «Chi usa le scarpe <em> TurboRun</em> ama lo sport ($p \Rightarrow
+              q$). Tu ami lo sport ($q$), quindi devi usare <em>TurboRun</em> ($p$)!»
+              <br>• <em>Slogan B (Dibattito):</em> «Se uno studente studia $5$ ore al giorno prende la sufficienza ($p
+              \Rightarrow q$). Luca oggi non ha studiato $5$ ore ($\neg p$), quindi prenderà sicuramente
+              l'insufficienza ($\neg q$)!»
+              <br>Per lo Slogan A scrivi invece qual è l'unica deduzione <strong>contronominale valida</strong> ($\neg q
+              \Rightarrow \neg p$).
+            </li>
+            <li><strong>Verifica di un sondaggio sospetto con Eulero-Venn (Teoria 2 &amp; 6):</strong> Un volantino
+              afferma: <em>«Abbiamo intervistato $100$ adolescenti del quartiere: $68$ usano Instagram, $54$ usano
+                TikTok e $30$ li usano entrambi»</em>. Disegna il diagramma di Eulero-Venn con i numeri nelle $4$
+              regioni ($A \setminus B$, $A \cap B$, $B \setminus A$, esterni). Poi spiega <strong>per assurdo</strong>
+              perché sarebbe invece <em>impossibile</em> un sondaggio su $100$ ragazzi che dichiarasse «$68$ su
+              Instagram, $54$ su TikTok e solo $10$ su entrambi»! (Quanto varrebbe $|A \cup B|$?).</li>
+            <li><strong>Il potere del Controesempio (Teoria 5):</strong> Trova nei media, nei proverbi o nelle
+              conversazioni quotidiane una generalizzazione assoluta («Tutti i giovani...», «Nessuno che...») e mostra
+              come si costruisce la sua negazione logica corretta ($\neg (\forall x\dots) \equiv \exists x\dots$).</li>
+            <li><strong>Riflessione Scienze Umane (Psicologia Sociale):</strong> Spiega in 8–10 righe perché sui social
+              network gli algoritmi che ci mostrano solo post simili alle nostre opinioni rafforzano il <em>bias di
+                conferma</em> studiato da Peter Wason, e come l'abitudine matematica a cercare controesempi aiuti il
+              dialogo civile.</li>
+          </ol>
+        </div>
+
+        <!-- Rubrica di Valutazione -->
+        <div class="rubric-container">
+          <table class="rubric-table">
+            <thead>
+              <tr>
+                <th>Dimensione di Competenza</th>
+                <th>Livello Base</th>
+                <th>Livello Intermedio</th>
+                <th>Livello Avanzato</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Analisi Logica ($p \Rightarrow q$)</strong></td>
+                <td>Individua intuitivamente che gli slogan sono forzati ma fatica a separare ipotesi $p$ e tesi $q$.
+                </td>
+                <td>Identifica correttamente $p$, $q$, le due fallacie ($q \Rightarrow p$ e $\neg p \Rightarrow \neg q$)
+                  e scrive la contronominale corretta.</td>
+                <td>Formalizza con precisione simbolica gli enunciati e motiva l'errore tramite la tavola di verità o i
+                  sottoinsiemi.</td>
+              </tr>
+              <tr>
+                <td><strong>Insiemi &amp; Prova per Assurdo</strong></td>
+                <td>Compila parzialmente il diagramma di Eulero-Venn commettendo errori di doppio conteggio.</td>
+                <td>Compila esattamente il diagramma ($38, 30, 24, 8$) e mostra la contraddizione $|A \cup B| = 112 >
+                  100$ nel secondo caso.</td>
+                <td>Imposta con linguaggio rigoroso la dimostrazione per assurdo sul sondaggio impossibile e la
+                  negazione dei quantificatori.</td>
+              </tr>
+              <tr>
+                <td><strong>Pensiero Critico &amp; Scienze Umane</strong></td>
+                <td>Descrive i social media in modo generico senza riferirsi al bias di conferma.</td>
+                <td>Collega con chiarezza il bias di conferma di Wason alle bolle informative e all'importanza dei
+                  controesempi.</td>
+                <td>Argomenta in modo originale e profondo il ruolo della logica come anticorpo civico contro pregiudizi
+                  e manipolazioni.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </article>
+    </section>
+
+
+    <!-- SINTESI & TAKEAWAY -->
+    <footer class="final-recap" id="finalRecap">
+      <div class="recap-icon">⚖️</div>
+      <h2 class="recap-title">Takeaway della Lezione 1.4</h2>
+      <p class="recap-subtitle">
+        Insiemi e logica sono la grammatica del pensiero lucido, in matematica come nella vita pubblica.
+      </p>
+      <div class="takeaways-row">
+        <div class="takeaway-item">
+          <strong>1. Insiemi $\leftrightarrow$ Connettivi</strong>
+          <p>Intersezione $A \cap B \leftrightarrow$ «e» ($\land$); Unione $A \cup B \leftrightarrow$ «o» ($\lor$);
+            Complementare $\overline{A} \leftrightarrow$ «non» ($\neg$).</p>
+        </div>
+        <div class="takeaway-item">
+          <strong>2. Falsificare $p \Rightarrow q$</strong>
+          <p>Una regola «Se $p$ allora $q$» cade solo con $p$ Vera e $q$ Falsa (carte $p$ e $\neg q$ di Wason), ed
+            equivale a $\neg q \Rightarrow \neg p$.</p>
+        </div>
+        <div class="takeaway-item">
+          <strong>3. Ragionare per Assurdo</strong>
+          <p>Nega la tesi, scopri una contraddizione e avrai dimostrato la verità: porta la Scheda sulle Fallacie alla
+            prossima lezione!</p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- CARD DI COMPLETAMENTO GAMIFICATION -->
+    <div class="completion-card" id="lessonCompletionCard">
+      <div class="completion-icon">🏆</div>
+      <h3 class="completion-title">Hai completato la Lezione 1.4?</h3>
+      <p class="completion-desc">
+        Registra il tuo traguardo per guadagnare i punti esperienza della lezione (+60 XP) e porta la Scheda Operativa
+        «Smascherare Fallacie nei Discorsi Pubblici» alla prossima lezione!
+      </p>
+      <button id="btnCompleteLesson" class="btn-complete">
+        ✨ Segna come Completata (+60 XP)
+      </button>
+    </div>
+
+  </div>
+
+  <!-- Scripts Condivisi comode -->
+  <script src="../../shared/js/audio.js"></script>
+  <script src="../../shared/js/theme.js"></script>
+  <script src="../../shared/js/gamification.js"></script>
+  <script src="../../shared/js/components.js"></script>
+  <script src="../../shared/js/flashcards.js"></script>
+  <script src="../../shared/js/comode.js"></script>
+
+  <!-- Logica Interattiva Lezione 1.4 -->
+  <script>
+    const completedLabs = new Set();
+
+    function markLabCompleted(labNum) {
+      if (!completedLabs.has(labNum)) {
+        completedLabs.add(labNum);
+        const card = document.getElementById(`lab${labNum}`);
+        if (card) card.classList.add('completed');
+
+        if (window.ComodeAudio) window.ComodeAudio.playSuccess();
+        if (window.ComodeGamification) {
+          window.ComodeGamification.addXP(10, `Lezione 1.4 • Laboratorio ${labNum} completato!`);
+        }
+        updateLessonProgress();
+      }
+    }
+
+    function updateLessonProgress() {
+      const count = completedLabs.size;
+      const pct = (count / 6) * 100;
+      const fill = document.getElementById('progressFill');
+      const score = document.getElementById('progressScore');
+      if (fill) fill.style.width = pct + '%';
+      if (score) score.textContent = `${count} / 6 completati`;
+
+      if (count === 6) {
+        if (window.ComodeAudio) window.ComodeAudio.playLevelUp();
+      }
+    }
+
+    function refreshMathIn(el) {
+      if (el && window.ComodeComponents && typeof window.ComodeComponents.renderMath === 'function') {
+        window.ComodeComponents.renderMath(el);
+      }
+    }
+
+
+    /* ========================================================
+       LABORATORIO 1: DIAGRAMMA DI EULERO-VENN INTERATTIVO
+       ======================================================== */
+    function setVennMode(mode, btnEl) {
+      if (btnEl && window.ComodeAudio) window.ComodeAudio.playClick();
+      if (btnEl && btnEl.parentElement) {
+        btnEl.parentElement.querySelectorAll('.l04-pill-btn').forEach(b => b.classList.remove('active'));
+        btnEl.classList.add('active');
+      }
+
+      const fOnlyA = document.getElementById('vennOnlyAFill');
+      const fOnlyB = document.getElementById('vennOnlyBFill');
+      const fInter = document.getElementById('vennInterFill');
+      const fOut = document.getElementById('vennOutsideFill');
+      const cap = document.getElementById('vennCaption');
+
+      fOnlyA.style.display = (mode === 'union' || mode === 'diffAB') ? 'block' : 'none';
+      fOnlyB.style.display = (mode === 'union' || mode === 'diffBA') ? 'block' : 'none';
+      fInter.style.display = (mode === 'inter' || mode === 'union') ? 'block' : 'none';
+      fOut.style.display = (mode === 'outside') ? 'block' : 'none';
+
+      const texts = {
+        inter: '<strong>Intersezione $A \\cap B$ (Connettivo «E» $\\land$):</strong> gli studenti che frequentano <em>sia</em> Teatro <em>sia</em> Fotografia.',
+        union: '<strong>Unione $A \\cup B$ (Connettivo «O» inclusivo $\\lor$):</strong> tutti gli studenti che frequentano <em>almeno uno</em> dei due laboratori (solo A, solo B oppure entrambi!).',
+        diffAB: '<strong>Differenza $A \\setminus B$ ($p \\land \\neg q$):</strong> gli studenti iscritti a Teatro ma <em>non</em> a Fotografia ($|A| - |A \\cap B|$).',
+        diffBA: '<strong>Differenza $B \\setminus A$ ($\\neg p \\land q$):</strong> gli studenti iscritti a Fotografia ma <em>non</em> a Teatro ($|B| - |A \\cap B|$).',
+        outside: '<strong>Complementare dell’unione $\\overline{A \\cup B}$ ($\\neg p \\land \\neg q$):</strong> gli studenti della classe $U$ che non seguono <em>né</em> Teatro <em>né</em> Fotografia.'
+      };
+      if (cap) {
+        cap.innerHTML = texts[mode];
+        refreshMathIn(cap);
+      }
+    }
+
+    function verifyLab1() {
+      const onlyA = parseInt(document.getElementById('lab1OnlyA').value.trim(), 10);
+      const outside = parseInt(document.getElementById('lab1Outside').value.trim(), 10);
+      const msg = document.getElementById('lab1Msg');
+      msg.style.display = 'inline-flex';
+
+      if (onlyA === 10 && outside === 4) {
+        msg.className = 'feedback-msg success';
+        msg.textContent = 'Esatto! 10 fanno solo Teatro, 5 entrambi, 7 solo Foto (totale unione = 22) e 26 − 22 = 4 restano fuori!';
+        markLabCompleted(1);
+      } else {
+        if (window.ComodeAudio) window.ComodeAudio.playError();
+        msg.className = 'feedback-msg error';
+        if (onlyA !== 10) {
+          msg.textContent = 'Attenzione a «Solo Teatro»: dei 15 iscritti a Teatro, 5 fanno anche Foto → 15 − 5 = 10!';
+        } else {
+          msg.textContent = 'Solo Teatro = 10 è giusto! Ora calcola l’unione: 15 + 12 − 5 = 22 iscritti. Su 26 studenti ne restano fuori 26 − 22 = 4!';
+        }
+      }
+    }
+
+
+    /* ========================================================
+       LABORATORIO 2: TAVOLE DI VERITÀ INTERATTIVE
+       ======================================================== */
+    let stateP = true;
+    let stateQ = false;
+
+    function toggleTruthVar(which) {
+      if (window.ComodeAudio) window.ComodeAudio.playClick();
+      if (which === 'p') stateP = !stateP;
+      else stateQ = !stateQ;
+      renderTruthSimulator();
+    }
+
+    function fmtTF(b) {
+      return b ? '<span class="l04-val-v">V</span>' : '<span class="l04-val-f">F</span>';
+    }
+
+    function renderTruthSimulator() {
+      const btnP = document.getElementById('btnToggleP');
+      const btnQ = document.getElementById('btnToggleQ');
+      if (btnP) {
+        btnP.textContent = stateP ? 'VERO (V)' : 'FALSO (F)';
+        btnP.className = `l04-tf-btn ${stateP ? 'is-true' : 'is-false'}`;
+      }
+      if (btnQ) {
+        btnQ.textContent = stateQ ? 'VERO (V)' : 'FALSO (F)';
+        btnQ.className = `l04-tf-btn ${stateQ ? 'is-true' : 'is-false'}`;
+      }
+
+      const rows = [
+        [true, true],
+        [true, false],
+        [false, true],
+        [false, false]
+      ];
+      const tbody = document.getElementById('truthTableBody');
+      if (!tbody) return;
+
+      tbody.innerHTML = rows.map(([p, q]) => {
+        const isCurrent = (p === stateP && q === stateQ);
+        const notP = !p;
+        const andPQ = p && q;
+        const orPQ = p || q;
+        const impPQ = (!p) || q;
+        return `
+          <tr class="${isCurrent ? 'active-row' : ''}">
+            <td>${fmtTF(p)}</td>
+            <td>${fmtTF(q)}</td>
+            <td>${fmtTF(notP)}</td>
+            <td>${fmtTF(andPQ)}</td>
+            <td>${fmtTF(orPQ)}</td>
+            <td>${fmtTF(impPQ)}</td>
+          </tr>
+        `;
+      }).join('');
+
+      const exp = document.getElementById('truthLiveExplain');
+      if (!exp) return;
+      if (stateP && stateQ) {
+        exp.innerHTML = '🌧️☂️ <strong>Piove (V) e prendo l’ombrello (V):</strong> hai mantenuto la promessa! $p \\Rightarrow q$ è <strong>VERA</strong>.';
+      } else if (stateP && !stateQ) {
+        exp.innerHTML = '🌧️❌ <strong>Piove (V) ma NON prendo l’ombrello (F):</strong> <span style="color:var(--accent-danger);font-weight:800;">PROMESSA INFRANTA!</span> È l’unico caso in cui $p \\Rightarrow q$ è <strong>FALSA</strong>.';
+      } else if (!stateP && stateQ) {
+        exp.innerHTML = '☀️☂️ <strong>Non piove (F), ma prendo comunque l’ombrello per il sole (V):</strong> non hai infranto la promessa «Se piove...»! $p \\Rightarrow q$ resta <strong>VERA</strong>.';
+      } else {
+        exp.innerHTML = '☀️😎 <strong>Non piove (F) e non prendo l’ombrello (F):</strong> nessun patto violato! $p \\Rightarrow q$ resta <strong>VERA</strong>.';
+      }
+      refreshMathIn(exp);
+    }
+
+    function verifyLab2() {
+      const fCount = parseInt(document.getElementById('lab2FalseCount').value.trim(), 10);
+      const compVal = document.getElementById('lab2CompoundVal').value.trim().toUpperCase();
+      const msg = document.getElementById('lab2Msg');
+      msg.style.display = 'inline-flex';
+
+      const isV = (compVal === 'V' || compVal === 'VERO' || compVal === 'VERA');
+      if (fCount === 1 && isV) {
+        msg.className = 'feedback-msg success';
+        msg.textContent = 'Perfetto! p ⇒ q è falsa in 1 solo caso (V ⇒ F), e con p=F, q=V si ha (¬p) ∧ q = V ∧ V = V!';
+        markLabCompleted(2);
+      } else {
+        if (window.ComodeAudio) window.ComodeAudio.playError();
+        msg.className = 'feedback-msg error';
+        if (fCount !== 1) {
+          msg.textContent = 'Guarda l’ultima colonna della tabella: quante F compaiono in tutto? Soltanto 1!';
+        } else {
+          msg.textContent = '1 caso falso è esatto! Per il secondo quesito: se p è Falsa, ¬p è Vera, e Vera ∧ Vera dà V!';
+        }
+      }
+    }
+
+
+    /* ========================================================
+       LABORATORIO 3: TEST DELLE 4 CARTE DI PETER WASON
+       ======================================================== */
+    const wasonSelected = new Set();
+
+    function toggleWasonCard(id) {
+      if (window.ComodeAudio) window.ComodeAudio.playClick();
+      if (wasonSelected.has(id)) wasonSelected.delete(id);
+      else wasonSelected.add(id);
+
+      const el = document.getElementById(`wcard-${id}`);
+      if (el) el.classList.toggle('selected', wasonSelected.has(id));
+    }
+
+    function verifyWasonSelection() {
+      const msg = document.getElementById('lab3Msg');
+      msg.style.display = 'inline-flex';
+
+      const hasA = wasonSelected.has('A');
+      const hasK = wasonSelected.has('K');
+      const has4 = wasonSelected.has('4');
+      const has7 = wasonSelected.has('7');
+
+      if (hasA && has7 && !hasK && !has4) {
+        msg.className = 'feedback-msg success';
+        msg.textContent = '🧠 Straordinario! Hai scelto [A] e [7] (cioè p e ¬q), evitando il bias di conferma! Solo dietro A (se c’è un dispari) o dietro 7 (se c’è una vocale) la regola può essere falsificata!';
+        markLabCompleted(3);
+      } else if (hasA && has4 && !hasK && !has7) {
+        if (window.ComodeAudio) window.ComodeAudio.playError();
+        msg.className = 'feedback-msg error';
+        msg.textContent = '😮 Sei caduto nella famosa trappola di Wason ([A] e [4]), scelta dall’80% delle persone! Girare [4] è inutile: anche se dietro ci fosse una consonante, la regola non dice nulla sulle consonanti. Devi invece girare [7] (dispari): se dietro 7 c’è una vocale, la regola crolla!';
+      } else {
+        if (window.ComodeAudio) window.ComodeAudio.playError();
+        msg.className = 'feedback-msg error';
+        msg.textContent = 'Non ancora! Devi selezionare SOLO le 2 carte che possono nascondere il caso «Vocale + Numero Dispari» (p Vera e q Falsa): controlla la vocale [A] e il numero dispari [7]!';
+      }
+    }
+
+
+    /* ========================================================
+       LABORATORIO 4: CONTROESEMPIO & CONTRONOMINALE
+       ======================================================== */
+    function verifyLab4() {
+      const cEx = parseInt(document.getElementById('lab4CounterEx').value.trim(), 10);
+      const contra = parseInt(document.getElementById('lab4ContraCount').value.trim(), 10);
+      const msg = document.getElementById('lab4Msg');
+      msg.style.display = 'inline-flex';
+
+      if (cEx === 2 && contra === 0) {
+        msg.className = 'feedback-msg success';
+        msg.textContent = 'Ottimo! Il primo p = 2 dà 2 + 2 = 4 (pari, controesempio!), e per contronominale 0 numeri non divisibili per 5 possono finire per 0!';
+        markLabCompleted(4);
+      } else {
+        if (window.ComodeAudio) window.ComodeAudio.playError();
+        msg.className = 'feedback-msg error';
+        if (cEx !== 2) {
+          msg.textContent = 'Qual è l’unico numero primo pari? Prova p = 2: 2 + 2 = 4 non è dispari!';
+        } else {
+          msg.textContent = 'p = 2 è il controesempio perfetto! Nel secondo punto, se un numero finisse per 0 sarebbe divisibile per 5: quindi quanti possono finire per 0? Zero (0)!';
+        }
+      }
+    }
+
+
+    /* ========================================================
+       LABORATORIO 5: TEATRO DELLA DIMOSTRAZIONE PER ASSURDO
+       ======================================================== */
+    const assurdoCases = [
+      {
+        title: 'Teorema 1 • Se il quadrato $n^2$ di un naturale è pari, allora anche $n$ è pari',
+        step1: '<strong>1. Negazione della Tesi ($\\neg T$):</strong> Manteniamo l’ipotesi ($n^2$ è pari) e supponiamo <em>per assurdo</em> che $n$ NON sia pari, cioè che <strong>$n$ sia dispari</strong>.',
+        step2: '<strong>2. Catena deduttiva:</strong> Se $n$ è dispari, si scrive $n = 2k + 1$ (un multiplo di $2$ più $1$). Moltiplicando un dispari per un dispari otteniamo sempre un numero dispari: $n^2 = (2k+1)(2k+1) = 4k^2 + 4k + 1 = 2(2k^2 + 2k) + 1$, che dà resto $1$ diviso per $2$ (quindi <strong>$n^2$ è dispari</strong>).',
+        boom: '<strong>3. 💥 ASSURDO!</strong> Abbiamo dedotto che $n^2$ è <em>dispari</em>, ma l’ipotesi di partenza diceva che $n^2$ è <em>pari</em>! Un numero non può essere contemporaneamente pari e dispari.',
+        qed: '<strong>4. Conclusione (C.V.D.):</strong> La supposizione «$n$ dispari» è impossibile: dunque <strong>$n$ deve essere necessariamente pari!</strong>'
+      },
+      {
+        title: 'Teorema 2 • In un gruppo di 13 amici, almeno 2 compiono gli anni nello stesso mese',
+        step1: '<strong>1. Negazione della Tesi ($\\neg T$):</strong> Supponiamo <em>per assurdo</em> che NON esistano $2$ amici nati nello stesso mese: ciò significa che in ciascuno dei $12$ mesi dell’anno è nato <strong>al massimo $1$ amico</strong> ($0$ oppure $1$).',
+        step2: '<strong>2. Catena deduttiva:</strong> Sommiamo il numero massimo possibile di amici nei $12$ mesi: al più $1 \\times 12 = 12$ amici in tutto.',
+        boom: '<strong>3. 💥 ASSURDO!</strong> La somma dà al massimo $12$ persone, in aperta contraddizione con l’ipotesi che gli amici siano $13$!',
+        qed: '<strong>4. Conclusione (Principio dei Cassetti):</strong> È impossibile distribuire $13$ persone in $12$ mesi senza condivisioni: <strong>almeno $2$ amici festeggiano nello stesso mese!</strong>'
+      },
+      {
+        title: 'Teorema 3 • Nessun numero della forma $4k + 2$ (es. $6, 10, 14, 18\\dots$) è un quadrato perfetto $n^2$',
+        step1: '<strong>1. Negazione della Tesi ($\\neg T$):</strong> Supponiamo <em>per assurdo</em> che esista un intero $n$ tale che $n^2 = 4k + 2$.',
+        step2: '<strong>2. Catena deduttiva:</strong> Poiché $4k + 2 = 2(2k + 1)$ è pari, $n^2$ è pari. Per il Teorema 1 anche $n$ è pari, cioè $n = 2m$. Elevando al quadrato otteniamo $n^2 = (2m)^2 = 4m^2$, quindi <strong>$n^2$ è divisibile per $4$ (resto $0$)</strong>.',
+        boom: '<strong>3. 💥 ASSURDO!</strong> Da un lato $n^2 = 4m^2$ diviso $4$ dà <em>resto $0$</em>; dall’altro $n^2 = 4k + 2$ diviso $4$ dà <em>resto $2$</em>!',
+        qed: '<strong>4. Conclusione:</strong> Nessun quadrato perfetto può dare resto $2$ nella divisione per $4$!'
+      }
+    ];
+
+    function showAssurdoCase(idx, btnEl) {
+      if (btnEl && window.ComodeAudio) window.ComodeAudio.playClick();
+      if (btnEl && btnEl.parentElement) {
+        btnEl.parentElement.querySelectorAll('.l04-pill-btn').forEach(b => b.classList.remove('active'));
+        btnEl.classList.add('active');
+      }
+      const c = assurdoCases[idx];
+      const box = document.getElementById('assurdoDisplay');
+      if (!box) return;
+      box.innerHTML = `
+        <div style="font-weight:800;font-size:0.98rem;margin-bottom:0.65rem;color:var(--text-main);">${c.title}</div>
+        <div class="l04-assurdo-step">${c.step1}</div>
+        <div class="l04-assurdo-step">${c.step2}</div>
+        <div class="l04-assurdo-step boom">${c.boom}</div>
+        <div class="l04-assurdo-step qed">${c.qed}</div>
+      `;
+      refreshMathIn(box);
+    }
+
+    function verifyLab5() {
+      const sel = document.getElementById('lab5AssurdoSelect').value;
+      const nextNum = parseInt(document.getElementById('lab5NextNum').value.trim(), 10);
+      const msg = document.getElementById('lab5Msg');
+      msg.style.display = 'inline-flex';
+
+      if (sel === '2' && nextNum === 1000) {
+        msg.className = 'feedback-msg success';
+        msg.textContent = 'Dimostrazione impeccabile! Negando la tesi supponiamo un massimo M, ma M + 1 (es. 1000 > 999) è ancora naturale: assurdo!';
+        markLabCompleted(5);
+      } else {
+        if (window.ComodeAudio) window.ComodeAudio.playError();
+        msg.className = 'feedback-msg error';
+        if (sel !== '2') {
+          msg.textContent = 'Nel Passo 1 di una dimostrazione per assurdo bisogna sempre supporre la NEGAZIONE della tesi (cioè che esista un massimo M)!';
+        } else {
+          msg.textContent = 'Ottima scelta nel Passo 1! Ora nel Passo 2: se M = 999, quanto vale M + 1? (Scrivi 1000)';
+        }
+      }
+    }
+
+
+    /* ========================================================
+       LABORATORIO 6: PALESTRA MENTALE (4 SFIDE)
+       ======================================================== */
+    const l04GymSolved = new Set();
+
+    function checkL04Gym(idx, expected) {
+      const raw = document.getElementById(`l04gym${idx}Input`).value.trim().replace(',', '.');
+      const val = parseFloat(raw);
+      const fb = document.getElementById(`l04gym${idx}Feedback`);
+      const card = document.getElementById(`l04gym${idx}`);
+
+      if (!isNaN(val) && Math.abs(val - expected) < 0.0001) {
+        if (window.ComodeAudio) window.ComodeAudio.playSuccess();
+        l04GymSolved.add(idx);
+        card.classList.add('solved');
+        fb.style.color = 'var(--accent-success)';
+        fb.textContent = '✓ Risposta esatta!';
+        if (l04GymSolved.size === 4) {
+          markLabCompleted(6);
+        }
+      } else {
+        if (window.ComodeAudio) window.ComodeAudio.playError();
+        fb.style.color = 'var(--accent-danger)';
+        const hints = {
+          1: 'Usa |A ∪ B| = |A| + |B| − |A ∩ B| = 14 + 9 − 5 = 18!',
+          2: 'Elencali: 3 è incluso (≤) mentre 8 è escluso (<), quindi {3, 4, 5, 6, 7} → sono 5 elementi!',
+          3: '3, 5 e 7 sono primi; il successivo dispari è 9 = 3 × 3 (non primo)!',
+          4: 'Ogni nuova proposizione raddoppia i casi (V/F): 2³ = 2 × 2 × 2 = 8 righe!'
+        };
+        fb.textContent = hints[idx];
+      }
+    }
+
+
+    /* ========================================================
+       INIZIALIZZAZIONE LEZIONE 1.4 & MAZZO FLASHCARDS
+       ======================================================== */
+    function initLesson() {
+      setVennMode('inter', null);
+      renderTruthSimulator();
+      showAssurdoCase(0, null);
+
+      if (window.ComodeFlashcards) {
+        ComodeFlashcards.init('lessonFlashcardDeck', {
+          deckId: 'pb-1.1-l04-flashcards',
+          xpPerCard: 15,
+          completionXP: 25,
+          cards: [
+            {
+              category: 'Insiemi & Connettivi',
+              theoryRef: 'Teoria 2 & 3 • Differenza tra Insiemi',
+              theoryTargetId: 'teoria-2',
+              question: 'A quale condizione logica corrisponde la differenza tra insiemi $A \\setminus B$?',
+              options: [
+                'Appartenere ad $A$ oppure appartenere a $B$ ($x \\in A \\lor x \\in B$)',
+                'Appartenere contemporaneamente sia ad $A$ sia a $B$ ($x \\in A \\land x \\in B$)',
+                'Appartenere ad $A$ <strong>e non</strong> appartenere a $B$ ($x \\in A \\land x \\notin B$)',
+                'Non appartenere né ad $A$ né a $B$'
+              ],
+              correct: 2,
+              explanation: 'La differenza $A \\setminus B$ raccoglie tutti e soli gli elementi di $A$ che non fanno parte di $B$.'
+            },
+            {
+              category: 'Implicazione Logica',
+              theoryRef: 'Teoria 4 • Contronominale Valida',
+              theoryTargetId: 'teoria-4',
+              question: 'Sapendo che è vera l’implicazione «Se un quadrilatero è un quadrato ($p$), allora ha quattro lati uguali ($q$)», quale delle seguenti deduzioni è <strong>certamente vera</strong>?',
+              options: [
+                'Se un quadrilatero NON ha quattro lati uguali ($\\neg q$), allora NON è un quadrato ($\\neg p$)',
+                'Se un quadrilatero ha quattro lati uguali ($q$), allora è certamente un quadrato ($p$)',
+                'Se un quadrilatero non è un quadrato ($\\neg p$), allora non può avere quattro lati uguali ($\\neg q$)',
+                'Tutti i quadrilateri con lati uguali hanno angoli retti'
+              ],
+              correct: 0,
+              explanation: '$p \\Rightarrow q$ equivale sempre alla sua contronominale $\\neg q \\Rightarrow \\neg p$. Invece l’inversa $q \\Rightarrow p$ è falsa (controesempio: un rombo non rettangolo ha $4$ lati uguali ma non è un quadrato!).'
+            },
+            {
+              category: 'Psicologia Cognitiva',
+              theoryRef: 'Teoria 5 • Test di Wason & Bias di Conferma',
+              theoryTargetId: 'teoria-5',
+              question: 'Nel test psicologico di Peter Wason, quali casi occorre ispezionare per verificare se una regola condizionale $p \\Rightarrow q$ è rispettata o violata?',
+              options: [
+                'I casi con $p$ Falsa e $q$ Vera',
+                'I casi con $p$ Vera e $q$ Vera, per accumulare conferme',
+                'Tutti i casi con $\\neg p$ (ipotesi non verificata)',
+                'I casi con $p$ Vera e i casi con $\\neg q$ ($q$ Falsa), gli unici che potrebbero rivelare il controesempio $p \\land \\neg q$'
+              ],
+              correct: 3,
+              explanation: 'Poiché $p \\Rightarrow q$ è falsa solo quando $p$ è Vera e $q$ è Falsa, dobbiamo controllare chi soddisfa $p$ (per verificare che abbia $q$) e chi ha $\\neg q$ (per verificare che non abbia $p$).'
+            },
+            {
+              category: 'Quantificatori',
+              theoryRef: 'Teoria 5 • Negazione di «Per ogni»',
+              theoryTargetId: 'teoria-5',
+              question: 'Qual è la corretta <strong>negazione logica</strong> dell’affermazione «Tutti gli studenti del club suonano la chitarra»?',
+              options: [
+                'Nessuno studente del club suona la chitarra',
+                'Esiste almeno uno studente del club che non suona la chitarra',
+                'Tutti gli studenti del club suonano il pianoforte',
+                'La maggioranza degli studenti del club non suona la chitarra'
+              ],
+              correct: 1,
+              explanation: 'Negare un quantificatore universale ($\\neg \\forall x, P(x)$) non significa dire «nessuno», ma affermare che esiste almeno un controesempio ($\\exists x, \\neg P(x)$)!'
+            },
+            {
+              category: 'Dimostrazione per Assurdo',
+              theoryRef: 'Teoria 6 • Struttura della Reductio ad Absurdum',
+              theoryTargetId: 'teoria-6',
+              question: 'In cosa consiste la tecnica della <strong>dimostrazione per assurdo</strong> di un teorema «Ipotesi $I \\Rightarrow$ Tesi $T$»?',
+              options: [
+                'Nel negare l’ipotesi $I$ mostrando che il teorema non serve',
+                'Nel verificare la tesi $T$ su tre o quattro esempi numerici scelti a caso',
+                'Nell’assumere provvisoriamente l’ipotesi $I$ insieme alla negazione della tesi ($\\neg T$), deducendo una contraddizione impossibile che costringe $T$ a essere vera',
+                'Nel sostituire la tesi $T$ con un’opinione condivisa dalla maggioranza'
+              ],
+              correct: 2,
+              explanation: 'Se dall’ipotesi $I$ e da $\\neg T$ scaturisce logicamente una contraddizione, allora $\\neg T$ non può coesistere con $I$: dunque, quando vale $I$, deve valere necessariamente $T$.'
+            }
+          ]
+        });
+      }
+    }
+
+    if (document.readyState !== 'loading') {
+      initLesson();
+    } else {
+      document.addEventListener('DOMContentLoaded', initLesson);
+    }
+  </script>
+</body>
+
+</html>
+

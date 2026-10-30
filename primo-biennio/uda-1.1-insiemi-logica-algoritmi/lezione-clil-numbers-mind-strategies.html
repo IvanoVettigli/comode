@@ -1,26 +1,33 @@
 <!DOCTYPE html>
 <html lang="it" data-theme="dark">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CLIL Lesson: Numbers &amp; Mental Strategies • comode</title>
-  <meta name="description" content="CLIL Interactive Lesson for Liceo delle Scienze Umane: Numbers, Mental Strategies and Fractions in English with native audio pronunciation.">
+  <title>CLIL Lesson: Numbers, Logic &amp; Mental Strategies • comode</title>
+  <meta name="description"
+    content="CLIL Interactive Lesson for Liceo delle Scienze Umane: Numbers, Mental Strategies, Scientific Notation, Primes, Logic and Algorithms in English with native Web Speech API audio.">
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
 
   <!-- KaTeX 0.19.1 -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.19.1/dist/katex.min.css" crossorigin="anonymous">
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.19.1/dist/katex.min.js" crossorigin="anonymous"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.19.1/dist/contrib/auto-render.min.js" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.19.1/dist/contrib/auto-render.min.js"
+    crossorigin="anonymous"></script>
 
   <!-- CSS Condiviso comode -->
   <link rel="stylesheet" href="../../shared/css/comode.css">
 
   <style>
-    /* Stili specifici per la lezione CLIL */
+    /* ==========================================================================
+       Stili specifici per la lezione CLIL (prefisso .clil- anti-collisione KaTeX)
+       ========================================================================== */
     .flag-pill {
       display: inline-flex;
       align-items: center;
@@ -36,15 +43,92 @@
       letter-spacing: 0.05em;
     }
 
+    .clil-voice-bar {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .clil-accent-btn {
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+      font-family: inherit;
+      font-size: 0.8rem;
+      font-weight: 700;
+      padding: 0.35rem 0.75rem;
+      border-radius: var(--radius-pill);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .clil-accent-btn.active,
+    .clil-accent-btn:hover {
+      border-color: var(--accent-purple);
+      background: rgba(168, 85, 247, 0.16);
+      color: var(--text-main);
+    }
+
+    .clil-spoken-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(235px, 1fr));
+      gap: 0.85rem;
+      margin-top: 1.15rem;
+    }
+
+    .clil-spoken-card {
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 0.95rem 1.05rem;
+    }
+
+    .clil-false-friends-box {
+      margin-top: 1.15rem;
+      background: rgba(245, 158, 11, 0.08);
+      border: 1px solid rgba(245, 158, 11, 0.3);
+      border-radius: var(--radius-md);
+      padding: 1rem 1.15rem;
+      font-size: 0.9rem;
+      line-height: 1.65;
+    }
+
     .clil-lab-prompt {
       background: var(--bg-surface-elevated);
       border-left: 3px solid var(--accent-purple);
       padding: 1rem 1.25rem;
       border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
-      margin: 1rem 0;
+      margin: 1rem 0 0.65rem;
       font-style: italic;
       color: var(--text-main);
       line-height: 1.75;
+    }
+
+    .clil-prompt-tools {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      flex-wrap: wrap;
+      margin-bottom: 0.4rem;
+    }
+
+    .clil-read-btn {
+      background: rgba(168, 85, 247, 0.14);
+      border: 1px solid rgba(168, 85, 247, 0.35);
+      color: var(--accent-purple);
+      font-family: inherit;
+      font-size: 0.82rem;
+      font-weight: 700;
+      padding: 0.35rem 0.8rem;
+      border-radius: var(--radius-pill);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .clil-read-btn:hover {
+      background: rgba(168, 85, 247, 0.25);
+      color: var(--text-main);
     }
 
     .clil-translation-toggle {
@@ -56,8 +140,8 @@
       display: inline-flex;
       align-items: center;
       gap: 0.3rem;
-      margin-top: 0.5rem;
       font-weight: 600;
+      font-family: inherit;
     }
 
     .clil-translation-toggle:hover {
@@ -70,7 +154,7 @@
       border: 1px dashed var(--border-subtle);
       border-radius: var(--radius-sm);
       padding: 0.85rem;
-      margin-top: 0.6rem;
+      margin-top: 0.55rem;
       font-size: 0.9rem;
       color: var(--text-muted);
       line-height: 1.7;
@@ -79,8 +163,31 @@
     .clil-translation-box.visible {
       display: block;
     }
+
+    .clil-pseudo-box {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-accent);
+      border-radius: var(--radius-sm);
+      padding: 0.85rem 1rem;
+      font-family: var(--font-mono);
+      font-size: 0.86rem;
+      line-height: 1.7;
+      font-style: normal;
+      margin-top: 0.6rem;
+    }
+
+    .clil-sentence-frames {
+      background: var(--bg-surface);
+      border: 1px solid rgba(168, 85, 247, 0.3);
+      border-radius: var(--radius-sm);
+      padding: 0.9rem 1.05rem;
+      margin: 0.85rem 0;
+      font-size: 0.88rem;
+      line-height: 1.65;
+    }
   </style>
 </head>
+
 <body data-theme="dark" data-lesson-id="pb-1.1-clil" data-xp="70" data-unit="uda-1.1">
 
   <div class="container">
@@ -121,18 +228,20 @@
       <div class="hero-badges">
         <span class="flag-pill">🌍 CLIL Module • English in Science</span>
         <span class="badge badge-primary">Matematica • 1° Anno</span>
-        <span class="badge badge-secondary">UDA 1.1</span>
+        <span class="badge badge-secondary">UDA 1.1 Capstone</span>
       </div>
-      <h1 class="hero-title">Numbers &amp; Mental Strategies in English</h1>
+      <h1 class="hero-title">Numbers, Logic &amp; Mental Strategies in English</h1>
       <p class="hero-desc">
-        Explore mathematics through the international language of scientific research: master key English terminology, listen to native pronunciation with one click, and solve applied problem-solving tasks!
+        Explore the entire UDA 1.1 through the international language of scientific research: master <strong>12 key
+          English terms</strong>, switch between American and British native pronunciation, avoid <em>notation traps &amp;
+          false friends</em>, and solve <strong>5 applied problem-solving tasks</strong>!
       </p>
 
       <!-- Progress Tracker -->
       <div class="progress-bar-card">
         <div class="progress-label">
           <span>🎯 CLIL Tasks Progress:</span>
-          <span class="progress-score" id="progressScore">0 / 2 completed</span>
+          <span class="progress-score" id="progressScore">0 / 5 completed</span>
         </div>
         <div class="progress-track">
           <div class="progress-fill" id="progressFill"></div>
@@ -151,15 +260,18 @@
         <ul class="po-list">
           <li>
             <span class="po-icon">✓</span>
-            <div><strong>Basic Arithmetic:</strong> understanding operations in $\mathbb{N}$ and $\mathbb{Z}$.</div>
+            <div><strong>Arithmetic &amp; Fractions (Lezione 1.1):</strong> comfortable operations in $\mathbb{Z}$ and
+              $\mathbb{Q}$, common denominator, and cross-simplification.</div>
           </li>
           <li>
             <span class="po-icon">✓</span>
-            <div><strong>Fraction Basics:</strong> meaning of numerator, denominator and common size.</div>
+            <div><strong>Powers, Primes, Logic &amp; Algorithms (Lezioni 1.2–1.5):</strong> scientific notation,
+              counterexamples, Euclid's proof, and `if-then-else` variable tracing.</div>
           </li>
           <li>
             <span class="po-icon">✓</span>
-            <div><strong>English Level A2+:</strong> basic vocabulary and readiness to explore scientific language.</div>
+            <div><strong>English Level A2+ / B1:</strong> readiness to read short scientific prompts with audio and
+              optional Italian scaffolding.</div>
           </li>
         </ul>
       </div>
@@ -173,15 +285,18 @@
         <ul class="po-list">
           <li>
             <span class="po-icon">🚀</span>
-            <div><strong>Speak the Global Language of Math:</strong> correctly pronounce and recognize 8 key terms.</div>
+            <div><strong>Speak &amp; Read Formulas Aloud:</strong> pronounce 12 core mathematical terms and read
+              fractions, powers, and implications in English.</div>
           </li>
           <li>
             <span class="po-icon">🚀</span>
-            <div><strong>International Problem Solving:</strong> read and solve math word problems formulated in English.</div>
+            <div><strong>Avoid International Notation Traps:</strong> distinguish English decimal points (`0.25`) from
+              thousand separators (`2,000,000`) and spot math <em>false friends</em>.</div>
           </li>
           <li>
             <span class="po-icon">🚀</span>
-            <div><strong>Explain Smart Strategies:</strong> describe distributive shortcuts and cross-simplifications in English and complete the final CLIL Operational Worksheet.</div>
+            <div><strong>Bilingual Problem Solving &amp; CLIL Worksheet:</strong> solve 5 English tasks across numbers,
+              logic, and algorithms and write a structured reflection using English sentence frames.</div>
           </li>
         </ul>
       </div>
@@ -189,26 +304,32 @@
 
     <!-- SEZIONE 1: INTERACTIVE BILINGUAL GLOSSARY & THEORY REFERENCE CON AUDIO -->
     <section class="clil-glossary-card" id="clil-glossary">
-      <div class="clil-glossary-header">
+      <div class="clil-glossary-header" style="flex-wrap: wrap; gap: 0.85rem;">
         <div>
           <h2 style="font-size: 1.35rem; font-weight: 800; display: flex; align-items: center; gap: 0.5rem;">
             <span>🎧</span> Interactive Bilingual Math Glossary &amp; Theory Reference
           </h2>
-          <p style="color: var(--text-muted); font-size: 0.95rem; margin-top: 0.25rem;">
-            Click on <strong>🔊 Listen</strong> next to any word to hear its native English pronunciation powered by Web Speech API. Each row serves as a theoretical anchor linked to the tasks below.
+          <p style="color: var(--text-muted); font-size: 0.94rem; margin-top: 0.25rem;">
+            Choose your preferred accent (<strong>🇺🇸 US</strong> or <strong>🇬🇧 UK</strong>) and click
+            <strong>🔊 Listen</strong> to hear native English pronunciation via Web Speech API.
           </p>
         </div>
-        <span class="tag info-tag" style="background: rgba(168, 85, 247, 0.12); color: var(--accent-purple); padding: 0.35rem 0.8rem; border-radius: 9999px; font-weight: 700; font-size: 0.85rem;">
-          Native Pronunciation 🔊
-        </span>
+        <div class="clil-voice-bar">
+          <button type="button" id="btnAccentUS" class="clil-accent-btn active" onclick="setClilAccent('en-US')">🇺🇸 US
+            Voice</button>
+          <button type="button" id="btnAccentUK" class="clil-accent-btn" onclick="setClilAccent('en-GB')">🇬🇧 UK
+            Voice</button>
+          <button type="button" class="clil-accent-btn" onclick="stopClilSpeech()" title="Interrompi lettura">⏹
+            Stop</button>
+        </div>
       </div>
 
       <div class="clil-table-wrapper">
         <table class="clil-table">
           <thead>
             <tr>
-              <th style="min-width: 220px;">English Term &amp; Audio</th>
-              <th style="min-width: 180px;">Italian Equivalent</th>
+              <th style="min-width: 225px;">English Term &amp; Audio</th>
+              <th style="min-width: 185px;">Italian Equivalent</th>
               <th>Math Theory &amp; Operational Context</th>
             </tr>
           </thead>
@@ -217,204 +338,553 @@
               <td>
                 <div class="term-en">
                   <span>1. Whole Numbers / Integers</span>
-                  <button class="speech-btn" onclick="speakWord('integers')">🔊 Listen</button>
+                  <button class="speech-btn" onclick="clilSpeak('Whole numbers and integers')">🔊 Listen</button>
                 </div>
               </td>
               <td><span class="term-it">Numeri Interi ($\mathbb{Z}$)</span></td>
-              <td><span class="term-context">Directed numbers without fractional parts: positive, negative and zero ($\{\dots, -2, -1, 0, 1, 2, \dots\}$); subtracting a negative moves right ($a - (-b) = a + b$).</span></td>
+              <td><span class="term-context">Directed numbers without fractional parts: positive, negative, and zero
+                  ($\{\dots, -2, -1, 0, 1, 2, \dots\}$); subtracting a negative moves right ($a - (-b) = a + b$).</span>
+              </td>
             </tr>
             <tr id="clil-th-rational">
               <td>
                 <div class="term-en">
                   <span>2. Rational Numbers</span>
-                  <button class="speech-btn" onclick="speakWord('rational numbers')">🔊 Listen</button>
+                  <button class="speech-btn" onclick="clilSpeak('Rational numbers')">🔊 Listen</button>
                 </div>
               </td>
               <td><span class="term-it">Numeri Razionali ($\mathbb{Q}$)</span></td>
-              <td><span class="term-context">Any number expressible as the quotient $\frac{a}{b}$ of two integers ($b \neq 0$), or as a terminating/repeating decimal ($0.25 = \frac{1}{4}$).</span></td>
+              <td><span class="term-context">Any number expressible as a ratio $\frac{a}{b}$ of two integers ($b \neq
+                  0$); $\mathbb{Q}$ is <em>dense</em> on the number line (midpoint $\frac{a+b}{2}$).</span></td>
             </tr>
             <tr id="clil-th-num-den">
               <td>
                 <div class="term-en">
                   <span>3. Numerator &amp; Denominator</span>
-                  <button class="speech-btn" onclick="speakWord('numerator and denominator')">🔊 Listen</button>
+                  <button class="speech-btn" onclick="clilSpeak('Numerator and denominator')">🔊 Listen</button>
                 </div>
               </td>
               <td><span class="term-it">Numeratore e Denominatore</span></td>
-              <td><span class="term-context">In $\frac{3}{4}$, $3$ is the numerator (how many slices) and $4$ is the denominator (the slice size / unit partition).</span></td>
+              <td><span class="term-context">In $\frac{3}{4}$, $3$ is the numerator (how many parts) and $4$ is the
+                  denominator (the slice size / unit partition).</span></td>
             </tr>
             <tr id="clil-th-common-den">
               <td>
                 <div class="term-en">
                   <span>4. Common Denominator</span>
-                  <button class="speech-btn" onclick="speakWord('common denominator')">🔊 Listen</button>
+                  <button class="speech-btn" onclick="clilSpeak('Lowest common denominator')">🔊 Listen</button>
                 </div>
               </td>
-              <td><span class="term-it">Denominatore Comune</span></td>
-              <td><span class="term-context">A shared multiple of the denominators needed to add or subtract fractions of equal size: $\frac{1}{3} + \frac{1}{4} = \frac{4}{12} + \frac{3}{12} = \frac{7}{12}$.</span></td>
+              <td><span class="term-it">Denominatore Comune (m.c.m.)</span></td>
+              <td><span class="term-context">A shared multiple (Least Common Multiple, <em>LCM</em>) needed to add or
+                  subtract fractions of equal size: $\frac{1}{3} + \frac{1}{4} = \frac{4}{12} + \frac{3}{12} =
+                  \frac{7}{12}$.</span></td>
             </tr>
             <tr id="clil-th-reciprocal">
               <td>
                 <div class="term-en">
                   <span>5. Reciprocal</span>
-                  <button class="speech-btn" onclick="speakWord('reciprocal')">🔊 Listen</button>
+                  <button class="speech-btn" onclick="clilSpeak('Reciprocal')">🔊 Listen</button>
                 </div>
               </td>
               <td><span class="term-it">Inverso / Reciproco</span></td>
-              <td><span class="term-context">The multiplicative inverse: the reciprocal of $\frac{3}{5}$ is $\frac{5}{3}$ because $\frac{3}{5} \times \frac{5}{3} = 1$. Dividing by a fraction equals multiplying by its reciprocal.</span></td>
+              <td><span class="term-context">The multiplicative inverse: the reciprocal of $\frac{3}{5}$ is
+                  $\frac{5}{3}$ because $\frac{3}{5} \times \frac{5}{3} = 1$. Also linked to negative exponents:
+                  $(\frac{a}{b})^{-1} = \frac{b}{a}$.</span></td>
             </tr>
             <tr id="clil-th-cross">
               <td>
                 <div class="term-en">
                   <span>6. Cross-Simplification</span>
-                  <button class="speech-btn" onclick="speakWord('cross simplification')">🔊 Listen</button>
+                  <button class="speech-btn" onclick="clilSpeak('Cross simplification')">🔊 Listen</button>
                 </div>
               </td>
               <td><span class="term-it">Semplificazione in croce</span></td>
-              <td><span class="term-context">Cancelling common factors between numerators and denominators <em>before</em> multiplying: $\frac{3}{8} \times \frac{2}{5} = \frac{3}{4 \times 5} = \frac{3}{20}$.</span></td>
+              <td><span class="term-context">Cancelling common factors between numerators and denominators
+                  <em>before</em> multiplying: $\frac{3}{8} \times \frac{2}{5} = \frac{3}{4 \times 5} =
+                  \frac{3}{20}$.</span></td>
             </tr>
             <tr id="clil-th-distributive">
               <td>
                 <div class="term-en">
                   <span>7. Distributive Property</span>
-                  <button class="speech-btn" onclick="speakWord('distributive property')">🔊 Listen</button>
+                  <button class="speech-btn" onclick="clilSpeak('Distributive property')">🔊 Listen</button>
                 </div>
               </td>
               <td><span class="term-it">Proprietà Distributiva</span></td>
-              <td><span class="term-context">Multiplying a sum or difference by multiplying each term separately: $a \times (b \pm c) = ab \pm ac$.</span></td>
+              <td><span class="term-context">Multiplying a sum or difference term by term: $a \times (b \pm c) = ab \pm
+                  ac$ (e.g. $19 \times 35 = (20-1)\times 35$).</span></td>
             </tr>
             <tr id="clil-th-mental">
               <td>
                 <div class="term-en">
                   <span>8. Mental Computation</span>
-                  <button class="speech-btn" onclick="speakWord('mental computation')">🔊 Listen</button>
+                  <button class="speech-btn" onclick="clilSpeak('Mental computation')">🔊 Listen</button>
                 </div>
               </td>
               <td><span class="term-it">Calcolo Mentale Guidato</span></td>
-              <td><span class="term-context">Calculating accurately in your mind by choosing comfortable representations ($36 \times 0.25 = 36 \times \frac{1}{4} = 9$).</span></td>
+              <td><span class="term-context">Calculating accurately in your head by choosing comfortable representations
+                  ($36 \times 0.25 = 36 \times \frac{1}{4} = 9$).</span></td>
+            </tr>
+            <tr id="clil-th-scinot">
+              <td>
+                <div class="term-en">
+                  <span>9. Scientific Notation</span>
+                  <button class="speech-btn" onclick="clilSpeak('Scientific notation and order of magnitude')">🔊
+                    Listen</button>
+                </div>
+              </td>
+              <td><span class="term-it">Notazione Scientifica &amp; OdG</span></td>
+              <td><span class="term-context">Writing numbers as $a \times 10^n$ with $1 \le a < 10$ and $n \in
+                  \mathbb{Z}$; the nearest power of ten is its <em>order of magnitude</em>.</span></td>
+            </tr>
+            <tr id="clil-th-primes">
+              <td>
+                <div class="term-en">
+                  <span>10. Prime Factorization</span>
+                  <button class="speech-btn" onclick="clilSpeak('Prime numbers and prime factorization')">🔊
+                    Listen</button>
+                </div>
+              </td>
+              <td><span class="term-it">Numeri Primi e Scomposizione</span></td>
+              <td><span class="term-context">Every integer $>1$ is either <em>prime</em> or a unique product of primes
+                  (<em>composite</em>). Euclid proved there are infinitely many primes via $N = (p_1 \cdots p_k) +
+                  1$.</span></td>
+            </tr>
+            <tr id="clil-th-logic">
+              <td>
+                <div class="term-en">
+                  <span>11. Proof by Contradiction</span>
+                  <button class="speech-btn"
+                    onclick="clilSpeak('Hypothesis, counterexample, and proof by contradiction')">🔊 Listen</button>
+                </div>
+              </td>
+              <td><span class="term-it">Dimostrazione per Assurdo</span></td>
+              <td><span class="term-context">Assuming the negation of the conclusion ($\neg q$) alongside the hypothesis
+                  ($p$) to derive an impossible contradiction. One single <em>counterexample</em> disproves a "for all"
+                  claim!</span></td>
+            </tr>
+            <tr id="clil-th-algo">
+              <td>
+                <div class="term-en">
+                  <span>12. Flowchart &amp; Trace Table</span>
+                  <button class="speech-btn" onclick="clilSpeak('Algorithm, flowchart, and trace table')">🔊
+                    Listen</button>
+                </div>
+              </td>
+              <td><span class="term-it">Diagramma di Flusso e Traccia</span></td>
+              <td><span class="term-context">An <em>algorithm</em> is a finite, unambiguous sequence of steps. A
+                  <em>trace table</em> tracks variable values through <code>if-then-else</code> branches and
+                  loops.</span></td>
             </tr>
           </tbody>
         </table>
       </div>
+
+      <!-- MINI-GUIDA: COME LEGGERE LE FORMULE AD ALTA VOCE IN INGLESE -->
+      <div style="margin-top: 1.4rem;">
+        <h3 style="font-size: 1.05rem; font-weight: 800; display: flex; align-items: center; gap: 0.45rem;">
+          <span>🗣️</span> How to Read Math Symbols Aloud in English (Click &amp; Practice!)
+        </h3>
+        <div class="clil-spoken-grid">
+          <div class="clil-spoken-card">
+            <div style="display:flex;justify-content:space-between;align-items:center;">
+              <strong style="color:var(--accent-math);font-family:var(--font-mono);">3/4 &amp; 2/5</strong>
+              <button class="speech-btn" onclick="clilSpeak('three fourths, or three quarters; two fifths')">🔊
+                Say</button>
+            </div>
+            <div style="font-size:0.84rem;color:var(--text-muted);margin-top:0.35rem;">
+              <em>"three-fourths"</em> (or <em>"three quarters"</em>) • <em>"two-fifths"</em> (numeratore cardinale +
+              denominatore ordinale!).
+            </div>
+          </div>
+
+          <div class="clil-spoken-card">
+            <div style="display:flex;justify-content:space-between;align-items:center;">
+              <strong style="color:var(--accent-math);font-family:var(--font-mono);">10⁻³ &amp; 5²</strong>
+              <button class="speech-btn"
+                onclick="clilSpeak('ten to the power of minus three; five squared')">🔊 Say</button>
+            </div>
+            <div style="font-size:0.84rem;color:var(--text-muted);margin-top:0.35rem;">
+              <em>"ten to the power of minus three"</em> • $5^2$ = <em>"five squared"</em> • $2^3$ = <em>"two
+                cubed"</em>.
+            </div>
+          </div>
+
+          <div class="clil-spoken-card">
+            <div style="display:flex;justify-content:space-between;align-items:center;">
+              <strong style="color:var(--accent-math);font-family:var(--font-mono);">3.84 × 10⁵</strong>
+              <button class="speech-btn" onclick="clilSpeak('three point eight four times ten to the fifth')">🔊
+                Say</button>
+            </div>
+            <div style="font-size:0.84rem;color:var(--text-muted);margin-top:0.35rem;">
+              <em>"three <strong>point</strong> eight four times ten to the fifth"</em> (le cifre dopo il punto si
+              leggono una per una!).
+            </div>
+          </div>
+
+          <div class="clil-spoken-card">
+            <div style="display:flex;justify-content:space-between;align-items:center;">
+              <strong style="color:var(--accent-math);font-family:var(--font-mono);">p ⇒ q (A ∩ B)</strong>
+              <button class="speech-btn" onclick="clilSpeak('if p, then q; A intersection B')">🔊 Say</button>
+            </div>
+            <div style="font-size:0.84rem;color:var(--text-muted);margin-top:0.35rem;">
+              <em>"if p, then q"</em> (or <em>"p implies q"</em>) • $A \cap B$ = <em>"A intersection B"</em>.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- BOX TRAPPOLE DI NOTAZIONE & FALSE FRIENDS -->
+      <div class="clil-false-friends-box" id="clil-th-traps">
+        <strong>⚠️ Watch Out! International Notation Traps &amp; Math False Friends (IT vs EN):</strong>
+        <ul style="margin: 0.45rem 0 0 1.2rem; color: var(--text-muted);">
+          <li><strong>Punto e Virgola invertiti nei numeri!</strong> In inglese il <strong>punto</strong> separa i
+            decimali (<code>0.25</code> = $0,25$), mentre la <strong>virgola</strong> separa le migliaia
+            (<code>2,000,000</code> = due milioni!). Non scambiare mai l'inglese <code>1,500</code> ($1\,500$) per
+            $1,5$!</li>
+          <li><strong>Even vs Odd:</strong> <em>even number</em> = numero <strong>pari</strong> ($2, 4, 6\dots$);
+            <em>odd number</em> = numero <strong>dispari</strong> ($1, 3, 5\dots$).</li>
+          <li><strong>False Friends nei teoremi:</strong> <em>"Assume that..."</em> significa <strong>«Supponiamo per
+              ipotesi che...»</strong> (non «assumere un lavoratore»); <em>"A logical argument"</em> significa
+            <strong>«un ragionamento / argomentazione logica»</strong> (non «un litigio» né «un tema scolastico», che si
+            dice <em>topic</em>).</li>
+        </ul>
+      </div>
     </section>
 
 
-    <!-- SEZIONE 2: PROBLEM SOLVING IN ENGLISH -->
+    <!-- SEZIONE 2: 5 PROBLEM-SOLVING TASKS IN ENGLISH ACROSS UDA 1.1 -->
     <main class="labs-container">
       <div class="section-header">
         <h2 class="section-title">
-          <span class="icon">🧪</span> English Problem-Solving Tasks
+          <span class="icon">🧪</span> 5 English Problem-Solving Tasks (Full UDA 1.1)
         </h2>
       </div>
 
-      <!-- Task 1: School Survey -->
+      <!-- Task 1: School Survey (Fractions & Cross-Simplification) -->
       <article class="lab-card" id="clilLab1">
         <div class="lab-badge-row">
-          <span class="lab-tag" style="background: rgba(168, 85, 247, 0.15); color: var(--accent-purple);">Task 1 • Human Sciences Context</span>
-          <span class="lab-xp-badge">+15 XP</span>
+          <span class="lab-tag" style="background: rgba(168, 85, 247, 0.15); color: var(--accent-purple);">Task 1 •
+            Fractions in Sociology</span>
+          <span class="lab-xp-badge">+14 XP</span>
         </div>
         <h3 class="lab-title">The High School Social Survey</h3>
 
-        <!-- Collegamento Teoria <-> Pratica -->
         <div class="theory-link-box">
           <span class="tl-icon">🔗</span>
           <div>
-            <strong>Theory ↔ Practice Connection (Collegamento Teoria ↔ Pratica):</strong> This task deepens
-            <a href="#clil-th-rational" class="theory-link-anchor" onclick="event.preventDefault(); scrollToTheory('clil-th-rational');">Theory 2 • Rational Numbers ($\mathbb{Q}$)</a>
+            <strong>Theory ↔ Practice Connection:</strong> Applies
+            <a href="#clil-th-rational" class="theory-link-anchor"
+              onclick="event.preventDefault(); scrollToTheory('clil-th-rational');">Theory 2 • Rational Numbers</a>
             and
-            <a href="#clil-th-cross" class="theory-link-anchor" onclick="event.preventDefault(); scrollToTheory('clil-th-cross');">Theory 6 • Cross-Simplification</a>
-            (finding a <em>fraction of a fraction</em> of a population by cancelling common factors before multiplying).
+            <a href="#clil-th-cross" class="theory-link-anchor"
+              onclick="event.preventDefault(); scrollToTheory('clil-th-cross');">Theory 6 • Cross-Simplification</a>
+            (computing a fraction of a fraction of a sample).
           </div>
         </div>
 
         <div class="clil-lab-prompt">
-          "A group of sociology students surveyed <strong>400 high school teenagers</strong> about their leisure reading habits.
-          They found that <strong>$\frac{3}{8}$</strong> of the students read non-fiction articles, and <strong>$\frac{2}{5}$</strong> of those non-fiction readers are specifically interested in psychology essays.
+          "A group of sociology students surveyed <strong>400 high school teenagers</strong> about their leisure reading
+          habits. They found that <strong>$\frac{3}{8}$</strong> of the students read non-fiction articles, and
+          <strong>$\frac{2}{5}$</strong> of those non-fiction readers are specifically interested in psychology essays.
           How many students in total read psychology essays?"
         </div>
 
-        <button class="clil-translation-toggle" onclick="toggleTranslation('t1')">
-          🇮🇹 Mostra / Nascondi traduzione in Italiano
-        </button>
+        <div class="clil-prompt-tools">
+          <button type="button" class="clil-read-btn"
+            onclick="clilSpeak('A group of sociology students surveyed 400 high school teenagers about their leisure reading habits. They found that three eighths of the students read non-fiction articles, and two fifths of those non-fiction readers are specifically interested in psychology essays. How many students in total read psychology essays?')">
+            🔊 Read Problem Aloud
+          </button>
+          <button type="button" class="clil-translation-toggle" onclick="toggleTranslation('t1')">
+            🇮🇹 Mostra / Nascondi traduzione in Italiano
+          </button>
+        </div>
         <div class="clil-translation-box" id="t1">
-          Un gruppo di studenti di sociologia ha intervistato 400 liceali. Hanno rilevato che i $\frac{3}{8}$ leggono saggistica e i $\frac{2}{5}$ di questi sono specificamente interessati a saggi di psicologia. Quanti studenti in totale leggono saggi di psicologia?
+          Un gruppo di studenti di sociologia ha intervistato $400$ liceali sulle abitudini di lettura. Hanno rilevato
+          che i $\frac{3}{8}$ leggono articoli di saggistica e i $\frac{2}{5}$ di questi sono interessati a saggi di
+          psicologia. Quanti studenti in totale leggono saggi di psicologia?
         </div>
 
-        <p style="margin-top: 1rem; font-size: 0.95rem; line-height: 1.75;">
-          💡 <strong>Mental Shortcut (Cross-Simplification):</strong><br>
-          We need to calculate $\frac{3}{8} \times \frac{2}{5} \times 400$. Notice that $\frac{3}{8} \times \frac{2}{5} = \frac{3 \times 1}{4 \times 5} = \frac{3}{20}$.<br>
-          Now calculate $\frac{3}{20} \times 400$: since $400 : 20 = 20$, then $3 \times 20 = \dots$
-        </p>
+        <button type="button" class="hint-btn" onclick="toggleHint('hintClil1')">💡 Show Hint / Suggerimento</button>
+        <div id="hintClil1" class="hint-text">
+          Cross-simplify $\frac{3}{8} \times \frac{2}{5}$ first: divide $2$ and $8$ by $2$ to get $\frac{3}{4 \times 5}
+          = \frac{3}{20}$. Now compute $\frac{3}{20} \times 400$: since $400 : 20 = 20$, multiply $3 \times 20$!
+        </div>
 
-        <div class="verify-box">
-          <label for="clil1In" style="font-weight: 600; font-size: 0.92rem;">Your Answer (Number of students):</label>
-          <input type="number" id="clil1In" class="inline-input" placeholder="e.g. 60">
+        <div class="verify-box" style="margin-top: 0.75rem;">
+          <label for="clil1In" style="font-weight: 600; font-size: 0.92rem;">Students:</label>
+          <input type="number" id="clil1In" class="inline-input" style="width: 100px;" placeholder="e.g. 60">
           <button class="btn-action" onclick="verifyClil1()">Verify Answer</button>
           <span id="clil1Msg" class="feedback-msg" style="display: none;"></span>
         </div>
       </article>
 
-      <!-- Task 2: Textbook Discount -->
+
+      <!-- Task 2: Textbook Order (Distributive Property) -->
       <article class="lab-card" id="clilLab2">
         <div class="lab-badge-row">
-          <span class="lab-tag" style="background: rgba(168, 85, 247, 0.15); color: var(--accent-purple);">Task 2 • Distributive Strategy</span>
-          <span class="lab-xp-badge">+15 XP</span>
+          <span class="lab-tag" style="background: rgba(168, 85, 247, 0.15); color: var(--accent-purple);">Task 2 •
+            Distributive Strategy</span>
+          <span class="lab-xp-badge">+14 XP</span>
         </div>
         <h3 class="lab-title">Library Book Order with Smart Multiplication</h3>
 
-        <!-- Collegamento Teoria <-> Pratica -->
         <div class="theory-link-box">
           <span class="tl-icon">🔗</span>
           <div>
-            <strong>Theory ↔ Practice Connection (Collegamento Teoria ↔ Pratica):</strong> This task deepens
-            <a href="#clil-th-distributive" class="theory-link-anchor" onclick="event.preventDefault(); scrollToTheory('clil-th-distributive');">Theory 7 • Distributive Property</a>
+            <strong>Theory ↔ Practice Connection:</strong> Applies
+            <a href="#clil-th-distributive" class="theory-link-anchor"
+              onclick="event.preventDefault(); scrollToTheory('clil-th-distributive');">Theory 7 • Distributive
+              Property</a>
             and
-            <a href="#clil-th-mental" class="theory-link-anchor" onclick="event.preventDefault(); scrollToTheory('clil-th-mental');">Theory 8 • Mental Computation</a>
-            (rewriting a factor near a round tens boundary as $19 = 20 - 1$ to compute $(a - b) \times c = ac - bc$ effortlessly).
+            <a href="#clil-th-mental" class="theory-link-anchor"
+              onclick="event.preventDefault(); scrollToTheory('clil-th-mental');">Theory 8 • Mental Computation</a>.
           </div>
         </div>
 
         <div class="clil-lab-prompt">
-          "The school library is purchasing <strong>19 copies</strong> of a Developmental Psychology handbook. Each copy costs <strong>€35</strong>.
-          Instead of doing long vertical multiplication on paper, the school secretary uses the <em>distributive property</em>:
-          $$19 \times 35 = (20 - 1) \times 35 = (20 \times 35) - (1 \times 35)$$
-          What is the total cost in Euros?"
+          "The school library is purchasing <strong>19 copies</strong> of a Developmental Psychology handbook. Each copy
+          costs <strong>€35</strong>. Instead of long multiplication on paper, use the <em>distributive property</em>:
+          $19 \times 35 = (20 - 1) \times 35$. What is the total cost in Euros?"
         </div>
 
-        <button class="clil-translation-toggle" onclick="toggleTranslation('t2')">
-          🇮🇹 Mostra / Nascondi traduzione in Italiano
-        </button>
+        <div class="clil-prompt-tools">
+          <button type="button" class="clil-read-btn"
+            onclick="clilSpeak('The school library is purchasing 19 copies of a Developmental Psychology handbook. Each copy costs 35 euros. Using the distributive property, 20 minus 1, times 35, what is the total cost in euros?')">
+            🔊 Read Problem Aloud
+          </button>
+          <button type="button" class="clil-translation-toggle" onclick="toggleTranslation('t2')">
+            🇮🇹 Mostra / Nascondi traduzione in Italiano
+          </button>
+        </div>
         <div class="clil-translation-box" id="t2">
-          La biblioteca scolastica acquista 19 copie di un manuale di psicologia dello sviluppo a 35€ ciascuna. Usando $(20 - 1) \times 35$, calcola mentalmente la spesa totale.
+          La biblioteca scolastica acquista $19$ copie di un manuale di psicologia dello sviluppo a $35\text{ €}$
+          ciascuna. Usando $(20 - 1) \times 35$, calcola a mente la spesa totale in euro.
         </div>
 
-        <p style="margin-top: 1rem; font-size: 0.95rem; line-height: 1.7;">
-          💡 <strong>Mental Computation:</strong><br>
-          $20 \times 35 = 700$. Now subtract $1 \times 35 = 35$: calculate $700 - 35 = \dots$
-        </p>
+        <button type="button" class="hint-btn" onclick="toggleHint('hintClil2')">💡 Show Hint / Suggerimento</button>
+        <div id="hintClil2" class="hint-text">
+          Compute $20 \times 35 = 700$, then subtract $1 \times 35 = 35$: $700 - 35 = \dots$
+        </div>
 
-        <div class="verify-box">
+        <div class="verify-box" style="margin-top: 0.75rem;">
           <label for="clil2In" style="font-weight: 600; font-size: 0.92rem;">Total Cost (€):</label>
-          <input type="number" id="clil2In" class="inline-input" placeholder="e.g. 665">
+          <input type="number" id="clil2In" class="inline-input" style="width: 100px;" placeholder="€">
           <button class="btn-action" onclick="verifyClil2()">Verify Answer</button>
           <span id="clil2Msg" class="feedback-msg" style="display: none;"></span>
+        </div>
+      </article>
+
+
+      <!-- Task 3: Scientific Notation & English Separators (Lesson 1.2 Link) -->
+      <article class="lab-card" id="clilLab3">
+        <div class="lab-badge-row">
+          <span class="lab-tag" style="background: rgba(168, 85, 247, 0.15); color: var(--accent-purple);">Task 3 •
+            Scientific Notation &amp; English Punctuation</span>
+          <span class="lab-xp-badge">+14 XP</span>
+        </div>
+        <h3 class="lab-title">UNESCO Youth Volunteering Report</h3>
+
+        <div class="theory-link-box">
+          <span class="tl-icon">🔗</span>
+          <div>
+            <strong>Theory ↔ Practice Connection:</strong> Connects
+            <a href="#clil-th-scinot" class="theory-link-anchor"
+              onclick="event.preventDefault(); scrollToTheory('clil-th-scinot');">Theory 9 • Scientific Notation</a>
+            and the
+            <a href="#clil-th-traps" class="theory-link-anchor"
+              onclick="event.preventDefault(); scrollToTheory('clil-th-traps');">English Decimal Point vs Comma
+              Rule</a>.
+          </div>
+        </div>
+
+        <div class="clil-lab-prompt">
+          "An international youth report states that out of <strong>2,000,000 students</strong> across partner schools,
+          a fraction equal to <strong>0.15</strong> (fifteen percent) took part in local volunteering projects. Express
+          the number of youth volunteers in <strong>scientific notation</strong> $a \times 10^n$ (with $1 \le a < 10$)."
+        </div>
+
+        <div class="clil-prompt-tools">
+          <button type="button" class="clil-read-btn"
+            onclick="clilSpeak('An international youth report states that out of two million students across partner schools, zero point one five took part in local volunteering projects. Express the number of youth volunteers in scientific notation, a times ten to the power of n.')">
+            🔊 Read Problem Aloud
+          </button>
+          <button type="button" class="clil-translation-toggle" onclick="toggleTranslation('t3')">
+            🇮🇹 Mostra / Nascondi traduzione in Italiano
+          </button>
+        </div>
+        <div class="clil-translation-box" id="t3">
+          Un rapporto internazionale afferma che su $2\,000\,000$ di studenti (nota le virgole inglesi per le
+          migliaia!), una quota pari a $0,15$ (nota il punto decimale inglese!) ha partecipato a progetti di
+          volontariato. Esprimi il numero dei volontari in notazione scientifica $a \times 10^n$.
+        </div>
+
+        <button type="button" class="hint-btn" onclick="toggleHint('hintClil3')">💡 Show Hint / Suggerimento</button>
+        <div id="hintClil3" class="hint-text">
+          First: $2,000,000 = 2 \times 10^6$. Multiply by $0.15 = \frac{15}{100}$: $2,000,000 \times 0.15 = 300,000$
+          (three hundred thousand). Count the $5$ zeros after $3$: $300,000 = 3 \times 10^5$!
+        </div>
+
+        <div class="verify-box" style="margin-top: 0.75rem;">
+          <label style="font-weight: 700;">$a$ =</label>
+          <input type="text" id="clil3A" class="inline-input" style="width: 75px;" placeholder="a">
+          <span style="font-family: var(--font-mono); font-weight: 700;">× 10 ^</span>
+          <input type="number" id="clil3N" class="inline-input" style="width: 75px;" placeholder="n">
+          <button class="btn-action" onclick="verifyClil3()">Verify Notation</button>
+          <span id="clil3Msg" class="feedback-msg" style="display: none;"></span>
+        </div>
+      </article>
+
+
+      <!-- Task 4: Primes, Euclid & Counterexamples (Lessons 1.3 & 1.4 Link) -->
+      <article class="lab-card" id="clilLab4">
+        <div class="lab-badge-row">
+          <span class="lab-tag" style="background: rgba(168, 85, 247, 0.15); color: var(--accent-purple);">Task 4 •
+            Primes &amp; Logical Counterexamples</span>
+          <span class="lab-xp-badge">+14 XP</span>
+        </div>
+        <h3 class="lab-title">Disproving a False Claim &amp; Building Euclid's Number</h3>
+
+        <div class="theory-link-box">
+          <span class="tl-icon">🔗</span>
+          <div>
+            <strong>Theory ↔ Practice Connection:</strong> Integrates
+            <a href="#clil-th-primes" class="theory-link-anchor"
+              onclick="event.preventDefault(); scrollToTheory('clil-th-primes');">Theory 10 • Prime Numbers &amp;
+              Euclid</a>
+            and
+            <a href="#clil-th-logic" class="theory-link-anchor"
+              onclick="event.preventDefault(); scrollToTheory('clil-th-logic');">Theory 11 • Counterexamples in
+              Logic</a>.
+          </div>
+        </div>
+
+        <div class="clil-lab-prompt">
+          "<strong>Part A (Counterexample):</strong> A classmate claims: <em>'Every odd integer greater than 1 is a
+            prime number.'</em> Find the <strong>smallest odd counterexample</strong> that proves this statement
+          false.<br>
+          <strong>Part B (Euclid's Proof):</strong> Assume a finite list of primes $L = \{2, 3, 5\}$. Compute Euclid's
+          number $N = (2 \times 3 \times 5) + 1$."
+        </div>
+
+        <div class="clil-prompt-tools">
+          <button type="button" class="clil-read-btn"
+            onclick="clilSpeak('Part A: A classmate claims: Every odd integer greater than 1 is a prime number. Find the smallest odd counterexample that proves this statement false. Part B: Assume a finite list of primes 2, 3, 5. Compute Euclid number N equals 2 times 3 times 5, plus 1.')">
+            🔊 Read Problem Aloud
+          </button>
+          <button type="button" class="clil-translation-toggle" onclick="toggleTranslation('t4')">
+            🇮🇹 Mostra / Nascondi traduzione in Italiano
+          </button>
+        </div>
+        <div class="clil-translation-box" id="t4">
+          <strong>Parte A:</strong> Un compagno afferma: <em>«Ogni numero intero dispari (*odd*) maggiore di $1$ è un
+            numero primo»</em>. Trova il più piccolo controesempio dispari che dimostra che la frase è falsa.<br>
+          <strong>Parte B:</strong> Supponiamo (*Assume*) una lista finita di primi $\{2, 3, 5\}$. Calcola il numero di
+          Euclide $N = (2 \times 3 \times 5) + 1$.
+        </div>
+
+        <button type="button" class="hint-btn" onclick="toggleHint('hintClil4')">💡 Show Hint / Suggerimento</button>
+        <div id="hintClil4" class="hint-text">
+          • <em>Odd</em> means <strong>dispari</strong>: $3, 5, 7$ are prime, so check the next odd number ($9 = 3
+          \times 3$, composite!).<br>
+          • For Euclid's number: $2 \times 3 \times 5 = 30$, plus $1$ gives $31$.
+        </div>
+
+        <div class="verify-box" style="margin-top: 0.75rem;">
+          <label style="font-weight: 700;">Part A (Counterexample):</label>
+          <input type="number" id="clil4A" class="inline-input" style="width: 80px;" placeholder="odd">
+          <label style="font-weight: 700; margin-left: 0.35rem;">Part B (Euclid $N$):</label>
+          <input type="number" id="clil4B" class="inline-input" style="width: 80px;" placeholder="N">
+          <button class="btn-action" onclick="verifyClil4()">Verify Logic</button>
+          <span id="clil4Msg" class="feedback-msg" style="display: none;"></span>
+        </div>
+      </article>
+
+
+      <!-- Task 5: Tracing an English Algorithm (Lesson 1.5 Link) -->
+      <article class="lab-card" id="clilLab5">
+        <div class="lab-badge-row">
+          <span class="lab-tag" style="background: rgba(168, 85, 247, 0.15); color: var(--accent-purple);">Task 5 •
+            Algorithms &amp; Trace Table</span>
+          <span class="lab-xp-badge">+14 XP</span>
+        </div>
+        <h3 class="lab-title">Erasmus Exchange Selection Algorithm</h3>
+
+        <div class="theory-link-box">
+          <span class="tl-icon">🔗</span>
+          <div>
+            <strong>Theory ↔ Practice Connection:</strong> Applies
+            <a href="#clil-th-algo" class="theory-link-anchor"
+              onclick="event.preventDefault(); scrollToTheory('clil-th-algo');">Theory 12 • Algorithm, Conditional
+              <code>if-then-else</code> &amp; Trace Table</a>.
+          </div>
+        </div>
+
+        <div class="clil-lab-prompt">
+          "Trace the following English pseudocode used to compute a student's Erasmus priority <code>score</code>:
+          <div class="clil-pseudo-box">
+            1. score ← 12<br>
+            2. <strong>if</strong> (volunteer = YES) <strong>then</strong> score ← score + 8 <strong>else</strong> score
+            ← score + 3<br>
+            3. <strong>if</strong> (english_grade ≥ 7) <strong>then</strong> score ← score × 2<br>
+            4. <strong>output</strong> score
+          </div>
+          Compute the final <code>score</code> for <strong>Emma</strong> (<code>volunteer = YES</code>,
+          <code>english_grade = 8</code>) and for <strong>Liam</strong> (<code>volunteer = NO</code>,
+          <code>english_grade = 6</code>)."
+        </div>
+
+        <div class="clil-prompt-tools">
+          <button type="button" class="clil-read-btn"
+            onclick="clilSpeak('Trace the English pseudocode to compute a student Erasmus priority score. Start with score equals 12. If volunteer equals yes, add 8, else add 3. Then if english grade is at least 7, multiply score by 2. Compute the final score for Emma and for Liam.')">
+            🔊 Read Problem Aloud
+          </button>
+          <button type="button" class="clil-translation-toggle" onclick="toggleTranslation('t5')">
+            🇮🇹 Mostra / Nascondi traduzione in Italiano
+          </button>
+        </div>
+        <div class="clil-translation-box" id="t5">
+          Traccia lo pseudocodice inglese che calcola il punteggio <code>score</code> per lo scambio Erasmus. Si parte
+          da <code>score ← 12</code>. Se lo studente fa volontariato somma $8$, altrimenti somma $3$. Poi, se il voto in
+          inglese è $\ge 7$, raddoppia <code>score</code>. Calcola il punteggio finale di Emma (`YES`, voto `8`) e di
+          Liam (`NO`, voto `6`).
+        </div>
+
+        <button type="button" class="hint-btn" onclick="toggleHint('hintClil5')">💡 Show Hint / Suggerimento</button>
+        <div id="hintClil5" class="hint-text">
+          • <strong>Emma:</strong> starts at $12 \to 12 + 8 = 20$ (`YES`) $\to$ since $8 \ge 7$ is True, $20 \times 2 =
+          40$.<br>
+          • <strong>Liam:</strong> starts at $12 \to 12 + 3 = 15$ (`NO`) $\to$ since $6 \ge 7$ is False, line 3 does not
+          double it, so it stays $15$!
+        </div>
+
+        <div class="verify-box" style="margin-top: 0.75rem;">
+          <label style="font-weight: 700;">Emma's score:</label>
+          <input type="number" id="clil5Emma" class="inline-input" style="width: 80px;" placeholder="Emma">
+          <label style="font-weight: 700; margin-left: 0.35rem;">Liam's score:</label>
+          <input type="number" id="clil5Liam" class="inline-input" style="width: 80px;" placeholder="Liam">
+          <button class="btn-action" onclick="verifyClil5()">Verify Trace</button>
+          <span id="clil5Msg" class="feedback-msg" style="display: none;"></span>
         </div>
       </article>
     </main>
 
 
-    <!-- SEZIONE 3: FLASHCARDS DI AUTOVALUTAZIONE IN LINGUA INGLESE -->
+    <!-- SEZIONE 3: FLASHCARDS DI AUTOVALUTAZIONE IN LINGUA INGLESE (6 CARTE) -->
     <section class="flashcard-section" id="flashcardSection">
       <div class="section-header">
         <h2 class="section-title">
           <span class="icon">🃏</span> CLIL Assessment Flashcards (+15 XP per card)
         </h2>
-        <span class="tag info-tag" style="background: rgba(168, 85, 247, 0.15); color: var(--accent-purple); padding: 0.25rem 0.65rem; border-radius: 9999px; font-size: 0.8rem; font-weight: 700;">
+        <span class="tag info-tag"
+          style="background: rgba(168, 85, 247, 0.15); color: var(--accent-purple); padding: 0.25rem 0.65rem; border-radius: 9999px; font-size: 0.8rem; font-weight: 700;">
           🔁 Infinite Retries (Mastery Learning)
         </span>
       </div>
       <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1.5rem;">
-        Test your mathematical understanding and English scientific vocabulary. Answer options are automatically shuffled at every attempt so you focus on concepts, not positions!
+        Test your mathematical understanding and English scientific vocabulary across all UDA 1.1 topics. Options are
+        automatically shuffled on every attempt!
       </p>
 
       <div id="clilFlashcardDeck"></div>
@@ -422,8 +892,8 @@
 
 
     <!-- ========================================================
-         SEZIONE 4 (OBBLIGATORIA IN TUTTE LE LEZIONI):
-         COMPITO DI REALTÀ FINALE — SCHEDA OPERATIVA (ASSEGNO PER CASA)
+         SEZIONE 4 (OBBLIGATORIA): COMPITO DI REALTÀ FINALE CLIL
+         SCHEDA OPERATIVA (ASSEGNO PER CASA)
          ======================================================== -->
     <section class="homework-section" id="homeworkSection">
       <div class="section-header">
@@ -445,24 +915,31 @@
 
         <h3 class="scheda-title">CLIL Operational Worksheet: «The Baker's Recipe &amp; School Solidarity Bake Sale»</h3>
 
-        <!-- Collegamento Teoria <-> Pratica -->
         <div class="theory-link-box">
           <span class="tl-icon">🔗</span>
           <div>
-            <strong>Theory ↔ Practice Connection (Collegamento Teoria ↔ Pratica):</strong> This final reality task integrates
-            <a href="#clil-th-common-den" class="theory-link-anchor" onclick="event.preventDefault(); scrollToTheory('clil-th-common-den');">Theory 4 • Common Denominator</a>,
-            <a href="#clil-th-cross" class="theory-link-anchor" onclick="event.preventDefault(); scrollToTheory('clil-th-cross');">Theory 6 • Cross-Simplification</a>,
+            <strong>Theory ↔ Practice Connection (Collegamento Teoria ↔ Pratica):</strong> This final reality task
+            integrates
+            <a href="#clil-th-common-den" class="theory-link-anchor"
+              onclick="event.preventDefault(); scrollToTheory('clil-th-common-den');">Theory 4 • Common Denominator</a>,
+            <a href="#clil-th-cross" class="theory-link-anchor"
+              onclick="event.preventDefault(); scrollToTheory('clil-th-cross');">Theory 6 • Cross-Simplification</a>,
+            <a href="#clil-th-distributive" class="theory-link-anchor"
+              onclick="event.preventDefault(); scrollToTheory('clil-th-distributive');">Theory 7 • Distributive
+              Property</a>,
             and
-            <a href="#clil-th-distributive" class="theory-link-anchor" onclick="event.preventDefault(); scrollToTheory('clil-th-distributive');">Theory 7 • Distributive Property</a>
-            in an authentic cooperative planning scenario.
+            <a href="#clil-th-algo" class="theory-link-anchor"
+              onclick="event.preventDefault(); scrollToTheory('clil-th-algo');">Theory 12 • Conditional Rule</a>.
           </div>
         </div>
 
         <div class="scheda-delivery-callout">
-          <strong>📅 Modalità di svolgimento e consegna (How to complete &amp; submit):</strong> Puoi svolgere questa Scheda Operativa <strong>da solo</strong> oppure <strong>lavorando in gruppo</strong> con i tuoi compagni, ma ciascuno studente deve <strong>portare la scheda compilata per la lezione successiva</strong> (stampata o ricopiata ordinatamente sul quaderno).
+          <strong>📅 Modalità di svolgimento e consegna (How to complete &amp; submit):</strong> Puoi svolgere questa
+          Scheda Operativa <strong>da solo</strong> oppure <strong>lavorando in gruppo</strong> con i tuoi compagni, ma
+          ciascuno studente deve <strong>portare la scheda compilata per la lezione successiva</strong> (stampata o
+          ricopiata ordinatamente sul quaderno).
         </div>
 
-        <!-- Intestazione compilabile per la stampa o quaderno -->
         <div class="scheda-student-fields">
           <div class="scheda-field-item">
             <span class="scheda-field-label">Student Name (Studente / Studentessa):</span>
@@ -480,19 +957,42 @@
 
         <div class="scheda-problem-box">
           <strong>The Real-World Scenario (La Situazione-Problema):</strong><br>
-          Your Human Sciences class is organizing an international <em>Solidarity Bake Sale</em> to fund books for a partner school library. A traditional oat-cake recipe for <strong>1 baking tray</strong> requires:
+          Your Human Sciences class is organizing an international <em>Solidarity Bake Sale</em> with an Erasmus partner
+          school to fund books for a community youth center. A traditional oat-cake recipe for <strong>1 baking
+            tray</strong> requires:
           <ul>
             <li><strong>Flour (Farina):</strong> $\frac{3}{8}\text{ kg}$ per tray</li>
             <li><strong>Brown Sugar (Zucchero di canna):</strong> $\frac{1}{4}\text{ kg}$ per tray</li>
             <li><strong>Oat Flakes (Fiocchi d'avena):</strong> $\frac{1}{6}\text{ kg}$ per tray</li>
           </ul>
-          Your team decides to bake <strong>24 trays</strong> in total, selling each tray for <strong>€19</strong>.
+          Your team decides to bake <strong>24 trays</strong> in total, selling each tray for <strong>€19</strong>, with
+          ingredient expenses equal to <strong>€76</strong>.
+
           <ol>
-            <li><strong>Common Denominator (Taglia Comune):</strong> Compute the total dry weight of <em>1 single tray</em> ($\frac{3}{8} + \frac{1}{4} + \frac{1}{6}\text{ kg}$) by finding the lowest common denominator and writing the step in English.</li>
-            <li><strong>Cross-Simplification (Semplificazione in Croce):</strong> Calculate how many kilograms of flour, brown sugar, and oat flakes are needed for <strong>24 trays</strong> by cross-simplifying each fraction with $24$ before multiplying.</li>
-            <li><strong>Distributive Mental Strategy (Calcolo Mentale Distributivo):</strong> If all $24$ trays are sold at <strong>€19</strong> each, compute the gross revenue $24 \times 19$ mentally using $24 \times (20 - 1)$, then subtract €76 of ingredient expenses to find the net charity fund.</li>
-            <li><strong>Bilingual Reflection (Scienze Umane &amp; CLIL):</strong> Write 4–5 sentences in English (using at least 3 terms from the Glossary) explaining how clear quantitative planning supports teamwork and social solidarity projects.</li>
+            <li><strong>Common Denominator (Taglia Comune):</strong> Compute the total dry weight of <em>1 single
+                tray</em> ($\frac{3}{8} + \frac{1}{4} + \frac{1}{6}\text{ kg}$) by finding the lowest common denominator
+              ($24$) and writing the steps in English.</li>
+            <li><strong>Cross-Simplification (Semplificazione in Croce):</strong> Calculate how many kilograms of flour,
+              brown sugar, and oat flakes are needed for <strong>24 trays</strong> by cross-simplifying each fraction
+              with $24$ before multiplying.</li>
+            <li><strong>Distributive Strategy &amp; Goal Check (`if-then-else`):</strong> Compute the gross revenue $24
+              \times 19$ mentally using $24 \times (20 - 1)$, then subtract €76 of expenses to find the net charity
+              <code>fund</code>. Trace the rule: <code>if (fund ≥ 350) then status ← "Full Library Kit!" else status ←
+                "Basic Kit"</code>.</li>
+            <li><strong>Bilingual Reflection (CLIL Writing with Sentence Starters):</strong> Write 4–5 sentences in
+              English explaining your math steps and why clear planning helps teamwork. You can use the scaffolding
+              frames below!</li>
           </ol>
+
+          <!-- CLIL Language Scaffolding Box per studenti del 1° anno -->
+          <div class="clil-sentence-frames">
+            <strong>🇬🇧 Useful English Sentence Starters (Frasi guida per aiutarti a scrivere in inglese):</strong><br>
+            • <em>"First, to add the three ingredients, we found a <strong>common denominator</strong> equal to..."</em><br>
+            • <em>"Next, by using <strong>cross-simplification</strong> with 24 trays, we calculated..."</em><br>
+            • <em>"To find the total revenue mentally, we applied the <strong>distributive property</strong>: 24 times
+              (20 minus 1) equals..."</em><br>
+            • <em>"Clear mathematical <strong>algorithms</strong> help our team cooperate fairly because..."</em>
+          </div>
         </div>
 
         <div class="rubric-container">
@@ -508,15 +1008,18 @@
             <tbody>
               <tr>
                 <td><strong>Rational Operations &amp; Mental Strategies</strong></td>
-                <td>Computes quantities using standard algorithms with minor arithmetic slips.</td>
-                <td>Correctly applies common denominators, cross-simplification, and distributive multiplication.</td>
-                <td>Executes all steps fluently with smart representations and verifies consistency across totals.</td>
+                <td>Computes quantities using standard written steps with minor arithmetic slips.</td>
+                <td>Correctly applies common denominators ($\frac{19}{24}\text{ kg}$), cross-simplification ($9, 6,
+                  4\text{ kg}$), and distributive multiplication ($€456 - €76 = €380$).</td>
+                <td>Executes all steps fluently, checks total consistency ($9+6+4 = 19\text{ kg}$), and traces the
+                  conditional rule accurately.</td>
               </tr>
               <tr>
                 <td><strong>Scientific English &amp; Human Sciences Reflection</strong></td>
-                <td>Uses 1–2 English math terms with limited explanation.</td>
-                <td>Uses at least 3 glossary terms accurately to describe the solution steps.</td>
-                <td>Articulates a clear, reflective bilingual commentary connecting math planning and cooperative action.</td>
+                <td>Uses 1–2 English math terms with minimal sentence structure.</td>
+                <td>Uses the sentence starters and at least 3 glossary terms accurately to explain the workflow.</td>
+                <td>Writes a clear, autonomous, and reflective English paragraph connecting quantitative planning and
+                  social cooperation.</td>
               </tr>
             </tbody>
           </table>
@@ -528,23 +1031,25 @@
     <!-- TAKEAWAYS & COMPLETAMENTO -->
     <footer class="final-recap" id="finalRecap">
       <div class="recap-icon">🎓</div>
-      <h2 class="recap-title">Global Mindset: Math has No Borders!</h2>
+      <h2 class="recap-title">Global Mindset: Math &amp; Logic Have No Borders!</h2>
       <p class="recap-subtitle">
-        In the Human Sciences curriculum, mastering scientific English bridges mathematics, psychology, sociology and international research.
+        In the Human Sciences curriculum, scientific English bridges arithmetic, logic, psychology, and international
+        citizenship.
       </p>
 
       <div class="takeaways-row">
         <div class="takeaway-item">
           <strong>1. Universal Vocabulary</strong>
-          <p>Terms like <em>common denominator</em>, <em>reciprocal</em>, and <em>cross-simplification</em> are identical worldwide.</p>
+          <p>From <em>cross-simplification</em> to <em>proof by contradiction</em> and <em>trace tables</em>, you now
+            speak international math.</p>
         </div>
         <div class="takeaway-item">
-          <strong>2. Smart Representation</strong>
-          <p>Converting decimals to fractions ($0.25 = \frac{1}{4}$) saves time in any language!</p>
+          <strong>2. Mind the Decimal Point!</strong>
+          <p>Remember: in English `0.25` is a quarter ($\frac{1}{4}$), whereas `2,000` is two thousand!</p>
         </div>
         <div class="takeaway-item">
-          <strong>3. Metacognitive Reasoning</strong>
-          <p>Explaining your problem-solving strategy in English and bringing your completed Worksheet proves deep mastery.</p>
+          <strong>3. Ready for Class</strong>
+          <p>Use the English Sentence Starters to complete «The Solidarity Bake Sale» Worksheet for next class!</p>
         </div>
       </div>
     </footer>
@@ -554,9 +1059,11 @@
       <div class="completion-icon">🌍</div>
       <h3 class="completion-title">Have you completed the CLIL Lesson?</h3>
       <p class="completion-desc">
-        Congratulations for tackling mathematics in English! Claim your achievement to earn +70 XP, unlock the <strong>CLIL Explorer</strong> status, and remember to bring your completed Operational Worksheet next class.
+        Congratulations for mastering UDA 1.1 in English! Claim your achievement to earn +70 XP and remember to bring
+        your completed Operational Worksheet next class.
       </p>
-      <button id="btnCompleteLesson" class="btn-complete" style="background: linear-gradient(135deg, #a855f7, #38bdf8);">
+      <button id="btnCompleteLesson" class="btn-complete"
+        style="background: linear-gradient(135deg, #a855f7, #38bdf8);">
         ✨ Mark as Completed (+70 XP)
       </button>
     </div>
@@ -574,6 +1081,31 @@
 
   <!-- Logica Specifica Lezione CLIL -->
   <script>
+    let currentClilLang = 'en-US';
+
+    function setClilAccent(lang) {
+      if (window.ComodeAudio) window.ComodeAudio.playClick();
+      currentClilLang = lang;
+      const btnUS = document.getElementById('btnAccentUS');
+      const btnUK = document.getElementById('btnAccentUK');
+      if (btnUS) btnUS.classList.toggle('active', lang === 'en-US');
+      if (btnUK) btnUK.classList.toggle('active', lang === 'en-GB');
+    }
+
+    function clilSpeak(text) {
+      if (window.ComodeSpeech) {
+        window.ComodeSpeech.speak(text, currentClilLang);
+      } else if (window.speakWord) {
+        window.speakWord(text, currentClilLang);
+      }
+    }
+
+    function stopClilSpeech() {
+      if (window.speechSynthesis) {
+        window.speechSynthesis.cancel();
+      }
+    }
+
     function toggleTranslation(id) {
       if (window.ComodeAudio) window.ComodeAudio.playClick();
       const el = document.getElementById(id);
@@ -585,9 +1117,12 @@
     function markClilTask(taskNum) {
       if (!completedClilTasks.has(taskNum)) {
         completedClilTasks.add(taskNum);
+        const card = document.getElementById(`clilLab${taskNum}`);
+        if (card) card.classList.add('completed');
+
         if (window.ComodeAudio) window.ComodeAudio.playSuccess();
         if (window.ComodeGamification) {
-          window.ComodeGamification.addXP(15, `CLIL Task ${taskNum} completed!`);
+          window.ComodeGamification.addXP(14, `CLIL Task ${taskNum} completed!`);
         }
         updateClilProgress();
       }
@@ -595,13 +1130,13 @@
 
     function updateClilProgress() {
       const count = completedClilTasks.size;
-      const pct = (count / 2) * 100;
+      const pct = (count / 5) * 100;
       const fill = document.getElementById('progressFill');
       const score = document.getElementById('progressScore');
       if (fill) fill.style.width = pct + '%';
-      if (score) score.textContent = `${count} / 2 completed`;
+      if (score) score.textContent = `${count} / 5 completed`;
 
-      if (count === 2) {
+      if (count === 5) {
         if (window.ComodeAudio) window.ComodeAudio.playLevelUp();
       }
     }
@@ -613,12 +1148,12 @@
 
       if (val === 60) {
         msg.className = 'feedback-msg success';
-        msg.textContent = 'Correct! 3/20 of 400 = 60 psychology readers. Excellent cross-simplification!';
+        msg.textContent = 'Correct! 3/20 of 400 = 60 psychology readers. Great cross-simplification!';
         markClilTask(1);
       } else {
         if (window.ComodeAudio) window.ComodeAudio.playError();
         msg.className = 'feedback-msg error';
-        msg.textContent = 'Try again: 3/20 × 400 = 3 × 20 = ?';
+        msg.textContent = 'Try again: (3/8 × 2/5) × 400 = 3/20 × 400 = 3 × 20 = 60!';
       }
     }
 
@@ -629,12 +1164,72 @@
 
       if (val === 665) {
         msg.className = 'feedback-msg success';
-        msg.textContent = 'Spot on! 700 - 35 = €665. The distributive property saves time!';
+        msg.textContent = 'Spot on! 700 − 35 = €665. The distributive property saves time!';
         markClilTask(2);
       } else {
         if (window.ComodeAudio) window.ComodeAudio.playError();
         msg.className = 'feedback-msg error';
-        msg.textContent = 'Think: 20 × 35 = 700. Now subtract 35 from 700.';
+        msg.textContent = 'Think: 20 × 35 = 700. Now subtract 35 from 700!';
+      }
+    }
+
+    function verifyClil3() {
+      const rawA = document.getElementById('clil3A').value.trim().replace(',', '.');
+      const valA = parseFloat(rawA);
+      const valN = parseInt(document.getElementById('clil3N').value.trim(), 10);
+      const msg = document.getElementById('clil3Msg');
+      msg.style.display = 'inline-flex';
+
+      if (!isNaN(valA) && Math.abs(valA - 3) < 0.0001 && valN === 5) {
+        msg.className = 'feedback-msg success';
+        msg.textContent = 'Brilliant! 2,000,000 × 0.15 = 300,000 = 3 × 10⁵ volunteers!';
+        markClilTask(3);
+      } else {
+        if (window.ComodeAudio) window.ComodeAudio.playError();
+        msg.className = 'feedback-msg error';
+        msg.textContent = 'Check your steps: 15% of 2,000,000 is 300,000, which in scientific notation is 3 × 10⁵ (a = 3, n = 5)!';
+      }
+    }
+
+    function verifyClil4() {
+      const oddEx = parseInt(document.getElementById('clil4A').value.trim(), 10);
+      const eucN = parseInt(document.getElementById('clil4B').value.trim(), 10);
+      const msg = document.getElementById('clil4Msg');
+      msg.style.display = 'inline-flex';
+
+      if (oddEx === 9 && eucN === 31) {
+        msg.className = 'feedback-msg success';
+        msg.textContent = 'Awesome! 9 = 3 × 3 is the smallest odd composite counterexample, and Euclid’s N = 30 + 1 = 31!';
+        markClilTask(4);
+      } else {
+        if (window.ComodeAudio) window.ComodeAudio.playError();
+        msg.className = 'feedback-msg error';
+        if (oddEx !== 9) {
+          msg.textContent = 'Part A: 3, 5, and 7 are prime. What is the first odd integer > 1 that is NOT prime? (3 × 3 = 9!)';
+        } else {
+          msg.textContent = 'Part A (9) is right! For Part B: (2 × 3 × 5) + 1 = 30 + 1 = 31!';
+        }
+      }
+    }
+
+    function verifyClil5() {
+      const emma = parseInt(document.getElementById('clil5Emma').value.trim(), 10);
+      const liam = parseInt(document.getElementById('clil5Liam').value.trim(), 10);
+      const msg = document.getElementById('clil5Msg');
+      msg.style.display = 'inline-flex';
+
+      if (emma === 40 && liam === 15) {
+        msg.className = 'feedback-msg success';
+        msg.textContent = 'Perfect Trace Table! Emma: (12 + 8) × 2 = 40; Liam: 12 + 3 = 15 (not doubled since 6 < 7)!';
+        markClilTask(5);
+      } else {
+        if (window.ComodeAudio) window.ComodeAudio.playError();
+        msg.className = 'feedback-msg error';
+        if (emma !== 40) {
+          msg.textContent = 'Check Emma: 12 + 8 = 20, then since english_grade = 8 ≥ 7, 20 × 2 = 40!';
+        } else {
+          msg.textContent = 'Emma (40) is right! For Liam: volunteer = NO adds 3 (12 + 3 = 15), and 6 ≥ 7 is False so score stays 15!';
+        }
       }
     }
 
@@ -657,7 +1252,7 @@
                 '$0.6$'
               ],
               correct: 1,
-              explanation: 'The reciprocal swaps the numerator and denominator: $\\frac{3}{5} \\times \\frac{5}{3} = 1$. Dividing by a fraction means multiplying by its reciprocal!'
+              explanation: 'The reciprocal swaps the numerator and denominator: $\\frac{3}{5} \\times \\frac{5}{3} = 1$. Dividing by a fraction equals multiplying by its reciprocal!'
             },
             {
               category: 'Smart Computation',
@@ -700,6 +1295,34 @@
               ],
               correct: 2,
               explanation: 'Taking away a negative (removing a debt) moves to the right on the number line: $-4 - (-6) = -4 + 6 = +2$!'
+            },
+            {
+              category: 'International Notation',
+              theoryRef: 'Theory 9 & Notation Traps • English Point vs Comma',
+              theoryTargetId: 'clil-th-scinot',
+              question: 'In an English scientific article you read: <em>"The city has <strong>45,000</strong> residents"</em>. How is this number written in <strong>scientific notation</strong>?',
+              options: [
+                '$4.5 \\times 10^1$, because the comma means forty-five',
+                '$4.5 \\times 10^4$, because in English the comma separates thousands (forty-five thousand)',
+                '$45 \\times 10^3$',
+                '$4.5 \\times 10^{-4}$'
+              ],
+              correct: 1,
+              explanation: 'In English punctuation, commas separate thousands (`45,000` = forty-five thousand) and points separate decimals (`4.5`), so $45,000 = 4.5 \\times 10^4$!'
+            },
+            {
+              category: 'Logic & Proofs in English',
+              theoryRef: 'Theory 11 • Proof by Contradiction & False Friends',
+              theoryTargetId: 'clil-th-logic',
+              question: 'In an English math proof, what does the opening sentence <em>"Assume, for the sake of contradiction, that $\\neg T$ holds..."</em> mean?',
+              options: [
+                'Hire a mathematician to check the theorem',
+                'Skip the proof because the theorem is already obvious',
+                'Give a single numerical example where $T$ works',
+                'Temporarily suppose that the conclusion $T$ is false ($\\neg T$) in order to derive an impossible contradiction (<em>dimostrazione per assurdo</em>)'
+              ],
+              correct: 3,
+              explanation: 'In mathematical English, <em>"Assume..."</em> means "Supponiamo per ipotesi...", and <em>"proof by contradiction"</em> is the exact equivalent of <em>dimostrazione per assurdo</em>!'
             }
           ]
         });
@@ -713,4 +1336,5 @@
     }
   </script>
 </body>
+
 </html>

@@ -1,0 +1,2130 @@
+<!DOCTYPE html>
+<html lang="it" data-theme="dark">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lezione 1.3: Potenze, Numeri Primi e la Dimostrazione di Euclide • comode</title>
+  <meta name="description"
+    content="Lezione interattiva di Matematica per il 1° anno del Liceo delle Scienze Umane: proprietà delle potenze in Z, Crivello di Eratostene, dimostrazione di Euclide sull'infinità dei numeri primi e crittografia RSA per la privacy digitale.">
+
+  <!-- Font Google -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+
+  <!-- KaTeX 0.19.1 per rendering matematico -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.19.1/dist/katex.min.css" crossorigin="anonymous">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.19.1/dist/katex.min.js" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.19.1/dist/contrib/auto-render.min.js"
+    crossorigin="anonymous"></script>
+
+  <!-- Master Stylesheet Condiviso -->
+  <link rel="stylesheet" href="../../shared/css/comode.css">
+
+  <style>
+    /* ==========================================================================
+       Stili Specifici Lezione 1.3 (prefisso .l03- anti-collisione KaTeX)
+       ========================================================================== */
+
+    .l03-stage {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 1.25rem;
+      margin: 1.15rem 0;
+    }
+
+    .l03-controls-row {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+      margin-bottom: 1rem;
+    }
+
+    .l03-pill-btn {
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+      font-family: inherit;
+      padding: 0.45rem 0.9rem;
+      border-radius: var(--radius-pill);
+      font-size: 0.84rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .l03-pill-btn:hover,
+    .l03-pill-btn.active {
+      border-color: var(--accent-math);
+      color: var(--text-main);
+      background: var(--accent-math-glow);
+    }
+
+    .l03-pill-btn.purple.active,
+    .l03-pill-btn.purple:hover {
+      border-color: var(--accent-purple);
+      background: rgba(139, 92, 246, 0.16);
+      color: var(--text-main);
+    }
+
+    .l03-pill-btn.gold.active,
+    .l03-pill-btn.gold:hover {
+      border-color: var(--accent-gold);
+      background: rgba(245, 158, 11, 0.16);
+      color: var(--text-main);
+    }
+
+    /* Laboratorio 1: Officina Potenze */
+    .l03-power-display {
+      background: linear-gradient(145deg, var(--bg-surface) 0%, var(--bg-surface-elevated) 100%);
+      border: 1px solid var(--border-accent);
+      border-radius: var(--radius-md);
+      padding: 1.2rem;
+      margin: 0.75rem 0;
+    }
+
+    .l03-power-compare-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 0.9rem;
+      margin-top: 0.75rem;
+    }
+
+    .l03-power-box {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 0.9rem 1rem;
+    }
+
+    .l03-power-box.good {
+      border-color: rgba(16, 185, 129, 0.45);
+    }
+
+    .l03-power-box.warn {
+      border-color: rgba(244, 63, 94, 0.45);
+    }
+
+    /* Laboratorio 2: Crivello di Eratostene 1..50 */
+    .l03-sieve-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.55rem;
+      justify-content: center;
+      margin-bottom: 1rem;
+    }
+
+    .l03-sieve-btn {
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-main);
+      font-family: inherit;
+      padding: 0.45rem 0.85rem;
+      border-radius: var(--radius-pill);
+      font-size: 0.82rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .l03-sieve-btn:hover {
+      border-color: var(--accent-math);
+      transform: translateY(-1px);
+    }
+
+    .l03-sieve-btn.done {
+      border-color: var(--accent-success);
+      background: rgba(16, 185, 129, 0.14);
+      color: var(--accent-success);
+    }
+
+    .l03-sieve-grid {
+      display: grid;
+      grid-template-columns: repeat(10, minmax(36px, 1fr));
+      gap: 0.42rem;
+      max-width: 620px;
+      margin: 0 auto;
+    }
+
+    @media (max-width: 560px) {
+      .l03-sieve-grid {
+        grid-template-columns: repeat(5, minmax(36px, 1fr));
+      }
+    }
+
+    .l03-sieve-cell {
+      position: relative;
+      aspect-ratio: 1 / 1;
+      min-height: 44px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-subtle);
+      background: var(--bg-surface-elevated);
+      color: var(--text-main);
+      font-family: var(--font-mono);
+      font-size: 0.92rem;
+      font-weight: 700;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: var(--transition);
+      user-select: none;
+    }
+
+    .l03-sieve-cell:hover {
+      border-color: var(--accent-math);
+      transform: scale(1.05);
+    }
+
+    .l03-sieve-cell.unit-one {
+      opacity: 0.48;
+      background: var(--bg-surface);
+      border-style: dashed;
+    }
+
+    .l03-sieve-cell.prime-confirmed {
+      background: rgba(16, 185, 129, 0.18);
+      border-color: var(--accent-success);
+      color: var(--accent-success);
+      box-shadow: 0 0 12px rgba(16, 185, 129, 0.18);
+    }
+
+    .l03-sieve-cell.sieved-out {
+      background: rgba(244, 63, 94, 0.08);
+      border-color: rgba(244, 63, 94, 0.25);
+      color: var(--text-dim);
+      text-decoration: line-through;
+    }
+
+    .l03-sieve-tag {
+      font-size: 0.62rem;
+      font-weight: 800;
+      text-decoration: none;
+      display: inline-block;
+      line-height: 1;
+      margin-top: 2px;
+      color: var(--accent-danger);
+    }
+
+    .l03-sieve-inspector {
+      margin-top: 0.95rem;
+      padding: 0.75rem 1rem;
+      border-radius: var(--radius-sm);
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-subtle);
+      font-size: 0.9rem;
+      text-align: center;
+      color: var(--text-muted);
+    }
+
+    /* Laboratorio 3: Atomi Primi (M.C.D. e m.c.m.) */
+    .l03-atoms-board {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 0.9rem;
+      margin: 0.85rem 0;
+    }
+
+    .l03-atom-card {
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 0.95rem;
+    }
+
+    .l03-prime-chip {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-mono);
+      font-weight: 800;
+      font-size: 0.85rem;
+      padding: 0.25rem 0.6rem;
+      border-radius: var(--radius-pill);
+      margin: 0.18rem;
+      border: 1px solid var(--border-accent);
+      background: rgba(56, 189, 248, 0.12);
+      color: var(--accent-math);
+    }
+
+    .l03-prime-chip.p3 {
+      border-color: rgba(139, 92, 246, 0.45);
+      background: rgba(139, 92, 246, 0.14);
+      color: var(--accent-purple);
+    }
+
+    .l03-prime-chip.p5 {
+      border-color: rgba(245, 158, 11, 0.45);
+      background: rgba(245, 158, 11, 0.14);
+      color: var(--accent-gold);
+    }
+
+    /* Laboratorio 4: Macchina di Euclide */
+    .l03-euclid-steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 0.85rem;
+      margin-top: 0.9rem;
+    }
+
+    .l03-euclid-step-card {
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 0.95rem;
+      position: relative;
+    }
+
+    .l03-euclid-step-card.climax {
+      border-color: var(--accent-success);
+      background: rgba(16, 185, 129, 0.07);
+    }
+
+    .l03-step-kicker {
+      font-size: 0.72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--accent-math);
+      margin-bottom: 0.35rem;
+    }
+
+    .l03-remainder-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+      margin-top: 0.45rem;
+    }
+
+    .l03-rem-pill {
+      font-family: var(--font-mono);
+      font-size: 0.76rem;
+      padding: 0.2rem 0.5rem;
+      border-radius: var(--radius-pill);
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      color: var(--accent-gold);
+    }
+
+    /* Laboratorio 5: Timeline Babilonia -> RSA WhatsApp */
+    .l03-era-card {
+      background: linear-gradient(145deg, var(--bg-surface) 0%, var(--bg-surface-elevated) 100%);
+      border: 1px solid var(--border-accent);
+      border-radius: var(--radius-md);
+      padding: 1.15rem;
+      margin-bottom: 1rem;
+    }
+
+    .l03-rsa-workbench {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1rem;
+      margin-top: 0.85rem;
+    }
+
+    .l03-rsa-panel {
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 1rem;
+    }
+
+    .l03-select {
+      background: var(--bg-surface);
+      color: var(--text-main);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 0.4rem 0.65rem;
+      font-family: var(--font-mono);
+      font-weight: 700;
+      font-size: 0.9rem;
+      cursor: pointer;
+    }
+
+    /* Laboratorio 6: Palestra Mentale */
+    .gym-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.25rem;
+      margin-top: 1rem;
+    }
+
+    .gym-card {
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+    }
+
+    .gym-card.solved {
+      border-color: rgba(16, 185, 129, 0.45);
+      background: rgba(16, 185, 129, 0.05);
+    }
+
+    .gym-badge {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--accent-purple);
+      text-transform: uppercase;
+      margin-bottom: 0.4rem;
+    }
+
+    .gym-question {
+      font-size: 0.98rem;
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+      line-height: 1.6;
+    }
+
+    /* Schema SVG nella Scheda Operativa per Casa */
+    .l03-crypto-diagram-box {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 1rem;
+      margin: 1rem 0 1.25rem;
+      text-align: center;
+      overflow-x: auto;
+    }
+  </style>
+</head>
+
+<body data-theme="dark" data-lesson-id="pb-1.1-l03" data-xp="60" data-unit="uda-1.1">
+
+  <div class="container">
+    <!-- Navigation Bar con Gamification e Controlli -->
+    <nav class="navbar">
+      <a href="../../index.html" class="brand">
+        📐 comode<span>.</span>
+      </a>
+      <div class="nav-actions">
+        <div class="gamification-widget" title="Il tuo livello e punti XP">
+          <span class="level-badge user-level-val">Liv. 1 🌱</span>
+          <span class="xp-counter user-xp-val">0 XP</span>
+        </div>
+        <button id="audioToggleBtn" class="icon-btn" aria-label="Attiva o disattiva audio">
+          🔊 <span class="nav-text">Suoni</span>
+        </button>
+        <button id="themeToggleBtn" class="theme-toggle-btn" aria-label="Cambia tema">
+          <span id="themeIcon">☀️</span>
+          <span id="themeLabel">Chiaro</span>
+        </button>
+      </div>
+    </nav>
+
+    <!-- Breadcrumbs -->
+    <div class="breadcrumbs">
+      <a href="../../index.html">Home</a>
+      <span class="sep">/</span>
+      <a href="../index.html">Primo Biennio</a>
+      <span class="sep">/</span>
+      <a href="index.html">UDA 1.1: Insiemi, Logica e Algoritmi</a>
+      <span class="sep">/</span>
+      <span class="current">Lezione 1.3</span>
+    </div>
+
+    <!-- Hero Card -->
+    <header class="hero-card">
+      <div class="hero-badges">
+        <span class="badge badge-primary">Matematica • 1° Anno</span>
+        <span class="badge badge-secondary">UDA 1.1 • Insiemi, Logica e Algoritmi</span>
+        <span class="badge badge-meta">Teoria dei Numeri &amp; Privacy Digitale</span>
+      </div>
+      <h1 class="hero-title">Potenze, Numeri Primi e la Dimostrazione di Euclide</h1>
+      <p class="hero-desc">
+        Dalle scorciatoie comode sulle potenze agli <strong>«atomi indivisibili»</strong> dell'aritmetica: setaccia i
+        numeri con il <strong>Crivello di Eratostene</strong>, ricostruisci passo dopo passo l'elegante
+        <strong>dimostrazione di Euclide</strong> sull'infinità dei numeri primi e scopri come un teorema di
+        $2\,300$ anni fa protegge oggi le tue chat su <em>WhatsApp</em>.
+      </p>
+
+      <!-- Progress Tracker -->
+      <div class="progress-bar-card">
+        <div class="progress-label">
+          <span>🎯 Progresso Laboratori Guidati:</span>
+          <span class="progress-score" id="progressScore">0 / 6 completati</span>
+        </div>
+        <div class="progress-track">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+      </div>
+    </header>
+
+    <!-- ========================================================
+         PREREQUISITI & OBIETTIVI ("COSA SAPRAI FARE")
+         ======================================================== -->
+    <div class="prereq-objectives-grid">
+      <!-- Card Prerequisiti -->
+      <div class="prereq-card">
+        <div class="card-top-label prereq">
+          <span>🔑</span> Prerequisiti Consigliati
+        </div>
+        <h2 class="po-title">Cosa ti serve prima di iniziare</h2>
+        <ul class="po-list">
+          <li>
+            <span class="po-icon">✓</span>
+            <div><strong>Moltiplicazione e segni in $\mathbb{Z}$:</strong> regola dei segni (meno per meno fa più) e
+              semplificazione di frazioni (Lezione 1.1).</div>
+          </li>
+          <li>
+            <span class="po-icon">✓</span>
+            <div><strong>Potenze di $10$ ed esponenti negativi:</strong> significato di $10^0 = 1$ e $10^{-n} =
+              \frac{1}{10^n}$ (Lezione 1.2).</div>
+          </li>
+          <li>
+            <span class="po-icon">✓</span>
+            <div><strong>Criteri di divisibilità rapidi:</strong> riconoscere i multipli di $2$ (pari), di $5$ (ultima
+              cifra $0$ o $5$) e di $3$ (somma delle cifre multipla di $3$).</div>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Card Obiettivi -->
+      <div class="objectives-card">
+        <div class="card-top-label objectives">
+          <span>🎯</span> Competenze in Uscita
+        </div>
+        <h2 class="po-title">Cosa saprai fare alla fine della lezione</h2>
+        <ul class="po-list">
+          <li>
+            <span class="po-icon">🚀</span>
+            <div><strong>Padroneggiare le potenze ad esponente intero:</strong> semplificare espressioni usando stessa
+              base o stesso esponente ed evitare la trappola tra $(-a)^n$ e $-a^n$.</div>
+          </li>
+          <li>
+            <span class="po-icon">🚀</span>
+            <div><strong>Usare il Crivello di Eratostene e la scomposizione in primi:</strong> trovare i numeri primi e
+              calcolare M.C.D. e m.c.m. in problemi concreti.</div>
+          </li>
+          <li>
+            <span class="po-icon">🚀</span>
+            <div><strong>Argomentare la Dimostrazione di Euclide:</strong> spiegare perché costruendo $N = (p_1 \cdot
+              p_2 \cdots p_k) + 1$ nessuna lista finita può contenere tutti i numeri primi.</div>
+          </li>
+          <li>
+            <span class="po-icon">🚀</span>
+            <div><strong>Collegare numeri primi e privacy digitale:</strong> capire il principio dei lucchetti
+              asimmetrici RSA nella Scheda Operativa per casa.</div>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+
+    <!-- ========================================================
+         SEZIONE 1: SCHEDA TEORIA FLASH (6 Ancore #teoria-1..6)
+         ======================================================== -->
+    <section class="theory-wrapper">
+      <div class="section-header">
+        <h2 class="section-title">
+          <span class="icon">⚡</span> Scheda Teoria Flash: Potenze, Primi ed Euclide
+        </h2>
+        <button id="toggleTheoryBtn" class="collapse-btn">
+          <span>Nascondi Teoria</span> ▴
+        </button>
+      </div>
+
+      <div id="theoryContent" class="theory-grid">
+
+        <!-- Teoria 1 -->
+        <div class="theory-card" id="teoria-1">
+          <div class="theory-card-header">
+            <span class="pill-num">1</span>
+            <span>Potenze con Stessa Base &amp; Parentesi col Segno</span>
+          </div>
+          <ul class="theory-list">
+            <li><strong>Prodotto e Quoziente</strong> ($a \neq 0$): $a^m \cdot a^n = a^{m+n}$ e $a^m : a^n = a^{m-n}$.
+            </li>
+            <li><strong>Potenza di potenza</strong>: $(a^m)^n = a^{m \cdot n}$.</li>
+            <li><strong>Attenzione alle parentesi!</strong> $(-3)^2 = (-3)\cdot(-3) = +9$, mentre $-3^2 = -(3\cdot 3) =
+              -9$ (senza parentesi l'esponente tocca <em>solo</em> il $3$!). Con $(-a)^n$: esponente <strong>pari $\to
+                +$</strong>, esponente <strong>dispari $\to -$</strong>.</li>
+          </ul>
+        </div>
+
+        <!-- Teoria 2 -->
+        <div class="theory-card" id="teoria-2">
+          <div class="theory-card-header">
+            <span class="pill-num">2</span>
+            <span>Stesso Esponente, Esponente $0$ e Negativo in $\mathbb{Z}$</span>
+          </div>
+          <ul class="theory-list">
+            <li><strong>Stesso esponente (scorciatoia mentale)</strong>: $a^n \cdot b^n = (a \cdot b)^n$ e
+              $\frac{a^n}{b^n} = \left(\frac{a}{b}\right)^n$ (es. $25^3 \cdot 4^3 = 100^3 = 1\,000\,000$).</li>
+            <li><strong>Esponente zero</strong> ($a \neq 0$): $a^0 = 1$, perché $a^n : a^n = a^{n-n} = a^0 = 1$.</li>
+            <li><strong>Esponente intero negativo</strong>: $a^{-n} = \frac{1}{a^n}$ e per le frazioni
+              $\left(\frac{a}{b}\right)^{-n} = \left(\frac{b}{a}\right)^n$ (il meno all'esponente
+              <strong>capovolge</strong> la base, non cambia il segno!).</li>
+          </ul>
+        </div>
+
+        <!-- Teoria 3 -->
+        <div class="theory-card" id="teoria-3">
+          <div class="theory-card-header">
+            <span class="pill-num">3</span>
+            <span>Numeri Primi e Teorema Fondamentale dell'Aritmetica</span>
+          </div>
+          <ul class="theory-list">
+            <li>Un naturale $p > 1$ è <strong>primo</strong> se è divisibile solo per $1$ e per sé stesso ($2, 3, 5, 7,
+              11, 13\dots$). Il $2$ è l'<strong>unico primo pari</strong>.</li>
+            <li><strong>Perché $1$ non è primo?</strong> Se $1$ fosse primo, scrivere $6 = 2\cdot 3 = 1\cdot 2\cdot 3 =
+              1^2\cdot 2\cdot 3$ farebbe perdere l'unicità della scomposizione!</li>
+            <li><strong>Teorema Fondamentale</strong>: ogni intero $> 1$ si scompone in <strong>un unico modo</strong>
+              (a meno dell'ordine) come prodotto di numeri primi, gli <em>atomi moltiplicativi</em> di $\mathbb{N}$.
+            </li>
+          </ul>
+        </div>
+
+        <!-- Teoria 4 -->
+        <div class="theory-card" id="teoria-4">
+          <div class="theory-card-header">
+            <span class="pill-num">4</span>
+            <span>Crivello di Eratostene, M.C.D. e m.c.m.</span>
+          </div>
+          <ul class="theory-list">
+            <li><strong>Crivello di Eratostene</strong>: per trovare i primi fino a $N$, scarta l'$1$ e cancella in
+              ordine i multipli di $2, 3, 5, 7\dots$ Basta controllare i primi $p$ con $p^2 \le N$!</li>
+            <li><strong>M.C.D.</strong> (dividere in parti uguali massime): prodotto dei soli fattori
+              <strong>comuni</strong> con esponente <strong>minimo</strong>.</li>
+            <li><strong>m.c.m.</strong> (sincronizzare cicli periodici): prodotto dei fattori <strong>comuni e non
+                comuni</strong> con esponente <strong>massimo</strong>.</li>
+          </ul>
+        </div>
+
+        <!-- Teoria 5 -->
+        <div class="theory-card" id="teoria-5">
+          <div class="theory-card-header">
+            <span class="pill-num">5</span>
+            <span>La Dimostrazione di Euclide: i Primi sono Infiniti</span>
+          </div>
+          <ul class="theory-list">
+            <li>Supponiamo di avere una lista finita qualsiasi di numeri primi $\{p_1, p_2, \dots, p_k\}$ e costruiamo:
+              <br>$N = (p_1 \cdot p_2 \cdots p_k) + 1$.
+            </li>
+            <li>Dividendo $N$ per <strong>qualunque</strong> primo della lista otteniamo sempre <strong>resto
+                $1$</strong>: quindi nessuno di quei primi divide $N$!</li>
+            <li>Ma ogni numero $>1$ ha almeno un divisore primo: o $N$ è primo lui stesso, oppure è divisibile per un
+              primo nuovo fuori dalla lista. Dunque <strong>nessuna lista finita basta: i primi sono infiniti!</strong>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Teoria 6 -->
+        <div class="theory-card" id="teoria-6">
+          <div class="theory-card-header">
+            <span class="pill-num">6</span>
+            <span>Dalle Tavolette Babilonesi alla Crittografia RSA</span>
+          </div>
+          <ul class="theory-list">
+            <li>Gli scribi babilonesi scelsero la base $60 = 2^2 \cdot 3 \cdot 5$ perché ricca di divisori comodi; per
+              millenni invece i numeri primi apparvero privi di usi pratici.</li>
+            <li>Nel 1977 nasce <strong>RSA</strong>: moltiplicare due primi enormi $p \cdot q = n$ richiede un istante
+              (<strong>chiave pubblica</strong> $n$), ma risalire ai fattori segreti $p$ e $q$ partendo solo da $n$ è
+              così lento da proteggere home banking, siti HTTPS e chat cifrate.</li>
+          </ul>
+        </div>
+
+        <!-- Quote Interdisciplinare Scienze Umane & Educazione Civica -->
+        <div class="quote-box">
+          <span class="quote-icon">🔐</span>
+          <div class="quote-text">
+            <strong>Ponte con le Scienze Umane &amp; Diritto:</strong> Nell'antica Biblioteca di Alessandria, Euclide ed
+            Eratostene studiavano i numeri primi per puro amore della conoscenza. Oggi quello stesso teorema difende un
+            diritto umano fondamentale — la <em>libertà e segretezza della corrispondenza</em> (Art. 15 della
+            Costituzione Italiana) — impedendo a chiunque di intercettare i messaggi privati dei cittadini.
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- ========================================================
+         SEZIONE 2: I 6 LABORATORI INTERATTIVI
+         ======================================================== -->
+    <main class="labs-container">
+
+      <!-- ======================================================
+           LABORATORIO 1: POTENZE COMODE & TRAPPOLA DELLE PARENTESI
+           ====================================================== -->
+      <article class="lab-card" id="lab1">
+        <div class="lab-header">
+          <div class="lab-badge-group">
+            <span class="lab-number">Laboratorio 1 • Potenze in ℤ</span>
+            <span class="xp-pill">+10 XP</span>
+          </div>
+        </div>
+
+        <h3 class="lab-title">L'Officina delle Potenze Comode &amp; la Trappola delle Parentesi</h3>
+
+        <div class="theory-link-box">
+          <span class="tl-icon">🔗</span>
+          <div>
+            <strong>Collegamento Teoria ↔ Pratica:</strong> Questo laboratorio applica la
+            <a href="#teoria-1" class="theory-link-anchor"
+              onclick="event.preventDefault(); scrollToTheory('teoria-1');">Teoria 1 • Stessa Base &amp; Segno delle
+              Parentesi</a>
+            e la
+            <a href="#teoria-2" class="theory-link-anchor"
+              onclick="event.preventDefault(); scrollToTheory('teoria-2');">Teoria 2 • Stesso Esponente ed Esponenti
+              Negativi</a>
+            per trasformare calcoli apparentemente lunghi in passaggi immediati.
+          </div>
+        </div>
+
+        <p class="lab-objective">
+          Esplora i 4 casi chiave cliccando sui pulsanti qui sotto: osserva come le proprietà delle potenze evitano
+          moltiplicazioni enormi e perché le parentesi attorno al segno «$-$» cambiano tutto!
+        </p>
+
+        <div class="l03-stage">
+          <div class="l03-controls-row" id="lab1CaseBtns">
+            <button type="button" class="l03-pill-btn active" onclick="selectPowerCase(0, this)">Caso 1: $(-3)^2$ vs
+              $-3^2$</button>
+            <button type="button" class="l03-pill-btn" onclick="selectPowerCase(1, this)">Caso 2:
+              $(2/3)^{-2}$</button>
+            <button type="button" class="l03-pill-btn" onclick="selectPowerCase(2, this)">Caso 3: $25^3 \times
+              4^3$</button>
+            <button type="button" class="l03-pill-btn" onclick="selectPowerCase(3, this)">Caso 4: $(2^4 \cdot 2^3) :
+              2^5$</button>
+          </div>
+
+          <div id="lab1PowerDisplay" class="l03-power-display"></div>
+        </div>
+
+        <!-- Sfida operativa Lab 1 -->
+        <div class="step-box">
+          <div class="step-header">
+            <span class="step-tag">Sfida Rapida Senza Calcolatrice (2 Passi)</span>
+            <a href="#teoria-1" class="theory-ref-pill" onclick="event.preventDefault(); scrollToTheory('teoria-1');">
+              🔗 Rif. Teoria 1 • Stessa Base &amp; Parentesi
+            </a>
+          </div>
+          <div class="step-content">
+            <p>
+              <strong>Quesito A:</strong> Semplifica con le proprietà della stessa base e calcola il valore finale di
+              $\dfrac{3^5 \cdot 3^4}{3^7}$.<br>
+              <strong>Quesito B:</strong> Fai attenzione alle parentesi e calcola $(-2)^4 + (-3^2)$.
+            </p>
+            <button type="button" class="hint-btn" onclick="toggleHint('hintLab1')">💡 Mostra Suggerimento</button>
+            <div id="hintLab1" class="hint-text">
+              Nel <strong>Quesito A</strong>: a numeratore $3^5 \cdot 3^4 = 3^{5+4} = 3^9$; poi dividi per $3^7$
+              sottraendo gli esponenti ($9 - 7 = 2$).<br>
+              Nel <strong>Quesito B</strong>: $(-2)^4$ ha il meno <em>dentro</em> la parentesi con esponente pari,
+              quindi vale $+16$. Invece in $-3^2$ il quadrato agisce solo sul $3$, quindi vale $-9$!
+            </div>
+            <div class="verify-box" style="margin-top: 0.75rem;">
+              <label style="font-weight: 700;">A =</label>
+              <input type="text" id="lab1InputA" class="inline-input" style="width: 85px;" placeholder="?">
+              <label style="font-weight: 700; margin-left: 0.4rem;">B =</label>
+              <input type="text" id="lab1InputB" class="inline-input" style="width: 85px;" placeholder="?">
+              <button class="btn-action" onclick="verifyLab1()">Verifica Potenze</button>
+              <span id="lab1Msg" class="feedback-msg" style="display: none;"></span>
+            </div>
+          </div>
+        </div>
+      </article>
+
+
+      <!-- ======================================================
+           LABORATORIO 2: IL CRIVELLO DI ERATOSTENE INTERATTIVO
+           ====================================================== -->
+      <article class="lab-card" id="lab2">
+        <div class="lab-header">
+          <div class="lab-badge-group">
+            <span class="lab-number">Laboratorio 2 • Setacciare i Fattori</span>
+            <span class="xp-pill">+10 XP</span>
+          </div>
+        </div>
+
+        <h3 class="lab-title">Il Crivello di Eratostene Interattivo (1 – 50)</h3>
+
+        <div class="theory-link-box">
+          <span class="tl-icon">🔗</span>
+          <div>
+            <strong>Collegamento Teoria ↔ Pratica:</strong> Questo laboratorio mette in azione la
+            <a href="#teoria-3" class="theory-link-anchor"
+              onclick="event.preventDefault(); scrollToTheory('teoria-3');">Teoria 3 • Numeri Primi vs Composti</a>
+            e la
+            <a href="#teoria-4" class="theory-link-anchor"
+              onclick="event.preventDefault(); scrollToTheory('teoria-4');">Teoria 4 • Algoritmo del Crivello di
+              Eratostene</a>:
+            invece di testare le divisioni una per una, eliminiamo a colpi di multipli tutti i numeri composti!
+          </div>
+        </div>
+
+        <p class="lab-objective">
+          Attiva in ordine i <strong>4 filtri del setaccio</strong> ($\times 2$, $\times 3$, $\times 5$, $\times 7$) e
+          osserva quali numeri cadono e quali restano intatti. Puoi anche <strong>cliccare su qualunque casella</strong>
+          per ispezionare i suoi fattori primi!
+        </p>
+
+        <div class="l03-stage">
+          <div class="l03-sieve-toolbar">
+            <button type="button" class="l03-sieve-btn" id="sieveBtn2" onclick="applySievePrime(2)">2️⃣ Setaccia multipli
+              di 2</button>
+            <button type="button" class="l03-sieve-btn" id="sieveBtn3" onclick="applySievePrime(3)">3️⃣ Setaccia multipli
+              di 3</button>
+            <button type="button" class="l03-sieve-btn" id="sieveBtn5" onclick="applySievePrime(5)">5️⃣ Setaccia multipli
+              di 5</button>
+            <button type="button" class="l03-sieve-btn" id="sieveBtn7" onclick="applySievePrime(7)">7️⃣ Setaccia multipli
+              di 7</button>
+            <button type="button" class="l03-pill-btn" onclick="resetSieve()">🔄 Azzera Setaccio</button>
+          </div>
+
+          <div id="sieveGrid" class="l03-sieve-grid"></div>
+
+          <div id="sieveInspector" class="l03-sieve-inspector">
+            👆 Attiva i filtri qui sopra in ordine ($2 \to 3 \to 5 \to 7$) oppure clicca su un numero della tabella per
+            vederne la scomposizione in fattori primi.
+          </div>
+        </div>
+
+        <div class="step-box">
+          <div class="step-header">
+            <span class="step-tag">Osserva i Risultati del Setaccio</span>
+            <a href="#teoria-4" class="theory-ref-pill" onclick="event.preventDefault(); scrollToTheory('teoria-4');">
+              🔗 Rif. Teoria 4 • Soglia $p^2 \le N$ nel Crivello
+            </a>
+          </div>
+          <div class="step-content">
+            <p>
+              Dopo aver attivato tutti e quattro i filtri ($2, 3, 5, 7$), il setaccio fino a $50$ è già completo
+              (perché il primo successivo è $11$ e $11^2 = 121 > 50$!):<br>
+              1. <strong>Quanti numeri primi</strong> (caselle verdi) esistono in totale tra $1$ e $50$?<br>
+              2. Qual è l'<strong>unico numero</strong> che era sopravvissuto ai filtri del $2$, del $3$ e del $5$ ed è
+              stato eliminato solo dal filtro del $7$?
+            </p>
+            <button type="button" class="hint-btn" onclick="toggleHint('hintLab2')">💡 Mostra Suggerimento</button>
+            <div id="hintLab2" class="hint-text">
+              Attiva in sequenza i bottoni di $2, 3, 5$ e $7$: conta le caselle verdi rimaste accese (ricorda che l'$1$
+              non è primo!) e guarda quale casella porta l'etichetta rossa <code>×7</code> ($7 \times 7 = \dots$).
+            </div>
+            <div class="verify-box" style="margin-top: 0.75rem;">
+              <label style="font-weight: 700;">Primi tra 1 e 50:</label>
+              <input type="number" id="lab2CountInput" class="inline-input" style="width: 85px;" placeholder="N°">
+              <label style="font-weight: 700; margin-left: 0.4rem;">Eliminato da ×7:</label>
+              <input type="number" id="lab2SevenInput" class="inline-input" style="width: 85px;" placeholder="?">
+              <button class="btn-action" onclick="verifyLab2()">Verifica Crivello</button>
+              <span id="lab2Msg" class="feedback-msg" style="display: none;"></span>
+            </div>
+          </div>
+        </div>
+      </article>
+
+
+      <!-- ======================================================
+           LABORATORIO 3: ATOMI PRIMI NELLA REALTÀ (M.C.D. & m.c.m.)
+           ====================================================== -->
+      <article class="lab-card" id="lab3">
+        <div class="lab-header">
+          <div class="lab-badge-group">
+            <span class="lab-number">Laboratorio 3 • Scomposizione Moltiplicativa</span>
+            <span class="xp-pill">+10 XP</span>
+          </div>
+        </div>
+
+        <h3 class="lab-title">Gli «Atomi» dei Numeri: Kit Scolastici e Incontri Periodici</h3>
+
+        <div class="theory-link-box">
+          <span class="tl-icon">🔗</span>
+          <div>
+            <strong>Collegamento Teoria ↔ Pratica:</strong> Questo laboratorio collega la
+            <a href="#teoria-3" class="theory-link-anchor"
+              onclick="event.preventDefault(); scrollToTheory('teoria-3');">Teoria 3 • Teorema Fondamentale
+              dell'Aritmetica</a>
+            e la
+            <a href="#teoria-4" class="theory-link-anchor"
+              onclick="event.preventDefault(); scrollToTheory('teoria-4');">Teoria 4 • M.C.D. e m.c.m.</a>
+            a due problemi reali della vita di classe: dividere oggetti in parti uguali senza sprechi e sincronizzare
+            appuntamenti.
+          </div>
+        </div>
+
+        <p class="lab-objective">
+          Confronta qui sotto i mattoncini primi di due numeri: l'<strong>M.C.D.</strong> prende solo gli atomi presenti
+          in entrambi (esponente più piccolo), mentre il <strong>m.c.m.</strong> riunisce tutti gli atomi necessari a
+          contenerli entrambi (esponente più grande).
+        </p>
+
+        <div class="l03-stage">
+          <div class="l03-controls-row">
+            <button type="button" class="l03-pill-btn active" onclick="renderAtomPair(18, 30, this)">Coppia: 18 e
+              30</button>
+            <button type="button" class="l03-pill-btn" onclick="renderAtomPair(24, 60, this)">Coppia: 24 e 60</button>
+            <button type="button" class="l03-pill-btn" onclick="renderAtomPair(12, 45, this)">Coppia: 12 e 45</button>
+          </div>
+          <div id="lab3AtomsBoard" class="l03-atoms-board"></div>
+        </div>
+
+        <div class="step-box">
+          <div class="step-header">
+            <span class="step-tag">Due Situazioni Concrete a Scuola</span>
+            <a href="#teoria-4" class="theory-ref-pill" onclick="event.preventDefault(); scrollToTheory('teoria-4');">
+              🔗 Rif. Teoria 4 • Quando usare M.C.D. o m.c.m.
+            </a>
+          </div>
+          <div class="step-content">
+            <p>
+              <strong>1. I Kit dell'Accoglienza (Senza Avanzi):</strong> I rappresentanti d'istituto hanno acquistato
+              <strong>$36$ quaderni</strong> e <strong>$48$ penne</strong> per i ragazzi delle prime. Vogliono preparare
+              il <em>maggior numero possibile di buste tutte identiche</em> usando tutto il materiale. Quante buste
+              possono preparare al massimo?<br>
+              <strong>2. Le Redazioni del Giornalino:</strong> La redazione <em>Psicologia</em> si riunisce in aula magna
+              ogni <strong>$6$ giorni</strong>, mentre la redazione <em>Musica</em> si riunisce ogni <strong>$8$
+                giorni</strong>. Oggi si sono incontrate insieme: tra quanti giorni si ritroveranno di nuovo insieme?
+            </p>
+            <button type="button" class="hint-btn" onclick="toggleHint('hintLab3')">💡 Mostra Suggerimento</button>
+            <div id="hintLab3" class="hint-text">
+              • Per le buste serve l'<strong>M.C.D.(36, 48)</strong>: $36 = 2^2 \cdot 3^2$ e $48 = 2^4 \cdot 3$. Prendi i
+              fattori comuni con esponente minimo ($2^2 \cdot 3$).<br>
+              • Per le riunioni serve il <strong>m.c.m.(6, 8)</strong>: $6 = 2 \cdot 3$ e $8 = 2^3$. Prendi tutti i
+              fattori con esponente massimo ($2^3 \cdot 3$).
+            </div>
+            <div class="verify-box" style="margin-top: 0.75rem;">
+              <label style="font-weight: 700;">Max buste:</label>
+              <input type="number" id="lab3McdInput" class="inline-input" style="width: 85px;" placeholder="N°">
+              <label style="font-weight: 700; margin-left: 0.4rem;">Giorni al prossimo incontro:</label>
+              <input type="number" id="lab3McmInput" class="inline-input" style="width: 85px;" placeholder="gg">
+              <button class="btn-action" onclick="verifyLab3()">Verifica Soluzioni</button>
+              <span id="lab3Msg" class="feedback-msg" style="display: none;"></span>
+            </div>
+          </div>
+        </div>
+      </article>
+
+
+      <!-- ======================================================
+           LABORATORIO 4: LA MACCHINA DI EUCLIDE PASSO-PASSO
+           ====================================================== -->
+      <article class="lab-card" id="lab4">
+        <div class="lab-header">
+          <div class="lab-badge-group">
+            <span class="lab-number">Laboratorio 4 • Il Capolavoro di Alessandria</span>
+            <span class="xp-pill">+10 XP</span>
+          </div>
+        </div>
+
+        <h3 class="lab-title">La Macchina di Euclide: Perché i Numeri Primi Non Finiscono Mai</h3>
+
+        <div class="theory-link-box">
+          <span class="tl-icon">🔗</span>
+          <div>
+            <strong>Collegamento Teoria ↔ Pratica:</strong> Questo laboratorio ricostruisce passo dopo passo la
+            <a href="#teoria-5" class="theory-link-anchor"
+              onclick="event.preventDefault(); scrollToTheory('teoria-5');">Teoria 5 • Dimostrazione di Euclide
+              (*Elementi*, IX, 20)</a>,
+            uno dei ragionamenti più celebri nella storia del pensiero umano.
+          </div>
+        </div>
+
+        <p class="lab-objective">
+          Immagina che qualcuno ti sfidi dicendo: <em>«I numeri primi finiscono qui: li ho scritti tutti in questa
+            lista!»</em>. Scegli una lista finita qui sotto e guarda come la formula di Euclide $N = (p_1 \cdot p_2
+          \cdots p_k) + 1$ fabbrica <strong>sempre</strong> la prova che almeno un primo è rimasto fuori! (Non perderti
+          il <strong>4° pulsante</strong> con una sorpresa fondamentale!)
+        </p>
+
+        <div class="l03-stage">
+          <div class="l03-controls-row">
+            <button type="button" class="l03-pill-btn purple active" onclick="runEuclidMachine(0, this)">Lista 1: {2,
+              3}</button>
+            <button type="button" class="l03-pill-btn purple" onclick="runEuclidMachine(1, this)">Lista 2: {2, 3,
+              5}</button>
+            <button type="button" class="l03-pill-btn purple" onclick="runEuclidMachine(2, this)">Lista 3: {2, 3, 5,
+              7}</button>
+            <button type="button" class="l03-pill-btn gold" onclick="runEuclidMachine(3, this)">⚡ Sorpresa: {2, 3, 5, 7,
+              11, 13}</button>
+          </div>
+
+          <div id="euclidStepsBoard" class="l03-euclid-steps"></div>
+        </div>
+
+        <div class="step-box">
+          <div class="step-header">
+            <span class="step-tag">Tocca a Te: Smonta una Falsa Lista Finita!</span>
+            <a href="#teoria-5" class="theory-ref-pill" onclick="event.preventDefault(); scrollToTheory('teoria-5');">
+              🔗 Rif. Teoria 5 • Il Trucco del Resto 1
+            </a>
+          </div>
+          <div class="step-content">
+            <p>
+              Uno studente distratto sostiene che nel mondo esistano soltanto tre numeri primi: la lista
+              <strong>$L = \{2, 5, 11\}$</strong>.<br>
+              1. Calcola il numero di Euclide $N = (2 \cdot 5 \cdot 11) + 1$.<br>
+              2. Osserva le cifre di $N$: stavolta $N$ <strong>non è primo</strong> (somma le sue cifre!). Qual è il
+              <strong>più piccolo numero primo</strong> che divide $N$ e dimostra subito che la lista $\{2, 5, 11\}$ era
+              incompleta?
+            </p>
+            <button type="button" class="hint-btn" onclick="toggleHint('hintLab4')">💡 Mostra Suggerimento</button>
+            <div id="hintLab4" class="hint-text">
+              $2 \cdot 5 = 10$, poi $10 \cdot 11 = 110$, quindi $N = 110 + 1 = 111$. Ora guarda $111$: non è divisibile
+              né per $2$, né per $5$, né per $11$ (dà sempre resto $1$), ma la somma delle sue cifre è $1 + 1 + 1 = 3$!
+              Quindi $111 = 3 \times 37$.
+            </div>
+            <div class="verify-box" style="margin-top: 0.75rem;">
+              <label style="font-weight: 700;">Numero $N$:</label>
+              <input type="number" id="lab4EuclidN" class="inline-input" style="width: 90px;" placeholder="N">
+              <label style="font-weight: 700; margin-left: 0.4rem;">Nuovo primo più piccolo:</label>
+              <input type="number" id="lab4EuclidP" class="inline-input" style="width: 80px;" placeholder="p">
+              <button class="btn-action" onclick="verifyLab4()">Verifica Dimostrazione</button>
+              <span id="lab4Msg" class="feedback-msg" style="display: none;"></span>
+            </div>
+          </div>
+        </div>
+      </article>
+
+
+      <!-- ======================================================
+           LABORATORIO 5: DALLE TAVOLETTE BABILONESI A WHATSAPP (RSA)
+           ====================================================== -->
+      <article class="lab-card" id="lab5">
+        <div class="lab-header">
+          <div class="lab-badge-group">
+            <span class="lab-number">Laboratorio 5 • Storia &amp; Crittografia</span>
+            <span class="xp-pill">+10 XP</span>
+          </div>
+        </div>
+
+        <h3 class="lab-title">Dalle Tavolette Babilonesi alla Crittografia RSA di WhatsApp</h3>
+
+        <div class="theory-link-box">
+          <span class="tl-icon">🔗</span>
+          <div>
+            <strong>Collegamento Teoria ↔ Pratica:</strong> Questo laboratorio esplora la
+            <a href="#teoria-6" class="theory-link-anchor"
+              onclick="event.preventDefault(); scrollToTheory('teoria-6');">Teoria 6 • Funzione a Senso Unico e
+              Crittografia Asimmetrica</a>:
+            come la differenza di difficoltà tra <em>moltiplicare</em> e <em>scomporre in fattori primi</em> rende
+            sicure le comunicazioni moderne.
+          </div>
+        </div>
+
+        <p class="lab-objective">
+          Viaggia attraverso $4\,000$ anni di storia cliccando sulle epoche, poi prova il <strong>Generatore di Lucchetto
+            Asimmetrico</strong> e metti alla prova le tue doti di decrittazione!
+        </p>
+
+        <div class="l03-stage">
+          <div class="l03-controls-row">
+            <button type="button" class="l03-pill-btn gold active" onclick="selectHistoryEra(0, this)">🏺 Babilonia
+              (~1800 a.C.)</button>
+            <button type="button" class="l03-pill-btn gold" onclick="selectHistoryEra(1, this)">🏛️ Alessandria (~300
+              a.C.)</button>
+            <button type="button" class="l03-pill-btn gold" onclick="selectHistoryEra(2, this)">📜 Il Paradosso di Hardy
+              (1940)</button>
+            <button type="button" class="l03-pill-btn gold" onclick="selectHistoryEra(3, this)">🔐 RSA &amp; Chat Cifrate
+              (1977–Oggi)</button>
+          </div>
+
+          <div id="historyEraCard" class="l03-era-card"></div>
+
+          <!-- Mini-Simulatore Lucchetto a Senso Unico -->
+          <div class="l03-rsa-workbench">
+            <div class="l03-rsa-panel">
+              <div style="font-size: 0.78rem; font-weight: 800; color: var(--accent-success); text-transform: uppercase;">
+                🟢 Direzione Facile: Crea il Lucchetto Pubblico
+              </div>
+              <p style="font-size: 0.86rem; color: var(--text-muted); margin: 0.4rem 0 0.7rem;">
+                Scegli due numeri primi segreti $p$ e $q$: il computer calcola all'istante il lucchetto pubblico $n = p
+                \times q$ che puoi mostrare a tutti.
+              </p>
+              <div style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
+                <label style="font-family: var(--font-mono); font-size: 0.85rem;">p =</label>
+                <select id="rsaSelectP" class="l03-select" onchange="updateRsaLock()">
+                  <option value="17">17</option>
+                  <option value="29">29</option>
+                  <option value="53" selected>53</option>
+                  <option value="89">89</option>
+                </select>
+                <label style="font-family: var(--font-mono); font-size: 0.85rem;">q =</label>
+                <select id="rsaSelectQ" class="l03-select" onchange="updateRsaLock()">
+                  <option value="19">19</option>
+                  <option value="41">41</option>
+                  <option value="61" selected>61</option>
+                  <option value="97">97</option>
+                </select>
+              </div>
+              <div id="rsaPublicOutput"
+                style="margin-top: 0.75rem; font-family: var(--font-mono); font-size: 0.92rem; color: var(--accent-math); font-weight: 700;">
+              </div>
+            </div>
+
+            <div class="l03-rsa-panel">
+              <div style="font-size: 0.78rem; font-weight: 800; color: var(--accent-warning); text-transform: uppercase;">
+                🔒 Perché nella realtà nessuno riesce ad aprirlo?
+              </div>
+              <p style="font-size: 0.86rem; color: var(--text-muted); margin-top: 0.45rem; line-height: 1.55;">
+                Con numeri di $2$ cifre puoi indovinare $p$ e $q$ a mente. Ma nelle chiavi RSA reali $p$ e $q$ hanno
+                <strong>oltre $300$ cifre ciascuno</strong>! Il loro prodotto $n$ ha più di $600$ cifre ($\sim
+                10^{617}$): moltiplicarli richiede meno di un millisecondo, mentre ritrovare $p$ e $q$ richiederebbe
+                <strong>migliaia di anni</strong>.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="step-box">
+          <div class="step-header">
+            <span class="step-tag">Sfida del Crittografo: Rompi il Lucchetto Giocattolo n = 91</span>
+            <a href="#teoria-6" class="theory-ref-pill" onclick="event.preventDefault(); scrollToTheory('teoria-6');">
+              🔗 Rif. Teoria 6 • Fattorizzazione di $n = p \cdot q$
+            </a>
+          </div>
+          <div class="step-content">
+            <p>
+              Un messaggio di prova è stato protetto con una chiave pubblica troppo piccola: <strong>$n = 91$</strong>
+              (molti credono a prima vista che $91$ sia un numero primo, ma è un famoso "falso primo"!).<br>
+              Trova i due numeri primi segreti $p$ e $q$ (scrivi il più piccolo in $p$ e il più grande in $q$) tali che
+              $p \times q = 91$.
+            </p>
+            <button type="button" class="hint-btn" onclick="toggleHint('hintLab5')">💡 Mostra Suggerimento</button>
+            <div id="hintLab5" class="hint-text">
+              $91$ non è divisibile per $2$ (è dispari), né per $3$ ($9+1=10$), né per $5$. Prova a spezzare $91$ in
+              modo comodo per il primo successivo, il $7$: $91 = 70 + 21 = 7 \times (10 + 3)$!
+            </div>
+            <div class="verify-box" style="margin-top: 0.75rem;">
+              <label style="font-weight: 700;">$p$ (più piccolo) =</label>
+              <input type="number" id="lab5InputP" class="inline-input" style="width: 80px;" placeholder="p">
+              <label style="font-weight: 700; margin-left: 0.4rem;">$q$ (più grande) =</label>
+              <input type="number" id="lab5InputQ" class="inline-input" style="width: 80px;" placeholder="q">
+              <button class="btn-action" onclick="verifyLab5()">Apri il Lucchetto</button>
+              <span id="lab5Msg" class="feedback-msg" style="display: none;"></span>
+            </div>
+          </div>
+        </div>
+      </article>
+
+
+      <!-- ======================================================
+           LABORATORIO 6: PALESTRA MENTALE (4 SFIDE RAPIDE)
+           ====================================================== -->
+      <article class="lab-card" id="lab6">
+        <div class="lab-header">
+          <div class="lab-badge-group">
+            <span class="lab-number">Laboratorio 6 • Palestra Mentale</span>
+            <span class="xp-pill">+10 XP</span>
+          </div>
+        </div>
+
+        <h3 class="lab-title">4 Sfide Rapide su Potenze, Fattori Primi ed Euclide</h3>
+
+        <div class="theory-link-box">
+          <span class="tl-icon">🔗</span>
+          <div>
+            <strong>Collegamento Teoria ↔ Pratica:</strong> Risolvi tutte e 4 le mini-sfide per consolidare i riflessi
+            rapidi della Lezione 1.3; ogni scheda ti indica la pillola teorica da consultare.
+          </div>
+        </div>
+
+        <div class="gym-grid">
+          <!-- Gym 1 -->
+          <div class="gym-card" id="l03gym1">
+            <div>
+              <div class="gym-badge">Sfida 1 • Esponente 0 e Negativo</div>
+              <a href="#teoria-2" class="theory-ref-pill"
+                onclick="event.preventDefault(); scrollToTheory('teoria-2');">
+                🔗 Rif. Teoria 2 • $a^0 = 1$ e $a^{-1} = 1/a$
+              </a>
+              <div class="gym-question">
+                Quanto vale $7^0 + 2^{-1}$ scritto come numero decimale?
+              </div>
+            </div>
+            <div>
+              <div style="display: flex; gap: 0.5rem; align-items: center;">
+                <input type="text" id="l03gym1Input" class="inline-input" style="width: 100%;" placeholder="Es: 2,5">
+                <button class="btn-action" onclick="checkL03Gym(1, 1.5)" style="padding: 0.5rem 0.9rem;">OK</button>
+              </div>
+              <div id="l03gym1Feedback" style="font-size: 0.82rem; margin-top: 0.45rem; font-weight: 600;"></div>
+            </div>
+          </div>
+
+          <!-- Gym 2 -->
+          <div class="gym-card" id="l03gym2">
+            <div>
+              <div class="gym-badge">Sfida 2 • Potenza di Potenza</div>
+              <a href="#teoria-1" class="theory-ref-pill"
+                onclick="event.preventDefault(); scrollToTheory('teoria-1');">
+                🔗 Rif. Teoria 1 • $(a^m)^n : a^p$
+              </a>
+              <div class="gym-question">
+                Semplifica $(5^3)^4 : 5^{10}$ e scrivi il valore numerico finale.
+              </div>
+            </div>
+            <div>
+              <div style="display: flex; gap: 0.5rem; align-items: center;">
+                <input type="text" id="l03gym2Input" class="inline-input" style="width: 100%;" placeholder="Valore...">
+                <button class="btn-action" onclick="checkL03Gym(2, 25)" style="padding: 0.5rem 0.9rem;">OK</button>
+              </div>
+              <div id="l03gym2Feedback" style="font-size: 0.82rem; margin-top: 0.45rem; font-weight: 600;"></div>
+            </div>
+          </div>
+
+          <!-- Gym 3 -->
+          <div class="gym-card" id="l03gym3">
+            <div>
+              <div class="gym-badge">Sfida 3 • Atomi Moltiplicativi</div>
+              <a href="#teoria-3" class="theory-ref-pill"
+                onclick="event.preventDefault(); scrollToTheory('teoria-3');">
+                🔗 Rif. Teoria 3 • Scomposizione Unica
+              </a>
+              <div class="gym-question">
+                Nella scomposizione in fattori primi $72 = 2^a \cdot 3^2$, quanto vale l'esponente $a$?
+              </div>
+            </div>
+            <div>
+              <div style="display: flex; gap: 0.5rem; align-items: center;">
+                <input type="text" id="l03gym3Input" class="inline-input" style="width: 100%;" placeholder="a = ?">
+                <button class="btn-action" onclick="checkL03Gym(3, 3)" style="padding: 0.5rem 0.9rem;">OK</button>
+              </div>
+              <div id="l03gym3Feedback" style="font-size: 0.82rem; margin-top: 0.45rem; font-weight: 600;"></div>
+            </div>
+          </div>
+
+          <!-- Gym 4 -->
+          <div class="gym-card" id="l03gym4">
+            <div>
+              <div class="gym-badge">Sfida 4 • Riflesso di Euclide</div>
+              <a href="#teoria-5" class="theory-ref-pill"
+                onclick="event.preventDefault(); scrollToTheory('teoria-5');">
+                🔗 Rif. Teoria 5 • Resto di $N$
+              </a>
+              <div class="gym-question">
+                Senza svolgere il prodotto, qual è il <strong>resto</strong> della divisione di $(2 \cdot 3 \cdot 5
+                \cdot 7 \cdot 11 \cdot 13) + 1$ per $11$?
+              </div>
+            </div>
+            <div>
+              <div style="display: flex; gap: 0.5rem; align-items: center;">
+                <input type="text" id="l03gym4Input" class="inline-input" style="width: 100%;" placeholder="Resto...">
+                <button class="btn-action" onclick="checkL03Gym(4, 1)" style="padding: 0.5rem 0.9rem;">OK</button>
+              </div>
+              <div id="l03gym4Feedback" style="font-size: 0.82rem; margin-top: 0.45rem; font-weight: 600;"></div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+    </main>
+
+
+    <!-- ========================================================
+         SEZIONE 3: FLASHCARDS DI AUTOVALUTAZIONE (MASTERY LEARNING)
+         ======================================================== -->
+    <section class="flashcard-section" id="flashcardSection">
+      <div class="section-header">
+        <h2 class="section-title">
+          <span class="icon">🃏</span> Flashcards di Autovalutazione (+15 XP per carta)
+        </h2>
+        <span class="tag info-tag"
+          style="background: rgba(56, 189, 248, 0.12); color: var(--accent-math); padding: 0.25rem 0.65rem; border-radius: 9999px; font-size: 0.8rem; font-weight: 700;">
+          🔁 Tentativi Infiniti
+        </span>
+      </div>
+      <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1.5rem;">
+        Verifica i concetti chiave su potenze, numeri primi, Euclide e crittografia: le opzioni A, B, C, D vengono
+        rimescolate automaticamente ad ogni sessione!
+      </p>
+
+      <div id="lessonFlashcardDeck"></div>
+    </section>
+
+
+    <!-- ========================================================
+         SEZIONE 4 (OBBLIGATORIA): COMPITO DI REALTÀ FINALE
+         SCHEDA OPERATIVA PER CASA
+         ======================================================== -->
+    <section class="homework-section" id="homeworkSection">
+      <div class="section-header">
+        <h2 class="section-title">
+          <span class="icon">📋</span> Compito di Realtà Finale: Scheda Operativa (Assegno per Casa)
+        </h2>
+      </div>
+
+      <article class="scheda-operativa-card">
+        <div class="scheda-top-bar">
+          <div class="scheda-badge-group">
+            <span class="scheda-badge homework">🏠 Assegno per Casa</span>
+            <span class="scheda-badge modality">👤 Da Soli oppure 👥 In Gruppo</span>
+          </div>
+          <button type="button" class="btn-print-sheet" onclick="window.print()">
+            🖨️ Stampa Scheda Operativa
+          </button>
+        </div>
+
+        <h3 class="scheda-title">
+          Scheda Operativa: «Come i Primi Proteggono la Privacy»
+        </h3>
+
+        <div class="theory-link-box">
+          <span class="tl-icon">🔗</span>
+          <div>
+            <strong>Collegamento Teoria ↔ Pratica:</strong> Questo compito di realtà integra la
+            <a href="#teoria-1" class="theory-link-anchor"
+              onclick="event.preventDefault(); scrollToTheory('teoria-1');">Teoria 1 &amp; 2 • Proprietà delle
+              Potenze</a>,
+            la <a href="#teoria-3" class="theory-link-anchor"
+              onclick="event.preventDefault(); scrollToTheory('teoria-3');">Teoria 3 • Scomposizione Unica in Fattori
+              Primi</a>,
+            la <a href="#teoria-5" class="theory-link-anchor"
+              onclick="event.preventDefault(); scrollToTheory('teoria-5');">Teoria 5 • Teorema di Euclide sull'Infinità
+              dei Primi</a>
+            e la <a href="#teoria-6" class="theory-link-anchor"
+              onclick="event.preventDefault(); scrollToTheory('teoria-6');">Teoria 6 • Crittografia Asimmetrica RSA</a>.
+          </div>
+        </div>
+
+        <div class="scheda-delivery-callout">
+          <strong>📅 Modalità di lavoro e consegna (Assegno per Casa):</strong> Puoi svolgere questo compito di realtà
+          <strong>da solo</strong> oppure <strong>lavorando in gruppo</strong>, ma ciascuno studente deve
+          <strong>portare la Scheda Operativa compilata per la lezione successiva</strong>.
+        </div>
+
+        <!-- Campi Studente per Stampa -->
+        <div class="scheda-student-fields">
+          <div class="scheda-field-item">
+            <span class="scheda-field-label">Studente / Studentessa:</span>
+            <div class="scheda-field-line"></div>
+          </div>
+          <div class="scheda-field-item">
+            <span class="scheda-field-label">Classe &amp; Data:</span>
+            <div class="scheda-field-line"></div>
+          </div>
+          <div class="scheda-field-item">
+            <span class="scheda-field-label">Modalità (Individuale / Componenti del Gruppo):</span>
+            <div class="scheda-field-line"></div>
+          </div>
+        </div>
+
+        <div class="scheda-problem-box">
+          <strong>La Situazione-Problema (Cittadinanza Digitale &amp; Sicurezza delle Comunicazioni):</strong><br>
+          Come fanno due smartphone che non si sono mai incontrati prima a scambiarsi un messaggio privato su
+          <em>WhatsApp</em> o una password su un sito <code>https://</code> senza che un estraneo collegato alla stessa
+          rete Wi-Fi possa leggerlo? Se dovessero spedirsi una chiave segreta normale, il curioso copierebbe anche la
+          chiave! L'idea geniale della <strong>crittografia a chiave pubblica (RSA)</strong> è spedire a tutti un
+          <strong>lucchetto aperto</strong> $n = p \times q$, tenendo segreti in tasca i due fattori primi $p$ e $q$.
+
+          <!-- Schema Visivo SVG del Lucchetto Asimmetrico (ottimizzato anche per stampa) -->
+          <div class="l03-crypto-diagram-box">
+            <svg viewBox="0 0 640 135" style="width: 100%; max-width: 620px; height: auto;">
+              <!-- Box 1: Vela genera i primi -->
+              <rect x="10" y="15" width="185" height="105" rx="10" fill="none" stroke="currentColor"
+                stroke-width="1.5" />
+              <text x="102" y="38" font-size="12" font-weight="bold" text-anchor="middle" fill="currentColor">1. VELA
+                (Destinataria)</text>
+              <text x="102" y="60" font-size="11" text-anchor="middle" fill="currentColor">Sceglie 2 primi
+                segreti</text>
+              <text x="102" y="80" font-size="12" font-weight="bold" font-family="monospace" text-anchor="middle"
+                fill="#10b981">🔒 Segreto: p, q</text>
+              <text x="102" y="102" font-size="11" font-family="monospace" text-anchor="middle"
+                fill="currentColor">Pubblica n = p × q</text>
+
+              <!-- Freccia 1 -->
+              <line x1="202" y1="67" x2="238" y2="67" stroke="currentColor" stroke-width="1.8" />
+              <polygon points="238,62 248,67 238,72" fill="currentColor" />
+
+              <!-- Box 2: Canale Pubblico Wi-Fi -->
+              <rect x="252" y="15" width="155" height="105" rx="10" fill="none" stroke="currentColor"
+                stroke-dasharray="5,4" stroke-width="1.5" />
+              <text x="330" y="38" font-size="12" font-weight="bold" text-anchor="middle" fill="currentColor">2. RETE
+                PUBBLICA</text>
+              <text x="330" y="62" font-size="11" text-anchor="middle" fill="currentColor">Tutti vedono n,</text>
+              <text x="330" y="80" font-size="11" text-anchor="middle" fill="currentColor">ma fattorizzare n</text>
+              <text x="330" y="100" font-size="11" font-weight="bold" text-anchor="middle" fill="#f43f5e">richiede
+                millenni!</text>
+
+              <!-- Freccia 2 -->
+              <line x1="414" y1="67" x2="448" y2="67" stroke="currentColor" stroke-width="1.8" />
+              <polygon points="448,62 458,67 448,72" fill="currentColor" />
+
+              <!-- Box 3: Amico chiude il lucchetto -->
+              <rect x="462" y="15" width="168" height="105" rx="10" fill="none" stroke="currentColor"
+                stroke-width="1.5" />
+              <text x="546" y="38" font-size="12" font-weight="bold" text-anchor="middle" fill="currentColor">3.
+                MITTENTE</text>
+              <text x="546" y="62" font-size="11" text-anchor="middle" fill="currentColor">Chiude il messaggio</text>
+              <text x="546" y="80" font-size="11" text-anchor="middle" fill="currentColor">usando il lucchetto n.</text>
+              <text x="546" y="102" font-size="11" font-weight="bold" text-anchor="middle" fill="#10b981">Solo Vela lo
+                riapre!</text>
+            </svg>
+          </div>
+
+          <strong>Consegne da svolgere per la prossima lezione:</strong>
+          <ol>
+            <li><strong>Smascherare una chiave troppo piccola (Teoria 3 &amp; 4):</strong> Per un esperimento in classe,
+              Marco pubblica il lucchetto giocattolo <strong>$n = 143$</strong>. Prova a dividerlo in ordine per i
+              numeri primi del Crivello ($2, 3, 5, 7, 11, 13\dots$), trova i due numeri primi segreti $p$ e $q$ tali che
+              $p \times q = 143$ e spiega in due righe perché usare numeri primi piccoli non protegge nessun segreto.
+            </li>
+            <li><strong>La forza esplosiva degli esponenti (Teoria 1 &amp; 2):</strong> Il PIN a $4$ cifre di un
+              telefono ha $10^4$ combinazioni possibili ($10\,000$). Un modulo RSA moderno a $2048$ bit è invece un
+              numero dell'ordine di <strong>$10^{616}$</strong>. Usa la proprietà del quoziente di potenze con la stessa
+              base per calcolare quante volte $10^{616}$ è più grande di $10^4$ ($10^{616} : 10^4 = 10^{\dots}$) e
+              calcola anche $(2^{10})^3 : 2^{25}$ lasciando tutti i passaggi visibili.</li>
+            <li><strong>Perché ci serve il Teorema di Euclide (Teoria 5):</strong> Ogni giorno miliardi di telefoni,
+              banche e ospedali generano nuove coppie di numeri primi giganteschi diversi tra loro. Spiega con parole
+              tue: cosa succederebbe alla sicurezza di Internet se i numeri primi fossero <em>finiti</em> (ad esempio
+              solo un migliaio in tutto) invece che <strong>infiniti</strong> come dimostrato da Euclide?</li>
+            <li><strong>Riflessione Scienze Umane &amp; Educazione Civica:</strong> L'<em>Articolo 15 della Costituzione
+                Italiana</em> afferma che «la libertà e la segretezza della corrispondenza e di ogni altra forma di
+              comunicazione sono inviolabili». Scrivi una riflessione di 8–12 righe portando almeno due esempi concreti
+              della vita quotidiana (chat personali, fascicolo sanitario elettronico, registro scolastico, acquisti
+              online in famiglia) in cui la matematica dei numeri primi tutela la libertà e la dignità delle persone.
+            </li>
+          </ol>
+        </div>
+
+        <!-- Rubrica di Valutazione -->
+        <div class="rubric-container">
+          <table class="rubric-table">
+            <thead>
+              <tr>
+                <th>Dimensione di Competenza</th>
+                <th>Livello Base</th>
+                <th>Livello Intermedio</th>
+                <th>Livello Avanzato</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Scomposizione &amp; Potenze</strong></td>
+                <td>Individua i fattori di $143$ per tentativi ma commette qualche imprecisione sulle proprietà degli
+                  esponenti.</td>
+                <td>Scompone correttamente $143 = 11 \times 13$ e calcola con esattezza $10^{616} : 10^4 = 10^{612}$ e
+                  $(2^{10})^3 : 2^{25} = 2^5 = 32$.</td>
+                <td>Esegue tutti i calcoli con rigore esplicitando le proprietà usate e spiegando la soglia $\sqrt{143}
+                  < 12$ del Crivello.</td>
+              </tr>
+              <tr>
+                <td><strong>Logica della Dimostrazione di Euclide</strong></td>
+                <td>Ricorda che i primi sono infiniti ma fatica a spiegare cosa accadrebbe se la lista dei primi fosse
+                  limitata.</td>
+                <td>Collega chiaramente l'infinità dei numeri primi all'impossibilità di esaurire le chiavi segrete nel
+                  mondo digitale.</td>
+                <td>Argomenta con chiarezza logica sia la costruzione euclidea $N = P + 1$ sia il suo impatto sulla
+                  sicurezza crittografica.</td>
+              </tr>
+              <tr>
+                <td><strong>Cittadinanza &amp; Scienze Umane</strong></td>
+                <td>Cita un esempio quotidiano in modo sintetico senza collegarlo al diritto alla riservatezza.</td>
+                <td>Presenta esempi pertinenti collegando crittografia, tutela dei dati personali e Art. 15 della
+                  Costituzione.</td>
+                <td>Sviluppa una riflessione critica matura sul legame tra ricerca matematica pura, diritti
+                  costituzionali e vita sociale contemporanea.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </article>
+    </section>
+
+
+    <!-- SINTESI & TAKEAWAY -->
+    <footer class="final-recap" id="finalRecap">
+      <div class="recap-icon">🏛️</div>
+      <h2 class="recap-title">Takeaway della Lezione 1.3</h2>
+      <p class="recap-subtitle">
+        Dagli esponenti agli atomi moltiplicativi: la bellezza della matematica antica muove il mondo digitale di oggi.
+      </p>
+      <div class="takeaways-row">
+        <div class="takeaway-item">
+          <strong>1. Potenze &amp; Parentesi</strong>
+          <p>Usa stessa base e stesso esponente per semplificare prima di calcolare, e distingui sempre $(-a)^n$ da
+            $-a^n$ e da $a^{-n} = \frac{1}{a^n}$.</p>
+        </div>
+        <div class="takeaway-item">
+          <strong>2. Atomi Unici &amp; Infiniti</strong>
+          <p>Ogni numero composto si scompone in un solo modo in fattori primi, e con $N = (p_1 \cdots p_k) + 1$ Euclide
+            dimostra che i primi non finiscono mai.</p>
+        </div>
+        <div class="takeaway-item">
+          <strong>3. Scheda Operativa sulla Privacy</strong>
+          <p>Moltiplicare due primi è immediato, ritrovarli dal prodotto è durissimo: porta la Scheda «Come i Primi
+            Proteggono la Privacy» alla prossima lezione!</p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- CARD DI COMPLETAMENTO GAMIFICATION -->
+    <div class="completion-card" id="lessonCompletionCard">
+      <div class="completion-icon">🏆</div>
+      <h3 class="completion-title">Hai completato la Lezione 1.3?</h3>
+      <p class="completion-desc">
+        Registra il tuo traguardo per guadagnare i punti esperienza della lezione (+60 XP) e prepara la Scheda Operativa
+        per la prossima volta!
+      </p>
+      <button id="btnCompleteLesson" class="btn-complete">
+        ✨ Segna come Completata (+60 XP)
+      </button>
+    </div>
+
+  </div>
+
+  <!-- Scripts Condivisi comode -->
+  <script src="../../shared/js/audio.js"></script>
+  <script src="../../shared/js/theme.js"></script>
+  <script src="../../shared/js/gamification.js"></script>
+  <script src="../../shared/js/components.js"></script>
+  <script src="../../shared/js/flashcards.js"></script>
+  <script src="../../shared/js/comode.js"></script>
+
+  <!-- Logica Interattiva Lezione 1.3 -->
+  <script>
+    const completedLabs = new Set();
+
+    function markLabCompleted(labNum) {
+      if (!completedLabs.has(labNum)) {
+        completedLabs.add(labNum);
+        const card = document.getElementById(`lab${labNum}`);
+        if (card) card.classList.add('completed');
+
+        if (window.ComodeAudio) window.ComodeAudio.playSuccess();
+        if (window.ComodeGamification) {
+          window.ComodeGamification.addXP(10, `Lezione 1.3 • Laboratorio ${labNum} completato!`);
+        }
+        updateLessonProgress();
+      }
+    }
+
+    function updateLessonProgress() {
+      const count = completedLabs.size;
+      const pct = (count / 6) * 100;
+      const fill = document.getElementById('progressFill');
+      const score = document.getElementById('progressScore');
+      if (fill) fill.style.width = pct + '%';
+      if (score) score.textContent = `${count} / 6 completati`;
+
+      if (count === 6) {
+        if (window.ComodeAudio) window.ComodeAudio.playLevelUp();
+      }
+    }
+
+    function refreshMathIn(el) {
+      if (el && window.ComodeComponents && typeof window.ComodeComponents.renderMath === 'function') {
+        window.ComodeComponents.renderMath(el);
+      }
+    }
+
+
+    /* ========================================================
+       LABORATORIO 1: OFFICINA POTENZE COMODE & PARENTESI
+       ======================================================== */
+    const powerCases = [
+      {
+        title: 'Caso 1 • La Trappola delle Parentesi: $(-3)^2$ contro $-3^2$',
+        subtitle: 'Chiediti sempre: chi è davvero la base dell’esponente?',
+        leftTitle: '✅ Con parentesi: $(-3)^2 = +9$',
+        leftBody: 'La parentesi abbraccia anche il segno meno: la base è $(-3)$, quindi moltiplichiamo $(-3) \\cdot (-3) = +9$ (meno per meno fa più!).',
+        leftClass: 'good',
+        rightTitle: '⚠️ Senza parentesi: $-3^2 = -9$',
+        rightBody: 'L’esponente $2$ ha la precedenza sul segno meno davanti: calcoli prima $3^2 = 9$ e poi applichi l’opposto, ottenendo $-(3 \\cdot 3) = -9$!',
+        rightClass: 'warn'
+      },
+      {
+        title: 'Caso 2 • Esponente Negativo su una Frazione: $\\left(\\frac{2}{3}\\right)^{-2}$',
+        subtitle: 'Un esponente negativo NON rende negativo il numero: capovolge la base!',
+        leftTitle: '1️⃣ Primo passo: capovolgi la frazione',
+        leftBody: 'Il segno «$-$» nell’esponente $-2$ inverte numeratore e denominatore e diventa positivo: $\\left(\\frac{2}{3}\\right)^{-2} = \\left(\\frac{3}{2}\\right)^{2}$.',
+        leftClass: 'good',
+        rightTitle: '2️⃣ Secondo passo: eleva al quadrato',
+        rightBody: 'Ora elevi comodamente numeratore e denominatore: $\\frac{3^2}{2^2} = \\frac{9}{4} = 2,25$ (un numero positivo!).',
+        rightClass: 'good'
+      },
+      {
+        title: 'Caso 3 • Scorciatoia dello Stesso Esponente: $25^3 \\times 4^3$',
+        subtitle: 'Perché calcolare $25 \\times 25 \\times 25$ quando puoi accoppiare le basi?',
+        leftTitle: '🐢 Strada faticosa (da evitare)',
+        leftBody: 'Calcolare separatamente $25^3 = 15\\,625$ e $4^3 = 64$, e poi dover moltiplicare in colonna $15\\,625 \\times 64$...',
+        leftClass: 'warn',
+        rightTitle: '🚀 Strada Comoda: $a^n \\cdot b^n = (a \\cdot b)^n$',
+        rightBody: 'Raccogli l’esponente $3$: $(25 \\times 4)^3 = 100^3 = (10^2)^3 = 10^6 = 1\\,000\\,000$ in due secondi a mente!',
+        rightClass: 'good'
+      },
+      {
+        title: 'Caso 4 • Stessa Base in Catena: $(2^4 \\cdot 2^3) : 2^5$',
+        subtitle: 'Lavora solo con piccoli numeri interi sugli esponenti!',
+        leftTitle: '1️⃣ Somma gli esponenti nel prodotto',
+        leftBody: 'Le basi sono tutte uguali a $2$: nel prodotto sommiamo gli esponenti $2^4 \\cdot 2^3 = 2^{4+3} = 2^7$.',
+        leftClass: 'good',
+        rightTitle: '2️⃣ Sottrai l’esponente nella divisione',
+        rightBody: 'Ora dividiamo: $2^7 : 2^5 = 2^{7-5} = 2^2 = 4$, senza mai calcolare $2^7 = 128$ né dividere per $32$!',
+        rightClass: 'good'
+      }
+    ];
+
+    function selectPowerCase(idx, btnEl) {
+      if (btnEl && window.ComodeAudio) window.ComodeAudio.playClick();
+      if (btnEl && btnEl.parentElement) {
+        btnEl.parentElement.querySelectorAll('.l03-pill-btn').forEach(b => b.classList.remove('active'));
+        btnEl.classList.add('active');
+      }
+      const c = powerCases[idx];
+      const box = document.getElementById('lab1PowerDisplay');
+      if (!box) return;
+      box.innerHTML = `
+        <div style="font-weight:800;font-size:1.02rem;color:var(--text-main);">${c.title}</div>
+        <div style="font-size:0.86rem;color:var(--text-muted);margin-top:0.2rem;">${c.subtitle}</div>
+        <div class="l03-power-compare-grid">
+          <div class="l03-power-box ${c.leftClass}">
+            <div style="font-weight:700;font-size:0.9rem;margin-bottom:0.35rem;">${c.leftTitle}</div>
+            <div style="font-size:0.88rem;color:var(--text-muted);line-height:1.55;">${c.leftBody}</div>
+          </div>
+          <div class="l03-power-box ${c.rightClass}">
+            <div style="font-weight:700;font-size:0.9rem;margin-bottom:0.35rem;">${c.rightTitle}</div>
+            <div style="font-size:0.88rem;color:var(--text-muted);line-height:1.55;">${c.rightBody}</div>
+          </div>
+        </div>
+      `;
+      refreshMathIn(box);
+    }
+
+    function verifyLab1() {
+      const rawA = document.getElementById('lab1InputA').value.trim().replace(',', '.').replace(/^\+/, '');
+      const rawB = document.getElementById('lab1InputB').value.trim().replace(',', '.').replace(/^\+/, '');
+      const valA = parseFloat(rawA);
+      const valB = parseFloat(rawB);
+      const msg = document.getElementById('lab1Msg');
+      msg.style.display = 'inline-flex';
+
+      const okA = (!isNaN(valA) && Math.abs(valA - 9) < 0.0001);
+      const okB = (!isNaN(valB) && Math.abs(valB - 7) < 0.0001);
+
+      if (okA && okB) {
+        msg.className = 'feedback-msg success';
+        msg.textContent = 'Eccellente! 3⁹ : 3⁷ = 3² = 9 e (−2)⁴ + (−3²) = +16 − 9 = 7!';
+        markLabCompleted(1);
+      } else {
+        if (window.ComodeAudio) window.ComodeAudio.playError();
+        msg.className = 'feedback-msg error';
+        if (!okA) {
+          msg.textContent = 'Controlla A: 3⁵ · 3⁴ = 3⁹, poi 3⁹ : 3⁷ = 3² = 9!';
+        } else {
+          msg.textContent = 'A è giusto (9)! In B ricorda: (−2)⁴ = +16 mentre −3² = −9, quindi 16 + (−9) = 7!';
+        }
+      }
+    }
+
+
+    /* ========================================================
+       LABORATORIO 2: CRIVELLO DI ERATOSTENE INTERATTIVO (1..50)
+       ======================================================== */
+    const activeSieveFilters = new Set();
+    const eliminatedBy = {}; // numero -> primo che lo ha eliminato per primo
+
+    function factorizeString(n) {
+      if (n === 1) return '1 è l’unità moltiplicativa (né primo né composto: ha un solo divisore).';
+      let temp = n;
+      const parts = [];
+      for (let d = 2; d * d <= temp; d++) {
+        let count = 0;
+        while (temp % d === 0) {
+          count++;
+          temp = Math.floor(temp / d);
+        }
+        if (count > 0) {
+          parts.push(count === 1 ? `${d}` : `${d}<sup>${count}</sup>`);
+        }
+      }
+      if (temp > 1) parts.push(`${temp}`);
+      if (parts.length === 1 && !parts[0].includes('sup')) {
+        return `<strong style="color:var(--accent-success);">${n} è un NUMERO PRIMO!</strong> Divisibile solo per 1 e per ${n}.`;
+      }
+      return `<strong>${n}</strong> è composto → Scomposizione unica in atomi primi: <strong style="color:var(--accent-math);">${n} = ${parts.join(' × ')}</strong>`;
+    }
+
+    function applySievePrime(p) {
+      if (window.ComodeAudio) window.ComodeAudio.playClick();
+      activeSieveFilters.add(p);
+      let newlyRemoved = [];
+      for (let m = p * 2; m <= 50; m += p) {
+        if (!eliminatedBy[m]) {
+          eliminatedBy[m] = p;
+          newlyRemoved.push(m);
+        }
+      }
+      const btn = document.getElementById(`sieveBtn${p}`);
+      if (btn) btn.classList.add('done');
+
+      renderSieveGrid();
+
+      const insp = document.getElementById('sieveInspector');
+      if (insp) {
+        if (newlyRemoved.length > 0) {
+          insp.innerHTML = `Filtro <strong>×${p}</strong> attivato! Teniamo il primo <strong style="color:var(--accent-success);">${p}</strong> ed eliminiamo ${newlyRemoved.length} nuovi multipli: <code>${newlyRemoved.join(', ')}</code>.`;
+        } else {
+          insp.innerHTML = `Filtro <strong>×${p}</strong> già applicato! Tutti i multipli di ${p} fino a 50 sono stati setacciati.`;
+        }
+      }
+    }
+
+    function resetSieve() {
+      if (window.ComodeAudio) window.ComodeAudio.playClick();
+      activeSieveFilters.clear();
+      Object.keys(eliminatedBy).forEach(k => delete eliminatedBy[k]);
+      [2, 3, 5, 7].forEach(p => {
+        const btn = document.getElementById(`sieveBtn${p}`);
+        if (btn) btn.classList.remove('done');
+      });
+      renderSieveGrid();
+      const insp = document.getElementById('sieveInspector');
+      if (insp) {
+        insp.innerHTML = '🔄 Setaccio azzerato! Attiva i filtri in ordine ($2 \\to 3 \\to 5 \\to 7$) o clicca su una casella.';
+        refreshMathIn(insp);
+      }
+    }
+
+    function renderSieveGrid() {
+      const grid = document.getElementById('sieveGrid');
+      if (!grid) return;
+      grid.innerHTML = '';
+
+      const allFourDone = [2, 3, 5, 7].every(p => activeSieveFilters.has(p));
+
+      for (let n = 1; n <= 50; n++) {
+        const cell = document.createElement('div');
+        cell.className = 'l03-sieve-cell';
+
+        if (n === 1) {
+          cell.classList.add('unit-one');
+          cell.innerHTML = `<span>1</span><span style="font-size:0.56rem;color:var(--text-dim);">unità</span>`;
+        } else if (eliminatedBy[n]) {
+          cell.classList.add('sieved-out');
+          cell.innerHTML = `<span>${n}</span><span class="l03-sieve-tag">×${eliminatedBy[n]}</span>`;
+        } else if (activeSieveFilters.has(n) || allFourDone) {
+          cell.classList.add('prime-confirmed');
+          cell.innerHTML = `<span>${n}</span>`;
+        } else {
+          cell.innerHTML = `<span>${n}</span>`;
+        }
+
+        cell.addEventListener('click', () => {
+          if (window.ComodeAudio) window.ComodeAudio.playClick();
+          const insp = document.getElementById('sieveInspector');
+          if (insp) insp.innerHTML = `🔍 Ispezione casella: ${factorizeString(n)}`;
+        });
+
+        grid.appendChild(cell);
+      }
+    }
+
+    function verifyLab2() {
+      const cVal = parseInt(document.getElementById('lab2CountInput').value.trim(), 10);
+      const sVal = parseInt(document.getElementById('lab2SevenInput').value.trim(), 10);
+      const msg = document.getElementById('lab2Msg');
+      msg.style.display = 'inline-flex';
+
+      if (cVal === 15 && sVal === 49) {
+        msg.className = 'feedback-msg success';
+        msg.textContent = 'Perfetto! Tra 1 e 50 ci sono esattamente 15 numeri primi, e il filtro ×7 elimina solo 49 = 7²!';
+        markLabCompleted(2);
+      } else {
+        if (window.ComodeAudio) window.ComodeAudio.playError();
+        msg.className = 'feedback-msg error';
+        if (cVal !== 15) {
+          msg.textContent = 'Attiva tutti e 4 i filtri (2, 3, 5, 7) e conta le caselle verdi (escluso l’1): sono 15!';
+        } else {
+          msg.textContent = '15 primi è esatto! Ora guarda quale numero ha il bollino ×7: 14, 21, 28, 35 e 42 erano già caduti, resta solo 7×7 = 49!';
+        }
+      }
+    }
+
+
+    /* ========================================================
+       LABORATORIO 3: ATOMI PRIMI (M.C.D. e m.c.m.)
+       ======================================================== */
+    function getPrimeMap(n) {
+      const map = {};
+      let t = n;
+      for (let d = 2; d <= t; d++) {
+        while (t % d === 0) {
+          map[d] = (map[d] || 0) + 1;
+          t = Math.floor(t / d);
+        }
+      }
+      return map;
+    }
+
+    function formatChips(map) {
+      return Object.keys(map).map(p => {
+        const exp = map[p];
+        const cls = p === '3' ? 'p3' : (p === '5' ? 'p5' : '');
+        return `<span class="l03-prime-chip ${cls}">${p}${exp > 1 ? `<sup>${exp}</sup>` : ''}</span>`;
+      }).join(' ');
+    }
+
+    function gcd(a, b) { return b === 0 ? a : gcd(b, a % b); }
+
+    function renderAtomPair(a, b, btnEl) {
+      if (btnEl && window.ComodeAudio) window.ComodeAudio.playClick();
+      if (btnEl && btnEl.parentElement) {
+        btnEl.parentElement.querySelectorAll('.l03-pill-btn').forEach(btn => btn.classList.remove('active'));
+        btnEl.classList.add('active');
+      }
+      const board = document.getElementById('lab3AtomsBoard');
+      if (!board) return;
+
+      const mapA = getPrimeMap(a);
+      const mapB = getPrimeMap(b);
+      const g = gcd(a, b);
+      const l = (a * b) / g;
+      const mapG = getPrimeMap(g);
+      const mapL = getPrimeMap(l);
+
+      board.innerHTML = `
+        <div class="l03-atom-card">
+          <div style="font-size:0.78rem;font-weight:800;color:var(--text-muted);text-transform:uppercase;">Atomi dei due numeri</div>
+          <div style="margin-top:0.5rem;font-size:0.95rem;"><strong>${a}</strong> = ${formatChips(mapA)}</div>
+          <div style="margin-top:0.45rem;font-size:0.95rem;"><strong>${b}</strong> = ${formatChips(mapB)}</div>
+        </div>
+        <div class="l03-atom-card" style="border-color:rgba(16,185,129,0.35);">
+          <div style="font-size:0.78rem;font-weight:800;color:var(--accent-success);text-transform:uppercase;">M.C.D.(${a}, ${b}) = ${g}</div>
+          <div style="margin-top:0.45rem;">${formatChips(mapG)}</div>
+          <div style="font-size:0.8rem;color:var(--text-muted);margin-top:0.35rem;">Solo i fattori <strong>comuni</strong> con esponente <strong>più piccolo</strong>.</div>
+        </div>
+        <div class="l03-atom-card" style="border-color:rgba(56,189,248,0.35);">
+          <div style="font-size:0.78rem;font-weight:800;color:var(--accent-math);text-transform:uppercase;">m.c.m.(${a}, ${b}) = ${l}</div>
+          <div style="margin-top:0.45rem;">${formatChips(mapL)}</div>
+          <div style="font-size:0.8rem;color:var(--text-muted);margin-top:0.35rem;">Fattori <strong>comuni e non comuni</strong> con esponente <strong>più grande</strong>.</div>
+        </div>
+      `;
+    }
+
+    function verifyLab3() {
+      const mcdVal = parseInt(document.getElementById('lab3McdInput').value.trim(), 10);
+      const mcmVal = parseInt(document.getElementById('lab3McmInput').value.trim(), 10);
+      const msg = document.getElementById('lab3Msg');
+      msg.style.display = 'inline-flex';
+
+      if (mcdVal === 12 && mcmVal === 24) {
+        msg.className = 'feedback-msg success';
+        msg.textContent = 'Bravissimo! 12 buste identiche (con 3 quaderni e 4 penne ciascuna) e prossimo incontro comune tra 24 giorni!';
+        markLabCompleted(3);
+      } else {
+        if (window.ComodeAudio) window.ComodeAudio.playError();
+        msg.className = 'feedback-msg error';
+        if (mcdVal !== 12) {
+          msg.textContent = 'Per le buste calcola M.C.D.(36, 48): 36 = 2²·3² e 48 = 2⁴·3 → 2²·3 = 12 buste!';
+        } else {
+          msg.textContent = '12 buste è esatto! Per le riunioni calcola m.c.m.(6, 8): 6 = 2·3 e 8 = 2³ → 2³·3 = 24 giorni!';
+        }
+      }
+    }
+
+
+    /* ========================================================
+       LABORATORIO 4: LA MACCHINA DI EUCLIDE PASSO-PASSO
+       ======================================================== */
+    const euclidPresets = [
+      {
+        primes: [2, 3],
+        P: 6,
+        N: 7,
+        isNPrime: true,
+        conclusion: 'Il numero $N = 7$ è <strong>primo</strong> lui stesso e non era in $\\{2, 3\\}$! Abbiamo subito trovato un nuovo numero primo!'
+      },
+      {
+        primes: [2, 3, 5],
+        P: 30,
+        N: 31,
+        isNPrime: true,
+        conclusion: 'Il numero $N = 31$ è <strong>primo</strong> e non apparteneva a $\\{2, 3, 5\\}$! La lista non era completa.'
+      },
+      {
+        primes: [2, 3, 5, 7],
+        P: 210,
+        N: 211,
+        isNPrime: true,
+        conclusion: 'Il numero $N = 211$ è <strong>primo</strong> e mancava in $\\{2, 3, 5, 7\\}$! Un altro primo scoperto.'
+      },
+      {
+        primes: [2, 3, 5, 7, 11, 13],
+        P: 30030,
+        N: 30031,
+        isNPrime: false,
+        conclusion: '<strong>Attenzione alla sorpresa!</strong> $30\\,031$ <em>non</em> è primo: vale $59 \\times 509$. Ma sia <strong>$59$</strong> sia <strong>$509$</strong> sono <strong>nuovi numeri primi</strong> che non erano nella lista $\\{2, 3, 5, 7, 11, 13\\}$! Il ragionamento di Euclide vince comunque!'
+      }
+    ];
+
+    function runEuclidMachine(idx, btnEl) {
+      if (btnEl && window.ComodeAudio) window.ComodeAudio.playClick();
+      if (btnEl && btnEl.parentElement) {
+        btnEl.parentElement.querySelectorAll('.l03-pill-btn').forEach(b => b.classList.remove('active'));
+        btnEl.classList.add('active');
+      }
+      const data = euclidPresets[idx];
+      const board = document.getElementById('euclidStepsBoard');
+      if (!board) return;
+
+      const remBadges = data.primes.map(p => {
+        const q = Math.floor(data.P / p);
+        return `<span class="l03-rem-pill">${data.N} : ${p} = ${q} resto 1</span>`;
+      }).join('');
+
+      board.innerHTML = `
+        <div class="l03-euclid-step-card">
+          <div class="l03-step-kicker">Passo 1 • Falsa Ipotesi Finita</div>
+          <div style="font-size:0.88rem;line-height:1.5;">
+            Supponiamo che la lista finita contenga solo:<br>
+            <strong style="font-family:var(--font-mono);color:var(--accent-purple);">{ ${data.primes.join(', ')} }</strong>
+          </div>
+        </div>
+        <div class="l03-euclid-step-card">
+          <div class="l03-step-kicker">Passo 2 • Costruzione $N = P + 1$</div>
+          <div style="font-size:0.88rem;line-height:1.5;">
+            Moltiplichiamo tutti i primi e aggiungiamo $1$:<br>
+            $N = (${data.primes.join(' \\cdot ')}) + 1 = ${data.P} + 1 =$ <strong style="color:var(--accent-math);">${data.N}</strong>
+          </div>
+        </div>
+        <div class="l03-euclid-step-card">
+          <div class="l03-step-kicker">Passo 3 • Test dei Resti</div>
+          <div style="font-size:0.85rem;color:var(--text-muted);">Nessun primo della lista divide ${data.N}:</div>
+          <div class="l03-remainder-pills">${remBadges}</div>
+        </div>
+        <div class="l03-euclid-step-card climax">
+          <div class="l03-step-kicker" style="color:var(--accent-success);">Passo 4 • Nuovo Primo Scoperto!</div>
+          <div style="font-size:0.86rem;line-height:1.52;">${data.conclusion}</div>
+        </div>
+      `;
+      refreshMathIn(board);
+    }
+
+    function verifyLab4() {
+      const nVal = parseInt(document.getElementById('lab4EuclidN').value.trim(), 10);
+      const pVal = parseInt(document.getElementById('lab4EuclidP').value.trim(), 10);
+      const msg = document.getElementById('lab4Msg');
+      msg.style.display = 'inline-flex';
+
+      if (nVal === 111 && pVal === 3) {
+        msg.className = 'feedback-msg success';
+        msg.textContent = 'Magnifico! N = 2·5·11 + 1 = 111, e poiché 111 = 3 × 37, abbiamo scovato i nuovi primi 3 e 37 fuori dalla lista!';
+        markLabCompleted(4);
+      } else {
+        if (window.ComodeAudio) window.ComodeAudio.playError();
+        msg.className = 'feedback-msg error';
+        if (nVal !== 111) {
+          msg.textContent = 'Calcola prima N = (2 · 5 · 11) + 1 = 110 + 1 = 111!';
+        } else {
+          msg.textContent = 'N = 111 è esatto! Ora: 1 + 1 + 1 = 3, quindi qual è il più piccolo numero primo che divide 111? (È 3!)';
+        }
+      }
+    }
+
+
+    /* ========================================================
+       LABORATORIO 5: STORIA & CRITTOGRAFIA RSA DI WHATSAPP
+       ======================================================== */
+    const historyEras = [
+      {
+        title: '🏺 Babilonia (~1800 a.C.) • Il Segreto della Base 60 sulle Tavolette d’Argilla',
+        body: 'Sulle tavolette cuneiformi della Mesopotamia (come la celebre <em>Plimpton 322</em>), gli scribi contavano in <strong>base $60$</strong> invece che in base $10$. Perché proprio $60$? Perché $60 = 2^2 \\cdot 3 \\cdot 5$ possiede ben <strong>$12$ divisori</strong> ($1, 2, 3, 4, 5, 6, 10, 12, 15, 20, 30, 60$), rendendo facilissimo dividere raccolti, ore e angoli senza resti scomodi! È grazie a loro se ancora oggi un’ora ha $60$ minuti.'
+      },
+      {
+        title: '🏛️ Alessandria d’Egitto (~300–240 a.C.) • Euclide ed Eratostene',
+        body: 'Nella grande Biblioteca di Alessandria, <strong>Euclide</strong> raccoglie negli <em>Elementi</em> la dimostrazione dell’unicità della fattorizzazione e dell’infinità dei numeri primi (Libro IX, Prop. 20). Pochi decenni dopo, il bibliotecario <strong>Eratostene di Cirene</strong> — lo stesso scienziato che misurò con l’ombra di un bastone la circonferenza della Terra — ideò il celebre <em>Crivello</em> per setacciare i primi.'
+      },
+      {
+        title: '📜 Cambridge (1940) • «I numeri primi non serviranno mai alla guerra o agli affari»',
+        body: 'Nel libro <em>Apologia di un matematico</em> (1940), il grande matematico inglese <strong>G. H. Hardy</strong> andava fiero che la teoria dei numeri primi fosse così pura e astratta da non avere <em>«alcuna utilità pratica o commerciale»</em>. Non poteva immaginare che trentasette anni dopo proprio i numeri primi sarebbero diventati la cassaforte dell’intera civiltà digitale!'
+      },
+      {
+        title: '🔐 Dal MIT a WhatsApp (1977–Oggi) • Il Lucchetto Asimmetrico RSA',
+        body: 'Nel 1977 <strong>Rivest, Shamir e Adleman</strong> inventano l’algoritmo <strong>RSA</strong>: moltiplicare due primi enormi $p \\times q = n$ richiede un lampo, ma fattorizzare $n$ richiede secoli. Oggi la crittografia asimmetrica protegge ogni sito <code>https://</code>, i pagamenti contactless e lo scambio sicuro delle chiavi nella crittografia <em>end-to-end</em> di app come <strong>WhatsApp</strong> e <strong>Signal</strong>.'
+      }
+    ];
+
+    function selectHistoryEra(idx, btnEl) {
+      if (btnEl && window.ComodeAudio) window.ComodeAudio.playClick();
+      if (btnEl && btnEl.parentElement) {
+        btnEl.parentElement.querySelectorAll('.l03-pill-btn').forEach(b => b.classList.remove('active'));
+        btnEl.classList.add('active');
+      }
+      const box = document.getElementById('historyEraCard');
+      if (!box) return;
+      const era = historyEras[idx];
+      box.innerHTML = `
+        <div style="font-weight:800;font-size:1rem;color:var(--text-main);margin-bottom:0.4rem;">${era.title}</div>
+        <div style="font-size:0.9rem;color:var(--text-muted);line-height:1.6;">${era.body}</div>
+      `;
+      refreshMathIn(box);
+    }
+
+    function updateRsaLock() {
+      const pEl = document.getElementById('rsaSelectP');
+      const qEl = document.getElementById('rsaSelectQ');
+      const out = document.getElementById('rsaPublicOutput');
+      if (!pEl || !qEl || !out) return;
+      const p = parseInt(pEl.value, 10);
+      const q = parseInt(qEl.value, 10);
+      const n = p * q;
+      out.innerHTML = `🔓 Chiave Pubblica generata in &lt;0,01 ms: n = ${p} × ${q} = <span style="color:var(--accent-gold);font-size:1.05rem;">${n}</span>`;
+    }
+
+    function verifyLab5() {
+      const pVal = parseInt(document.getElementById('lab5InputP').value.trim(), 10);
+      const qVal = parseInt(document.getElementById('lab5InputQ').value.trim(), 10);
+      const msg = document.getElementById('lab5Msg');
+      msg.style.display = 'inline-flex';
+
+      if (pVal === 7 && qVal === 13) {
+        msg.className = 'feedback-msg success';
+        msg.textContent = 'Lucchetto aperto! 91 = 7 × 13: con numeri piccoli basta un attimo, per questo RSA usa primi da 300 cifre!';
+        markLabCompleted(5);
+      } else if (pVal === 13 && qVal === 7) {
+        if (window.ComodeAudio) window.ComodeAudio.playError();
+        msg.className = 'feedback-msg error';
+        msg.textContent = 'Hai trovato i due primi giusti (7 e 13)! Scrivi il più piccolo (7) nella prima casella e 13 nella seconda.';
+      } else {
+        if (window.ComodeAudio) window.ComodeAudio.playError();
+        msg.className = 'feedback-msg error';
+        msg.textContent = 'Riprova! Dividi 91 per 7: 91 = 70 + 21 = 7 × 13!';
+      }
+    }
+
+
+    /* ========================================================
+       LABORATORIO 6: PALESTRA MENTALE (4 SFIDE)
+       ======================================================== */
+    const l03GymSolved = new Set();
+
+    function checkL03Gym(idx, expected) {
+      const raw = document.getElementById(`l03gym${idx}Input`).value.trim().replace(',', '.').replace(/^\+/, '');
+      const val = parseFloat(raw);
+      const fb = document.getElementById(`l03gym${idx}Feedback`);
+      const card = document.getElementById(`l03gym${idx}`);
+
+      if (!isNaN(val) && Math.abs(val - expected) < 0.0001) {
+        if (window.ComodeAudio) window.ComodeAudio.playSuccess();
+        l03GymSolved.add(idx);
+        card.classList.add('solved');
+        fb.style.color = 'var(--accent-success)';
+        fb.textContent = '✓ Risposta esatta!';
+        if (l03GymSolved.size === 4) {
+          markLabCompleted(6);
+        }
+      } else {
+        if (window.ComodeAudio) window.ComodeAudio.playError();
+        fb.style.color = 'var(--accent-danger)';
+        const hints = {
+          1: 'Ricorda: 7⁰ = 1 e 2⁻¹ = 1/2 = 0,5. Quindi 1 + 0,5 = 1,5!',
+          2: '(5³)⁴ = 5¹², poi 5¹² : 5¹⁰ = 5² = 25!',
+          3: '72 = 8 × 9 = 2³ × 3², quindi l’esponente a vale 3!',
+          4: 'Il prodotto contiene il fattore 11, quindi è un multiplo esatto di 11: aggiungendo +1 il resto è subito 1!'
+        };
+        fb.textContent = hints[idx];
+      }
+    }
+
+
+    /* ========================================================
+       INIZIALIZZAZIONE LEZIONE 1.3 & MAZZO FLASHCARDS
+       ======================================================== */
+    function initLesson() {
+      selectPowerCase(0, null);
+      renderSieveGrid();
+      renderAtomPair(18, 30, null);
+      runEuclidMachine(0, null);
+      selectHistoryEra(0, null);
+      updateRsaLock();
+
+      if (window.ComodeFlashcards) {
+        ComodeFlashcards.init('lessonFlashcardDeck', {
+          deckId: 'pb-1.1-l03-flashcards',
+          xpPerCard: 15,
+          completionXP: 25,
+          cards: [
+            {
+              category: 'Potenze & Parentesi',
+              theoryRef: 'Teoria 1 • Segno della Base e Parentesi',
+              theoryTargetId: 'teoria-1',
+              question: 'Quali sono i valori corretti delle due espressioni $(-4)^2$ e $-4^2$?',
+              options: [
+                'Valgono entrambe $+16$ perché l’esponente $2$ è pari',
+                '$(-4)^2 = +16$, mentre $-4^2 = -16$',
+                'Valgono entrambe $-16$ perché c’è il segno meno davanti',
+                '$(-4)^2 = -8$, mentre $-4^2 = +16$'
+              ],
+              correct: 1,
+              explanation: 'In $(-4)^2$ la base è $(-4)$ e $(-4)\\cdot(-4) = +16$. In $-4^2$ senza parentesi il quadrato si applica solo a $4$, dando $-(4\\cdot 4) = -16$.'
+            },
+            {
+              category: 'Esponenti Negativi in ℤ',
+              theoryRef: 'Teoria 2 • Esponente Intero Negativo',
+              theoryTargetId: 'teoria-2',
+              question: 'Quanto vale la potenza con esponente negativo $\\left(\\frac{2}{5}\\right)^{-2}$?',
+              options: [
+                '$-\\frac{4}{25}$',
+                '$\\frac{4}{25}$',
+                '$-\\frac{25}{4}$',
+                '$\\frac{25}{4}$'
+              ],
+              correct: 3,
+              explanation: 'L’esponente negativo inverte la frazione di base senza cambiarne il segno: $\\left(\\frac{2}{5}\\right)^{-2} = \\left(\\frac{5}{2}\\right)^2 = \\frac{25}{4}$.'
+            },
+            {
+              category: 'Teorema Fondamentale',
+              theoryRef: 'Teoria 3 • Perché 1 non è primo',
+              theoryTargetId: 'teoria-3',
+              question: 'Per quale motivo profondo i matematici <strong>escludono il numero $1$</strong> dall’elenco dei numeri primi?',
+              options: [
+                'Perché se $1$ fosse primo potremmo aggiungere infiniti fattori $\\times 1$ (es. $6 = 2\\cdot 3 = 1\\cdot 2\\cdot 3$), perdendo l’unicità della scomposizione in fattori primi',
+                'Perché $1$ è un numero dispari troppo piccolo',
+                'Perché $1$ non può essere moltiplicato per gli altri numeri naturali',
+                'Perché i Greci non conoscevano ancora il numero $1$'
+              ],
+              correct: 0,
+              explanation: 'Il Teorema Fondamentale dell’Aritmetica garantisce che ogni numero $>1$ abbia una scomposizione in primi <em>unica</em>; includere l’$1$ distruggerebbe questa unicità.'
+            },
+            {
+              category: 'Dimostrazione di Euclide',
+              theoryRef: 'Teoria 5 • Infinità dei Numeri Primi',
+              theoryTargetId: 'teoria-5',
+              question: 'Nella dimostrazione di Euclide, partendo da una lista finita di primi $\\{p_1, p_2, \\dots, p_k\\}$ si costruisce $N = (p_1 \\cdot p_2 \\cdots p_k) + 1$. Cosa possiamo affermare con certezza assoluta su $N$?',
+              options: [
+                'Che $N$ è sempre, in tutti i casi, un numero primo',
+                'Che $N$ è divisibile per tutti i primi della lista senza lasciare resto',
+                'Che $N$ lascia resto $1$ se diviso per qualunque primo della lista, quindi i suoi fattori primi sono tutti nuovi primi fuori dalla lista',
+                'Che $N$ è sempre un numero pari'
+              ],
+              correct: 2,
+              explanation: '$N$ non è necessariamente primo (es. $2\\cdot 3\\cdot 5\\cdot 7\\cdot 11\\cdot 13 + 1 = 30\\,031 = 59 \\times 509$), ma dando resto $1$ con ogni primo della lista ha sicuramente almeno un fattore primo nuovo!'
+            },
+            {
+              category: 'Crittografia & Privacy',
+              theoryRef: 'Teoria 6 • Lucchetto Asimmetrico RSA',
+              theoryTargetId: 'teoria-6',
+              question: 'Su quale asimmetria matematica si fonda la sicurezza della crittografia RSA usata sul web?',
+              options: [
+                'Sul fatto che nessuno al mondo sa moltiplicare due numeri di $300$ cifre',
+                'Sul fatto che moltiplicare due primi grandi $p \\cdot q = n$ è rapidissimo, mentre risalire a $p$ e $q$ conoscendo solo il prodotto $n$ richiede tempi enormi',
+                'Sul fatto che i numeri primi finiscono dopo $10^{100}$',
+                'Sul fatto che il Crivello di Eratostene funziona solo sui numeri negativi'
+              ],
+              correct: 1,
+              explanation: 'La moltiplicazione $p \\times q = n$ richiede frazioni di millisecondo ad uno smartphone, mentre la fattorizzazione inversa di un modulo $n$ da $600$ cifre è computazionalmente proibitiva.'
+            }
+          ]
+        });
+      }
+    }
+
+    if (document.readyState !== 'loading') {
+      initLesson();
+    } else {
+      document.addEventListener('DOMContentLoaded', initLesson);
+    }
+  </script>
+</body>
+
+</html>
+
