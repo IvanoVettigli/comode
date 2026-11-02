@@ -281,6 +281,128 @@
       padding: 1rem;
       text-align: center;
     }
+
+    /* Laboratorio Fermi: Stime e Ordini di Grandezza */
+    .l02-fermi-hero {
+      background: linear-gradient(135deg, rgba(56, 189, 248, 0.08) 0%, rgba(139, 92, 246, 0.08) 100%);
+      border: 1px solid var(--border-accent);
+      border-radius: var(--radius-lg);
+      padding: 1.25rem;
+      margin: 1.15rem 0;
+      display: flex;
+      gap: 1.25rem;
+      align-items: center;
+    }
+
+    @media (max-width: 650px) {
+      .l02-fermi-hero {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+
+    .l02-fermi-avatar {
+      font-size: 2.8rem;
+      flex-shrink: 0;
+      width: 76px;
+      height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--bg-surface-elevated);
+      border: 2px solid var(--accent-math);
+      border-radius: 50%;
+      box-shadow: 0 0 20px var(--accent-math-glow);
+    }
+
+    .l02-fermi-tabs {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.15rem;
+    }
+
+    .l02-fermi-tab-btn {
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+      font-family: inherit;
+      padding: 0.55rem 1rem;
+      border-radius: var(--radius-md);
+      font-size: 0.88rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+    }
+
+    .l02-fermi-tab-btn:hover,
+    .l02-fermi-tab-btn.active {
+      background: rgba(56, 189, 248, 0.15);
+      border-color: var(--accent-math);
+      color: var(--text-main);
+    }
+
+    .l02-fermi-case-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 1.35rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .l02-fermi-steps-list {
+      list-style: none;
+      padding: 0;
+      margin: 1rem 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .l02-fermi-step-item {
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-subtle);
+      border-left: 3px solid var(--accent-math);
+      border-radius: var(--radius-sm);
+      padding: 0.75rem 1rem;
+      font-size: 0.92rem;
+      line-height: 1.55;
+    }
+
+    .l02-fermi-result-banner {
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.12) 0%, rgba(56, 189, 248, 0.12) 100%);
+      border: 1px solid rgba(16, 185, 129, 0.35);
+      border-radius: var(--radius-md);
+      padding: 1rem 1.25rem;
+      margin-top: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
+    .l02-fermi-odg-badge {
+      font-family: var(--font-mono);
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--accent-success);
+      background: var(--bg-surface);
+      padding: 0.35rem 0.85rem;
+      border-radius: var(--radius-pill);
+      border: 1px solid var(--accent-success);
+    }
+
+    .l02-fermi-challenge-box {
+      background: var(--bg-surface-elevated);
+      border: 2px dashed var(--accent-purple);
+      border-radius: var(--radius-md);
+      padding: 1.35rem;
+      margin-top: 1.25rem;
+    }
   </style>
 </head>
 
@@ -337,7 +459,7 @@
       <div class="progress-bar-card">
         <div class="progress-label">
           <span>🎯 Progresso Laboratori Guidati:</span>
-          <span class="progress-score" id="progressScore">0 / 6 completati</span>
+          <span class="progress-score" id="progressScore">0 / 7 completati</span>
         </div>
         <div class="progress-track">
           <div class="progress-fill" id="progressFill"></div>
@@ -393,6 +515,11 @@
           </li>
           <li>
             <span class="po-icon">🚀</span>
+            <div><strong>Risolvere i Problemi alla Fermi:</strong> stimare quantità enormi senza dati esatti scomponendo
+              il problema in fattori quotidiani e applicando la compensazione degli errori negli ordini di grandezza.</div>
+          </li>
+          <li>
+            <span class="po-icon">🚀</span>
             <div><strong>Confrontare Scale Lineari e Scale a Potenze di 10:</strong> capire perché i nostri sensi
               (udito, vista, tatto) seguono una scala moltiplicativa.</div>
           </li>
@@ -407,7 +534,7 @@
 
 
     <!-- ========================================================
-         SEZIONE 1: SCHEDA TEORIA FLASH (6 Ancore #teoria-1..6)
+         SEZIONE 1: SCHEDA TEORIA FLASH (7 Ancore #teoria-1..7)
          ======================================================== -->
     <section class="theory-wrapper">
       <div class="section-header">
@@ -505,6 +632,19 @@
         <div class="theory-card" id="teoria-6">
           <div class="theory-card-header">
             <span class="pill-num">6</span>
+            <span>Chi era Enrico Fermi &amp; i «Problemi alla Fermi»</span>
+          </div>
+          <ul class="theory-list">
+            <li><strong>Enrico Fermi (1901–1954)</strong>: fisico italiano tra i più grandi del XX secolo e Premio Nobel 1938, celebre per la sua capacità di calcolare stime rapidissime "sul retro di una busta". Al test <em>Trinity</em> del 1945 stimò l'energia dell'esplosione nucleare ($10\text{ kilotoni}$) semplicemente osservando di quanto l'onda d'urto faceva volare alcuni pezzetti di carta lasciati cadere dalla mano!</li>
+            <li><strong>Cosa sono i «Problemi alla Fermi»</strong>: stime quantitative di fenomeni apparentemente impossibili da calcolare senza dati precisi (es. <em>«Quanti accordatori di pianoforti lavorano a Chicago?»</em> o <em>«Quanti litri d'acqua sprechiamo lavandoci i denti?»</em>).</li>
+            <li><strong>Compensazione degli Errori</strong>: dividendo il problema in fattori stimabili col buon senso, alcune stime saranno un po' per eccesso e altre per difetto: nel moltiplicarle o dividerle, <em>gli errori tendono a compensarsi</em>, portando il risultato finale dritto nell'<strong>ordine di grandezza reale</strong> ($10^k$).</li>
+          </ul>
+        </div>
+
+        <!-- Teoria 7 -->
+        <div class="theory-card" id="teoria-7">
+          <div class="theory-card-header">
+            <span class="pill-num">7</span>
             <span>Scale Lineari vs Scale a Potenze di 10 &amp; Sensi</span>
           </div>
           <ul class="theory-list">
@@ -533,7 +673,7 @@
 
 
     <!-- ========================================================
-         SEZIONE 2: I 6 LABORATORI OPERATIVI INTERATTIVI
+         SEZIONE 2: I 7 LABORATORI OPERATIVI INTERATTIVI
          ======================================================== -->
     <main class="labs-container">
       <div class="section-header">
@@ -846,11 +986,224 @@
 
 
       <!-- ==========================================
-           LABORATORIO 4: LEGGE DI WEBER-FECHNER
+           LABORATORIO 4: I PROBLEMI ALLA FERMI
            ========================================== -->
       <article class="lab-card" id="lab4">
         <div class="lab-badge-row">
-          <span class="lab-badge">Laboratorio 4 • Psicofisica &amp; Scienze Umane</span>
+          <span class="lab-badge">Laboratorio 4 • Metodo di Fermi &amp; Ordini di Grandezza</span>
+          <span class="lab-xp-badge">+10 XP</span>
+        </div>
+        <h3 class="lab-title">I «Problemi alla Fermi»: L'Arte della Stima &amp; Ordini di Grandezza</h3>
+
+        <div class="theory-link-box">
+          <span class="tl-icon">🔗</span>
+          <div>
+            <strong>Collegamento Teoria ↔ Pratica:</strong> Questo laboratorio mette in azione la
+            <a href="#teoria-5" class="theory-link-anchor"
+              onclick="event.preventDefault(); scrollToTheory('teoria-5');">Teoria 5 • Ordine di Grandezza</a> e la
+            <a href="#teoria-6" class="theory-link-anchor"
+              onclick="event.preventDefault(); scrollToTheory('teoria-6');">Teoria 6 • Chi era Enrico Fermi &amp; i Problemi alla Fermi</a>:
+            quando mancano dati precisi, la scomposizione a catena e il calcolo con le potenze di $10$ permettono di trovare la dimensione corretta di qualsiasi fenomeno.
+          </div>
+        </div>
+
+        <div class="l02-fermi-hero">
+          <div class="l02-fermi-avatar">⚛️</div>
+          <div>
+            <div style="font-size: 0.82rem; font-weight: 800; text-transform: uppercase; color: var(--accent-math); letter-spacing: 0.05em; margin-bottom: 0.25rem;">
+              L'Aneddoto Storico • Enrico Fermi e il Test Trinity (1945)
+            </div>
+            <p style="font-size: 0.92rem; margin: 0; line-height: 1.55; color: var(--text-main);">
+              Durante il primo test nucleare della storia, mentre tutti attendevano i complessi sismografi, <strong>Enrico Fermi</strong> salì su un rialzo e lasciò cadere dei pezzetti di carta all'arrivo dell'onda d'urto. Misurandone lo spostamento a terra ($2,5\text{ m}$), calcolò a mente in due minuti che l'energia sprigionata era di circa <strong>$10\text{ kilotoni}$</strong> di TNT. I calcoli dei super-strumenti richiesero settimane per confermare: circa $18\text{ kilotoni}$. Fermi era già nello stesso ordine di grandezza!
+            </p>
+          </div>
+        </div>
+
+        <p class="lab-intro">
+          Esplora le <strong>soluzioni guidate a passi</strong> dei $3$ problemi alla Fermi più celebri della storia, poi mettiti alla prova con la sfida interattiva finale:
+        </p>
+
+        <!-- Tab Selector per i 3 Problemi Famosi -->
+        <div class="l02-fermi-tabs">
+          <button type="button" class="l02-fermi-tab-btn active" id="fermiTabBtn1" onclick="switchFermiCase('chicago', this)">
+            🎹 1. Accordatori a Chicago (Il Classico)
+          </button>
+          <button type="button" class="l02-fermi-tab-btn" id="fermiTabBtn2" onclick="switchFermiCase('acqua', this)">
+            🚰 2. Acqua Lavaggio Denti (Spreco in Italia)
+          </button>
+          <button type="button" class="l02-fermi-tab-btn" id="fermiTabBtn3" onclick="switchFermiCase('tennis', this)">
+            🎾 3. Palline da Tennis nell'Aula
+          </button>
+        </div>
+
+        <!-- CASO 1: Accordatori a Chicago -->
+        <div class="l02-fermi-case-card" id="fermiCaseChicago" style="display: block;">
+          <div style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.75rem;">
+            <h4 style="margin: 0; font-size: 1.1rem; color: var(--accent-math);">🎹 Caso 1: Quanti accordatori di pianoforti lavorano a Chicago?</h4>
+            <span style="font-size: 0.8rem; font-weight: 700; color: var(--text-muted); background: var(--bg-surface-elevated); padding: 0.2rem 0.6rem; border-radius: var(--radius-pill);">Il Quesito Originale di Fermi</span>
+          </div>
+          <p style="font-size: 0.92rem; color: var(--text-muted); margin-bottom: 1rem;">
+            A prima vista sembra una domanda a cui solo un'indagine dell'Istat americana potrebbe rispondere. Ecco come la risolse Fermi usando solo il buon senso e la notazione scientifica:
+          </p>
+          <ul class="l02-fermi-steps-list">
+            <li class="l02-fermi-step-item">
+              <strong>1. Popolazione &amp; Famiglie:</strong> Chicago conta circa $3$ milioni di abitanti ($3 \times 10^6$). Stimando una media di $3$ persone per famiglia ($3 \times 10^0$), ci sono circa $\frac{3 \times 10^6}{3} = \mathbf{10^6 \text{ famiglie}}$ ($1$ milione).
+            </li>
+            <li class="l02-fermi-step-item">
+              <strong>2. Quanti pianoforti in città?</strong> Stimiamo che circa $1$ famiglia su $20$ possieda un pianoforte (includendo scuole, teatri e bar): $5\% = 5 \times 10^{-2}$.
+              Dunque ci sono $10^6 \times (5 \times 10^{-2}) = \mathbf{5 \times 10^4 \text{ pianoforti}}$ ($50\,000$).
+            </li>
+            <li class="l02-fermi-step-item">
+              <strong>3. Accordature totali all'anno:</strong> Un pianoforte viene accordato in media $1$ volta all'anno. Servono quindi $\mathbf{5 \times 10^4 \text{ accordature/anno}}$ in tutta la città.
+            </li>
+            <li class="l02-fermi-step-item">
+              <strong>4. Quanto lavora un accordatore?</strong> Un professionista accorda circa $4$ pianoforti al giorno ($4 \times 10^0$) e lavora circa $250$ giorni lavorativi all'anno ($2,5 \times 10^2$). In un anno accorda: $4 \times 250 = \mathbf{10^3 \text{ pianoforti/anno}}$ ($1\,000$).
+            </li>
+            <li class="l02-fermi-step-item">
+              <strong>5. Calcolo finale con potenze di 10:</strong>
+              $$\text{Numero accordatori} = \frac{5 \times 10^4 \text{ accordature/anno}}{10^3 \text{ accordature per professionista}} = 5 \times 10^{4-3} = 5 \times 10^1 = \mathbf{50 \text{ accordatori}}$$
+            </li>
+          </ul>
+          <div class="l02-fermi-result-banner">
+            <div>
+              <strong>🔍 Risultato reale &amp; verifica storica:</strong>
+              <div style="font-size: 0.88rem; color: var(--text-muted); margin-top: 0.2rem;">
+                Controllando l'elenco telefonico dell'epoca (Pagine Gialle di Chicago), gli accordatori registrati erano esattamente <strong>circa 83</strong>!
+              </div>
+            </div>
+            <div class="l02-fermi-odg-badge">OdG: 10² (decine/centinaia)</div>
+          </div>
+        </div>
+
+        <!-- CASO 2: Spreco d'Acqua -->
+        <div class="l02-fermi-case-card" id="fermiCaseAcqua" style="display: none;">
+          <div style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.75rem;">
+            <h4 style="margin: 0; font-size: 1.1rem; color: var(--accent-math);">🚰 Caso 2: Quanta acqua sprechiamo lavandoci i denti col rubinetto aperto?</h4>
+            <span style="font-size: 0.8rem; font-weight: 700; color: var(--accent-warning); background: var(--bg-surface-elevated); padding: 0.2rem 0.6rem; border-radius: var(--radius-pill);">Educazione Civica &amp; Sostenibilità</span>
+          </div>
+          <p style="font-size: 0.92rem; color: var(--text-muted); margin-bottom: 1rem;">
+            Moltiplicare piccole abitudini quotidiane per un'intera nazione svela numeri colossali grazie alle potenze di $10$:
+          </p>
+          <ul class="l02-fermi-steps-list">
+            <li class="l02-fermi-step-item">
+              <strong>1. Popolazione italiana:</strong> Circa $60$ milioni di abitanti $\implies \mathbf{6 \times 10^7 \text{ persone}}$.
+            </li>
+            <li class="l02-fermi-step-item">
+              <strong>2. Portata del rubinetto di casa:</strong> Da un rubinetto domestico medio escono circa $\mathbf{6\text{ litri al minuto}}$ ($6 \times 10^0\text{ L/min}$).
+            </li>
+            <li class="l02-fermi-step-item">
+              <strong>3. Spreco individuale giornaliero:</strong> Se ci laviamo i denti $2$ volte al giorno lasciando scorrere l'acqua per $1$ minuto a lavaggio:
+              $$2 \times 1\text{ min} \times 6\text{ L/min} = \mathbf{12\text{ litri al giorno per persona}} = \mathbf{1,2 \times 10^1\text{ L/giorno}}$$
+            </li>
+            <li class="l02-fermi-step-item">
+              <strong>4. Spreco nazionale giornaliero:</strong>
+              $$(6 \times 10^7 \text{ persone}) \times (1,2 \times 10^1 \text{ L}) = (6 \times 1,2) \times 10^{7+1} = \mathbf{7,2 \times 10^8 \text{ litri al giorno}}$$
+              (più di $720$ milioni di litri d'acqua potabile al giorno!).
+            </li>
+            <li class="l02-fermi-step-item">
+              <strong>5. Spreco totale in un anno ($365 \approx 3,65 \times 10^2$ giorni):</strong>
+              $$(7,2 \times 10^8 \text{ L/giorno}) \times (3,65 \times 10^2 \text{ giorni}) \approx 26,3 \times 10^{10} = \mathbf{2,63 \times 10^{11} \text{ litri/anno}}$$
+            </li>
+          </ul>
+          <div class="l02-fermi-result-banner">
+            <div>
+              <strong>💧 Impatto Concreto:</strong>
+              <div style="font-size: 0.88rem; color: var(--text-muted); margin-top: 0.2rem;">
+                Oltre <strong>260 miliardi di litri d'acqua potabile</strong> all'anno: basterebbero a riempire <strong>100.000 piscine olimpioniche</strong>!
+              </div>
+            </div>
+            <div class="l02-fermi-odg-badge">OdG: 10¹¹ litri (centinaia di miliardi)</div>
+          </div>
+        </div>
+
+        <!-- CASO 3: Palline da Tennis nell'Aula -->
+        <div class="l02-fermi-case-card" id="fermiCaseTennis" style="display: none;">
+          <div style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.75rem;">
+            <h4 style="margin: 0; font-size: 1.1rem; color: var(--accent-math);">🎾 Caso 3: Quante palline da tennis possono entrare in un'aula scolastica?</h4>
+            <span style="font-size: 0.8rem; font-weight: 700; color: var(--accent-purple); background: var(--bg-surface-elevated); padding: 0.2rem 0.6rem; border-radius: var(--radius-pill);">Geometria &amp; Volumi</span>
+          </div>
+          <p style="font-size: 0.92rem; color: var(--text-muted); margin-bottom: 1rem;">
+            Un problema classico di intuizione geometrica e dimensionale spesso usato anche nelle interviste scientifiche:
+          </p>
+          <ul class="l02-fermi-steps-list">
+            <li class="l02-fermi-step-item">
+              <strong>1. Volume dell'aula scolastica:</strong> Stimiamo un'aula di $8\text{ m}$ di lunghezza, $7\text{ m}$ di larghezza e $3\text{ m}$ di altezza:
+              $$V_{\text{aula}} \approx 8 \times 7 \times 3 = 168\text{ m}^3 \approx \mathbf{1,7 \times 10^2 \text{ m}^3}$$
+            </li>
+            <li class="l02-fermi-step-item">
+              <strong>2. Spazio occupato da 1 pallina:</strong> Una pallina da tennis ha diametro di circa $6,7\text{ cm} \approx 0,07\text{ m} = 7 \times 10^{-2}\text{ m}$. Poiché impilate non si deformano e lasciano spazi vuoti, ogni pallina occupa il volume del suo cubetto circoscritto:
+              $$V_{\text{pallina}} \approx (7 \times 10^{-2}\text{ m})^3 = 343 \times 10^{-6}\text{ m}^3 \approx \mathbf{3,4 \times 10^{-4} \text{ m}^3}$$
+            </li>
+            <li class="l02-fermi-step-item">
+              <strong>3. Rapporto tra i volumi (divisione di potenze di 10):</strong>
+              $$N = \frac{V_{\text{aula}}}{V_{\text{pallina}}} = \frac{1,7 \times 10^2 \text{ m}^3}{3,4 \times 10^{-4} \text{ m}^3} = \left(\frac{1,7}{3,4}\right) \times 10^{2 - (-4)} = 0,5 \times 10^6 = \mathbf{5 \times 10^5 \text{ palline}}$$
+            </li>
+          </ul>
+          <div class="l02-fermi-result-banner">
+            <div>
+              <strong>📦 Risultato di Fermi:</strong>
+              <div style="font-size: 0.88rem; color: var(--text-muted); margin-top: 0.2rem;">
+                In un'aula entrano circa <strong>mezzo milione di palline da tennis</strong> ($500\,000$)!
+              </div>
+            </div>
+            <div class="l02-fermi-odg-badge">OdG: 10⁵ - 10⁶ palline</div>
+          </div>
+        </div>
+
+        <!-- SFIDA INTERATTIVA: TOCCA A TE -->
+        <div class="l02-fermi-challenge-box">
+          <div style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.75rem;">
+            <span style="font-size: 0.85rem; font-weight: 800; color: var(--accent-purple); text-transform: uppercase;">
+              🎯 Sfida Guidata «Tocca a Te»: Il Battito del Cuore in una Vita
+            </span>
+            <button type="button" class="theory-ref-pill" style="margin-bottom: 0;" onclick="scrollToTheory('teoria-6')">
+              🔗 Rif. Teoria 5 &amp; 6 • Stima di Fermi
+            </button>
+          </div>
+
+          <p style="font-size: 0.94rem; line-height: 1.6; margin-bottom: 1rem;">
+            Applica il metodo di Fermi per rispondere alla domanda: <strong>«Quanti battiti compie il cuore di un essere umano durante l'intera vita media?»</strong>. Ecco i dati stimati col buon senso:
+          </p>
+
+          <div style="background: var(--bg-surface); padding: 0.85rem 1.1rem; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle); margin-bottom: 1rem; font-size: 0.9rem; line-height: 1.6;">
+            • Frequenza a riposo: circa $70\text{ battiti al minuto} = 7 \times 10^1\text{ bpm}$.<br>
+            • Minuti in un anno: $60\text{ min/h} \times 24\text{ h/g} \times 365\text{ g} \approx 5,26 \times 10^5\text{ minuti/anno}$.<br>
+            • Battiti in un anno: $70 \times (5,26 \times 10^5) \approx 3,68 \times 10^7\text{ battiti/anno}$.<br>
+            • Aspettativa media di vita: circa $80\text{ anni} = 8 \times 10^1\text{ anni}$.<br>
+            • Calcolo vita intera: $(3,68 \times 10^7) \times (8 \times 10^1) \approx 29,4 \times 10^8 = \mathbf{2,94 \times 10^9 \approx 3 \times 10^9 \text{ battiti}}$!
+          </div>
+
+          <div style="display: flex; flex-direction: column; gap: 0.85rem;">
+            <div style="font-family: var(--font-mono); display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
+              <span><strong>a)</strong> In notazione scientifica arrotondata, il totale è circa $3 \times 10^k$ battiti. Inserisci l'esponente <strong>$k$</strong>:</span>
+              <input type="number" id="lab4HeartExp" class="inline-input" style="width: 70px; text-align: center;" placeholder="9">
+            </div>
+
+            <div style="font-family: var(--font-mono); display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
+              <span><strong>b)</strong> Poiché $3 < 5$, a quale potenza di $10$ è più vicino (qual è l'esponente <strong>$m$</strong> del suo <em>ordine di grandezza</em> $10^m$)?</span>
+              <input type="number" id="lab4HeartOdg" class="inline-input" style="width: 70px; text-align: center;" placeholder="9">
+              <span style="color: var(--text-muted); font-size: 0.85rem;">($10^9 = 1\text{ miliardo}$ di battiti)</span>
+            </div>
+          </div>
+
+          <div class="verify-box" style="margin-top: 1rem;">
+            <button type="button" class="btn-action" onclick="verifyLab4Fermi()">Verifica Stima di Fermi</button>
+            <button type="button" class="hint-btn" style="margin-top: 0;" onclick="toggleHint('hintLab4Fermi')">💡 Suggerimento</button>
+            <span id="lab4Msg" class="feedback-msg" style="display: none;"></span>
+          </div>
+          <div id="hintLab4Fermi" class="hint-text">
+            Il calcolo dà $(3,68 \times 10^7) \times (8 \times 10^1) = (3,68 \times 8) \times 10^{7+1} = 29,4 \times 10^8 = 2,94 \times 10^9 \approx 3 \times 10^9$. L'esponente è $9$ e l'ordine di grandezza resta $10^9$ perché $3 < 5$!
+          </div>
+        </div>
+      </article>
+
+
+      <!-- ==========================================
+           LABORATORIO 5: LEGGE DI WEBER-FECHNER
+           ========================================== -->
+      <article class="lab-card" id="lab5">
+        <div class="lab-badge-row">
+          <span class="lab-badge">Laboratorio 5 • Psicofisica &amp; Scienze Umane</span>
           <span class="lab-xp-badge">+10 XP</span>
         </div>
         <h3 class="lab-title">Percezione Umana e Legge di Weber-Fechner nei Sensi</h3>
@@ -859,8 +1212,8 @@
           <span class="tl-icon">🔗</span>
           <div>
             <strong>Collegamento Teoria ↔ Pratica:</strong> Questo laboratorio collega la
-            <a href="#teoria-6" class="theory-link-anchor"
-              onclick="event.preventDefault(); scrollToTheory('teoria-6');">Teoria 6 • Scale Moltiplicative e Legge di
+            <a href="#teoria-7" class="theory-link-anchor"
+              onclick="event.preventDefault(); scrollToTheory('teoria-7');">Teoria 7 • Scale Moltiplicative e Legge di
               Weber-Fechner</a>
             alla <strong>Psicologia della Percezione</strong>: i nostri sensi non funzionano per addizione, ma per
             <em>rapporti</em> (frazioni costanti) e potenze di $10$!
@@ -930,8 +1283,8 @@
           <div class="step-header">
             <span class="step-tag">Sfida Psicofisica: Tatto e Decibel</span>
             <button type="button" class="theory-ref-pill" style="margin-bottom: 0;"
-              onclick="scrollToTheory('teoria-6')">
-              🔗 Rif. Teoria 3 &amp; 6 • Potenze di 10 nei Sensi
+              onclick="scrollToTheory('teoria-7')">
+              🔗 Rif. Teoria 3 &amp; 7 • Potenze di 10 nei Sensi
             </button>
           </div>
           <div class="step-content">
@@ -943,7 +1296,7 @@
               </p>
               <div style="font-family: var(--font-mono); display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
                 <span>Soglia minima $=\frac{1}{10} \text{ di } 3\,000\text{ g} =$</span>
-                <input type="number" id="lab4WeightInput" class="inline-input" style="width: 85px;" placeholder="300">
+                <input type="number" id="lab5WeightInput" class="inline-input" style="width: 85px;" placeholder="300">
                 <span>$\text{g}$</span>
               </div>
             </div>
@@ -958,18 +1311,18 @@
               </p>
               <div style="font-family: var(--font-mono); display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
                 <span>Rapporto di energia $= 10 \times 10 \times 10 \times 10 =$</span>
-                <input type="text" id="lab4DbInput" class="inline-input" style="width: 105px;" placeholder="10000">
+                <input type="text" id="lab5DbInput" class="inline-input" style="width: 105px;" placeholder="10000">
                 <span>volte!</span>
               </div>
             </div>
 
             <div class="verify-box">
-              <button type="button" class="btn-action" onclick="verifyLab4()">Verifica Psicofisica</button>
-              <button type="button" class="hint-btn" style="margin-top: 0;" onclick="toggleHint('hintLab4')">💡
+              <button type="button" class="btn-action" onclick="verifyLab5()">Verifica Psicofisica</button>
+              <button type="button" class="hint-btn" style="margin-top: 0;" onclick="toggleHint('hintLab5')">💡
                 Suggerimento</button>
-              <span id="lab4Msg" class="feedback-msg" style="display: none;"></span>
+              <span id="lab5Msg" class="feedback-msg" style="display: none;"></span>
             </div>
-            <div id="hintLab4" class="hint-text">
+            <div id="hintLab5" class="hint-text">
               Per a): $\frac{1}{10}$ di $3\,000$ equivale a dividere $3\,000$ per $10$, togliendo uno zero ($300\text{
               g}$). Per b): $4$ salti da $\times 10$ danno $10^4$, cioè l'$1$ seguito da $4$ zeri ($10\,000$ volte!).
             </div>
@@ -979,11 +1332,11 @@
 
 
       <!-- ==========================================
-           LABORATORIO 5: SCALA LINEARE VS POTENZE DI 10
+           LABORATORIO 6: SCALA LINEARE VS POTENZE DI 10
            ========================================== -->
-      <article class="lab-card" id="lab5">
+      <article class="lab-card" id="lab6">
         <div class="lab-badge-row">
-          <span class="lab-badge">Laboratorio 5 • Scelta della Scala</span>
+          <span class="lab-badge">Laboratorio 6 • Scelta della Scala</span>
           <span class="lab-xp-badge">+10 XP</span>
         </div>
         <h3 class="lab-title">Scala Lineare vs Scala a Potenze di 10: Quando i Dati Scompaiono</h3>
@@ -992,8 +1345,8 @@
           <span class="tl-icon">🔗</span>
           <div>
             <strong>Collegamento Teoria ↔ Pratica:</strong> Questo laboratorio applica la
-            <a href="#teoria-6" class="theory-link-anchor"
-              onclick="event.preventDefault(); scrollToTheory('teoria-6');">Teoria 6 • Scale Lineari vs Scale
+            <a href="#teoria-7" class="theory-link-anchor"
+              onclick="event.preventDefault(); scrollToTheory('teoria-7');">Teoria 7 • Scale Lineari vs Scale
               Logaritmiche (a Potenze di 10)</a>:
             quando confrontiamo comunità umane di dimensioni molto diverse, una scala lineare schiaccia le realtà più
             piccole sullo zero, mentre una scala moltiplicativa rende tutti leggibili.
@@ -1017,18 +1370,18 @@
             </button>
           </div>
 
-          <svg id="lab5ScaleSvg" viewBox="0 0 700 155"
+          <svg id="lab6ScaleSvg" viewBox="0 0 700 155"
             style="width: 100%; max-width: 700px; height: auto; display: block; margin: 0 auto;"></svg>
 
-          <div id="lab5ScaleCaption" class="l02-status-note"></div>
+          <div id="lab6ScaleCaption" class="l02-status-note"></div>
         </div>
 
         <div class="step-box">
           <div class="step-header">
             <span class="step-tag">Sfida sulle Tacche a Potenze di 10</span>
             <button type="button" class="theory-ref-pill" style="margin-bottom: 0;"
-              onclick="scrollToTheory('teoria-6')">
-              🔗 Rif. Teoria 3 &amp; 6 • Passi $\times 10$
+              onclick="scrollToTheory('teoria-7')">
+              🔗 Rif. Teoria 3 &amp; 7 • Passi $\times 10$
             </button>
           </div>
           <div class="step-content">
@@ -1038,10 +1391,10 @@
               <strong>$100$</strong> ($10^2$) dal numero <strong>$100\,000$</strong> ($10^5$)?
             </p>
             <div class="verify-box">
-              <label for="lab5StepsInput" style="font-weight: 600;">Numero di salti ($\times 10$):</label>
-              <input type="number" id="lab5StepsInput" class="inline-input" style="width: 80px;" placeholder="3">
-              <button type="button" class="btn-action" onclick="verifyLab5()">Verifica Scala</button>
-              <span id="lab5Msg" class="feedback-msg" style="display: none;"></span>
+              <label for="lab6StepsInput" style="font-weight: 600;">Numero di salti ($\times 10$):</label>
+              <input type="number" id="lab6StepsInput" class="inline-input" style="width: 80px;" placeholder="3">
+              <button type="button" class="btn-action" onclick="verifyLab6()">Verifica Scala</button>
+              <span id="lab6Msg" class="feedback-msg" style="display: none;"></span>
             </div>
           </div>
         </div>
@@ -1049,11 +1402,11 @@
 
 
       <!-- ==========================================
-           LABORATORIO 6: PALESTRA MENTALE RAPIDA
+           LABORATORIO 7: PALESTRA MENTALE RAPIDA
            ========================================== -->
-      <article class="lab-card" id="lab6">
+      <article class="lab-card" id="lab7">
         <div class="lab-badge-row">
-          <span class="lab-badge">Laboratorio 6 • Consolidamento</span>
+          <span class="lab-badge">Laboratorio 7 • Consolidamento</span>
           <span class="lab-xp-badge">+10 XP</span>
         </div>
         <h3 class="lab-title">Palestra Mentale: 4 Sfide Lampo su Retta, Potenze e Stime</h3>
@@ -1212,9 +1565,11 @@
               onclick="event.preventDefault(); scrollToTheory('teoria-1');">Teoria 1 • Origine e Unità sulla Retta</a>,
             la <a href="#teoria-4" class="theory-link-anchor"
               onclick="event.preventDefault(); scrollToTheory('teoria-4');">Teoria 4 &amp; 5 • Notazione Scientifica e
-              Ordini di Grandezza</a>
-            e la <a href="#teoria-6" class="theory-link-anchor"
-              onclick="event.preventDefault(); scrollToTheory('teoria-6');">Teoria 6 • Scale Lineari, Scale a Potenze di
+              Ordini di Grandezza</a>,
+            la <a href="#teoria-6" class="theory-link-anchor"
+              onclick="event.preventDefault(); scrollToTheory('teoria-6');">Teoria 6 • Problemi alla Fermi &amp; Stime</a>
+            e la <a href="#teoria-7" class="theory-link-anchor"
+              onclick="event.preventDefault(); scrollToTheory('teoria-7');">Teoria 7 • Scale Lineari, Scale a Potenze di
               10 e Percezione</a>
             per difendersi dalle manipolazioni visive nei social media e nei giornali.
           </div>
@@ -1385,7 +1740,11 @@
             di zeri.</p>
         </div>
         <div class="takeaway-item">
-          <strong>3. Occhio Critico sulle Scale</strong>
+          <strong>3. L'Arte della Stima di Fermi</strong>
+          <p>Quando mancano dati precisi, la scomposizione e il calcolo con potenze di $10$ rivelano l'ordine di grandezza reale: gli errori si compensano!</p>
+        </div>
+        <div class="takeaway-item">
+          <strong>4. Occhio Critico sulle Scale</strong>
           <p>Controlla sempre da dove parte l'asse di un grafico e porta la Scheda Operativa «Decodificare Scale
             Distorte nei Media» alla prossima lezione!</p>
         </div>
@@ -1435,13 +1794,13 @@
 
     function updateLessonProgress() {
       const count = completedLabs.size;
-      const pct = (count / 6) * 100;
+      const pct = (count / 7) * 100;
       const fill = document.getElementById('progressFill');
       const score = document.getElementById('progressScore');
       if (fill) fill.style.width = pct + '%';
-      if (score) score.textContent = `${count} / 6 completati`;
+      if (score) score.textContent = `${count} / 7 completati`;
 
-      if (count === 6) {
+      if (count === 7) {
         if (window.ComodeAudio) window.ComodeAudio.playLevelUp();
       }
     }
@@ -1890,7 +2249,55 @@
 
 
     /* ========================================================
-       LABORATORIO 4: LEGGE DI WEBER-FECHNER NEI SENSI
+       LABORATORIO 4: I PROBLEMI ALLA FERMI
+       ======================================================== */
+    function switchFermiCase(caseName, btnEl) {
+      if (btnEl && window.ComodeAudio) window.ComodeAudio.playClick();
+      document.querySelectorAll('.l02-fermi-tab-btn').forEach(b => b.classList.remove('active'));
+      if (btnEl) {
+        btnEl.classList.add('active');
+      } else {
+        const first = document.getElementById('fermiTabBtn1');
+        if (first) first.classList.add('active');
+      }
+
+      const cases = {
+        chicago: document.getElementById('fermiCaseChicago'),
+        acqua: document.getElementById('fermiCaseAcqua'),
+        tennis: document.getElementById('fermiCaseTennis')
+      };
+      Object.keys(cases).forEach(k => {
+        if (cases[k]) cases[k].style.display = (k === caseName) ? 'block' : 'none';
+      });
+      if (window.ComodeComponents && cases[caseName]) {
+        window.ComodeComponents.renderMath(cases[caseName]);
+      }
+    }
+
+    function verifyLab4Fermi() {
+      const exp = parseInt(document.getElementById('lab4HeartExp').value.trim(), 10);
+      const odg = parseInt(document.getElementById('lab4HeartOdg').value.trim(), 10);
+      const msg = document.getElementById('lab4Msg');
+      msg.style.display = 'inline-flex';
+
+      if (exp === 9 && odg === 9) {
+        msg.className = 'feedback-msg success';
+        msg.textContent = 'Grandioso! Circa 3 × 10⁹ battiti: in una vita media il cuore compie ben 3 miliardi di battiti (OdG = 10⁹)!';
+        markLabCompleted(4);
+      } else {
+        if (window.ComodeAudio) window.ComodeAudio.playError();
+        msg.className = 'feedback-msg error';
+        if (exp !== 9) {
+          msg.textContent = 'Controlla l’esponente k: (3,68 × 10⁷) × (8 × 10¹) dà circa 2,94 × 10⁹ (quindi k = 9)!';
+        } else {
+          msg.textContent = 'Controlla l’ordine di grandezza: poiché 3 < 5, l’ordine di grandezza resta 10⁹ (m = 9)!';
+        }
+      }
+    }
+
+
+    /* ========================================================
+       LABORATORIO 5: LEGGE DI WEBER-FECHNER NEI SENSI
        ======================================================== */
     function updateWeberSim() {
       const P = parseInt(document.getElementById('weberBaseSlider').value, 10);
@@ -1919,17 +2326,17 @@
       }
     }
 
-    function verifyLab4() {
-      const w = parseInt(document.getElementById('lab4WeightInput').value.trim(), 10);
-      const dbRaw = document.getElementById('lab4DbInput').value.trim().replace(/\./g, '').replace(/\s+/g, '');
+    function verifyLab5() {
+      const w = parseInt(document.getElementById('lab5WeightInput').value.trim(), 10);
+      const dbRaw = document.getElementById('lab5DbInput').value.trim().replace(/\./g, '').replace(/\s+/g, '');
       const dbOk = (dbRaw === '10000' || dbRaw === '10^4');
-      const msg = document.getElementById('lab4Msg');
+      const msg = document.getElementById('lab5Msg');
       msg.style.display = 'inline-flex';
 
       if (w === 300 && dbOk) {
         msg.className = 'feedback-msg success';
         msg.textContent = 'Straordinario! Su 3.000 g servono 300 g (1/10), e +40 dB significano 10⁴ = 10.000 volte più energia sonora!';
-        markLabCompleted(4);
+        markLabCompleted(5);
       } else {
         if (window.ComodeAudio) window.ComodeAudio.playError();
         msg.className = 'feedback-msg error';
@@ -1943,7 +2350,7 @@
 
 
     /* ========================================================
-       LABORATORIO 5: SCALA LINEARE VS SCALA A POTENZE DI 10
+       LABORATORIO 6: SCALA LINEARE VS SCALA A POTENZE DI 10
        ======================================================== */
     function renderScaleComparison(mode, btnEl) {
       if (btnEl && window.ComodeAudio) window.ComodeAudio.playClick();
@@ -1952,7 +2359,7 @@
         btnEl.classList.add('active');
       }
 
-      const svg = document.getElementById('lab5ScaleSvg');
+      const svg = document.getElementById('lab6ScaleSvg');
       if (!svg) return;
       svg.innerHTML = '';
 
@@ -2017,8 +2424,11 @@
           }
         });
 
-        document.getElementById('lab5ScaleCaption').innerHTML =
-          `⚠️ <strong>Problema della Scala Lineare:</strong> tra $0$ e $1.000.000$, i punti $25$ e $500$ cadono nello stesso singolo pixel dello zero!`;
+        const caption = document.getElementById('lab6ScaleCaption');
+        if (caption) {
+          caption.innerHTML = `⚠️ <strong>Problema della Scala Lineare:</strong> tra $0$ e $1.000.000$, i punti $25$ e $500$ cadono nello stesso singolo pixel dello zero!`;
+          if (window.ComodeComponents) window.ComodeComponents.renderMath(caption);
+        }
       } else {
         // Scala a potenze di 10 da 10^1 (10) a 10^6 (1.000.000) -> 5 intervalli uguali
         for (let exp = 1; exp <= 6; exp++) {
@@ -2060,21 +2470,23 @@
           svg.appendChild(lbl);
         });
 
-        document.getElementById('lab5ScaleCaption').innerHTML =
-          `✨ <strong>Magia della Scala a Potenze di 10:</strong> moltiplicando $\\times 10$ a ogni tacca, la classe ($25$), il borgo ($500$), la cittadina ($20.000$) e la metropoli ($1.000.000$) sono tutti ben visibili e separati!`;
-        if (window.ComodeComponents) window.ComodeComponents.renderMath(document.getElementById('lab5ScaleCaption'));
+        const caption = document.getElementById('lab6ScaleCaption');
+        if (caption) {
+          caption.innerHTML = `✨ <strong>Magia della Scala a Potenze di 10:</strong> moltiplicando $\\times 10$ a ogni tacca, la classe ($25$), il borgo ($500$), la cittadina ($20.000$) e la metropoli ($1.000.000$) sono tutti ben visibili e separati!`;
+          if (window.ComodeComponents) window.ComodeComponents.renderMath(caption);
+        }
       }
     }
 
-    function verifyLab5() {
-      const val = parseInt(document.getElementById('lab5StepsInput').value.trim(), 10);
-      const msg = document.getElementById('lab5Msg');
+    function verifyLab6() {
+      const val = parseInt(document.getElementById('lab6StepsInput').value.trim(), 10);
+      const msg = document.getElementById('lab6Msg');
       msg.style.display = 'inline-flex';
 
       if (val === 3) {
         msg.className = 'feedback-msg success';
         msg.textContent = 'Esatto! Da 10² (100) a 10⁵ (100.000) ci sono 5 − 2 = 3 salti moltiplicativi da ×10!';
-        markLabCompleted(5);
+        markLabCompleted(6);
       } else {
         if (window.ComodeAudio) window.ComodeAudio.playError();
         msg.className = 'feedback-msg error';
@@ -2084,7 +2496,7 @@
 
 
     /* ========================================================
-       LABORATORIO 6: PALESTRA MENTALE (4 SFIDE)
+       LABORATORIO 7: PALESTRA MENTALE (4 SFIDE)
        ======================================================== */
     const l02GymSolved = new Set();
 
@@ -2101,7 +2513,7 @@
         fb.style.color = 'var(--accent-success)';
         fb.textContent = '✓ Risposta esatta!';
         if (l02GymSolved.size === 4) {
-          markLabCompleted(6);
+          markLabCompleted(7);
         }
       } else {
         if (window.ComodeAudio) window.ComodeAudio.playError();
@@ -2124,6 +2536,7 @@
       renderLab1Ruler();
       renderContinuousZoom();
       updateCosmicExplorer(0);
+      switchFermiCase('chicago', null);
       updateWeberSim();
       renderScaleComparison('linear', null);
 
@@ -2176,9 +2589,23 @@
               explanation: 'Poiché il coefficiente $8,1 \\ge 5$, il numero $8,1$ miliardi è molto più vicino a $10$ miliardi ($10^{10}$) che a $1$ miliardo ($10^9$).'
             },
             {
-              category: 'Psicofisica & Scienze Umane',
-              theoryRef: 'Teoria 6 • Legge di Weber-Fechner',
+              category: 'Metodo di Fermi & Stime',
+              theoryRef: 'Teoria 6 • Chi era Enrico Fermi & i Problemi alla Fermi',
               theoryTargetId: 'teoria-6',
+              question: 'Nei celebri «problemi alla Fermi», qual è il principio che consente di ottenere stime incredibilmente accurate anche senza dati esatti?',
+              options: [
+                'Tutti i valori incerti vengono sempre arrotondati all’intero superiore più vicino',
+                'Il principio di compensazione degli errori: nel moltiplicare molte stime indipendenti, sovrastime e sottostime tendono ad annullarsi a vicenda',
+                'Si calcola esclusivamente la media aritmetica semplice tra il minimo e il massimo',
+                'I calcoli vengono svolti solo su scala lineare scartando le potenze di 10'
+              ],
+              correct: 1,
+              explanation: 'Scomponendo un fenomeno in fattori indipendenti espressi in potenze di 10, le fluttuazioni per eccesso e per difetto tendono a bilanciarsi statisticamente, centrando l’ordine di grandezza reale!'
+            },
+            {
+              category: 'Psicofisica & Scienze Umane',
+              theoryRef: 'Teoria 7 • Legge di Weber-Fechner',
+              theoryTargetId: 'teoria-7',
               question: 'Secondo la legge psicofisica di <strong>Weber-Fechner</strong>, perché non sentiamo $+10\\text{ g}$ aggiunti a uno zaino da $5\\text{ kg}$, mentre li sentiamo subito su una busta da $100\\text{ g}$?',
               options: [
                 'Perché oltre $1\\text{ kg}$ i recettori del tatto smettono di funzionare',
@@ -2191,8 +2618,8 @@
             },
             {
               category: 'Media Literacy & Scale',
-              theoryRef: 'Teoria 1 & 6 • Origine della Scala nei Grafici',
-              theoryTargetId: 'teoria-6',
+              theoryRef: 'Teoria 1 & 7 • Origine della Scala nei Grafici',
+              theoryTargetId: 'teoria-7',
               question: 'In un grafico a barre sui social, un passaggio da $510$ a $530$ utenti viene disegnato con la seconda barra alta il triplo della prima. Quale trucco è stato usato?',
               options: [
                 'È stata usata la notazione scientifica con esponente negativo',
