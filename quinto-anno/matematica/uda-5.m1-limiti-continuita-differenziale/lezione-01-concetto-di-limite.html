@@ -110,7 +110,7 @@
       margin-top: 0.5rem;
     }
 
-    .m1l1-legend > span::before {
+    .m1l1-legend>span::before {
       content: '';
       display: inline-block;
       width: 18px;
@@ -292,8 +292,15 @@
     }
 
     @keyframes m1l1FadeIn {
-      from { opacity: 0; transform: translateY(8px); }
-      to { opacity: 1; transform: translateY(0); }
+      from {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     .m1l1-step-counter {
@@ -424,27 +431,32 @@
       user-select: none;
     }
 
-    .m1l1-sym-piece:hover, .m1l1-sym-piece.active {
+    .m1l1-sym-piece:hover,
+    .m1l1-sym-piece.active {
       transform: translateY(-2px);
       box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
     }
 
-    .m1l1-sym-piece.piece-lim:hover, .m1l1-sym-piece.piece-lim.active {
+    .m1l1-sym-piece.piece-lim:hover,
+    .m1l1-sym-piece.piece-lim.active {
       background: rgba(56, 189, 248, 0.12);
       border-color: var(--accent-math);
     }
 
-    .m1l1-sym-piece.piece-arrow:hover, .m1l1-sym-piece.piece-arrow.active {
+    .m1l1-sym-piece.piece-arrow:hover,
+    .m1l1-sym-piece.piece-arrow.active {
       background: rgba(251, 191, 36, 0.12);
       border-color: var(--accent-gold);
     }
 
-    .m1l1-sym-piece.piece-fx:hover, .m1l1-sym-piece.piece-fx.active {
+    .m1l1-sym-piece.piece-fx:hover,
+    .m1l1-sym-piece.piece-fx.active {
       background: rgba(139, 92, 246, 0.12);
       border-color: var(--accent-purple);
     }
 
-    .m1l1-sym-piece.piece-res:hover, .m1l1-sym-piece.piece-res.active {
+    .m1l1-sym-piece.piece-res:hover,
+    .m1l1-sym-piece.piece-res.active {
       background: rgba(16, 185, 129, 0.12);
       border-color: var(--accent-success);
     }
@@ -481,10 +493,21 @@
       flex-direction: column;
     }
 
-    .m1l1-anatomy-card.card-lim { border-left: 4px solid var(--accent-math); }
-    .m1l1-anatomy-card.card-arrow { border-left: 4px solid var(--accent-gold); }
-    .m1l1-anatomy-card.card-fx { border-left: 4px solid var(--accent-purple); }
-    .m1l1-anatomy-card.card-res { border-left: 4px solid var(--accent-success); }
+    .m1l1-anatomy-card.card-lim {
+      border-left: 4px solid var(--accent-math);
+    }
+
+    .m1l1-anatomy-card.card-arrow {
+      border-left: 4px solid var(--accent-gold);
+    }
+
+    .m1l1-anatomy-card.card-fx {
+      border-left: 4px solid var(--accent-purple);
+    }
+
+    .m1l1-anatomy-card.card-res {
+      border-left: 4px solid var(--accent-success);
+    }
 
     .m1l1-anatomy-head {
       display: flex;
@@ -544,7 +567,11 @@
       margin: 1.25rem 0;
     }
 
-    /* Stili per le Definizioni Formali dei Limiti (Laboratorio 5 - Tutti i casi) */
+    /* Stili per le Definizioni Formali dei Limiti (Quadro Teorico - Tutti i casi) */
+    .theory-quadro-card {
+      border-left: 4px solid var(--accent-purple) !important;
+      background: linear-gradient(180deg, rgba(139, 92, 246, 0.04) 0%, var(--bg-surface) 100%);
+    }
     .m1l1-def-table {
       width: 100%;
       border-collapse: collapse;
@@ -552,7 +579,8 @@
       font-size: 0.88rem;
     }
 
-    .m1l1-def-table th, .m1l1-def-table td {
+    .m1l1-def-table th,
+    .m1l1-def-table td {
       border: 1px solid var(--border-subtle);
       padding: 0.7rem 0.85rem;
       vertical-align: middle;
@@ -692,7 +720,7 @@
       <div class="progress-bar-card">
         <div class="progress-label">
           <span>🎯 Progresso Attività:</span>
-          <span class="progress-score" id="progressScore">0 / 7 completati</span>
+          <span class="progress-score" id="progressScore">0 / 6 completati</span>
         </div>
         <div class="progress-track">
           <div class="progress-fill" id="progressFill"></div>
@@ -712,7 +740,9 @@
         <ul class="po-list">
           <li>
             <span class="po-icon">✓</span>
-            <div><strong>Valori esclusi e frazioni algebriche (1° e 2° biennio):</strong> ricordare che non si può dividere per zero (denominatore nullo, es. $x \neq 2$) e saper calcolare $f(x)$ sostituendo un valore numerico alla variabile.</div>
+            <div><strong>Valori esclusi e frazioni algebriche (1° e 2° biennio):</strong> ricordare che non si può
+              dividere per zero (denominatore nullo, es. $x \neq 2$) e saper calcolare $f(x)$ sostituendo un valore
+              numerico alla variabile.</div>
           </li>
           <li>
             <span class="po-icon">✓</span>
@@ -787,33 +817,44 @@
         <div class="m1l1-context">
           <span class="m1l1-context-icon">🌿</span>
           <div>
-            Prima di calcolare un limite, impariamo a «vedere» e costruire un <strong>intorno $I_\delta(x_0)$</strong> in una situazione reale.<br>
-            In una serra botanica tropicale, la temperatura ideale per le orchidee è fissata attorno al <strong>valore centrale $x_0 = 20\,°\text{C}$</strong>. Il climatizzatore mantiene una fascia di sicurezza di <strong>semi-ampiezza $\delta$</strong> (in $°\text{C}$) a sinistra e a destra di $x_0$:
+            Prima di calcolare un limite, impariamo a «vedere» e costruire un <strong>intorno $I_\delta(x_0)$</strong>
+            in una situazione reale.<br>
+            In una serra botanica tropicale, la temperatura ideale per le orchidee è fissata attorno al <strong>valore
+              centrale $x_0 = 20\,°\text{C}$</strong>. Il climatizzatore mantiene una fascia di sicurezza di
+            <strong>semi-ampiezza $\delta$</strong> (in $°\text{C}$) a sinistra e a destra di $x_0$:
             <ul style="margin: 0.45rem 0 0.25rem 1.25rem; padding: 0; line-height: 1.6;">
-              <li><strong>Centro dell'intorno ($x_0$):</strong> il valore di riferimento attorno a cui ci muoviamo (es. $x_0 = 20\,°\text{C}$).</li>
-              <li><strong>Ampiezza $\delta$ (raggio dell'intorno):</strong> di quanto possiamo allontanarci a sinistra ($x_0 - \delta$) e a destra ($x_0 + \delta$) dal centro.</li>
-              <li><strong>Intorno aperto $I_\delta(x_0) = (x_0 - \delta;\ x_0 + \delta)$:</strong> tutte le temperature $x$ con distanza dal centro minore di $\delta$ ($|x - x_0| < \delta$).</li>
+              <li><strong>Centro dell'intorno ($x_0$):</strong> il valore di riferimento attorno a cui ci muoviamo (es.
+                $x_0 = 20\,°\text{C}$).</li>
+              <li><strong>Ampiezza $\delta$ (raggio dell'intorno):</strong> di quanto possiamo allontanarci a sinistra
+                ($x_0 - \delta$) e a destra ($x_0 + \delta$) dal centro.</li>
+              <li><strong>Intorno aperto $I_\delta(x_0) = (x_0 - \delta;\ x_0 + \delta)$:</strong> tutte le temperature
+                $x$ con distanza dal centro minore di $\delta$ ($|x - x_0| < \delta$).</li>
             </ul>
           </div>
         </div>
 
         <p class="lab-intro">
-          Usa i tre cursori qui sotto per scegliere il <strong>valore centrale $x_0$</strong>, allargare o stringere l'<strong>ampiezza $\delta$ dell'intorno</strong> e muovere la <strong>temperatura misurata $x$</strong> per verificare sul grafico quando $x$ cade dentro o fuori dall'intorno:
+          Usa i tre cursori qui sotto per scegliere il <strong>valore centrale $x_0$</strong>, allargare o stringere
+          l'<strong>ampiezza $\delta$ dell'intorno</strong> e muovere la <strong>temperatura misurata $x$</strong> per
+          verificare sul grafico quando $x$ cade dentro o fuori dall'intorno:
         </p>
 
         <div class="m1l1-stage">
           <div class="m1l1-slider-panel">
             <label for="lab1aCenter">📍 Centro $x_0$:</label>
-            <input type="range" id="lab1aCenter" class="m1l1-range" min="18" max="22" step="1" value="20" style="max-width: 150px;" oninput="renderLab1a()">
+            <input type="range" id="lab1aCenter" class="m1l1-range" min="18" max="22" step="1" value="20"
+              style="max-width: 150px;" oninput="renderLab1a()">
             <span class="m1l1-readout" id="lab1aCenterReadout">x₀ = 20 °C</span>
 
             <label for="lab1aDelta">↔️ Ampiezza $\delta$:</label>
-            <input type="range" id="lab1aDelta" class="m1l1-range" min="0.5" max="4" step="0.5" value="2" style="max-width: 150px;" oninput="renderLab1a()">
+            <input type="range" id="lab1aDelta" class="m1l1-range" min="0.5" max="4" step="0.5" value="2"
+              style="max-width: 150px;" oninput="renderLab1a()">
             <span class="m1l1-readout gold" id="lab1aDeltaReadout">δ = 2,0 °C</span>
           </div>
           <div class="m1l1-slider-panel" style="margin-top: 0.5rem;">
             <label for="lab1aPoint">🌡️ Temperatura misurata $x$:</label>
-            <input type="range" id="lab1aPoint" class="m1l1-range" min="14" max="26" step="0.5" value="21" oninput="renderLab1a()">
+            <input type="range" id="lab1aPoint" class="m1l1-range" min="14" max="26" step="0.5" value="21"
+              oninput="renderLab1a()">
             <span class="m1l1-readout" id="lab1aPointReadout">x = 21,0 °C</span>
             <span class="m1l1-readout" id="lab1aIntervalReadout">I = (18,0 ; 22,0)</span>
           </div>
@@ -832,27 +873,36 @@
           </div>
           <div class="step-content">
             <p style="margin-bottom: 0.75rem;">
-              Imposta (o calcola a mente) un intorno centrato nel valore <strong>$x_0 = 20\,°\text{C}$</strong> con ampiezza <strong>$\delta = 2{,}5\,°\text{C}$</strong>:
+              Imposta (o calcola a mente) un intorno centrato nel valore <strong>$x_0 = 20\,°\text{C}$</strong> con
+              ampiezza <strong>$\delta = 2{,}5\,°\text{C}$</strong>:
             </p>
             <div class="verify-box" style="margin-bottom: 0.75rem;">
               <label for="lab1aLeftInput" style="font-weight: 600;">1) Estremo sinistro $x_0 - \delta =$</label>
               <input type="text" id="lab1aLeftInput" class="inline-input" style="width: 75px;" placeholder="°C">
-              <label for="lab1aRightInput" style="font-weight: 600; margin-left: 0.5rem;">Estremo destro $x_0 + \delta =$</label>
+              <label for="lab1aRightInput" style="font-weight: 600; margin-left: 0.5rem;">Estremo destro $x_0 + \delta
+                =$</label>
               <input type="text" id="lab1aRightInput" class="inline-input" style="width: 75px;" placeholder="°C">
             </div>
-            <p style="margin-bottom: 0.5rem; font-weight: 600;">2) La temperatura $x = 18{,}5\,°\text{C}$ appartiene a questo intorno $I_{2{,}5}(20)$?</p>
+            <p style="margin-bottom: 0.5rem; font-weight: 600;">2) La temperatura $x = 18{,}5\,°\text{C}$ appartiene a
+              questo intorno $I_{2{,}5}(20)$?</p>
             <div class="m1l1-choice-row" id="lab1aChoices" style="margin-bottom: 0.75rem;">
-              <button type="button" class="m1l1-choice-btn" data-val="yes" onclick="selectChoice('lab1a', this)">Sì, perché dista $1{,}5\,°\text{C}$ da $20$ ($1{,}5 &lt; 2{,}5$)</button>
-              <button type="button" class="m1l1-choice-btn" data-val="no" onclick="selectChoice('lab1a', this)">No, perché è minore del centro $20\,°\text{C}$</button>
-              <button type="button" class="m1l1-choice-btn" data-val="edge" onclick="selectChoice('lab1a', this)">No, cade fuori dall'estremo sinistro</button>
+              <button type="button" class="m1l1-choice-btn" data-val="yes" onclick="selectChoice('lab1a', this)">Sì,
+                perché dista $1{,}5\,°\text{C}$ da $20$ ($1{,}5 &lt; 2{,}5$)</button>
+              <button type="button" class="m1l1-choice-btn" data-val="no" onclick="selectChoice('lab1a', this)">No,
+                perché è minore del centro $20\,°\text{C}$</button>
+              <button type="button" class="m1l1-choice-btn" data-val="edge" onclick="selectChoice('lab1a', this)">No,
+                cade fuori dall'estremo sinistro</button>
             </div>
             <div class="verify-box">
               <button type="button" class="btn-action" onclick="verifyLab1a()">Verifica Intorno</button>
-              <button type="button" class="hint-btn" style="margin-top: 0;" onclick="toggleHint('hintLab1a')">💡 Suggerimento</button>
+              <button type="button" class="hint-btn" style="margin-top: 0;" onclick="toggleHint('hintLab1a')">💡
+                Suggerimento</button>
               <span id="lab1aMsg" class="feedback-msg" style="display: none;"></span>
             </div>
             <div id="hintLab1a" class="hint-text">
-              Sottrai e aggiungi l'ampiezza $\delta = 2{,}5$ al centro $x_0 = 20$: a sinistra $20 - 2{,}5 = 17{,}5$, a destra $20 + 2{,}5 = 22{,}5$. L'intorno è quindi $(17{,}5;\ 22{,}5)$ e $18{,}5$ cade proprio al suo interno!
+              Sottrai e aggiungi l'ampiezza $\delta = 2{,}5$ al centro $x_0 = 20$: a sinistra $20 - 2{,}5 = 17{,}5$, a
+              destra $20 + 2{,}5 = 22{,}5$. L'intorno è quindi $(17{,}5;\ 22{,}5)$ e $18{,}5$ cade proprio al suo
+              interno!
             </div>
           </div>
         </div>
@@ -862,27 +912,37 @@
              ===================================================== -->
         <div class="m1l1-part-divider">
           <span class="m1l1-part-badge">Parte 2 • Dall'Intorno al Limite</span>
-          <h4 class="m1l1-part-title">Il Termometro da Cucina: Come i Gradi Fahrenheit si Avvicinano al Valore Limite</h4>
+          <h4 class="m1l1-part-title">Il Termometro da Cucina: Come i Gradi Fahrenheit si Avvicinano al Valore Limite
+          </h4>
         </div>
 
         <div class="m1l1-context">
           <span class="m1l1-context-icon">🍳</span>
           <div>
             <strong>Cosa significa fare il limite con gli intorni?</strong><br>
-            Un laboratorio di cucina professionale usa un termometro in gradi Celsius, ma il ricettario americano richiede l'acqua a <strong>$212\,°\text{F}$ (ebollizione)</strong>. La formula di conversione è:
+            Un laboratorio di cucina professionale usa un termometro in gradi Celsius, ma il ricettario americano
+            richiede l'acqua a <strong>$212\,°\text{F}$ (ebollizione)</strong>. La formula di conversione è:
             $$F(C) = 1{,}8\,C + 32 \qquad (\text{in } °\text{F})$$
-            Attorno alla temperatura di ebollizione di <strong>$C_0 = 100\,°\text{C}$</strong>, lo chef vuole verificare come risponde la scala Fahrenheit.<br>
-            Se <strong>stringiamo progressivamente l'intorno</strong> $I_\delta(100)$ scegliendo un raggio $\delta$ sempre più piccolo ($2\,°\text{C}$, $1\,°\text{C}$, $0{,}5\,°\text{C}$, $0{,}1\,°\text{C}$, $0{,}01\,°\text{C}$):
+            Attorno alla temperatura di ebollizione di <strong>$C_0 = 100\,°\text{C}$</strong>, lo chef vuole verificare
+            come risponde la scala Fahrenheit.<br>
+            Se <strong>stringiamo progressivamente l'intorno</strong> $I_\delta(100)$ scegliendo un raggio $\delta$
+            sempre più piccolo ($2\,°\text{C}$, $1\,°\text{C}$, $0{,}5\,°\text{C}$, $0{,}1\,°\text{C}$,
+            $0{,}01\,°\text{C}$):
             <ul style="margin: 0.45rem 0 0.25rem 1.25rem; padding: 0; line-height: 1.6;">
-              <li>Tutte le temperature $C$ dentro l'intorno $(100 - \delta;\ 100 + \delta)$ sono vicinissime a $100\,°\text{C}$.</li>
-              <li>I corrispondenti valori in Fahrenheit $F(C)$ <strong>restano intrappolati in una fascia sempre più stretta</strong> attorno a $212\,°\text{F}$.</li>
-              <li>Nessun valore all'interno dell'intorno può «scappare» lontano dal limite: più stringiamo l'intorno dell'input, più l'output è costretto ad avvicinarsi al valore limite!</li>
+              <li>Tutte le temperature $C$ dentro l'intorno $(100 - \delta;\ 100 + \delta)$ sono vicinissime a
+                $100\,°\text{C}$.</li>
+              <li>I corrispondenti valori in Fahrenheit $F(C)$ <strong>restano intrappolati in una fascia sempre più
+                  stretta</strong> attorno a $212\,°\text{F}$.</li>
+              <li>Nessun valore all'interno dell'intorno può «scappare» lontano dal limite: più stringiamo l'intorno
+                dell'input, più l'output è costretto ad avvicinarsi al valore limite!</li>
             </ul>
           </div>
         </div>
 
         <p class="lab-intro">
-          Sposta il cursore per <strong>stringere l'ampiezza $\delta$ dell'intorno</strong>: osserva come l'intorno delle temperature $C$ sull'asse orizzontale comprime la fascia dei valori $F(C)$ sull'asse verticale, intrappolandoli sempre più vicini a <strong>$212\,°\text{F}$</strong>.
+          Sposta il cursore per <strong>stringere l'ampiezza $\delta$ dell'intorno</strong>: osserva come l'intorno
+          delle temperature $C$ sull'asse orizzontale comprime la fascia dei valori $F(C)$ sull'asse verticale,
+          intrappolandoli sempre più vicini a <strong>$212\,°\text{F}$</strong>.
         </p>
 
         <div class="m1l1-stage">
@@ -933,17 +993,20 @@
           </div>
           <div class="step-content">
             <p style="margin-bottom: 0.75rem;">
-              1) Osservando la tabella e il grafico quando l'ampiezza $\delta$ dell'intorno diventa piccolissima ($0{,}01$), a quale valore numerico esatto tende $F(C) = 1{,}8\,C + 32$?
+              1) Osservando la tabella e il grafico quando l'ampiezza $\delta$ dell'intorno diventa piccolissima
+              ($0{,}01$), a quale valore numerico esatto tende $F(C) = 1{,}8\,C + 32$?
               $$\lim_{C \to 100} (1{,}8\,C + 32) = \ ?$$
             </p>
             <div class="verify-box" style="margin-bottom: 0.75rem;">
               <input type="text" id="lab1bInput" class="inline-input" style="width: 90px;" placeholder="212">
               <span style="font-weight: 700;">°F</span>
             </div>
-            <p style="margin-bottom: 0.5rem; font-weight: 600;">2) Cosa significa concretamente che $\lim_{C \to 100} F(C) = 212$?</p>
+            <p style="margin-bottom: 0.5rem; font-weight: 600;">2) Cosa significa concretamente che $\lim_{C \to 100}
+              F(C) = 212$?</p>
             <div class="m1l1-choice-row" id="lab1bChoices" style="margin-bottom: 0.75rem;">
               <button type="button" class="m1l1-choice-btn" data-val="approx" onclick="selectChoice('lab1b', 'approx')">
-                A) Che possiamo rendere $F(C)$ vicino a 212 °F quanto vogliamo, basta prendere $C$ sufficientemente vicino a 100 °C
+                A) Che possiamo rendere $F(C)$ vicino a 212 °F quanto vogliamo, basta prendere $C$ sufficientemente
+                vicino a 100 °C
               </button>
               <button type="button" class="m1l1-choice-btn" data-val="exact" onclick="selectChoice('lab1b', 'exact')">
                 B) Che il termometro deve segnare obbligatoriamente 100 °C esatti, altrimenti il limite non esiste
@@ -954,11 +1017,13 @@
             </div>
             <div class="verify-box">
               <button type="button" class="btn-action" onclick="verifyLab1b()">Verifica Limite</button>
-              <button type="button" class="hint-btn" style="margin-top: 0;" onclick="toggleHint('hintLab1b')">💡 Suggerimento</button>
+              <button type="button" class="hint-btn" style="margin-top: 0;" onclick="toggleHint('hintLab1b')">💡
+                Suggerimento</button>
               <span id="lab1bMsg" class="feedback-msg" style="display: none;"></span>
             </div>
             <div id="hintLab1b" class="hint-text">
-              Guarda l'ultima riga della tabella: man mano che $\delta$ diventa $0{,}1$ e poi $0{,}01$, sia da sinistra sia da destra $F(C)$ si avvicina sempre più a 212 °F (la distanza massima scende a $0{,}018\,°\text{F}$).
+              Guarda l'ultima riga della tabella: man mano che $\delta$ diventa $0{,}1$ e poi $0{,}01$, sia da sinistra
+              sia da destra $F(C)$ si avvicina sempre più a 212 °F (la distanza massima scende a $0{,}018\,°\text{F}$).
             </div>
           </div>
         </div>
@@ -975,30 +1040,37 @@
           <span class="m1l1-context-icon">🔍</span>
           <div>
             <strong>Non lasciarti spaventare dalla simbologia matematica!</strong><br>
-            La scrittura compatta $\displaystyle\lim_{x \to x_0} f(x) = L$ racchiude una storia dinamica chiarissima: un viaggiatore ($x$) che cammina verso un traguardo ($x_0$) e una quantità ($f(x)$) che segue il suo movimento avvicinandosi a una quota prefissata ($L$).<br>
-            Clicca sui <strong>4 pezzi della formula</strong> per "esplodere" ciascun elemento, scoprirne l'origine latina, la corretta pronuncia ad alta voce e il significato nella vita reale:
+            La scrittura compatta $\displaystyle\lim_{x \to x_0} f(x) = L$ racchiude una storia dinamica chiarissima: un
+            viaggiatore ($x$) che cammina verso un traguardo ($x_0$) e una quantità ($f(x)$) che segue il suo movimento
+            avvicinandosi a una quota prefissata ($L$).<br>
+            Clicca sui <strong>4 pezzi della formula</strong> per "esplodere" ciascun elemento, scoprirne l'origine
+            latina, la corretta pronuncia ad alta voce e il significato nella vita reale:
           </div>
         </div>
 
         <div class="m1l1-anatomy-wrap">
           <!-- Visualizzatore interattivo della formula esplosa con blocchi cliccabili -->
           <div class="m1l1-formula-display" role="region" aria-label="Formula esplosa del limite">
-            <div class="m1l1-sym-piece piece-lim" id="symPieceLim" onclick="selectSymPiece('lim')" role="button" tabindex="0">
+            <div class="m1l1-sym-piece piece-lim" id="symPieceLim" onclick="selectSymPiece('lim')" role="button"
+              tabindex="0">
               <span class="m1l1-sym-math" style="color: var(--accent-math);">$$\lim$$</span>
               <span class="m1l1-sym-tag">1. L'Operatore</span>
             </div>
 
-            <div class="m1l1-sym-piece piece-arrow" id="symPieceArrow" onclick="selectSymPiece('arrow')" role="button" tabindex="0">
+            <div class="m1l1-sym-piece piece-arrow" id="symPieceArrow" onclick="selectSymPiece('arrow')" role="button"
+              tabindex="0">
               <span class="m1l1-sym-math" style="color: var(--accent-gold);">$$x \to x_0$$</span>
               <span class="m1l1-sym-tag">2. Il Moto dell'Input</span>
             </div>
 
-            <div class="m1l1-sym-piece piece-fx" id="symPieceFx" onclick="selectSymPiece('fx')" role="button" tabindex="0">
+            <div class="m1l1-sym-piece piece-fx" id="symPieceFx" onclick="selectSymPiece('fx')" role="button"
+              tabindex="0">
               <span class="m1l1-sym-math" style="color: var(--accent-purple);">$$f(x)$$</span>
               <span class="m1l1-sym-tag">3. L'Output Osservato</span>
             </div>
 
-            <div class="m1l1-sym-piece piece-res" id="symPieceRes" onclick="selectSymPiece('res')" role="button" tabindex="0">
+            <div class="m1l1-sym-piece piece-res" id="symPieceRes" onclick="selectSymPiece('res')" role="button"
+              tabindex="0">
               <span class="m1l1-sym-math" style="color: var(--accent-success);">$$= L$$</span>
               <span class="m1l1-sym-tag">4. Il Valore Limite</span>
             </div>
@@ -1006,11 +1078,16 @@
 
           <!-- Pulsantiera di selezione rapida -->
           <div class="m1l1-choice-row" style="justify-content: center; margin-bottom: 1.25rem;">
-            <button type="button" class="m1l1-choice-btn selected" id="btnSymAll" onclick="selectSymPiece('all')">🔍 Mostra Tutti i 4 Pezzi</button>
-            <button type="button" class="m1l1-choice-btn" id="btnSymLim" onclick="selectSymPiece('lim')">1. «lim»</button>
-            <button type="button" class="m1l1-choice-btn" id="btnSymArrow" onclick="selectSymPiece('arrow')">2. «x → x₀»</button>
-            <button type="button" class="m1l1-choice-btn" id="btnSymFx" onclick="selectSymPiece('fx')">3. «f(x)»</button>
-            <button type="button" class="m1l1-choice-btn" id="btnSymRes" onclick="selectSymPiece('res')">4. «= L»</button>
+            <button type="button" class="m1l1-choice-btn selected" id="btnSymAll" onclick="selectSymPiece('all')">🔍
+              Mostra Tutti i 4 Pezzi</button>
+            <button type="button" class="m1l1-choice-btn" id="btnSymLim" onclick="selectSymPiece('lim')">1.
+              «lim»</button>
+            <button type="button" class="m1l1-choice-btn" id="btnSymArrow" onclick="selectSymPiece('arrow')">2. «x →
+              x₀»</button>
+            <button type="button" class="m1l1-choice-btn" id="btnSymFx" onclick="selectSymPiece('fx')">3.
+              «f(x)»</button>
+            <button type="button" class="m1l1-choice-btn" id="btnSymRes" onclick="selectSymPiece('res')">4. «=
+              L»</button>
           </div>
 
           <!-- Griglia delle 4 Card Esplose di Dettaglio -->
@@ -1018,83 +1095,110 @@
             <!-- Card 1: lim -->
             <div class="m1l1-anatomy-card card-lim" id="cardSymLim">
               <div class="m1l1-anatomy-head">
-                <span class="m1l1-piece-badge" style="background: rgba(56, 189, 248, 0.15); color: var(--accent-math);">1. L'Operatore</span>
+                <span class="m1l1-piece-badge"
+                  style="background: rgba(56, 189, 248, 0.15); color: var(--accent-math);">1. L'Operatore</span>
                 <span class="m1l1-piece-math">$$\lim$$</span>
               </div>
               <div class="m1l1-anatomy-read">
                 🗣️ <strong>Come si legge:</strong> <em>«Limite...»</em>
               </div>
               <ul class="m1l1-anatomy-list">
-                <li><strong>Origine latina:</strong> Abbreviazione di <em>limes</em> (confine, sentiero di frontiera, soglia insuperabile).</li>
-                <li><strong>Cosa fa:</strong> È una "lente dinamica": ordina alla matematica di osservare <em>il comportamento verso cui tende</em> l'espressione, non ciò che accade fermandosi sul posto. Non è una semplice sostituzione statica!</li>
-                <li><strong>Nel nostro laboratorio di cucina:</strong> «Osserva la lettura del termometro Fahrenheit attorno al punto di ebollizione».</li>
+                <li><strong>Origine latina:</strong> Abbreviazione di <em>limes</em> (confine, sentiero di frontiera,
+                  soglia insuperabile).</li>
+                <li><strong>Cosa fa:</strong> È una "lente dinamica": ordina alla matematica di osservare <em>il
+                    comportamento verso cui tende</em> l'espressione, non ciò che accade fermandosi sul posto. Non è una
+                  semplice sostituzione statica!</li>
+                <li><strong>Nel nostro laboratorio di cucina:</strong> «Osserva la lettura del termometro Fahrenheit
+                  attorno al punto di ebollizione».</li>
               </ul>
             </div>
 
             <!-- Card 2: x -> x0 -->
             <div class="m1l1-anatomy-card card-arrow" id="cardSymArrow">
               <div class="m1l1-anatomy-head">
-                <span class="m1l1-piece-badge" style="background: rgba(251, 191, 36, 0.15); color: var(--accent-gold);">2. Il Moto dell'Input</span>
+                <span class="m1l1-piece-badge"
+                  style="background: rgba(251, 191, 36, 0.15); color: var(--accent-gold);">2. Il Moto dell'Input</span>
                 <span class="m1l1-piece-math">$$x \to x_0$$</span>
               </div>
               <div class="m1l1-anatomy-read">
                 🗣️ <strong>Come si legge:</strong> <em>«...per $x$ che tende a $x$ con zero...»</em>
               </div>
               <ul class="m1l1-anatomy-list">
-                <li><strong>La freccia «$\to$»:</strong> Si legge sempre <strong>«tende a»</strong> (oppure <em>«si avvicina arbitrariamente a»</em>).</li>
-                <li><strong>Regola d'oro:</strong> L'input $x$ si avvicina al centro $x_0$ sia da sinistra ($x &lt; x_0$) sia da destra ($x &gt; x_0$) dentro un intorno bucato, <strong>senza mai dover toccare né coincidere con $x_0$</strong> ($x \neq x_0$).</li>
-                <li><strong>Nel nostro laboratorio di cucina:</strong> $C \to 100$ significa <em>«quando la temperatura $C$ si avvicina a $100\,°\text{C}$ (es. $99{,}9\,°\text{C}$, $100{,}1\,°\text{C}$, $99{,}99\,°\text{C}$...)»</em>.</li>
+                <li><strong>La freccia «$\to$»:</strong> Si legge sempre <strong>«tende a»</strong> (oppure <em>«si
+                    avvicina arbitrariamente a»</em>).</li>
+                <li><strong>Regola d'oro:</strong> L'input $x$ si avvicina al centro $x_0$ sia da sinistra ($x &lt;
+                  x_0$) sia da destra ($x &gt; x_0$) dentro un intorno bucato, <strong>senza mai dover toccare né
+                    coincidere con $x_0$</strong> ($x \neq x_0$).</li>
+                <li><strong>Nel nostro laboratorio di cucina:</strong> $C \to 100$ significa <em>«quando la temperatura
+                    $C$ si avvicina a $100\,°\text{C}$ (es. $99{,}9\,°\text{C}$, $100{,}1\,°\text{C}$,
+                    $99{,}99\,°\text{C}$...)»</em>.</li>
               </ul>
             </div>
 
             <!-- Card 3: f(x) -->
             <div class="m1l1-anatomy-card card-fx" id="cardSymFx">
               <div class="m1l1-anatomy-head">
-                <span class="m1l1-piece-badge" style="background: rgba(139, 92, 246, 0.15); color: var(--accent-purple);">3. L'Output Osservato</span>
+                <span class="m1l1-piece-badge"
+                  style="background: rgba(139, 92, 246, 0.15); color: var(--accent-purple);">3. L'Output
+                  Osservato</span>
                 <span class="m1l1-piece-math">$$f(x)$$</span>
               </div>
               <div class="m1l1-anatomy-read">
                 🗣️ <strong>Come si legge:</strong> <em>«...di $f$ di $x$...»</em>
               </div>
               <ul class="m1l1-anatomy-list">
-                <li><strong>Ruolo:</strong> È la funzione o grandezza variabile di cui stiamo monitorando il comportamento (l'output trasformato).</li>
-                <li><strong>Cosa fa:</strong> Mentre l'input $x$ cammina verso $x_0$, la formula calcola come cambia il corrispondente valore di $f(x)$.</li>
-                <li><strong>Nel nostro laboratorio di cucina:</strong> $F(C) = 1{,}8\,C + 32$, la conversione da gradi Celsius a Fahrenheit richiesta dalla ricetta americana.</li>
+                <li><strong>Ruolo:</strong> È la funzione o grandezza variabile di cui stiamo monitorando il
+                  comportamento (l'output trasformato).</li>
+                <li><strong>Cosa fa:</strong> Mentre l'input $x$ cammina verso $x_0$, la formula calcola come cambia il
+                  corrispondente valore di $f(x)$.</li>
+                <li><strong>Nel nostro laboratorio di cucina:</strong> $F(C) = 1{,}8\,C + 32$, la conversione da gradi
+                  Celsius a Fahrenheit richiesta dalla ricetta americana.</li>
               </ul>
             </div>
 
             <!-- Card 4: = L -->
             <div class="m1l1-anatomy-card card-res" id="cardSymRes">
               <div class="m1l1-anatomy-head">
-                <span class="m1l1-piece-badge" style="background: rgba(16, 185, 129, 0.15); color: var(--accent-success);">4. Il Valore Limite</span>
+                <span class="m1l1-piece-badge"
+                  style="background: rgba(16, 185, 129, 0.15); color: var(--accent-success);">4. Il Valore Limite</span>
                 <span class="m1l1-piece-math">$$= L$$</span>
               </div>
               <div class="m1l1-anatomy-read">
                 🗣️ <strong>Come si legge:</strong> <em>«...è uguale a $L$»</em> (o <em>«vale $L$»</em>)
               </div>
               <ul class="m1l1-anatomy-list">
-                <li><strong>Il Risultato:</strong> È il valore numerico (oppure $\pm\infty$) a cui tutti i valori $f(x)$ convergono arbitrariamente.</li>
-                <li><strong>La certezza dell'intorno:</strong> Più stringiamo l'intorno dell'input $x_0$, più la funzione resta intrappolata vicinissima a $L$, senza poter fuggire.</li>
-                <li><strong>Nel nostro laboratorio di cucina:</strong> $= 212\,°\text{F}$, la temperatura esatta di ebollizione a cui si stabilizza la lettura.</li>
+                <li><strong>Il Risultato:</strong> È il valore numerico (oppure $\pm\infty$) a cui tutti i valori $f(x)$
+                  convergono arbitrariamente.</li>
+                <li><strong>La certezza dell'intorno:</strong> Più stringiamo l'intorno dell'input $x_0$, più la
+                  funzione resta intrappolata vicinissima a $L$, senza poter fuggire.</li>
+                <li><strong>Nel nostro laboratorio di cucina:</strong> $= 212\,°\text{F}$, la temperatura esatta di
+                  ebollizione a cui si stabilizza la lettura.</li>
               </ul>
             </div>
           </div>
 
           <!-- Box Guida alla Lettura ad Alta Voce con Sintesi Vocale Web Speech -->
           <div class="m1l1-read-aloud-box">
-            <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.65rem; margin-bottom: 0.5rem;">
-              <span style="font-weight: 800; font-size: 0.95rem; color: var(--text-main); display: flex; align-items: center; gap: 0.4rem;">
+            <div
+              style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.65rem; margin-bottom: 0.5rem;">
+              <span
+                style="font-weight: 800; font-size: 0.95rem; color: var(--text-main); display: flex; align-items: center; gap: 0.4rem;">
                 🗣️ Guida alla Lettura Completa ad Alta Voce
               </span>
-              <button type="button" class="btn-action" style="padding: 0.35rem 0.85rem; font-size: 0.82rem;" onclick="speakLimitNotation()">
+              <button type="button" class="btn-action" style="padding: 0.35rem 0.85rem; font-size: 0.82rem;"
+                onclick="speakLimitNotation()">
                 🔊 Ascolta la pronuncia
               </button>
             </div>
-            <p style="font-size: 1.05rem; font-style: italic; color: var(--accent-math); margin: 0.25rem 0 0.5rem; font-weight: 600;">
+            <p
+              style="font-size: 1.05rem; font-style: italic; color: var(--accent-math); margin: 0.25rem 0 0.5rem; font-weight: 600;">
               «Limite, per $x$ che tende a $x_0$, di $f(x)$, è uguale a $L$»
             </p>
-            <div style="font-size: 0.88rem; color: var(--text-muted); line-height: 1.6; border-top: 1px dashed var(--border-subtle); padding-top: 0.5rem;">
-              <strong>Traduzione in parole semplici:</strong> <em>«Man mano che l'input $x$ si avvicina al valore $x_0$ (senza necessariamente toccarlo), i valori calcolati $f(x)$ si avvicinano quanto vogliamo al valore bersaglio $L$».</em>
+            <div
+              style="font-size: 0.88rem; color: var(--text-muted); line-height: 1.6; border-top: 1px dashed var(--border-subtle); padding-top: 0.5rem;">
+              <strong>Traduzione in parole semplici:</strong> <em>«Man mano che l'input $x$ si avvicina al valore $x_0$
+                (senza necessariamente toccarlo), i valori calcolati $f(x)$ si avvicinano quanto vogliamo al valore
+                bersaglio $L$».</em>
             </div>
           </div>
         </div>
@@ -1110,30 +1214,42 @@
           </div>
           <div class="step-content">
             <p style="margin-bottom: 0.5rem; font-weight: 600;">
-              1) Nella scrittura $\displaystyle\lim_{x \to 5} f(x) = 12$, cosa significa esattamente la notazione $x \to 5$?
+              1) Nella scrittura $\displaystyle\lim_{x \to 5} f(x) = 12$, cosa significa esattamente la notazione $x \to
+              5$?
             </p>
             <div class="m1l1-choice-row" id="lab1cArrowChoices" style="margin-bottom: 0.75rem;">
-              <button type="button" class="m1l1-choice-btn" data-val="tende" onclick="selectChoice('lab1cArrow', this)">Si legge «x tende a 5»: x si avvicina arbitrariamente a 5 senza necessariamente toccarlo</button>
-              <button type="button" class="m1l1-choice-btn" data-val="uguale" onclick="selectChoice('lab1cArrow', this)">Si legge «x uguale a 5»: x deve valere esattamente 5</button>
-              <button type="button" class="m1l1-choice-btn" data-val="maggiore" onclick="selectChoice('lab1cArrow', this)">Si legge «x maggiore di 5»: x deve superare 5</button>
+              <button type="button" class="m1l1-choice-btn" data-val="tende"
+                onclick="selectChoice('lab1cArrow', this)">Si legge «x tende a 5»: x si avvicina arbitrariamente a 5
+                senza necessariamente toccarlo</button>
+              <button type="button" class="m1l1-choice-btn" data-val="uguale"
+                onclick="selectChoice('lab1cArrow', this)">Si legge «x uguale a 5»: x deve valere esattamente 5</button>
+              <button type="button" class="m1l1-choice-btn" data-val="maggiore"
+                onclick="selectChoice('lab1cArrow', this)">Si legge «x maggiore di 5»: x deve superare 5</button>
             </div>
 
             <p style="margin-bottom: 0.5rem; font-weight: 600;">
               2) Qual è la pronuncia ad alta voce corretta dell'espressione $\displaystyle\lim_{x \to 3} (2x + 1) = 7$?
             </p>
             <div class="m1l1-choice-row" id="lab1cReadChoices" style="margin-bottom: 0.75rem;">
-              <button type="button" class="m1l1-choice-btn" data-val="correct" onclick="selectChoice('lab1cRead', this)">«Limite, per x che tende a 3, di 2x più 1, è uguale a 7»</button>
-              <button type="button" class="m1l1-choice-btn" data-val="slang" onclick="selectChoice('lab1cRead', this)">«Lim di x freccia 3 di 2x più 1 fa 7»</button>
-              <button type="button" class="m1l1-choice-btn" data-val="fraction" onclick="selectChoice('lab1cRead', this)">«Equazione di x su 3 per 2x più 1 uguale a 7»</button>
+              <button type="button" class="m1l1-choice-btn" data-val="correct"
+                onclick="selectChoice('lab1cRead', this)">«Limite, per x che tende a 3, di 2x più 1, è uguale a
+                7»</button>
+              <button type="button" class="m1l1-choice-btn" data-val="slang"
+                onclick="selectChoice('lab1cRead', this)">«Lim di x freccia 3 di 2x più 1 fa 7»</button>
+              <button type="button" class="m1l1-choice-btn" data-val="fraction"
+                onclick="selectChoice('lab1cRead', this)">«Equazione di x su 3 per 2x più 1 uguale a 7»</button>
             </div>
 
             <div class="verify-box">
               <button type="button" class="btn-action" onclick="verifyLab1c()">Verifica Decodifica</button>
-              <button type="button" class="hint-btn" style="margin-top: 0;" onclick="toggleHint('hintLab1c')">💡 Suggerimento</button>
+              <button type="button" class="hint-btn" style="margin-top: 0;" onclick="toggleHint('hintLab1c')">💡
+                Suggerimento</button>
               <span id="lab1cMsg" class="feedback-msg" style="display: none;"></span>
             </div>
             <div id="hintLab1c" class="hint-text">
-              Ricorda: la freccia «$\to$» si pronuncia sempre <strong>«tende a»</strong> e indica un avvicinamento continuo. Il simbolo $\lim$ si legge <strong>«Limite»</strong> e l'intera espressione si legge indicando prima la tendenza dell'input e poi la funzione!
+              Ricorda: la freccia «$\to$» si pronuncia sempre <strong>«tende a»</strong> e indica un avvicinamento
+              continuo. Il simbolo $\lim$ si legge <strong>«Limite»</strong> e l'intera espressione si legge indicando
+              prima la tendenza dell'input e poi la funzione!
             </div>
           </div>
         </div>
@@ -1145,11 +1261,16 @@
             <span>La Teoria in Breve • Intorni e Idea Intuitiva di Limite</span>
           </div>
           <ul class="theory-list">
-            <li>Un <strong>intorno circolare</strong> di un punto $x_0$ (detto <strong>centro dell'intorno</strong>) è un intervallo aperto costruito attorno a $x_0$ fissando una semi-ampiezza (o raggio) $\delta &gt; 0$:
+            <li>Un <strong>intorno circolare</strong> di un punto $x_0$ (detto <strong>centro dell'intorno</strong>) è
+              un intervallo aperto costruito attorno a $x_0$ fissando una semi-ampiezza (o raggio) $\delta &gt; 0$:
               $$I_\delta(x_0) = (x_0 - \delta;\ x_0 + \delta) = \{\,x \in \mathbb{R} \mid |x - x_0| &lt; \delta\,\}$$
-              Contiene tutti i numeri reali la cui distanza dal centro $x_0$ è strettamente minore di $\delta$ (gli estremi $x_0 - \delta$ e $x_0 + \delta$ sono <em>esclusi</em>).</li>
-            <li>Scriviamo $\displaystyle\lim_{x \to x_0} f(x) = L$ se, restringendo l'intorno $I_\delta(x_0)$ attorno a $x_0$ (avvicinandoci da entrambi i lati <em>senza mai toccare</em> $x_0$), i valori $f(x)$ si avvicinano quanto vogliamo a $L$.</li>
-            <li>Il valore $f(x_0)$ esattamente nel centro <strong>non conta</strong>: può essere diverso da $L$ o addirittura non esistere (un «buco» nel grafico).</li>
+              Contiene tutti i numeri reali la cui distanza dal centro $x_0$ è strettamente minore di $\delta$ (gli
+              estremi $x_0 - \delta$ e $x_0 + \delta$ sono <em>esclusi</em>).</li>
+            <li>Scriviamo $\displaystyle\lim_{x \to x_0} f(x) = L$ se, restringendo l'intorno $I_\delta(x_0)$ attorno a
+              $x_0$ (avvicinandoci da entrambi i lati <em>senza mai toccare</em> $x_0$), i valori $f(x)$ si avvicinano
+              quanto vogliamo a $L$.</li>
+            <li>Il valore $f(x_0)$ esattamente nel centro <strong>non conta</strong>: può essere diverso da $L$ o
+              addirittura non esistere (un «buco» nel grafico).</li>
           </ul>
         </div>
       </article>
@@ -1239,9 +1360,13 @@
             <span>La Teoria in Breve • Limite Destro e Limite Sinistro</span>
           </div>
           <ul class="theory-list">
-            <li><strong>Limite sinistro</strong> $\lim_{x \to x_0^-} f(x)$: ci avviciniamo a $x_0$ solo con valori <em>minori</em> ($x &lt; x_0$).</li>
-            <li><strong>Limite destro</strong> $\lim_{x \to x_0^+} f(x)$: ci avviciniamo a $x_0$ solo con valori <em>maggiori</em> ($x &gt; x_0$).</li>
-            <li>Il limite $\lim_{x \to x_0} f(x)$ <strong>esiste</strong> se e solo se limite destro e sinistro esistono e sono <strong>uguali</strong> ($L^- = L^+$). Se differiscono (es. un «salto» di tariffa), il limite non esiste.</li>
+            <li><strong>Limite sinistro</strong> $\lim_{x \to x_0^-} f(x)$: ci avviciniamo a $x_0$ solo con valori
+              <em>minori</em> ($x &lt; x_0$).</li>
+            <li><strong>Limite destro</strong> $\lim_{x \to x_0^+} f(x)$: ci avviciniamo a $x_0$ solo con valori
+              <em>maggiori</em> ($x &gt; x_0$).</li>
+            <li>Il limite $\lim_{x \to x_0} f(x)$ <strong>esiste</strong> se e solo se limite destro e sinistro esistono
+              e sono <strong>uguali</strong> ($L^- = L^+$). Se differiscono (es. un «salto» di tariffa), il limite non
+              esiste.</li>
           </ul>
         </div>
       </article>
@@ -1311,12 +1436,15 @@
             </div>
             <p style="margin-bottom: 0.5rem; font-weight: 600;">2) $\displaystyle\lim_{p \to 100^-} C(p) =$</p>
             <div class="m1l1-choice-row" id="lab3Choices" style="margin-bottom: 0.75rem;">
-              <button type="button" class="m1l1-choice-btn" data-val="8000" onclick="selectChoice('lab3', this)">$8\,000$
+              <button type="button" class="m1l1-choice-btn" data-val="8000"
+                onclick="selectChoice('lab3', this)">$8\,000$
                 k€</button>
               <button type="button" class="m1l1-choice-btn" data-val="80" onclick="selectChoice('lab3', this)">$80$
                 k€</button>
-              <button type="button" class="m1l1-choice-btn" data-val="0" onclick="selectChoice('lab3', this)">$0$</button>
-              <button type="button" class="m1l1-choice-btn" data-val="inf" onclick="selectChoice('lab3', this)">$+\infty$</button>
+              <button type="button" class="m1l1-choice-btn" data-val="0"
+                onclick="selectChoice('lab3', this)">$0$</button>
+              <button type="button" class="m1l1-choice-btn" data-val="inf"
+                onclick="selectChoice('lab3', this)">$+\infty$</button>
             </div>
             <div class="verify-box">
               <button type="button" class="btn-action" onclick="verifyLab3()">Verifica</button>
@@ -1339,9 +1467,12 @@
             <span>La Teoria in Breve • Limite Infinito e Asintoto Verticale</span>
           </div>
           <ul class="theory-list">
-            <li>$\displaystyle\lim_{x \to x_0} f(x) = +\infty$ significa che, avvicinandosi a $x_0$, $f(x)$ supera <em>qualsiasi</em> soglia $M$ fissata (per quanto grande).</li>
-            <li>Se almeno uno dei due limiti laterali in $x_0$ è $\pm\infty$, la retta <strong>$x = x_0$</strong> è un <strong>asintoto verticale</strong>.</li>
-            <li>Tipico caso: denominatore che tende a $0$ e numeratore che no, es. $\lim_{x \to 2^+} \frac{1}{x-2} = +\infty$ e $\lim_{x \to 2^-} \frac{1}{x-2} = -\infty$.</li>
+            <li>$\displaystyle\lim_{x \to x_0} f(x) = +\infty$ significa che, avvicinandosi a $x_0$, $f(x)$ supera
+              <em>qualsiasi</em> soglia $M$ fissata (per quanto grande).</li>
+            <li>Se almeno uno dei due limiti laterali in $x_0$ è $\pm\infty$, la retta <strong>$x = x_0$</strong> è un
+              <strong>asintoto verticale</strong>.</li>
+            <li>Tipico caso: denominatore che tende a $0$ e numeratore che no, es. $\lim_{x \to 2^+} \frac{1}{x-2} =
+              +\infty$ e $\lim_{x \to 2^-} \frac{1}{x-2} = -\infty$.</li>
           </ul>
         </div>
       </article>
@@ -1433,10 +1564,13 @@
             <span>La Teoria in Breve • Limite all'Infinito e Asintoto Orizzontale</span>
           </div>
           <ul class="theory-list">
-            <li>$\displaystyle\lim_{x \to +\infty} f(x) = L$: per $x$ sempre più grande, $f(x)$ si stabilizza vicino a $L$. La retta <strong>$y = L$</strong> è un <strong>asintoto orizzontale</strong>.</li>
-            <li>Nelle frazioni con numeratore e denominatore di <em>pari grado</em>, il limite è il rapporto dei coefficienti direttivi: $\lim_{x \to +\infty} \frac{50x}{x + 4} = \frac{50}{1} = 50$.</li>
+            <li>$\displaystyle\lim_{x \to +\infty} f(x) = L$: per $x$ sempre più grande, $f(x)$ si stabilizza vicino a
+              $L$. La retta <strong>$y = L$</strong> è un <strong>asintoto orizzontale</strong>.</li>
+            <li>Nelle frazioni con numeratore e denominatore di <em>pari grado</em>, il limite è il rapporto dei
+              coefficienti direttivi: $\lim_{x \to +\infty} \frac{50x}{x + 4} = \frac{50}{1} = 50$.</li>
             <li>Termini come $\frac{k}{x}$ o $e^{-x}$ tendono a $0$ per $x \to +\infty$: «svaniscono».</li>
-            <li>Può anche essere $\lim_{x \to +\infty} f(x) = \pm\infty$ (crescita illimitata, nessun asintoto orizzontale).</li>
+            <li>Può anche essere $\lim_{x \to +\infty} f(x) = \pm\infty$ (crescita illimitata, nessun asintoto
+              orizzontale).</li>
           </ul>
         </div>
       </article>
@@ -1449,20 +1583,28 @@
 
 
       <!-- ==========================================
-           LABORATORIO 5: EPSILON-DELTA (TEORIA 5)
+           QUADRO TEORICO ISTITUZIONALE: LE DEFINIZIONI RIGOROSE DEI LIMITI
            ========================================== -->
-      <article class="lab-card" id="lab5">
+      <article class="lab-card theory-quadro-card" id="quadro-teorico">
         <div class="lab-badge-row">
-          <span class="lab-badge">Laboratorio 5 • Definizioni Rigorose in Tutti i Casi</span>
-          <span class="lab-xp-badge">+10 XP</span>
+          <span class="lab-badge" style="background: rgba(139, 92, 246, 0.15); color: var(--accent-purple); border-color: rgba(139, 92, 246, 0.35);">
+            📐 Quadro Teorico Istituzionale • Il Linguaggio dei Limiti
+          </span>
+          <span class="lab-xp-badge" style="background: rgba(251, 191, 36, 0.15); color: var(--accent-gold); border-color: rgba(251, 191, 36, 0.3);">
+            Formalizzazione &amp; Sintesi
+          </span>
         </div>
         <h3 class="lab-title">Il Contratto di Precisione: Le Definizioni Rigorose in Tutti i Casi di Limite</h3>
 
         <div class="m1l1-context" style="margin-top: 0.5rem;">
           <span class="m1l1-context-icon">🧭</span>
           <div>
-            Nel termostato abbiamo analizzato il caso «finito $\to$ finito». Ma nella realtà incontriamo anche limiti con <strong>valori infiniti</strong> (la depurazione che costa infinitamente cara vicino al 100%, la memoria che si stabilizza all'infinito, i costi che crescono senza limiti).<br>
-            La logica del «contratto di precisione» rimane <strong>sempre identica</strong>: <em>«Per ogni esigenza prefissata sull'output, esiste una soglia sull'input che la garantisce»</em>. Cambiano solo le lettere e i simboli usati:
+            Nel termostato abbiamo analizzato il caso «finito $\to$ finito». Ma nella realtà incontriamo anche limiti
+            con <strong>valori infiniti</strong> (la depurazione che costa infinitamente cara vicino al 100%, la memoria
+            che si stabilizza all'infinito, i costi che crescono senza limiti).<br>
+            La logica del «contratto di precisione» rimane <strong>sempre identica</strong>: <em>«Per ogni esigenza
+              prefissata sull'output, esiste una soglia sull'input che la garantisce»</em>. Cambiano solo le lettere e i
+            simboli usati:
           </div>
         </div>
 
@@ -1499,7 +1641,8 @@
             </thead>
             <tbody>
               <tr>
-                <th>$x \to x_0$ <strong>Finito</strong><br><small style="color:var(--text-muted); font-weight:normal;">(Finestra di raggio $\delta$)</small></th>
+                <th>$x \to x_0$ <strong>Finito</strong><br><small
+                    style="color:var(--text-muted); font-weight:normal;">(Finestra di raggio $\delta$)</small></th>
                 <td>
                   <strong>① Limite finito al finito</strong><br>
                   $\forall \varepsilon &gt; 0\ \ \exists \delta &gt; 0 :$<br>
@@ -1507,22 +1650,26 @@
                 </td>
                 <td>
                   <strong>② Limite infinito al finito</strong><br>
-                  <span style="color:var(--accent-danger); font-size:0.8rem; font-weight:700;">[Asintoto Verticale]</span><br>
+                  <span style="color:var(--accent-danger); font-size:0.8rem; font-weight:700;">[Asintoto
+                    Verticale]</span><br>
                   $\forall M &gt; 0\ \ \exists \delta &gt; 0 :$<br>
                   $0 &lt; |x - x_0| &lt; \delta \implies f(x) &gt; M$
                 </td>
               </tr>
               <tr>
-                <th>$x \to +\infty$<br><small style="color:var(--text-muted); font-weight:normal;">(Soglia $K &gt; 0$)</small></th>
+                <th>$x \to +\infty$<br><small style="color:var(--text-muted); font-weight:normal;">(Soglia $K &gt;
+                    0$)</small></th>
                 <td>
                   <strong>③ Limite finito all'infinito</strong><br>
-                  <span style="color:var(--accent-purple); font-size:0.8rem; font-weight:700;">[Asintoto Orizzontale]</span><br>
+                  <span style="color:var(--accent-purple); font-size:0.8rem; font-weight:700;">[Asintoto
+                    Orizzontale]</span><br>
                   $\forall \varepsilon &gt; 0\ \ \exists K &gt; 0 :$<br>
                   $x &gt; K \implies |f(x) - L| &lt; \varepsilon$
                 </td>
                 <td>
                   <strong>④ Limite infinito all'infinito</strong><br>
-                  <span style="color:var(--accent-gold); font-size:0.8rem; font-weight:700;">[Crescita Illimitata]</span><br>
+                  <span style="color:var(--accent-gold); font-size:0.8rem; font-weight:700;">[Crescita
+                    Illimitata]</span><br>
                   $\forall M &gt; 0\ \ \exists K &gt; 0 :$<br>
                   $x &gt; K \implies f(x) &gt; M$
                 </td>
@@ -1539,26 +1686,33 @@
               <span class="m1l1-case-num big">①</span>
               <div>
                 <div class="m1l1-def-title">Caso 1: Finito al Finito ($\lim_{x \to x_0} f(x) = L$)</div>
-                <div class="m1l1-def-formula-inline">$\forall \varepsilon &gt; 0\ \exists \delta &gt; 0 : 0 &lt; |x - x_0| &lt; \delta \Rightarrow |f(x) - L| &lt; \varepsilon$</div>
+                <div class="m1l1-def-formula-inline">$\forall \varepsilon &gt; 0\ \exists \delta &gt; 0 : 0 &lt; |x -
+                  x_0| &lt; \delta \Rightarrow |f(x) - L| &lt; \varepsilon$</div>
               </div>
             </div>
             <p class="m1l1-def-text">
-              <strong>In parole semplici:</strong> Per quanto stretta sia la tolleranza $\varepsilon$ che richiedi sull'output attorno a $L$, posso sempre trovare una finestra di tolleranza $\delta$ attorno a $x_0$ tale che la funzione resti dentro la fascia $(L - \varepsilon;\ L + \varepsilon)$.
+              <strong>In parole semplici:</strong> Per quanto stretta sia la tolleranza $\varepsilon$ che richiedi
+              sull'output attorno a $L$, posso sempre trovare una finestra di tolleranza $\delta$ attorno a $x_0$ tale
+              che la funzione resti dentro la fascia $(L - \varepsilon;\ L + \varepsilon)$.
             </p>
             <div class="m1l1-inc-card" style="margin: 0.35rem 0;">
               <strong>Esempio reale (Termostato):</strong> $\lim_{C \to 100} (1{,}8\,C + 32) = 212\,°\text{F}$.<br>
-              Relazione esatta: $\delta = \frac{\varepsilon}{1{,}8}$. Se chiedi $\varepsilon = 0{,}9\,°\text{F}$, scelgo $\delta = 0{,}5\,°\text{C}$ (vedi grafico interattivo sotto).
+              Relazione esatta: $\delta = \frac{\varepsilon}{1{,}8}$. Se chiedi $\varepsilon = 0{,}9\,°\text{F}$, scelgo
+              $\delta = 0{,}5\,°\text{C}$ (vedi grafico interattivo sotto).
             </div>
             <!-- Mini-simulatore Caso 1 -->
             <div class="m1l1-slider-panel" style="margin: 0.35rem 0; padding: 0.45rem 0.75rem;">
               <label for="defCase1Slider" style="font-size: 0.8rem;">Tolleranza $\varepsilon$ (°F):</label>
-              <input type="range" id="defCase1Slider" class="m1l1-range" min="0.36" max="5.4" step="0.18" value="1.8" oninput="renderDefCase1()">
+              <input type="range" id="defCase1Slider" class="m1l1-range" min="0.36" max="5.4" step="0.18" value="1.8"
+                oninput="renderDefCase1()">
               <span class="m1l1-readout gold" id="defCase1E">ε = 1,80 °F</span>
               <span class="m1l1-readout" id="defCase1D">δ = 1,00 °C</span>
             </div>
-            <svg id="defCase1Svg" class="m1l1-svg" viewBox="0 0 320 180" style="max-width: 100%; height: auto;" role="img" aria-label="Grafico fascia epsilon e finestra delta per il termostato"></svg>
+            <svg id="defCase1Svg" class="m1l1-svg" viewBox="0 0 320 180" style="max-width: 100%; height: auto;"
+              role="img" aria-label="Grafico fascia epsilon e finestra delta per il termostato"></svg>
             <div id="defCase1Status" class="m1l1-def-text" style="font-weight: 600; color: var(--accent-math);"></div>
-            <button type="button" class="theory-ref-pill" onclick="scrollToTheory('teoria-5')">🔗 Rif. Teoria 5 • Definizione Epsilon-Delta</button>
+            <button type="button" class="theory-ref-pill" onclick="scrollToTheory('teoria-5')">🔗 Rif. Teoria 5 •
+              Definizione Epsilon-Delta</button>
           </div>
 
           <!-- Card Caso 2 -->
@@ -1567,29 +1721,36 @@
               <span class="m1l1-case-num big" style="background: linear-gradient(135deg, #ef4444, #f59e0b);">②</span>
               <div>
                 <div class="m1l1-def-title">Caso 2: Infinito al Finito ($\lim_{x \to x_0} f(x) = +\infty$)</div>
-                <div class="m1l1-def-formula-inline">$\forall M &gt; 0\ \exists \delta &gt; 0 : 0 &lt; |x - x_0| &lt; \delta \Rightarrow f(x) &gt; M$</div>
+                <div class="m1l1-def-formula-inline">$\forall M &gt; 0\ \exists \delta &gt; 0 : 0 &lt; |x - x_0| &lt;
+                  \delta \Rightarrow f(x) &gt; M$</div>
               </div>
             </div>
             <p class="m1l1-def-text">
-              <strong>In parole semplici:</strong> Per quanto alta sia la soglia $M$ fissata (anche milioni!), esiste un intorno bucato di $x_0$ di raggio $\delta$ in cui la funzione supera stabilmente $M$. Geometricamente, la retta verticale <strong>$x = x_0$ è un asintoto verticale</strong>.
+              <strong>In parole semplici:</strong> Per quanto alta sia la soglia $M$ fissata (anche milioni!), esiste un
+              intorno bucato di $x_0$ di raggio $\delta$ in cui la funzione supera stabilmente $M$. Geometricamente, la
+              retta verticale <strong>$x = x_0$ è un asintoto verticale</strong>.
             </p>
             <div class="m1l1-inc-card" style="margin: 0.35rem 0;">
               <strong>Esempio reale (Depurazione acque, Lab 3):</strong><br>
               $\displaystyle\lim_{p \to 100^-} C(p) = \lim_{p \to 100^-} \frac{80p}{100 - p} = +\infty$.<br>
               Risolvendo $\frac{80p}{100 - p} &gt; M$ con $p &lt; 100$:<br>
               $$100 - p &lt; \frac{8000}{M + 80} \iff \delta(M) = \frac{8000}{M + 80}$$
-              <em>Più la soglia di costo $M$ è esorbitante, più la finestra $\delta$ si stringe a ridosso del $100\%$!</em>
+              <em>Più la soglia di costo $M$ è esorbitante, più la finestra $\delta$ si stringe a ridosso del
+                $100\%$!</em>
             </div>
             <!-- Mini-simulatore Caso 2 -->
             <div class="m1l1-slider-panel" style="margin: 0.35rem 0; padding: 0.45rem 0.75rem;">
               <label for="defCase2Slider" style="font-size: 0.8rem;">Soglia $M$ (k€):</label>
-              <input type="range" id="defCase2Slider" class="m1l1-range" min="100" max="1500" step="50" value="400" oninput="renderDefCase2()">
+              <input type="range" id="defCase2Slider" class="m1l1-range" min="100" max="1500" step="50" value="400"
+                oninput="renderDefCase2()">
               <span class="m1l1-readout gold" id="defCase2M">M = 400 k€</span>
               <span class="m1l1-readout" id="defCase2D">δ = 16,67%</span>
             </div>
-            <svg id="defCase2Svg" class="m1l1-svg" viewBox="0 0 320 180" style="max-width: 100%; height: auto;" role="img" aria-label="Grafico soglia M e delta"></svg>
+            <svg id="defCase2Svg" class="m1l1-svg" viewBox="0 0 320 180" style="max-width: 100%; height: auto;"
+              role="img" aria-label="Grafico soglia M e delta"></svg>
             <div id="defCase2Status" class="m1l1-def-text" style="font-weight: 600; color: var(--accent-danger);"></div>
-            <button type="button" class="theory-ref-pill" onclick="scrollToTheory('teoria-3')">🔗 Rif. Teoria 3 • Asintoto Verticale</button>
+            <button type="button" class="theory-ref-pill" onclick="scrollToTheory('teoria-3')">🔗 Rif. Teoria 3 •
+              Asintoto Verticale</button>
           </div>
 
           <!-- Card Caso 3 -->
@@ -1598,29 +1759,37 @@
               <span class="m1l1-case-num big" style="background: linear-gradient(135deg, #8b5cf6, #3b82f6);">③</span>
               <div>
                 <div class="m1l1-def-title">Caso 3: Finito all'Infinito ($\lim_{x \to +\infty} f(x) = L$)</div>
-                <div class="m1l1-def-formula-inline">$\forall \varepsilon &gt; 0\ \exists K &gt; 0 : x &gt; K \Rightarrow |f(x) - L| &lt; \varepsilon$</div>
+                <div class="m1l1-def-formula-inline">$\forall \varepsilon &gt; 0\ \exists K &gt; 0 : x &gt; K
+                  \Rightarrow |f(x) - L| &lt; \varepsilon$</div>
               </div>
             </div>
             <p class="m1l1-def-text">
-              <strong>In parole semplici:</strong> Per quanto stretta sia la tolleranza $\varepsilon$ richiesta attorno alla quota limite $L$, esiste un istante o valore di soglia $K$ tale che, per tutti gli $x$ oltre $K$, la funzione resta definitivamente confinata nella striscia orizzontale $(L - \varepsilon;\ L + \varepsilon)$. La retta <strong>$y = L$ è un asintoto orizzontale</strong>.
+              <strong>In parole semplici:</strong> Per quanto stretta sia la tolleranza $\varepsilon$ richiesta attorno
+              alla quota limite $L$, esiste un istante o valore di soglia $K$ tale che, per tutti gli $x$ oltre $K$, la
+              funzione resta definitivamente confinata nella striscia orizzontale $(L - \varepsilon;\ L + \varepsilon)$.
+              La retta <strong>$y = L$ è un asintoto orizzontale</strong>.
             </p>
             <div class="m1l1-inc-card" style="margin: 0.35rem 0;">
               <strong>Esempio reale (Curva di Apprendimento, Lab 4):</strong><br>
               $\displaystyle\lim_{t \to +\infty} N(t) = \lim_{t \to +\infty} \frac{50t}{t + 4} = 50\text{ parole}$.<br>
-              Distanza dal tetto: $|N(t) - 50| = \frac{200}{t + 4} &lt; \varepsilon \iff t &gt; \frac{200}{\varepsilon} - 4$.<br>
+              Distanza dal tetto: $|N(t) - 50| = \frac{200}{t + 4} &lt; \varepsilon \iff t &gt; \frac{200}{\varepsilon}
+              - 4$.<br>
               Quindi la soglia temporale necessaria è:
               $$K(\varepsilon) = \frac{200}{\varepsilon} - 4\text{ giorni}$$
             </div>
             <!-- Mini-simulatore Caso 3 -->
             <div class="m1l1-slider-panel" style="margin: 0.35rem 0; padding: 0.45rem 0.75rem;">
               <label for="defCase3Slider" style="font-size: 0.8rem;">Tolleranza $\varepsilon$ (parole):</label>
-              <input type="range" id="defCase3Slider" class="m1l1-range" min="1" max="10" step="0.5" value="5" oninput="renderDefCase3()">
+              <input type="range" id="defCase3Slider" class="m1l1-range" min="1" max="10" step="0.5" value="5"
+                oninput="renderDefCase3()">
               <span class="m1l1-readout gold" id="defCase3E">ε = 5 parole</span>
               <span class="m1l1-readout" id="defCase3K">K = 36 giorni</span>
             </div>
-            <svg id="defCase3Svg" class="m1l1-svg" viewBox="0 0 320 180" style="max-width: 100%; height: auto;" role="img" aria-label="Grafico tolleranza epsilon e soglia K"></svg>
+            <svg id="defCase3Svg" class="m1l1-svg" viewBox="0 0 320 180" style="max-width: 100%; height: auto;"
+              role="img" aria-label="Grafico tolleranza epsilon e soglia K"></svg>
             <div id="defCase3Status" class="m1l1-def-text" style="font-weight: 600; color: var(--accent-purple);"></div>
-            <button type="button" class="theory-ref-pill" onclick="scrollToTheory('teoria-4')">🔗 Rif. Teoria 4 • Asintoto Orizzontale</button>
+            <button type="button" class="theory-ref-pill" onclick="scrollToTheory('teoria-4')">🔗 Rif. Teoria 4 •
+              Asintoto Orizzontale</button>
           </div>
 
           <!-- Card Caso 4 -->
@@ -1629,14 +1798,17 @@
               <span class="m1l1-case-num big" style="background: linear-gradient(135deg, #10b981, #06b6d4);">④</span>
               <div>
                 <div class="m1l1-def-title">Caso 4: Infinito all'Infinito ($\lim_{x \to +\infty} f(x) = +\infty$)</div>
-                <div class="m1l1-def-formula-inline">$\forall M &gt; 0\ \exists K &gt; 0 : x &gt; K \Rightarrow f(x) &gt; M$</div>
+                <div class="m1l1-def-formula-inline">$\forall M &gt; 0\ \exists K &gt; 0 : x &gt; K \Rightarrow f(x)
+                  &gt; M$</div>
               </div>
             </div>
             <p class="m1l1-def-text">
-              <strong>In parole semplici:</strong> La funzione cresce senza alcun tetto massimo: fissata qualunque soglia $M$ alta a piacere, basta andare sufficientemente lontano verso destra ($x &gt; K$) affinché la funzione superi per sempre $M$. Non ci sono asintoti orizzontali.
+              <strong>In parole semplici:</strong> La funzione cresce senza alcun tetto massimo: fissata qualunque
+              soglia $M$ alta a piacere, basta andare sufficientemente lontano verso destra ($x &gt; K$) affinché la
+              funzione superi per sempre $M$. Non ci sono asintoti orizzontali.
             </p>
             <div class="m1l1-inc-card" style="margin: 0.35rem 0;">
-              <strong>Esempio reale (Costo Totale Casa Editrice, Lab 7):</strong><br>
+              <strong>Esempio reale (Costo Totale Casa Editrice, Lab 6):</strong><br>
               Costo complessivo $C_{tot}(x) = 3600 + 4x$ (€).<br>
               $\displaystyle\lim_{x \to +\infty} (3600 + 4x) = +\infty$.<br>
               Imponendo $3600 + 4x &gt; M \iff x &gt; \frac{M - 3600}{4}$.<br>
@@ -1646,13 +1818,17 @@
             <!-- Mini-simulatore Caso 4 -->
             <div class="m1l1-slider-panel" style="margin: 0.35rem 0; padding: 0.45rem 0.75rem;">
               <label for="defCase4Slider" style="font-size: 0.8rem;">Soglia di spesa $M$ (€):</label>
-              <input type="range" id="defCase4Slider" class="m1l1-range" min="4000" max="9000" step="200" value="6000" oninput="renderDefCase4()">
+              <input type="range" id="defCase4Slider" class="m1l1-range" min="4000" max="9000" step="200" value="6000"
+                oninput="renderDefCase4()">
               <span class="m1l1-readout gold" id="defCase4M">M = 6.000 €</span>
               <span class="m1l1-readout" id="defCase4K">K = 600 copie</span>
             </div>
-            <svg id="defCase4Svg" class="m1l1-svg" viewBox="0 0 320 180" style="max-width: 100%; height: auto;" role="img" aria-label="Grafico soglia M e K per limite infinito all'infinito"></svg>
-            <div id="defCase4Status" class="m1l1-def-text" style="font-weight: 600; color: var(--accent-success);"></div>
-            <button type="button" class="theory-ref-pill" onclick="scrollToTheory('teoria-4')">🔗 Rif. Teoria 4 • Crescita Illimitata</button>
+            <svg id="defCase4Svg" class="m1l1-svg" viewBox="0 0 320 180" style="max-width: 100%; height: auto;"
+              role="img" aria-label="Grafico soglia M e K per limite infinito all'infinito"></svg>
+            <div id="defCase4Status" class="m1l1-def-text" style="font-weight: 600; color: var(--accent-success);">
+            </div>
+            <button type="button" class="theory-ref-pill" onclick="scrollToTheory('teoria-4')">🔗 Rif. Teoria 4 •
+              Crescita Illimitata</button>
           </div>
         </div>
 
@@ -1662,14 +1838,23 @@
             <span>🧩 Le Varianti con $-\infty$, Limiti Laterali e la Definizione Topologica Unificata</span>
           </div>
           <ul class="theory-list">
-            <li><strong>Output $-\infty$:</strong> Si sostituisce $f(x) &gt; M$ con <strong>$f(x) &lt; -M$</strong> (la funzione scende sotto qualsiasi soglia negativa). Esempio: $\lim_{x \to 2^-} \frac{1}{x - 2} = -\infty$.</li>
-            <li><strong>Input $x \to -\infty$:</strong> Si sostituisce $x &gt; K$ con <strong>$x &lt; -K$</strong> (ci si sposta a sinistra oltre $-K$). Esempio: $\lim_{x \to -\infty} \frac{1}{x} = 0$.</li>
-            <li><strong>Limiti Laterali ($x \to x_0^+$ e $x \to x_0^-$):</strong> Invece dell'intorno circolare completo bucato $0 &lt; |x - x_0| &lt; \delta$, si usa la mezza finestra:
-              $$x \to x_0^+ \implies x_0 &lt; x &lt; x_0 + \delta, \qquad x \to x_0^- \implies x_0 - \delta &lt; x &lt; x_0$$</li>
+            <li><strong>Output $-\infty$:</strong> Si sostituisce $f(x) &gt; M$ con <strong>$f(x) &lt; -M$</strong> (la
+              funzione scende sotto qualsiasi soglia negativa). Esempio: $\lim_{x \to 2^-} \frac{1}{x - 2} = -\infty$.
+            </li>
+            <li><strong>Input $x \to -\infty$:</strong> Si sostituisce $x &gt; K$ con <strong>$x &lt; -K$</strong> (ci
+              si sposta a sinistra oltre $-K$). Esempio: $\lim_{x \to -\infty} \frac{1}{x} = 0$.</li>
+            <li><strong>Limiti Laterali ($x \to x_0^+$ e $x \to x_0^-$):</strong> Invece dell'intorno circolare completo
+              bucato $0 &lt; |x - x_0| &lt; \delta$, si usa la mezza finestra:
+              $$x \to x_0^+ \implies x_0 &lt; x &lt; x_0 + \delta, \qquad x \to x_0^- \implies x_0 - \delta &lt; x &lt;
+              x_0$$</li>
             <li><strong>La Grande Bellezza della Matematica • La Definizione Topologica Unificata:</strong><br>
-              Se chiamiamo <strong>intorno di $+\infty$</strong> una qualsiasi semiretta destra $(M;\ +\infty)$ e <strong>intorno di $-\infty$</strong> una semiretta sinistra $(-\infty;\ -M)$, <em>tutti i casi di limite esistenti al mondo si riassumono in un'unica ed elegante riga</em>:
-              $$\lim_{x \to x_0} f(x) = L \iff \forall\, I(L)\ \ \exists\, I(x_0) : \forall x \in I(x_0) \setminus \{x_0\} \implies f(x) \in I(L)$$
-              <em style="color:var(--text-muted);">«Per ogni intorno dell'output $I(L)$, esiste un intorno dell'input $I(x_0)$ che viene mandato interamente dentro $I(L)$».</em>
+              Se chiamiamo <strong>intorno di $+\infty$</strong> una qualsiasi semiretta destra $(M;\ +\infty)$ e
+              <strong>intorno di $-\infty$</strong> una semiretta sinistra $(-\infty;\ -M)$, <em>tutti i casi di limite
+                esistenti al mondo si riassumono in un'unica ed elegante riga</em>:
+              $$\lim_{x \to x_0} f(x) = L \iff \forall\, I(L)\ \ \exists\, I(x_0) : \forall x \in I(x_0) \setminus
+              \{x_0\} \implies f(x) \in I(L)$$
+              <em style="color:var(--text-muted);">«Per ogni intorno dell'output $I(L)$, esiste un intorno dell'input
+                $I(x_0)$ che viene mandato interamente dentro $I(L)$».</em>
             </li>
           </ul>
         </div>
@@ -1678,19 +1863,29 @@
         <div class="step-box" style="margin-top: 1.25rem;">
           <div class="step-header">
             <span class="step-tag">Sfida di Consolidamento Formale: Associa la Definizione (+5 XP)</span>
-            <button type="button" class="theory-ref-pill" style="margin-bottom: 0;" onclick="scrollToTheory('teoria-5')">
+            <button type="button" class="theory-ref-pill" style="margin-bottom: 0;"
+              onclick="scrollToTheory('teoria-5')">
               🔗 Rif. Teoria 5 • I 4 Contratti
             </button>
           </div>
           <div class="step-content">
             <p style="margin-bottom: 0.65rem;">
-              Quale formula esprime rigorosamente che la retta <strong>$y = 3$ è un asintoto orizzontale</strong> per $x \to +\infty$?
+              Quale formula esprime rigorosamente che la retta <strong>$y = 3$ è un asintoto orizzontale</strong> per $x
+              \to +\infty$?
             </p>
             <div class="m1l1-choice-row" id="defMatchChoices" style="margin-bottom: 0.75rem;">
-              <button type="button" class="m1l1-choice-btn" data-val="1" onclick="selectChoice('defMatch', this)">$\forall M &gt; 0\ \exists \delta &gt; 0 : 0 &lt; |x - 3| &lt; \delta \Rightarrow f(x) &gt; M$</button>
-              <button type="button" class="m1l1-choice-btn" data-val="2" onclick="selectChoice('defMatch', this)">$\forall \varepsilon &gt; 0\ \exists K &gt; 0 : x &gt; K \Rightarrow |f(x) - 3| &lt; \varepsilon$</button>
-              <button type="button" class="m1l1-choice-btn" data-val="3" onclick="selectChoice('defMatch', this)">$\forall M &gt; 0\ \exists K &gt; 0 : x &gt; K \Rightarrow f(x) &gt; M$</button>
-              <button type="button" class="m1l1-choice-btn" data-val="4" onclick="selectChoice('defMatch', this)">$\forall \varepsilon &gt; 0\ \exists \delta &gt; 0 : 0 &lt; |x - 3| &lt; \delta \Rightarrow |f(x)| &lt; \varepsilon$</button>
+              <button type="button" class="m1l1-choice-btn" data-val="1"
+                onclick="selectChoice('defMatch', this)">$\forall M &gt; 0\ \exists \delta &gt; 0 : 0 &lt; |x - 3| &lt;
+                \delta \Rightarrow f(x) &gt; M$</button>
+              <button type="button" class="m1l1-choice-btn" data-val="2"
+                onclick="selectChoice('defMatch', this)">$\forall \varepsilon &gt; 0\ \exists K &gt; 0 : x &gt; K
+                \Rightarrow |f(x) - 3| &lt; \varepsilon$</button>
+              <button type="button" class="m1l1-choice-btn" data-val="3"
+                onclick="selectChoice('defMatch', this)">$\forall M &gt; 0\ \exists K &gt; 0 : x &gt; K \Rightarrow f(x)
+                &gt; M$</button>
+              <button type="button" class="m1l1-choice-btn" data-val="4"
+                onclick="selectChoice('defMatch', this)">$\forall \varepsilon &gt; 0\ \exists \delta &gt; 0 : 0 &lt; |x
+                - 3| &lt; \delta \Rightarrow |f(x)| &lt; \varepsilon$</button>
             </div>
             <div class="verify-box">
               <button type="button" class="btn-action" onclick="verifyDefMatch()">Verifica Risposta</button>
@@ -1706,11 +1901,15 @@
             <span>La Teoria in Breve • La Definizione Rigorosa $\varepsilon$–$\delta$ e le sue Estensioni</span>
           </div>
           <ul class="theory-list">
-            <li>$\lim_{x \to x_0} f(x) = L$ se: <strong>per ogni</strong> tolleranza $\varepsilon &gt; 0$ sull'output <strong>esiste</strong> una tolleranza $\delta &gt; 0$ sull'input tale che
+            <li>$\lim_{x \to x_0} f(x) = L$ se: <strong>per ogni</strong> tolleranza $\varepsilon &gt; 0$ sull'output
+              <strong>esiste</strong> una tolleranza $\delta &gt; 0$ sull'input tale che
               $$0 &lt; |x - x_0| &lt; \delta \;\Rightarrow\; |f(x) - L| &lt; \varepsilon$$</li>
-            <li>È un «contratto di precisione»: tu chiedi quanto vuoi essere vicino a $L$ ($\varepsilon$), io ti dico quanto devi essere vicino a $x_0$ ($\delta$).</li>
+            <li>È un «contratto di precisione»: tu chiedi quanto vuoi essere vicino a $L$ ($\varepsilon$), io ti dico
+              quanto devi essere vicino a $x_0$ ($\delta$).</li>
             <li>Per una retta $f(x) = mx + q$ con $m \neq 0$ basta scegliere $\delta = \frac{\varepsilon}{|m|}$.</li>
-            <li>Lo stesso «contratto» vale anche quando $x_0$ o $L$ sono <strong>infiniti</strong>: cambia solo il tipo di intorno ($\varepsilon$ e $\delta$ per i valori finiti, soglie $M$ e $K$ per $\pm\infty$). Trovi le definizioni rigorose di <strong>tutti i casi</strong> nella <a href="#m1l1AllCases" class="theory-link-anchor" onclick="event.preventDefault(); document.getElementById('m1l1AllCases').scrollIntoView({behavior:'smooth'});">Parte 2 di questo laboratorio</a>.</li>
+            <li>Lo stesso «contratto» vale anche quando $x_0$ o $L$ sono <strong>infiniti</strong>: cambia solo il tipo
+              di intorno ($\varepsilon$ e $\delta$ per i valori finiti, soglie $M$ e $K$ per $\pm\infty$). Trovi le
+              definizioni rigorose di <strong>tutti i casi</strong>.</li>
           </ul>
         </div>
       </article>
@@ -1726,11 +1925,11 @@
 
 
       <!-- ==========================================
-           LABORATORIO 6: PALESTRA MENTALE
+           LABORATORIO 5: PALESTRA MENTALE
            ========================================== -->
-      <article class="lab-card" id="lab6">
+      <article class="lab-card" id="lab5">
         <div class="lab-badge-row">
-          <span class="lab-badge">Laboratorio 6 • Consolidamento</span>
+          <span class="lab-badge">Laboratorio 5 • Palestra di Consolidamento</span>
           <span class="lab-xp-badge">+5 XP a sfida • +10 XP finale</span>
         </div>
         <h3 class="lab-title">Palestra Mentale: 4 Sfide Lampo sui Limiti della Vita Quotidiana</h3>
@@ -1774,7 +1973,9 @@
                 🔗 Teoria 1 • Limite e buco nel grafico
               </button>
               <div class="m1l1-gym-question">
-                La funzione $f(x) = \frac{x^2 - 9}{x - 3}$ non è definita per $x = 3$. Semplificando per $x \neq 3$ o osservando l'intorno di $3$, calcola il valore limite: $\displaystyle\lim_{x \to 3} \frac{x^2 - 9}{x - 3}$.
+                La funzione $f(x) = \frac{x^2 - 9}{x - 3}$ non è definita per $x = 3$. Semplificando per $x \neq 3$ o
+                osservando l'intorno di $3$, calcola il valore limite: $\displaystyle\lim_{x \to 3} \frac{x^2 - 9}{x -
+                3}$.
               </div>
             </div>
             <div>
@@ -1815,7 +2016,8 @@
                 🔗 Teoria 3 • Limite infinito
               </button>
               <div class="m1l1-gym-question">
-                🛒 Nella teoria delle code, il numero medio di clienti in attesa è $W(\rho) = \frac{\rho}{1 - \rho}$, con
+                🛒 Nella teoria delle code, il numero medio di clienti in attesa è $W(\rho) = \frac{\rho}{1 - \rho}$,
+                con
                 $\rho$ = frazione di tempo in cui la cassa è occupata. Quanto vale $\lim_{\rho \to 1^-} W(\rho)$?
               </div>
             </div>
@@ -1838,12 +2040,13 @@
 
 
       <!-- ==========================================
-           LABORATORIO 7: COMPITO DI REALTÀ SVOLTO
+           LABORATORIO 6: COMPITO DI REALTÀ SVOLTO
            ========================================== -->
-      <article class="lab-card m1l1-worked-card" id="lab7">
+      <article class="lab-card m1l1-worked-card" id="lab6">
         <div class="lab-badge-row">
-          <span class="lab-badge" style="background: rgba(16, 185, 129, 0.15); color: var(--accent-success); border-color: rgba(16, 185, 129, 0.3);">
-            Laboratorio 7 • Compito di Realtà Svolto
+          <span class="lab-badge"
+            style="background: rgba(16, 185, 129, 0.15); color: var(--accent-success); border-color: rgba(16, 185, 129, 0.3);">
+            Laboratorio 6 • Compito di Realtà Svolto
           </span>
           <span class="lab-xp-badge">+10 XP</span>
         </div>
@@ -1853,8 +2056,12 @@
           <span class="tl-icon">🔗</span>
           <div>
             <strong>Collegamento Teoria ↔ Pratica:</strong> Questo compito autentico integra la
-            <a href="#teoria-3" class="theory-link-anchor" onclick="event.preventDefault(); scrollToTheory('teoria-3');">Teoria 3 • Asintoto Verticale ($x \to 0^+$)</a>
-            e la <a href="#teoria-4" class="theory-link-anchor" onclick="event.preventDefault(); scrollToTheory('teoria-4');">Teoria 4 • Asintoto Orizzontale ($x \to +\infty$)</a>
+            <a href="#teoria-3" class="theory-link-anchor"
+              onclick="event.preventDefault(); scrollToTheory('teoria-3');">Teoria 3 • Asintoto Verticale ($x \to
+              0^+$)</a>
+            e la <a href="#teoria-4" class="theory-link-anchor"
+              onclick="event.preventDefault(); scrollToTheory('teoria-4');">Teoria 4 • Asintoto Orizzontale ($x \to
+              +\infty$)</a>
             dimostrando come i limiti governino le economie di scala e la sostenibilità economica.
           </div>
         </div>
@@ -1862,25 +2069,31 @@
         <div class="m1l1-context">
           <span class="m1l1-context-icon">📚</span>
           <div>
-            La cooperativa sociale <em>«Libri per Tutti»</em> pubblica saggi divulgativi di Scienze Umane. Per stampare un nuovo manuale ha sostenuto <strong>$3\,600\text{ €}$ di costi fissi iniziali</strong> (editing, grafica e diritti) e un <strong>costo variabile di $4\text{ €}$ per ciascuna copia</strong> stampata.
-            Se vengono stampate $x$ copie, il <strong>costo medio unitario</strong> (costo per singola copia) è espresso dalla funzione:
+            La cooperativa sociale <em>«Libri per Tutti»</em> pubblica saggi divulgativi di Scienze Umane. Per stampare
+            un nuovo manuale ha sostenuto <strong>$3\,600\text{ €}$ di costi fissi iniziali</strong> (editing, grafica e
+            diritti) e un <strong>costo variabile di $4\text{ €}$ per ciascuna copia</strong> stampata.
+            Se vengono stampate $x$ copie, il <strong>costo medio unitario</strong> (costo per singola copia) è espresso
+            dalla funzione:
             $$\overline{C}(x) = \frac{3600 + 4x}{x} = \frac{3600}{x} + 4, \qquad x > 0$$
           </div>
         </div>
 
         <p class="lab-intro">
-          Segui i <strong>4 passi dell'indagine</strong>. Interagisci con il grafico dinamico per esplorare la curva di costo ed esamina la risoluzione commentata:
+          Segui i <strong>4 passi dell'indagine</strong>. Interagisci con il grafico dinamico per esplorare la curva di
+          costo ed esamina la risoluzione commentata:
         </p>
 
         <!-- Visualizzatore interattivo del costo medio -->
         <div class="m1l1-stage">
           <div class="m1l1-slider-panel">
-            <label for="lab7Slider">📖 Tiratura stampata $x$:</label>
-            <input type="range" id="lab7Slider" class="m1l1-range" min="10" max="1500" step="10" value="100" oninput="renderLab7()">
-            <span class="m1l1-readout" id="lab7Readout">x = 100 copie</span>
-            <span class="m1l1-readout gold" id="lab7Cost">Costo medio = 40,00 €</span>
+            <label for="lab6Slider">📖 Tiratura stampata $x$:</label>
+            <input type="range" id="lab6Slider" class="m1l1-range" min="10" max="1500" step="10" value="100"
+              oninput="renderLab6()">
+            <span class="m1l1-readout" id="lab6Readout">x = 100 copie</span>
+            <span class="m1l1-readout gold" id="lab6Cost">Costo medio = 40,00 €</span>
           </div>
-          <svg id="lab7Svg" class="m1l1-svg" viewBox="0 0 640 300" role="img" aria-label="Grafico del costo medio con asintoto orizzontale a quota 4 euro"></svg>
+          <svg id="lab6Svg" class="m1l1-svg" viewBox="0 0 640 300" role="img"
+            aria-label="Grafico del costo medio con asintoto orizzontale a quota 4 euro"></svg>
           <div class="m1l1-legend">
             <span style="--legend-color: var(--accent-math);">Costo medio $\overline{C}(x)$</span>
             <span style="--legend-color: var(--accent-success);">Asintoto $y = 4$ € (Costo variabile)</span>
@@ -1891,18 +2104,24 @@
         <!-- Fasi dello svolgimento guidato -->
         <div class="m1l1-worked-controls">
           <span style="font-weight: 700; font-size: 0.88rem;">Esplora i passaggi di risoluzione:</span>
-          <button type="button" class="m1l1-choice-btn selected" id="btnStep1" onclick="showWorkedStep(1)">Passo 1: Tirature Basse</button>
-          <button type="button" class="m1l1-choice-btn" id="btnStep2" onclick="showWorkedStep(2)">Passo 2: Tirature Alte &amp; Limite</button>
-          <button type="button" class="m1l1-choice-btn" id="btnStep3" onclick="showWorkedStep(3)">Passo 3: Asintoti Geometrici</button>
-          <button type="button" class="m1l1-choice-btn" id="btnStep4" onclick="showWorkedStep(4)">Passo 4: Significato Sociale</button>
+          <button type="button" class="m1l1-choice-btn selected" id="btnStep1" onclick="showWorkedStep(1)">Passo 1:
+            Tirature Basse</button>
+          <button type="button" class="m1l1-choice-btn" id="btnStep2" onclick="showWorkedStep(2)">Passo 2: Tirature Alte
+            &amp; Limite</button>
+          <button type="button" class="m1l1-choice-btn" id="btnStep3" onclick="showWorkedStep(3)">Passo 3: Asintoti
+            Geometrici</button>
+          <button type="button" class="m1l1-choice-btn" id="btnStep4" onclick="showWorkedStep(4)">Passo 4: Significato
+            Sociale</button>
         </div>
 
         <div class="step-box" style="margin-top: 1rem;">
           <!-- Step 1 -->
           <div class="m1l1-worked-step revealed" id="workedStep1">
             <div class="step-header">
-              <span class="step-tag"><span class="m1l1-step-counter">Passo 1 di 4</span> • Comportamento a tirature minime ($x \to 0^+$)</span>
-              <button type="button" class="theory-ref-pill" onclick="scrollToTheory('teoria-3')">🔗 Rif. Teoria 3 • Limite Infinito</button>
+              <span class="step-tag"><span class="m1l1-step-counter">Passo 1 di 4</span> • Comportamento a tirature
+                minime ($x \to 0^+$)</span>
+              <button type="button" class="theory-ref-pill" onclick="scrollToTheory('teoria-3')">🔗 Rif. Teoria 3 •
+                Limite Infinito</button>
             </div>
             <div class="step-content">
               <p>Cosa accade se la cooperativa stampa pochissime copie, ad esempio $x = 10$ oppure $x = 2$?</p>
@@ -1910,22 +2129,29 @@
                 $\overline{C}(10) = \frac{3600}{10} + 4 = 360 + 4 = 364\text{ €/copia}$<br>
                 $\overline{C}(2) = \frac{3600}{2} + 4 = 1800 + 4 = 1804\text{ €/copia}$
               </div>
-              <p>Calcoliamo il limite per $x$ che si avvicina a $0$ da destra (non si possono stampare quantità negative):</p>
+              <p>Calcoliamo il limite per $x$ che si avvicina a $0$ da destra (non si possono stampare quantità
+                negative):</p>
               <div class="m1l1-formula-line">
-                $$\lim_{x \to 0^+} \overline{C}(x) = \lim_{x \to 0^+} \left(\frac{3600}{x} + 4\right) = \frac{3600}{0^+} + 4 = +\infty + 4 = +\infty$$
+                $$\lim_{x \to 0^+} \overline{C}(x) = \lim_{x \to 0^+} \left(\frac{3600}{x} + 4\right) = \frac{3600}{0^+}
+                + 4 = +\infty + 4 = +\infty$$
               </div>
-              <p><strong>Spiegazione concettuale:</strong> Poiché i costi fissi ($3\,600$ €) gravano su un numero irrisorio di copie, il costo unitario esplode verso $+\infty$. L'asse delle ordinate (la retta $x = 0$) è un <strong>asintoto verticale destro</strong>.</p>
+              <p><strong>Spiegazione concettuale:</strong> Poiché i costi fissi ($3\,600$ €) gravano su un numero
+                irrisorio di copie, il costo unitario esplode verso $+\infty$. L'asse delle ordinate (la retta $x = 0$)
+                è un <strong>asintoto verticale destro</strong>.</p>
             </div>
           </div>
 
           <!-- Step 2 -->
           <div class="m1l1-worked-step" id="workedStep2">
             <div class="step-header">
-              <span class="step-tag"><span class="m1l1-step-counter">Passo 2 di 4</span> • Economia di scala per grandi tirature ($x \to +\infty$)</span>
-              <button type="button" class="theory-ref-pill" onclick="scrollToTheory('teoria-4')">🔗 Rif. Teoria 4 • Asintoto Orizzontale</button>
+              <span class="step-tag"><span class="m1l1-step-counter">Passo 2 di 4</span> • Economia di scala per grandi
+                tirature ($x \to +\infty$)</span>
+              <button type="button" class="theory-ref-pill" onclick="scrollToTheory('teoria-4')">🔗 Rif. Teoria 4 •
+                Asintoto Orizzontale</button>
             </div>
             <div class="step-content">
-              <p>All'aumentare delle copie stampate ($100$, $500$, $1000$, $10\,000$), i costi fissi si "diluiscono":</p>
+              <p>All'aumentare delle copie stampate ($100$, $500$, $1000$, $10\,000$), i costi fissi si "diluiscono":
+              </p>
               <div class="m1l1-formula-line">
                 $\overline{C}(100) = \frac{3600}{100} + 4 = 36 + 4 = 40\text{ €/copia}$<br>
                 $\overline{C}(500) = \frac{3600}{500} + 4 = 7{,}20 + 4 = 11{,}20\text{ €/copia}$<br>
@@ -1933,24 +2159,38 @@
               </div>
               <p>Calcoliamo il limite per una tiratura che cresce senza limiti ($x \to +\infty$):</p>
               <div class="m1l1-formula-line">
-                $$\lim_{x \to +\infty} \overline{C}(x) = \lim_{x \to +\infty} \left(\frac{3600}{x} + 4\right) = 0 + 4 = 4\text{ €}$$
+                $$\lim_{x \to +\infty} \overline{C}(x) = \lim_{x \to +\infty} \left(\frac{3600}{x} + 4\right) = 0 + 4 =
+                4\text{ €}$$
               </div>
-              <p><strong>Spiegazione concettuale:</strong> Per $x \to +\infty$, la quota di costi fissi per copia $\frac{3600}{x}$ tende a zero. La funzione si stabilizza sul solo costo variabile di $4\text{ €}$. La retta orizzontale <strong>$y = 4$</strong> è un <strong>asintoto orizzontale</strong>.</p>
+              <p><strong>Spiegazione concettuale:</strong> Per $x \to +\infty$, la quota di costi fissi per copia
+                $\frac{3600}{x}$ tende a zero. La funzione si stabilizza sul solo costo variabile di $4\text{ €}$. La
+                retta orizzontale <strong>$y = 4$</strong> è un <strong>asintoto orizzontale</strong>.</p>
             </div>
           </div>
 
           <!-- Step 3 -->
           <div class="m1l1-worked-step" id="workedStep3">
             <div class="step-header">
-              <span class="step-tag"><span class="m1l1-step-counter">Passo 3 di 4</span> • Quadro di Sintesi degli Asintoti della Funzione</span>
-              <button type="button" class="theory-ref-pill" onclick="scrollToTheory('teoria-3')">🔗 Rif. Teoria 3 &amp; 4 • Asintoti</button>
+              <span class="step-tag"><span class="m1l1-step-counter">Passo 3 di 4</span> • Quadro di Sintesi degli
+                Asintoti della Funzione</span>
+              <button type="button" class="theory-ref-pill" onclick="scrollToTheory('teoria-3')">🔗 Rif. Teoria 3 &amp;
+                4 • Asintoti</button>
             </div>
             <div class="step-content">
               <p>Riepilogando le proprietà geometriche della curva nel primo quadrante ($x > 0$):</p>
               <ul class="po-list" style="margin-top: 0.5rem;">
-                <li><span class="po-icon">📌</span><div><strong>Asintoto Verticale:</strong> Retta $x = 0$ (perché $\lim_{x \to 0^+} \overline{C}(x) = +\infty$).</div></li>
-                <li><span class="po-icon">📌</span><div><strong>Asintoto Orizzontale:</strong> Retta $y = 4$ (perché $\lim_{x \to +\infty} \overline{C}(x) = 4$).</div></li>
-                <li><span class="po-icon">📌</span><div><strong>Andamento:</strong> La funzione è sempre decrescente per $x > 0$, ma rimane strettamente al di sopra della soglia $y = 4$.</div></li>
+                <li><span class="po-icon">📌</span>
+                  <div><strong>Asintoto Verticale:</strong> Retta $x = 0$ (perché $\lim_{x \to 0^+} \overline{C}(x) =
+                    +\infty$).</div>
+                </li>
+                <li><span class="po-icon">📌</span>
+                  <div><strong>Asintoto Orizzontale:</strong> Retta $y = 4$ (perché $\lim_{x \to +\infty}
+                    \overline{C}(x) = 4$).</div>
+                </li>
+                <li><span class="po-icon">📌</span>
+                  <div><strong>Andamento:</strong> La funzione è sempre decrescente per $x > 0$, ma rimane strettamente
+                    al di sopra della soglia $y = 4$.</div>
+                </li>
               </ul>
             </div>
           </div>
@@ -1958,18 +2198,26 @@
           <!-- Step 4 -->
           <div class="m1l1-worked-step" id="workedStep4">
             <div class="step-header">
-              <span class="step-tag"><span class="m1l1-step-counter">Passo 4 di 4</span> • Interpretazione Decisionale (Scienze Umane &amp; Economia)</span>
-              <button type="button" class="theory-ref-pill" onclick="scrollToTheory('teoria-4')">🔗 Rif. Teoria 4 • Significato nel Reale</button>
+              <span class="step-tag"><span class="m1l1-step-counter">Passo 4 di 4</span> • Interpretazione Decisionale
+                (Scienze Umane &amp; Economia)</span>
+              <button type="button" class="theory-ref-pill" onclick="scrollToTheory('teoria-4')">🔗 Rif. Teoria 4 •
+                Significato nel Reale</button>
             </div>
             <div class="step-content">
               <p>Cosa insegna questo limite alla cooperativa?</p>
               <ol style="padding-left: 1.25rem; line-height: 1.6; margin-bottom: 0.75rem;">
-                <li><strong>Il limite è una barriera invalicabile:</strong> Anche stampando $10$ milioni di copie, il costo per libro non potrà mai scendere sotto i $4\text{ €}$ (costo vivo di inchiostro, carta e brossura).</li>
-                <li><strong>Prezzo etico di vendita:</strong> Se la cooperativa vuole vendere il saggio a $10\text{ €}$ al pubblico coprendo i costi, risolve $\overline{C}(x) \le 10 \implies \frac{3600}{x} + 4 \le 10 \implies \frac{3600}{x} \le 6 \implies x \ge 600$ copie. Servono almeno $600$ copie vendute per raggiungere il punto di pareggio (*break-even point*).</li>
+                <li><strong>Il limite è una barriera invalicabile:</strong> Anche stampando $10$ milioni di copie, il
+                  costo per libro non potrà mai scendere sotto i $4\text{ €}$ (costo vivo di inchiostro, carta e
+                  brossura).</li>
+                <li><strong>Prezzo etico di vendita:</strong> Se la cooperativa vuole vendere il saggio a $10\text{ €}$
+                  al pubblico coprendo i costi, risolve $\overline{C}(x) \le 10 \implies \frac{3600}{x} + 4 \le 10
+                  \implies \frac{3600}{x} \le 6 \implies x \ge 600$ copie. Servono almeno $600$ copie vendute per
+                  raggiungere il punto di pareggio (*break-even point*).</li>
               </ol>
               <div class="verify-box">
-                <button type="button" class="btn-action" onclick="verifyWorkedLab()">Ho Compreso il Compito Svolto (+10 XP)</button>
-                <span id="lab7Msg" class="feedback-msg" style="display: none;"></span>
+                <button type="button" class="btn-action" onclick="verifyWorkedLab()">Ho Compreso il Compito Svolto (+10
+                  XP)</button>
+                <span id="lab6Msg" class="feedback-msg" style="display: none;"></span>
               </div>
             </div>
           </div>
@@ -1993,12 +2241,14 @@
         <h2 class="section-title">
           <span class="icon">🃏</span> Flashcards di Autovalutazione (+15 XP per carta)
         </h2>
-        <span class="tag info-tag" style="background: rgba(56, 189, 248, 0.12); color: var(--accent-math); padding: 0.25rem 0.65rem; border-radius: 9999px; font-size: 0.8rem; font-weight: 700;">
+        <span class="tag info-tag"
+          style="background: rgba(56, 189, 248, 0.12); color: var(--accent-math); padding: 0.25rem 0.65rem; border-radius: 9999px; font-size: 0.8rem; font-weight: 700;">
           🔁 Tentativi Infiniti &amp; Shuffle
         </span>
       </div>
       <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1.5rem;">
-        Mettiti alla prova con le flashcards concettuali sui limiti. Le opzioni vengono rimescolate ad ogni tentativo con logica Mastery Learning!
+        Mettiti alla prova con le flashcards concettuali sui limiti. Le opzioni vengono rimescolate ad ogni tentativo
+        con logica Mastery Learning!
       </p>
 
       <!-- Mazzo popolato da ComodeFlashcards.init -->
@@ -2036,15 +2286,23 @@
         <div class="theory-link-box">
           <span class="tl-icon">🔗</span>
           <div>
-            <strong>Collegamento Teoria ↔ Pratica:</strong> Questo compito di realtà trasferisce in autonomia quanto esplorato nel <a href="#lab7" class="theory-link-anchor" onclick="event.preventDefault(); document.getElementById('lab7').scrollIntoView({behavior:'smooth'});">Laboratorio 7 Svolto</a>, consolidando
-            la <a href="#teoria-3" class="theory-link-anchor" onclick="event.preventDefault(); scrollToTheory('teoria-3');">Teoria 3 • Asintoti Verticali</a> e
-            la <a href="#teoria-4" class="theory-link-anchor" onclick="event.preventDefault(); scrollToTheory('teoria-4');">Teoria 4 • Asintoti Orizzontali ed Economia di Scala</a>
+            <strong>Collegamento Teoria ↔ Pratica:</strong> Questo compito di realtà trasferisce in autonomia quanto
+            esplorato nel <a href="#lab6" class="theory-link-anchor"
+              onclick="event.preventDefault(); document.getElementById('lab6').scrollIntoView({behavior:'smooth'});">Laboratorio
+              6 Svolto</a>, consolidando
+            la <a href="#teoria-3" class="theory-link-anchor"
+              onclick="event.preventDefault(); scrollToTheory('teoria-3');">Teoria 3 • Asintoti Verticali</a> e
+            la <a href="#teoria-4" class="theory-link-anchor"
+              onclick="event.preventDefault(); scrollToTheory('teoria-4');">Teoria 4 • Asintoti Orizzontali ed Economia
+              di Scala</a>
             in un autentico dilemma di politica pubblica e welfare locale.
           </div>
         </div>
 
         <div class="scheda-delivery-callout">
-          <strong>📅 Modalità di svolgimento e consegna:</strong> Puoi svolgere questo compito di realtà <strong>da solo</strong> oppure <strong>lavorando in gruppo</strong> con i tuoi compagni di classe, ma ciascuno studente deve <strong>portare la Scheda Operativa compilata per la lezione successiva</strong>.
+          <strong>📅 Modalità di svolgimento e consegna:</strong> Puoi svolgere questo compito di realtà <strong>da
+            solo</strong> oppure <strong>lavorando in gruppo</strong> con i tuoi compagni di classe, ma ciascuno
+          studente deve <strong>portare la Scheda Operativa compilata per la lezione successiva</strong>.
         </div>
 
         <!-- Campi Intestazione Studente -->
@@ -2065,10 +2323,15 @@
 
         <div class="scheda-problem-box">
           <strong>La Situazione-Problema (Welfare Locale &amp; Scienze Sociali):</strong><br>
-          L'Assessorato all'Istruzione di una città di 45.000 abitanti progetta la nuova mensa biologica centralizzata per tutti i plessi scolastici comunali (infanzia, primarie e medie).<br>
-          I <strong>costi fissi annuali</strong> (ammortamento cucine industriali ad alta efficienza energetica, personale a tempo indeterminato, manutenzioni e certificazioni igieniche HACCP) ammontano a <strong>$C_F = 45\,000\text{ €/anno}$</strong>.<br>
-          Il <strong>costo variabile</strong> per ogni singolo pasto biologico preparato (ingredienti a filiera corta, stoviglie compostabili e lavaggio) ammonta a <strong>$c_v = 2{,}50\text{ €}$ per pasto</strong>.<br>
-          Se in un anno scolastico vengono complessivamente cucinati ed erogati $x$ pasti ($x > 0$), il <strong>costo medio unitario di un pasto</strong> per il Comune è espresso da:
+          L'Assessorato all'Istruzione di una città di 45.000 abitanti progetta la nuova mensa biologica centralizzata
+          per tutti i plessi scolastici comunali (infanzia, primarie e medie).<br>
+          I <strong>costi fissi annuali</strong> (ammortamento cucine industriali ad alta efficienza energetica,
+          personale a tempo indeterminato, manutenzioni e certificazioni igieniche HACCP) ammontano a <strong>$C_F =
+            45\,000\text{ €/anno}$</strong>.<br>
+          Il <strong>costo variabile</strong> per ogni singolo pasto biologico preparato (ingredienti a filiera corta,
+          stoviglie compostabili e lavaggio) ammonta a <strong>$c_v = 2{,}50\text{ €}$ per pasto</strong>.<br>
+          Se in un anno scolastico vengono complessivamente cucinati ed erogati $x$ pasti ($x > 0$), il <strong>costo
+            medio unitario di un pasto</strong> per il Comune è espresso da:
           $$\overline{C}(x) = \frac{45\,000 + 2{,}50\,x}{x} = \frac{45\,000}{x} + 2{,}50 \quad \text{[in €/pasto]}$$
 
           <ol style="margin-top: 1rem;">
@@ -2076,34 +2339,49 @@
               <strong>Calcolo dei costi medi a scaglioni di utenza:</strong><br>
               Calcola il costo medio di un singolo pasto per i seguenti volumi annuali:
               <ul>
-                <li>Piccolo comune rurale ($x = 1\,500$ pasti/anno): $\overline{C}(1500) = \text{\_\_\_\_\_\_\_\_\_\_}$ €</li>
-                <li>Rete di 3 plessi scolastici ($x = 9\,000$ pasti/anno): $\overline{C}(9000) = \text{\_\_\_\_\_\_\_\_\_\_}$ €</li>
-                <li>Intero distretto cittadino ($x = 30\,000$ pasti/anno): $\overline{C}(30000) = \text{\_\_\_\_\_\_\_\_\_\_}$ €</li>
+                <li>Piccolo comune rurale ($x = 1\,500$ pasti/anno): $\overline{C}(1500) = \text{\_\_\_\_\_\_\_\_\_\_}$
+                  €</li>
+                <li>Rete di 3 plessi scolastici ($x = 9\,000$ pasti/anno): $\overline{C}(9000) =
+                  \text{\_\_\_\_\_\_\_\_\_\_}$ €</li>
+                <li>Intero distretto cittadino ($x = 30\,000$ pasti/anno): $\overline{C}(30000) =
+                  \text{\_\_\_\_\_\_\_\_\_\_}$ €</li>
               </ul>
             </li>
             <li>
               <strong>Calcolo rigoroso dei limiti e individuazione degli asintoti:</strong><br>
               Calcola e argomenta i due limiti cardinali della funzione costo medio:
-              $$\lim_{x \to 0^+} \overline{C}(x) = \text{\_\_\_\_\_\_\_\_\_\_} \qquad \text{e} \qquad \lim_{x \to +\infty} \overline{C}(x) = \text{\_\_\_\_\_\_\_\_\_\_}$$
-              Scrivi l'equazione cartesiana dell'asintoto verticale e dell'asintoto orizzontale della funzione $\overline{C}(x)$.
+              $$\lim_{x \to 0^+} \overline{C}(x) = \text{\_\_\_\_\_\_\_\_\_\_} \qquad \text{e} \qquad \lim_{x \to
+              +\infty} \overline{C}(x) = \text{\_\_\_\_\_\_\_\_\_\_}$$
+              Scrivi l'equazione cartesiana dell'asintoto verticale e dell'asintoto orizzontale della funzione
+              $\overline{C}(x)$.
             </li>
             <li>
               <strong>Schizzo del grafico cartesiano:</strong><br>
-              Traccia sul riquadro sottostante lo schizzo qualitativo della funzione $\overline{C}(x)$ nel primo quadrante, evidenziando chiaramente i due asintoti, le unità di misura sugli assi ($x$ in migliaia di pasti, $y$ in €) e i tre punti calcolati al quesito 1:
-              <div class="m1l1-sketch-box" style="height: 150px; display: flex; align-items: center; justify-content: center; color: var(--text-dim); font-size: 0.88rem;">
-                [Spazio per il disegno del grafico cartesiano con asintoto orizzontale y = 2,50 e asintoto verticale x = 0]
+              Traccia sul riquadro sottostante lo schizzo qualitativo della funzione $\overline{C}(x)$ nel primo
+              quadrante, evidenziando chiaramente i due asintoti, le unità di misura sugli assi ($x$ in migliaia di
+              pasti, $y$ in €) e i tre punti calcolati al quesito 1:
+              <div class="m1l1-sketch-box"
+                style="height: 150px; display: flex; align-items: center; justify-content: center; color: var(--text-dim); font-size: 0.88rem;">
+                [Spazio per il disegno del grafico cartesiano con asintoto orizzontale y = 2,50 e asintoto verticale x =
+                0]
               </div>
             </li>
             <li>
               <strong>Pianificazione della tariffa e soglia di sostenibilità:</strong><br>
-              Il Consiglio Comunale decide di fissare una tariffa standard agevolata per le famiglie pari a <strong>$4{,}00\text{ €}$ a pasto</strong>.<br>
-              Qual è il <em>numero minimo di pasti annuali</em> $x_{min}$ che la mensa deve garantire affinché il costo medio non superi la tariffa riscossa dalle famiglie (evitando che il bilancio del servizio chiuda in disavanzo)?<br>
+              Il Consiglio Comunale decide di fissare una tariffa standard agevolata per le famiglie pari a
+              <strong>$4{,}00\text{ €}$ a pasto</strong>.<br>
+              Qual è il <em>numero minimo di pasti annuali</em> $x_{min}$ che la mensa deve garantire affinché il costo
+              medio non superi la tariffa riscossa dalle famiglie (evitando che il bilancio del servizio chiuda in
+              disavanzo)?<br>
               <em>(Suggerimento: imposta e risolvi la disequazione $\overline{C}(x) \le 4{,}00$).</em>
             </li>
             <li>
               <strong>Riflessione Interdisciplinare (Diritto, Sociologia ed Economia Pubblica):</strong><br>
               Scrivi una breve argomentazione critica (10–15 righe) affrontando questo quesito civico:<br>
-              <em>«Perché nei piccoli borghi di montagna o nelle aree interne marginali la gestione dei servizi essenziali (mense, asili, presidi sanitari) risulta matematicamente più onerosa pro capite rispetto alle grandi aree metropolitane? Come interviene il principio costituzionale di eguaglianza sostanziale (Art. 3 Cost.) per impedire che l'asintoto economico escluda i cittadini delle comunità più piccole?»</em>
+              <em>«Perché nei piccoli borghi di montagna o nelle aree interne marginali la gestione dei servizi
+                essenziali (mense, asili, presidi sanitari) risulta matematicamente più onerosa pro capite rispetto alle
+                grandi aree metropolitane? Come interviene il principio costituzionale di eguaglianza sostanziale (Art.
+                3 Cost.) per impedire che l'asintoto economico escluda i cittadini delle comunità più piccole?»</em>
             </li>
           </ol>
         </div>
@@ -2122,21 +2400,28 @@
             <tbody>
               <tr>
                 <td><strong>Calcolo dei Limiti &amp; Asintoti</strong></td>
-                <td>Calcola correttamente alcuni valori puntuali ma ha incertezze formali nel calcolo dei limiti con $\infty$.</td>
-                <td>Calcola con correttezza i limiti per $x \to 0^+$ e $x \to +\infty$ e individua le equazioni dei due asintoti.</td>
-                <td>Padroneggia il formalismo dell'infinitesimo e dell'infinito, interpretando con estrema sicurezza la forma algebrica e geometrica.</td>
+                <td>Calcola correttamente alcuni valori puntuali ma ha incertezze formali nel calcolo dei limiti con
+                  $\infty$.</td>
+                <td>Calcola con correttezza i limiti per $x \to 0^+$ e $x \to +\infty$ e individua le equazioni dei due
+                  asintoti.</td>
+                <td>Padroneggia il formalismo dell'infinitesimo e dell'infinito, interpretando con estrema sicurezza la
+                  forma algebrica e geometrica.</td>
               </tr>
               <tr>
                 <td><strong>Modellizzazione Economica</strong></td>
                 <td>Risolve la disequazione del punto 4 con qualche aiuto o incertezza algebrica.</td>
-                <td>Determina con precisione la soglia minima di pasti ($x \ge 30\,000$) e traccia un grafico coerente.</td>
-                <td>Collega con disinvoltura l'asintoto orizzontale al costo marginale di produzione ed evidenzia le economie di scala.</td>
+                <td>Determina con precisione la soglia minima di pasti ($x \ge 30\,000$) e traccia un grafico coerente.
+                </td>
+                <td>Collega con disinvoltura l'asintoto orizzontale al costo marginale di produzione ed evidenzia le
+                  economie di scala.</td>
               </tr>
               <tr>
                 <td><strong>Argomentazione Scienze Umane</strong></td>
                 <td>Risponde in modo sintetico limitandosi a considerazioni generiche sul costo della vita.</td>
-                <td>Argomenta in modo chiaro il legame tra spopolamento, costi pro capite e diritti sociali garantiti dal welfare.</td>
-                <td>Articola una riflessione critica matura che fonde rigore matematico, dettato costituzionale (Art. 3) ed equità territoriale.</td>
+                <td>Argomenta in modo chiaro il legame tra spopolamento, costi pro capite e diritti sociali garantiti
+                  dal welfare.</td>
+                <td>Articola una riflessione critica matura che fonde rigore matematico, dettato costituzionale (Art. 3)
+                  ed equità territoriale.</td>
               </tr>
             </tbody>
           </table>
@@ -2159,19 +2444,24 @@
       <div class="takeaways-row">
         <div class="takeaway-item">
           <strong>1. Il Limite è Avvicinamento Dinamico</strong>
-          <p>$\lim_{x \to x_0} f(x) = L$ descrive dove tende la funzione <em>nelle immediate vicinanze</em> di $x_0$. Ciò che accade esattamente nel punto $x_0$ non ha alcuna influenza sul limite!</p>
+          <p>$\lim_{x \to x_0} f(x) = L$ descrive dove tende la funzione <em>nelle immediate vicinanze</em> di $x_0$.
+            Ciò che accade esattamente nel punto $x_0$ non ha alcuna influenza sul limite!</p>
         </div>
         <div class="takeaway-item">
           <strong>2. La Condizione di Esistenza</strong>
-          <p>Il limite esiste se e solo se l'avvicinamento da sinistra ($\lim_{x \to x_0^-}$) e quello da destra ($\lim_{x \to x_0^+}$) convergono allo <em style="color: var(--text-main); font-weight: 700;">stesso identico valore</em>.</p>
+          <p>Il limite esiste se e solo se l'avvicinamento da sinistra ($\lim_{x \to x_0^-}$) e quello da destra
+            ($\lim_{x \to x_0^+}$) convergono allo <em style="color: var(--text-main); font-weight: 700;">stesso
+              identico valore</em>.</p>
         </div>
         <div class="takeaway-item">
           <strong>3. Asintoti: Orizzontali e Verticali</strong>
-          <p>Se $\lim_{x \to x_0} f(x) = \pm\infty \implies x = x_0$ è un asintoto verticale.<br>Se $\lim_{x \to \pm\infty} f(x) = L \implies y = L$ è un asintoto orizzontale.</p>
+          <p>Se $\lim_{x \to x_0} f(x) = \pm\infty \implies x = x_0$ è un asintoto verticale.<br>Se $\lim_{x \to
+            \pm\infty} f(x) = L \implies y = L$ è un asintoto orizzontale.</p>
         </div>
         <div class="takeaway-item">
           <strong>4. Dai Modelli Astratti al Welfare</strong>
-          <p>Nelle funzioni di costo medio $\overline{C}(x) = \frac{C_F}{x} + c_v$, l'asintoto orizzontale $y = c_v$ rappresenta la soglia fisica minima non comprimibile delle economie di scala.</p>
+          <p>Nelle funzioni di costo medio $\overline{C}(x) = \frac{C_F}{x} + c_v$, l'asintoto orizzontale $y = c_v$
+            rappresenta la soglia fisica minima non comprimibile delle economie di scala.</p>
         </div>
       </div>
     </footer>
@@ -2182,7 +2472,8 @@
       <div class="completion-icon">🏆</div>
       <h3 class="completion-title">Hai completato la Lezione 5.M1.1?</h3>
       <p class="completion-desc">
-        Registra il tuo traguardo per guadagnare i tuoi punti esperienza (+60 XP) verso il titolo <em>Signore dell'Infinitesimo</em> e ricorda di portare la Scheda Operativa compilata per la prossima lezione!
+        Registra il tuo traguardo per guadagnare i tuoi punti esperienza (+60 XP) verso il titolo <em>Signore
+          dell'Infinitesimo</em> e ricorda di portare la Scheda Operativa compilata per la prossima lezione!
       </p>
       <button id="btnCompleteLesson" class="btn-complete">
         ✨ Segna come Completata (+60 XP)
@@ -2231,20 +2522,20 @@
     }
 
     function markAllLabsCompleted(silent = false) {
-      for (let i = 1; i <= 7; i++) {
+      for (let i = 1; i <= 6; i++) {
         markLabCompleted(i, silent);
       }
     }
 
     function updateLessonProgress() {
       const count = completedLabs.size;
-      const pct = (count / 7) * 100;
+      const pct = (count / 6) * 100;
       const fill = document.getElementById('progressFill');
       const score = document.getElementById('progressScore');
       if (fill) fill.style.width = pct + '%';
-      if (score) score.textContent = `${count} / 7 completati`;
+      if (score) score.textContent = `${count} / 6 completati`;
 
-      if (count === 7) {
+      if (count === 6) {
         if (window.ComodeAudio) window.ComodeAudio.playLevelUp();
       }
     }
@@ -2970,7 +3261,7 @@
 
 
     /* ========================================================
-       LABORATORIO 5: DEFINIZIONI FORMALI IN TUTTI I CASI
+       QUADRO TEORICO: DEFINIZIONI FORMALI IN TUTTI I CASI
        ======================================================== */
     function renderDefCase1() {
       const slider = document.getElementById('defCase1Slider');
@@ -3179,7 +3470,6 @@
             window.ComodeGamification.addXP(5, 'Lezione 5.M1.1 • Sfida Definizioni Rigorose superata!');
           }
         }
-        markLabCompleted(5);
       } else {
         if (window.ComodeAudio) window.ComodeAudio.playError();
         msg.className = 'feedback-msg error';
@@ -3189,7 +3479,7 @@
 
 
     /* ========================================================
-       LABORATORIO 6: PALESTRA MENTALE (4 SFIDE LAMPO)
+       LABORATORIO 5: PALESTRA MENTALE (4 SFIDE LAMPO)
        ======================================================== */
     const gymAnswers = {
       1: { correct: ['20', '20°c', '20 c', '20 gradi'], explain: 'e^(-0,1 t) tende a 0, quindi T(t) tende a 20 °C (temperatura ambiente).' },
@@ -3216,7 +3506,7 @@
         fb.innerHTML = `✓ Esatto! ${expected.explain}`;
 
         if (gymSolved.size === 4) {
-          markLabCompleted(6);
+          markLabCompleted(5);
         }
       } else {
         if (window.ComodeAudio) window.ComodeAudio.playError();
@@ -3227,18 +3517,18 @@
 
 
     /* ========================================================
-       LABORATORIO 7: COMPITO DI REALTÀ SVOLTO (COSTO MEDIO EDITORIALE)
+       LABORATORIO 6: COMPITO DI REALTÀ SVOLTO (COSTO MEDIO EDITORIALE)
        ======================================================== */
-    function renderLab7() {
-      const slider = document.getElementById('lab7Slider');
+    function renderLab6() {
+      const slider = document.getElementById('lab6Slider');
       if (!slider) return;
       const x = parseFloat(slider.value);
       const c = (3600 / x) + 4;
 
-      document.getElementById('lab7Readout').textContent = `x = ${x} copie`;
-      document.getElementById('lab7Cost').textContent = `Costo medio = ${c.toFixed(2).replace('.', ',')} €`;
+      document.getElementById('lab6Readout').textContent = `x = ${x} copie`;
+      document.getElementById('lab6Cost').textContent = `Costo medio = ${c.toFixed(2).replace('.', ',')} €`;
 
-      const svg = document.getElementById('lab7Svg');
+      const svg = document.getElementById('lab6Svg');
       if (!svg) return;
       svg.innerHTML = '';
 
@@ -3337,11 +3627,11 @@
     }
 
     function verifyWorkedLab() {
-      const msg = document.getElementById('lab7Msg');
+      const msg = document.getElementById('lab6Msg');
       msg.style.display = 'inline-flex';
       msg.className = 'feedback-msg success';
       msg.textContent = 'Ottimo lavoro! Ora sei pronto per affrontare la Scheda Operativa per casa!';
-      markLabCompleted(7);
+      markLabCompleted(6);
     }
 
 
@@ -3358,7 +3648,7 @@
       renderDefCase2();
       renderDefCase3();
       renderDefCase4();
-      renderLab7();
+      renderLab6();
 
       // Ripristino stato avanzamento laboratori da gamification o localStorage
       const isLessonDone = window.ComodeGamification && window.ComodeGamification.isLessonCompleted(LESSON_ID);
@@ -3482,5 +3772,5 @@
     }
   </script>
 </body>
-</html>
 
+</html>
