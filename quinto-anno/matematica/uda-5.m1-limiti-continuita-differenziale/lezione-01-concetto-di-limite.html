@@ -393,6 +393,157 @@
       color: var(--accent-gold);
     }
 
+    /* Card Anatomia ed Esplosione del Simbolo di Limite (Laboratorio 1 - Parte 3) */
+    .m1l1-anatomy-wrap {
+      margin: 1.25rem 0;
+    }
+
+    .m1l1-formula-display {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.85rem;
+      flex-wrap: wrap;
+      padding: 1.15rem 1rem;
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      margin: 1rem 0;
+    }
+
+    .m1l1-sym-piece {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 0.65rem 1rem;
+      border-radius: var(--radius-sm);
+      border: 2px solid transparent;
+      background: var(--bg-surface);
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      user-select: none;
+    }
+
+    .m1l1-sym-piece:hover, .m1l1-sym-piece.active {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+    }
+
+    .m1l1-sym-piece.piece-lim:hover, .m1l1-sym-piece.piece-lim.active {
+      background: rgba(56, 189, 248, 0.12);
+      border-color: var(--accent-math);
+    }
+
+    .m1l1-sym-piece.piece-arrow:hover, .m1l1-sym-piece.piece-arrow.active {
+      background: rgba(251, 191, 36, 0.12);
+      border-color: var(--accent-gold);
+    }
+
+    .m1l1-sym-piece.piece-fx:hover, .m1l1-sym-piece.piece-fx.active {
+      background: rgba(139, 92, 246, 0.12);
+      border-color: var(--accent-purple);
+    }
+
+    .m1l1-sym-piece.piece-res:hover, .m1l1-sym-piece.piece-res.active {
+      background: rgba(16, 185, 129, 0.12);
+      border-color: var(--accent-success);
+    }
+
+    .m1l1-sym-math {
+      font-size: 1.55rem;
+      font-weight: 800;
+      line-height: 1.25;
+    }
+
+    .m1l1-sym-tag {
+      font-size: 0.72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-top: 0.35rem;
+      color: var(--text-muted);
+    }
+
+    .m1l1-anatomy-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1rem;
+      margin: 1.25rem 0;
+    }
+
+    .m1l1-anatomy-card {
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 1.15rem 1.25rem;
+      transition: all 0.25s ease;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .m1l1-anatomy-card.card-lim { border-left: 4px solid var(--accent-math); }
+    .m1l1-anatomy-card.card-arrow { border-left: 4px solid var(--accent-gold); }
+    .m1l1-anatomy-card.card-fx { border-left: 4px solid var(--accent-purple); }
+    .m1l1-anatomy-card.card-res { border-left: 4px solid var(--accent-success); }
+
+    .m1l1-anatomy-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+      margin-bottom: 0.75rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .m1l1-piece-badge {
+      font-size: 0.74rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      padding: 0.22rem 0.65rem;
+      border-radius: var(--radius-pill);
+    }
+
+    .m1l1-piece-math {
+      font-size: 1.3rem;
+      font-weight: 800;
+    }
+
+    .m1l1-anatomy-read {
+      background: rgba(255, 255, 255, 0.04);
+      padding: 0.45rem 0.75rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.88rem;
+      color: var(--text-main);
+      margin-bottom: 0.75rem;
+      border: 1px dashed var(--border-subtle);
+    }
+
+    .m1l1-anatomy-list {
+      margin: 0;
+      padding-left: 1.15rem;
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    .m1l1-anatomy-list li {
+      margin-bottom: 0.4rem;
+    }
+
+    .m1l1-anatomy-list strong {
+      color: var(--text-main);
+    }
+
+    .m1l1-read-aloud-box {
+      background: linear-gradient(135deg, rgba(56, 189, 248, 0.08) 0%, rgba(139, 92, 246, 0.08) 100%);
+      border: 1px solid rgba(56, 189, 248, 0.28);
+      border-radius: var(--radius-md);
+      padding: 1.25rem 1.4rem;
+      margin: 1.25rem 0;
+    }
+
     /* Stili per le Definizioni Formali dei Limiti (Laboratorio 5 - Tutti i casi) */
     .m1l1-def-table {
       width: 100%;
@@ -629,7 +780,7 @@
       <article class="lab-card" id="lab1">
         <div class="lab-badge-row">
           <span class="lab-badge">Laboratorio 1 • Intorni &amp; Avvicinamento Numerico</span>
-          <span class="lab-xp-badge">+5 XP + 10 XP</span>
+          <span class="lab-xp-badge">+5 XP + 10 XP + 5 XP</span>
         </div>
         <h3 class="lab-title">Che Cos'è un Intorno? Dalla Serra Botanica all'Idea Intuitiva di Limite</h3>
 
@@ -801,6 +952,181 @@
             </div>
             <div id="hintLab1b" class="hint-text">
               Guarda l'ultima riga della tabella: man mano che $\delta$ diventa $0{,}1$ e poi $0{,}01$, sia da sinistra ($69{,}98\%$) sia da destra ($70{,}02\%$) l'umidità converge verso il numero intero $70$. Questo significa che dentro l'intorno i valori sono vicinissimi a $70\%$!
+            </div>
+          </div>
+        </div>
+
+        <!-- =====================================================
+             PARTE 3: ANATOMIA DEL SIMBOLO (COME SI LEGGE ED ESPLODE)
+             ===================================================== -->
+        <div class="m1l1-part-divider">
+          <span class="m1l1-part-badge">Parte 3 • Anatomia del Simbolo</span>
+          <h4 class="m1l1-part-title">«Esplodiamo» la Notazione: Come si Legge e Cosa Significa Ogni Pezzo</h4>
+        </div>
+
+        <div class="m1l1-context">
+          <span class="m1l1-context-icon">🔍</span>
+          <div>
+            <strong>Non lasciarti spaventare dalla simbologia matematica!</strong><br>
+            La scrittura compatta $\displaystyle\lim_{x \to x_0} f(x) = L$ racchiude una storia dinamica chiarissima: un viaggiatore ($x$) che cammina verso un traguardo ($x_0$) e una quantità ($f(x)$) che segue il suo movimento avvicinandosi a una quota prefissata ($L$).<br>
+            Clicca sui <strong>4 pezzi della formula</strong> per "esplodere" ciascun elemento, scoprirne l'origine latina, la corretta pronuncia ad alta voce e il significato nella vita reale:
+          </div>
+        </div>
+
+        <div class="m1l1-anatomy-wrap">
+          <!-- Visualizzatore interattivo della formula esplosa con blocchi cliccabili -->
+          <div class="m1l1-formula-display" role="region" aria-label="Formula esplosa del limite">
+            <div class="m1l1-sym-piece piece-lim" id="symPieceLim" onclick="selectSymPiece('lim')" role="button" tabindex="0">
+              <span class="m1l1-sym-math" style="color: var(--accent-math);">$$\lim$$</span>
+              <span class="m1l1-sym-tag">1. L'Operatore</span>
+            </div>
+
+            <div class="m1l1-sym-piece piece-arrow" id="symPieceArrow" onclick="selectSymPiece('arrow')" role="button" tabindex="0">
+              <span class="m1l1-sym-math" style="color: var(--accent-gold);">$$x \to x_0$$</span>
+              <span class="m1l1-sym-tag">2. Il Moto dell'Input</span>
+            </div>
+
+            <div class="m1l1-sym-piece piece-fx" id="symPieceFx" onclick="selectSymPiece('fx')" role="button" tabindex="0">
+              <span class="m1l1-sym-math" style="color: var(--accent-purple);">$$f(x)$$</span>
+              <span class="m1l1-sym-tag">3. L'Output Osservato</span>
+            </div>
+
+            <div class="m1l1-sym-piece piece-res" id="symPieceRes" onclick="selectSymPiece('res')" role="button" tabindex="0">
+              <span class="m1l1-sym-math" style="color: var(--accent-success);">$$= L$$</span>
+              <span class="m1l1-sym-tag">4. Il Valore Limite</span>
+            </div>
+          </div>
+
+          <!-- Pulsantiera di selezione rapida -->
+          <div class="m1l1-choice-row" style="justify-content: center; margin-bottom: 1.25rem;">
+            <button type="button" class="m1l1-choice-btn selected" id="btnSymAll" onclick="selectSymPiece('all')">🔍 Mostra Tutti i 4 Pezzi</button>
+            <button type="button" class="m1l1-choice-btn" id="btnSymLim" onclick="selectSymPiece('lim')">1. «lim»</button>
+            <button type="button" class="m1l1-choice-btn" id="btnSymArrow" onclick="selectSymPiece('arrow')">2. «x → x₀»</button>
+            <button type="button" class="m1l1-choice-btn" id="btnSymFx" onclick="selectSymPiece('fx')">3. «f(x)»</button>
+            <button type="button" class="m1l1-choice-btn" id="btnSymRes" onclick="selectSymPiece('res')">4. «= L»</button>
+          </div>
+
+          <!-- Griglia delle 4 Card Esplose di Dettaglio -->
+          <div class="m1l1-anatomy-grid" id="anatomyGrid">
+            <!-- Card 1: lim -->
+            <div class="m1l1-anatomy-card card-lim" id="cardSymLim">
+              <div class="m1l1-anatomy-head">
+                <span class="m1l1-piece-badge" style="background: rgba(56, 189, 248, 0.15); color: var(--accent-math);">1. L'Operatore</span>
+                <span class="m1l1-piece-math">$$\lim$$</span>
+              </div>
+              <div class="m1l1-anatomy-read">
+                🗣️ <strong>Come si legge:</strong> <em>«Limite...»</em>
+              </div>
+              <ul class="m1l1-anatomy-list">
+                <li><strong>Origine latina:</strong> Abbreviazione di <em>limes</em> (confine, sentiero di frontiera, soglia insuperabile).</li>
+                <li><strong>Cosa fa:</strong> È una "lente dinamica": ordina alla matematica di osservare <em>il comportamento verso cui tende</em> l'espressione, non ciò che accade fermandosi sul posto. Non è una semplice sostituzione statica!</li>
+                <li><strong>Nella nostra serra:</strong> «Osserva la tendenza dell'umidità attorno alla soglia ideale».</li>
+              </ul>
+            </div>
+
+            <!-- Card 2: x -> x0 -->
+            <div class="m1l1-anatomy-card card-arrow" id="cardSymArrow">
+              <div class="m1l1-anatomy-head">
+                <span class="m1l1-piece-badge" style="background: rgba(251, 191, 36, 0.15); color: var(--accent-gold);">2. Il Moto dell'Input</span>
+                <span class="m1l1-piece-math">$$x \to x_0$$</span>
+              </div>
+              <div class="m1l1-anatomy-read">
+                🗣️ <strong>Come si legge:</strong> <em>«...per $x$ che tende a $x$ con zero...»</em>
+              </div>
+              <ul class="m1l1-anatomy-list">
+                <li><strong>La freccia «$\to$»:</strong> Si legge sempre <strong>«tende a»</strong> (oppure <em>«si avvicina arbitrariamente a»</em>).</li>
+                <li><strong>Regola d'oro:</strong> L'input $x$ si avvicina al centro $x_0$ sia da sinistra ($x &lt; x_0$) sia da destra ($x &gt; x_0$) dentro un intorno bucato, <strong>senza mai dover toccare né coincidere con $x_0$</strong> ($x \neq x_0$).</li>
+                <li><strong>Nella nostra serra:</strong> $T \to 20$ significa <em>«quando la temperatura $T$ si avvicina a $20\,°\text{C}$ (es. $19{,}9\,°\text{C}$, $20{,}1\,°\text{C}$, $19{,}99\,°\text{C}$...)»</em>.</li>
+              </ul>
+            </div>
+
+            <!-- Card 3: f(x) -->
+            <div class="m1l1-anatomy-card card-fx" id="cardSymFx">
+              <div class="m1l1-anatomy-head">
+                <span class="m1l1-piece-badge" style="background: rgba(139, 92, 246, 0.15); color: var(--accent-purple);">3. L'Output Osservato</span>
+                <span class="m1l1-piece-math">$$f(x)$$</span>
+              </div>
+              <div class="m1l1-anatomy-read">
+                🗣️ <strong>Come si legge:</strong> <em>«...di $f$ di $x$...»</em>
+              </div>
+              <ul class="m1l1-anatomy-list">
+                <li><strong>Ruolo:</strong> È la funzione o grandezza variabile di cui stiamo monitorando il comportamento (l'output trasformato).</li>
+                <li><strong>Cosa fa:</strong> Mentre l'input $x$ cammina verso $x_0$, la formula calcola come cambia il corrispondente valore di $f(x)$.</li>
+                <li><strong>Nella nostra serra:</strong> $U(T) = 30 + 2T$, la percentuale di umidità regolata dalla centralina.</li>
+              </ul>
+            </div>
+
+            <!-- Card 4: = L -->
+            <div class="m1l1-anatomy-card card-res" id="cardSymRes">
+              <div class="m1l1-anatomy-head">
+                <span class="m1l1-piece-badge" style="background: rgba(16, 185, 129, 0.15); color: var(--accent-success);">4. Il Valore Limite</span>
+                <span class="m1l1-piece-math">$$= L$$</span>
+              </div>
+              <div class="m1l1-anatomy-read">
+                🗣️ <strong>Come si legge:</strong> <em>«...è uguale a $L$»</em> (o <em>«vale $L$»</em>)
+              </div>
+              <ul class="m1l1-anatomy-list">
+                <li><strong>Il Risultato:</strong> È il valore numerico (oppure $\pm\infty$) a cui tutti i valori $f(x)$ convergono arbitrariamente.</li>
+                <li><strong>La certezza dell'intorno:</strong> Più stringiamo l'intorno dell'input $x_0$, più la funzione resta intrappolata vicinissima a $L$, senza poter fuggire.</li>
+                <li><strong>Nella nostra serra:</strong> $= 70\%$, la quota di umidità a cui l'ambiente si stabilizza.</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Box Guida alla Lettura ad Alta Voce con Sintesi Vocale Web Speech -->
+          <div class="m1l1-read-aloud-box">
+            <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.65rem; margin-bottom: 0.5rem;">
+              <span style="font-weight: 800; font-size: 0.95rem; color: var(--text-main); display: flex; align-items: center; gap: 0.4rem;">
+                🗣️ Guida alla Lettura Completa ad Alta Voce
+              </span>
+              <button type="button" class="btn-action" style="padding: 0.35rem 0.85rem; font-size: 0.82rem;" onclick="speakLimitNotation()">
+                🔊 Ascolta la pronuncia
+              </button>
+            </div>
+            <p style="font-size: 1.05rem; font-style: italic; color: var(--accent-math); margin: 0.25rem 0 0.5rem; font-weight: 600;">
+              «Limite, per $x$ che tende a $x_0$, di $f(x)$, è uguale a $L$»
+            </p>
+            <div style="font-size: 0.88rem; color: var(--text-muted); line-height: 1.6; border-top: 1px dashed var(--border-subtle); padding-top: 0.5rem;">
+              <strong>Traduzione in parole semplici:</strong> <em>«Man mano che l'input $x$ si avvicina al valore $x_0$ (senza necessariamente toccarlo), i valori calcolati $f(x)$ si avvicinano quanto vogliamo al valore bersaglio $L$».</em>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sfida 1C di decodifica della notazione -->
+        <div class="step-box" style="margin-bottom: 1.5rem;">
+          <div class="step-header">
+            <span class="step-tag">Sfida 1C: Decodifica la Notazione (+5 XP)</span>
+            <button type="button" class="theory-ref-pill" style="margin-bottom: 0;"
+              onclick="scrollToTheory('teoria-1')">
+              🔗 Rif. Teoria 1 • Simbologia Formale
+            </button>
+          </div>
+          <div class="step-content">
+            <p style="margin-bottom: 0.5rem; font-weight: 600;">
+              1) Nella scrittura $\displaystyle\lim_{x \to 5} f(x) = 12$, cosa significa esattamente la notazione $x \to 5$?
+            </p>
+            <div class="m1l1-choice-row" id="lab1cArrowChoices" style="margin-bottom: 0.75rem;">
+              <button type="button" class="m1l1-choice-btn" data-val="tende" onclick="selectChoice('lab1cArrow', this)">Si legge «x tende a 5»: x si avvicina arbitrariamente a 5 senza necessariamente toccarlo</button>
+              <button type="button" class="m1l1-choice-btn" data-val="uguale" onclick="selectChoice('lab1cArrow', this)">Si legge «x uguale a 5»: x deve valere esattamente 5</button>
+              <button type="button" class="m1l1-choice-btn" data-val="maggiore" onclick="selectChoice('lab1cArrow', this)">Si legge «x maggiore di 5»: x deve superare 5</button>
+            </div>
+
+            <p style="margin-bottom: 0.5rem; font-weight: 600;">
+              2) Qual è la pronuncia ad alta voce corretta dell'espressione $\displaystyle\lim_{x \to 3} (2x + 1) = 7$?
+            </p>
+            <div class="m1l1-choice-row" id="lab1cReadChoices" style="margin-bottom: 0.75rem;">
+              <button type="button" class="m1l1-choice-btn" data-val="correct" onclick="selectChoice('lab1cRead', this)">«Limite, per x che tende a 3, di 2x più 1, è uguale a 7»</button>
+              <button type="button" class="m1l1-choice-btn" data-val="slang" onclick="selectChoice('lab1cRead', this)">«Lim di x freccia 3 di 2x più 1 fa 7»</button>
+              <button type="button" class="m1l1-choice-btn" data-val="fraction" onclick="selectChoice('lab1cRead', this)">«Equazione di x su 3 per 2x più 1 uguale a 7»</button>
+            </div>
+
+            <div class="verify-box">
+              <button type="button" class="btn-action" onclick="verifyLab1c()">Verifica Decodifica</button>
+              <button type="button" class="hint-btn" style="margin-top: 0;" onclick="toggleHint('hintLab1c')">💡 Suggerimento</button>
+              <span id="lab1cMsg" class="feedback-msg" style="display: none;"></span>
+            </div>
+            <div id="hintLab1c" class="hint-text">
+              Ricorda: la freccia «$\to$» si pronuncia sempre <strong>«tende a»</strong> e indica un avvicinamento continuo. Il simbolo $\lim$ si legge <strong>«Limite»</strong> e l'intera espressione si legge indicando prima la tendenza dell'input e poi la funzione!
             </div>
           </div>
         </div>
@@ -2313,6 +2639,95 @@
         if (window.ComodeAudio) window.ComodeAudio.playError();
         msg.className = 'feedback-msg error';
         msg.textContent = 'Controlla: sia da sinistra (69,98%) che da destra (70,02%) l\'umidità converge al valore limite intero 70%! Inoltre, stringere l\'intorno significa che i valori restano intrappolati vicinissimi al limite.';
+      }
+    }
+
+    /* ========================================================
+       LABORATORIO 1 - PARTE 3: ANATOMIA DEL SIMBOLO DI LIMITE
+       ======================================================== */
+    function selectSymPiece(piece) {
+      if (window.ComodeAudio) window.ComodeAudio.playClick();
+      const pieces = ['lim', 'arrow', 'fx', 'res'];
+      const btns = ['btnSymAll', 'btnSymLim', 'btnSymArrow', 'btnSymFx', 'btnSymRes'];
+
+      btns.forEach(bId => {
+        const b = document.getElementById(bId);
+        if (b) b.classList.remove('selected');
+      });
+
+      if (piece === 'all') {
+        const bAll = document.getElementById('btnSymAll');
+        if (bAll) bAll.classList.add('selected');
+        pieces.forEach(p => {
+          const chip = document.getElementById(`symPiece${p.charAt(0).toUpperCase() + p.slice(1)}`);
+          const card = document.getElementById(`cardSym${p.charAt(0).toUpperCase() + p.slice(1)}`);
+          if (chip) chip.classList.remove('active');
+          if (card) {
+            card.style.opacity = '1';
+            card.style.borderColor = 'var(--border-subtle)';
+          }
+        });
+        return;
+      }
+
+      const activeBtn = document.getElementById(`btnSym${piece.charAt(0).toUpperCase() + piece.slice(1)}`);
+      if (activeBtn) activeBtn.classList.add('selected');
+
+      pieces.forEach(p => {
+        const isCurrent = (p === piece);
+        const chip = document.getElementById(`symPiece${p.charAt(0).toUpperCase() + p.slice(1)}`);
+        const card = document.getElementById(`cardSym${p.charAt(0).toUpperCase() + p.slice(1)}`);
+        if (chip) {
+          if (isCurrent) chip.classList.add('active');
+          else chip.classList.remove('active');
+        }
+        if (card) {
+          if (isCurrent) {
+            card.style.opacity = '1';
+            card.style.borderColor = (p === 'lim') ? 'var(--accent-math)' : (p === 'arrow' ? 'var(--accent-gold)' : (p === 'fx' ? 'var(--accent-purple)' : 'var(--accent-success)'));
+            card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          } else {
+            card.style.opacity = '0.35';
+            card.style.borderColor = 'var(--border-subtle)';
+          }
+        }
+      });
+    }
+
+    function speakLimitNotation() {
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+        const text = "Limite, per x che tende a x con zero, di effe di x, è uguale ad L. Man mano che l'input x si avvicina al valore x con zero, i valori calcolati effe di x si avvicinano quanto vogliamo al valore limite L.";
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = 'it-IT';
+        utterance.rate = 0.92;
+        window.speechSynthesis.speak(utterance);
+      } else {
+        alert("La sintesi vocale non è supportata dal tuo browser.");
+      }
+    }
+
+    let lab1cSolved = false;
+    function verifyLab1c() {
+      const c1 = selectedChoices['lab1cArrow'];
+      const c2 = selectedChoices['lab1cRead'];
+      const msg = document.getElementById('lab1cMsg');
+      msg.style.display = 'inline-flex';
+
+      if (c1 === 'tende' && c2 === 'correct') {
+        msg.className = 'feedback-msg success';
+        msg.textContent = 'Bravissimo! La freccia si pronuncia «tende a» e l\'intera espressione si legge «Limite, per x che tende a x₀, di f(x), è uguale a L»!';
+        if (!lab1cSolved) {
+          lab1cSolved = true;
+          if (window.ComodeAudio) window.ComodeAudio.playSuccess();
+          if (window.ComodeGamification) {
+            window.ComodeGamification.addXP(5, 'Lezione 5.M1.1 • Decodifica del simbolo di Limite completata!');
+          }
+        }
+      } else {
+        if (window.ComodeAudio) window.ComodeAudio.playError();
+        msg.className = 'feedback-msg error';
+        msg.textContent = 'Rivedi: la freccia «→» si pronuncia sempre «tende a» (indica avvicinamento dinamico) e la pronuncia corretta è «Limite, per x che tende a 3, di 2x + 1, è uguale a 7».';
       }
     }
 
