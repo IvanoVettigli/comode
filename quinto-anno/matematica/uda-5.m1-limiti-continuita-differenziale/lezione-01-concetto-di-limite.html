@@ -862,46 +862,47 @@
              ===================================================== -->
         <div class="m1l1-part-divider">
           <span class="m1l1-part-badge">Parte 2 • Dall'Intorno al Limite</span>
-          <h4 class="m1l1-part-title">L'Umidificatore della Serra: Come l'Umidità si Avvicina al Valore Limite</h4>
+          <h4 class="m1l1-part-title">Il Termometro da Cucina: Come i Gradi Fahrenheit si Avvicinano al Valore Limite</h4>
         </div>
 
         <div class="m1l1-context">
-          <span class="m1l1-context-icon">💧</span>
+          <span class="m1l1-context-icon">🍳</span>
           <div>
             <strong>Cosa significa fare il limite con gli intorni?</strong><br>
-            Nella stessa serra botanica, un umidificatore automatico calcola la percentuale di <strong>umidità dell'aria $U$ (in $\%$)</strong> in funzione della temperatura $T$ misurata (in $°\text{C}$) tramite la relazione:
-            $$U(T) = 30 + 2\,T \qquad (\text{in } \%)$$
-            Attorno alla temperatura ideale di <strong>$T_0 = 20\,°\text{C}$</strong>, la centralina vuole verificare quale sia l'umidità di riferimento (il <em>valore limite</em>).<br>
-            Se <strong>stringiamo progressivamente l'intorno</strong> $I_\delta(20)$ scegliendo un raggio $\delta$ via via più piccolo:
+            Un laboratorio di cucina professionale usa un termometro in gradi Celsius, ma il ricettario americano richiede l'acqua a <strong>$212\,°\text{F}$ (ebollizione)</strong>. La formula di conversione è:
+            $$F(C) = 1{,}8\,C + 32 \qquad (\text{in } °\text{F})$$
+            Attorno alla temperatura di ebollizione di <strong>$C_0 = 100\,°\text{C}$</strong>, lo chef vuole verificare come risponde la scala Fahrenheit.<br>
+            Se <strong>stringiamo progressivamente l'intorno</strong> $I_\delta(100)$ scegliendo un raggio $\delta$ sempre più piccolo ($2\,°\text{C}$, $1\,°\text{C}$, $0{,}5\,°\text{C}$, $0{,}1\,°\text{C}$, $0{,}01\,°\text{C}$):
             <ul style="margin: 0.45rem 0 0.25rem 1.25rem; padding: 0; line-height: 1.6;">
-              <li>Tutte le temperature $T$ dentro l'intorno $(20 - \delta;\ 20 + \delta)$ sono vicinissime a $20\,°\text{C}$.</li>
-              <li>I corrispondenti valori di umidità $U(T)$ <strong>restano intrappolati in una fascia sempre più stretta</strong> attorno al valore <strong>$L = 70\%$</strong>!</li>
-              <li>Nessun valore all'interno dell'intorno può «scappare» lontano dal limite: più stringiamo $\delta$, più la funzione è inchiodata vicino a $70\%$.</li>
+              <li>Tutte le temperature $C$ dentro l'intorno $(100 - \delta;\ 100 + \delta)$ sono vicinissime a $100\,°\text{C}$.</li>
+              <li>I corrispondenti valori in Fahrenheit $F(C)$ <strong>restano intrappolati in una fascia sempre più stretta</strong> attorno a $212\,°\text{F}$.</li>
+              <li>Nessun valore all'interno dell'intorno può «scappare» lontano dal limite: più stringiamo l'intorno dell'input, più l'output è costretto ad avvicinarsi al valore limite!</li>
             </ul>
           </div>
         </div>
 
         <p class="lab-intro">
-          Sposta il cursore per <strong>stringere l'ampiezza $\delta$ dell'intorno</strong>: osserva come la fascia azzurra delle temperature e la fascia dorata dell'umidità collassano sul punto limite $(20\,°\text{C};\ 70\%)$, mentre la tabella registra i valori numerici.
+          Sposta il cursore per <strong>stringere l'ampiezza $\delta$ dell'intorno</strong>: osserva come l'intorno delle temperature $C$ sull'asse orizzontale comprime la fascia dei valori $F(C)$ sull'asse verticale, intrappolandoli sempre più vicini a <strong>$212\,°\text{F}$</strong>.
         </p>
 
         <div class="m1l1-stage">
           <div class="m1l1-slider-panel">
-            <label for="lab1bDelta">🔍 Ampiezza intorno $\delta$ attorno a $20\,°\text{C}$:</label>
-            <input type="range" id="lab1bDelta" class="m1l1-range" min="0" max="4" step="1" value="0" oninput="renderLab1b()">
+            <label for="lab1bDelta">🔍 Ampiezza intorno $\delta$ attorno a $100\,°\text{C}$:</label>
+            <input type="range" id="lab1bDelta" class="m1l1-range" min="0" max="4" step="1" value="0"
+              oninput="renderLab1b()">
             <span class="m1l1-readout gold" id="lab1bDeltaReadout">δ = 2,0 °C</span>
-            <span class="m1l1-readout" id="lab1bIntervalReadout">T ∈ (18,0 ; 22,0) °C</span>
+            <span class="m1l1-readout" id="lab1bIntervalReadout">C ∈ (98,0 ; 102,0) °C</span>
           </div>
           <div class="m1l1-slider-panel" style="margin-top: 0.5rem;">
-            <span class="m1l1-readout" id="lab1bHumReadout">U ∈ (66,0% ; 74,0%)</span>
-            <span class="m1l1-readout gold" id="lab1bDistReadout">|U − 70%| ≤ 4,0%</span>
+            <span class="m1l1-readout" id="lab1bFahrReadout">F ∈ (208,4 ; 215,6) °F</span>
+            <span class="m1l1-readout gold" id="lab1bDistReadout">|F − 212| ≤ 3,6 °F</span>
           </div>
           <svg id="lab1bSvg" class="m1l1-svg" viewBox="0 0 640 280" role="img"
-            aria-label="Grafico della convergenza dell'umidità al limite 70% stringendo l'intorno"></svg>
+            aria-label="Grafico della convergenza della temperatura Fahrenheit al limite 212 °F stringendo l'intorno"></svg>
           <div class="m1l1-legend">
-            <span style="--legend-color: var(--accent-math);">Intorno temperatura $I_\delta(20)$</span>
-            <span style="--legend-color: var(--accent-gold);">Fascia umidità attorno a $L = 70\%$</span>
-            <span style="--legend-color: var(--accent-purple);">$U(T) = 30 + 2T$</span>
+            <span style="--legend-color: var(--accent-math);">Intorno temperatura Celsius $I_\delta(100)$</span>
+            <span style="--legend-color: var(--accent-gold);">Fascia Fahrenheit attorno a $L = 212\,°\text{F}$</span>
+            <span style="--legend-color: var(--accent-purple);">$F(C) = 1{,}8\,C + 32$</span>
           </div>
           <div id="lab1bStatus" class="m1l1-status"></div>
 
@@ -910,11 +911,11 @@
               <thead>
                 <tr>
                   <th>Ampiezza $\delta$</th>
-                  <th>$T = 20 - \delta$ (sinistra)</th>
-                  <th>$U(T)$ da sinistra</th>
-                  <th>$T = 20 + \delta$ (destra)</th>
-                  <th>$U(T)$ da destra</th>
-                  <th>Distanza max da $70\%$</th>
+                  <th>$C = 100 - \delta$ (sinistra)</th>
+                  <th>$F(C)$ da sinistra</th>
+                  <th>$C = 100 + \delta$ (destra)</th>
+                  <th>$F(C)$ da destra</th>
+                  <th>Distanza max da $212\,°\text{F}$</th>
                 </tr>
               </thead>
               <tbody id="lab1bTableBody"></tbody>
@@ -932,18 +933,24 @@
           </div>
           <div class="step-content">
             <p style="margin-bottom: 0.75rem;">
-              1) Osservando la tabella e il grafico quando l'ampiezza $\delta$ dell'intorno diventa piccolissima, a quale valore limite tende l'umidità $U(T)$ quando la temperatura si avvicina a $20\,°\text{C}$? Completa:
-              $$\lim_{T \to 20} (30 + 2T) = \ ?$$
+              1) Osservando la tabella e il grafico quando l'ampiezza $\delta$ dell'intorno diventa piccolissima ($0{,}01$), a quale valore numerico esatto tende $F(C) = 1{,}8\,C + 32$?
+              $$\lim_{C \to 100} (1{,}8\,C + 32) = \ ?$$
             </p>
             <div class="verify-box" style="margin-bottom: 0.75rem;">
-              <input type="text" id="lab1bInput" class="inline-input" style="width: 90px;" placeholder="L = ?">
-              <span style="font-weight: 700;">%</span>
+              <input type="text" id="lab1bInput" class="inline-input" style="width: 90px;" placeholder="212">
+              <span style="font-weight: 700;">°F</span>
             </div>
-            <p style="margin-bottom: 0.5rem; font-weight: 600;">2) Cosa significa concretamente che $\displaystyle\lim_{T \to 20} U(T) = 70\%$?</p>
+            <p style="margin-bottom: 0.5rem; font-weight: 600;">2) Cosa significa concretamente che $\lim_{C \to 100} F(C) = 212$?</p>
             <div class="m1l1-choice-row" id="lab1bChoices" style="margin-bottom: 0.75rem;">
-              <button type="button" class="m1l1-choice-btn" data-val="approx" onclick="selectChoice('lab1b', this)">Che stringendo l'intorno attorno a $20\,°\text{C}$, i valori di umidità restano intrappolati vicinissimi a $70\%$</button>
-              <button type="button" class="m1l1-choice-btn" data-val="exact" onclick="selectChoice('lab1b', this)">Che la temperatura deve essere esattamente pari a $20\,°\text{C}$, altrimenti l'umidità non ha senso</button>
-              <button type="button" class="m1l1-choice-btn" data-val="zero" onclick="selectChoice('lab1b', this)">Che con un intorno piccolo l'umidità tende ad azzerarsi</button>
+              <button type="button" class="m1l1-choice-btn" data-val="approx" onclick="selectChoice('lab1b', 'approx')">
+                A) Che possiamo rendere $F(C)$ vicino a 212 °F quanto vogliamo, basta prendere $C$ sufficientemente vicino a 100 °C
+              </button>
+              <button type="button" class="m1l1-choice-btn" data-val="exact" onclick="selectChoice('lab1b', 'exact')">
+                B) Che il termometro deve segnare obbligatoriamente 100 °C esatti, altrimenti il limite non esiste
+              </button>
+              <button type="button" class="m1l1-choice-btn" data-val="zero" onclick="selectChoice('lab1b', 'zero')">
+                C) Che per $C = 100$ la temperatura in Fahrenheit si azzera
+              </button>
             </div>
             <div class="verify-box">
               <button type="button" class="btn-action" onclick="verifyLab1b()">Verifica Limite</button>
@@ -951,7 +958,7 @@
               <span id="lab1bMsg" class="feedback-msg" style="display: none;"></span>
             </div>
             <div id="hintLab1b" class="hint-text">
-              Guarda l'ultima riga della tabella: man mano che $\delta$ diventa $0{,}1$ e poi $0{,}01$, sia da sinistra ($69{,}98\%$) sia da destra ($70{,}02\%$) l'umidità converge verso il numero intero $70$. Questo significa che dentro l'intorno i valori sono vicinissimi a $70\%$!
+              Guarda l'ultima riga della tabella: man mano che $\delta$ diventa $0{,}1$ e poi $0{,}01$, sia da sinistra sia da destra $F(C)$ si avvicina sempre più a 212 °F (la distanza massima scende a $0{,}018\,°\text{F}$).
             </div>
           </div>
         </div>
@@ -1020,7 +1027,7 @@
               <ul class="m1l1-anatomy-list">
                 <li><strong>Origine latina:</strong> Abbreviazione di <em>limes</em> (confine, sentiero di frontiera, soglia insuperabile).</li>
                 <li><strong>Cosa fa:</strong> È una "lente dinamica": ordina alla matematica di osservare <em>il comportamento verso cui tende</em> l'espressione, non ciò che accade fermandosi sul posto. Non è una semplice sostituzione statica!</li>
-                <li><strong>Nella nostra serra:</strong> «Osserva la tendenza dell'umidità attorno alla soglia ideale».</li>
+                <li><strong>Nel nostro laboratorio di cucina:</strong> «Osserva la lettura del termometro Fahrenheit attorno al punto di ebollizione».</li>
               </ul>
             </div>
 
@@ -1036,7 +1043,7 @@
               <ul class="m1l1-anatomy-list">
                 <li><strong>La freccia «$\to$»:</strong> Si legge sempre <strong>«tende a»</strong> (oppure <em>«si avvicina arbitrariamente a»</em>).</li>
                 <li><strong>Regola d'oro:</strong> L'input $x$ si avvicina al centro $x_0$ sia da sinistra ($x &lt; x_0$) sia da destra ($x &gt; x_0$) dentro un intorno bucato, <strong>senza mai dover toccare né coincidere con $x_0$</strong> ($x \neq x_0$).</li>
-                <li><strong>Nella nostra serra:</strong> $T \to 20$ significa <em>«quando la temperatura $T$ si avvicina a $20\,°\text{C}$ (es. $19{,}9\,°\text{C}$, $20{,}1\,°\text{C}$, $19{,}99\,°\text{C}$...)»</em>.</li>
+                <li><strong>Nel nostro laboratorio di cucina:</strong> $C \to 100$ significa <em>«quando la temperatura $C$ si avvicina a $100\,°\text{C}$ (es. $99{,}9\,°\text{C}$, $100{,}1\,°\text{C}$, $99{,}99\,°\text{C}$...)»</em>.</li>
               </ul>
             </div>
 
@@ -1052,7 +1059,7 @@
               <ul class="m1l1-anatomy-list">
                 <li><strong>Ruolo:</strong> È la funzione o grandezza variabile di cui stiamo monitorando il comportamento (l'output trasformato).</li>
                 <li><strong>Cosa fa:</strong> Mentre l'input $x$ cammina verso $x_0$, la formula calcola come cambia il corrispondente valore di $f(x)$.</li>
-                <li><strong>Nella nostra serra:</strong> $U(T) = 30 + 2T$, la percentuale di umidità regolata dalla centralina.</li>
+                <li><strong>Nel nostro laboratorio di cucina:</strong> $F(C) = 1{,}8\,C + 32$, la conversione da gradi Celsius a Fahrenheit richiesta dalla ricetta americana.</li>
               </ul>
             </div>
 
@@ -1068,7 +1075,7 @@
               <ul class="m1l1-anatomy-list">
                 <li><strong>Il Risultato:</strong> È il valore numerico (oppure $\pm\infty$) a cui tutti i valori $f(x)$ convergono arbitrariamente.</li>
                 <li><strong>La certezza dell'intorno:</strong> Più stringiamo l'intorno dell'input $x_0$, più la funzione resta intrappolata vicinissima a $L$, senza poter fuggire.</li>
-                <li><strong>Nella nostra serra:</strong> $= 70\%$, la quota di umidità a cui l'ambiente si stabilizza.</li>
+                <li><strong>Nel nostro laboratorio di cucina:</strong> $= 212\,°\text{F}$, la temperatura esatta di ebollizione a cui si stabilizza la lettura.</li>
               </ul>
             </div>
           </div>
@@ -1449,93 +1456,15 @@
           <span class="lab-badge">Laboratorio 5 • Definizioni Rigorose in Tutti i Casi</span>
           <span class="lab-xp-badge">+10 XP</span>
         </div>
-        <h3 class="lab-title">Il Contratto di Precisione: Dal Termostato $\varepsilon$–$\delta$ a Tutti i Casi di Limite</h3>
+        <h3 class="lab-title">Il Contratto di Precisione: Le Definizioni Rigorose in Tutti i Casi di Limite</h3>
 
-        <!-- =====================================================
-             PARTE 1: IL TERMOSTATO DI PRECISIONE (CASO FINITO -> FINITO)
-             ===================================================== -->
-        <div class="m1l1-part-divider" style="margin-top: 0.5rem; padding-top: 0; border-top: none;">
-          <span class="m1l1-part-badge">Parte 1 • Il Termostato di Precisione</span>
-          <h4 class="m1l1-part-title">Caso 1: Limite Finito per $x \to x_0$ Finito ($\lim_{x \to x_0} f(x) = L$)</h4>
-        </div>
-
-        <div class="m1l1-context">
-          <span class="m1l1-context-icon">🌡️</span>
+        <div class="m1l1-context" style="margin-top: 0.5rem;">
+          <span class="m1l1-context-icon">🧭</span>
           <div>
-            Un laboratorio di cucina professionale usa un termometro in gradi Celsius, ma il ricettario americano
-            richiede l'acqua a <strong>$212\,°\text{F}$</strong> (ebollizione). La conversione è
-            $$F(C) = 1{,}8\,C + 32, \qquad \lim_{C \to 100} F(C) = 212$$
-            Se lo chef tollera un errore di $\pm\varepsilon$ gradi Fahrenheit, con quale precisione $\pm\delta$ deve
-            regolare la temperatura in Celsius?
+            Nel termostato abbiamo analizzato il caso «finito $\to$ finito». Ma nella realtà incontriamo anche limiti con <strong>valori infiniti</strong> (la depurazione che costa infinitamente cara vicino al 100%, la memoria che si stabilizza all'infinito, i costi che crescono senza limiti).<br>
+            La logica del «contratto di precisione» rimane <strong>sempre identica</strong>: <em>«Per ogni esigenza prefissata sull'output, esiste una soglia sull'input che la garantisce»</em>. Cambiano solo le lettere e i simboli usati:
           </div>
         </div>
-
-        <p class="lab-intro">
-          Scegli la tolleranza $\varepsilon$ con lo slider: il grafico mostra la fascia $(212 - \varepsilon;\ 212 +
-          \varepsilon)$ e la corrispondente finestra $(100 - \delta;\ 100 + \delta)$ in cui la retta rimane dentro la
-          fascia.
-        </p>
-
-        <div class="m1l1-stage">
-          <div class="m1l1-slider-panel">
-            <label for="lab5Slider">🎯 Tolleranza $\varepsilon$ (°F):</label>
-            <input type="range" id="lab5Slider" class="m1l1-range" min="0.36" max="5.4" step="0.18" value="3.6"
-              oninput="renderLab5()">
-            <span class="m1l1-readout" id="lab5Readout">ε = 3,6 °F</span>
-            <span class="m1l1-readout gold" id="lab5Delta">δ = ?</span>
-          </div>
-          <svg id="lab5Svg" class="m1l1-svg" viewBox="0 0 640 300" role="img"
-            aria-label="Fasce epsilon e delta attorno al punto 100, 212"></svg>
-          <div class="m1l1-legend">
-            <span style="--legend-color: var(--accent-gold);">fascia $\varepsilon$ (output)</span>
-            <span style="--legend-color: var(--accent-success);">finestra $\delta$ (input)</span>
-          </div>
-          <div class="m1l1-choice-row" style="justify-content: center; margin-top: 0.75rem;">
-            <button type="button" class="m1l1-choice-btn" onclick="toggleLab5Delta()" id="lab5RevealBtn">👁️ Mostra
-              $\delta$ sul grafico</button>
-          </div>
-        </div>
-
-        <div class="step-box">
-          <div class="step-header">
-            <span class="step-tag">Sfida: firma il contratto di precisione</span>
-            <button type="button" class="theory-ref-pill" style="margin-bottom: 0;"
-              onclick="scrollToTheory('teoria-5')">
-              🔗 Rif. Teoria 5 • $\delta = \varepsilon / |m|$
-            </button>
-          </div>
-          <div class="step-content">
-            <p style="margin-bottom: 0.85rem;">
-              Lo chef accetta al massimo $\varepsilon = 0{,}9\,°\text{F}$ di errore. Qual è la massima tolleranza
-              $\delta$ (in °C) attorno a $100\,°\text{C}$ che garantisce $|F(C) - 212| &lt; 0{,}9$?
-            </p>
-            <div class="verify-box">
-              <label for="lab5Input" style="font-weight: 600;">$\delta =$</label>
-              <input type="text" id="lab5Input" class="inline-input" style="width: 90px;" placeholder="°C">
-              <button type="button" class="btn-action" onclick="verifyLab5()">Verifica Contratto</button>
-              <button type="button" class="hint-btn" style="margin-top: 0;" onclick="toggleHint('hintLab5')">💡
-                Suggerimento</button>
-              <span id="lab5Msg" class="feedback-msg" style="display: none;"></span>
-            </div>
-            <div id="hintLab5" class="hint-text">
-              $|F(C) - 212| = |1{,}8\,C + 32 - 212| = |1{,}8\,C - 180| = 1{,}8\,|C - 100|$. Imponi $1{,}8\,|C - 100| &lt;
-              0{,}9$ e dividi entrambi i membri per $1{,}8$.
-            </div>
-          </div>
-        </div>
-
-        <!-- =====================================================
-             PARTE 2: LE DEFINIZIONI RIGOROSE IN TUTTI I CASI
-             ===================================================== -->
-        <div class="m1l1-part-divider" id="m1l1AllCases">
-          <span class="m1l1-part-badge">Parte 2 • Il Contratto in Tutti i Casi</span>
-          <h4 class="m1l1-part-title">Le Definizioni Rigorose quando $x_0$ o $L$ sono Infiniti ($\pm\infty$)</h4>
-        </div>
-
-        <p class="lab-intro">
-          Nel termostato abbiamo analizzato il caso «finito $\to$ finito». Ma nella realtà incontriamo anche limiti con <strong>valori infiniti</strong> (la depurazione che costa infinitamente cara vicino al 100%, la memoria che si stabilizza all'infinito, i costi che crescono senza limiti).<br>
-          La logica del «contratto di precisione» rimane <strong>sempre identica</strong>: <em>«Per ogni esigenza prefissata sull'output, esiste una soglia sull'input che la garantisce»</em>. Cambiano solo le lettere e i simboli usati:
-        </p>
 
         <div class="m1l1-increments-grid">
           <div class="m1l1-inc-card">
@@ -2465,7 +2394,7 @@
     }
 
     /* ========================================================
-       LABORATORIO 1 - PARTE 2: DALL'INTORNO AL LIMITE (U(T) = 30 + 2T)
+       LABORATORIO 1 - PARTE 2: DALL'INTORNO AL LIMITE (F(C) = 1.8 C + 32)
        ======================================================== */
     const lab1bDeltaSteps = [2.0, 1.0, 0.5, 0.1, 0.01];
 
@@ -2474,31 +2403,31 @@
       if (!slider) return;
       const idx = parseInt(slider.value, 10);
       const delta = lab1bDeltaSteps[idx];
-      const T0 = 20;
-      const L = 70; // U(20) = 30 + 2*20 = 70 %
+      const C0 = 100;
+      const L = 212; // F(100) = 1.8 * 100 + 32 = 212 °F
 
-      const tLeft = T0 - delta;
-      const tRight = T0 + delta;
-      const uLeft = 30 + 2 * tLeft;
-      const uRight = 30 + 2 * tRight;
-      const maxGap = 2 * delta;
+      const cLeft = C0 - delta;
+      const cRight = C0 + delta;
+      const fLeft = 1.8 * cLeft + 32;
+      const fRight = 1.8 * cRight + 32;
+      const maxGap = 1.8 * delta;
 
-      const fmtT = (n) => (delta < 0.1 ? n.toFixed(2) : n.toFixed(1)).replace('.', ',');
-      const fmtU = (n) => (delta < 0.1 ? n.toFixed(2) : n.toFixed(1)).replace('.', ',');
+      const fmtC = (n) => (delta < 0.1 ? n.toFixed(2) : n.toFixed(1)).replace('.', ',');
+      const fmtF = (n) => (delta < 0.1 ? n.toFixed(3) : n.toFixed(2)).replace('.', ',');
       const fmtD = (n) => (delta < 0.1 ? n.toFixed(2) : n.toFixed(1)).replace('.', ',');
 
       document.getElementById('lab1bDeltaReadout').textContent = `δ = ${fmtD(delta)} °C`;
-      document.getElementById('lab1bIntervalReadout').textContent = `T ∈ (${fmtT(tLeft)} ; ${fmtT(tRight)}) °C`;
-      document.getElementById('lab1bHumReadout').textContent = `U ∈ (${fmtU(uLeft)}% ; ${fmtU(uRight)}%)`;
-      document.getElementById('lab1bDistReadout').textContent = `|U − 70%| ≤ ${fmtU(maxGap)}%`;
+      document.getElementById('lab1bIntervalReadout').textContent = `C ∈ (${fmtC(cLeft)} ; ${fmtC(cRight)}) °C`;
+      document.getElementById('lab1bFahrReadout').textContent = `F ∈ (${fmtF(fLeft)} ; ${fmtF(fRight)}) °F`;
+      document.getElementById('lab1bDistReadout').textContent = `|F − 212| ≤ ${fmtF(maxGap)} °F`;
 
       const status = document.getElementById('lab1bStatus');
       if (idx === 0) {
-        status.innerHTML = `<strong>Ampiezza iniziale ($\delta = 2\,°\text{C}$):</strong> La temperatura oscilla tra $18\,°\text{C}$ e $22\,°\text{C}$. L'umidità varia tra $66\%$ e $74\%$ (scarto fino a $\pm 4\%$ dal valore limite $70\%$). Muovi lo slider per <strong>stringere l'intorno</strong>!`;
+        status.innerHTML = `<strong>Ampiezza iniziale ($\delta = 2\,°\text{C}$):</strong> La temperatura in Celsius oscilla tra $98\,°\text{C}$ e $102\,°\text{C}$. In Fahrenheit varia tra $208{,}4\,°\text{F}$ e $215{,}6\,°\text{F}$ (scarto massimo di $\pm 3{,}6\,°\text{F}$ dal valore limite $212\,°\text{F}$). Muovi lo slider per <strong>stringere l'intorno</strong>!`;
       } else if (idx < 3) {
-        status.innerHTML = `<strong>Intorno ristretto ($\delta = ${fmtD(delta)}\,°\text{C}$):</strong> La temperatura è confinata in $(${fmtT(tLeft)}\,;\ ${fmtT(tRight)})\,°\text{C}$. L'umidità $U(T)$ è intrappolata tra $${fmtU(uLeft)}\%$ e $${fmtU(uRight)}\%$ (distanza dal valore limite $\le ${fmtU(maxGap)}\%$).`;
+        status.innerHTML = `<strong>Intorno ristretto ($\delta = ${fmtD(delta)}\,°\text{C}$):</strong> La temperatura è confinata in $(${fmtC(cLeft)}\,;\ ${fmtC(cRight)})\,°\text{C}$. La temperatura in Fahrenheit $F(C)$ è intrappolata tra $${fmtF(fLeft)}\,°\text{F}$ e $${fmtF(fRight)}\,°\text{F}$ (distanza dal valore limite $\le ${fmtF(maxGap)}\,°\text{F}$).`;
       } else {
-        status.innerHTML = `<span style="color:var(--accent-success); font-weight:700;">🎯 Intorno piccolissimo ($\delta = ${fmtD(delta)}\,°\text{C}$):</span> Per qualunque temperatura $T$ scelta vicino a $20\,°\text{C}$, l'umidità $U(T)$ è <strong>incollata al valore limite $70\%$</strong> (distanza inferiore a $${fmtU(maxGap)}\%$). Ecco cosa significa che $\displaystyle\lim_{T \to 20} U(T) = 70\%$!`;
+        status.innerHTML = `<span style="color:var(--accent-success); font-weight:700;">🎯 Intorno piccolissimo ($\delta = ${fmtD(delta)}\,°\text{C}$):</span> Per qualunque temperatura Celsius $C$ vicina a $100\,°\text{C}$, la temperatura in Fahrenheit $F(C)$ è <strong>incollata al valore limite $212\,°\text{F}$</strong> (distanza inferiore a $${fmtF(maxGap)}\,°\text{F}$). Ecco cosa significa che $\displaystyle\lim_{C \to 100} F(C) = 212\,°\text{F}$!`;
       }
       if (window.ComodeComponents) window.ComodeComponents.renderMath(status);
 
@@ -2508,36 +2437,36 @@
         let html = '';
         for (let i = 0; i <= idx; i++) {
           const curD = lab1bDeltaSteps[i];
-          const curTL = T0 - curD;
-          const curTR = T0 + curD;
-          const curUL = 30 + 2 * curTL;
-          const curUR = 30 + 2 * curTR;
-          const curGap = 2 * curD;
+          const curCL = C0 - curD;
+          const curCR = C0 + curD;
+          const curFL = 1.8 * curCL + 32;
+          const curFR = 1.8 * curCR + 32;
+          const curGap = 1.8 * curD;
           const isLatest = (i === idx) ? 'class="latest"' : '';
           const fD = (curD < 0.1 ? curD.toFixed(2) : curD.toFixed(1)).replace('.', ',');
-          const fTL = (curD < 0.1 ? curTL.toFixed(2) : curTL.toFixed(1)).replace('.', ',');
-          const fTR = (curD < 0.1 ? curTR.toFixed(2) : curTR.toFixed(1)).replace('.', ',');
-          const fUL = (curD < 0.1 ? curUL.toFixed(2) : curUL.toFixed(1)).replace('.', ',');
-          const fUR = (curD < 0.1 ? curUR.toFixed(2) : curUR.toFixed(1)).replace('.', ',');
-          const fG = (curD < 0.1 ? curGap.toFixed(2) : curGap.toFixed(1)).replace('.', ',');
+          const fCL = (curD < 0.1 ? curCL.toFixed(2) : curCL.toFixed(1)).replace('.', ',');
+          const fCR = (curD < 0.1 ? curCR.toFixed(2) : curCR.toFixed(1)).replace('.', ',');
+          const fFL = (curD < 0.1 ? curFL.toFixed(3) : curFL.toFixed(2)).replace('.', ',');
+          const fFR = (curD < 0.1 ? curFR.toFixed(3) : curFR.toFixed(2)).replace('.', ',');
+          const fG = (curD < 0.1 ? curGap.toFixed(3) : curGap.toFixed(2)).replace('.', ',');
 
           html += `<tr ${isLatest}>
             <td><strong>±${fD} °C</strong></td>
-            <td>${fTL} °C</td>
-            <td><strong>${fUL}%</strong></td>
-            <td>${fTR} °C</td>
-            <td><strong>${fUR}%</strong></td>
-            <td><span style="color:var(--accent-gold); font-weight:700;">≤ ${fG}%</span></td>
+            <td>${fCL} °C</td>
+            <td><strong>${fFL} °F</strong></td>
+            <td>${fCR} °C</td>
+            <td><strong>${fFR} °F</strong></td>
+            <td><span style="color:var(--accent-gold); font-weight:700;">≤ ${fG} °F</span></td>
           </tr>`;
         }
         if (idx === lab1bDeltaSteps.length - 1) {
           html += `<tr style="border-top: 2px solid var(--accent-math); background: rgba(56, 189, 248, 0.08);">
             <td><strong>Limite (δ → 0)</strong></td>
-            <td>→ 20,0 °C</td>
-            <td><strong>→ 70%</strong></td>
-            <td>→ 20,0 °C</td>
-            <td><strong>→ 70%</strong></td>
-            <td><strong style="color:var(--accent-success);">→ 0% (Perfetta convergenza!)</strong></td>
+            <td>→ 100,0 °C</td>
+            <td><strong>→ 212 °F</strong></td>
+            <td>→ 100,0 °C</td>
+            <td><strong>→ 212 °F</strong></td>
+            <td><strong style="color:var(--accent-success);">→ 0 °F (Perfetta convergenza!)</strong></td>
           </tr>`;
         }
         tbody.innerHTML = html;
@@ -2548,77 +2477,77 @@
       const svg = document.getElementById('lab1bSvg');
       if (!svg) return;
 
-      // Coordinate mapping: T in [14, 26] -> x in [75, 565]; U in [54, 86] -> y in [235, 35]
-      const toSvgX = (t) => 75 + ((t - 14) / 12) * 490;
-      const toSvgY = (u) => 235 - ((u - 54) / 32) * 200;
+      // Coordinate mapping: C in [94, 106] -> x in [75, 565]; F in [196, 228] -> y in [235, 35]
+      const toSvgX = (c) => 75 + ((c - 94) / 12) * 490;
+      const toSvgY = (f) => 235 - ((f - 196) / 32) * 200;
 
-      const sx0 = toSvgX(T0);
+      const sx0 = toSvgX(C0);
       const sy0 = toSvgY(L);
-      const sLeft = toSvgX(tLeft);
-      const sRight = toSvgX(tRight);
-      const sTop = toSvgY(uRight);
-      const sBottom = toSvgY(uLeft);
+      const sLeft = toSvgX(cLeft);
+      const sRight = toSvgX(cRight);
+      const sTop = toSvgY(fRight);
+      const sBottom = toSvgY(fLeft);
 
       // Griglia e tacche assi
       let grid = '';
-      let ticks = `<text x="${toSvgX(14) - 8}" y="${toSvgY(54) + 16}" fill="var(--text-dim)" font-size="10.5" text-anchor="end">14</text>`;
-      [16, 18, 20, 22, 24, 26].forEach(t => {
-        const sx = toSvgX(t);
-        const isCenter = (t === 20);
-        grid += `<line x1="${sx}" y1="${toSvgY(86)}" x2="${sx}" y2="${toSvgY(54)}" stroke="var(--border-subtle)" stroke-opacity="${isCenter ? '0.6' : '0.35'}" stroke-dasharray="2,3" />`;
-        ticks += `<line x1="${sx}" y1="${toSvgY(54) - 4}" x2="${sx}" y2="${toSvgY(54) + 4}" stroke="${isCenter ? 'var(--accent-math)' : 'var(--text-muted)'}" stroke-width="${isCenter ? '2' : '1'}" />
-                  <text x="${sx}" y="${toSvgY(54) + 18}" fill="${isCenter ? 'var(--accent-math)' : 'var(--text-muted)'}" font-size="11" font-weight="${isCenter ? '800' : '400'}" text-anchor="middle">${t}°C</text>`;
+      let ticks = `<text x="${toSvgX(94) - 8}" y="${toSvgY(196) + 16}" fill="var(--text-dim)" font-size="10.5" text-anchor="end">94</text>`;
+      [94, 96, 98, 100, 102, 104, 106].forEach(c => {
+        const sx = toSvgX(c);
+        const isCenter = (c === 100);
+        grid += `<line x1="${sx}" y1="${toSvgY(228)}" x2="${sx}" y2="${toSvgY(196)}" stroke="var(--border-subtle)" stroke-opacity="${isCenter ? '0.6' : '0.35'}" stroke-dasharray="2,3" />`;
+        ticks += `<line x1="${sx}" y1="${toSvgY(196) - 4}" x2="${sx}" y2="${toSvgY(196) + 4}" stroke="${isCenter ? 'var(--accent-math)' : 'var(--text-muted)'}" stroke-width="${isCenter ? '2' : '1'}" />
+                  <text x="${sx}" y="${toSvgY(196) + 18}" fill="${isCenter ? 'var(--accent-math)' : 'var(--text-muted)'}" font-size="11" font-weight="${isCenter ? '800' : '400'}" text-anchor="middle">${c}°C</text>`;
       });
-      [60, 65, 70, 75, 80].forEach(u => {
-        const sy = toSvgY(u);
-        const isTarget = (u === 70);
-        grid += `<line x1="${toSvgX(14)}" y1="${sy}" x2="${toSvgX(26)}" y2="${sy}" stroke="var(--border-subtle)" stroke-opacity="${isTarget ? '0.6' : '0.35'}" stroke-dasharray="2,3" />`;
-        ticks += `<line x1="${toSvgX(14) - 4}" y1="${sy}" x2="${toSvgX(14) + 4}" stroke="${isTarget ? 'var(--accent-gold)' : 'var(--text-muted)'}" stroke-width="${isTarget ? '2' : '1'}" />
-                  <text x="${toSvgX(14) - 10}" y="${sy + 4}" fill="${isTarget ? 'var(--accent-gold)' : 'var(--text-muted)'}" font-size="11" font-weight="${isTarget ? '800' : '400'}" text-anchor="end">${u}%</text>`;
+      [200, 206, 212, 218, 224].forEach(f => {
+        const sy = toSvgY(f);
+        const isTarget = (f === 212);
+        grid += `<line x1="${toSvgX(94)}" y1="${sy}" x2="${toSvgX(106)}" y2="${sy}" stroke="var(--border-subtle)" stroke-opacity="${isTarget ? '0.6' : '0.35'}" stroke-dasharray="2,3" />`;
+        ticks += `<line x1="${toSvgX(94) - 4}" y1="${sy}" x2="${toSvgX(94) + 4}" stroke="${isTarget ? 'var(--accent-gold)' : 'var(--text-muted)'}" stroke-width="${isTarget ? '2' : '1'}" />
+                  <text x="${toSvgX(94) - 10}" y="${sy + 4}" fill="${isTarget ? 'var(--accent-gold)' : 'var(--text-muted)'}" font-size="11" font-weight="${isTarget ? '800' : '400'}" text-anchor="end">${f}°F</text>`;
       });
 
       // Assi
       const axes = `
-        <line x1="58" y1="${toSvgY(54)}" x2="590" y2="${toSvgY(54)}" stroke="var(--border-subtle)" stroke-width="1.6" />
-        <polygon points="596,${toSvgY(54)} 588,${toSvgY(54) - 4} 588,${toSvgY(54) + 4}" fill="var(--text-muted)" />
-        <line x1="${toSvgX(14)}" y1="245" x2="${toSvgX(14)}" y2="24" stroke="var(--border-subtle)" stroke-width="1.6" />
-        <polygon points="${toSvgX(14)},18 ${toSvgX(14) - 4},26 ${toSvgX(14) + 4},26" fill="var(--text-muted)" />
-        <text x="625" y="258" fill="var(--text-muted)" font-size="11" font-weight="600" text-anchor="end">Temperatura T (°C)</text>
-        <text x="82" y="24" fill="var(--text-muted)" font-size="11" font-weight="600" text-anchor="start">Umidità U(T) (%)</text>
+        <line x1="58" y1="${toSvgY(196)}" x2="590" y2="${toSvgY(196)}" stroke="var(--border-subtle)" stroke-width="1.6" />
+        <polygon points="596,${toSvgY(196)} 588,${toSvgY(196) - 4} 588,${toSvgY(196) + 4}" fill="var(--text-muted)" />
+        <line x1="${toSvgX(94)}" y1="245" x2="${toSvgX(94)}" y2="24" stroke="var(--border-subtle)" stroke-width="1.6" />
+        <polygon points="${toSvgX(94)},18 ${toSvgX(94) - 4},26 ${toSvgX(94) + 4},26" fill="var(--text-muted)" />
+        <text x="625" y="258" fill="var(--text-muted)" font-size="11" font-weight="600" text-anchor="end">Temperatura C (°C)</text>
+        <text x="82" y="24" fill="var(--text-muted)" font-size="11" font-weight="600" text-anchor="start">F(C) (°F)</text>
       `;
 
-      // Fascia verticale intorno input (x0 - delta, x0 + delta)
+      // Fascia verticale intorno input (C0 - delta, C0 + delta)
       const inputBand = `
-        <rect x="${sLeft}" y="${toSvgY(86)}" width="${sRight - sLeft}" height="${toSvgY(54) - toSvgY(86)}" fill="rgba(56, 189, 248, 0.12)" stroke="var(--accent-math)" stroke-opacity="0.45" stroke-dasharray="3,3" />
-        <line x1="${sx0}" y1="${toSvgY(86)}" x2="${sx0}" y2="${toSvgY(54)}" stroke="var(--accent-math)" stroke-width="1.8" stroke-dasharray="3,2" />
-        <text x="${sx0}" y="${toSvgY(86) - 6}" fill="var(--accent-math)" font-size="11" font-weight="800" text-anchor="middle">Intorno I_δ(20 °C)</text>
+        <rect x="${sLeft}" y="${toSvgY(228)}" width="${sRight - sLeft}" height="${toSvgY(196) - toSvgY(228)}" fill="rgba(56, 189, 248, 0.12)" stroke="var(--accent-math)" stroke-opacity="0.45" stroke-dasharray="3,3" />
+        <line x1="${sx0}" y1="${toSvgY(228)}" x2="${sx0}" y2="${toSvgY(196)}" stroke="var(--accent-math)" stroke-width="1.8" stroke-dasharray="3,2" />
+        <text x="${sx0}" y="${toSvgY(228) - 6}" fill="var(--accent-math)" font-size="11" font-weight="800" text-anchor="middle">Intorno I_δ(100 °C)</text>
       `;
 
-      // Fascia orizzontale valori funzione (L - 2delta, L + 2delta)
+      // Fascia orizzontale valori funzione (212 - 1.8delta, 212 + 1.8delta)
       const outputBand = `
-        <rect x="${toSvgX(14)}" y="${sTop}" width="${toSvgX(26) - toSvgX(14)}" height="${sBottom - sTop}" fill="rgba(251, 191, 36, 0.11)" stroke="var(--accent-gold)" stroke-opacity="0.5" stroke-dasharray="3,3" />
-        <line x1="${toSvgX(14)}" y1="${sy0}" x2="${toSvgX(26)}" y2="${sy0}" stroke="var(--accent-gold)" stroke-width="1.8" stroke-dasharray="3,2" />
-        <text x="${toSvgX(26) + 8}" y="${sy0 + 4}" fill="var(--accent-gold)" font-size="11" font-weight="800">Limite L = 70%</text>
+        <rect x="${toSvgX(94)}" y="${sTop}" width="${toSvgX(106) - toSvgX(94)}" height="${sBottom - sTop}" fill="rgba(251, 191, 36, 0.11)" stroke="var(--accent-gold)" stroke-opacity="0.5" stroke-dasharray="3,3" />
+        <line x1="${toSvgX(94)}" y1="${sy0}" x2="${toSvgX(106)}" y2="${sy0}" stroke="var(--accent-gold)" stroke-width="1.8" stroke-dasharray="3,2" />
+        <text x="${toSvgX(106) + 8}" y="${sy0 + 4}" fill="var(--accent-gold)" font-size="11" font-weight="800">Limite L = 212 °F</text>
       `;
 
-      // Retta U(T) = 30 + 2T da T = 14 a 26
+      // Retta F(C) = 1.8 C + 32 da C = 94 (201.2) a C = 106 (222.8)
       const line = `
-        <line x1="${toSvgX(14)}" y1="${toSvgY(58)}" x2="${toSvgX(26)}" y2="${toSvgY(82)}" stroke="var(--accent-purple)" stroke-width="3" stroke-linecap="round" />
+        <line x1="${toSvgX(94)}" y1="${toSvgY(1.8 * 94 + 32)}" x2="${toSvgX(106)}" y2="${toSvgY(1.8 * 106 + 32)}" stroke="var(--accent-purple)" stroke-width="3" stroke-linecap="round" />
       `;
 
       // Punti sinistro, destro e centro
       const points = `
         <!-- Proiezioni estremo sinistro -->
-        <line x1="${sLeft}" y1="${toSvgY(54)}" x2="${sLeft}" y2="${sBottom}" stroke="var(--accent-math)" stroke-dasharray="2,2" stroke-width="1.2" />
-        <line x1="${toSvgX(14)}" y1="${sBottom}" x2="${sLeft}" y2="${sBottom}" stroke="var(--accent-gold)" stroke-dasharray="2,2" stroke-width="1.2" />
+        <line x1="${sLeft}" y1="${toSvgY(196)}" x2="${sLeft}" y2="${sBottom}" stroke="var(--accent-math)" stroke-dasharray="2,2" stroke-width="1.2" />
+        <line x1="${toSvgX(94)}" y1="${sBottom}" x2="${sLeft}" y2="${sBottom}" stroke="var(--accent-gold)" stroke-dasharray="2,2" stroke-width="1.2" />
         <circle cx="${sLeft}" cy="${sBottom}" r="5" fill="var(--accent-math)" stroke="#fff" stroke-width="1.5" />
 
         <!-- Proiezioni estremo destro -->
-        <line x1="${sRight}" y1="${toSvgY(54)}" x2="${sRight}" y2="${sTop}" stroke="var(--accent-math)" stroke-dasharray="2,2" stroke-width="1.2" />
-        <line x1="${toSvgX(14)}" y1="${sTop}" x2="${sRight}" y2="${sTop}" stroke="var(--accent-gold)" stroke-dasharray="2,2" stroke-width="1.2" />
+        <line x1="${sRight}" y1="${toSvgY(196)}" x2="${sRight}" y2="${sTop}" stroke="var(--accent-math)" stroke-dasharray="2,2" stroke-width="1.2" />
+        <line x1="${toSvgX(94)}" y1="${sTop}" x2="${sRight}" y2="${sTop}" stroke="var(--accent-gold)" stroke-dasharray="2,2" stroke-width="1.2" />
         <circle cx="${sRight}" cy="${sTop}" r="5" fill="var(--accent-math)" stroke="#fff" stroke-width="1.5" />
 
-        <!-- Punto limite centrale (20 °C ; 70%) -->
+        <!-- Punto limite centrale (100 °C ; 212 °F) -->
         <circle cx="${sx0}" cy="${sy0}" r="6.5" fill="var(--accent-success)" stroke="#fff" stroke-width="2" />
       `;
 
@@ -2626,19 +2555,19 @@
     }
 
     function verifyLab1b() {
-      const val = parseFloat(document.getElementById('lab1bInput').value.trim().replace(',', '.').replace('%', ''));
+      const val = parseFloat(document.getElementById('lab1bInput').value.trim().replace(',', '.'));
       const choice = selectedChoices['lab1b'];
       const msg = document.getElementById('lab1bMsg');
       msg.style.display = 'inline-flex';
 
-      if (Math.abs(val - 70) < 0.1 && choice === 'approx') {
+      if (Math.abs(val - 212) < 0.1 && choice === 'approx') {
         msg.className = 'feedback-msg success';
-        msg.textContent = 'Bravissimo! Il valore limite è L = 70%: stringendo l\'intorno della temperatura attorno a 20 °C, l\'umidità resta intrappolata vicinissima a 70%!';
+        msg.textContent = 'Bravissimo! Il valore limite è L = 212 °F: stringendo l\'intorno della temperatura Celsius attorno a 100 °C, i valori in Fahrenheit restano intrappolati vicinissimi a 212 °F!';
         markLabCompleted(1);
       } else {
         if (window.ComodeAudio) window.ComodeAudio.playError();
         msg.className = 'feedback-msg error';
-        msg.textContent = 'Controlla: sia da sinistra (69,98%) che da destra (70,02%) l\'umidità converge al valore limite intero 70%! Inoltre, stringere l\'intorno significa che i valori restano intrappolati vicinissimi al limite.';
+        msg.textContent = 'Controlla: sia da sinistra (211,98 °F) che da destra (212,02 °F) la temperatura converge al valore limite 212 °F! Inoltre, stringere l\'intorno significa che i valori restano intrappolati vicinissimi al limite.';
       }
     }
 
@@ -3041,122 +2970,7 @@
 
 
     /* ========================================================
-       LABORATORIO 5: DEFINIZIONE EPSILON-DELTA
-       ======================================================== */
-    let lab5ShowDelta = false;
-
-    function toggleLab5Delta() {
-      lab5ShowDelta = !lab5ShowDelta;
-      const btn = document.getElementById('lab5RevealBtn');
-      if (btn) {
-        btn.innerHTML = lab5ShowDelta ? '🙈 Nascondi $\\delta$ sul grafico' : '👁️ Mostra $\\delta$ sul grafico';
-        if (window.ComodeComponents) window.ComodeComponents.renderMath(btn);
-      }
-      renderLab5();
-    }
-
-    function renderLab5() {
-      const slider = document.getElementById('lab5Slider');
-      if (!slider) return;
-      const eps = parseFloat(slider.value);
-      const delta = eps / 1.8;
-      const epsFmt = eps.toFixed(2).replace('.', ',');
-      const deltaFmt = delta.toFixed(2).replace('.', ',');
-
-      document.getElementById('lab5Readout').textContent = `ε = ${epsFmt} °F`;
-      document.getElementById('lab5Delta').textContent = lab5ShowDelta ? `δ = ${deltaFmt} °C` : 'δ = ?';
-
-      const svg = document.getElementById('lab5Svg');
-      if (!svg) return;
-      svg.innerHTML = '';
-
-      // Grafico centrato attorno a (100, 212)
-      // C in [95, 105] -> x in [78, 538]
-      // F in [200, 224] -> y in [250, 38]
-      const toSvgX = (c) => 78 + ((c - 95) / 10) * 460;
-      const toSvgY = (f) => 250 - ((f - 200) / 24) * 212;
-
-      let grid = '';
-      let ticks = '';
-      [95, 97, 100, 103, 105].forEach(c => {
-        const sx = toSvgX(c);
-        const isCenter = (c === 100);
-        if (c > 95) {
-          grid += `<line x1="${sx}" y1="${toSvgY(224)}" x2="${sx}" y2="${toSvgY(200)}" stroke="var(--border-subtle)" stroke-opacity="0.35" stroke-dasharray="2,3" />`;
-        }
-        ticks += `<line x1="${sx}" y1="${toSvgY(200) - 4}" x2="${sx}" y2="${toSvgY(200) + 4}" stroke="${isCenter ? 'var(--accent-success)' : 'var(--text-muted)'}" />
-                  <text x="${sx}" y="${toSvgY(200) + 18}" fill="${isCenter ? 'var(--accent-success)' : 'var(--text-muted)'}" font-size="11" font-weight="${isCenter ? '700' : '400'}" text-anchor="middle">${c}</text>`;
-      });
-      [200, 206, 212, 218, 224].forEach(f => {
-        const sy = toSvgY(f);
-        const isCenter = (f === 212);
-        if (f > 200) {
-          grid += `<line x1="${toSvgX(95)}" y1="${sy}" x2="${toSvgX(105)}" y2="${sy}" stroke="var(--border-subtle)" stroke-opacity="0.35" stroke-dasharray="2,3" />`;
-        }
-        ticks += `<line x1="${toSvgX(95) - 4}" y1="${sy}" x2="${toSvgX(95) + 4}" y2="${sy}" stroke="${isCenter ? 'var(--accent-gold)' : 'var(--text-muted)'}" />
-                  <text x="${toSvgX(95) - 10}" y="${sy + 4}" fill="${isCenter ? 'var(--accent-gold)' : 'var(--text-muted)'}" font-size="11" font-weight="${isCenter ? '700' : '400'}" text-anchor="end">${f}</text>`;
-      });
-
-      const axes = `
-        <line x1="62" y1="${toSvgY(200)}" x2="572" y2="${toSvgY(200)}" stroke="var(--border-subtle)" stroke-width="1.6" />
-        <polygon points="578,${toSvgY(200)} 570,${toSvgY(200) - 4} 570,${toSvgY(200) + 4}" fill="var(--text-muted)" />
-        <line x1="${toSvgX(95)}" y1="262" x2="${toSvgX(95)}" y2="24" stroke="var(--border-subtle)" stroke-width="1.6" />
-        <polygon points="${toSvgX(95)},18 ${toSvgX(95) - 4},26 ${toSvgX(95) + 4},26" fill="var(--text-muted)" />
-        <text x="624" y="286" fill="var(--text-muted)" font-size="11.5" font-weight="600" text-anchor="end">temperatura C (°C)</text>
-        <text x="90" y="24" fill="var(--text-muted)" font-size="11.5" font-weight="600" text-anchor="start">F(C) (°F)</text>
-      `;
-
-      // Fascia epsilon: orizzontale attorno a 212
-      const topEps = toSvgY(212 + eps);
-      const botEps = toSvgY(212 - eps);
-      const bandEps = `
-        <rect x="${toSvgX(95)}" y="${topEps}" width="460" height="${botEps - topEps}" fill="rgba(251, 191, 36, 0.12)" stroke="var(--accent-gold)" stroke-dasharray="4,4" />
-        <line x1="${toSvgX(95)}" y1="${toSvgY(212)}" x2="${toSvgX(105)}" y2="${toSvgY(212)}" stroke="var(--accent-gold)" stroke-width="1.2" />
-        <text x="546" y="${toSvgY(212) - 3}" fill="var(--accent-gold)" font-size="11" font-weight="700">L = 212 °F</text>
-        <text x="546" y="${toSvgY(212) + 12}" fill="var(--accent-gold)" font-size="10.5">(±${epsFmt} °F)</text>
-      `;
-
-      // Fascia delta: verticale attorno a 100
-      let bandDelta = '';
-      if (lab5ShowDelta) {
-        const leftDelta = toSvgX(100 - delta);
-        const rightDelta = toSvgX(100 + delta);
-        bandDelta = `
-          <rect x="${leftDelta}" y="${toSvgY(224)}" width="${rightDelta - leftDelta}" height="212" fill="rgba(16, 185, 129, 0.13)" stroke="var(--accent-success)" stroke-dasharray="4,4" />
-          <line x1="${toSvgX(100)}" y1="${toSvgY(224)}" x2="${toSvgX(100)}" y2="${toSvgY(200)}" stroke="var(--accent-success)" stroke-width="1.2" />
-          <text x="${toSvgX(100)}" y="31" fill="var(--accent-success)" font-size="10.8" font-weight="700" text-anchor="middle">x₀ = 100 °C (±${deltaFmt} °C)</text>
-        `;
-      }
-
-      // Retta F(C) = 1.8 C + 32
-      const line = `
-        <line x1="${toSvgX(95)}" y1="${toSvgY(1.8 * 95 + 32)}" x2="${toSvgX(105)}" y2="${toSvgY(1.8 * 105 + 32)}" stroke="var(--accent-math)" stroke-width="3" stroke-linecap="round" />
-        <circle cx="${toSvgX(100)}" cy="${toSvgY(212)}" r="6" fill="var(--accent-math)" stroke="#fff" stroke-width="1.5" />
-      `;
-
-      svg.innerHTML = grid + axes + ticks + bandDelta + bandEps + line;
-    }
-
-    function verifyLab5() {
-      const val = document.getElementById('lab5Input').value.trim().replace(',', '.');
-      const num = parseFloat(val);
-      const msg = document.getElementById('lab5Msg');
-      msg.style.display = 'inline-flex';
-
-      if (Math.abs(num - 0.5) < 0.01) {
-        msg.className = 'feedback-msg success';
-        msg.textContent = 'Esatto! delta = epsilon / 1,8 = 0,9 / 1,8 = 0,5 °C! La tolleranza in Celsius deve essere di mezzo grado.';
-        markLabCompleted(5);
-      } else {
-        if (window.ComodeAudio) window.ComodeAudio.playError();
-        msg.className = 'feedback-msg error';
-        msg.textContent = 'Calcola: delta = epsilon / 1,8. Con epsilon = 0,9, quanto fa 0,9 / 1,8? (Scrivi 0,5)';
-      }
-    }
-
-
-    /* ========================================================
-       LABORATORIO 5 - PARTE 2: DEFINIZIONI FORMALI IN TUTTI I CASI
+       LABORATORIO 5: DEFINIZIONI FORMALI IN TUTTI I CASI
        ======================================================== */
     function renderDefCase1() {
       const slider = document.getElementById('defCase1Slider');
@@ -3365,6 +3179,7 @@
             window.ComodeGamification.addXP(5, 'Lezione 5.M1.1 • Sfida Definizioni Rigorose superata!');
           }
         }
+        markLabCompleted(5);
       } else {
         if (window.ComodeAudio) window.ComodeAudio.playError();
         msg.className = 'feedback-msg error';
@@ -3539,7 +3354,6 @@
       renderLab2();
       renderLab3();
       renderLab4();
-      renderLab5();
       renderDefCase1();
       renderDefCase2();
       renderDefCase3();
