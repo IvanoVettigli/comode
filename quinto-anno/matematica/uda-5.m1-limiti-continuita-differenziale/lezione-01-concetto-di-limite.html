@@ -1,0 +1,3512 @@
+<!DOCTYPE html>
+<html lang="it" data-theme="dark">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lezione 5.M1.1: Il Concetto di Limite • comode</title>
+  <meta name="description"
+    content="Lezione interattiva di Matematica per il 5° anno del Liceo delle Scienze Umane: intorni, limite finito e infinito, limite destro e sinistro, asintoti verticali e orizzontali, definizione epsilon-delta e costo medio di produzione.">
+
+  <!-- Font Google -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+
+  <!-- KaTeX 0.19.1 per rendering matematico -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.19.1/dist/katex.min.css" crossorigin="anonymous">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.19.1/dist/katex.min.js" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.19.1/dist/contrib/auto-render.min.js"
+    crossorigin="anonymous"></script>
+
+  <!-- Master Stylesheet Condiviso (Quinto Anno: profondità 3) -->
+  <link rel="stylesheet" href="../../../shared/css/comode.css">
+
+  <style>
+    /* ==========================================================================
+       Stili Specifici Lezione 5.M1.1 (prefisso .m1l1- anti-collisione KaTeX)
+       ========================================================================== */
+
+    .m1l1-stage {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 1.25rem;
+      margin: 1.15rem 0;
+      text-align: center;
+      overflow-x: auto;
+    }
+
+    .m1l1-svg {
+      width: 100%;
+      max-width: 660px;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+      font-family: var(--font-mono);
+    }
+
+    .m1l1-slider-panel {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.85rem;
+      flex-wrap: wrap;
+      margin: 0.85rem 0;
+      padding: 0.75rem 1rem;
+      background: var(--bg-surface-elevated);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-subtle);
+    }
+
+    .m1l1-slider-panel label {
+      font-size: 0.85rem;
+      font-weight: 700;
+    }
+
+    .m1l1-range {
+      flex: 1;
+      min-width: 180px;
+      max-width: 380px;
+      accent-color: var(--accent-math);
+      cursor: pointer;
+    }
+
+    .m1l1-readout {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--accent-math);
+      background: rgba(56, 189, 248, 0.12);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      padding: 0.25rem 0.7rem;
+      border-radius: var(--radius-pill);
+      white-space: nowrap;
+    }
+
+    .m1l1-readout.gold {
+      color: var(--accent-gold);
+      background: rgba(251, 191, 36, 0.12);
+      border-color: rgba(251, 191, 36, 0.3);
+    }
+
+    .m1l1-status {
+      margin-top: 0.75rem;
+      font-size: 0.92rem;
+      color: var(--text-muted);
+      line-height: 1.55;
+      min-height: 1.6em;
+    }
+
+    .m1l1-legend {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-top: 0.5rem;
+    }
+
+    .m1l1-legend > span::before {
+      content: '';
+      display: inline-block;
+      width: 18px;
+      height: 3px;
+      margin-right: 0.35rem;
+      vertical-align: middle;
+      background: var(--legend-color, var(--accent-math));
+      border-radius: 2px;
+    }
+
+    /* Preserva minuscole/maiuscole esatte nelle formule KaTeX dentro badge uppercase */
+    .step-tag .katex {
+      text-transform: none;
+    }
+
+    /* Teoria integrata nei laboratori Just-in-Time */
+    .lab-card .theory-card {
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-subtle);
+      border-left: 3.5px solid var(--accent-math);
+      border-radius: var(--radius-md);
+      padding: 1.15rem 1.35rem;
+      margin: 0.75rem 0 1.25rem 0;
+    }
+
+    .lab-card .theory-card-header {
+      color: var(--accent-math);
+      margin-bottom: 0.65rem;
+    }
+
+    /* Evita overflow orizzontale della formula display nella card Teoria 5 a 3 colonne */
+    #teoria-5 .katex-display {
+      font-size: 0.9em;
+      margin: 0.5rem 0;
+    }
+
+    /* Tabella di avvicinamento numerico */
+    .m1l1-table-wrap {
+      overflow-x: auto;
+      margin-top: 1rem;
+    }
+
+    .m1l1-table {
+      width: 100%;
+      max-width: 620px;
+      margin: 0 auto;
+      border-collapse: collapse;
+      font-family: var(--font-mono);
+      font-size: 0.84rem;
+    }
+
+    .m1l1-table th,
+    .m1l1-table td {
+      border: 1px solid var(--border-subtle);
+      padding: 0.4rem 0.6rem;
+      text-align: center;
+    }
+
+    .m1l1-table th {
+      background: var(--bg-surface-elevated);
+      color: var(--text-muted);
+      font-family: var(--font-main);
+      font-size: 0.8rem;
+    }
+
+    .m1l1-table tr.latest td {
+      color: var(--accent-math);
+      font-weight: 700;
+    }
+
+    /* Pulsanti a scelta (risposte chiuse) */
+    .m1l1-choice-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      align-items: center;
+    }
+
+    .m1l1-choice-btn {
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-main);
+      font-family: inherit;
+      padding: 0.5rem 0.95rem;
+      border-radius: var(--radius-pill);
+      font-size: 0.88rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .m1l1-choice-btn:hover {
+      border-color: var(--accent-math);
+    }
+
+    .m1l1-choice-btn.selected {
+      border-color: var(--accent-math);
+      background: var(--accent-math-glow);
+    }
+
+    /* Scheda contesto reale */
+    .m1l1-context {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+      background: linear-gradient(135deg, rgba(56, 189, 248, 0.07) 0%, rgba(139, 92, 246, 0.07) 100%);
+      border: 1px solid var(--border-accent);
+      border-radius: var(--radius-md);
+      padding: 1rem 1.15rem;
+      margin: 1rem 0;
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    .m1l1-context-icon {
+      font-size: 2rem;
+      flex-shrink: 0;
+      line-height: 1;
+    }
+
+    /* Palestra Mentale */
+    .m1l1-gym-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.25rem;
+      margin-top: 1rem;
+    }
+
+    .m1l1-gym-card {
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .m1l1-gym-card.solved {
+      border-color: rgba(16, 185, 129, 0.45);
+      background: rgba(16, 185, 129, 0.05);
+    }
+
+    .m1l1-gym-badge {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--accent-purple);
+      text-transform: uppercase;
+      margin-bottom: 0.4rem;
+    }
+
+    .m1l1-gym-question {
+      font-size: 0.96rem;
+      font-weight: 600;
+      margin: 0.6rem 0 0.75rem;
+      line-height: 1.6;
+    }
+
+    .m1l1-gym-feedback {
+      font-size: 0.85rem;
+      margin-top: 0.5rem;
+      font-weight: 600;
+      min-height: 1.2em;
+    }
+
+    /* Compito di Realtà Svolto */
+    .m1l1-worked-card {
+      border: 1px solid rgba(16, 185, 129, 0.35);
+      background: linear-gradient(180deg, rgba(16, 185, 129, 0.05) 0%, var(--bg-surface) 40%);
+    }
+
+    .m1l1-worked-step {
+      display: none;
+      animation: m1l1FadeIn 0.45s ease;
+    }
+
+    .m1l1-worked-step.revealed {
+      display: block;
+    }
+
+    @keyframes m1l1FadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .m1l1-step-counter {
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--accent-success);
+    }
+
+    .m1l1-worked-controls {
+      display: flex;
+      gap: 0.75rem;
+      align-items: center;
+      flex-wrap: wrap;
+      margin: 1rem 0;
+    }
+
+    .m1l1-formula-line {
+      background: var(--bg-surface-elevated);
+      border-left: 3px solid var(--accent-success);
+      border-radius: var(--radius-sm);
+      padding: 0.6rem 0.9rem;
+      margin: 0.6rem 0;
+      overflow-x: auto;
+    }
+
+    /* Griglia per lo schizzo nella Scheda Operativa (stampabile) */
+    .m1l1-sketch-box {
+      border: 1px dashed var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 0.75rem;
+      margin: 0.85rem 0;
+      text-align: center;
+    }
+
+    /* Sotto-sezioni di Laboratorio 1 (Parte 1: Intorno concreto, Parte 2: Rapporto incrementi) */
+    .m1l1-part-divider {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin: 1.75rem 0 1rem;
+      padding-top: 1.35rem;
+      border-top: 1px dashed var(--border-subtle);
+    }
+
+    .m1l1-part-badge {
+      background: rgba(56, 189, 248, 0.14);
+      color: var(--accent-math);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      border-radius: var(--radius-pill);
+      padding: 0.25rem 0.75rem;
+      font-size: 0.78rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      white-space: nowrap;
+    }
+
+    .m1l1-part-title {
+      font-size: 1.08rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin: 0;
+    }
+
+    .m1l1-increments-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 0.85rem;
+      margin: 0.85rem 0;
+    }
+
+    .m1l1-inc-card {
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-subtle);
+      border-left: 3px solid var(--accent-math);
+      border-radius: var(--radius-sm);
+      padding: 0.75rem 0.9rem;
+      font-size: 0.9rem;
+    }
+
+    .m1l1-inc-card.ratio {
+      border-left-color: var(--accent-gold);
+      background: rgba(251, 191, 36, 0.06);
+    }
+
+    .m1l1-inc-label {
+      font-size: 0.76rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      color: var(--accent-math);
+      margin-bottom: 0.25rem;
+      display: block;
+    }
+
+    .m1l1-inc-card.ratio .m1l1-inc-label {
+      color: var(--accent-gold);
+    }
+
+    /* Card interattiva Ponte Matematica <-> Filosofia (Simulatore di Zenone) */
+    .m1l1-zeno-card {
+      background: linear-gradient(145deg, rgba(139, 92, 246, 0.09) 0%, var(--bg-surface) 55%);
+      border: 1px solid rgba(139, 92, 246, 0.35);
+      border-left: 4px solid var(--accent-purple);
+      border-radius: var(--radius-md);
+      padding: 1.5rem;
+      margin: 2rem 0;
+    }
+
+    .m1l1-zeno-header {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      flex-wrap: wrap;
+      margin-bottom: 0.85rem;
+    }
+
+    .m1l1-zeno-badge {
+      background: rgba(139, 92, 246, 0.16);
+      color: var(--accent-purple);
+      border: 1px solid rgba(139, 92, 246, 0.35);
+      padding: 0.28rem 0.8rem;
+      border-radius: var(--radius-pill);
+      font-size: 0.78rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    .m1l1-zeno-title {
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: var(--text-main);
+      margin: 0;
+    }
+
+    .m1l1-zeno-controls {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.65rem;
+      flex-wrap: wrap;
+      margin-bottom: 0.85rem;
+    }
+    /* Stili per le Definizioni Formali dei Limiti (Laboratorio 5 - Tutti i casi) */
+    .m1l1-def-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1rem 0;
+      font-size: 0.88rem;
+    }
+
+    .m1l1-def-table th, .m1l1-def-table td {
+      border: 1px solid var(--border-subtle);
+      padding: 0.7rem 0.85rem;
+      vertical-align: middle;
+      text-align: center;
+    }
+
+    .m1l1-def-table th {
+      background: var(--bg-surface-elevated);
+      color: var(--text-main);
+      font-weight: 700;
+    }
+
+    .m1l1-case-num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: rgba(56, 189, 248, 0.16);
+      color: var(--accent-math);
+      font-weight: 800;
+      font-size: 0.85rem;
+      margin-right: 0.4rem;
+    }
+
+    .m1l1-case-num.big {
+      width: 32px;
+      height: 32px;
+      font-size: 1.1rem;
+      background: var(--accent-math-gradient);
+      color: #fff;
+      flex-shrink: 0;
+    }
+
+    .m1l1-def-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+      gap: 1.15rem;
+      margin: 1.25rem 0;
+    }
+
+    .m1l1-def-card {
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+      transition: var(--transition);
+    }
+
+    .m1l1-def-card:hover {
+      border-color: var(--border-accent);
+    }
+
+    .m1l1-def-head {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .m1l1-def-title {
+      font-size: 0.98rem;
+      font-weight: 700;
+      color: var(--text-main);
+      line-height: 1.35;
+    }
+
+    .m1l1-def-formula-inline {
+      font-family: var(--font-mono);
+      font-size: 0.92rem;
+      color: var(--accent-math);
+      font-weight: 700;
+    }
+
+    .m1l1-def-text {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      line-height: 1.55;
+      margin: 0.2rem 0;
+    }
+  </style>
+</head>
+
+<body data-theme="dark" data-lesson-id="qa-5.m1-l01" data-xp="60" data-unit="uda-5.m1">
+
+  <div class="container">
+    <!-- Navigation Bar con Gamification e Controlli -->
+    <nav class="navbar">
+      <a href="../../../index.html" class="brand">
+        📐 comode<span>.</span>
+      </a>
+      <div class="nav-actions">
+        <div class="gamification-widget" title="Il tuo livello e punti XP">
+          <span class="level-badge user-level-val">Liv. 1 🌱</span>
+          <span class="xp-counter user-xp-val">0 XP</span>
+        </div>
+        <button id="audioToggleBtn" class="icon-btn" aria-label="Attiva o disattiva audio">
+          🔊 <span class="nav-text">Suoni</span>
+        </button>
+        <button id="themeToggleBtn" class="theme-toggle-btn" aria-label="Cambia tema">
+          <span id="themeIcon">☀️</span>
+          <span id="themeLabel">Chiaro</span>
+        </button>
+      </div>
+    </nav>
+
+    <!-- Breadcrumbs -->
+    <div class="breadcrumbs">
+      <a href="../../../index.html">Home</a>
+      <span class="sep">/</span>
+      <a href="../../index.html">Quinto Anno</a>
+      <span class="sep">/</span>
+      <a href="index.html">UDA 5.M1: Limiti, Continuità e Derivate</a>
+      <span class="sep">/</span>
+      <span class="current">Lezione 5.M1.1</span>
+    </div>
+
+    <!-- Hero Card -->
+    <header class="hero-card">
+      <div class="hero-badges">
+        <span class="badge badge-primary">Matematica • 5° Anno</span>
+        <span class="badge badge-secondary">UDA 5.M1 • Limiti, Continuità e Derivate</span>
+        <span class="badge badge-meta">Modellizzazione &amp; Problem Solving</span>
+      </div>
+      <h1 class="hero-title">Il Concetto di Limite: Avvicinarsi Senza Toccare</h1>
+      <p class="hero-desc">
+        Cosa succede a una funzione quando la sua variabile si avvicina a un valore che <em>non può raggiungere</em>?
+        Dal costo per eliminare l'ultimo grammo di inquinante alla curva di apprendimento di uno studente, scopri come
+        il <strong>limite</strong> descrive con precisione il comportamento <em>vicino</em> a un punto e
+        <em>all'infinito</em>, e come gli <strong>asintoti</strong> raccontano le «soglie invalicabili» della realtà.
+      </p>
+
+      <!-- Progress Tracker -->
+      <div class="progress-bar-card">
+        <div class="progress-label">
+          <span>🎯 Progresso Attività:</span>
+          <span class="progress-score" id="progressScore">0 / 7 completati</span>
+        </div>
+        <div class="progress-track">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+      </div>
+    </header>
+
+    <!-- ========================================================
+         PREREQUISITI & OBIETTIVI ("COSA SAPRAI FARE")
+         ======================================================== -->
+    <div class="prereq-objectives-grid">
+      <div class="prereq-card">
+        <div class="card-top-label prereq">
+          <span>🔑</span> Prerequisiti Consigliati
+        </div>
+        <h2 class="po-title">Cosa ti serve prima di iniziare</h2>
+        <ul class="po-list">
+          <li>
+            <span class="po-icon">✓</span>
+            <div><strong>Valori esclusi e frazioni algebriche (1° e 2° biennio):</strong> ricordare che non si può dividere per zero (denominatore nullo, es. $x \neq 2$) e saper calcolare $f(x)$ sostituendo un valore numerico alla variabile.</div>
+          </li>
+          <li>
+            <span class="po-icon">✓</span>
+            <div><strong>Grafici elementari:</strong> retta, iperbole $y = \frac{k}{x}$, esponenziale $y = a^x$
+              (UDA 2.2 e 4.M1).</div>
+          </li>
+          <li>
+            <span class="po-icon">✓</span>
+            <div><strong>Intervalli e valore assoluto:</strong> tradurre $|x - 3| &lt; 0{,}5$ nell'intervallo
+              $2{,}5 &lt; x &lt; 3{,}5$ e risolvere disequazioni fratte.</div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="objectives-card">
+        <div class="card-top-label objectives">
+          <span>🎯</span> Competenze in Uscita
+        </div>
+        <h2 class="po-title">Cosa saprai fare alla fine della lezione</h2>
+        <ul class="po-list">
+          <li>
+            <span class="po-icon">🚀</span>
+            <div><strong>Leggere e scrivere un limite:</strong> interpretare $\lim_{x \to x_0} f(x) = L$ come
+              «avvicinamento» usando intorni, tabelle numeriche e grafici.</div>
+          </li>
+          <li>
+            <span class="po-icon">🚀</span>
+            <div><strong>Distinguere limite destro e sinistro:</strong> riconoscere quando un limite non esiste
+              (salti di tariffa, scaglioni).</div>
+          </li>
+          <li>
+            <span class="po-icon">🚀</span>
+            <div><strong>Riconoscere gli asintoti:</strong> collegare limiti infiniti ad asintoti verticali e limiti
+              all'infinito ad asintoti orizzontali.</div>
+          </li>
+          <li>
+            <span class="po-icon">🚀</span>
+            <div><strong>Verificare la definizione $\varepsilon$–$\delta$:</strong> calcolare la «tolleranza» $\delta$
+              in un caso lineare concreto.</div>
+          </li>
+          <li>
+            <span class="po-icon">🚀</span>
+            <div><strong>Modellizzare il costo medio:</strong> usare i limiti per prendere decisioni economiche
+              nella Scheda Operativa per casa.</div>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+
+    <!-- ========================================================
+         LABORATORI OPERATIVI INTERATTIVI CON TEORIA INTEGRATA
+         ======================================================== -->
+    <main class="labs-container">
+      <div class="section-header">
+        <h2 class="section-title">
+          <span class="icon">🧪</span> Laboratori Operativi &amp; Teoria Integrata
+        </h2>
+      </div>
+
+
+      <!-- ==========================================
+           LABORATORIO 1: INTORNI & IL BUCO NEL GRAFICO (TEORIA 1)
+           ========================================== -->
+      <article class="lab-card" id="lab1">
+        <div class="lab-badge-row">
+          <span class="lab-badge">Laboratorio 1 • Intorni &amp; Avvicinamento Numerico</span>
+          <span class="lab-xp-badge">+5 XP + 10 XP</span>
+        </div>
+        <h3 class="lab-title">Che Cos'è un Intorno? Dal Controllo di Precisione alla Piastrella che Cresce</h3>
+
+        <!-- Pillola Teoria 1 Just-in-Time -->
+        <div class="theory-card" id="teoria-1">
+          <div class="theory-card-header">
+            <span class="pill-num">1</span>
+            <span>La Teoria in Breve • Intorni e Idea Intuitiva di Limite</span>
+          </div>
+          <ul class="theory-list">
+            <li>Un <strong>intorno circolare</strong> di un punto $x_0$ (detto <strong>centro dell'intorno</strong>) è un intervallo aperto costruito attorno a $x_0$ fissando una semi-ampiezza (o raggio) $\delta &gt; 0$:
+              $$I_\delta(x_0) = (x_0 - \delta;\ x_0 + \delta) = \{\,x \in \mathbb{R} \mid |x - x_0| &lt; \delta\,\}$$
+              Contiene tutti i numeri reali la cui distanza dal centro $x_0$ è strettamente minore di $\delta$ (gli estremi $x_0 - \delta$ e $x_0 + \delta$ sono <em>esclusi</em>).</li>
+            <li>Scriviamo $\displaystyle\lim_{x \to x_0} f(x) = L$ se, restringendo l'intorno $I_\delta(x_0)$ attorno a $x_0$ (avvicinandoci da entrambi i lati <em>senza mai toccare</em> $x_0$), i valori $f(x)$ si avvicinano quanto vogliamo a $L$.</li>
+            <li>Il valore $f(x_0)$ esattamente nel centro <strong>non conta</strong>: può essere diverso da $L$ o addirittura non esistere (un «buco» nel grafico).</li>
+          </ul>
+        </div>
+
+        <!-- =====================================================
+             PARTE 1: ESERCIZIO CONCRETO E INTERATTIVO SULL'INTORNO
+             ===================================================== -->
+        <div class="m1l1-part-divider" style="margin-top: 0.5rem; padding-top: 0; border-top: none;">
+          <span class="m1l1-part-badge">Parte 1 • L'Intorno nel Concreto</span>
+          <h4 class="m1l1-part-title">Il Termostato della Serra Botanica: Centro $x_0$ e Ampiezza $\delta$</h4>
+        </div>
+
+        <div class="m1l1-context">
+          <span class="m1l1-context-icon">🌿</span>
+          <div>
+            Prima di calcolare un limite, impariamo a «vedere» e costruire un <strong>intorno $I_\delta(x_0)$</strong> in una situazione reale.<br>
+            In una serra botanica tropicale, la temperatura ideale per le orchidee è fissata attorno al <strong>valore centrale $x_0 = 20\,°\text{C}$</strong>. Il climatizzatore mantiene una fascia di sicurezza di <strong>semi-ampiezza $\delta$</strong> (in $°\text{C}$) a sinistra e a destra di $x_0$:
+            <ul style="margin: 0.45rem 0 0.25rem 1.25rem; padding: 0; line-height: 1.6;">
+              <li><strong>Centro dell'intorno ($x_0$):</strong> il valore di riferimento attorno a cui ci muoviamo (es. $x_0 = 20\,°\text{C}$).</li>
+              <li><strong>Ampiezza $\delta$ (raggio dell'intorno):</strong> di quanto possiamo allontanarci a sinistra ($x_0 - \delta$) e a destra ($x_0 + \delta$) dal centro.</li>
+              <li><strong>Intorno aperto $I_\delta(x_0) = (x_0 - \delta;\ x_0 + \delta)$:</strong> tutte le temperature $x$ con distanza dal centro minore di $\delta$ ($|x - x_0| &lt; \delta$).</li>
+            </ul>
+          </div>
+        </div>
+
+        <p class="lab-intro">
+          Usa i tre cursori qui sotto per scegliere il <strong>valore centrale $x_0$</strong>, allargare o stringere l'<strong>ampiezza $\delta$ dell'intorno</strong> e muovere la <strong>temperatura misurata $x$</strong> per verificare sul grafico quando $x$ cade dentro o fuori dall'intorno:
+        </p>
+
+        <div class="m1l1-stage">
+          <div class="m1l1-slider-panel">
+            <label for="lab1aCenter">📍 Centro $x_0$:</label>
+            <input type="range" id="lab1aCenter" class="m1l1-range" min="18" max="22" step="1" value="20" style="max-width: 150px;" oninput="renderLab1a()">
+            <span class="m1l1-readout" id="lab1aCenterReadout">x₀ = 20 °C</span>
+
+            <label for="lab1aDelta">↔️ Ampiezza $\delta$:</label>
+            <input type="range" id="lab1aDelta" class="m1l1-range" min="0.5" max="4" step="0.5" value="2" style="max-width: 150px;" oninput="renderLab1a()">
+            <span class="m1l1-readout gold" id="lab1aDeltaReadout">δ = 2,0 °C</span>
+          </div>
+          <div class="m1l1-slider-panel" style="margin-top: 0.5rem;">
+            <label for="lab1aPoint">🌡️ Temperatura misurata $x$:</label>
+            <input type="range" id="lab1aPoint" class="m1l1-range" min="14" max="26" step="0.5" value="21" oninput="renderLab1a()">
+            <span class="m1l1-readout" id="lab1aPointReadout">x = 21,0 °C</span>
+            <span class="m1l1-readout" id="lab1aIntervalReadout">I = (18,0 ; 22,0)</span>
+          </div>
+          <svg id="lab1aSvg" class="m1l1-svg" viewBox="0 0 640 250" role="img"
+            aria-label="Grafico interattivo dell'intorno centrato in x0 con semi-ampiezza delta"></svg>
+          <div id="lab1aStatus" class="m1l1-status"></div>
+        </div>
+
+        <div class="step-box" style="margin-bottom: 1.5rem;">
+          <div class="step-header">
+            <span class="step-tag">Sfida 1A: Costruisci l'intorno $I_\delta(x_0)$ (+5 XP)</span>
+            <button type="button" class="theory-ref-pill" style="margin-bottom: 0;"
+              onclick="scrollToTheory('teoria-1')">
+              🔗 Rif. Teoria 1 • Definizione di Intorno $(x_0 - \delta;\ x_0 + \delta)$
+            </button>
+          </div>
+          <div class="step-content">
+            <p style="margin-bottom: 0.75rem;">
+              Imposta (o calcola a mente) un intorno centrato nel valore <strong>$x_0 = 20\,°\text{C}$</strong> con ampiezza <strong>$\delta = 2{,}5\,°\text{C}$</strong>:
+            </p>
+            <div class="verify-box" style="margin-bottom: 0.75rem;">
+              <label for="lab1aLeftInput" style="font-weight: 600;">1) Estremo sinistro $x_0 - \delta =$</label>
+              <input type="text" id="lab1aLeftInput" class="inline-input" style="width: 75px;" placeholder="°C">
+              <label for="lab1aRightInput" style="font-weight: 600; margin-left: 0.5rem;">Estremo destro $x_0 + \delta =$</label>
+              <input type="text" id="lab1aRightInput" class="inline-input" style="width: 75px;" placeholder="°C">
+            </div>
+            <p style="margin-bottom: 0.5rem; font-weight: 600;">2) La temperatura $x = 18{,}5\,°\text{C}$ appartiene a questo intorno $I_{2{,}5}(20)$?</p>
+            <div class="m1l1-choice-row" id="lab1aChoices" style="margin-bottom: 0.75rem;">
+              <button type="button" class="m1l1-choice-btn" data-val="yes" onclick="selectChoice('lab1a', this)">Sì, perché dista $1{,}5\,°\text{C}$ da $20$ ($1{,}5 &lt; 2{,}5$)</button>
+              <button type="button" class="m1l1-choice-btn" data-val="no" onclick="selectChoice('lab1a', this)">No, perché è minore del centro $20\,°\text{C}$</button>
+              <button type="button" class="m1l1-choice-btn" data-val="edge" onclick="selectChoice('lab1a', this)">No, cade fuori dall'estremo sinistro</button>
+            </div>
+            <div class="verify-box">
+              <button type="button" class="btn-action" onclick="verifyLab1a()">Verifica Intorno</button>
+              <button type="button" class="hint-btn" style="margin-top: 0;" onclick="toggleHint('hintLab1a')">💡 Suggerimento</button>
+              <span id="lab1aMsg" class="feedback-msg" style="display: none;"></span>
+            </div>
+            <div id="hintLab1a" class="hint-text">
+              Sottrai e aggiungi l'ampiezza $\delta = 2{,}5$ al centro $x_0 = 20$: a sinistra $20 - 2{,}5 = 17{,}5$, a destra $20 + 2{,}5 = 22{,}5$. L'intorno è quindi $(17{,}5;\ 22{,}5)$ e $18{,}5$ cade proprio al suo interno!
+            </div>
+          </div>
+        </div>
+
+        <!-- =====================================================
+             PARTE 2: L'ARTIGIANO E IL RAPPORTO TRA DUE INCREMENTI
+             ===================================================== -->
+        <div class="m1l1-part-divider">
+          <span class="m1l1-part-badge">Parte 2 • Dall'Intorno al Limite</span>
+          <h4 class="m1l1-part-title">La Piastrella dell'Artigiano: Il Rapporto tra l'Aumento dell'Area e l'Aumento del Lato</h4>
+        </div>
+
+        <div class="m1l1-context">
+          <span class="m1l1-context-icon">🟦</span>
+          <div>
+            <strong>Il problema concreto dell'artigiano:</strong><br>
+            Un artigiano produce piastrelle quadrate in ceramica. Il modello standard ha <strong>lato iniziale $x_0 = 2\text{ dm}$</strong> e quindi <strong>area iniziale $A_0 = 2^2 = 4\text{ dm}^2$</strong>.<br>
+            Quando modifica lo stampo portando il lato a una nuova misura <strong>$x\text{ dm}$</strong>, la nuova piastrella ha <strong>area $A(x) = x^2\text{ dm}^2$</strong>.
+            <p style="margin: 0.65rem 0 0.5rem;">
+              <strong>Fermiamoci a capire cosa vogliamo calcolare:</strong><br>
+              L'artigiano non vuole sapere soltanto quanto misura la nuova area, ma vuole scoprire <strong>di quanto aumenta l'area in rapporto a quanto aumenta il lato della piastrella</strong> (cioè quanti $\text{dm}^2$ di superficie guadagna o perde per ogni decimetro di variazione del lato).<br>
+              Per rispondere dobbiamo prima calcolare le <strong>due variazioni (i due incrementi)</strong> e poi fare il <strong>rapporto tra questi due incrementi</strong>:
+            </p>
+            <div class="m1l1-increments-grid">
+              <div class="m1l1-inc-card">
+                <span class="m1l1-inc-label">1° Incremento • Lato</span>
+                <strong>Di quanto aumenta il lato?</strong><br>
+                Differenza tra il nuovo lato $x$ e il lato iniziale $2\text{ dm}$:
+                $$\Delta\text{lato} = x - 2\text{ dm}$$
+              </div>
+              <div class="m1l1-inc-card">
+                <span class="m1l1-inc-label">2° Incremento • Area</span>
+                <strong>Di quanto aumenta l'area?</strong><br>
+                Differenza tra la nuova area $x^2$ e l'area iniziale $4\text{ dm}^2$:
+                $$\Delta\text{area} = x^2 - 4\text{ dm}^2$$
+              </div>
+              <div class="m1l1-inc-card ratio">
+                <span class="m1l1-inc-label">Il Rapporto tra i Due Incrementi</span>
+                <strong>Aumento di area per unità di lato:</strong><br>
+                Dividiamo l'aumento dell'area per l'aumento del lato:
+                $$f(x) = \frac{\Delta\text{area}}{\Delta\text{lato}} = \frac{x^2 - 4}{x - 2}$$
+              </div>
+            </div>
+            <p style="margin: 0.55rem 0 0;">
+              <em>Esempio concreto:</em> se portiamo il lato da $2\text{ dm}$ a $x = 3\text{ dm}$, il lato cresce di $\Delta\text{lato} = 3 - 2 = 1\text{ dm}$ e l'area passa da $4$ a $9\text{ dm}^2$, crescendo di $\Delta\text{area} = 9 - 4 = 5\text{ dm}^2$; il rapporto vale $\frac{5}{1} = 5\text{ dm}^2/\text{dm}$.<br>
+              <strong>E se la modifica è piccolissima ($x$ vicinissimo a $2$)?</strong> Se sostituiamo esattamente $x = 2$, entrambi gli incrementi si annullano e otteniamo $\frac{0}{0}$ (impossibile dividere per zero!). Ma usando l'<strong>intorno $I_\delta(2) = (2 - \delta;\ 2 + \delta)$</strong> che abbiamo appena studiato, possiamo restringere l'ampiezza $\delta$ attorno a $2$ e osservare a quale valore si avvicina il rapporto!
+            </p>
+          </div>
+        </div>
+
+        <p class="lab-intro">
+          Sposta lo slider per <strong>restringere l'ampiezza $\delta$ dell'intorno</strong> centrato in $x_0 = 2$: i due punti arancioni ($2 - \delta$ a sinistra e $2 + \delta$ a destra) si stringono attorno al «buco», mentre la tabella registra il rapporto $\frac{\Delta\text{area}}{\Delta\text{lato}}$.
+        </p>
+
+        <div class="m1l1-stage">
+          <div class="m1l1-slider-panel">
+            <label for="lab1Slider">🔍 Ampiezza intorno $\delta$ attorno a $x_0 = 2$:</label>
+            <input type="range" id="lab1Slider" class="m1l1-range" min="0" max="5" step="1" value="0"
+              oninput="renderLab1()">
+            <span class="m1l1-readout" id="lab1Readout">δ = 1</span>
+          </div>
+          <svg id="lab1Svg" class="m1l1-svg" viewBox="0 0 640 300" role="img"
+            aria-label="Grafico della funzione con un buco in x uguale a 2"></svg>
+          <div class="m1l1-table-wrap">
+            <table class="m1l1-table">
+              <thead>
+                <tr>
+                  <th>$x = 2 - \delta$ (sinistra)</th>
+                  <th>$f(x) = \frac{\Delta\text{area}}{\Delta\text{lato}}$</th>
+                  <th>$x = 2 + \delta$ (destra)</th>
+                  <th>$f(x) = \frac{\Delta\text{area}}{\Delta\text{lato}}$</th>
+                </tr>
+              </thead>
+              <tbody id="lab1TableBody"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="step-box">
+          <div class="step-header">
+            <span class="step-tag">Sfida 1B: Qual è il limite del rapporto per $x \to 2$? (+10 XP)</span>
+            <button type="button" class="theory-ref-pill" style="margin-bottom: 0;"
+              onclick="scrollToTheory('teoria-1')">
+              🔗 Rif. Teoria 1 • $f(x_0)$ non conta
+            </button>
+          </div>
+          <div class="step-content">
+            <p style="margin-bottom: 0.85rem;">
+              Osservando la tabella quando l'ampiezza $\delta$ dell'intorno diventa piccolissima, a quale valore si avvicina il rapporto tra l'aumento dell'area e l'aumento del lato quando $x \to 2\text{ dm}$? Completa: $\displaystyle\lim_{x \to 2} \frac{x^2 - 4}{x - 2} = \ ?$
+            </p>
+            <div class="verify-box">
+              <input type="text" id="lab1Input" class="inline-input" style="width: 90px;" placeholder="L = ?">
+              <button type="button" class="btn-action" onclick="verifyLab1()">Verifica Limite</button>
+              <button type="button" class="hint-btn" style="margin-top: 0;" onclick="toggleHint('hintLab1')">💡
+                Suggerimento</button>
+              <span id="lab1Msg" class="feedback-msg" style="display: none;"></span>
+            </div>
+            <div id="hintLab1" class="hint-text">
+              Scomponi l'aumento dell'area (numeratore) come differenza di quadrati: $x^2 - 4 = (x-2)(x+2)$. Per ogni $x \neq 2$ dentro l'intorno bucato puoi semplificare $(x-2)$ e ottenere $f(x) = x + 2$. Se $x$ è vicinissimo a $2$, a quanto si avvicina $x + 2$?
+            </div>
+          </div>
+        </div>
+      </article>
+
+
+      <!-- =========================================================================
+           PONTE MATEMATICA ↔ FILOSOFIA (SCIENZE UMANE): SIMULATORE DI ZENONE (UNICO)
+           ========================================================================= -->
+      <section class="m1l1-zeno-card" id="ponteZenone">
+        <div class="m1l1-zeno-header">
+          <span style="font-size: 1.9rem; line-height: 1;">🐢</span>
+          <div>
+            <span class="m1l1-zeno-badge">Ponte Matematica ↔ Filosofia (Scienze Umane)</span>
+            <h3 class="m1l1-zeno-title" style="margin-top: 0.3rem;">Il Paradosso di Zenone: Achille, la Tartaruga e il Tempo che si Restringe</h3>
+          </div>
+        </div>
+
+        <p style="font-size: 0.95rem; line-height: 1.65; color: var(--text-main); margin-bottom: 0.75rem;">
+          Nel V secolo a.C. il filosofo greco <strong>Zenone di Elea</strong> propose un celebre paradosso per dimostrare che il movimento è un'illusione: il piè veloce <strong>Achille</strong> corre a <strong>$v_A = 10\text{ m/s}$</strong> e sfida una lenta <strong>tartaruga</strong> che cammina a <strong>$v_T = 1\text{ m/s}$</strong> (un decimo della velocità di Achille), concedendole <strong>$10\text{ m}$ di vantaggio iniziale</strong>.
+        </p>
+        <p style="font-size: 0.94rem; line-height: 1.65; color: var(--text-muted); margin-bottom: 1rem;">
+          Zenone scompone l'inseguimento in infiniti «passaggi»: ogni volta che Achille raggiunge il punto in cui si trovava la tartaruga, la tartaruga nel frattempo è avanzata ancora un po'! Poiché la tartaruga va a $1\text{ m/s}$ e Achille a $10\text{ m/s}$, <strong>ad ogni passaggio lo spazio da colmare e il tempo impiegato ($\Delta t$) diventano esattamente un decimo ($\frac{1}{10}$) del passaggio precedente</strong> ($1\text{ s} \to 0{,}1\text{ s} \to 0{,}01\text{ s} \to 0{,}001\text{ s}\dots$).<br>
+          Esplora il simulatore passo dopo passo: vedrai che <em>dentro i singoli passaggi di Zenone</em> Achille non raggiunge mai la tartaruga, ma poiché <strong>il tempo di ogni passaggio si restringe a $\frac{1}{10}$ del precedente</strong>, la somma degli infiniti tempi non è infinita bensì converge al limite finito $t_{\text{limite}} = 1{,}\overline{1}\text{ s} = \frac{10}{9}\text{ s}$!
+        </p>
+
+        <div class="m1l1-stage" style="margin-bottom: 0.25rem;">
+          <div class="m1l1-zeno-controls">
+            <button type="button" class="m1l1-choice-btn" onclick="setZenoStep(0)">⏮ Partenza ($n = 0$)</button>
+            <button type="button" class="btn-action" style="padding: 0.48rem 1rem; font-size: 0.88rem;" onclick="nextZenoStep()">▶ Passaggio Successivo ($+1$)</button>
+            <label for="zenoSlider" style="font-size: 0.84rem; font-weight: 700; margin-left: 0.35rem;">Passaggio $n$:</label>
+            <input type="range" id="zenoSlider" class="m1l1-range" style="max-width: 170px;" min="0" max="6" step="1" value="1" oninput="renderZeno()">
+          </div>
+
+          <div class="m1l1-slider-panel" style="margin-top: 0.4rem;">
+            <span class="m1l1-readout" id="zenoStepReadout">Passaggio n = 1</span>
+            <span class="m1l1-readout gold" id="zenoDtReadout">Δt passaggio = 1 s</span>
+            <span class="m1l1-readout" id="zenoTotalTimeReadout">Tempo totale = 1 s</span>
+            <span class="m1l1-readout" id="zenoGapReadout" style="color: var(--accent-purple); border-color: rgba(139,92,246,0.35); background: rgba(139,92,246,0.12);">Distacco residuo = 1 m</span>
+          </div>
+
+          <svg id="zenoSvg" class="m1l1-svg" viewBox="0 0 640 310" role="img"
+            aria-label="Simulatore interattivo del paradosso di Achille e la tartaruga con restringimento del tempo"></svg>
+
+          <div id="zenoStatus" class="m1l1-status" style="color: var(--text-main);"></div>
+
+          <div class="m1l1-table-wrap">
+            <table class="m1l1-table" style="max-width: 660px;">
+              <thead>
+                <tr>
+                  <th>Passaggio $n$</th>
+                  <th>Scatto Achille $\Delta x_n$</th>
+                  <th>Tempo passaggio $\Delta t_n$ ($\frac{1}{10}$ del prec.)</th>
+                  <th>Posizione Achille $x_A$</th>
+                  <th>Posizione Tartaruga $x_T$</th>
+                  <th>Tempo totale $t_{\text{tot}}$</th>
+                </tr>
+              </thead>
+              <tbody id="zenoTableBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+
+      <!-- ==========================================
+           LABORATORIO 2: TARIFFE A SCAGLIONI (TEORIA 2)
+           ========================================== -->
+      <article class="lab-card" id="lab2">
+        <div class="lab-badge-row">
+          <span class="lab-badge">Laboratorio 2 • Limite Destro e Sinistro</span>
+          <span class="lab-xp-badge">+10 XP</span>
+        </div>
+        <h3 class="lab-title">Il Corriere a Scaglioni: Quando il Limite Non Esiste</h3>
+
+        <!-- Pillola Teoria 2 Just-in-Time -->
+        <div class="theory-card" id="teoria-2">
+          <div class="theory-card-header">
+            <span class="pill-num">2</span>
+            <span>La Teoria in Breve • Limite Destro e Limite Sinistro</span>
+          </div>
+          <ul class="theory-list">
+            <li><strong>Limite sinistro</strong> $\lim_{x \to x_0^-} f(x)$: ci avviciniamo a $x_0$ solo con valori <em>minori</em> ($x &lt; x_0$).</li>
+            <li><strong>Limite destro</strong> $\lim_{x \to x_0^+} f(x)$: ci avviciniamo a $x_0$ solo con valori <em>maggiori</em> ($x &gt; x_0$).</li>
+            <li>Il limite $\lim_{x \to x_0} f(x)$ <strong>esiste</strong> se e solo se limite destro e sinistro esistono e sono <strong>uguali</strong> ($L^- = L^+$). Se differiscono (es. un «salto» di tariffa), il limite non esiste.</li>
+          </ul>
+        </div>
+
+        <div class="m1l1-context">
+          <span class="m1l1-context-icon">📦</span>
+          <div>
+            Un corriere applica questa tariffa: <strong>$5$ €</strong> per pacchi fino a $2\text{ kg}$ compresi,
+            <strong>$8$ €</strong> per pacchi oltre $2\text{ kg}$ e fino a $5\text{ kg}$.
+            $$S(p) = \begin{cases} 5 &amp; 0 &lt; p \le 2 \\ 8 &amp; 2 &lt; p \le 5 \end{cases}$$
+          </div>
+        </div>
+
+        <p class="lab-intro">
+          Trascina il pacco lungo l'asse dei pesi: avvicinati a $2\text{ kg}$ <strong>da sinistra</strong> e poi
+          <strong>da destra</strong> e osserva il prezzo. Il pallino pieno indica il valore assunto in $p = 2$, quello
+          vuoto un valore solo «sfiorato».
+        </p>
+
+        <div class="m1l1-stage">
+          <div class="m1l1-slider-panel">
+            <label for="lab2Slider">📦 Peso del pacco $p$:</label>
+            <input type="range" id="lab2Slider" class="m1l1-range" min="0.5" max="4.5" step="0.01" value="1.2"
+              oninput="renderLab2()">
+            <span class="m1l1-readout" id="lab2Readout">p = 1,20 kg</span>
+            <span class="m1l1-readout gold" id="lab2Price">S = 5 €</span>
+          </div>
+          <svg id="lab2Svg" class="m1l1-svg" viewBox="0 0 640 300" role="img"
+            aria-label="Grafico a gradino della tariffa del corriere"></svg>
+          <div id="lab2Status" class="m1l1-status">Avvicinati a $2\text{ kg}$ da entrambi i lati.</div>
+        </div>
+
+        <div class="step-box">
+          <div class="step-header">
+            <span class="step-tag">Sfida: Calcola i due limiti laterali e decidi</span>
+            <button type="button" class="theory-ref-pill" style="margin-bottom: 0;"
+              onclick="scrollToTheory('teoria-2')">
+              🔗 Rif. Teoria 2 • Destro = Sinistro?
+            </button>
+          </div>
+          <div class="step-content">
+            <div class="verify-box" style="margin-bottom: 0.75rem;">
+              <label for="lab2Left" style="font-weight: 600;">$\lim_{p \to 2^-} S(p) =$</label>
+              <input type="text" id="lab2Left" class="inline-input" style="width: 70px;" placeholder="€">
+              <label for="lab2Right" style="font-weight: 600; margin-left: 0.5rem;">$\lim_{p \to 2^+} S(p) =$</label>
+              <input type="text" id="lab2Right" class="inline-input" style="width: 70px;" placeholder="€">
+            </div>
+            <p style="margin-bottom: 0.5rem; font-weight: 600;">Allora $\lim_{p \to 2} S(p)$…</p>
+            <div class="m1l1-choice-row" id="lab2Choices" style="margin-bottom: 0.75rem;">
+              <button type="button" class="m1l1-choice-btn" data-val="5" onclick="selectChoice('lab2', this)">…vale 5
+                €</button>
+              <button type="button" class="m1l1-choice-btn" data-val="none" onclick="selectChoice('lab2', this)">…non
+                esiste</button>
+              <button type="button" class="m1l1-choice-btn" data-val="8" onclick="selectChoice('lab2', this)">…vale 8
+                €</button>
+              <button type="button" class="m1l1-choice-btn" data-val="6.5" onclick="selectChoice('lab2', this)">…vale
+                6,50 € (la media)</button>
+            </div>
+            <div class="verify-box">
+              <button type="button" class="btn-action" onclick="verifyLab2()">Verifica Analisi</button>
+              <button type="button" class="hint-btn" style="margin-top: 0;" onclick="toggleHint('hintLab2')">💡
+                Suggerimento</button>
+              <span id="lab2Msg" class="feedback-msg" style="display: none;"></span>
+            </div>
+            <div id="hintLab2" class="hint-text">
+              Un pacco da $1{,}999\text{ kg}$ costa $5$ €; uno da $2{,}001\text{ kg}$ costa $8$ €. Il limite esiste solo
+              se i due «avvicinamenti» portano allo <em>stesso</em> valore: non si fa la media!
+            </div>
+          </div>
+        </div>
+      </article>
+
+
+
+
+
+
+
+
+      <!-- ==========================================
+           LABORATORIO 3: COSTO DELLA DEPURAZIONE (TEORIA 3)
+           ========================================== -->
+      <article class="lab-card" id="lab3">
+        <div class="lab-badge-row">
+          <span class="lab-badge">Laboratorio 3 • Limite Infinito &amp; Asintoto Verticale</span>
+          <span class="lab-xp-badge">+10 XP</span>
+        </div>
+        <h3 class="lab-title">L'Ultimo Grammo di Inquinante: Il Prezzo della Perfezione</h3>
+
+        <!-- Pillola Teoria 3 Just-in-Time -->
+        <div class="theory-card" id="teoria-3">
+          <div class="theory-card-header">
+            <span class="pill-num">3</span>
+            <span>La Teoria in Breve • Limite Infinito e Asintoto Verticale</span>
+          </div>
+          <ul class="theory-list">
+            <li>$\displaystyle\lim_{x \to x_0} f(x) = +\infty$ significa che, avvicinandosi a $x_0$, $f(x)$ supera <em>qualsiasi</em> soglia $M$ fissata (per quanto grande).</li>
+            <li>Se almeno uno dei due limiti laterali in $x_0$ è $\pm\infty$, la retta <strong>$x = x_0$</strong> è un <strong>asintoto verticale</strong>.</li>
+            <li>Tipico caso: denominatore che tende a $0$ e numeratore che no, es. $\lim_{x \to 2^+} \frac{1}{x-2} = +\infty$ e $\lim_{x \to 2^-} \frac{1}{x-2} = -\infty$.</li>
+          </ul>
+        </div>
+
+        <div class="m1l1-context">
+          <span class="m1l1-context-icon">🏭</span>
+          <div>
+            Un impianto di depurazione comunale stima il costo (in migliaia di euro) per eliminare il $p\%$ di un
+            inquinante dalle acque di un fiume con il modello
+            $$C(p) = \frac{80\,p}{100 - p}, \qquad 0 \le p &lt; 100$$
+            Il consiglio comunale vorrebbe una depurazione al $100\%$. È sostenibile?
+          </div>
+        </div>
+
+        <p class="lab-intro">
+          Aumenta la percentuale di depurazione e osserva come cresce il costo quando $p$ si avvicina a $100$: la
+          linea tratteggiata rossa è l'<strong>asintoto verticale</strong>.
+        </p>
+
+        <div class="m1l1-stage">
+          <div class="m1l1-slider-panel">
+            <label for="lab3Slider">💧 Depurazione $p$:</label>
+            <input type="range" id="lab3Slider" class="m1l1-range" min="0" max="99.5" step="0.5" value="50"
+              oninput="renderLab3()">
+            <span class="m1l1-readout" id="lab3Readout">p = 50%</span>
+            <span class="m1l1-readout gold" id="lab3Cost">C = 80 k€</span>
+          </div>
+          <svg id="lab3Svg" class="m1l1-svg" viewBox="0 0 640 300" role="img"
+            aria-label="Grafico del costo di depurazione con asintoto verticale in p uguale a 100"></svg>
+          <div class="m1l1-legend">
+            <span style="--legend-color: var(--accent-math);">$C(p)$</span>
+            <span style="--legend-color: var(--accent-danger);">asintoto $p = 100$</span>
+          </div>
+          <div id="lab3Status" class="m1l1-status"></div>
+        </div>
+
+        <div class="step-box">
+          <div class="step-header">
+            <span class="step-tag">Sfida in 2 mosse: un valore e un limite</span>
+            <button type="button" class="theory-ref-pill" style="margin-bottom: 0;"
+              onclick="scrollToTheory('teoria-3')">
+              🔗 Rif. Teoria 3 • Denominatore → 0
+            </button>
+          </div>
+          <div class="step-content">
+            <div class="verify-box" style="margin-bottom: 0.75rem;">
+              <label for="lab3Input" style="font-weight: 600;">1) Costo al $90\%$: $C(90) =$</label>
+              <input type="text" id="lab3Input" class="inline-input" style="width: 90px;" placeholder="k€">
+              <span style="font-weight: 600;">migliaia di €</span>
+            </div>
+            <p style="margin-bottom: 0.5rem; font-weight: 600;">2) $\displaystyle\lim_{p \to 100^-} C(p) =$</p>
+            <div class="m1l1-choice-row" id="lab3Choices" style="margin-bottom: 0.75rem;">
+              <button type="button" class="m1l1-choice-btn" data-val="8000" onclick="selectChoice('lab3', this)">$8\,000$
+                k€</button>
+              <button type="button" class="m1l1-choice-btn" data-val="80" onclick="selectChoice('lab3', this)">$80$
+                k€</button>
+              <button type="button" class="m1l1-choice-btn" data-val="0" onclick="selectChoice('lab3', this)">$0$</button>
+              <button type="button" class="m1l1-choice-btn" data-val="inf" onclick="selectChoice('lab3', this)">$+\infty$</button>
+            </div>
+            <div class="verify-box">
+              <button type="button" class="btn-action" onclick="verifyLab3()">Verifica</button>
+              <button type="button" class="hint-btn" style="margin-top: 0;" onclick="toggleHint('hintLab3')">💡
+                Suggerimento</button>
+              <span id="lab3Msg" class="feedback-msg" style="display: none;"></span>
+            </div>
+            <div id="hintLab3" class="hint-text">
+              $C(90) = \frac{80 \cdot 90}{100 - 90} = \frac{7200}{10}$. Per il limite: con $p = 99{,}9$ il denominatore
+              vale $0{,}1$, con $p = 99{,}99$ vale $0{,}01$… il numeratore resta circa $8\,000$. Dividere per numeri
+              positivi sempre più piccoli dà risultati sempre più grandi!
+            </div>
+          </div>
+        </div>
+      </article>
+
+
+
+
+
+
+
+
+      <!-- ==========================================
+           LABORATORIO 4: CURVA DI APPRENDIMENTO (TEORIA 4)
+           ========================================== -->
+      <article class="lab-card" id="lab4">
+        <div class="lab-badge-row">
+          <span class="lab-badge">Laboratorio 4 • Limite all'Infinito &amp; Asintoto Orizzontale</span>
+          <span class="lab-xp-badge">+10 XP</span>
+        </div>
+        <h3 class="lab-title">La Curva di Apprendimento: Il Tetto della Memoria</h3>
+
+        <!-- Pillola Teoria 4 Just-in-Time -->
+        <div class="theory-card" id="teoria-4">
+          <div class="theory-card-header">
+            <span class="pill-num">4</span>
+            <span>La Teoria in Breve • Limite all'Infinito e Asintoto Orizzontale</span>
+          </div>
+          <ul class="theory-list">
+            <li>$\displaystyle\lim_{x \to +\infty} f(x) = L$: per $x$ sempre più grande, $f(x)$ si stabilizza vicino a $L$. La retta <strong>$y = L$</strong> è un <strong>asintoto orizzontale</strong>.</li>
+            <li>Nelle frazioni con numeratore e denominatore di <em>pari grado</em>, il limite è il rapporto dei coefficienti direttivi: $\lim_{x \to +\infty} \frac{50x}{x + 4} = \frac{50}{1} = 50$.</li>
+            <li>Termini come $\frac{k}{x}$ o $e^{-x}$ tendono a $0$ per $x \to +\infty$: «svaniscono».</li>
+            <li>Può anche essere $\lim_{x \to +\infty} f(x) = \pm\infty$ (crescita illimitata, nessun asintoto orizzontale).</li>
+          </ul>
+        </div>
+
+        <div class="m1l1-context">
+          <span class="m1l1-context-icon">🧠</span>
+          <div>
+            In uno studio di <strong>psicologia dell'apprendimento</strong>, uno studente memorizza parole di una
+            lingua straniera da una lista di $50$ termini. Il numero medio di parole ricordate dopo $t$ giorni di
+            esercizio è modellato da
+            $$N(t) = \frac{50\,t}{t + 4}, \qquad t \ge 0$$
+            È la tipica curva «a saturazione»: si impara molto all'inizio, poi i progressi rallentano.
+          </div>
+        </div>
+
+        <p class="lab-intro">
+          Fai scorrere il tempo fino a $120$ giorni e osserva come la curva si «appoggia» alla retta tratteggiata
+          viola senza mai superarla.
+        </p>
+
+        <div class="m1l1-stage">
+          <div class="m1l1-slider-panel">
+            <label for="lab4Slider">📅 Giorni di esercizio $t$:</label>
+            <input type="range" id="lab4Slider" class="m1l1-range" min="0" max="120" step="1" value="10"
+              oninput="renderLab4()">
+            <span class="m1l1-readout" id="lab4Readout">t = 10</span>
+            <span class="m1l1-readout gold" id="lab4Value">N ≈ 35,7 parole</span>
+          </div>
+          <svg id="lab4Svg" class="m1l1-svg" viewBox="0 0 640 300" role="img"
+            aria-label="Curva di apprendimento con asintoto orizzontale"></svg>
+          <div class="m1l1-legend">
+            <span style="--legend-color: var(--accent-math);">$N(t)$</span>
+            <span style="--legend-color: var(--accent-purple);">asintoto orizzontale</span>
+          </div>
+        </div>
+
+        <div class="step-box">
+          <div class="step-header">
+            <span class="step-tag">Sfida: il tetto e il tempo per avvicinarlo</span>
+            <button type="button" class="theory-ref-pill" style="margin-bottom: 0;"
+              onclick="scrollToTheory('teoria-4')">
+              🔗 Rif. Teoria 4 • Rapporto dei coefficienti
+            </button>
+          </div>
+          <div class="step-content">
+            <div class="verify-box" style="margin-bottom: 0.75rem;">
+              <label for="lab4Limit" style="font-weight: 600;">1) $\displaystyle\lim_{t \to +\infty} N(t) =$</label>
+              <input type="text" id="lab4Limit" class="inline-input" style="width: 80px;" placeholder="parole">
+            </div>
+            <div class="verify-box" style="margin-bottom: 0.75rem;">
+              <label for="lab4Time" style="font-weight: 600;">2) Dopo quanti giorni lo studente ricorda $45$ parole
+                ($N(t) = 45$)? $t =$</label>
+              <input type="text" id="lab4Time" class="inline-input" style="width: 80px;" placeholder="giorni">
+            </div>
+            <div class="verify-box">
+              <button type="button" class="btn-action" onclick="verifyLab4()">Verifica</button>
+              <button type="button" class="hint-btn" style="margin-top: 0;" onclick="toggleHint('hintLab4')">💡
+                Suggerimento</button>
+              <span id="lab4Msg" class="feedback-msg" style="display: none;"></span>
+            </div>
+            <div id="hintLab4" class="hint-text">
+              1) Dividi numeratore e denominatore per $t$: $N(t) = \frac{50}{1 + \frac{4}{t}}$, e $\frac{4}{t} \to 0$.
+              2) Risolvi $\frac{50t}{t+4} = 45$: moltiplica in croce $50t = 45t + 180$.
+            </div>
+          </div>
+        </div>
+      </article>
+
+
+
+
+
+
+
+
+      <!-- ==========================================
+           LABORATORIO 5: EPSILON-DELTA (TEORIA 5)
+           ========================================== -->
+      <article class="lab-card" id="lab5">
+        <div class="lab-badge-row">
+          <span class="lab-badge">Laboratorio 5 • Definizioni Rigorose in Tutti i Casi</span>
+          <span class="lab-xp-badge">+10 XP</span>
+        </div>
+        <h3 class="lab-title">Il Contratto di Precisione: Dal Termostato $\varepsilon$–$\delta$ a Tutti i Casi di Limite</h3>
+
+        <!-- Pillola Teoria 5 Just-in-Time -->
+        <div class="theory-card" id="teoria-5">
+          <div class="theory-card-header">
+            <span class="pill-num">5</span>
+            <span>La Teoria in Breve • La Definizione Rigorosa $\varepsilon$–$\delta$ e le sue Estensioni</span>
+          </div>
+          <ul class="theory-list">
+            <li>$\lim_{x \to x_0} f(x) = L$ se: <strong>per ogni</strong> tolleranza $\varepsilon &gt; 0$ sull'output <strong>esiste</strong> una tolleranza $\delta &gt; 0$ sull'input tale che
+              $$0 &lt; |x - x_0| &lt; \delta \;\Rightarrow\; |f(x) - L| &lt; \varepsilon$$</li>
+            <li>È un «contratto di precisione»: tu chiedi quanto vuoi essere vicino a $L$ ($\varepsilon$), io ti dico quanto devi essere vicino a $x_0$ ($\delta$).</li>
+            <li>Per una retta $f(x) = mx + q$ con $m \neq 0$ basta scegliere $\delta = \frac{\varepsilon}{|m|}$.</li>
+            <li>Lo stesso «contratto» vale anche quando $x_0$ o $L$ sono <strong>infiniti</strong>: cambia solo il tipo di intorno ($\varepsilon$ e $\delta$ per i valori finiti, soglie $M$ e $K$ per $\pm\infty$). Trovi le definizioni rigorose di <strong>tutti i casi</strong> nella <a href="#m1l1AllCases" class="theory-link-anchor" onclick="event.preventDefault(); document.getElementById('m1l1AllCases').scrollIntoView({behavior:'smooth'});">Parte 2 di questo laboratorio</a>.</li>
+          </ul>
+        </div>
+
+        <!-- =====================================================
+             PARTE 1: IL TERMOSTATO DI PRECISIONE (CASO FINITO -> FINITO)
+             ===================================================== -->
+        <div class="m1l1-part-divider" style="margin-top: 0.5rem; padding-top: 0; border-top: none;">
+          <span class="m1l1-part-badge">Parte 1 • Il Termostato di Precisione</span>
+          <h4 class="m1l1-part-title">Caso 1: Limite Finito per $x \to x_0$ Finito ($\lim_{x \to x_0} f(x) = L$)</h4>
+        </div>
+
+        <div class="m1l1-context">
+          <span class="m1l1-context-icon">🌡️</span>
+          <div>
+            Un laboratorio di cucina professionale usa un termometro in gradi Celsius, ma il ricettario americano
+            richiede l'acqua a <strong>$212\,°\text{F}$</strong> (ebollizione). La conversione è
+            $$F(C) = 1{,}8\,C + 32, \qquad \lim_{C \to 100} F(C) = 212$$
+            Se lo chef tollera un errore di $\pm\varepsilon$ gradi Fahrenheit, con quale precisione $\pm\delta$ deve
+            regolare la temperatura in Celsius?
+          </div>
+        </div>
+
+        <p class="lab-intro">
+          Scegli la tolleranza $\varepsilon$ con lo slider: il grafico mostra la fascia $(212 - \varepsilon;\ 212 +
+          \varepsilon)$ e la corrispondente finestra $(100 - \delta;\ 100 + \delta)$ in cui la retta rimane dentro la
+          fascia.
+        </p>
+
+        <div class="m1l1-stage">
+          <div class="m1l1-slider-panel">
+            <label for="lab5Slider">🎯 Tolleranza $\varepsilon$ (°F):</label>
+            <input type="range" id="lab5Slider" class="m1l1-range" min="0.36" max="5.4" step="0.18" value="3.6"
+              oninput="renderLab5()">
+            <span class="m1l1-readout" id="lab5Readout">ε = 3,6 °F</span>
+            <span class="m1l1-readout gold" id="lab5Delta">δ = ?</span>
+          </div>
+          <svg id="lab5Svg" class="m1l1-svg" viewBox="0 0 640 300" role="img"
+            aria-label="Fasce epsilon e delta attorno al punto 100, 212"></svg>
+          <div class="m1l1-legend">
+            <span style="--legend-color: var(--accent-gold);">fascia $\varepsilon$ (output)</span>
+            <span style="--legend-color: var(--accent-success);">finestra $\delta$ (input)</span>
+          </div>
+          <div class="m1l1-choice-row" style="justify-content: center; margin-top: 0.75rem;">
+            <button type="button" class="m1l1-choice-btn" onclick="toggleLab5Delta()" id="lab5RevealBtn">👁️ Mostra
+              $\delta$ sul grafico</button>
+          </div>
+        </div>
+
+        <div class="step-box">
+          <div class="step-header">
+            <span class="step-tag">Sfida: firma il contratto di precisione</span>
+            <button type="button" class="theory-ref-pill" style="margin-bottom: 0;"
+              onclick="scrollToTheory('teoria-5')">
+              🔗 Rif. Teoria 5 • $\delta = \varepsilon / |m|$
+            </button>
+          </div>
+          <div class="step-content">
+            <p style="margin-bottom: 0.85rem;">
+              Lo chef accetta al massimo $\varepsilon = 0{,}9\,°\text{F}$ di errore. Qual è la massima tolleranza
+              $\delta$ (in °C) attorno a $100\,°\text{C}$ che garantisce $|F(C) - 212| &lt; 0{,}9$?
+            </p>
+            <div class="verify-box">
+              <label for="lab5Input" style="font-weight: 600;">$\delta =$</label>
+              <input type="text" id="lab5Input" class="inline-input" style="width: 90px;" placeholder="°C">
+              <button type="button" class="btn-action" onclick="verifyLab5()">Verifica Contratto</button>
+              <button type="button" class="hint-btn" style="margin-top: 0;" onclick="toggleHint('hintLab5')">💡
+                Suggerimento</button>
+              <span id="lab5Msg" class="feedback-msg" style="display: none;"></span>
+            </div>
+            <div id="hintLab5" class="hint-text">
+              $|F(C) - 212| = |1{,}8\,C + 32 - 212| = |1{,}8\,C - 180| = 1{,}8\,|C - 100|$. Imponi $1{,}8\,|C - 100| &lt;
+              0{,}9$ e dividi entrambi i membri per $1{,}8$.
+            </div>
+          </div>
+        </div>
+
+        <!-- =====================================================
+             PARTE 2: LE DEFINIZIONI RIGOROSE IN TUTTI I CASI
+             ===================================================== -->
+        <div class="m1l1-part-divider" id="m1l1AllCases">
+          <span class="m1l1-part-badge">Parte 2 • Il Contratto in Tutti i Casi</span>
+          <h4 class="m1l1-part-title">Le Definizioni Rigorose quando $x_0$ o $L$ sono Infiniti ($\pm\infty$)</h4>
+        </div>
+
+        <p class="lab-intro">
+          Nel termostato abbiamo analizzato il caso «finito $\to$ finito». Ma nella realtà incontriamo anche limiti con <strong>valori infiniti</strong> (la depurazione che costa infinitamente cara vicino al 100%, la memoria che si stabilizza all'infinito, i costi che crescono senza limiti).<br>
+          La logica del «contratto di precisione» rimane <strong>sempre identica</strong>: <em>«Per ogni esigenza prefissata sull'output, esiste una soglia sull'input che la garantisce»</em>. Cambiano solo le lettere e i simboli usati:
+        </p>
+
+        <div class="m1l1-increments-grid">
+          <div class="m1l1-inc-card">
+            <span class="m1l1-inc-label">Vicino a un valore finito</span>
+            Si misura una <strong>distanza piccola</strong>:<br>
+            $|x - x_0| &lt; \delta$ sull'input,<br>
+            $|f(x) - L| &lt; \varepsilon$ sull'output.
+          </div>
+          <div class="m1l1-inc-card">
+            <span class="m1l1-inc-label">«Vicino» a $+\infty$</span>
+            Si deve <strong>superare una soglia enorme</strong>:<br>
+            $x &gt; K$ (o $c$) sull'input,<br>
+            $f(x) &gt; M$ sull'output.
+          </div>
+          <div class="m1l1-inc-card ratio">
+            <span class="m1l1-inc-label">«Vicino» a $-\infty$</span>
+            Si deve <strong>scendere sotto una soglia negativa</strong>:<br>
+            $x &lt; -K$ sull'input,<br>
+            $f(x) &lt; -M$ sull'output.
+          </div>
+        </div>
+
+        <!-- Matrice Sinottica dei 4 Casi Fondamentali -->
+        <div class="m1l1-table-wrap" style="margin: 1.25rem 0;">
+          <table class="m1l1-def-table">
+            <thead>
+              <tr>
+                <th style="width: 22%;">Input $x$ \ Output $f(x)$</th>
+                <th style="width: 39%;">Output $L$ <strong>Finito</strong> (Intorno di raggio $\varepsilon$)</th>
+                <th style="width: 39%;">Output <strong>$+\infty$</strong> (Soglia $M &gt; 0$)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th>$x \to x_0$ <strong>Finito</strong><br><small style="color:var(--text-muted); font-weight:normal;">(Finestra di raggio $\delta$)</small></th>
+                <td>
+                  <strong>① Limite finito al finito</strong><br>
+                  $\forall \varepsilon &gt; 0\ \ \exists \delta &gt; 0 :$<br>
+                  $0 &lt; |x - x_0| &lt; \delta \implies |f(x) - L| &lt; \varepsilon$
+                </td>
+                <td>
+                  <strong>② Limite infinito al finito</strong><br>
+                  <span style="color:var(--accent-danger); font-size:0.8rem; font-weight:700;">[Asintoto Verticale]</span><br>
+                  $\forall M &gt; 0\ \ \exists \delta &gt; 0 :$<br>
+                  $0 &lt; |x - x_0| &lt; \delta \implies f(x) &gt; M$
+                </td>
+              </tr>
+              <tr>
+                <th>$x \to +\infty$<br><small style="color:var(--text-muted); font-weight:normal;">(Soglia $K &gt; 0$)</small></th>
+                <td>
+                  <strong>③ Limite finito all'infinito</strong><br>
+                  <span style="color:var(--accent-purple); font-size:0.8rem; font-weight:700;">[Asintoto Orizzontale]</span><br>
+                  $\forall \varepsilon &gt; 0\ \ \exists K &gt; 0 :$<br>
+                  $x &gt; K \implies |f(x) - L| &lt; \varepsilon$
+                </td>
+                <td>
+                  <strong>④ Limite infinito all'infinito</strong><br>
+                  <span style="color:var(--accent-gold); font-size:0.8rem; font-weight:700;">[Crescita Illimitata]</span><br>
+                  $\forall M &gt; 0\ \ \exists K &gt; 0 :$<br>
+                  $x &gt; K \implies f(x) &gt; M$
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- 4 Card Dettagliate con Esempi Reali e Visualizzatori Dinamici -->
+        <div class="m1l1-def-grid">
+          <!-- Card Caso 1 -->
+          <div class="m1l1-def-card">
+            <div class="m1l1-def-head">
+              <span class="m1l1-case-num big">①</span>
+              <div>
+                <div class="m1l1-def-title">Caso 1: Finito al Finito ($\lim_{x \to x_0} f(x) = L$)</div>
+                <div class="m1l1-def-formula-inline">$\forall \varepsilon &gt; 0\ \exists \delta &gt; 0 : 0 &lt; |x - x_0| &lt; \delta \Rightarrow |f(x) - L| &lt; \varepsilon$</div>
+              </div>
+            </div>
+            <p class="m1l1-def-text">
+              <strong>In parole semplici:</strong> Per quanto stretta sia la tolleranza $\varepsilon$ che richiedi sull'output attorno a $L$, posso sempre trovare una finestra di tolleranza $\delta$ attorno a $x_0$ tale che la funzione resti dentro la fascia $(L - \varepsilon;\ L + \varepsilon)$.
+            </p>
+            <div class="m1l1-inc-card" style="margin: 0.35rem 0;">
+              <strong>Esempio reale (Termostato):</strong> $\lim_{C \to 100} (1{,}8\,C + 32) = 212\,°\text{F}$.<br>
+              Relazione esatta: $\delta = \frac{\varepsilon}{1{,}8}$. Se chiedi $\varepsilon = 0{,}9\,°\text{F}$, scelgo $\delta = 0{,}5\,°\text{C}$ (vedi grafico interattivo sotto).
+            </div>
+            <!-- Mini-simulatore Caso 1 -->
+            <div class="m1l1-slider-panel" style="margin: 0.35rem 0; padding: 0.45rem 0.75rem;">
+              <label for="defCase1Slider" style="font-size: 0.8rem;">Tolleranza $\varepsilon$ (°F):</label>
+              <input type="range" id="defCase1Slider" class="m1l1-range" min="0.36" max="5.4" step="0.18" value="1.8" oninput="renderDefCase1()">
+              <span class="m1l1-readout gold" id="defCase1E">ε = 1,80 °F</span>
+              <span class="m1l1-readout" id="defCase1D">δ = 1,00 °C</span>
+            </div>
+            <svg id="defCase1Svg" class="m1l1-svg" viewBox="0 0 320 180" style="max-width: 100%; height: auto;" role="img" aria-label="Grafico fascia epsilon e finestra delta per il termostato"></svg>
+            <div id="defCase1Status" class="m1l1-def-text" style="font-weight: 600; color: var(--accent-math);"></div>
+            <button type="button" class="theory-ref-pill" onclick="scrollToTheory('teoria-5')">🔗 Rif. Teoria 5 • Definizione Epsilon-Delta</button>
+          </div>
+
+          <!-- Card Caso 2 -->
+          <div class="m1l1-def-card">
+            <div class="m1l1-def-head">
+              <span class="m1l1-case-num big" style="background: linear-gradient(135deg, #ef4444, #f59e0b);">②</span>
+              <div>
+                <div class="m1l1-def-title">Caso 2: Infinito al Finito ($\lim_{x \to x_0} f(x) = +\infty$)</div>
+                <div class="m1l1-def-formula-inline">$\forall M &gt; 0\ \exists \delta &gt; 0 : 0 &lt; |x - x_0| &lt; \delta \Rightarrow f(x) &gt; M$</div>
+              </div>
+            </div>
+            <p class="m1l1-def-text">
+              <strong>In parole semplici:</strong> Per quanto alta sia la soglia $M$ fissata (anche milioni!), esiste un intorno bucato di $x_0$ di raggio $\delta$ in cui la funzione supera stabilmente $M$. Geometricamente, la retta verticale <strong>$x = x_0$ è un asintoto verticale</strong>.
+            </p>
+            <div class="m1l1-inc-card" style="margin: 0.35rem 0;">
+              <strong>Esempio reale (Depurazione acque, Lab 3):</strong><br>
+              $\displaystyle\lim_{p \to 100^-} C(p) = \lim_{p \to 100^-} \frac{80p}{100 - p} = +\infty$.<br>
+              Risolvendo $\frac{80p}{100 - p} &gt; M$ con $p &lt; 100$:<br>
+              $$100 - p &lt; \frac{8000}{M + 80} \iff \delta(M) = \frac{8000}{M + 80}$$
+              <em>Più la soglia di costo $M$ è esorbitante, più la finestra $\delta$ si stringe a ridosso del $100\%$!</em>
+            </div>
+            <!-- Mini-simulatore Caso 2 -->
+            <div class="m1l1-slider-panel" style="margin: 0.35rem 0; padding: 0.45rem 0.75rem;">
+              <label for="defCase2Slider" style="font-size: 0.8rem;">Soglia $M$ (k€):</label>
+              <input type="range" id="defCase2Slider" class="m1l1-range" min="100" max="1500" step="50" value="400" oninput="renderDefCase2()">
+              <span class="m1l1-readout gold" id="defCase2M">M = 400 k€</span>
+              <span class="m1l1-readout" id="defCase2D">δ = 16,67%</span>
+            </div>
+            <svg id="defCase2Svg" class="m1l1-svg" viewBox="0 0 320 180" style="max-width: 100%; height: auto;" role="img" aria-label="Grafico soglia M e delta"></svg>
+            <div id="defCase2Status" class="m1l1-def-text" style="font-weight: 600; color: var(--accent-danger);"></div>
+            <button type="button" class="theory-ref-pill" onclick="scrollToTheory('teoria-3')">🔗 Rif. Teoria 3 • Asintoto Verticale</button>
+          </div>
+
+          <!-- Card Caso 3 -->
+          <div class="m1l1-def-card">
+            <div class="m1l1-def-head">
+              <span class="m1l1-case-num big" style="background: linear-gradient(135deg, #8b5cf6, #3b82f6);">③</span>
+              <div>
+                <div class="m1l1-def-title">Caso 3: Finito all'Infinito ($\lim_{x \to +\infty} f(x) = L$)</div>
+                <div class="m1l1-def-formula-inline">$\forall \varepsilon &gt; 0\ \exists K &gt; 0 : x &gt; K \Rightarrow |f(x) - L| &lt; \varepsilon$</div>
+              </div>
+            </div>
+            <p class="m1l1-def-text">
+              <strong>In parole semplici:</strong> Per quanto stretta sia la tolleranza $\varepsilon$ richiesta attorno alla quota limite $L$, esiste un istante o valore di soglia $K$ tale che, per tutti gli $x$ oltre $K$, la funzione resta definitivamente confinata nella striscia orizzontale $(L - \varepsilon;\ L + \varepsilon)$. La retta <strong>$y = L$ è un asintoto orizzontale</strong>.
+            </p>
+            <div class="m1l1-inc-card" style="margin: 0.35rem 0;">
+              <strong>Esempio reale (Curva di Apprendimento, Lab 4):</strong><br>
+              $\displaystyle\lim_{t \to +\infty} N(t) = \lim_{t \to +\infty} \frac{50t}{t + 4} = 50\text{ parole}$.<br>
+              Distanza dal tetto: $|N(t) - 50| = \frac{200}{t + 4} &lt; \varepsilon \iff t &gt; \frac{200}{\varepsilon} - 4$.<br>
+              Quindi la soglia temporale necessaria è:
+              $$K(\varepsilon) = \frac{200}{\varepsilon} - 4\text{ giorni}$$
+            </div>
+            <!-- Mini-simulatore Caso 3 -->
+            <div class="m1l1-slider-panel" style="margin: 0.35rem 0; padding: 0.45rem 0.75rem;">
+              <label for="defCase3Slider" style="font-size: 0.8rem;">Tolleranza $\varepsilon$ (parole):</label>
+              <input type="range" id="defCase3Slider" class="m1l1-range" min="1" max="10" step="0.5" value="5" oninput="renderDefCase3()">
+              <span class="m1l1-readout gold" id="defCase3E">ε = 5 parole</span>
+              <span class="m1l1-readout" id="defCase3K">K = 36 giorni</span>
+            </div>
+            <svg id="defCase3Svg" class="m1l1-svg" viewBox="0 0 320 180" style="max-width: 100%; height: auto;" role="img" aria-label="Grafico tolleranza epsilon e soglia K"></svg>
+            <div id="defCase3Status" class="m1l1-def-text" style="font-weight: 600; color: var(--accent-purple);"></div>
+            <button type="button" class="theory-ref-pill" onclick="scrollToTheory('teoria-4')">🔗 Rif. Teoria 4 • Asintoto Orizzontale</button>
+          </div>
+
+          <!-- Card Caso 4 -->
+          <div class="m1l1-def-card">
+            <div class="m1l1-def-head">
+              <span class="m1l1-case-num big" style="background: linear-gradient(135deg, #10b981, #06b6d4);">④</span>
+              <div>
+                <div class="m1l1-def-title">Caso 4: Infinito all'Infinito ($\lim_{x \to +\infty} f(x) = +\infty$)</div>
+                <div class="m1l1-def-formula-inline">$\forall M &gt; 0\ \exists K &gt; 0 : x &gt; K \Rightarrow f(x) &gt; M$</div>
+              </div>
+            </div>
+            <p class="m1l1-def-text">
+              <strong>In parole semplici:</strong> La funzione cresce senza alcun tetto massimo: fissata qualunque soglia $M$ alta a piacere, basta andare sufficientemente lontano verso destra ($x &gt; K$) affinché la funzione superi per sempre $M$. Non ci sono asintoti orizzontali.
+            </p>
+            <div class="m1l1-inc-card" style="margin: 0.35rem 0;">
+              <strong>Esempio reale (Costo Totale Casa Editrice, Lab 7):</strong><br>
+              Costo complessivo $C_{tot}(x) = 3600 + 4x$ (€).<br>
+              $\displaystyle\lim_{x \to +\infty} (3600 + 4x) = +\infty$.<br>
+              Imponendo $3600 + 4x &gt; M \iff x &gt; \frac{M - 3600}{4}$.<br>
+              La soglia di tiratura minima è:
+              $$K(M) = \frac{M - 3600}{4}\text{ copie}$$
+            </div>
+            <!-- Mini-simulatore Caso 4 -->
+            <div class="m1l1-slider-panel" style="margin: 0.35rem 0; padding: 0.45rem 0.75rem;">
+              <label for="defCase4Slider" style="font-size: 0.8rem;">Soglia di spesa $M$ (€):</label>
+              <input type="range" id="defCase4Slider" class="m1l1-range" min="4000" max="9000" step="200" value="6000" oninput="renderDefCase4()">
+              <span class="m1l1-readout gold" id="defCase4M">M = 6.000 €</span>
+              <span class="m1l1-readout" id="defCase4K">K = 600 copie</span>
+            </div>
+            <svg id="defCase4Svg" class="m1l1-svg" viewBox="0 0 320 180" style="max-width: 100%; height: auto;" role="img" aria-label="Grafico soglia M e K per limite infinito all'infinito"></svg>
+            <div id="defCase4Status" class="m1l1-def-text" style="font-weight: 600; color: var(--accent-success);"></div>
+            <button type="button" class="theory-ref-pill" onclick="scrollToTheory('teoria-4')">🔗 Rif. Teoria 4 • Crescita Illimitata</button>
+          </div>
+        </div>
+
+        <!-- Box Varianti di Segno, Limiti Laterali e Definizione Topologica Unificata -->
+        <div class="theory-card" style="border-left-color: var(--accent-purple); margin-top: 1.25rem;">
+          <div class="theory-card-header" style="color: var(--accent-purple);">
+            <span>🧩 Le Varianti con $-\infty$, Limiti Laterali e la Definizione Topologica Unificata</span>
+          </div>
+          <ul class="theory-list">
+            <li><strong>Output $-\infty$:</strong> Si sostituisce $f(x) &gt; M$ con <strong>$f(x) &lt; -M$</strong> (la funzione scende sotto qualsiasi soglia negativa). Esempio: $\lim_{x \to 2^-} \frac{1}{x - 2} = -\infty$.</li>
+            <li><strong>Input $x \to -\infty$:</strong> Si sostituisce $x &gt; K$ con <strong>$x &lt; -K$</strong> (ci si sposta a sinistra oltre $-K$). Esempio: $\lim_{x \to -\infty} \frac{1}{x} = 0$.</li>
+            <li><strong>Limiti Laterali ($x \to x_0^+$ e $x \to x_0^-$):</strong> Invece dell'intorno circolare completo bucato $0 &lt; |x - x_0| &lt; \delta$, si usa la mezza finestra:
+              $$x \to x_0^+ \implies x_0 &lt; x &lt; x_0 + \delta, \qquad x \to x_0^- \implies x_0 - \delta &lt; x &lt; x_0$$</li>
+            <li><strong>La Grande Bellezza della Matematica • La Definizione Topologica Unificata:</strong><br>
+              Se chiamiamo <strong>intorno di $+\infty$</strong> una qualsiasi semiretta destra $(M;\ +\infty)$ e <strong>intorno di $-\infty$</strong> una semiretta sinistra $(-\infty;\ -M)$, <em>tutti i casi di limite esistenti al mondo si riassumono in un'unica ed elegante riga</em>:
+              $$\lim_{x \to x_0} f(x) = L \iff \forall\, I(L)\ \ \exists\, I(x_0) : \forall x \in I(x_0) \setminus \{x_0\} \implies f(x) \in I(L)$$
+              <em style="color:var(--text-muted);">«Per ogni intorno dell'output $I(L)$, esiste un intorno dell'input $I(x_0)$ che viene mandato interamente dentro $I(L)$».</em>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Sfida di consolidamento formale -->
+        <div class="step-box" style="margin-top: 1.25rem;">
+          <div class="step-header">
+            <span class="step-tag">Sfida di Consolidamento Formale: Associa la Definizione (+5 XP)</span>
+            <button type="button" class="theory-ref-pill" style="margin-bottom: 0;" onclick="scrollToTheory('teoria-5')">
+              🔗 Rif. Teoria 5 • I 4 Contratti
+            </button>
+          </div>
+          <div class="step-content">
+            <p style="margin-bottom: 0.65rem;">
+              Quale formula esprime rigorosamente che la retta <strong>$y = 3$ è un asintoto orizzontale</strong> per $x \to +\infty$?
+            </p>
+            <div class="m1l1-choice-row" id="defMatchChoices" style="margin-bottom: 0.75rem;">
+              <button type="button" class="m1l1-choice-btn" data-val="1" onclick="selectChoice('defMatch', this)">$\forall M &gt; 0\ \exists \delta &gt; 0 : 0 &lt; |x - 3| &lt; \delta \Rightarrow f(x) &gt; M$</button>
+              <button type="button" class="m1l1-choice-btn" data-val="2" onclick="selectChoice('defMatch', this)">$\forall \varepsilon &gt; 0\ \exists K &gt; 0 : x &gt; K \Rightarrow |f(x) - 3| &lt; \varepsilon$</button>
+              <button type="button" class="m1l1-choice-btn" data-val="3" onclick="selectChoice('defMatch', this)">$\forall M &gt; 0\ \exists K &gt; 0 : x &gt; K \Rightarrow f(x) &gt; M$</button>
+              <button type="button" class="m1l1-choice-btn" data-val="4" onclick="selectChoice('defMatch', this)">$\forall \varepsilon &gt; 0\ \exists \delta &gt; 0 : 0 &lt; |x - 3| &lt; \delta \Rightarrow |f(x)| &lt; \varepsilon$</button>
+            </div>
+            <div class="verify-box">
+              <button type="button" class="btn-action" onclick="verifyDefMatch()">Verifica Risposta</button>
+              <span id="defMatchMsg" class="feedback-msg" style="display: none;"></span>
+            </div>
+          </div>
+        </div>
+          </div>
+        </div>
+      </article>
+
+
+
+
+
+
+
+
+
+
+
+      <!-- ==========================================
+           LABORATORIO 6: PALESTRA MENTALE
+           ========================================== -->
+      <article class="lab-card" id="lab6">
+        <div class="lab-badge-row">
+          <span class="lab-badge">Laboratorio 6 • Consolidamento</span>
+          <span class="lab-xp-badge">+5 XP a sfida • +10 XP finale</span>
+        </div>
+        <h3 class="lab-title">Palestra Mentale: 4 Sfide Lampo sui Limiti della Vita Quotidiana</h3>
+
+        <div class="theory-link-box">
+          <span class="tl-icon">🔗</span>
+          <div>
+            <strong>Collegamento Teoria ↔ Pratica:</strong> Risolvi le 4 schede rapide per completare il laboratorio:
+            ogni scheda riporta il link diretto alla pillola di teoria che stai allenando. Per l'infinito puoi scrivere
+            <code>+inf</code>, <code>-inf</code> oppure <code>∞</code>.
+          </div>
+        </div>
+
+        <div class="m1l1-gym-grid">
+          <!-- Gym A -->
+          <div class="m1l1-gym-card" id="m1l1gym1">
+            <div>
+              <div class="m1l1-gym-badge">Sfida A • Il Caffè che si Raffredda</div>
+              <button type="button" class="theory-ref-pill" onclick="scrollToTheory('teoria-4')">
+                🔗 Teoria 4 • $e^{-x} \to 0$
+              </button>
+              <div class="m1l1-gym-question">
+                ☕ Un caffè appena versato in una stanza a $20\,°\text{C}$ ha temperatura $T(t) = 20 + 70\,e^{-0{,}1t}$
+                (in °C, $t$ in minuti). Quanto vale $\lim_{t \to +\infty} T(t)$?
+              </div>
+            </div>
+            <div>
+              <div class="verify-box" style="margin-top: 0.5rem;">
+                <input type="text" id="m1l1gym1Input" class="inline-input" style="width: 85px;" placeholder="°C">
+                <button type="button" class="btn-action" onclick="checkGym(1)">Verifica</button>
+              </div>
+              <div id="m1l1gym1Feedback" class="m1l1-gym-feedback"></div>
+            </div>
+          </div>
+
+          <!-- Gym B -->
+          <div class="m1l1-gym-card" id="m1l1gym2">
+            <div>
+              <div class="m1l1-gym-badge">Sfida B • Il Buco Rimovibile</div>
+              <button type="button" class="theory-ref-pill" onclick="scrollToTheory('teoria-1')">
+                🔗 Teoria 1 • Limite e buco nel grafico
+              </button>
+              <div class="m1l1-gym-question">
+                🟦 Per una piastrella di lato iniziale $3\text{ dm}$ (area iniziale $9\text{ dm}^2$), il rapporto tra l'aumento di area ($x^2 - 9$) e l'allungamento del lato ($x - 3$) è $\frac{x^2 - 9}{x - 3}$. Calcola $\lim_{x \to 3} \frac{x^2 - 9}{x - 3}$.
+              </div>
+            </div>
+            <div>
+              <div class="verify-box" style="margin-top: 0.5rem;">
+                <input type="text" id="m1l1gym2Input" class="inline-input" style="width: 85px;" placeholder="L">
+                <button type="button" class="btn-action" onclick="checkGym(2)">Verifica</button>
+              </div>
+              <div id="m1l1gym2Feedback" class="m1l1-gym-feedback"></div>
+            </div>
+          </div>
+
+          <!-- Gym C -->
+          <div class="m1l1-gym-card" id="m1l1gym3">
+            <div>
+              <div class="m1l1-gym-badge">Sfida C • Economie di Scala</div>
+              <button type="button" class="theory-ref-pill" onclick="scrollToTheory('teoria-4')">
+                🔗 Teoria 4 • Asintoto orizzontale
+              </button>
+              <div class="m1l1-gym-question">
+                👕 Una cooperativa stampa magliette solidali: $1\,200$ € di costi fissi e $5$ € a maglietta. Il costo
+                medio è $c(x) = \frac{1200 + 5x}{x}$. Quanto vale $\lim_{x \to +\infty} c(x)$ (in €)?
+              </div>
+            </div>
+            <div>
+              <div class="verify-box" style="margin-top: 0.5rem;">
+                <input type="text" id="m1l1gym3Input" class="inline-input" style="width: 85px;" placeholder="€">
+                <button type="button" class="btn-action" onclick="checkGym(3)">Verifica</button>
+              </div>
+              <div id="m1l1gym3Feedback" class="m1l1-gym-feedback"></div>
+            </div>
+          </div>
+
+          <!-- Gym D -->
+          <div class="m1l1-gym-card" id="m1l1gym4">
+            <div>
+              <div class="m1l1-gym-badge">Sfida D • La Coda alla Cassa</div>
+              <button type="button" class="theory-ref-pill" onclick="scrollToTheory('teoria-3')">
+                🔗 Teoria 3 • Limite infinito
+              </button>
+              <div class="m1l1-gym-question">
+                🛒 Nella teoria delle code, il numero medio di clienti in attesa è $W(\rho) = \frac{\rho}{1 - \rho}$, con
+                $\rho$ = frazione di tempo in cui la cassa è occupata. Quanto vale $\lim_{\rho \to 1^-} W(\rho)$?
+              </div>
+            </div>
+            <div>
+              <div class="verify-box" style="margin-top: 0.5rem;">
+                <input type="text" id="m1l1gym4Input" class="inline-input" style="width: 85px;" placeholder="?">
+                <button type="button" class="btn-action" onclick="checkGym(4)">Verifica</button>
+              </div>
+              <div id="m1l1gym4Feedback" class="m1l1-gym-feedback"></div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+
+
+
+
+
+
+
+      <!-- ==========================================
+           LABORATORIO 7: COMPITO DI REALTÀ SVOLTO
+           ========================================== -->
+      <article class="lab-card m1l1-worked-card" id="lab7">
+        <div class="lab-badge-row">
+          <span class="lab-badge" style="background: rgba(16, 185, 129, 0.15); color: var(--accent-success); border-color: rgba(16, 185, 129, 0.3);">
+            Laboratorio 7 • Compito di Realtà Svolto
+          </span>
+          <span class="lab-xp-badge">+10 XP</span>
+        </div>
+        <h3 class="lab-title">Studio di Caso Svolto: Il Costo Medio di una Casa Editrice Sociale</h3>
+
+        <div class="theory-link-box">
+          <span class="tl-icon">🔗</span>
+          <div>
+            <strong>Collegamento Teoria ↔ Pratica:</strong> Questo compito autentico integra la
+            <a href="#teoria-3" class="theory-link-anchor" onclick="event.preventDefault(); scrollToTheory('teoria-3');">Teoria 3 • Asintoto Verticale ($x \to 0^+$)</a>
+            e la <a href="#teoria-4" class="theory-link-anchor" onclick="event.preventDefault(); scrollToTheory('teoria-4');">Teoria 4 • Asintoto Orizzontale ($x \to +\infty$)</a>
+            dimostrando come i limiti governino le economie di scala e la sostenibilità economica.
+          </div>
+        </div>
+
+        <div class="m1l1-context">
+          <span class="m1l1-context-icon">📚</span>
+          <div>
+            La cooperativa sociale <em>«Libri per Tutti»</em> pubblica saggi divulgativi di Scienze Umane. Per stampare un nuovo manuale ha sostenuto <strong>$3\,600\text{ €}$ di costi fissi iniziali</strong> (editing, grafica e diritti) e un <strong>costo variabile di $4\text{ €}$ per ciascuna copia</strong> stampata.
+            Se vengono stampate $x$ copie, il <strong>costo medio unitario</strong> (costo per singola copia) è espresso dalla funzione:
+            $$\overline{C}(x) = \frac{3600 + 4x}{x} = \frac{3600}{x} + 4, \qquad x > 0$$
+          </div>
+        </div>
+
+        <p class="lab-intro">
+          Segui i <strong>4 passi dell'indagine</strong>. Interagisci con il grafico dinamico per esplorare la curva di costo ed esamina la risoluzione commentata:
+        </p>
+
+        <!-- Visualizzatore interattivo del costo medio -->
+        <div class="m1l1-stage">
+          <div class="m1l1-slider-panel">
+            <label for="lab7Slider">📖 Tiratura stampata $x$:</label>
+            <input type="range" id="lab7Slider" class="m1l1-range" min="10" max="1500" step="10" value="100" oninput="renderLab7()">
+            <span class="m1l1-readout" id="lab7Readout">x = 100 copie</span>
+            <span class="m1l1-readout gold" id="lab7Cost">Costo medio = 40,00 €</span>
+          </div>
+          <svg id="lab7Svg" class="m1l1-svg" viewBox="0 0 640 300" role="img" aria-label="Grafico del costo medio con asintoto orizzontale a quota 4 euro"></svg>
+          <div class="m1l1-legend">
+            <span style="--legend-color: var(--accent-math);">Costo medio $\overline{C}(x)$</span>
+            <span style="--legend-color: var(--accent-success);">Asintoto $y = 4$ € (Costo variabile)</span>
+            <span style="--legend-color: var(--accent-danger);">Asintoto $x = 0$ (Costi fissi non ammortizzati)</span>
+          </div>
+        </div>
+
+        <!-- Fasi dello svolgimento guidato -->
+        <div class="m1l1-worked-controls">
+          <span style="font-weight: 700; font-size: 0.88rem;">Esplora i passaggi di risoluzione:</span>
+          <button type="button" class="m1l1-choice-btn selected" id="btnStep1" onclick="showWorkedStep(1)">Passo 1: Tirature Basse</button>
+          <button type="button" class="m1l1-choice-btn" id="btnStep2" onclick="showWorkedStep(2)">Passo 2: Tirature Alte &amp; Limite</button>
+          <button type="button" class="m1l1-choice-btn" id="btnStep3" onclick="showWorkedStep(3)">Passo 3: Asintoti Geometrici</button>
+          <button type="button" class="m1l1-choice-btn" id="btnStep4" onclick="showWorkedStep(4)">Passo 4: Significato Sociale</button>
+        </div>
+
+        <div class="step-box" style="margin-top: 1rem;">
+          <!-- Step 1 -->
+          <div class="m1l1-worked-step revealed" id="workedStep1">
+            <div class="step-header">
+              <span class="step-tag"><span class="m1l1-step-counter">Passo 1 di 4</span> • Comportamento a tirature minime ($x \to 0^+$)</span>
+              <button type="button" class="theory-ref-pill" onclick="scrollToTheory('teoria-3')">🔗 Rif. Teoria 3 • Limite Infinito</button>
+            </div>
+            <div class="step-content">
+              <p>Cosa accade se la cooperativa stampa pochissime copie, ad esempio $x = 10$ oppure $x = 2$?</p>
+              <div class="m1l1-formula-line">
+                $\overline{C}(10) = \frac{3600}{10} + 4 = 360 + 4 = 364\text{ €/copia}$<br>
+                $\overline{C}(2) = \frac{3600}{2} + 4 = 1800 + 4 = 1804\text{ €/copia}$
+              </div>
+              <p>Calcoliamo il limite per $x$ che si avvicina a $0$ da destra (non si possono stampare quantità negative):</p>
+              <div class="m1l1-formula-line">
+                $$\lim_{x \to 0^+} \overline{C}(x) = \lim_{x \to 0^+} \left(\frac{3600}{x} + 4\right) = \frac{3600}{0^+} + 4 = +\infty + 4 = +\infty$$
+              </div>
+              <p><strong>Spiegazione concettuale:</strong> Poiché i costi fissi ($3\,600$ €) gravano su un numero irrisorio di copie, il costo unitario esplode verso $+\infty$. L'asse delle ordinate (la retta $x = 0$) è un <strong>asintoto verticale destro</strong>.</p>
+            </div>
+          </div>
+
+          <!-- Step 2 -->
+          <div class="m1l1-worked-step" id="workedStep2">
+            <div class="step-header">
+              <span class="step-tag"><span class="m1l1-step-counter">Passo 2 di 4</span> • Economia di scala per grandi tirature ($x \to +\infty$)</span>
+              <button type="button" class="theory-ref-pill" onclick="scrollToTheory('teoria-4')">🔗 Rif. Teoria 4 • Asintoto Orizzontale</button>
+            </div>
+            <div class="step-content">
+              <p>All'aumentare delle copie stampate ($100$, $500$, $1000$, $10\,000$), i costi fissi si "diluiscono":</p>
+              <div class="m1l1-formula-line">
+                $\overline{C}(100) = \frac{3600}{100} + 4 = 36 + 4 = 40\text{ €/copia}$<br>
+                $\overline{C}(500) = \frac{3600}{500} + 4 = 7{,}20 + 4 = 11{,}20\text{ €/copia}$<br>
+                $\overline{C}(1000) = \frac{3600}{1000} + 4 = 3{,}60 + 4 = 7{,}60\text{ €/copia}$
+              </div>
+              <p>Calcoliamo il limite per una tiratura che cresce senza limiti ($x \to +\infty$):</p>
+              <div class="m1l1-formula-line">
+                $$\lim_{x \to +\infty} \overline{C}(x) = \lim_{x \to +\infty} \left(\frac{3600}{x} + 4\right) = 0 + 4 = 4\text{ €}$$
+              </div>
+              <p><strong>Spiegazione concettuale:</strong> Per $x \to +\infty$, la quota di costi fissi per copia $\frac{3600}{x}$ tende a zero. La funzione si stabilizza sul solo costo variabile di $4\text{ €}$. La retta orizzontale <strong>$y = 4$</strong> è un <strong>asintoto orizzontale</strong>.</p>
+            </div>
+          </div>
+
+          <!-- Step 3 -->
+          <div class="m1l1-worked-step" id="workedStep3">
+            <div class="step-header">
+              <span class="step-tag"><span class="m1l1-step-counter">Passo 3 di 4</span> • Quadro di Sintesi degli Asintoti della Funzione</span>
+              <button type="button" class="theory-ref-pill" onclick="scrollToTheory('teoria-3')">🔗 Rif. Teoria 3 &amp; 4 • Asintoti</button>
+            </div>
+            <div class="step-content">
+              <p>Riepilogando le proprietà geometriche della curva nel primo quadrante ($x > 0$):</p>
+              <ul class="po-list" style="margin-top: 0.5rem;">
+                <li><span class="po-icon">📌</span><div><strong>Asintoto Verticale:</strong> Retta $x = 0$ (perché $\lim_{x \to 0^+} \overline{C}(x) = +\infty$).</div></li>
+                <li><span class="po-icon">📌</span><div><strong>Asintoto Orizzontale:</strong> Retta $y = 4$ (perché $\lim_{x \to +\infty} \overline{C}(x) = 4$).</div></li>
+                <li><span class="po-icon">📌</span><div><strong>Andamento:</strong> La funzione è sempre decrescente per $x > 0$, ma rimane strettamente al di sopra della soglia $y = 4$.</div></li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Step 4 -->
+          <div class="m1l1-worked-step" id="workedStep4">
+            <div class="step-header">
+              <span class="step-tag"><span class="m1l1-step-counter">Passo 4 di 4</span> • Interpretazione Decisionale (Scienze Umane &amp; Economia)</span>
+              <button type="button" class="theory-ref-pill" onclick="scrollToTheory('teoria-4')">🔗 Rif. Teoria 4 • Significato nel Reale</button>
+            </div>
+            <div class="step-content">
+              <p>Cosa insegna questo limite alla cooperativa?</p>
+              <ol style="padding-left: 1.25rem; line-height: 1.6; margin-bottom: 0.75rem;">
+                <li><strong>Il limite è una barriera invalicabile:</strong> Anche stampando $10$ milioni di copie, il costo per libro non potrà mai scendere sotto i $4\text{ €}$ (costo vivo di inchiostro, carta e brossura).</li>
+                <li><strong>Prezzo etico di vendita:</strong> Se la cooperativa vuole vendere il saggio a $10\text{ €}$ al pubblico coprendo i costi, risolve $\overline{C}(x) \le 10 \implies \frac{3600}{x} + 4 \le 10 \implies \frac{3600}{x} \le 6 \implies x \ge 600$ copie. Servono almeno $600$ copie vendute per raggiungere il punto di pareggio (*break-even point*).</li>
+              </ol>
+              <div class="verify-box">
+                <button type="button" class="btn-action" onclick="verifyWorkedLab()">Ho Compreso il Compito Svolto (+10 XP)</button>
+                <span id="lab7Msg" class="feedback-msg" style="display: none;"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+
+
+
+
+
+
+    </main>
+
+
+    <!-- ========================================================
+         SEZIONE 3: FLASHCARDS DI AUTOVALUTAZIONE (RIPETIBILE)
+         ======================================================== -->
+    <section class="flashcard-section" id="flashcardSection">
+      <div class="section-header">
+        <h2 class="section-title">
+          <span class="icon">🃏</span> Flashcards di Autovalutazione (+15 XP per carta)
+        </h2>
+        <span class="tag info-tag" style="background: rgba(56, 189, 248, 0.12); color: var(--accent-math); padding: 0.25rem 0.65rem; border-radius: 9999px; font-size: 0.8rem; font-weight: 700;">
+          🔁 Tentativi Infiniti &amp; Shuffle
+        </span>
+      </div>
+      <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1.5rem;">
+        Mettiti alla prova con le flashcards concettuali sui limiti. Le opzioni vengono rimescolate ad ogni tentativo con logica Mastery Learning!
+      </p>
+
+      <!-- Mazzo popolato da ComodeFlashcards.init -->
+      <div id="lessonFlashcardDeck"></div>
+    </section>
+
+
+    <!-- ========================================================
+         SEZIONE 4 (OBBLIGATORIA): COMPITO DI REALTÀ FINALE
+         SCHEDA OPERATIVA PER CASA (SIMILE AL CASO SVOLTO)
+         ======================================================== -->
+    <section class="homework-section" id="homeworkSection">
+      <div class="section-header">
+        <h2 class="section-title">
+          <span class="icon">📋</span> Compito di Realtà Finale: Scheda Operativa (Assegno per Casa)
+        </h2>
+      </div>
+
+      <article class="scheda-operativa-card">
+        <div class="scheda-top-bar">
+          <div class="scheda-badge-group">
+            <span class="scheda-badge homework">🏠 Assegno per Casa</span>
+            <span class="scheda-badge modality">👤 Individuale o 👥 In Gruppo</span>
+          </div>
+          <button type="button" class="btn-print-sheet" onclick="window.print()">
+            🖨️ Stampa Scheda Operativa
+          </button>
+        </div>
+
+        <h3 class="scheda-title">
+          Scheda Operativa: «La Mensa Scolastica Comunale &amp; le Economie di Scala»
+        </h3>
+
+        <!-- Collegamento Teoria <-> Pratica -->
+        <div class="theory-link-box">
+          <span class="tl-icon">🔗</span>
+          <div>
+            <strong>Collegamento Teoria ↔ Pratica:</strong> Questo compito di realtà trasferisce in autonomia quanto esplorato nel <a href="#lab7" class="theory-link-anchor" onclick="event.preventDefault(); document.getElementById('lab7').scrollIntoView({behavior:'smooth'});">Laboratorio 7 Svolto</a>, consolidando
+            la <a href="#teoria-3" class="theory-link-anchor" onclick="event.preventDefault(); scrollToTheory('teoria-3');">Teoria 3 • Asintoti Verticali</a> e
+            la <a href="#teoria-4" class="theory-link-anchor" onclick="event.preventDefault(); scrollToTheory('teoria-4');">Teoria 4 • Asintoti Orizzontali ed Economia di Scala</a>
+            in un autentico dilemma di politica pubblica e welfare locale.
+          </div>
+        </div>
+
+        <div class="scheda-delivery-callout">
+          <strong>📅 Modalità di svolgimento e consegna:</strong> Puoi svolgere questo compito di realtà <strong>da solo</strong> oppure <strong>lavorando in gruppo</strong> con i tuoi compagni di classe, ma ciascuno studente deve <strong>portare la Scheda Operativa compilata per la lezione successiva</strong>.
+        </div>
+
+        <!-- Campi Intestazione Studente -->
+        <div class="scheda-student-fields">
+          <div class="scheda-field-item">
+            <span class="scheda-field-label">Studente / Studentessa:</span>
+            <div class="scheda-field-line"></div>
+          </div>
+          <div class="scheda-field-item">
+            <span class="scheda-field-label">Classe &amp; Data:</span>
+            <div class="scheda-field-line"></div>
+          </div>
+          <div class="scheda-field-item">
+            <span class="scheda-field-label">Modalità (Solo / Componenti del Gruppo):</span>
+            <div class="scheda-field-line"></div>
+          </div>
+        </div>
+
+        <div class="scheda-problem-box">
+          <strong>La Situazione-Problema (Welfare Locale &amp; Scienze Sociali):</strong><br>
+          L'Assessorato all'Istruzione di una città di 45.000 abitanti progetta la nuova mensa biologica centralizzata per tutti i plessi scolastici comunali (infanzia, primarie e medie).<br>
+          I <strong>costi fissi annuali</strong> (ammortamento cucine industriali ad alta efficienza energetica, personale a tempo indeterminato, manutenzioni e certificazioni igieniche HACCP) ammontano a <strong>$C_F = 45\,000\text{ €/anno}$</strong>.<br>
+          Il <strong>costo variabile</strong> per ogni singolo pasto biologico preparato (ingredienti a filiera corta, stoviglie compostabili e lavaggio) ammonta a <strong>$c_v = 2{,}50\text{ €}$ per pasto</strong>.<br>
+          Se in un anno scolastico vengono complessivamente cucinati ed erogati $x$ pasti ($x > 0$), il <strong>costo medio unitario di un pasto</strong> per il Comune è espresso da:
+          $$\overline{C}(x) = \frac{45\,000 + 2{,}50\,x}{x} = \frac{45\,000}{x} + 2{,}50 \quad \text{[in €/pasto]}$$
+
+          <ol style="margin-top: 1rem;">
+            <li>
+              <strong>Calcolo dei costi medi a scaglioni di utenza:</strong><br>
+              Calcola il costo medio di un singolo pasto per i seguenti volumi annuali:
+              <ul>
+                <li>Piccolo comune rurale ($x = 1\,500$ pasti/anno): $\overline{C}(1500) = \text{\_\_\_\_\_\_\_\_\_\_}$ €</li>
+                <li>Rete di 3 plessi scolastici ($x = 9\,000$ pasti/anno): $\overline{C}(9000) = \text{\_\_\_\_\_\_\_\_\_\_}$ €</li>
+                <li>Intero distretto cittadino ($x = 30\,000$ pasti/anno): $\overline{C}(30000) = \text{\_\_\_\_\_\_\_\_\_\_}$ €</li>
+              </ul>
+            </li>
+            <li>
+              <strong>Calcolo rigoroso dei limiti e individuazione degli asintoti:</strong><br>
+              Calcola e argomenta i due limiti cardinali della funzione costo medio:
+              $$\lim_{x \to 0^+} \overline{C}(x) = \text{\_\_\_\_\_\_\_\_\_\_} \qquad \text{e} \qquad \lim_{x \to +\infty} \overline{C}(x) = \text{\_\_\_\_\_\_\_\_\_\_}$$
+              Scrivi l'equazione cartesiana dell'asintoto verticale e dell'asintoto orizzontale della funzione $\overline{C}(x)$.
+            </li>
+            <li>
+              <strong>Schizzo del grafico cartesiano:</strong><br>
+              Traccia sul riquadro sottostante lo schizzo qualitativo della funzione $\overline{C}(x)$ nel primo quadrante, evidenziando chiaramente i due asintoti, le unità di misura sugli assi ($x$ in migliaia di pasti, $y$ in €) e i tre punti calcolati al quesito 1:
+              <div class="m1l1-sketch-box" style="height: 150px; display: flex; align-items: center; justify-content: center; color: var(--text-dim); font-size: 0.88rem;">
+                [Spazio per il disegno del grafico cartesiano con asintoto orizzontale y = 2,50 e asintoto verticale x = 0]
+              </div>
+            </li>
+            <li>
+              <strong>Pianificazione della tariffa e soglia di sostenibilità:</strong><br>
+              Il Consiglio Comunale decide di fissare una tariffa standard agevolata per le famiglie pari a <strong>$4{,}00\text{ €}$ a pasto</strong>.<br>
+              Qual è il <em>numero minimo di pasti annuali</em> $x_{min}$ che la mensa deve garantire affinché il costo medio non superi la tariffa riscossa dalle famiglie (evitando che il bilancio del servizio chiuda in disavanzo)?<br>
+              <em>(Suggerimento: imposta e risolvi la disequazione $\overline{C}(x) \le 4{,}00$).</em>
+            </li>
+            <li>
+              <strong>Riflessione Interdisciplinare (Diritto, Sociologia ed Economia Pubblica):</strong><br>
+              Scrivi una breve argomentazione critica (10–15 righe) affrontando questo quesito civico:<br>
+              <em>«Perché nei piccoli borghi di montagna o nelle aree interne marginali la gestione dei servizi essenziali (mense, asili, presidi sanitari) risulta matematicamente più onerosa pro capite rispetto alle grandi aree metropolitane? Come interviene il principio costituzionale di eguaglianza sostanziale (Art. 3 Cost.) per impedire che l'asintoto economico escluda i cittadini delle comunità più piccole?»</em>
+            </li>
+          </ol>
+        </div>
+
+        <!-- Rubrica di Valutazione Formativa -->
+        <div class="rubric-container">
+          <table class="rubric-table">
+            <thead>
+              <tr>
+                <th>Dimensione di Competenza</th>
+                <th>Livello Base (6)</th>
+                <th>Livello Intermedio (7–8)</th>
+                <th>Livello Avanzato (9–10)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Calcolo dei Limiti &amp; Asintoti</strong></td>
+                <td>Calcola correttamente alcuni valori puntuali ma ha incertezze formali nel calcolo dei limiti con $\infty$.</td>
+                <td>Calcola con correttezza i limiti per $x \to 0^+$ e $x \to +\infty$ e individua le equazioni dei due asintoti.</td>
+                <td>Padroneggia il formalismo dell'infinitesimo e dell'infinito, interpretando con estrema sicurezza la forma algebrica e geometrica.</td>
+              </tr>
+              <tr>
+                <td><strong>Modellizzazione Economica</strong></td>
+                <td>Risolve la disequazione del punto 4 con qualche aiuto o incertezza algebrica.</td>
+                <td>Determina con precisione la soglia minima di pasti ($x \ge 30\,000$) e traccia un grafico coerente.</td>
+                <td>Collega con disinvoltura l'asintoto orizzontale al costo marginale di produzione ed evidenzia le economie di scala.</td>
+              </tr>
+              <tr>
+                <td><strong>Argomentazione Scienze Umane</strong></td>
+                <td>Risponde in modo sintetico limitandosi a considerazioni generiche sul costo della vita.</td>
+                <td>Argomenta in modo chiaro il legame tra spopolamento, costi pro capite e diritti sociali garantiti dal welfare.</td>
+                <td>Articola una riflessione critica matura che fonde rigore matematico, dettato costituzionale (Art. 3) ed equità territoriale.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </article>
+
+
+
+
+
+
+    </section>
+
+
+    <!-- SINTESI E TAKEAWAY -->
+    <footer class="final-recap" id="finalRecap">
+      <div class="recap-icon">🎓</div>
+      <h2 class="recap-title">Takeaway della Lezione 5.M1.1</h2>
+      <p class="recap-subtitle">I 4 pilastri del calcolo infinitesimale da portare con te.</p>
+      <div class="takeaways-row">
+        <div class="takeaway-item">
+          <strong>1. Il Limite è Avvicinamento Dinamico</strong>
+          <p>$\lim_{x \to x_0} f(x) = L$ descrive dove tende la funzione <em>nelle immediate vicinanze</em> di $x_0$. Ciò che accade esattamente nel punto $x_0$ non ha alcuna influenza sul limite!</p>
+        </div>
+        <div class="takeaway-item">
+          <strong>2. La Condizione di Esistenza</strong>
+          <p>Il limite esiste se e solo se l'avvicinamento da sinistra ($\lim_{x \to x_0^-}$) e quello da destra ($\lim_{x \to x_0^+}$) convergono allo <em style="color: var(--text-main); font-weight: 700;">stesso identico valore</em>.</p>
+        </div>
+        <div class="takeaway-item">
+          <strong>3. Asintoti: Orizzontali e Verticali</strong>
+          <p>Se $\lim_{x \to x_0} f(x) = \pm\infty \implies x = x_0$ è un asintoto verticale.<br>Se $\lim_{x \to \pm\infty} f(x) = L \implies y = L$ è un asintoto orizzontale.</p>
+        </div>
+        <div class="takeaway-item">
+          <strong>4. Dai Modelli Astratti al Welfare</strong>
+          <p>Nelle funzioni di costo medio $\overline{C}(x) = \frac{C_F}{x} + c_v$, l'asintoto orizzontale $y = c_v$ rappresenta la soglia fisica minima non comprimibile delle economie di scala.</p>
+        </div>
+      </div>
+    </footer>
+
+
+    <!-- CARD DI COMPLETAMENTO GAMIFICATION -->
+    <div class="completion-card" id="lessonCompletionCard">
+      <div class="completion-icon">🏆</div>
+      <h3 class="completion-title">Hai completato la Lezione 5.M1.1?</h3>
+      <p class="completion-desc">
+        Registra il tuo traguardo per guadagnare i tuoi punti esperienza (+60 XP) verso il titolo <em>Signore dell'Infinitesimo</em> e ricorda di portare la Scheda Operativa compilata per la prossima lezione!
+      </p>
+      <button id="btnCompleteLesson" class="btn-complete">
+        ✨ Segna come Completata (+60 XP)
+      </button>
+    </div>
+
+  </div>
+
+  <!-- SCRIPTS CONDIVISI COMODE (Quinto Anno: profondità 3) -->
+  <script src="../../../shared/js/audio.js"></script>
+  <script src="../../../shared/js/theme.js"></script>
+  <script src="../../../shared/js/gamification.js"></script>
+  <script src="../../../shared/js/components.js"></script>
+  <script src="../../../shared/js/flashcards.js"></script>
+  <script src="../../../shared/js/comode.js"></script>
+
+  <!-- LOGICA INTERATTIVA DELLA LEZIONE 5.M1.1 -->
+  <script>
+    const LESSON_ID = 'qa-5.m1-l01';
+    const LABS_STORAGE_KEY = 'comode_labs_' + LESSON_ID;
+    const completedLabs = new Set();
+
+    function saveCompletedLabs() {
+      try {
+        localStorage.setItem(LABS_STORAGE_KEY, JSON.stringify(Array.from(completedLabs)));
+      } catch (e) {
+        /* storage non accessibile */
+      }
+    }
+
+    function markLabCompleted(labNum, silent = false) {
+      if (!completedLabs.has(labNum)) {
+        completedLabs.add(labNum);
+        const card = document.getElementById(`lab${labNum}`);
+        if (card) card.classList.add('completed');
+
+        if (!silent) {
+          if (window.ComodeAudio) window.ComodeAudio.playSuccess();
+          if (window.ComodeGamification) {
+            window.ComodeGamification.addXP(10, `Lezione 5.M1.1 • Laboratorio ${labNum} completato!`);
+          }
+        }
+        saveCompletedLabs();
+        updateLessonProgress();
+      }
+    }
+
+    function markAllLabsCompleted(silent = false) {
+      for (let i = 1; i <= 7; i++) {
+        markLabCompleted(i, silent);
+      }
+    }
+
+    function updateLessonProgress() {
+      const count = completedLabs.size;
+      const pct = (count / 7) * 100;
+      const fill = document.getElementById('progressFill');
+      const score = document.getElementById('progressScore');
+      if (fill) fill.style.width = pct + '%';
+      if (score) score.textContent = `${count} / 7 completati`;
+
+      if (count === 7) {
+        if (window.ComodeAudio) window.ComodeAudio.playLevelUp();
+      }
+    }
+
+    // Gestione bottoni a scelta multipla
+    const selectedChoices = {};
+    function selectChoice(group, btn) {
+      if (window.ComodeAudio) window.ComodeAudio.playClick();
+      const parent = btn.parentElement;
+      parent.querySelectorAll('.m1l1-choice-btn').forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+      selectedChoices[group] = btn.getAttribute('data-val');
+    }
+
+    /* ========================================================
+       LABORATORIO 1 - PARTE 1: INTORNO CONCRETO I_delta(x0)
+       ======================================================== */
+    let lab1aSolved = false;
+
+    function renderLab1a() {
+      const cSlider = document.getElementById('lab1aCenter');
+      const dSlider = document.getElementById('lab1aDelta');
+      const pSlider = document.getElementById('lab1aPoint');
+      if (!cSlider || !dSlider || !pSlider) return;
+
+      const x0 = parseFloat(cSlider.value);
+      const delta = parseFloat(dSlider.value);
+      const x = parseFloat(pSlider.value);
+
+      const leftEdge = x0 - delta;
+      const rightEdge = x0 + delta;
+      const dist = Math.abs(x - x0);
+      const isInside = dist < delta - 1e-9;
+      const isOnEdge = Math.abs(dist - delta) < 1e-9;
+
+      const fmt = (n) => n.toFixed(1).replace('.', ',');
+
+      document.getElementById('lab1aCenterReadout').textContent = `x₀ = ${x0} °C`;
+      document.getElementById('lab1aDeltaReadout').textContent = `δ = ${fmt(delta)} °C`;
+      document.getElementById('lab1aPointReadout').textContent = `x = ${fmt(x)} °C`;
+      document.getElementById('lab1aIntervalReadout').textContent = `I = (${fmt(leftEdge)} ; ${fmt(rightEdge)})`;
+
+      const status = document.getElementById('lab1aStatus');
+      if (isInside) {
+        status.innerHTML = `<span style="color: var(--accent-success); font-weight: 700;">✓ DENTRO l'intorno $I_{${fmt(delta)}}(${x0})$:</span> la distanza dal centro è $|${fmt(x)} - ${x0}| = ${fmt(dist)}\\,°\\text{C} < \\delta = ${fmt(delta)}\\,°\\text{C}$.`;
+      } else if (isOnEdge) {
+        status.innerHTML = `<span style="color: var(--accent-warning); font-weight: 700;">⚠️ SULL'ESTREMO ($x = ${fmt(x)}\\,°\\text{C}$):</span> la distanza dal centro è esattamente $\\delta = ${fmt(delta)}\\,°\\text{C}$. Poiché l'intorno è un intervallo <em>aperto</em> $(|x - x_0| < \\delta)$, gli estremi sono <strong>esclusi</strong>!`;
+      } else {
+        status.innerHTML = `<span style="color: var(--accent-danger); font-weight: 700;">✗ FUORI dall'intorno $I_{${fmt(delta)}}(${x0})$:</span> la distanza dal centro è $|${fmt(x)} - ${x0}| = ${fmt(dist)}\\,°\\text{C} > \\delta = ${fmt(delta)}\\,°\\text{C}$.`;
+      }
+      if (window.ComodeComponents) window.ComodeComponents.renderMath(status);
+
+      const svg = document.getElementById('lab1aSvg');
+      if (!svg) return;
+
+      // Scala asse reale: da 13 °C a 27 °C -> px [50, 590]
+      const toSvgX = (val) => 50 + ((val - 13) / 14) * 540;
+      const axisY = 155;
+      const sx0 = toSvgX(x0);
+      const sLeft = toSvgX(leftEdge);
+      const sRight = toSvgX(rightEdge);
+      const sx = toSvgX(x);
+
+      let ticks = '';
+      for (let t = 14; t <= 26; t += 1) {
+        const tx = toSvgX(t);
+        const isCenter = (t === x0);
+        ticks += `
+          <line x1="${tx}" y1="${axisY - (isCenter ? 7 : 4)}" x2="${tx}" y2="${axisY + (isCenter ? 7 : 4)}" stroke="${isCenter ? 'var(--accent-math)' : 'var(--text-muted)'}" stroke-width="${isCenter ? '2' : '1'}" />
+          <text x="${tx}" y="${axisY + 22}" fill="${isCenter ? 'var(--accent-math)' : 'var(--text-muted)'}" font-size="${isCenter ? '12' : '10.5'}" font-weight="${isCenter ? '800' : '400'}" text-anchor="middle">${t}</text>
+        `;
+      }
+
+      // Fascia colorata dell'intorno (x0 - delta, x0 + delta)
+      const band = `
+        <rect x="${sLeft}" y="52" width="${sRight - sLeft}" height="132" rx="6" fill="rgba(56, 189, 248, 0.11)" stroke="var(--accent-math)" stroke-opacity="0.45" stroke-dasharray="4,3" />
+        <line x1="${sLeft}" y1="52" x2="${sLeft}" y2="${axisY}" stroke="var(--accent-gold)" stroke-dasharray="3,3" stroke-width="1.5" />
+        <line x1="${sRight}" y1="52" x2="${sRight}" y2="${axisY}" stroke="var(--accent-gold)" stroke-dasharray="3,3" stroke-width="1.5" />
+        <text x="${sx0}" y="26" fill="var(--accent-math)" font-size="12" font-weight="800" text-anchor="middle">Intorno I_δ(x₀) = (${fmt(leftEdge)} ; ${fmt(rightEdge)})</text>
+        <text x="${sx0}" y="44" fill="var(--text-main)" font-size="11" font-weight="700" text-anchor="middle">↓ Centro dell'intorno x₀ = ${x0} °C</text>
+        <line x1="${sx0}" y1="48" x2="${sx0}" y2="${axisY}" stroke="var(--accent-math)" stroke-width="2" stroke-dasharray="3,2" />
+      `;
+
+      // Frecce dell'ampiezza delta a sinistra e a destra di x0
+      const arrowY = 92;
+      const deltaArrows = `
+        <!-- Freccia sinistra: x0 -> x0 - delta -->
+        <line x1="${sx0 - 3}" y1="${arrowY}" x2="${sLeft + 6}" y2="${arrowY}" stroke="var(--accent-gold)" stroke-width="2.2" />
+        <polygon points="${sLeft + 1},${arrowY} ${sLeft + 8},${arrowY - 4} ${sLeft + 8},${arrowY + 4}" fill="var(--accent-gold)" />
+        <text x="${(sx0 + sLeft) / 2}" y="${arrowY - 8}" fill="var(--accent-gold)" font-size="10.5" font-weight="800" text-anchor="middle">−δ = −${fmt(delta)}</text>
+
+        <!-- Freccia destra: x0 -> x0 + delta -->
+        <line x1="${sx0 + 3}" y1="${arrowY}" x2="${sRight - 6}" y2="${arrowY}" stroke="var(--accent-gold)" stroke-width="2.2" />
+        <polygon points="${sRight - 1},${arrowY} ${sRight - 8},${arrowY - 4} ${sRight - 8},${arrowY + 4}" fill="var(--accent-gold)" />
+        <text x="${(sx0 + sRight) / 2}" y="${arrowY - 8}" fill="var(--accent-gold)" font-size="10.5" font-weight="800" text-anchor="middle">+δ = +${fmt(delta)}</text>
+      `;
+
+      // Asse reale e segmento dell'intorno aperto
+      const axisLine = `
+        <line x1="36" y1="${axisY}" x2="604" y2="${axisY}" stroke="var(--border-subtle)" stroke-width="2" />
+        <polygon points="610,${axisY} 602,${axisY - 4} 602,${axisY + 4}" fill="var(--text-muted)" />
+        <text x="618" y="${axisY + 4}" fill="var(--text-muted)" font-size="11" font-weight="700">°C</text>
+        <line x1="${sLeft}" y1="${axisY}" x2="${sRight}" y2="${axisY}" stroke="var(--accent-math)" stroke-width="5" />
+        <!-- Centro x0 -->
+        <circle cx="${sx0}" cy="${axisY}" r="5.5" fill="var(--accent-math)" stroke="var(--bg-surface)" stroke-width="1.5" />
+        <!-- Pallini vuoti agli estremi x0 - delta e x0 + delta (intervallo aperto) -->
+        <circle cx="${sLeft}" cy="${axisY}" r="6" fill="var(--bg-surface)" stroke="var(--accent-gold)" stroke-width="2.5" />
+        <circle cx="${sRight}" cy="${axisY}" r="6" fill="var(--bg-surface)" stroke="var(--accent-gold)" stroke-width="2.5" />
+        <text x="${sLeft}" y="200" fill="var(--accent-gold)" font-size="10.5" font-weight="700" text-anchor="middle">x₀−δ = ${fmt(leftEdge)}</text>
+        <text x="${sRight}" y="200" fill="var(--accent-gold)" font-size="10.5" font-weight="700" text-anchor="middle">x₀+δ = ${fmt(rightEdge)}</text>
+      `;
+
+      // Punto misurato x
+      const pColor = isInside ? 'var(--accent-success)' : (isOnEdge ? 'var(--accent-warning)' : 'var(--accent-danger)');
+      const pLabel = isInside ? `x = ${fmt(x)} °C (DENTRO)` : (isOnEdge ? `x = ${fmt(x)} °C (ESTREMO ESCLUSO)` : `x = ${fmt(x)} °C (FUORI)`);
+      const pointMarker = `
+        <line x1="${sx}" y1="${axisY}" x2="${sx}" y2="222" stroke="${pColor}" stroke-width="1.8" stroke-dasharray="3,2" />
+        <circle cx="${sx}" cy="${axisY}" r="6.5" fill="${pColor}" stroke="#fff" stroke-width="1.8" />
+        <text x="${Math.max(95, Math.min(545, sx))}" y="238" fill="${pColor}" font-size="11.5" font-weight="800" text-anchor="middle">${pLabel}</text>
+      `;
+
+      svg.innerHTML = band + ticks + axisLine + deltaArrows + pointMarker;
+    }
+
+    function verifyLab1a() {
+      const leftVal = parseFloat(document.getElementById('lab1aLeftInput').value.trim().replace(',', '.'));
+      const rightVal = parseFloat(document.getElementById('lab1aRightInput').value.trim().replace(',', '.'));
+      const choice = selectedChoices['lab1a'];
+      const msg = document.getElementById('lab1aMsg');
+      msg.style.display = 'inline-flex';
+
+      if (Math.abs(leftVal - 17.5) < 0.01 && Math.abs(rightVal - 22.5) < 0.01 && choice === 'yes') {
+        msg.className = 'feedback-msg success';
+        msg.textContent = 'Perfetto! L\'intorno è (17,5 ; 22,5) e 18,5 cade al suo interno. Ora prosegui con la Parte 2 qui sotto!';
+        if (!lab1aSolved) {
+          lab1aSolved = true;
+          if (window.ComodeAudio) window.ComodeAudio.playSuccess();
+          if (window.ComodeGamification) {
+            window.ComodeGamification.addXP(5, 'Lezione 5.M1.1 • Parte 1 sull\'Intorno completata!');
+          }
+        }
+      } else {
+        if (window.ComodeAudio) window.ComodeAudio.playError();
+        msg.className = 'feedback-msg error';
+        msg.textContent = 'Controlla: con centro x₀ = 20 e ampiezza δ = 2,5, gli estremi sono 20 − 2,5 = 17,5 e 20 + 2,5 = 22,5; inoltre 18,5 è compreso tra 17,5 e 22,5!';
+      }
+    }
+
+    /* ========================================================
+       LABORATORIO 1 - PARTE 2: RAPPORTO INCREMENTI (x^2 - 4)/(x - 2)
+       ======================================================== */
+    const lab1HValues = [1, 0.5, 0.1, 0.01, 0.001, 0.0001];
+
+    function renderLab1() {
+      const slider = document.getElementById('lab1Slider');
+      if (!slider) return;
+      const idx = parseInt(slider.value, 10);
+      const h = lab1HValues[idx];
+      document.getElementById('lab1Readout').textContent = `δ = ${h.toString().replace('.', ',')}`;
+
+      const xLeft = 2 - h;
+      const yLeft = xLeft + 2;
+      const xRight = 2 + h;
+      const yRight = xRight + 2;
+
+      // Popola tabella
+      const tbody = document.getElementById('lab1TableBody');
+      if (tbody) {
+        let html = '';
+        for (let i = 0; i <= idx; i++) {
+          const curH = lab1HValues[i];
+          const xL = 2 - curH;
+          const yL = (xL + 2).toFixed(curH < 0.01 ? 4 : 2);
+          const xR = 2 + curH;
+          const yR = (xR + 2).toFixed(curH < 0.01 ? 4 : 2);
+          const isLatest = (i === idx) ? 'class="latest"' : '';
+          html += `<tr ${isLatest}>
+            <td>${xL.toFixed(curH < 0.01 ? 4 : 2)}</td>
+            <td><strong>${yL}</strong></td>
+            <td>${xR.toFixed(curH < 0.01 ? 4 : 2)}</td>
+            <td><strong>${yR}</strong></td>
+          </tr>`;
+        }
+        tbody.innerHTML = html;
+      }
+
+      // Disegna SVG
+      const svg = document.getElementById('lab1Svg');
+      if (!svg) return;
+      svg.innerHTML = '';
+
+      // Coordinate mapping: x in [0, 4] -> px [78, 562]; y in [0, 6] -> px [250, 40]
+      const toSvgX = (x) => 78 + (x / 4) * 484;
+      const toSvgY = (y) => 250 - (y / 6) * 210;
+
+      // Griglia leggera e tacche principali
+      let grid = '';
+      let ticks = `<text x="${toSvgX(0) - 8}" y="${toSvgY(0) + 16}" fill="var(--text-dim)" font-size="11" text-anchor="end">0</text>`;
+      [1, 2, 3, 4].forEach(x => {
+        const sx = toSvgX(x);
+        const isTarget = (x === 2);
+        grid += `<line x1="${sx}" y1="${toSvgY(6)}" x2="${sx}" y2="${toSvgY(0)}" stroke="var(--border-subtle)" stroke-opacity="0.4" stroke-dasharray="2,3" />`;
+        ticks += `<line x1="${sx}" y1="${toSvgY(0) - 4}" x2="${sx}" y2="${toSvgY(0) + 4}" stroke="var(--text-muted)" />
+                  <text x="${sx}" y="${toSvgY(0) + 18}" fill="${isTarget ? 'var(--accent-danger)' : 'var(--text-muted)'}" font-size="11" font-weight="${isTarget ? '700' : '400'}" text-anchor="middle">${x}</text>`;
+      });
+      [2, 4, 6].forEach(y => {
+        const sy = toSvgY(y);
+        const isTarget = (y === 4);
+        grid += `<line x1="${toSvgX(0)}" y1="${sy}" x2="${toSvgX(4)}" y2="${sy}" stroke="var(--border-subtle)" stroke-opacity="0.4" stroke-dasharray="2,3" />`;
+        ticks += `<line x1="${toSvgX(0) - 4}" y1="${sy}" x2="${toSvgX(0) + 4}" y2="${sy}" stroke="var(--text-muted)" />
+                  <text x="${toSvgX(0) - 10}" y="${sy + 4}" fill="${isTarget ? 'var(--accent-math)' : 'var(--text-muted)'}" font-size="11" font-weight="${isTarget ? '700' : '400'}" text-anchor="end">${y}</text>`;
+      });
+
+      // Assi cartesiani con frecce ed etichette non sovrapposte
+      const axes = `
+        <line x1="62" y1="${toSvgY(0)}" x2="590" y2="${toSvgY(0)}" stroke="var(--border-subtle)" stroke-width="1.6" />
+        <polygon points="596,${toSvgY(0)} 588,${toSvgY(0) - 4} 588,${toSvgY(0) + 4}" fill="var(--text-muted)" />
+        <line x1="${toSvgX(0)}" y1="262" x2="${toSvgX(0)}" y2="24" stroke="var(--border-subtle)" stroke-width="1.6" />
+        <polygon points="${toSvgX(0)},18 ${toSvgX(0) - 4},26 ${toSvgX(0) + 4},26" fill="var(--text-muted)" />
+        <text x="622" y="286" fill="var(--text-muted)" font-size="11.5" font-weight="600" text-anchor="end">lato x (dm)</text>
+        <text x="90" y="24" fill="var(--text-muted)" font-size="11.5" font-weight="600" text-anchor="start">f(x) (dm²/dm)</text>
+      `;
+
+      // Retta f(x) = x + 2 per x != 2
+      const lineLeft = `<line x1="${toSvgX(0)}" y1="${toSvgY(2)}" x2="${toSvgX(1.955)}" y2="${toSvgY(3.955)}" stroke="var(--accent-math)" stroke-width="3" stroke-linecap="round" />`;
+      const lineRight = `<line x1="${toSvgX(2.045)}" y1="${toSvgY(4.045)}" x2="${toSvgX(3.9)}" y2="${toSvgY(5.9)}" stroke="var(--accent-math)" stroke-width="3" stroke-linecap="round" />`;
+
+      // Sfondo del buco sotto i punti e anello rosso sopra così la convergenza resta sempre visibile
+      const holeBg = `<circle cx="${toSvgX(2)}" cy="${toSvgY(4)}" r="6.5" fill="var(--bg-surface)" />`;
+      const holeRing = `
+        <circle cx="${toSvgX(2)}" cy="${toSvgY(4)}" r="6.5" fill="none" stroke="var(--accent-danger)" stroke-width="2.5" />
+        <line x1="${toSvgX(2) + 6}" y1="${toSvgY(4) + 5}" x2="${toSvgX(2) + 15}" y2="${toSvgY(4) + 14}" stroke="var(--accent-danger)" stroke-width="1.2" />
+        <text x="${toSvgX(2) + 18}" y="${toSvgY(4) + 19}" fill="var(--accent-danger)" font-size="11" font-weight="700">Buco in (2; 4) — f(2) non esiste</text>
+      `;
+
+      // Proiezioni tratteggiate sugli assi e punti correnti sinistra/destra
+      const pLeft = `
+        <line x1="${toSvgX(xLeft)}" y1="${toSvgY(0)}" x2="${toSvgX(xLeft)}" y2="${toSvgY(yLeft)}" stroke="var(--accent-warning)" stroke-opacity="0.75" stroke-dasharray="3,3" />
+        <line x1="${toSvgX(0)}" y1="${toSvgY(yLeft)}" x2="${toSvgX(xLeft)}" y2="${toSvgY(yLeft)}" stroke="var(--accent-warning)" stroke-opacity="0.6" stroke-dasharray="3,3" />
+        <circle cx="${toSvgX(xLeft)}" cy="${toSvgY(yLeft)}" r="4.8" fill="var(--accent-warning)" stroke="var(--bg-surface)" stroke-width="1.2" />
+      `;
+      const pRight = `
+        <line x1="${toSvgX(xRight)}" y1="${toSvgY(0)}" x2="${toSvgX(xRight)}" y2="${toSvgY(yRight)}" stroke="var(--accent-warning)" stroke-opacity="0.75" stroke-dasharray="3,3" />
+        <line x1="${toSvgX(0)}" y1="${toSvgY(yRight)}" x2="${toSvgX(xRight)}" y2="${toSvgY(yRight)}" stroke="var(--accent-warning)" stroke-opacity="0.6" stroke-dasharray="3,3" />
+        <circle cx="${toSvgX(xRight)}" cy="${toSvgY(yRight)}" r="4.8" fill="var(--accent-warning)" stroke="var(--bg-surface)" stroke-width="1.2" />
+      `;
+
+      svg.innerHTML = grid + axes + ticks + lineLeft + lineRight + holeBg + pLeft + pRight + holeRing;
+    }
+
+    function verifyLab1() {
+      const val = document.getElementById('lab1Input').value.trim().replace(',', '.');
+      const msg = document.getElementById('lab1Msg');
+      msg.style.display = 'inline-flex';
+
+      if (parseFloat(val) === 4) {
+        msg.className = 'feedback-msg success';
+        msg.textContent = 'Esatto! Sia da sinistra (3,999...) che da destra (4,000...) il limite è 4!';
+        markLabCompleted(1);
+      } else {
+        if (window.ComodeAudio) window.ComodeAudio.playError();
+        msg.className = 'feedback-msg error';
+        msg.textContent = 'Guarda la colonna f(x): a quale numero intero si avvicinano 3,999 e 4,001? (Scrivi 4)';
+      }
+    }
+
+
+    /* ========================================================
+       LABORATORIO 2: CORRIERE A SCAGLIONI (LIMITE DESTRO/SINISTRO)
+       ======================================================== */
+    function renderLab2() {
+      const slider = document.getElementById('lab2Slider');
+      if (!slider) return;
+      const p = parseFloat(slider.value);
+      const price = (p <= 2) ? 5 : 8;
+
+      document.getElementById('lab2Readout').textContent = `p = ${p.toFixed(2).replace('.', ',')} kg`;
+      document.getElementById('lab2Price').textContent = `S = ${price} €`;
+
+      const status = document.getElementById('lab2Status');
+      if (Math.abs(p - 2) < 0.05) {
+        status.innerHTML = `<span style="color: var(--accent-warning); font-weight:700;">⚠️ Sei sulla soglia $p = 2\\text{ kg}$! $S(2) = 5\\text{ €}$, ma appena superi $2\\text{ kg}$ il costo salta istantaneamente a $8\\text{ €}$.</span>`;
+      } else if (p < 2) {
+        status.innerHTML = `Avvicinandoti da sinistra ($p < 2$): il prezzo si mantiene costante a <strong>5 €</strong>.`;
+      } else {
+        status.innerHTML = `Avvicinandoti da destra ($p > 2$): il prezzo si mantiene costante a <strong>8 €</strong>.`;
+      }
+      if (window.ComodeComponents) window.ComodeComponents.renderMath(status);
+
+      const svg = document.getElementById('lab2Svg');
+      if (!svg) return;
+      svg.innerHTML = '';
+
+      const toSvgX = (x) => 78 + (x / 5) * 480;
+      const toSvgY = (y) => 250 - (y / 10) * 210;
+
+      let grid = '';
+      let ticks = `<text x="${toSvgX(0) - 8}" y="${toSvgY(0) + 16}" fill="var(--text-dim)" font-size="11" text-anchor="end">0</text>`;
+      [1, 2, 3, 4, 5].forEach(x => {
+        const sx = toSvgX(x);
+        grid += `<line x1="${sx}" y1="${toSvgY(10)}" x2="${sx}" y2="${toSvgY(0)}" stroke="var(--border-subtle)" stroke-opacity="0.38" stroke-dasharray="2,3" />`;
+        ticks += `<line x1="${sx}" y1="${toSvgY(0) - 4}" x2="${sx}" y2="${toSvgY(0) + 4}" stroke="var(--text-muted)" />
+                  <text x="${sx}" y="${toSvgY(0) + 18}" fill="${x === 2 ? 'var(--accent-warning)' : 'var(--text-muted)'}" font-size="11.5" font-weight="${x === 2 ? '800' : '400'}" text-anchor="middle">${x}</text>`;
+      });
+      [5, 8, 10].forEach(y => {
+        const sy = toSvgY(y);
+        const isStep = (y === 5 || y === 8);
+        grid += `<line x1="${toSvgX(0)}" y1="${sy}" x2="${toSvgX(5)}" y2="${sy}" stroke="var(--border-subtle)" stroke-opacity="${isStep ? '0.55' : '0.32'}" stroke-dasharray="3,3" />`;
+        ticks += `<line x1="${toSvgX(0) - 4}" y1="${sy}" x2="${toSvgX(0) + 4}" y2="${sy}" stroke="var(--text-muted)" />
+                  <text x="${toSvgX(0) - 10}" y="${sy + 4}" fill="${isStep ? 'var(--text-main)' : 'var(--text-dim)'}" font-size="11.5" font-weight="${isStep ? '600' : '400'}" text-anchor="end">${y} €</text>`;
+      });
+
+      const axes = `
+        <line x1="62" y1="${toSvgY(0)}" x2="590" y2="${toSvgY(0)}" stroke="var(--border-subtle)" stroke-width="1.6" />
+        <polygon points="596,${toSvgY(0)} 588,${toSvgY(0) - 4} 588,${toSvgY(0) + 4}" fill="var(--text-muted)" />
+        <line x1="${toSvgX(0)}" y1="262" x2="${toSvgX(0)}" y2="24" stroke="var(--border-subtle)" stroke-width="1.6" />
+        <polygon points="${toSvgX(0)},18 ${toSvgX(0) - 4},26 ${toSvgX(0) + 4},26" fill="var(--text-muted)" />
+        <text x="622" y="286" fill="var(--text-muted)" font-size="11.5" font-weight="600" text-anchor="end">peso p (kg)</text>
+        <text x="90" y="24" fill="var(--text-muted)" font-size="11.5" font-weight="600" text-anchor="start">tariffa S (€)</text>
+      `;
+
+      // Guida verticale del salto in p = 2
+      const jumpGuide = `
+        <line x1="${toSvgX(2)}" y1="${toSvgY(5)}" x2="${toSvgX(2)}" y2="${toSvgY(8)}" stroke="var(--accent-danger)" stroke-dasharray="4,3" stroke-width="1.6" />
+        <text x="${toSvgX(2) + 12}" y="${(toSvgY(5) + toSvgY(8)) / 2 + 4}" fill="var(--accent-danger)" font-size="11" font-weight="700">Salto (+3 €)</text>
+      `;
+
+      // Segmento 1: 0 < p <= 2 con pallino vuoto in 0 e pieno in 2
+      const seg1 = `
+        <line x1="${toSvgX(0)}" y1="${toSvgY(5)}" x2="${toSvgX(2)}" y2="${toSvgY(5)}" stroke="var(--accent-math)" stroke-width="3.5" />
+        <circle cx="${toSvgX(0)}" cy="${toSvgY(5)}" r="5.5" fill="var(--bg-surface)" stroke="var(--accent-math)" stroke-width="2.5" />
+        <circle cx="${toSvgX(2)}" cy="${toSvgY(5)}" r="6" fill="var(--accent-math)" />
+      `;
+
+      // Segmento 2: 2 < p <= 5 con pallino vuoto in 2 e pieno in 5
+      const seg2 = `
+        <line x1="${toSvgX(2)}" y1="${toSvgY(8)}" x2="${toSvgX(5)}" y2="${toSvgY(8)}" stroke="var(--accent-math)" stroke-width="3.5" />
+        <circle cx="${toSvgX(2)}" cy="${toSvgY(8)}" r="6" fill="var(--bg-surface)" stroke="var(--accent-math)" stroke-width="2.5" />
+        <circle cx="${toSvgX(5)}" cy="${toSvgY(8)}" r="6" fill="var(--accent-math)" />
+      `;
+
+      // Posizione corrente slider
+      const curX = toSvgX(p);
+      const curY = toSvgY(price);
+      const curMarker = `
+        <line x1="${curX}" y1="${toSvgY(0)}" x2="${curX}" y2="${curY}" stroke="var(--accent-gold)" stroke-dasharray="4,4" stroke-width="1.5" />
+        <circle cx="${curX}" cy="${curY}" r="7" fill="var(--accent-gold)" stroke="#fff" stroke-width="2" />
+      `;
+
+      svg.innerHTML = grid + axes + ticks + jumpGuide + seg1 + seg2 + curMarker;
+    }
+
+    function verifyLab2() {
+      const left = document.getElementById('lab2Left').value.trim();
+      const right = document.getElementById('lab2Right').value.trim();
+      const choice = selectedChoices['lab2'];
+      const msg = document.getElementById('lab2Msg');
+      msg.style.display = 'inline-flex';
+
+      if (left === '5' && right === '8' && choice === 'none') {
+        msg.className = 'feedback-msg success';
+        msg.textContent = 'Perfetto! Da sinistra vale 5, da destra 8: essendo diversi, il limite NON esiste!';
+        markLabCompleted(2);
+      } else {
+        if (window.ComodeAudio) window.ComodeAudio.playError();
+        msg.className = 'feedback-msg error';
+        msg.textContent = 'Controlla: a sinistra il prezzo è 5, a destra è 8. Se i due limiti laterali sono diversi, il limite globale esiste?';
+      }
+    }
+
+
+    /* ========================================================
+       LABORATORIO 3: COSTO DELLA DEPURAZIONE (ASINTOTO VERTICALE)
+       ======================================================== */
+    function renderLab3() {
+      const slider = document.getElementById('lab3Slider');
+      if (!slider) return;
+      const p = parseFloat(slider.value);
+      const cost = (80 * p) / (100 - p);
+      const pFmt = p.toFixed(1).replace('.', ',');
+
+      document.getElementById('lab3Readout').textContent = `p = ${pFmt}%`;
+      document.getElementById('lab3Cost').textContent = `C = ${cost.toFixed(0)} k€ (${(cost / 1000).toFixed(2).replace('.', ',')} M€)`;
+
+      const status = document.getElementById('lab3Status');
+      if (p >= 98) {
+        status.innerHTML = `<span style="color:var(--accent-danger); font-weight:700;">🚨 Il costo cresce in modo vertiginoso ($p = ${pFmt}\\%$): per eliminare il $99\\%$ dell'inquinante servono quasi $8$ milioni di euro!</span>`;
+      } else {
+        status.innerHTML = `Per $p = ${pFmt}\\%$, il costo di depurazione è pari a <strong>${cost.toFixed(0)} mila euro</strong>.`;
+      }
+      if (window.ComodeComponents) window.ComodeComponents.renderMath(status);
+
+      const svg = document.getElementById('lab3Svg');
+      if (!svg) return;
+      svg.innerHTML = '';
+
+      const yMax = 1600;
+      const toSvgX = (x) => 80 + (x / 105) * 480;
+      const toSvgY = (y) => 250 - (Math.min(y, yMax) / yMax) * 212;
+
+      let grid = '';
+      let ticks = `<text x="${toSvgX(0) - 8}" y="${toSvgY(0) + 16}" fill="var(--text-dim)" font-size="11" text-anchor="end">0</text>`;
+      [20, 40, 60, 80, 100].forEach(x => {
+        const sx = toSvgX(x);
+        const isAsym = (x === 100);
+        if (!isAsym) {
+          grid += `<line x1="${sx}" y1="${toSvgY(yMax)}" x2="${sx}" y2="${toSvgY(0)}" stroke="var(--border-subtle)" stroke-opacity="0.38" stroke-dasharray="2,3" />`;
+        }
+        ticks += `<line x1="${sx}" y1="${toSvgY(0) - 4}" x2="${sx}" y2="${toSvgY(0) + 4}" stroke="${isAsym ? 'var(--accent-danger)' : 'var(--text-muted)'}" />
+                  <text x="${sx}" y="${toSvgY(0) + 18}" fill="${isAsym ? 'var(--accent-danger)' : 'var(--text-muted)'}" font-size="11" font-weight="${isAsym ? '700' : '400'}" text-anchor="middle">${x}%</text>`;
+      });
+      [400, 800, 1200, 1600].forEach(y => {
+        const sy = toSvgY(y);
+        grid += `<line x1="${toSvgX(0)}" y1="${sy}" x2="${toSvgX(100)}" y2="${sy}" stroke="var(--border-subtle)" stroke-opacity="0.38" stroke-dasharray="2,3" />`;
+        ticks += `<line x1="${toSvgX(0) - 4}" y1="${sy}" x2="${toSvgX(0) + 4}" y2="${sy}" stroke="var(--text-muted)" />
+                  <text x="${toSvgX(0) - 10}" y="${sy + 4}" fill="var(--text-muted)" font-size="11" text-anchor="end">${y}</text>`;
+      });
+
+      const axes = `
+        <line x1="64" y1="${toSvgY(0)}" x2="590" y2="${toSvgY(0)}" stroke="var(--border-subtle)" stroke-width="1.6" />
+        <polygon points="596,${toSvgY(0)} 588,${toSvgY(0) - 4} 588,${toSvgY(0) + 4}" fill="var(--text-muted)" />
+        <line x1="${toSvgX(0)}" y1="262" x2="${toSvgX(0)}" y2="24" stroke="var(--border-subtle)" stroke-width="1.6" />
+        <polygon points="${toSvgX(0)},18 ${toSvgX(0) - 4},26 ${toSvgX(0) + 4},26" fill="var(--text-muted)" />
+        <text x="622" y="286" fill="var(--text-muted)" font-size="11.5" font-weight="600" text-anchor="end">depurazione p (%)</text>
+        <text x="92" y="24" fill="var(--text-muted)" font-size="11.5" font-weight="600" text-anchor="start">costo C (k€)</text>
+      `;
+
+      // Asintoto verticale p = 100
+      const asintotoX = toSvgX(100);
+      const asintoto = `
+        <line x1="${asintotoX}" y1="250" x2="${asintotoX}" y2="32" stroke="var(--accent-danger)" stroke-dasharray="5,4" stroke-width="2.2" />
+        <text x="${asintotoX}" y="23" fill="var(--accent-danger)" font-size="11" font-weight="700" text-anchor="middle">Asintoto p = 100%</text>
+      `;
+
+      // Curva C(p) campionata fino al bordo superiore della finestra (C = 1600 -> p = 95.238)
+      const pTop = (100 * yMax) / (yMax + 80);
+      let d = `M ${toSvgX(0)} ${toSvgY(0)}`;
+      for (let x = 0.5; x < pTop; x += 0.5) {
+        const y = (80 * x) / (100 - x);
+        d += ` L ${toSvgX(x)} ${toSvgY(y)}`;
+      }
+      d += ` L ${toSvgX(pTop)} ${toSvgY(yMax)}`;
+      const path = `<path d="${d}" fill="none" stroke="var(--accent-math)" stroke-width="3" stroke-linecap="round" />`;
+
+      // Cursore punto corrente (con indicatore freccia quando supera la scala verticale)
+      const curX = toSvgX(p);
+      let marker = '';
+      if (cost <= yMax) {
+        const curY = toSvgY(cost);
+        marker = `
+          <line x1="${curX}" y1="${toSvgY(0)}" x2="${curX}" y2="${curY}" stroke="var(--accent-gold)" stroke-dasharray="3,3" stroke-width="1.4" />
+          <line x1="${toSvgX(0)}" y1="${curY}" x2="${curX}" y2="${curY}" stroke="var(--accent-gold)" stroke-opacity="0.65" stroke-dasharray="3,3" />
+          <circle cx="${curX}" cy="${curY}" r="6" fill="var(--accent-gold)" stroke="#fff" stroke-width="1.8" />
+        `;
+      } else {
+        marker = `
+          <line x1="${curX}" y1="${toSvgY(0)}" x2="${curX}" y2="42" stroke="var(--accent-gold)" stroke-dasharray="4,3" stroke-width="1.8" />
+          <polygon points="${curX},34 ${curX - 5},44 ${curX + 5},44" fill="var(--accent-gold)" />
+          <text x="${curX - 10}" y="54" fill="var(--accent-gold)" font-size="11" font-weight="700" text-anchor="end">↑ C = ${cost.toFixed(0)} k€ (fuori scala)</text>
+        `;
+      }
+
+      svg.innerHTML = grid + axes + ticks + asintoto + path + marker;
+    }
+
+    function verifyLab3() {
+      const val = document.getElementById('lab3Input').value.trim();
+      const choice = selectedChoices['lab3'];
+      const msg = document.getElementById('lab3Msg');
+      msg.style.display = 'inline-flex';
+
+      if ((val === '720' || val === '720 k€') && choice === 'inf') {
+        msg.className = 'feedback-msg success';
+        msg.textContent = 'Esatto! C(90) = 720 mila euro, e per p -> 100^- il costo tende a +infinito!';
+        markLabCompleted(3);
+      } else {
+        if (window.ComodeAudio) window.ComodeAudio.playError();
+        msg.className = 'feedback-msg error';
+        msg.textContent = 'Controlla: C(90) = (80*90)/(100-90) = 7200/10 = 720. E dividendo per (100 - p) che tende a 0+, il risultato tende a +infinito!';
+      }
+    }
+
+
+    /* ========================================================
+       LABORATORIO 4: CURVA DI APPRENDIMENTO (ASINTOTO ORIZZONTALE)
+       ======================================================== */
+    function renderLab4() {
+      const slider = document.getElementById('lab4Slider');
+      if (!slider) return;
+      const t = parseFloat(slider.value);
+      const N = (50 * t) / (t + 4);
+
+      document.getElementById('lab4Readout').textContent = `t = ${t} giorni`;
+      document.getElementById('lab4Value').textContent = `N ≈ ${N.toFixed(1).replace('.', ',')} parole (su 50)`;
+
+      const svg = document.getElementById('lab4Svg');
+      if (!svg) return;
+      svg.innerHTML = '';
+
+      const toSvgX = (x) => 78 + (x / 125) * 490;
+      const toSvgY = (y) => 250 - (y / 60) * 212;
+
+      let grid = '';
+      let ticks = `<text x="${toSvgX(0) - 8}" y="${toSvgY(0) + 16}" fill="var(--text-dim)" font-size="11" text-anchor="end">0</text>`;
+      [20, 40, 60, 80, 100, 120].forEach(x => {
+        const sx = toSvgX(x);
+        grid += `<line x1="${sx}" y1="${toSvgY(60)}" x2="${sx}" y2="${toSvgY(0)}" stroke="var(--border-subtle)" stroke-opacity="0.38" stroke-dasharray="2,3" />`;
+        ticks += `<line x1="${sx}" y1="${toSvgY(0) - 4}" x2="${sx}" y2="${toSvgY(0) + 4}" stroke="var(--text-muted)" />
+                  <text x="${sx}" y="${toSvgY(0) + 18}" fill="var(--text-muted)" font-size="11" text-anchor="middle">${x}</text>`;
+      });
+      [10, 20, 30, 40, 50, 60].forEach(y => {
+        const sy = toSvgY(y);
+        const isAsym = (y === 50);
+        if (!isAsym) {
+          grid += `<line x1="${toSvgX(0)}" y1="${sy}" x2="${toSvgX(125)}" y2="${sy}" stroke="var(--border-subtle)" stroke-opacity="0.38" stroke-dasharray="2,3" />`;
+        }
+        ticks += `<line x1="${toSvgX(0) - 4}" y1="${sy}" x2="${toSvgX(0) + 4}" y2="${sy}" stroke="${isAsym ? 'var(--accent-purple)' : 'var(--text-muted)'}" />
+                  <text x="${toSvgX(0) - 10}" y="${sy + 4}" fill="${isAsym ? 'var(--accent-purple)' : 'var(--text-muted)'}" font-size="11" font-weight="${isAsym ? '700' : '400'}" text-anchor="end">${y}</text>`;
+      });
+
+      const axes = `
+        <line x1="62" y1="${toSvgY(0)}" x2="592" y2="${toSvgY(0)}" stroke="var(--border-subtle)" stroke-width="1.6" />
+        <polygon points="598,${toSvgY(0)} 590,${toSvgY(0) - 4} 590,${toSvgY(0) + 4}" fill="var(--text-muted)" />
+        <line x1="${toSvgX(0)}" y1="262" x2="${toSvgX(0)}" y2="24" stroke="var(--border-subtle)" stroke-width="1.6" />
+        <polygon points="${toSvgX(0)},18 ${toSvgX(0) - 4},26 ${toSvgX(0) + 4},26" fill="var(--text-muted)" />
+        <text x="622" y="286" fill="var(--text-muted)" font-size="11.5" font-weight="600" text-anchor="end">tempo t (giorni)</text>
+        <text x="90" y="24" fill="var(--text-muted)" font-size="11.5" font-weight="600" text-anchor="start">parole N(t)</text>
+      `;
+
+      // Asintoto orizzontale y = 50
+      const asintotoY = toSvgY(50);
+      const asintoto = `
+        <line x1="${toSvgX(0)}" y1="${asintotoY}" x2="584" y2="${asintotoY}" stroke="var(--accent-purple)" stroke-dasharray="5,4" stroke-width="2.2" />
+        <text x="582" y="${asintotoY - 8}" fill="var(--accent-purple)" font-size="11" font-weight="700" text-anchor="end">Asintoto orizzontale y = 50 parole</text>
+      `;
+
+      // Curva N(t) campionata finemente nel tratto iniziale ripido
+      let d = `M ${toSvgX(0)} ${toSvgY(0)}`;
+      for (let x = 0.5; x <= 25; x += 0.5) {
+        d += ` L ${toSvgX(x)} ${toSvgY((50 * x) / (x + 4))}`;
+      }
+      for (let x = 26; x <= 125; x += 1.5) {
+        d += ` L ${toSvgX(x)} ${toSvgY((50 * x) / (x + 4))}`;
+      }
+      const path = `<path d="${d}" fill="none" stroke="var(--accent-math)" stroke-width="3" stroke-linecap="round" />`;
+
+      // Cursore
+      const curX = toSvgX(t);
+      const curY = toSvgY(N);
+      const marker = `
+        <line x1="${curX}" y1="${toSvgY(0)}" x2="${curX}" y2="${curY}" stroke="var(--accent-gold)" stroke-dasharray="3,3" stroke-width="1.4" />
+        <line x1="${toSvgX(0)}" y1="${curY}" x2="${curX}" y2="${curY}" stroke="var(--accent-gold)" stroke-opacity="0.65" stroke-dasharray="3,3" />
+        <circle cx="${curX}" cy="${curY}" r="6" fill="var(--accent-gold)" stroke="#fff" stroke-width="1.8" />
+      `;
+
+      svg.innerHTML = grid + axes + ticks + asintoto + path + marker;
+    }
+
+    function verifyLab4() {
+      const lim = document.getElementById('lab4Limit').value.trim();
+      const time = document.getElementById('lab4Time').value.trim();
+      const msg = document.getElementById('lab4Msg');
+      msg.style.display = 'inline-flex';
+
+      if (lim === '50' && (time === '36' || time === '36 giorni')) {
+        msg.className = 'feedback-msg success';
+        msg.textContent = 'Eccellente! Limite all\'infinito = 50 parole, e 45 parole si raggiungono dopo 36 giorni!';
+        markLabCompleted(4);
+      } else {
+        if (window.ComodeAudio) window.ComodeAudio.playError();
+        msg.className = 'feedback-msg error';
+        msg.textContent = 'Rivedi: per t -> +infinito 50t/(t+4) tende a 50. Per N(t)=45: 50t = 45(t+4) -> 5t = 180 -> t = 36.';
+      }
+    }
+
+
+    /* ========================================================
+       LABORATORIO 5: DEFINIZIONE EPSILON-DELTA
+       ======================================================== */
+    let lab5ShowDelta = false;
+
+    function toggleLab5Delta() {
+      lab5ShowDelta = !lab5ShowDelta;
+      const btn = document.getElementById('lab5RevealBtn');
+      if (btn) {
+        btn.innerHTML = lab5ShowDelta ? '🙈 Nascondi $\\delta$ sul grafico' : '👁️ Mostra $\\delta$ sul grafico';
+        if (window.ComodeComponents) window.ComodeComponents.renderMath(btn);
+      }
+      renderLab5();
+    }
+
+    function renderLab5() {
+      const slider = document.getElementById('lab5Slider');
+      if (!slider) return;
+      const eps = parseFloat(slider.value);
+      const delta = eps / 1.8;
+      const epsFmt = eps.toFixed(2).replace('.', ',');
+      const deltaFmt = delta.toFixed(2).replace('.', ',');
+
+      document.getElementById('lab5Readout').textContent = `ε = ${epsFmt} °F`;
+      document.getElementById('lab5Delta').textContent = lab5ShowDelta ? `δ = ${deltaFmt} °C` : 'δ = ?';
+
+      const svg = document.getElementById('lab5Svg');
+      if (!svg) return;
+      svg.innerHTML = '';
+
+      // Grafico centrato attorno a (100, 212)
+      // C in [95, 105] -> x in [78, 538]
+      // F in [200, 224] -> y in [250, 38]
+      const toSvgX = (c) => 78 + ((c - 95) / 10) * 460;
+      const toSvgY = (f) => 250 - ((f - 200) / 24) * 212;
+
+      let grid = '';
+      let ticks = '';
+      [95, 97, 100, 103, 105].forEach(c => {
+        const sx = toSvgX(c);
+        const isCenter = (c === 100);
+        if (c > 95) {
+          grid += `<line x1="${sx}" y1="${toSvgY(224)}" x2="${sx}" y2="${toSvgY(200)}" stroke="var(--border-subtle)" stroke-opacity="0.35" stroke-dasharray="2,3" />`;
+        }
+        ticks += `<line x1="${sx}" y1="${toSvgY(200) - 4}" x2="${sx}" y2="${toSvgY(200) + 4}" stroke="${isCenter ? 'var(--accent-success)' : 'var(--text-muted)'}" />
+                  <text x="${sx}" y="${toSvgY(200) + 18}" fill="${isCenter ? 'var(--accent-success)' : 'var(--text-muted)'}" font-size="11" font-weight="${isCenter ? '700' : '400'}" text-anchor="middle">${c}</text>`;
+      });
+      [200, 206, 212, 218, 224].forEach(f => {
+        const sy = toSvgY(f);
+        const isCenter = (f === 212);
+        if (f > 200) {
+          grid += `<line x1="${toSvgX(95)}" y1="${sy}" x2="${toSvgX(105)}" y2="${sy}" stroke="var(--border-subtle)" stroke-opacity="0.35" stroke-dasharray="2,3" />`;
+        }
+        ticks += `<line x1="${toSvgX(95) - 4}" y1="${sy}" x2="${toSvgX(95) + 4}" y2="${sy}" stroke="${isCenter ? 'var(--accent-gold)' : 'var(--text-muted)'}" />
+                  <text x="${toSvgX(95) - 10}" y="${sy + 4}" fill="${isCenter ? 'var(--accent-gold)' : 'var(--text-muted)'}" font-size="11" font-weight="${isCenter ? '700' : '400'}" text-anchor="end">${f}</text>`;
+      });
+
+      const axes = `
+        <line x1="62" y1="${toSvgY(200)}" x2="572" y2="${toSvgY(200)}" stroke="var(--border-subtle)" stroke-width="1.6" />
+        <polygon points="578,${toSvgY(200)} 570,${toSvgY(200) - 4} 570,${toSvgY(200) + 4}" fill="var(--text-muted)" />
+        <line x1="${toSvgX(95)}" y1="262" x2="${toSvgX(95)}" y2="24" stroke="var(--border-subtle)" stroke-width="1.6" />
+        <polygon points="${toSvgX(95)},18 ${toSvgX(95) - 4},26 ${toSvgX(95) + 4},26" fill="var(--text-muted)" />
+        <text x="624" y="286" fill="var(--text-muted)" font-size="11.5" font-weight="600" text-anchor="end">temperatura C (°C)</text>
+        <text x="90" y="24" fill="var(--text-muted)" font-size="11.5" font-weight="600" text-anchor="start">F(C) (°F)</text>
+      `;
+
+      // Fascia epsilon: orizzontale attorno a 212
+      const topEps = toSvgY(212 + eps);
+      const botEps = toSvgY(212 - eps);
+      const bandEps = `
+        <rect x="${toSvgX(95)}" y="${topEps}" width="460" height="${botEps - topEps}" fill="rgba(251, 191, 36, 0.12)" stroke="var(--accent-gold)" stroke-dasharray="4,4" />
+        <line x1="${toSvgX(95)}" y1="${toSvgY(212)}" x2="${toSvgX(105)}" y2="${toSvgY(212)}" stroke="var(--accent-gold)" stroke-width="1.2" />
+        <text x="546" y="${toSvgY(212) - 3}" fill="var(--accent-gold)" font-size="11" font-weight="700">L = 212 °F</text>
+        <text x="546" y="${toSvgY(212) + 12}" fill="var(--accent-gold)" font-size="10.5">(±${epsFmt} °F)</text>
+      `;
+
+      // Fascia delta: verticale attorno a 100
+      let bandDelta = '';
+      if (lab5ShowDelta) {
+        const leftDelta = toSvgX(100 - delta);
+        const rightDelta = toSvgX(100 + delta);
+        bandDelta = `
+          <rect x="${leftDelta}" y="${toSvgY(224)}" width="${rightDelta - leftDelta}" height="212" fill="rgba(16, 185, 129, 0.13)" stroke="var(--accent-success)" stroke-dasharray="4,4" />
+          <line x1="${toSvgX(100)}" y1="${toSvgY(224)}" x2="${toSvgX(100)}" y2="${toSvgY(200)}" stroke="var(--accent-success)" stroke-width="1.2" />
+          <text x="${toSvgX(100)}" y="31" fill="var(--accent-success)" font-size="10.8" font-weight="700" text-anchor="middle">x₀ = 100 °C (±${deltaFmt} °C)</text>
+        `;
+      }
+
+      // Retta F(C) = 1.8 C + 32
+      const line = `
+        <line x1="${toSvgX(95)}" y1="${toSvgY(1.8 * 95 + 32)}" x2="${toSvgX(105)}" y2="${toSvgY(1.8 * 105 + 32)}" stroke="var(--accent-math)" stroke-width="3" stroke-linecap="round" />
+        <circle cx="${toSvgX(100)}" cy="${toSvgY(212)}" r="6" fill="var(--accent-math)" stroke="#fff" stroke-width="1.5" />
+      `;
+
+      svg.innerHTML = grid + axes + ticks + bandDelta + bandEps + line;
+    }
+
+    function verifyLab5() {
+      const val = document.getElementById('lab5Input').value.trim().replace(',', '.');
+      const num = parseFloat(val);
+      const msg = document.getElementById('lab5Msg');
+      msg.style.display = 'inline-flex';
+
+      if (Math.abs(num - 0.5) < 0.01) {
+        msg.className = 'feedback-msg success';
+        msg.textContent = 'Esatto! delta = epsilon / 1,8 = 0,9 / 1,8 = 0,5 °C! La tolleranza in Celsius deve essere di mezzo grado.';
+        markLabCompleted(5);
+      } else {
+        if (window.ComodeAudio) window.ComodeAudio.playError();
+        msg.className = 'feedback-msg error';
+        msg.textContent = 'Calcola: delta = epsilon / 1,8. Con epsilon = 0,9, quanto fa 0,9 / 1,8? (Scrivi 0,5)';
+      }
+    }
+
+
+    /* ========================================================
+       LABORATORIO 5 - PARTE 2: DEFINIZIONI FORMALI IN TUTTI I CASI
+       ======================================================== */
+    function renderDefCase1() {
+      const slider = document.getElementById('defCase1Slider');
+      if (!slider) return;
+      const eps = parseFloat(slider.value);
+      const delta = eps / 1.8;
+      const epsFmt = eps.toFixed(2).replace('.', ',');
+      const deltaFmt = delta.toFixed(2).replace('.', ',');
+
+      document.getElementById('defCase1E').textContent = `ε = ${epsFmt} °F`;
+      document.getElementById('defCase1D').textContent = `δ = ${deltaFmt} °C`;
+
+      const status = document.getElementById('defCase1Status');
+      if (status) {
+        status.innerHTML = `Per garantire $F(C)$ a meno di $\\pm\\varepsilon = ${epsFmt}\\,°\\text{F}$ da $212$, basta che la temperatura sia entro $100 \\pm ${deltaFmt}\\,°\\text{C}$!`;
+        if (window.ComodeComponents) window.ComodeComponents.renderMath(status);
+      }
+
+      const svg = document.getElementById('defCase1Svg');
+      if (!svg) return;
+
+      const toSvgX = (c) => 35 + ((c - 95) / 10) * 255;
+      const toSvgY = (f) => 155 - ((f - 200) / 24) * 140;
+
+      const sx0 = toSvgX(100);
+      const sy0 = toSvgY(212);
+      const sLeft = toSvgX(100 - delta);
+      const sRight = toSvgX(100 + delta);
+      const sTop = toSvgY(212 + eps);
+      const sBottom = toSvgY(212 - eps);
+
+      svg.innerHTML = `
+        <line x1="30" y1="155" x2="305" y2="155" stroke="var(--border-subtle)" stroke-width="1.5" />
+        <line x1="35" y1="160" x2="35" y2="10" stroke="var(--border-subtle)" stroke-width="1.5" />
+        <text x="305" y="152" fill="var(--text-dim)" font-size="9" text-anchor="end">C (°C)</text>
+        <text x="40" y="14" fill="var(--text-dim)" font-size="9">F (°F)</text>
+        <rect x="35" y="${sTop}" width="265" height="${sBottom - sTop}" fill="rgba(251, 191, 36, 0.12)" stroke="var(--accent-gold)" stroke-dasharray="3,3" />
+        <line x1="35" y1="${sy0}" x2="300" y2="${sy0}" stroke="var(--accent-gold)" stroke-width="1.2" stroke-dasharray="2,2" />
+        <text x="298" y="${sy0 - 3}" fill="var(--accent-gold)" font-size="9" font-weight="700" text-anchor="end">212 °F</text>
+        <rect x="${sLeft}" y="15" width="${sRight - sLeft}" height="140" fill="rgba(16, 185, 129, 0.12)" stroke="var(--accent-success)" stroke-dasharray="3,3" />
+        <line x1="${sx0}" y1="15" x2="${sx0}" y2="155" stroke="var(--accent-success)" stroke-width="1.2" stroke-dasharray="2,2" />
+        <text x="${sx0}" y="167" fill="var(--accent-success)" font-size="9" font-weight="700" text-anchor="middle">100 °C</text>
+        <line x1="${toSvgX(95)}" y1="${toSvgY(1.8 * 95 + 32)}" x2="${toSvgX(105)}" y2="${toSvgY(1.8 * 105 + 32)}" stroke="var(--accent-math)" stroke-width="2.5" />
+        <circle cx="${sx0}" cy="${sy0}" r="4" fill="var(--accent-math)" stroke="#fff" stroke-width="1.2" />
+        <circle cx="${sLeft}" cy="${sBottom}" r="3.5" fill="var(--accent-gold)" />
+        <circle cx="${sRight}" cy="${sTop}" r="3.5" fill="var(--accent-gold)" />
+        <text x="${(sx0 + sRight) / 2}" y="148" fill="var(--accent-success)" font-size="8.5" font-weight="700" text-anchor="middle">+δ</text>
+        <text x="${(sx0 + sLeft) / 2}" y="148" fill="var(--accent-success)" font-size="8.5" font-weight="700" text-anchor="middle">−δ</text>
+      `;
+    }
+
+    function renderDefCase2() {
+      const slider = document.getElementById('defCase2Slider');
+      if (!slider) return;
+      const M = parseFloat(slider.value);
+      const delta = 8000 / (M + 80);
+      const pSoglia = 100 - delta;
+
+      document.getElementById('defCase2M').textContent = `M = ${M} k€`;
+      document.getElementById('defCase2D').textContent = `δ = ${delta.toFixed(2).replace('.', ',')}%`;
+
+      const status = document.getElementById('defCase2Status');
+      if (status) {
+        status.innerHTML = `Per superare la soglia di $M = ${M}\\text{ k€}$, basta prendere $p$ a meno di $\\delta = ${delta.toFixed(2).replace('.', ',')}\\%$ da 100 (cioè $p > ${pSoglia.toFixed(2).replace('.', ',')}\\%$)!`;
+        if (window.ComodeComponents) window.ComodeComponents.renderMath(status);
+      }
+
+      const svg = document.getElementById('defCase2Svg');
+      if (!svg) return;
+
+      const toSvgX = (p) => 35 + ((p - 70) / 30) * 255;
+      const toSvgY = (c) => 155 - (Math.min(c, 1600) / 1600) * 140;
+
+      const sxAsintoto = toSvgX(100);
+      const sxSoglia = toSvgX(pSoglia);
+      const syM = toSvgY(M);
+
+      let d = `M ${toSvgX(70)} ${toSvgY((80 * 70) / 30)}`;
+      for (let p = 72; p <= 95; p += 1) {
+        d += ` L ${toSvgX(p)} ${toSvgY((80 * p) / (100 - p))}`;
+      }
+      d += ` L ${toSvgX(95.2)} 15`;
+
+      svg.innerHTML = `
+        <line x1="30" y1="155" x2="305" y2="155" stroke="var(--border-subtle)" stroke-width="1.5" />
+        <line x1="35" y1="160" x2="35" y2="10" stroke="var(--border-subtle)" stroke-width="1.5" />
+        <text x="305" y="152" fill="var(--text-dim)" font-size="9" text-anchor="end">p (%)</text>
+        <text x="40" y="14" fill="var(--text-dim)" font-size="9">C (k€)</text>
+        <text x="${toSvgX(70)}" y="167" fill="var(--text-dim)" font-size="9" text-anchor="middle">70%</text>
+        <text x="${sxAsintoto}" y="167" fill="var(--accent-danger)" font-size="9" font-weight="700" text-anchor="middle">100%</text>
+        <rect x="${sxSoglia}" y="15" width="${sxAsintoto - sxSoglia}" height="140" fill="rgba(239, 68, 68, 0.12)" stroke="var(--accent-danger)" stroke-dasharray="3,3" />
+        <line x1="35" y1="${syM}" x2="${sxAsintoto}" y2="${syM}" stroke="var(--accent-gold)" stroke-width="1.5" stroke-dasharray="3,2" />
+        <text x="38" y="${syM - 3}" fill="var(--accent-gold)" font-size="9.5" font-weight="700">M = ${M} k€</text>
+        <line x1="${sxAsintoto}" y1="15" x2="${sxAsintoto}" y2="155" stroke="var(--accent-danger)" stroke-width="2" stroke-dasharray="4,3" />
+        <path d="${d}" fill="none" stroke="var(--accent-math)" stroke-width="2.5" />
+        <circle cx="${sxSoglia}" cy="${syM}" r="4.5" fill="var(--accent-gold)" stroke="#fff" stroke-width="1.2" />
+        <line x1="${sxSoglia}" y1="155" x2="${sxAsintoto}" y2="155" stroke="var(--accent-danger)" stroke-width="3" />
+        <text x="${(sxSoglia + sxAsintoto) / 2}" y="148" fill="var(--accent-danger)" font-size="9" font-weight="700" text-anchor="middle">δ = ${delta.toFixed(1)}%</text>
+      `;
+    }
+
+    function renderDefCase3() {
+      const slider = document.getElementById('defCase3Slider');
+      if (!slider) return;
+      const eps = parseFloat(slider.value);
+      const K = Math.max(0, (200 / eps) - 4);
+
+      document.getElementById('defCase3E').textContent = `ε = ${eps.toFixed(1).replace('.', ',')} parole`;
+      document.getElementById('defCase3K').textContent = `K = ${K.toFixed(1).replace('.', ',')} giorni`;
+
+      const status = document.getElementById('defCase3Status');
+      if (status) {
+        status.innerHTML = `Per garantire che lo studente ricordi $N(t)$ a meno di $\\varepsilon = ${eps.toFixed(1).replace('.', ',')}$ parole dal tetto ($50$), basta esercitarsi per più di $K = ${K.toFixed(1).replace('.', ',')}$ giorni!`;
+        if (window.ComodeComponents) window.ComodeComponents.renderMath(status);
+      }
+
+      const svg = document.getElementById('defCase3Svg');
+      if (!svg) return;
+
+      const toSvgX = (t) => 35 + (Math.min(t, 100) / 100) * 255;
+      const toSvgY = (n) => 155 - (n / 60) * 140;
+
+      const syAsintoto = toSvgY(50);
+      const syEps = toSvgY(50 - eps);
+      const sxK = toSvgX(K);
+
+      let d = `M ${toSvgX(0)} ${toSvgY(0)}`;
+      for (let t = 2; t <= 100; t += 2) {
+        d += ` L ${toSvgX(t)} ${toSvgY((50 * t) / (t + 4))}`;
+      }
+
+      svg.innerHTML = `
+        <line x1="30" y1="155" x2="305" y2="155" stroke="var(--border-subtle)" stroke-width="1.5" />
+        <line x1="35" y1="160" x2="35" y2="10" stroke="var(--border-subtle)" stroke-width="1.5" />
+        <text x="305" y="152" fill="var(--text-dim)" font-size="9" text-anchor="end">t (gg)</text>
+        <text x="40" y="14" fill="var(--text-dim)" font-size="9">N (parole)</text>
+        <rect x="35" y="${syAsintoto}" width="265" height="${syEps - syAsintoto}" fill="rgba(139, 92, 246, 0.13)" stroke="var(--accent-purple)" stroke-dasharray="3,3" />
+        <line x1="35" y1="${syAsintoto}" x2="300" y2="${syAsintoto}" stroke="var(--accent-purple)" stroke-width="1.8" stroke-dasharray="4,3" />
+        <text x="298" y="${syAsintoto - 3}" fill="var(--accent-purple)" font-size="9" font-weight="700" text-anchor="end">L = 50</text>
+        <line x1="35" y1="${syEps}" x2="300" y2="${syEps}" stroke="var(--accent-gold)" stroke-width="1.2" stroke-dasharray="3,2" />
+        <text x="38" y="${syEps - 2}" fill="var(--accent-gold)" font-size="9">50 − ε (${(50 - eps).toFixed(1)})</text>
+        <path d="${d}" fill="none" stroke="var(--accent-math)" stroke-width="2.5" />
+        <line x1="${sxK}" y1="15" x2="${sxK}" y2="155" stroke="var(--accent-gold)" stroke-width="1.5" stroke-dasharray="3,3" />
+        <circle cx="${sxK}" cy="${syEps}" r="4.5" fill="var(--accent-gold)" stroke="#fff" stroke-width="1.2" />
+        <text x="${sxK}" y="167" fill="var(--accent-gold)" font-size="9" font-weight="700" text-anchor="middle">K = ${K.toFixed(0)} gg</text>
+        <line x1="${sxK}" y1="155" x2="300" y2="155" stroke="var(--accent-purple)" stroke-width="3" />
+        <text x="${(sxK + 300) / 2}" y="146" fill="var(--accent-purple)" font-size="8.5" font-weight="700" text-anchor="middle">t > K</text>
+      `;
+    }
+
+    function renderDefCase4() {
+      const slider = document.getElementById('defCase4Slider');
+      if (!slider) return;
+      const M = parseFloat(slider.value);
+      const K = Math.max(0, (M - 3600) / 4);
+
+      document.getElementById('defCase4M').textContent = `M = ${M.toLocaleString('it-IT')} €`;
+      document.getElementById('defCase4K').textContent = `K = ${Math.round(K)} copie`;
+
+      const status = document.getElementById('defCase4Status');
+      if (status) {
+        status.innerHTML = `Fissata una soglia di spesa complessiva di $M = ${M.toLocaleString('it-IT')}\\text{ €}$, basta stampare più di $K = ${Math.round(K)}\\text{ copie}$ per superarla definitivamente!`;
+        if (window.ComodeComponents) window.ComodeComponents.renderMath(status);
+      }
+
+      const svg = document.getElementById('defCase4Svg');
+      if (!svg) return;
+
+      const toSvgX = (x) => 35 + (x / 1600) * 255;
+      const toSvgY = (c) => 155 - (c / 10000) * 140;
+
+      const syM = toSvgY(M);
+      const sxK = toSvgX(K);
+      const x0Y = toSvgY(3600);
+      const xMaxY = toSvgY(10000);
+
+      svg.innerHTML = `
+        <line x1="30" y1="155" x2="305" y2="155" stroke="var(--border-subtle)" stroke-width="1.5" />
+        <line x1="35" y1="160" x2="35" y2="10" stroke="var(--border-subtle)" stroke-width="1.5" />
+        <text x="305" y="152" fill="var(--text-dim)" font-size="9" text-anchor="end">copie (x)</text>
+        <text x="40" y="14" fill="var(--text-dim)" font-size="9">C_tot (€)</text>
+        <line x1="35" y1="${syM}" x2="300" y2="${syM}" stroke="var(--accent-gold)" stroke-width="1.5" stroke-dasharray="3,2" />
+        <text x="38" y="${syM - 3}" fill="var(--accent-gold)" font-size="9">M = ${M} €</text>
+        <line x1="${sxK}" y1="15" x2="${sxK}" y2="155" stroke="var(--accent-success)" stroke-width="1.5" stroke-dasharray="3,3" />
+        <text x="${sxK}" y="167" fill="var(--accent-success)" font-size="9" font-weight="700" text-anchor="middle">K = ${Math.round(K)}</text>
+        <line x1="${toSvgX(0)}" y1="${x0Y}" x2="${toSvgX(1600)}" y2="${xMaxY}" stroke="var(--accent-math)" stroke-width="2.5" />
+        <circle cx="${sxK}" cy="${syM}" r="4.5" fill="var(--accent-gold)" stroke="#fff" stroke-width="1.2" />
+        <line x1="${sxK}" y1="${syM}" x2="${toSvgX(1600)}" y2="${xMaxY}" stroke="var(--accent-success)" stroke-width="3.5" />
+      `;
+    }
+
+    let defMatchSolved = false;
+    function verifyDefMatch() {
+      const choice = selectedChoices['defMatch'];
+      const msg = document.getElementById('defMatchMsg');
+      if (!msg) return;
+      msg.style.display = 'inline-flex';
+
+      if (choice === '2') {
+        msg.className = 'feedback-msg success';
+        msg.textContent = 'Esatto! Caso 3 (Finito all\'infinito): per ogni epsilon > 0 esiste un K > 0 tale che per x > K si ha |f(x) - 3| < epsilon!';
+        if (!defMatchSolved) {
+          defMatchSolved = true;
+          if (window.ComodeAudio) window.ComodeAudio.playSuccess();
+          if (window.ComodeGamification) {
+            window.ComodeGamification.addXP(5, 'Lezione 5.M1.1 • Sfida Definizioni Rigorose superata!');
+          }
+        }
+      } else {
+        if (window.ComodeAudio) window.ComodeAudio.playError();
+        msg.className = 'feedback-msg error';
+        msg.textContent = 'Rivedi: per x -> +infinito l\'input richiede x > K; e per tendere alla quota finita L = 3, l\'output richiede |f(x) - 3| < epsilon!';
+      }
+    }
+
+
+    /* ========================================================
+       LABORATORIO 6: PALESTRA MENTALE (4 SFIDE LAMPO)
+       ======================================================== */
+    const gymAnswers = {
+      1: { correct: ['20', '20°c', '20 c', '20 gradi'], explain: 'e^(-0,1 t) tende a 0, quindi T(t) tende a 20 °C (temperatura ambiente).' },
+      2: { correct: ['6'], explain: 'Scomponendo: (x-3)(x+3)/(x-3) = x+3. Per x -> 3, 3+3 = 6.' },
+      3: { correct: ['5', '5 €', '5 euro'], explain: '1200/x tende a 0, resta solo il costo variabile unitario di 5 €.' },
+      4: { correct: ['+inf', 'inf', '+infinito', 'infinito', '∞'], explain: 'Per rho -> 1^-, il denominatore (1 - rho) tende a 0^+, quindi la coda diventa infinita!' }
+    };
+    const gymSolved = new Set();
+
+    function checkGym(num) {
+      const input = document.getElementById(`m1l1gym${num}Input`).value.trim().toLowerCase();
+      const fb = document.getElementById(`m1l1gym${num}Feedback`);
+      const card = document.getElementById(`m1l1gym${num}`);
+      const expected = gymAnswers[num];
+
+      if (expected.correct.includes(input)) {
+        if (!gymSolved.has(num)) {
+          gymSolved.add(num);
+          if (window.ComodeAudio) window.ComodeAudio.playSuccess();
+          if (window.ComodeGamification) window.ComodeGamification.addXP(5, `Sfida ${num} Palestra Mentale superata!`);
+        }
+        card.classList.add('solved');
+        fb.style.color = 'var(--accent-success)';
+        fb.innerHTML = `✓ Esatto! ${expected.explain}`;
+
+        if (gymSolved.size === 4) {
+          markLabCompleted(6);
+        }
+      } else {
+        if (window.ComodeAudio) window.ComodeAudio.playError();
+        fb.style.color = 'var(--accent-danger)';
+        fb.textContent = 'Non proprio, riprova! Controlla il riferimento teorico associato.';
+      }
+    }
+
+
+    /* ========================================================
+       LABORATORIO 7: COMPITO DI REALTÀ SVOLTO (COSTO MEDIO EDITORIALE)
+       ======================================================== */
+    function renderLab7() {
+      const slider = document.getElementById('lab7Slider');
+      if (!slider) return;
+      const x = parseFloat(slider.value);
+      const c = (3600 / x) + 4;
+
+      document.getElementById('lab7Readout').textContent = `x = ${x} copie`;
+      document.getElementById('lab7Cost').textContent = `Costo medio = ${c.toFixed(2).replace('.', ',')} €`;
+
+      const svg = document.getElementById('lab7Svg');
+      if (!svg) return;
+      svg.innerHTML = '';
+
+      // x in [0, 1550] -> [78, 568]
+      // y in [0, 80] -> [248, 38]
+      const yMax = 80;
+      const toSvgX = (valX) => 78 + (valX / 1550) * 490;
+      const toSvgY = (valY) => 248 - (Math.min(valY, yMax) / yMax) * 210;
+
+      let grid = '';
+      let ticks = `<text x="${toSvgX(0) - 6}" y="${toSvgY(0) + 16}" fill="var(--text-dim)" font-size="11" text-anchor="end">0</text>`;
+      [300, 600, 900, 1200, 1500].forEach(vx => {
+        const sx = toSvgX(vx);
+        grid += `<line x1="${sx}" y1="${toSvgY(yMax)}" x2="${sx}" y2="${toSvgY(0)}" stroke="var(--border-subtle)" stroke-opacity="0.36" stroke-dasharray="2,3" />`;
+        ticks += `<line x1="${sx}" y1="${toSvgY(0) - 4}" x2="${sx}" y2="${toSvgY(0) + 4}" stroke="var(--text-muted)" />
+                  <text x="${sx}" y="${toSvgY(0) + 18}" fill="var(--text-muted)" font-size="11" text-anchor="middle">${vx}</text>`;
+      });
+      [20, 40, 60, 80].forEach(vy => {
+        const sy = toSvgY(vy);
+        grid += `<line x1="${toSvgX(0)}" y1="${sy}" x2="${toSvgX(1550)}" y2="${sy}" stroke="var(--border-subtle)" stroke-opacity="0.36" stroke-dasharray="2,3" />`;
+        ticks += `<line x1="${toSvgX(0) - 4}" y1="${sy}" x2="${toSvgX(0) + 4}" y2="${sy}" stroke="var(--text-muted)" />
+                  <text x="${toSvgX(0) - 10}" y="${sy + 4}" fill="var(--text-muted)" font-size="11" text-anchor="end">${vy}</text>`;
+      });
+
+      const axes = `
+        <line x1="62" y1="${toSvgY(0)}" x2="592" y2="${toSvgY(0)}" stroke="var(--border-subtle)" stroke-width="1.6" />
+        <polygon points="598,${toSvgY(0)} 590,${toSvgY(0) - 4} 590,${toSvgY(0) + 4}" fill="var(--text-muted)" />
+        <line x1="${toSvgX(0)}" y1="260" x2="${toSvgX(0)}" y2="24" stroke="var(--border-subtle)" stroke-width="1.6" />
+        <polygon points="${toSvgX(0)},18 ${toSvgX(0) - 4},26 ${toSvgX(0) + 4},26" fill="var(--text-muted)" />
+        <text x="622" y="286" fill="var(--text-muted)" font-size="11.5" font-weight="600" text-anchor="end">tiratura x (copie)</text>
+        <text x="90" y="24" fill="var(--text-muted)" font-size="11.5" font-weight="600" text-anchor="start">C̄(x) (€/copia)</text>
+      `;
+
+      // Asintoto verticale x = 0 (coerente con la legenda rossa)
+      const asintotoVert = `
+        <line x1="${toSvgX(0)}" y1="${toSvgY(0)}" x2="${toSvgX(0)}" y2="32" stroke="var(--accent-danger)" stroke-dasharray="5,4" stroke-width="2.2" />
+        <text x="26" y="143" fill="var(--accent-danger)" font-size="10.5" font-weight="700" text-anchor="middle" transform="rotate(-90 26 143)">Asintoto verticale x = 0</text>
+      `;
+
+      // Asintoto orizzontale y = 4 (con etichetta ben distanziata sopra la coda della curva)
+      const asintotoY = toSvgY(4);
+      const asintotoOriz = `
+        <line x1="${toSvgX(0)}" y1="${asintotoY}" x2="584" y2="${asintotoY}" stroke="var(--accent-success)" stroke-dasharray="5,4" stroke-width="2.2" />
+        <line x1="${toSvgX(0) - 4}" y1="${asintotoY}" x2="${toSvgX(0) + 4}" y2="${asintotoY}" stroke="var(--accent-success)" stroke-width="1.8" />
+        <text x="${toSvgX(0) - 10}" y="${asintotoY + 3}" fill="var(--accent-success)" font-size="10.5" font-weight="700" text-anchor="end">4 €</text>
+        <text x="568" y="213" fill="var(--accent-success)" font-size="10.8" font-weight="700" text-anchor="end">Asintoto y = 4 € (Costo variabile)</text>
+      `;
+
+      // Curva costo medio campionata finemente da C = 80 (x = 3600 / 76 = 47.37)
+      const xStart = 3600 / (yMax - 4);
+      let d = `M ${toSvgX(xStart)} ${toSvgY(yMax)}`;
+      for (let vx = 48; vx <= 140; vx += 2) {
+        d += ` L ${toSvgX(vx)} ${toSvgY((3600 / vx) + 4)}`;
+      }
+      for (let vx = 145; vx <= 400; vx += 8) {
+        d += ` L ${toSvgX(vx)} ${toSvgY((3600 / vx) + 4)}`;
+      }
+      for (let vx = 415; vx <= 1550; vx += 15) {
+        d += ` L ${toSvgX(vx)} ${toSvgY((3600 / vx) + 4)}`;
+      }
+      const path = `<path d="${d}" fill="none" stroke="var(--accent-math)" stroke-width="3" stroke-linecap="round" />`;
+
+      // Cursore (con freccia verticale fuori scala quando x < 48 e C > 80 €)
+      const curX = toSvgX(x);
+      let marker = '';
+      if (c <= yMax) {
+        const curY = toSvgY(c);
+        marker = `
+          <line x1="${curX}" y1="${toSvgY(0)}" x2="${curX}" y2="${curY}" stroke="var(--accent-gold)" stroke-dasharray="3,3" stroke-width="1.4" />
+          <line x1="${toSvgX(0)}" y1="${curY}" x2="${curX}" y2="${curY}" stroke="var(--accent-gold)" stroke-opacity="0.65" stroke-dasharray="3,3" />
+          <circle cx="${curX}" cy="${curY}" r="6" fill="var(--accent-gold)" stroke="#fff" stroke-width="1.8" />
+        `;
+      } else {
+        marker = `
+          <line x1="${curX}" y1="${toSvgY(0)}" x2="${curX}" y2="42" stroke="var(--accent-gold)" stroke-dasharray="4,3" stroke-width="1.8" />
+          <polygon points="${curX},34 ${curX - 5},44 ${curX + 5},44" fill="var(--accent-gold)" />
+          <text x="${curX + 12}" y="54" fill="var(--accent-gold)" font-size="11" font-weight="700">↑ ${c.toFixed(0)} €/copia (fuori scala)</text>
+        `;
+      }
+
+      svg.innerHTML = grid + axes + ticks + asintotoVert + asintotoOriz + path + marker;
+    }
+
+    function showWorkedStep(stepNum) {
+      if (window.ComodeAudio) window.ComodeAudio.playClick();
+      for (let i = 1; i <= 4; i++) {
+        const step = document.getElementById(`workedStep${i}`);
+        const btn = document.getElementById(`btnStep${i}`);
+        if (step) step.classList.remove('revealed');
+        if (btn) btn.classList.remove('selected');
+      }
+      const activeStep = document.getElementById(`workedStep${stepNum}`);
+      const activeBtn = document.getElementById(`btnStep${stepNum}`);
+      if (activeStep) activeStep.classList.add('revealed');
+      if (activeBtn) activeBtn.classList.add('selected');
+    }
+
+    function verifyWorkedLab() {
+      const msg = document.getElementById('lab7Msg');
+      msg.style.display = 'inline-flex';
+      msg.className = 'feedback-msg success';
+      msg.textContent = 'Ottimo lavoro! Ora sei pronto per affrontare la Scheda Operativa per casa!';
+      markLabCompleted(7);
+    }
+
+
+    /* ========================================================
+       PONTE MATEMATICA <-> FILOSOFIA: SIMULATORE DI ZENONE
+       (Achille v_A = 10 m/s, Tartaruga v_T = 1 m/s, vantaggio 10 m)
+       ======================================================== */
+    const zenoData = [
+      { n: 0, dx: '—', dt: '0 s', xA: '0 m', xT: '10 m', tTot: '0 s', gap: '10 m', xANum: 0, xTNum: 10, tNum: 0, dtNum: 0, prevA: 0, prevT: 10 },
+      { n: 1, dx: '10 m', dt: '1 s', xA: '10 m', xT: '11 m', tTot: '1 s', gap: '1 m', xANum: 10, xTNum: 11, tNum: 1, dtNum: 1, prevA: 0, prevT: 10 },
+      { n: 2, dx: '1 m', dt: '0,1 s', xA: '11 m', xT: '11,1 m', tTot: '1,1 s', gap: '0,1 m', xANum: 11, xTNum: 11.1, tNum: 1.1, dtNum: 0.1, prevA: 10, prevT: 11 },
+      { n: 3, dx: '0,1 m', dt: '0,01 s', xA: '11,1 m', xT: '11,11 m', tTot: '1,11 s', gap: '0,01 m', xANum: 11.1, xTNum: 11.11, tNum: 1.11, dtNum: 0.01, prevA: 11, prevT: 11.1 },
+      { n: 4, dx: '0,01 m', dt: '0,001 s', xA: '11,11 m', xT: '11,111 m', tTot: '1,111 s', gap: '0,001 m', xANum: 11.11, xTNum: 11.111, tNum: 1.111, dtNum: 0.001, prevA: 11.1, prevT: 11.11 },
+      { n: 5, dx: '0,001 m', dt: '0,0001 s', xA: '11,111 m', xT: '11,1111 m', tTot: '1,1111 s', gap: '0,0001 m', xANum: 11.111, xTNum: 11.1111, tNum: 1.1111, dtNum: 0.0001, prevA: 11.11, prevT: 11.111 },
+      { n: 6, dx: '0,0001 m', dt: '0,00001 s', xA: '11,1111 m', xT: '11,11111 m', tTot: '1,11111 s', gap: '0,00001 m', xANum: 11.1111, xTNum: 11.11111, tNum: 1.11111, dtNum: 0.00001, prevA: 11.111, prevT: 11.1111 }
+    ];
+
+    function setZenoStep(n) {
+      if (window.ComodeAudio) window.ComodeAudio.playClick();
+      const slider = document.getElementById('zenoSlider');
+      if (slider) {
+        slider.value = n;
+        renderZeno();
+      }
+    }
+
+    function nextZenoStep() {
+      if (window.ComodeAudio) window.ComodeAudio.playClick();
+      const slider = document.getElementById('zenoSlider');
+      if (!slider) return;
+      const cur = parseInt(slider.value, 10);
+      slider.value = (cur < 6) ? (cur + 1) : 0;
+      renderZeno();
+    }
+
+    function renderZeno() {
+      const slider = document.getElementById('zenoSlider');
+      if (!slider) return;
+      const step = parseInt(slider.value, 10);
+      const d = zenoData[step];
+
+      document.getElementById('zenoStepReadout').textContent = (step === 0) ? 'Partenza (n = 0)' : `Passaggio n = ${step}`;
+      document.getElementById('zenoDtReadout').textContent = (step === 0) ? 'Δt = 0 s' : `Δt passaggio = ${d.dt} (1/10 del prec.)`;
+      document.getElementById('zenoTotalTimeReadout').textContent = `Tempo totale = ${d.tTot}`;
+      document.getElementById('zenoGapReadout').textContent = `Distacco residuo = ${d.gap}`;
+
+      const status = document.getElementById('zenoStatus');
+      if (step === 0) {
+        status.innerHTML = `<strong>Ai blocchi di partenza ($t = 0\\text{ s}$):</strong> Achille è a $0\\text{ m}$ ($v_A = 10\\text{ m/s}$) e la tartaruga parte da $10\\text{ m}$ ($v_T = 1\\text{ m/s}$). Clicca su <em>«Passaggio Successivo»</em>!`;
+      } else {
+        status.innerHTML = `<strong>Passaggio ${step}:</strong> Achille percorre il vantaggio precedente di <strong>${d.dx}</strong> impiegando <strong>$\\Delta t_{${step}} = ${d.dt}$</strong> (un decimo del tempo precedente!). Ma in questi ${d.dt} la tartaruga avanza ancora di <strong>${d.gap}</strong>: nei fotogrammi di Zenone è ancora davanti!`;
+      }
+      if (window.ComodeComponents) window.ComodeComponents.renderMath(status);
+
+      // Tabella dinamica dei passaggi
+      const tbody = document.getElementById('zenoTableBody');
+      if (tbody) {
+        let rows = '';
+        for (let i = 0; i <= step; i++) {
+          const r = zenoData[i];
+          const cls = (i === step) ? 'class="latest"' : '';
+          rows += `<tr ${cls}>
+            <td><strong>${i === 0 ? '0 (Partenza)' : 'n = ' + i}</strong></td>
+            <td>${r.dx}</td>
+            <td><strong>${r.dt}</strong></td>
+            <td>${r.xA}</td>
+            <td>${r.xT}</td>
+            <td><strong>${r.tTot}</strong></td>
+          </tr>`;
+        }
+        rows += `<tr style="border-top: 2px solid var(--accent-purple); background: rgba(139, 92, 246, 0.08);">
+          <td><strong>Limite ($n \\to +\\infty$)</strong></td>
+          <td>$\\to 0\\text{ m}$</td>
+          <td><strong>$\\to 0\\text{ s}$</strong></td>
+          <td><strong>$11{,}\\overline{1}\\text{ m} = \\frac{100}{9}\\text{ m}$</strong></td>
+          <td><strong>$11{,}\\overline{1}\\text{ m} = \\frac{100}{9}\\text{ m}$</strong></td>
+          <td><strong>$1{,}\\overline{1}\\text{ s} = \\frac{10}{9}\\text{ s}$</strong></td>
+        </tr>`;
+        tbody.innerHTML = rows;
+        if (window.ComodeComponents) window.ComodeComponents.renderMath(tbody);
+      }
+
+      // Disegno SVG a 3 fasce: 1) Pista reale, 2) Lente di ingrandimento sul passaggio n, 3) Barra del tempo che si restringe
+      const svg = document.getElementById('zenoSvg');
+      if (!svg) return;
+
+      // Fascia 1: Pista globale da 0 m a 12 m -> px [55, 585]
+      const toTrackX = (m) => 55 + (m / 12) * 530;
+      const trackY = 62;
+      const xLim = 100 / 9; // 11.111... m
+
+      let trackTicks = '';
+      [0, 2, 4, 6, 8, 10, 12].forEach(m => {
+        const tx = toTrackX(m);
+        trackTicks += `
+          <line x1="${tx}" y1="${trackY - 4}" x2="${tx}" y2="${trackY + 4}" stroke="var(--text-muted)" />
+          <text x="${tx}" y="${trackY + 17}" fill="var(--text-muted)" font-size="10.5" text-anchor="middle">${m} m</text>
+        `;
+      });
+
+      const sxA = toTrackX(d.xANum);
+      const sxT = toTrackX(d.xTNum);
+      const sxLim = toTrackX(xLim);
+
+      const trackBand = `
+        <text x="55" y="21" fill="var(--text-main)" font-size="11.5" font-weight="800">1) Pista Reale (0 m → 12 m) • v_Achille = 10 m/s, v_Tartaruga = 1 m/s</text>
+        <line x1="55" y1="${trackY}" x2="585" y2="${trackY}" stroke="var(--border-subtle)" stroke-width="4" stroke-linecap="round" />
+        <line x1="55" y1="${trackY}" x2="${sxA}" y2="${trackY}" stroke="var(--accent-math)" stroke-width="4" stroke-linecap="round" />
+        ${trackTicks}
+        <!-- Traguardo del limite 11,111... m -->
+        <line x1="${sxLim}" y1="30" x2="${sxLim}" y2="${trackY + 22}" stroke="var(--accent-purple)" stroke-width="1.8" stroke-dasharray="3,3" />
+        <text x="${sxLim}" y="26" fill="var(--accent-purple)" font-size="10" font-weight="800" text-anchor="middle">Limite 11,1̅ m (t = 1,1̅ s)</text>
+        <!-- Marker Achille e Tartaruga -->
+        <circle cx="${sxA}" cy="${trackY}" r="6.5" fill="var(--accent-math)" stroke="#fff" stroke-width="1.5" />
+        <text x="${sxA - 6}" y="${trackY - 12}" font-size="14" text-anchor="middle">🏃</text>
+        <circle cx="${sxT}" cy="${trackY}" r="6.5" fill="var(--accent-success)" stroke="#fff" stroke-width="1.5" />
+        <text x="${sxT + 8}" y="${trackY - 12}" font-size="14" text-anchor="middle">🐢</text>
+      `;
+
+      // Fascia 2: Lente d'ingrandimento sul passaggio corrente (mostra sempre che Achille copre 10 parti e la tartaruga avanza di 1 parte)
+      const zoomY = 158;
+      const zLeft = 75;
+      const zRight = 565;
+      const zSpan = zRight - zLeft;
+      const zMid = zLeft + (10 / 11) * zSpan; // Dove arriva Achille (copre i 10/11 dello spazio inquadrato, la tartaruga avanza di 1/11 rimanendo davanti!)
+
+      let zoomBand = '';
+      if (step === 0) {
+        zoomBand = `
+          <rect x="45" y="102" width="550" height="92" rx="8" fill="var(--bg-surface-elevated)" stroke="var(--border-subtle)" />
+          <text x="60" y="122" fill="var(--accent-gold)" font-size="11.5" font-weight="800">2) 🔍 Lente d'Ingrandimento sul Passaggio: Vantaggio iniziale = 10 m</text>
+          <line x1="${zLeft}" y1="${zoomY}" x2="${zRight}" y2="${zoomY}" stroke="var(--accent-warning)" stroke-width="4" stroke-dasharray="5,4" />
+          <circle cx="${zLeft}" cy="${zoomY}" r="7" fill="var(--accent-math)" stroke="#fff" stroke-width="1.5" />
+          <text x="${zLeft}" y="${zoomY - 13}" fill="var(--accent-math)" font-size="11" font-weight="800" text-anchor="middle">🏃 Achille (0 m)</text>
+          <circle cx="${zRight}" cy="${zoomY}" r="7" fill="var(--accent-success)" stroke="#fff" stroke-width="1.5" />
+          <text x="${zRight}" y="${zoomY - 13}" fill="var(--accent-success)" font-size="11" font-weight="800" text-anchor="end">🐢 Tartaruga (10 m)</text>
+          <text x="320" y="${zoomY + 22}" fill="var(--text-muted)" font-size="10.8" font-weight="700" text-anchor="middle">Distanza da recuperare nel 1° passaggio: Δx₁ = 10 m</text>
+        `;
+      } else {
+        const zoomFactor = Math.pow(10, step - 1);
+        const prevAStr = zenoData[step - 1].xA;
+        zoomBand = `
+          <rect x="45" y="102" width="550" height="92" rx="8" fill="var(--bg-surface-elevated)" stroke="var(--border-subtle)" />
+          <text x="60" y="122" fill="var(--accent-gold)" font-size="11.5" font-weight="800">2) 🔍 Zoom ×${zoomFactor} sul Passaggio ${step} (in Δt = ${d.dt} la tartaruga fa ancora un passo!)</text>
+          <!-- Tratto coperto da Achille in questo passaggio -->
+          <line x1="${zLeft}" y1="${zoomY}" x2="${zMid}" y2="${zoomY}" stroke="var(--accent-math)" stroke-width="5" />
+          <!-- Nuovo vantaggio guadagnato dalla tartaruga nello stesso tempo -->
+          <line x1="${zMid}" y1="${zoomY}" x2="${zRight}" y2="${zoomY}" stroke="var(--accent-purple)" stroke-width="5" />
+          <circle cx="${zLeft}" cy="${zoomY}" r="5" fill="var(--bg-surface)" stroke="var(--accent-math)" stroke-width="2" />
+          <text x="${zLeft}" y="${zoomY + 20}" fill="var(--text-muted)" font-size="10" text-anchor="start">Da ${prevAStr}</text>
+          <circle cx="${zMid}" cy="${zoomY}" r="7" fill="var(--accent-math)" stroke="#fff" stroke-width="1.5" />
+          <text x="${zMid - 10}" y="${zoomY - 13}" fill="var(--accent-math)" font-size="10.8" font-weight="800" text-anchor="end">🏃 Achille arriva a ${d.xA}</text>
+          <circle cx="${zRight}" cy="${zoomY}" r="7" fill="var(--accent-success)" stroke="#fff" stroke-width="1.5" />
+          <text x="${zRight}" y="${zoomY - 13}" fill="var(--accent-success)" font-size="10.8" font-weight="800" text-anchor="end">🐢 ${d.xT}</text>
+          <text x="${(zLeft + zMid) / 2}" y="${zoomY + 20}" fill="var(--accent-math)" font-size="10.5" font-weight="700" text-anchor="middle">Achille corre Δx = ${d.dx} in Δt = ${d.dt}</text>
+          <text x="${(zMid + zRight) / 2}" y="${zoomY + 20}" fill="var(--accent-purple)" font-size="10.2" font-weight="800" text-anchor="middle">+${d.gap}</text>
+        `;
+      }
+
+      // Fascia 3: Barra visuale del tempo che si restringe (somma geometrica 1 + 0,1 + 0,01 + ... -> 1,111... s)
+      const timeY = 248;
+      const tLeft = 55;
+      const tLimPx = 535; // Corrisponde a t = 10/9 = 1,111... s
+      const tSpan = tLimPx - tLeft; // 480 px per 10/9 s
+      const toTimeX = (tVal) => tLeft + (tVal / (10 / 9)) * tSpan;
+
+      let timeBlocks = '';
+      const colors = ['var(--accent-math)', 'var(--accent-gold)', 'var(--accent-purple)', 'var(--accent-success)', 'var(--accent-warning)', 'var(--accent-danger)'];
+      let accT = 0;
+      for (let i = 1; i <= step; i++) {
+        const dtVal = Math.pow(10, -(i - 1));
+        const xStart = toTimeX(accT);
+        const xEnd = toTimeX(accT + dtVal);
+        const w = Math.max(2, xEnd - xStart);
+        const col = colors[(i - 1) % colors.length];
+        timeBlocks += `<rect x="${xStart}" y="${timeY - 12}" width="${w}" height="24" fill="${col}" fill-opacity="0.82" stroke="var(--bg-surface)" stroke-width="1" />`;
+        if (i === 1) {
+          timeBlocks += `<text x="${(xStart + xEnd) / 2}" y="${timeY + 4}" fill="#090d16" font-size="11" font-weight="800" text-anchor="middle">Δt₁ = 1 s</text>`;
+        } else if (i === 2) {
+          timeBlocks += `<text x="${(xStart + xEnd) / 2}" y="${timeY - 17}" fill="var(--accent-gold)" font-size="10" font-weight="800" text-anchor="middle">0,1 s</text>`;
+        } else if (i === 3) {
+          timeBlocks += `<text x="${xEnd + 4}" y="${timeY - 17}" fill="var(--accent-purple)" font-size="9.5" font-weight="800" text-anchor="start">0,01 s…</text>`;
+        }
+        accT += dtVal;
+      }
+
+      const timeBand = `
+        <text x="55" y="218" fill="var(--text-main)" font-size="11.5" font-weight="800">3) ⏱️ Il Tempo ad Ogni Passaggio è 1/10 del Precedente (la somma converge a 1,1̅ s)</text>
+        <rect x="${tLeft}" y="${timeY - 12}" width="${tSpan}" height="24" rx="4" fill="var(--bg-surface-elevated)" stroke="var(--border-subtle)" />
+        ${timeBlocks}
+        <line x1="${tLimPx}" y1="${timeY - 22}" x2="${tLimPx}" y2="${timeY + 22}" stroke="var(--accent-danger)" stroke-width="2.2" stroke-dasharray="4,3" />
+        <text x="${tLimPx + 8}" y="${timeY - 2}" fill="var(--accent-danger)" font-size="10.8" font-weight="800">Muro del Limite</text>
+        <text x="${tLimPx + 8}" y="${timeY + 12}" fill="var(--accent-danger)" font-size="10.5" font-weight="700">t = 1,1̅ s (10/9 s)</text>
+        <text x="55" y="292" fill="var(--text-muted)" font-size="10.5">0 s</text>
+        <text x="${toTimeX(1)}" y="292" fill="var(--text-muted)" font-size="10.5" text-anchor="middle">1 s</text>
+        <text x="${tLimPx}" y="292" fill="var(--accent-danger)" font-size="10.5" font-weight="700" text-anchor="middle">1,111… s</text>
+      `;
+
+      svg.innerHTML = trackBand + zoomBand + timeBand;
+    }
+
+
+    /* ========================================================
+       INIZIALIZZAZIONE FLASHCARDS & SETUP LEZIONE
+       ======================================================== */
+    function initLesson() {
+      renderLab1a();
+      renderLab1();
+      renderZeno();
+      renderLab2();
+      renderLab3();
+      renderLab4();
+      renderLab5();
+      renderDefCase1();
+      renderDefCase2();
+      renderDefCase3();
+      renderDefCase4();
+      renderLab7();
+
+      // Ripristino stato avanzamento laboratori da gamification o localStorage
+      const isLessonDone = window.ComodeGamification && window.ComodeGamification.isLessonCompleted(LESSON_ID);
+      if (isLessonDone) {
+        markAllLabsCompleted(true);
+      } else {
+        try {
+          const raw = localStorage.getItem(LABS_STORAGE_KEY);
+          if (raw) {
+            const list = JSON.parse(raw);
+            if (Array.isArray(list)) {
+              list.forEach(num => markLabCompleted(num, true));
+            }
+          }
+        } catch (e) {
+          /* fallback */
+        }
+      }
+      updateLessonProgress();
+
+      // Listener su pulsante completamento lezione in fondo alla pagina
+      const completeBtn = document.getElementById('btnCompleteLesson');
+      if (completeBtn && !completeBtn._m1l1Bound) {
+        completeBtn._m1l1Bound = true;
+        completeBtn.addEventListener('click', () => {
+          markAllLabsCompleted(false);
+        });
+      }
+
+      document.addEventListener('comode:lessonCompleted', (e) => {
+        if (!e.detail || e.detail.lessonId === LESSON_ID) {
+          markAllLabsCompleted(true);
+        }
+      });
+
+      if (window.ComodeFlashcards) {
+        ComodeFlashcards.init('lessonFlashcardDeck', {
+          deckId: 'qa-5.m1-l01-deck',
+          xpPerCard: 15,
+          completionXP: 25,
+          cards: [
+            {
+              category: 'Concetto di Limite',
+              theoryRef: 'Teoria 1 • Valore nel punto vs Limite',
+              theoryTargetId: 'teoria-1',
+              question: 'Cosa significa affermare che $\\lim_{x \\to 3} f(x) = 7$?',
+              options: [
+                'Che la funzione nel punto 3 vale obbligatoriamente $f(3) = 7$',
+                'Che avvicinando $x$ a 3 sia da destra che da sinistra, i valori $f(x)$ si avvicinano arbitrariamente a 7',
+                'Che la derivata della funzione nel punto 3 è uguale a 7',
+                'Che il dominio della funzione deve necessariamente includere il punto $x = 3$'
+              ],
+              correct: 1,
+              explanation: 'Il limite descrive la tendenza della funzione nei pressi di $x_0$, indipendentemente dal fatto che in $x_0$ la funzione esista o abbia quel valore.'
+            },
+            {
+              category: 'Limiti Laterali',
+              theoryRef: 'Teoria 2 • Condizione di Esistenza',
+              theoryTargetId: 'teoria-2',
+              question: 'Se per una funzione a gradino risulta $\\lim_{x \\to 1^-} f(x) = 2$ e $\\lim_{x \\to 1^+} f(x) = 5$, quanto vale $\\lim_{x \\to 1} f(x)$?',
+              options: [
+                'Vale 3,5 (la media aritmetica tra 2 e 5)',
+                'Vale 5 (il valore più elevato da destra)',
+                'Il limite globale per $x \\to 1$ non esiste',
+                'Vale $+\\infty$ a causa della discontinuità'
+              ],
+              correct: 2,
+              explanation: 'Un limite esiste se e solo se i limiti laterali sinistro e destro coincidono. In caso di salto, il limite globale non esiste.'
+            },
+            {
+              category: 'Asintoti Verticali',
+              theoryRef: 'Teoria 3 • Limite Infinito al Finito',
+              theoryTargetId: 'teoria-3',
+              question: 'Se $\\lim_{x \\to 4^+} f(x) = +\\infty$, quale affermazione geometrica è sicuramente vera?',
+              options: [
+                'La retta orizzontale $y = 4$ è un asintoto orizzontale',
+                'La funzione tocca il suo valore massimo assoluto in $x = 4$',
+                'La retta verticale $x = 4$ è un asintoto verticale per il grafico',
+                'La funzione si annulla nel punto $x = 4$'
+              ],
+              correct: 2,
+              explanation: 'Se per $x \\to x_0$ la funzione diverge a $\\pm\\infty$, la retta $x = x_0$ rappresenta un asintoto verticale.'
+            },
+            {
+              category: 'Asintoti Orizzontali',
+              theoryRef: 'Teoria 4 • Comportamento all\'Infinito',
+              theoryTargetId: 'teoria-4',
+              question: 'Considera la funzione di costo medio $\\overline{C}(x) = \\frac{800 + 3x}{x}$. Quanto vale $\\lim_{x \\to +\\infty} \\overline{C}(x)$?',
+              options: [
+                'Vale $3$ €/unità',
+                'Vale $+\\infty$ perché aumentano i pezzi prodotti',
+                'Vale $800$ €/unità',
+                'Vale $0$ €/unità'
+              ],
+              correct: 0,
+              explanation: '$\\frac{800}{x} \\to 0$, perciò il limite coincide con il coefficiente del termine lineare, cioè 3 € (costo variabile unitario).'
+            },
+            {
+              category: 'Definizione Epsilon-Delta',
+              theoryRef: 'Teoria 5 • Contratto di Precisione',
+              theoryTargetId: 'teoria-5',
+              question: 'Nella definizione di limite con $\\varepsilon$ e $\\delta$, che ruolo svolge la lettera $\\varepsilon$ (epsilon)?',
+              options: [
+                'Rappresenta la coordinata del punto $x_0$ sull\'asse delle ascisse',
+                'È la tolleranza arbitrariamente piccola scelta sull\'asse delle ordinate attorno a $L$',
+                'Indica la pendenza della retta tangente',
+                'È un numero intero che conta quante volte la funzione attraversa l\'asse'
+              ],
+              correct: 1,
+              explanation: '$\\varepsilon > 0$ è la tolleranza fissata attorno al valore limite $L$ sull\'asse delle ordinate ($|f(x) - L| < \\varepsilon$).'
+            }
+          ]
+        });
+      }
+    }
+
+    if (document.readyState !== 'loading') {
+      initLesson();
+    } else {
+      document.addEventListener('DOMContentLoaded', initLesson);
+    }
+  </script>
+</body>
+</html>
+

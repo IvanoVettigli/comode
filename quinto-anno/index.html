@@ -174,6 +174,13 @@
       border-radius: var(--radius-md);
       padding: 1.25rem;
       position: relative;
+      transition: var(--transition);
+    }
+
+    .wip-uda-card.active-link:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-md);
+      border-color: var(--accent-math);
     }
 
     .wip-uda-top {
@@ -290,15 +297,18 @@
       </div>
 
       <div class="wip-udas-grid">
-        <div class="wip-uda-card">
+        <a href="matematica/uda-5.m1-limiti-continuita-differenziale/index.html" class="wip-uda-card active-link" style="text-decoration: none; color: inherit; border-style: solid; border-color: var(--accent-math); background: var(--bg-surface);">
           <div class="wip-uda-top">
             <span class="wip-pill math">UDA 5.M1 • Matematica</span>
-            <span class="wip-status-badge">In sviluppo ⏳</span>
+            <span class="wip-status-badge" style="color: var(--accent-success); font-weight: 700;">Attiva ✅</span>
           </div>
-          <div class="wip-card-title">Limiti, Continuità e Derivate</div>
-          <div class="wip-card-topic">Analisi infinitesimale, calcolo dei limiti, continuità e calcolo differenziale.</div>
+          <div class="wip-card-title" style="color: var(--accent-math);">Limiti, Continuità e Derivate</div>
+          <div class="wip-card-topic">Analisi infinitesimale, calcolo dei limiti, continuità e calcolo differenziale. Lezione 5.M1.1 attiva!</div>
           <div class="wip-trophy-target">🏆 Titolo: <em>Signore dell'Infinitesimo</em> 🌀</div>
-        </div>
+          <div style="margin-top: 1rem; display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.84rem; font-weight: 700; color: var(--accent-math);">
+            Entra nell'UDA 5.M1 →
+          </div>
+        </a>
 
         <div class="wip-uda-card">
           <div class="wip-uda-top">

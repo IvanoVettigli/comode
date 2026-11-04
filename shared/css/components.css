@@ -290,6 +290,20 @@
   scroll-margin-top: 5.5rem;
 }
 
+/* Teoria integrata nei laboratori Just-in-Time */
+.lab-card .theory-card {
+  background: var(--bg-surface-elevated);
+  border: 1px solid var(--border-subtle);
+  border-left: 3.5px solid var(--accent-math);
+  padding: 1.15rem 1.35rem;
+  margin: 0.75rem 0 1.25rem 0;
+}
+
+.lab-card .theory-card-header {
+  color: var(--accent-math);
+  margin-bottom: 0.65rem;
+}
+
 .theory-card:hover,
 .theory-card.theory-highlight {
   border-color: var(--accent-math);

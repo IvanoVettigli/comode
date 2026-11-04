@@ -238,8 +238,8 @@ class ComodeGamification {
         cycle: 'quinto-anno',
         cycleLabel: 'Quinto Anno',
         subject: 'Matematica',
-        requiredLessons: ['qa-5.m1-l01'],
-        howToEarn: 'Calcola i limiti di funzione, rimuovi le forme indeterminate e determina derivata e retta tangente.'
+        requiredLessons: ['qa-5.m1-l01', 'qa-5.m1-l02', 'qa-5.m1-l03', 'qa-5.m1-l04', 'qa-5.m1-clil'],
+        howToEarn: 'Completa tutte le 4 lezioni curricolari dell’UDA 5.M1 (5.M1.1 – 5.M1.4) e il Modulo CLIL in lingua inglese.'
       },
       {
         id: 'uda-5.f1',
@@ -290,6 +290,22 @@ class ComodeGamification {
         if (!parsed.unlockedTitles) parsed.unlockedTitles = [];
         if (!parsed.completedLessons) parsed.completedLessons = [];
         if (typeof parsed.xp !== 'number') parsed.xp = 0;
+
+        // Riconciliazione: rimuove eventuali titoli UDA assegnati prima di aver completato tutte le lezioni richieste
+        const initialCount = parsed.unlockedTitles.length;
+        parsed.unlockedTitles = parsed.unlockedTitles.filter(t => {
+          const uda = this.udas.find(u => u.id === t.udaId);
+          if (!uda) return true;
+          return uda.requiredLessons.every(req => parsed.completedLessons.includes(req));
+        });
+        if (parsed.unlockedTitles.length !== initialCount) {
+          try {
+            localStorage.setItem(this.storageKey, JSON.stringify(parsed));
+          } catch (e) {
+            /* ignore */
+          }
+        }
+
         return parsed;
       }
     } catch (e) {
@@ -502,6 +518,22 @@ class ComodeGamification {
     }
     if (card && isDone) {
       card.classList.add('is-completed');
+    }
+
+    // Allinea la barra di progresso dell'attività al 100% se la lezione è completata
+    if (isDone) {
+      const fill = document.getElementById('progressFill');
+      const score = document.getElementById('progressScore');
+      if (fill) fill.style.width = '100%';
+      if (score) {
+        const text = score.textContent || '';
+        const match = text.match(/\/ *(\d+)/);
+        const total = match ? match[1] : '7';
+        score.textContent = `${total} / ${total} completati`;
+      }
+      document.dispatchEvent(new CustomEvent('comode:lessonCompleted', {
+        detail: { lessonId: document.body.getAttribute('data-lesson-id') }
+      }));
     }
   }
 
