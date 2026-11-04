@@ -536,149 +536,10 @@
     <!-- ========================================================
          SEZIONE 1: SCHEDA TEORIA FLASH (7 Ancore #teoria-1..7)
          ======================================================== -->
-    <section class="theory-wrapper">
-      <div class="section-header">
-        <h2 class="section-title">
-          <span class="icon">⚡</span> Scheda Teoria Flash: Le Coordinate di Base
-        </h2>
-        <button id="toggleTheoryBtn" class="collapse-btn">
-          <span>Nascondi Teoria</span> ▴
-        </button>
-      </div>
-
-      <div id="theoryContent" class="theory-grid">
-
-        <!-- Teoria 1 -->
-        <div class="theory-card" id="teoria-1">
-          <div class="theory-card-header">
-            <span class="pill-num">1</span>
-            <span>Retta Orientata &amp; Unità di Misura</span>
-          </div>
-          <ul class="theory-list">
-            <li>Per fissare i numeri su una retta servono <strong>3 scelte</strong>: l'<strong>origine</strong> ($0$),
-              il <strong>verso</strong> (freccia a destra per i positivi) e l'<strong>unità di misura</strong> $u$
-              (distanza tra $0$ e $1$).</li>
-            <li>Per piazzare $\frac{m}{n}$, dividi l'unità $u$ in $n$ parti uguali (le tacche) e fai $m$ passi da $0$ (a
-              destra se $+$, a sinistra se $-$).</li>
-          </ul>
-        </div>
-
-        <!-- Teoria 2 -->
-        <div class="theory-card" id="teoria-2">
-          <div class="theory-card-header">
-            <span class="pill-num">2</span>
-            <span>Densità di $\mathbb{Q}$ e Punto Medio</span>
-          </div>
-          <ul class="theory-list">
-            <li>$\mathbb{Z}$ è <strong>discreto</strong>: tra $2$ e $3$ non cade nessun altro numero intero.</li>
-            <li>$\mathbb{Q}$ invece è <strong>denso</strong>: tra due razionali qualsiasi $a < b$ c'è <em>sempre</em> un
-              altro razionale (e quindi ce ne sono <strong>infiniti</strong>!).</li>
-            <li><strong>Formula del Punto Medio</strong>: il numero esattamente a metà tra $a$ e $b$ è la loro media
-              aritmetica $m = \frac{a + b}{2}$.</li>
-          </ul>
-        </div>
-
-        <!-- Teoria 3 -->
-        <div class="theory-card" id="teoria-3">
-          <div class="theory-card-header">
-            <span class="pill-num">3</span>
-            <span>Le Potenze di 10 in $\mathbb{Z}$</span>
-          </div>
-          <ul class="theory-list">
-            <li><strong>Esponente positivo ($10^n$)</strong>: l'$1$ seguito da $n$ zeri ($10^3 = 1\,000$, $10^6 =
-              1\text{ milione}$, $10^9 = 1\text{ miliardo}$).</li>
-            <li><strong>Esponente zero</strong>: $10^0 = 1$ (il centro della scala, cioè l'unità).</li>
-            <li><strong>Esponente negativo ($10^{-n}$)</strong>: significa dividere per $10^n$, cioè $10^{-n} =
-              \frac{1}{10^n}$ ($10^{-1} = 0,1$; $10^{-2} = 0,01$; $10^{-3} = 0,001$).</li>
-            <li><strong>Prodotto rapido</strong>: $10^a \times 10^b = 10^{a+b}$ (si sommano gli esponenti!).</li>
-          </ul>
-        </div>
-
-        <!-- Teoria 4 -->
-        <div class="theory-card" id="teoria-4">
-          <div class="theory-card-header">
-            <span class="pill-num">4</span>
-            <span>La Notazione Scientifica ($a \times 10^n$)</span>
-          </div>
-          <ul class="theory-list">
-            <li>Un numero positivo è in <strong>notazione scientifica</strong> se è scritto come $a \times 10^n$ con
-              <strong>$1 \le a < 10$</strong> (una sola cifra diversa da zero prima della virgola!) e $n \in
-              \mathbb{Z}$.</li>
-            <li><strong>Numeri grandi ($>10$)</strong>: conta di quanti posti $n$ sposti la virgola a <em>sinistra</em>
-              $\to$ esponente $+n$ ($384\,000 = 3,84 \times 10^5$).</li>
-            <li><strong>Numeri piccoli ($<1$)</strong>: conta di quanti posti $n$ sposti la virgola a <em>destra</em>
-              $\to$ esponente $-n$ ($0,007 = 7 \times 10^{-3}$).</li>
-          </ul>
-        </div>
-
-        <!-- Teoria 5 -->
-        <div class="theory-card" id="teoria-5">
-          <div class="theory-card-header">
-            <span class="pill-num">5</span>
-            <span>L'Ordine di Grandezza (OdG)</span>
-          </div>
-          <ul class="theory-list">
-            <li>L'<strong>ordine di grandezza</strong> è la <em>potenza di 10 più vicina</em> al numero considerato.
-            </li>
-            <li>Scritto il numero in notazione scientifica $a \times 10^n$ (con $1 \le a < 10$):
-              <br>• Se <strong>$a < 5$</strong> $\implies$ OdG $= 10^n$ (es. $3,2 \times 10^4 \to 10^4$).
-              <br>• Se <strong>$a \ge 5$</strong> $\implies$ OdG $= 10^{n+1}$ (es. $8,8 \times 10^3 = 8\,800$ è più
-              vicino a $10\,000 = 10^4$ che a $1\,000 = 10^3$!).
-            </li>
-          </ul>
-        </div>
-
-        <!-- Teoria 6 -->
-        <div class="theory-card" id="teoria-6">
-          <div class="theory-card-header">
-            <span class="pill-num">6</span>
-            <span>Chi era Enrico Fermi &amp; i «Problemi alla Fermi»</span>
-          </div>
-          <ul class="theory-list">
-            <li><strong>Enrico Fermi (1901–1954)</strong>: fisico italiano tra i più grandi del XX secolo e Premio Nobel 1938, celebre per la sua capacità di calcolare stime rapidissime "sul retro di una busta". Al test <em>Trinity</em> del 1945 stimò l'energia dell'esplosione nucleare ($10\text{ kilotoni}$) semplicemente osservando di quanto l'onda d'urto faceva volare alcuni pezzetti di carta lasciati cadere dalla mano!</li>
-            <li><strong>Cosa sono i «Problemi alla Fermi»</strong>: stime quantitative di fenomeni apparentemente impossibili da calcolare senza dati precisi (es. <em>«Quanti accordatori di pianoforti lavorano a Chicago?»</em> o <em>«Quanti litri d'acqua sprechiamo lavandoci i denti?»</em>).</li>
-            <li><strong>Compensazione degli Errori</strong>: dividendo il problema in fattori stimabili col buon senso, alcune stime saranno un po' per eccesso e altre per difetto: nel moltiplicarle o dividerle, <em>gli errori tendono a compensarsi</em>, portando il risultato finale dritto nell'<strong>ordine di grandezza reale</strong> ($10^k$).</li>
-          </ul>
-        </div>
-
-        <!-- Teoria 7 -->
-        <div class="theory-card" id="teoria-7">
-          <div class="theory-card-header">
-            <span class="pill-num">7</span>
-            <span>Scale Lineari vs Scale a Potenze di 10 &amp; Sensi</span>
-          </div>
-          <ul class="theory-list">
-            <li><strong>Scala Lineare (Additiva)</strong>: passi uguali sommano lo stesso valore ($0, 10, 20, 30\dots$).
-              Se un grafico a barre taglia lo zero (es. parte da $900$), esagera visivamente piccole differenze!</li>
-            <li><strong>Scala Logaritmica (Moltiplicativa)</strong>: passi uguali <em>moltiplicano</em> per $10$ ($1,
-              10, 100, 1\,000\dots$). Permette di vedere sullo stesso asse formiche e galassie.</li>
-            <li><strong>Legge di Weber-Fechner</strong>: i sensi umani percepiscono un cambiamento solo se raggiunge una
-              <em>frazione costante</em> dello stimolo iniziale (es. $\sim \frac{1}{10}$ del peso).</li>
-          </ul>
-        </div>
-
-        <!-- Quote Interdisciplinare Scienze Umane -->
-        <div class="quote-box">
-          <span style="font-size: 1.6rem;">🧠</span>
-          <div>
-            <strong>Ponte Matematica ↔ Psicologia (Scienze Umane)</strong>:
-            Perché la scala del volume audio (Decibel) o della luminosità stellare procede per potenze di $10$? Perché
-            la nostra mente comprime gli stimoli esterni enormi su una <em>scala mentale interna</em> per permetterci di
-            udire sia il fruscio di una foglia sia il rombo di un tuono!
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-
-    <!-- ========================================================
-         SEZIONE 2: I 7 LABORATORI OPERATIVI INTERATTIVI
-         ======================================================== -->
     <main class="labs-container">
       <div class="section-header">
         <h2 class="section-title">
-          <span class="icon">🧪</span> Laboratori Operativi di Problem Solving
+          <span class="icon">🧪</span> Laboratori Operativi &amp; Teoria Integrata
         </h2>
       </div>
 
@@ -692,18 +553,6 @@
           <span class="lab-xp-badge">+10 XP</span>
         </div>
         <h3 class="lab-title">Il Righello Razionale: Scegliere le Tacche Giuste</h3>
-
-        <div class="theory-link-box">
-          <span class="tl-icon">🔗</span>
-          <div>
-            <strong>Collegamento Teoria ↔ Pratica:</strong> Questo laboratorio mette in pratica la
-            <a href="#teoria-1" class="theory-link-anchor"
-              onclick="event.preventDefault(); scrollToTheory('teoria-1');">Teoria 1 • Retta Orientata &amp; Unità di
-              Misura</a>:
-            il denominatore di una frazione ci dice in quante parti uguali dividere ogni unità tra un intero e il
-            successivo, mentre il numeratore e il segno ci dicono quanti passi fare da $0$.
-          </div>
-        </div>
 
         <p class="lab-intro">
           <strong>Sfida in 2 mosse:</strong> Prima scegli il righello con la suddivisione adatta e <strong>clicca
@@ -756,6 +605,23 @@
             </div>
           </div>
         </div>
+      
+
+        <!-- Pillola Teoria Just-in-Time (a fine laboratorio) -->
+        <div class="theory-card" id="teoria-1">
+          <div class="theory-card-header">
+            <span class="pill-num">1</span>
+            <span>La Teoria in Breve • Retta Orientata &amp; Unità di Misura</span>
+          </div>
+          <ul class="theory-list">
+            <li>Per fissare i numeri su una retta servono <strong>3 scelte</strong>: l'<strong>origine</strong> ($0$),
+              il <strong>verso</strong> (freccia a destra per i positivi) e l'<strong>unità di misura</strong> $u$
+              (distanza tra $0$ e $1$).</li>
+            <li>Per piazzare $\frac{m}{n}$, dividi l'unità $u$ in $n$ parti uguali (le tacche) e fai $m$ passi da $0$ (a
+              destra se $+$, a sinistra se $-$).</li>
+          </ul>
+        </div>
+
       </article>
 
 
@@ -768,18 +634,6 @@
           <span class="lab-xp-badge">+10 XP</span>
         </div>
         <h3 class="lab-title">Il Microscopio Infinito: Esploratore SVG con Zoom Continuo</h3>
-
-        <div class="theory-link-box">
-          <span class="tl-icon">🔗</span>
-          <div>
-            <strong>Collegamento Teoria ↔ Pratica:</strong> Questo laboratorio visualizza la
-            <a href="#teoria-2" class="theory-link-anchor"
-              onclick="event.preventDefault(); scrollToTheory('teoria-2');">Teoria 2 • Densità di $\mathbb{Q}$ e Punto
-              Medio</a>:
-            ingrandendo qualsiasi tratto della retta scopriamo infiniti numeri razionali annidati uno dentro l'altro, e
-            con la media $\frac{a+b}{2}$ possiamo costruire sempre il punto esattamente nel mezzo.
-          </div>
-        </div>
 
         <p class="lab-intro">
           Trascina lo <strong>slider di Zoom Continuo</strong> fino a $1000\times$ per vedere apparire decimi,
@@ -858,6 +712,23 @@
             </div>
           </div>
         </div>
+      
+
+        <!-- Pillola Teoria Just-in-Time (a fine laboratorio) -->
+        <div class="theory-card" id="teoria-2">
+          <div class="theory-card-header">
+            <span class="pill-num">2</span>
+            <span>La Teoria in Breve • Densità di $\mathbb{Q}$ e Punto Medio</span>
+          </div>
+          <ul class="theory-list">
+            <li>$\mathbb{Z}$ è <strong>discreto</strong>: tra $2$ e $3$ non cade nessun altro numero intero.</li>
+            <li>$\mathbb{Q}$ invece è <strong>denso</strong>: tra due razionali qualsiasi $a < b$ c'è <em>sempre</em> un
+              altro razionale (e quindi ce ne sono <strong>infiniti</strong>!).</li>
+            <li><strong>Formula del Punto Medio</strong>: il numero esattamente a metà tra $a$ e $b$ è la loro media
+              aritmetica $m = \frac{a + b}{2}$.</li>
+          </ul>
+        </div>
+
       </article>
 
 
@@ -870,21 +741,6 @@
           <span class="lab-xp-badge">+10 XP</span>
         </div>
         <h3 class="lab-title">Ordini di Grandezza: Dal Diametro dell'Atomo alle Galassie</h3>
-
-        <div class="theory-link-box">
-          <span class="tl-icon">🔗</span>
-          <div>
-            <strong>Collegamento Teoria ↔ Pratica:</strong> Questo laboratorio integra la
-            <a href="#teoria-3" class="theory-link-anchor"
-              onclick="event.preventDefault(); scrollToTheory('teoria-3');">Teoria 3 • Potenze di $10$</a>,
-            la <a href="#teoria-4" class="theory-link-anchor"
-              onclick="event.preventDefault(); scrollToTheory('teoria-4');">Teoria 4 • Notazione Scientifica</a>
-            e la <a href="#teoria-5" class="theory-link-anchor"
-              onclick="event.preventDefault(); scrollToTheory('teoria-5');">Teoria 5 • Ordine di Grandezza</a>,
-            mostrando come un singolo esponente intero $n$ permetta di viaggiare da $10^{-10}\text{ m}$ a
-            $10^{21}\text{ m}$.
-          </div>
-        </div>
 
         <p class="lab-intro">
           Scorri il cursore delle potenze di $10$ o clicca sulle tappe dell'Universo per osservare come cambia il
@@ -982,6 +838,42 @@
             </div>
           </div>
         </div>
+      
+
+        <!-- Pillola Teoria Just-in-Time (a fine laboratorio) -->
+        <div class="theory-card" id="teoria-3">
+          <div class="theory-card-header">
+            <span class="pill-num">3</span>
+            <span>La Teoria in Breve • Le Potenze di 10 in $\mathbb{Z}$</span>
+          </div>
+          <ul class="theory-list">
+            <li><strong>Esponente positivo ($10^n$)</strong>: l'$1$ seguito da $n$ zeri ($10^3 = 1\,000$, $10^6 =
+              1\text{ milione}$, $10^9 = 1\text{ miliardo}$).</li>
+            <li><strong>Esponente zero</strong>: $10^0 = 1$ (il centro della scala, cioè l'unità).</li>
+            <li><strong>Esponente negativo ($10^{-n}$)</strong>: significa dividere per $10^n$, cioè $10^{-n} =
+              \frac{1}{10^n}$ ($10^{-1} = 0,1$; $10^{-2} = 0,01$; $10^{-3} = 0,001$).</li>
+            <li><strong>Prodotto rapido</strong>: $10^a \times 10^b = 10^{a+b}$ (si sommano gli esponenti!).</li>
+          </ul>
+        </div>
+
+
+        <!-- Pillola Teoria Just-in-Time (a fine laboratorio) -->
+        <div class="theory-card" id="teoria-4">
+          <div class="theory-card-header">
+            <span class="pill-num">4</span>
+            <span>La Teoria in Breve • La Notazione Scientifica ($a \times 10^n$)</span>
+          </div>
+          <ul class="theory-list">
+            <li>Un numero positivo è in <strong>notazione scientifica</strong> se è scritto come $a \times 10^n$ con
+              <strong>$1 \le a < 10$</strong> (una sola cifra diversa da zero prima della virgola!) e $n \in
+              \mathbb{Z}$.</li>
+            <li><strong>Numeri grandi ($>10$)</strong>: conta di quanti posti $n$ sposti la virgola a <em>sinistra</em>
+              $\to$ esponente $+n$ ($384\,000 = 3,84 \times 10^5$).</li>
+            <li><strong>Numeri piccoli ($<1$)</strong>: conta di quanti posti $n$ sposti la virgola a <em>destra</em>
+              $\to$ esponente $-n$ ($0,007 = 7 \times 10^{-3}$).</li>
+          </ul>
+        </div>
+
       </article>
 
 
@@ -994,18 +886,6 @@
           <span class="lab-xp-badge">+10 XP</span>
         </div>
         <h3 class="lab-title">I «Problemi alla Fermi»: L'Arte della Stima &amp; Ordini di Grandezza</h3>
-
-        <div class="theory-link-box">
-          <span class="tl-icon">🔗</span>
-          <div>
-            <strong>Collegamento Teoria ↔ Pratica:</strong> Questo laboratorio mette in azione la
-            <a href="#teoria-5" class="theory-link-anchor"
-              onclick="event.preventDefault(); scrollToTheory('teoria-5');">Teoria 5 • Ordine di Grandezza</a> e la
-            <a href="#teoria-6" class="theory-link-anchor"
-              onclick="event.preventDefault(); scrollToTheory('teoria-6');">Teoria 6 • Chi era Enrico Fermi &amp; i Problemi alla Fermi</a>:
-            quando mancano dati precisi, la scomposizione a catena e il calcolo con le potenze di $10$ permettono di trovare la dimensione corretta di qualsiasi fenomeno.
-          </div>
-        </div>
 
         <div class="l02-fermi-hero">
           <div class="l02-fermi-avatar">⚛️</div>
@@ -1195,6 +1075,39 @@
             Il calcolo dà $(3,68 \times 10^7) \times (8 \times 10^1) = (3,68 \times 8) \times 10^{7+1} = 29,4 \times 10^8 = 2,94 \times 10^9 \approx 3 \times 10^9$. L'esponente è $9$ e l'ordine di grandezza resta $10^9$ perché $3 < 5$!
           </div>
         </div>
+      
+
+        <!-- Pillola Teoria Just-in-Time (a fine laboratorio) -->
+        <div class="theory-card" id="teoria-5">
+          <div class="theory-card-header">
+            <span class="pill-num">5</span>
+            <span>La Teoria in Breve • L'Ordine di Grandezza (OdG)</span>
+          </div>
+          <ul class="theory-list">
+            <li>L'<strong>ordine di grandezza</strong> è la <em>potenza di 10 più vicina</em> al numero considerato.
+            </li>
+            <li>Scritto il numero in notazione scientifica $a \times 10^n$ (con $1 \le a < 10$):
+              <br>• Se <strong>$a < 5$</strong> $\implies$ OdG $= 10^n$ (es. $3,2 \times 10^4 \to 10^4$).
+              <br>• Se <strong>$a \ge 5$</strong> $\implies$ OdG $= 10^{n+1}$ (es. $8,8 \times 10^3 = 8\,800$ è più
+              vicino a $10\,000 = 10^4$ che a $1\,000 = 10^3$!).
+            </li>
+          </ul>
+        </div>
+
+
+        <!-- Pillola Teoria Just-in-Time (a fine laboratorio) -->
+        <div class="theory-card" id="teoria-6">
+          <div class="theory-card-header">
+            <span class="pill-num">6</span>
+            <span>La Teoria in Breve • Chi era Enrico Fermi &amp; i «Problemi alla Fermi»</span>
+          </div>
+          <ul class="theory-list">
+            <li><strong>Enrico Fermi (1901–1954)</strong>: fisico italiano tra i più grandi del XX secolo e Premio Nobel 1938, celebre per la sua capacità di calcolare stime rapidissime "sul retro di una busta". Al test <em>Trinity</em> del 1945 stimò l'energia dell'esplosione nucleare ($10\text{ kilotoni}$) semplicemente osservando di quanto l'onda d'urto faceva volare alcuni pezzetti di carta lasciati cadere dalla mano!</li>
+            <li><strong>Cosa sono i «Problemi alla Fermi»</strong>: stime quantitative di fenomeni apparentemente impossibili da calcolare senza dati precisi (es. <em>«Quanti accordatori di pianoforti lavorano a Chicago?»</em> o <em>«Quanti litri d'acqua sprechiamo lavandoci i denti?»</em>).</li>
+            <li><strong>Compensazione degli Errori</strong>: dividendo il problema in fattori stimabili col buon senso, alcune stime saranno un po' per eccesso e altre per difetto: nel moltiplicarle o dividerle, <em>gli errori tendono a compensarsi</em>, portando il risultato finale dritto nell'<strong>ordine di grandezza reale</strong> ($10^k$).</li>
+          </ul>
+        </div>
+
       </article>
 
 
@@ -1207,18 +1120,6 @@
           <span class="lab-xp-badge">+10 XP</span>
         </div>
         <h3 class="lab-title">Percezione Umana e Legge di Weber-Fechner nei Sensi</h3>
-
-        <div class="theory-link-box">
-          <span class="tl-icon">🔗</span>
-          <div>
-            <strong>Collegamento Teoria ↔ Pratica:</strong> Questo laboratorio collega la
-            <a href="#teoria-7" class="theory-link-anchor"
-              onclick="event.preventDefault(); scrollToTheory('teoria-7');">Teoria 7 • Scale Moltiplicative e Legge di
-              Weber-Fechner</a>
-            alla <strong>Psicologia della Percezione</strong>: i nostri sensi non funzionano per addizione, ma per
-            <em>rapporti</em> (frazioni costanti) e potenze di $10$!
-          </div>
-        </div>
 
         <p class="lab-intro">
           Fai una prova mentale: se tieni in mano una bustina da <strong>$100\text{ g}$</strong> e qualcuno ci appoggia
@@ -1328,6 +1229,24 @@
             </div>
           </div>
         </div>
+      
+
+        <!-- Pillola Teoria Just-in-Time (a fine laboratorio) -->
+        <div class="theory-card" id="teoria-7">
+          <div class="theory-card-header">
+            <span class="pill-num">7</span>
+            <span>La Teoria in Breve • Scale Lineari vs Scale a Potenze di 10 &amp; Sensi</span>
+          </div>
+          <ul class="theory-list">
+            <li><strong>Scala Lineare (Additiva)</strong>: passi uguali sommano lo stesso valore ($0, 10, 20, 30\dots$).
+              Se un grafico a barre taglia lo zero (es. parte da $900$), esagera visivamente piccole differenze!</li>
+            <li><strong>Scala Logaritmica (Moltiplicativa)</strong>: passi uguali <em>moltiplicano</em> per $10$ ($1,
+              10, 100, 1\,000\dots$). Permette di vedere sullo stesso asse formiche e galassie.</li>
+            <li><strong>Legge di Weber-Fechner</strong>: i sensi umani percepiscono un cambiamento solo se raggiunge una
+              <em>frazione costante</em> dello stimolo iniziale (es. $\sim \frac{1}{10}$ del peso).</li>
+          </ul>
+        </div>
+
       </article>
 
 
@@ -1340,18 +1259,6 @@
           <span class="lab-xp-badge">+10 XP</span>
         </div>
         <h3 class="lab-title">Scala Lineare vs Scala a Potenze di 10: Quando i Dati Scompaiono</h3>
-
-        <div class="theory-link-box">
-          <span class="tl-icon">🔗</span>
-          <div>
-            <strong>Collegamento Teoria ↔ Pratica:</strong> Questo laboratorio applica la
-            <a href="#teoria-7" class="theory-link-anchor"
-              onclick="event.preventDefault(); scrollToTheory('teoria-7');">Teoria 7 • Scale Lineari vs Scale
-              Logaritmiche (a Potenze di 10)</a>:
-            quando confrontiamo comunità umane di dimensioni molto diverse, una scala lineare schiaccia le realtà più
-            piccole sullo zero, mentre una scala moltiplicativa rende tutti leggibili.
-          </div>
-        </div>
 
         <p class="lab-intro">
           Vogliamo rappresentare sulla stessa retta 4 gruppi umani: una <strong>classe ($25$ persone)</strong>, un
@@ -1410,14 +1317,6 @@
           <span class="lab-xp-badge">+10 XP</span>
         </div>
         <h3 class="lab-title">Palestra Mentale: 4 Sfide Lampo su Retta, Potenze e Stime</h3>
-
-        <div class="theory-link-box">
-          <span class="tl-icon">🔗</span>
-          <div>
-            <strong>Collegamento Teoria ↔ Pratica:</strong> Risolvi le 4 schede rapide per sbloccare il laboratorio:
-            ogni scheda riporta il link diretto alla pillola di teoria che stai allenando.
-          </div>
-        </div>
 
         <div class="gym-grid">
           <!-- Gym 1 -->
@@ -1556,24 +1455,6 @@
         <h3 class="scheda-title">
           Scheda Operativa: «Decodificare Scale Distorte nei Media»
         </h3>
-
-        <div class="theory-link-box">
-          <span class="tl-icon">🔗</span>
-          <div>
-            <strong>Collegamento Teoria ↔ Pratica:</strong> Questo compito di realtà mette a frutto la
-            <a href="#teoria-1" class="theory-link-anchor"
-              onclick="event.preventDefault(); scrollToTheory('teoria-1');">Teoria 1 • Origine e Unità sulla Retta</a>,
-            la <a href="#teoria-4" class="theory-link-anchor"
-              onclick="event.preventDefault(); scrollToTheory('teoria-4');">Teoria 4 &amp; 5 • Notazione Scientifica e
-              Ordini di Grandezza</a>,
-            la <a href="#teoria-6" class="theory-link-anchor"
-              onclick="event.preventDefault(); scrollToTheory('teoria-6');">Teoria 6 • Problemi alla Fermi &amp; Stime</a>
-            e la <a href="#teoria-7" class="theory-link-anchor"
-              onclick="event.preventDefault(); scrollToTheory('teoria-7');">Teoria 7 • Scale Lineari, Scale a Potenze di
-              10 e Percezione</a>
-            per difendersi dalle manipolazioni visive nei social media e nei giornali.
-          </div>
-        </div>
 
         <div class="scheda-delivery-callout">
           <strong>📅 Modalità di lavoro e consegna (Assegno per Casa):</strong> Puoi svolgere questo compito di realtà

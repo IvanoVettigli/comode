@@ -452,140 +452,6 @@
     <!-- ========================================================
          SEZIONE 1: SCHEDA TEORIA FLASH (6 Ancore #teoria-1..6)
          ======================================================== -->
-    <section class="theory-wrapper">
-      <div class="section-header">
-        <h2 class="section-title">
-          <span class="icon">⚡</span> Scheda Teoria Flash: Insiemi, Logica e Assurdo
-        </h2>
-        <button id="toggleTheoryBtn" class="collapse-btn">
-          <span>Nascondi Teoria</span> ▴
-        </button>
-      </div>
-
-      <div id="theoryContent" class="theory-grid">
-
-        <!-- Teoria 1 -->
-        <div class="theory-card" id="teoria-1">
-          <div class="theory-card-header">
-            <span class="pill-num">1</span>
-            <span>Insiemi, Appartenenza e Sottoinsiemi</span>
-          </div>
-          <ul class="theory-list">
-            <li>Un <strong>insieme</strong> in senso matematico è un raggruppamento definito da un criterio
-              <em>oggettivo</em> (es. «i numeri primi minori di $10$», non «i film belli»).</li>
-            <li>Simboli base: $x \in A$ ($x$ appartiene ad $A$), $x \notin A$ (non appartiene), $\emptyset$ (insieme
-              vuoto, zero elementi), $A \subseteq B$ ($A$ è <strong>sottoinsieme</strong> di $B$: ogni elemento di $A$
-              sta anche in $B$, come $\mathbb{N} \subseteq \mathbb{Z} \subseteq \mathbb{Q}$).</li>
-          </ul>
-        </div>
-
-        <!-- Teoria 2 -->
-        <div class="theory-card" id="teoria-2">
-          <div class="theory-card-header">
-            <span class="pill-num">2</span>
-            <span>Operazioni tra Insiemi &amp; Doppio Conteggio</span>
-          </div>
-          <ul class="theory-list">
-            <li><strong>Intersezione $A \cap B$</strong>: elementi comuni che stanno in $A$ <strong>e</strong> in $B$.
-            </li>
-            <li><strong>Unione $A \cup B$</strong>: elementi che stanno in $A$ <strong>o</strong> in $B$ (o in
-              entrambi!).</li>
-            <li><strong>Differenza $A \setminus B$</strong>: elementi che stanno in $A$ ma <strong>non</strong> in $B$;
-              <strong>Complementare $\overline{A}$</strong>: elementi dell'universo $U$ fuori da $A$.</li>
-            <li><strong>Formula dei sondaggi</strong>: $|A \cup B| = |A| + |B| - |A \cap B|$ (si toglie l'intersezione
-              per non contare due volte chi è in mezzo!).</li>
-          </ul>
-        </div>
-
-        <!-- Teoria 3 -->
-        <div class="theory-card" id="teoria-3">
-          <div class="theory-card-header">
-            <span class="pill-num">3</span>
-            <span>Proposizioni e Connettivi («non», «e», «o»)</span>
-          </div>
-          <ul class="theory-list">
-            <li>Una <strong>proposizione logica</strong> è un'affermazione a cui si può attribuire senza ambiguità il
-              valore <strong>Vero (V)</strong> o <strong>Falso (F)</strong>.</li>
-            <li><strong>Negazione $\neg p$</strong> («non $p$»): inverte V in F e F in V (corrisponde al complementare
-              $\overline{A}$).</li>
-            <li><strong>Congiunzione $p \land q$</strong> («$p$ <strong>e</strong> $q$»): è Vera <em>solo se entrambe
-                sono Vere</em> (corrisponde a $A \cap B$).</li>
-            <li><strong>Disgiunzione inclusiva $p \lor q$</strong> («$p$ <strong>o</strong> $q$», latino <em>vel</em>):
-              basta che <em>almeno una sia Vera</em>; è Falsa solo se sono entrambe False (corrisponde a $A \cup B$).
-            </li>
-          </ul>
-        </div>
-
-        <!-- Teoria 4 -->
-        <div class="theory-card" id="teoria-4">
-          <div class="theory-card-header">
-            <span class="pill-num">4</span>
-            <span>Implicazione «Se $p$ allora $q$» ($p \Rightarrow q$)</span>
-          </div>
-          <ul class="theory-list">
-            <li>In $p \Rightarrow q$, $p$ è l'<strong>ipotesi</strong> (premessa) e $q$ è la <strong>tesi</strong>
-              (conseguenza). Pensa a una promessa: «Se piove ($p$), prendo l'ombrello ($q$)».</li>
-            <li>La promessa è infranta (<strong>Falsa</strong>) <strong>in un solo caso</strong>: quando $p$ è
-              <strong>Vera</strong> e $q$ è <strong>Falsa</strong>! Se non piove ($p$ Falsa), la promessa non è violata
-              comunque tu agisca.</li>
-            <li><strong>Contronominale valida</strong>: $p \Rightarrow q$ equivale sempre a $\neg q \Rightarrow \neg p$!
-              Attenzione invece alla <strong>fallacia dell'inversa</strong>: $q \Rightarrow p$ <em>non</em> è
-              garantita!</li>
-          </ul>
-        </div>
-
-        <!-- Teoria 5 -->
-        <div class="theory-card" id="teoria-5">
-          <div class="theory-card-header">
-            <span class="pill-num">5</span>
-            <span>Test di Wason, Bias di Conferma e Controesempi</span>
-          </div>
-          <ul class="theory-list">
-            <li><strong>Quantificatori</strong>: per dimostrare «Per ogni $x$ ($\forall x$)...» serve un ragionamento
-              generale; per smontarlo basta <strong>un solo controesempio</strong> ($\exists x$ che lo viola)!</li>
-            <li><strong>Test di Wason (1966)</strong>: la mente umana soffre del <em>bias di conferma</em> (cerca casi
-              $p \land q$ che confermano la propria idea), mentre per verificare rigorosamente $p \Rightarrow q$ bisogna
-              cercare eventuali controesempi controllando $p$ e $\neg q$!</li>
-          </ul>
-        </div>
-
-        <!-- Teoria 6 -->
-        <div class="theory-card" id="teoria-6">
-          <div class="theory-card-header">
-            <span class="pill-num">6</span>
-            <span>La Dimostrazione per Assurdo</span>
-          </div>
-          <ul class="theory-list">
-            <li>Come si dimostra un teorema «Ipotesi $I \Rightarrow$ Tesi $T$» quando la via diretta è difficile?</li>
-            <li><strong>Ricetta in 3 passi (*Reductio ad absurdum*)</strong>:
-              <br>1. Mantieni l'ipotesi $I$ e <strong>supponi per assurdo che la tesi sia falsa</strong> ($\neg T$);
-              <br>2. Deduci conseguenze logiche corrette finché arrivi a una <strong>contraddizione impossibile</strong>
-              (un <em>assurdo</em>!);
-              <br>3. Poiché una premessa che porta all'assurdo non può essere vera, $\neg T$ è falsa: dunque <strong>la
-                tesi $T$ è necessariamente vera!</strong>
-            </li>
-          </ul>
-        </div>
-
-        <!-- Quote Interdisciplinare Scienze Umane -->
-        <div class="quote-box">
-          <span class="quote-icon">🧠</span>
-          <div class="quote-text">
-            <strong>Ponte con la Psicologia &amp; Educazione Civica:</strong> Lo psicologo cognitivo <em>Peter Wason</em>
-            e il filosofo della scienza <em>Karl Popper</em> hanno mostrato che la maturità del pensiero scientifico e
-            democratico non consiste nel raccogliere solo indizi che ci danno ragione (<em>bias di conferma</em>), ma
-            nel saper mettere alla prova le affermazioni cercando possibili <strong>controesempi</strong> e riconoscendo
-            le fallacie logiche nei dibattiti pubblici.
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-
-    <!-- ========================================================
-         SEZIONE 2: I 6 LABORATORI INTERATTIVI
-         ======================================================== -->
     <main class="labs-container">
 
       <!-- ======================================================
@@ -600,20 +466,6 @@
         </div>
 
         <h3 class="lab-title">Esploratore di Eulero-Venn &amp; Sondaggi Senza Doppi Conteggi</h3>
-
-        <div class="theory-link-box">
-          <span class="tl-icon">🔗</span>
-          <div>
-            <strong>Collegamento Teoria ↔ Pratica:</strong> Questo laboratorio collega la
-            <a href="#teoria-1" class="theory-link-anchor"
-              onclick="event.preventDefault(); scrollToTheory('teoria-1');">Teoria 1 • Insiemi</a>,
-            la <a href="#teoria-2" class="theory-link-anchor"
-              onclick="event.preventDefault(); scrollToTheory('teoria-2');">Teoria 2 • Operazioni &amp; Formula dei
-              Sondaggi</a>
-            e la <a href="#teoria-3" class="theory-link-anchor"
-              onclick="event.preventDefault(); scrollToTheory('teoria-3');">Teoria 3 • Connettivi «e», «o», «non»</a>.
-          </div>
-        </div>
 
         <p class="lab-objective">
           Clicca sulle operazioni insiemistiche qui sotto per illuminare la regione corrispondente nel diagramma di
@@ -731,6 +583,42 @@
             </div>
           </div>
         </div>
+      
+
+        <!-- Pillola Teoria Just-in-Time (a fine laboratorio) -->
+        <div class="theory-card" id="teoria-1">
+          <div class="theory-card-header">
+            <span class="pill-num">1</span>
+            <span>La Teoria in Breve • Insiemi, Appartenenza e Sottoinsiemi</span>
+          </div>
+          <ul class="theory-list">
+            <li>Un <strong>insieme</strong> in senso matematico è un raggruppamento definito da un criterio
+              <em>oggettivo</em> (es. «i numeri primi minori di $10$», non «i film belli»).</li>
+            <li>Simboli base: $x \in A$ ($x$ appartiene ad $A$), $x \notin A$ (non appartiene), $\emptyset$ (insieme
+              vuoto, zero elementi), $A \subseteq B$ ($A$ è <strong>sottoinsieme</strong> di $B$: ogni elemento di $A$
+              sta anche in $B$, come $\mathbb{N} \subseteq \mathbb{Z} \subseteq \mathbb{Q}$).</li>
+          </ul>
+        </div>
+
+
+        <!-- Pillola Teoria Just-in-Time (a fine laboratorio) -->
+        <div class="theory-card" id="teoria-2">
+          <div class="theory-card-header">
+            <span class="pill-num">2</span>
+            <span>La Teoria in Breve • Operazioni tra Insiemi &amp; Doppio Conteggio</span>
+          </div>
+          <ul class="theory-list">
+            <li><strong>Intersezione $A \cap B$</strong>: elementi comuni che stanno in $A$ <strong>e</strong> in $B$.
+            </li>
+            <li><strong>Unione $A \cup B$</strong>: elementi che stanno in $A$ <strong>o</strong> in $B$ (o in
+              entrambi!).</li>
+            <li><strong>Differenza $A \setminus B$</strong>: elementi che stanno in $A$ ma <strong>non</strong> in $B$;
+              <strong>Complementare $\overline{A}$</strong>: elementi dell'universo $U$ fuori da $A$.</li>
+            <li><strong>Formula dei sondaggi</strong>: $|A \cup B| = |A| + |B| - |A \cap B|$ (si toglie l'intersezione
+              per non contare due volte chi è in mezzo!).</li>
+          </ul>
+        </div>
+
       </article>
 
 
@@ -746,21 +634,6 @@
         </div>
 
         <h3 class="lab-title">Simulatore di Tavole di Verità: «E», «O» e la Promessa «Se... Allora»</h3>
-
-        <div class="theory-link-box">
-          <span class="tl-icon">🔗</span>
-          <div>
-            <strong>Collegamento Teoria ↔ Pratica:</strong> Questo laboratorio allena la
-            <a href="#teoria-3" class="theory-link-anchor"
-              onclick="event.preventDefault(); scrollToTheory('teoria-3');">Teoria 3 • Connettivi $\neg, \land,
-              \lor$</a>
-            e la
-            <a href="#teoria-4" class="theory-link-anchor"
-              onclick="event.preventDefault(); scrollToTheory('teoria-4');">Teoria 4 • Implicazione $p \Rightarrow
-              q$</a>:
-            clicca sugli interruttori di $p$ e $q$ per vedere come reagisce ogni riga della tavola di verità!
-          </div>
-        </div>
 
         <p class="lab-objective">
           Immagina la promessa: <strong>«Se piove ($p$), allora prendo l'ombrello ($q$)»</strong>. Cambia lo stato di $p$
@@ -837,6 +710,27 @@
             </div>
           </div>
         </div>
+      
+
+        <!-- Pillola Teoria Just-in-Time (a fine laboratorio) -->
+        <div class="theory-card" id="teoria-3">
+          <div class="theory-card-header">
+            <span class="pill-num">3</span>
+            <span>La Teoria in Breve • Proposizioni e Connettivi («non», «e», «o»)</span>
+          </div>
+          <ul class="theory-list">
+            <li>Una <strong>proposizione logica</strong> è un'affermazione a cui si può attribuire senza ambiguità il
+              valore <strong>Vero (V)</strong> o <strong>Falso (F)</strong>.</li>
+            <li><strong>Negazione $\neg p$</strong> («non $p$»): inverte V in F e F in V (corrisponde al complementare
+              $\overline{A}$).</li>
+            <li><strong>Congiunzione $p \land q$</strong> («$p$ <strong>e</strong> $q$»): è Vera <em>solo se entrambe
+                sono Vere</em> (corrisponde a $A \cap B$).</li>
+            <li><strong>Disgiunzione inclusiva $p \lor q$</strong> («$p$ <strong>o</strong> $q$», latino <em>vel</em>):
+              basta che <em>almeno una sia Vera</em>; è Falsa solo se sono entrambe False (corrisponde a $A \cup B$).
+            </li>
+          </ul>
+        </div>
+
       </article>
 
 
@@ -852,21 +746,6 @@
         </div>
 
         <h3 class="lab-title">Il Test delle 4 Carte di Peter Wason: Sconfiggi il Bias di Conferma!</h3>
-
-        <div class="theory-link-box">
-          <span class="tl-icon">🔗</span>
-          <div>
-            <strong>Collegamento Teoria ↔ Pratica:</strong> Questo celebre esperimento di psicologia cognitiva mette
-            alla prova la
-            <a href="#teoria-4" class="theory-link-anchor"
-              onclick="event.preventDefault(); scrollToTheory('teoria-4');">Teoria 4 • Falsificazione di $p \Rightarrow
-              q$</a>
-            e la
-            <a href="#teoria-5" class="theory-link-anchor"
-              onclick="event.preventDefault(); scrollToTheory('teoria-5');">Teoria 5 • Test di Wason e Bias di
-              Conferma</a>.
-          </div>
-        </div>
 
         <p class="lab-objective">
           Sul tavolo ci sono <strong>4 carte</strong>: sappiamo per certo che ogni carta ha una <strong>lettera su un
@@ -912,6 +791,23 @@
           </div>
           <div id="lab3Msg" class="feedback-msg" style="display: none; margin-top: 0.75rem; width: 100%;"></div>
         </div>
+      
+
+        <!-- Pillola Teoria Just-in-Time (a fine laboratorio) -->
+        <div class="theory-card" id="teoria-5">
+          <div class="theory-card-header">
+            <span class="pill-num">5</span>
+            <span>La Teoria in Breve • Test di Wason, Bias di Conferma e Controesempi</span>
+          </div>
+          <ul class="theory-list">
+            <li><strong>Quantificatori</strong>: per dimostrare «Per ogni $x$ ($\forall x$)...» serve un ragionamento
+              generale; per smontarlo basta <strong>un solo controesempio</strong> ($\exists x$ che lo viola)!</li>
+            <li><strong>Test di Wason (1966)</strong>: la mente umana soffre del <em>bias di conferma</em> (cerca casi
+              $p \land q$ che confermano la propria idea), mentre per verificare rigorosamente $p \Rightarrow q$ bisogna
+              cercare eventuali controesempi controllando $p$ e $\neg q$!</li>
+          </ul>
+        </div>
+
       </article>
 
 
@@ -927,20 +823,6 @@
         </div>
 
         <h3 class="lab-title">Non Confondere l'Inversa con la Contronominale &amp; Caccia al Controesempio</h3>
-
-        <div class="theory-link-box">
-          <span class="tl-icon">🔗</span>
-          <div>
-            <strong>Collegamento Teoria ↔ Pratica:</strong> Questo laboratorio approfondisce la
-            <a href="#teoria-4" class="theory-link-anchor"
-              onclick="event.preventDefault(); scrollToTheory('teoria-4');">Teoria 4 • Contronominale ($\neg q
-              \Rightarrow \neg p$) vs Inversa ($q \Rightarrow p$)</a>
-            e la
-            <a href="#teoria-5" class="theory-link-anchor"
-              onclick="event.preventDefault(); scrollToTheory('teoria-5');">Teoria 5 • Quantificatore $\forall$ e
-              Controesempio</a>.
-          </div>
-        </div>
 
         <div class="l04-stage">
           <div style="font-weight: 800; font-size: 0.96rem; margin-bottom: 0.4rem;">
@@ -1000,6 +882,26 @@
             </div>
           </div>
         </div>
+      
+
+        <!-- Pillola Teoria Just-in-Time (a fine laboratorio) -->
+        <div class="theory-card" id="teoria-4">
+          <div class="theory-card-header">
+            <span class="pill-num">4</span>
+            <span>La Teoria in Breve • Implicazione «Se $p$ allora $q$» ($p \Rightarrow q$)</span>
+          </div>
+          <ul class="theory-list">
+            <li>In $p \Rightarrow q$, $p$ è l'<strong>ipotesi</strong> (premessa) e $q$ è la <strong>tesi</strong>
+              (conseguenza). Pensa a una promessa: «Se piove ($p$), prendo l'ombrello ($q$)».</li>
+            <li>La promessa è infranta (<strong>Falsa</strong>) <strong>in un solo caso</strong>: quando $p$ è
+              <strong>Vera</strong> e $q$ è <strong>Falsa</strong>! Se non piove ($p$ Falsa), la promessa non è violata
+              comunque tu agisca.</li>
+            <li><strong>Contronominale valida</strong>: $p \Rightarrow q$ equivale sempre a $\neg q \Rightarrow \neg p$!
+              Attenzione invece alla <strong>fallacia dell'inversa</strong>: $q \Rightarrow p$ <em>non</em> è
+              garantita!</li>
+          </ul>
+        </div>
+
       </article>
 
 
@@ -1015,17 +917,6 @@
         </div>
 
         <h3 class="lab-title">Il Teatro della Dimostrazione per Assurdo: Negare la Tesi per Vincere</h3>
-
-        <div class="theory-link-box">
-          <span class="tl-icon">🔗</span>
-          <div>
-            <strong>Collegamento Teoria ↔ Pratica:</strong> Questo laboratorio guida nell'uso concreto della
-            <a href="#teoria-6" class="theory-link-anchor"
-              onclick="event.preventDefault(); scrollToTheory('teoria-6');">Teoria 6 • Tecnica della Dimostrazione per
-              Assurdo</a>
-            su tre esempi completi prima di farti costruire i passaggi di una dimostrazione!
-          </div>
-        </div>
 
         <p class="lab-objective">
           Esplora le <strong>3 dimostrazioni per assurdo</strong> qui sotto: osserva come tutte seguano lo stesso
@@ -1088,6 +979,26 @@
             </div>
           </div>
         </div>
+      
+
+        <!-- Pillola Teoria Just-in-Time (a fine laboratorio) -->
+        <div class="theory-card" id="teoria-6">
+          <div class="theory-card-header">
+            <span class="pill-num">6</span>
+            <span>La Teoria in Breve • La Dimostrazione per Assurdo</span>
+          </div>
+          <ul class="theory-list">
+            <li>Come si dimostra un teorema «Ipotesi $I \Rightarrow$ Tesi $T$» quando la via diretta è difficile?</li>
+            <li><strong>Ricetta in 3 passi (*Reductio ad absurdum*)</strong>:
+              <br>1. Mantieni l'ipotesi $I$ e <strong>supponi per assurdo che la tesi sia falsa</strong> ($\neg T$);
+              <br>2. Deduci conseguenze logiche corrette finché arrivi a una <strong>contraddizione impossibile</strong>
+              (un <em>assurdo</em>!);
+              <br>3. Poiché una premessa che porta all'assurdo non può essere vera, $\neg T$ è falsa: dunque <strong>la
+                tesi $T$ è necessariamente vera!</strong>
+            </li>
+          </ul>
+        </div>
+
       </article>
 
 
@@ -1103,14 +1014,6 @@
         </div>
 
         <h3 class="lab-title">4 Sfide Rapide su Insiemi, Quantificatori e Tavole di Verità</h3>
-
-        <div class="theory-link-box">
-          <span class="tl-icon">🔗</span>
-          <div>
-            <strong>Collegamento Teoria ↔ Pratica:</strong> Completa le 4 schede rapide consultando, se serve, il
-            riferimento teorico dedicato su ciascuna scheda.
-          </div>
-        </div>
 
         <div class="gym-grid">
           <!-- Gym 1 -->
@@ -1253,24 +1156,6 @@
         <h3 class="scheda-title">
           Scheda Operativa: «Smascherare Fallacie nei Discorsi Pubblici»
         </h3>
-
-        <div class="theory-link-box">
-          <span class="tl-icon">🔗</span>
-          <div>
-            <strong>Collegamento Teoria ↔ Pratica:</strong> Questo compito di realtà integra la
-            <a href="#teoria-2" class="theory-link-anchor"
-              onclick="event.preventDefault(); scrollToTheory('teoria-2');">Teoria 2 • Diagrammi di Eulero-Venn nei
-              Sondaggi</a>,
-            la <a href="#teoria-4" class="theory-link-anchor"
-              onclick="event.preventDefault(); scrollToTheory('teoria-4');">Teoria 4 • Implicazione, Contronominale e
-              Fallacia dell'Inversa</a>,
-            la <a href="#teoria-5" class="theory-link-anchor"
-              onclick="event.preventDefault(); scrollToTheory('teoria-5');">Teoria 5 • Controesempi e Bias di
-              Conferma</a>
-            e la <a href="#teoria-6" class="theory-link-anchor"
-              onclick="event.preventDefault(); scrollToTheory('teoria-6');">Teoria 6 • Ragionamento per Assurdo</a>.
-          </div>
-        </div>
 
         <div class="scheda-delivery-callout">
           <strong>📅 Modalità di lavoro e consegna (Assegno per Casa):</strong> Puoi svolgere questo compito di realtà

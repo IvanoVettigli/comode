@@ -467,135 +467,12 @@
     </div>
 
 
-    <!-- SEZIONE 1: TEORIA FLASH SCHEMATICA (con ID ancorati agli esercizi) -->
-    <section class="theory-wrapper">
-      <div class="section-header">
-        <h2 class="section-title">
-          <span class="icon">⚡</span> Scheda Teoria Flash: Le Coordinate di Base
-        </h2>
-        <button id="toggleTheoryBtn" class="collapse-btn">
-          <span>Nascondi Teoria</span> ▴
-        </button>
-      </div>
-
-      <div id="theoryContent" class="theory-grid">
-
-        <!-- Box 1: Gli Insiemi Numerici -->
-        <div class="theory-card" id="teoria-1">
-          <div class="theory-card-header">
-            <span class="pill-num">1</span>
-            <span>Gli Insiemi Numerici ($\mathbb{N} \subset \mathbb{Z} \subset \mathbb{Q}$)</span>
-          </div>
-          <ul class="theory-list">
-            <li><strong>$\mathbb{N}$ (Naturali)</strong>: $\{0, 1, 2, \dots\}$ per contare. Chiuso solo per $+$ e
-              $\times$.</li>
-            <li><strong>$\mathbb{Z}$ (Interi)</strong>: include gli <em>opposti</em> $(-n)$. Risolve $a - b$ quando $b >
-              a$. Chiuso per $+$, $-$ e $\times$.</li>
-            <li><strong>$\mathbb{Q}$ (Razionali)</strong>: frazioni $\frac{m}{n}$ con $n \neq 0$. Introduce
-              l'<em>inverso</em> $\frac{1}{a}$. Chiuso anche per $\div$ ($\neq 0$).</li>
-          </ul>
-        </div>
-
-        <!-- Box 2: Proprietà Armi-Segrete -->
-        <div class="theory-card" id="teoria-2">
-          <div class="theory-card-header">
-            <span class="pill-num">2</span>
-            <span>Le 4 Proprietà delle Operazioni</span>
-          </div>
-          <ul class="theory-list">
-            <li><strong>Commutativa</strong>: $a + b = b + a$ e $a \cdot b = b \cdot a$ (scambia l'ordine a piacere).
-            </li>
-            <li><strong>Associativa</strong>: $(a + b) + c = a + (b + c)$ e $(a \cdot b) \cdot c = a \cdot (b \cdot c)$
-              (raggruppa i termini più comodi).</li>
-            <li><strong>Distributiva</strong>: $a \cdot (b \pm c) = a \cdot b \pm a \cdot c$ (spezza moltiplicazioni
-              complesse).</li>
-            <li><strong>Elementi Neutri &amp; Inversi</strong>: $a + 0 = a$, $a \cdot 1 = a$; $a + (-a) = 0$; $a \cdot
-              \frac{1}{a} = 1$.</li>
-          </ul>
-        </div>
-
-        <!-- Box 3: La Rappresentazione "Comoda" & Proprietà Invariantiva -->
-        <div class="theory-card" id="teoria-3">
-          <div class="theory-card-header">
-            <span class="pill-num">3</span>
-            <span>L'Abito Comodo &amp; Proprietà Invariantiva</span>
-          </div>
-          <ul class="theory-list">
-            <li>Ogni numero razionale ha infinite vesti equivalenti: $0,25 = \frac{1}{4} = 25\% = 25 \times 10^{-2}$.
-            </li>
-            <li><strong>Regola aurea</strong>: trasforma il decimale in frazione se moltiplichi o dividi (es. $\times
-              0,25 \iff \div 4$).</li>
-            <li><strong>Invariantiva &amp; Compensazione</strong>: $\frac{a}{b} = \frac{a \cdot k}{b \cdot k}$
-              (moltiplica o dividi entrambi i termini per $k \neq 0$); nella somma compensa ($98 + 45 = 100 + 43$).</li>
-          </ul>
-        </div>
-
-        <!-- Box 4: Segni & Vettori sulla Retta -->
-        <div class="theory-card" id="teoria-4">
-          <div class="theory-card-header">
-            <span class="pill-num">4</span>
-            <span>La Dinamica del Segno in $\mathbb{Z}$</span>
-          </div>
-          <ul class="theory-list">
-            <li><strong>Il segno meno</strong> indica un <em>cambio di verso</em> sulla retta numerica (l'opposto).</li>
-            <li>Sottrarre un debito arricchisce: $a - (-b) = a + b$.</li>
-            <li><strong>Regola dei segni</strong>: $(-) \cdot (-) = (+)$ perché l'opposto dell'inversione ripristina il
-              verso concorde.</li>
-          </ul>
-        </div>
-
-        <!-- Box 5: Somma e Sottrazione di Frazioni -->
-        <div class="theory-card" id="teoria-5">
-          <div class="theory-card-header">
-            <span class="pill-num">5</span>
-            <span>Somma &amp; Sottrazione in $\mathbb{Q}$ (La Taglia Comune)</span>
-          </div>
-          <ul class="theory-list">
-            <li><strong>Mai sommare i denominatori!</strong> $\frac{1}{2} + \frac{1}{3} \neq \frac{2}{5}$. Servono fette
-              della stessa taglia comune (il m.c.m.).</li>
-            <li><strong>m.c.m. senza fatica</strong>: se i denominatori sono primi tra loro, moltiplica ($3 \times 4 =
-              12$); se uno è multiplo dell'altro, prendi il maggiore ($4$ e $12 \to 12$).</li>
-            <li><strong>Intero $\pm$ Frazione</strong>: $1 - \frac{a}{b} = \frac{b-a}{b}$ (es. $1 - \frac{3}{7} =
-              \frac{4}{7}$); per $n \pm \frac{a}{b}$ trasforma $n = \frac{n \cdot b}{b}$.</li>
-          </ul>
-        </div>
-
-        <!-- Box 6: Problemi di Ripartizione & Frazioni Complementari -->
-        <div class="theory-card" id="teoria-6">
-          <div class="theory-card-header">
-            <span class="pill-num">6</span>
-            <span>Problemi di Ripartizione &amp; Frazioni Complementari</span>
-          </div>
-          <ul class="theory-list">
-            <li><strong>Conservazione del Tutto</strong>: quando una risorsa si ripartisce, la somma delle quote
-              frazionarie deve dare l'intero: $f_A + f_B + f_C = 1$.</li>
-            <li><strong>Frazione Complementare (Residuo)</strong>: se conosci le quote già stanziate, la quota restante
-              è $1 - (f_A + f_B)$.</li>
-            <li><strong>Taglia Comune &amp; Unità Frazionaria</strong>: trovando il m.c.m. si divide la risorsa in
-              mattoncini uguali; 1 mattoncino vale $\frac{\text{Totale}}{\text{m.c.m.}}$.</li>
-          </ul>
-        </div>
-
-        <!-- Quote Metacognitiva -->
-        <div class="quote-box">
-          <span style="font-size: 1.6rem;">💡</span>
-          <div>
-            <strong>Indicazioni Ministeriali (Liceo Scienze Umane)</strong>:
-            <em>«...operare con numeri interi e razionali scegliendo, a seconda dei casi, rappresentazioni comode per il
-              calcolo o per l'intuizione...»</em> Ogni esercizio qui sotto indica esattamente quale principio teorico
-            stai mettendo in pratica!
-          </div>
-        </div>
-
-      </div>
-    </section>
-
     <!-- SEZIONE 2: LABORATORI INTERATTIVI GUIDATI (CON RIFERIMENTO ESPLICITO ALLA TEORIA) -->
     <main>
 
       <div class="section-header">
         <h2 class="section-title">
-          <span class="icon">🔬</span> Laboratori Guidati di Calcolo Mentale (Teoria ↔ Pratica)
+          <span class="icon">🧪</span> Laboratori Operativi &amp; Teoria Integrata
         </h2>
       </div>
 
@@ -605,18 +482,6 @@
       <article class="lab-card" id="lab1">
         <span class="lab-badge">Laboratorio 1 • Commutativa &amp; Associativa</span>
         <h3 class="lab-title">La Danza dei Complementi (Coppie a 100)</h3>
-
-        <div class="theory-link-box">
-          <span class="tl-icon">🔗</span>
-          <div>
-            <strong>Collegamento Teoria ↔ Pratica:</strong> Questo esercizio approfondisce la
-            <a href="#teoria-2" class="theory-link-anchor"
-              onclick="event.preventDefault(); scrollToTheory('teoria-2');">Teoria 2 • Proprietà Commutativa e
-              Associativa dell'Addizione</a>:
-            la <em>commutativa</em> permette di scambiare l'ordine degli addendi ($64 + 63 \to 63 + 64$), mentre
-            l'<em>associativa</em> permette di raggrupparli in coppie complementari a $100$.
-          </div>
-        </div>
 
         <p class="lab-intro">
           Come calcoleresti a mente questa somma senza incolonnare? <br>
@@ -664,6 +529,24 @@
             </div>
           </div>
         </div>
+      
+
+        <!-- Pillola Teoria Just-in-Time (a fine laboratorio) -->
+        <div class="theory-card" id="teoria-1">
+          <div class="theory-card-header">
+            <span class="pill-num">1</span>
+            <span>La Teoria in Breve • Gli Insiemi Numerici ($\mathbb{N} \subset \mathbb{Z} \subset \mathbb{Q}$)</span>
+          </div>
+          <ul class="theory-list">
+            <li><strong>$\mathbb{N}$ (Naturali)</strong>: $\{0, 1, 2, \dots\}$ per contare. Chiuso solo per $+$ e
+              $\times$.</li>
+            <li><strong>$\mathbb{Z}$ (Interi)</strong>: include gli <em>opposti</em> $(-n)$. Risolve $a - b$ quando $b >
+              a$. Chiuso per $+$, $-$ e $\times$.</li>
+            <li><strong>$\mathbb{Q}$ (Razionali)</strong>: frazioni $\frac{m}{n}$ con $n \neq 0$. Introduce
+              l'<em>inverso</em> $\frac{1}{a}$. Chiuso anche per $\div$ ($\neq 0$).</li>
+          </ul>
+        </div>
+
       </article>
 
       <!-- ==========================================
@@ -672,19 +555,6 @@
       <article class="lab-card" id="lab2">
         <span class="lab-badge">Laboratorio 2 • Proprietà Distributiva</span>
         <h3 class="lab-title">Il Modello ad Area: Spezza e Conquista</h3>
-
-        <div class="theory-link-box">
-          <span class="tl-icon">🔗</span>
-          <div>
-            <strong>Collegamento Teoria ↔ Pratica:</strong> Questo esercizio approfondisce la
-            <a href="#teoria-2" class="theory-link-anchor"
-              onclick="event.preventDefault(); scrollToTheory('teoria-2');">Teoria 2 • Proprietà Distributiva</a>
-            combinata con la
-            <a href="#teoria-3" class="theory-link-anchor"
-              onclick="event.preventDefault(); scrollToTheory('teoria-3');">Teoria 3 • Rappresentazione Comoda</a>:
-            riscrivendo $98$ come differenza comoda $(100 - 2)$, applichiamo $(b - c) \cdot a = b \cdot a - c \cdot a$.
-          </div>
-        </div>
 
         <p class="lab-intro">
           Vogliamo calcolare a mente: <strong>$98 \times 15$</strong>. <br>
@@ -743,6 +613,26 @@
             </div>
           </div>
         </div>
+      
+
+        <!-- Pillola Teoria Just-in-Time (a fine laboratorio) -->
+        <div class="theory-card" id="teoria-2">
+          <div class="theory-card-header">
+            <span class="pill-num">2</span>
+            <span>La Teoria in Breve • Le 4 Proprietà delle Operazioni</span>
+          </div>
+          <ul class="theory-list">
+            <li><strong>Commutativa</strong>: $a + b = b + a$ e $a \cdot b = b \cdot a$ (scambia l'ordine a piacere).
+            </li>
+            <li><strong>Associativa</strong>: $(a + b) + c = a + (b + c)$ e $(a \cdot b) \cdot c = a \cdot (b \cdot c)$
+              (raggruppa i termini più comodi).</li>
+            <li><strong>Distributiva</strong>: $a \cdot (b \pm c) = a \cdot b \pm a \cdot c$ (spezza moltiplicazioni
+              complesse).</li>
+            <li><strong>Elementi Neutri &amp; Inversi</strong>: $a + 0 = a$, $a \cdot 1 = a$; $a + (-a) = 0$; $a \cdot
+              \frac{1}{a} = 1$.</li>
+          </ul>
+        </div>
+
       </article>
 
       <!-- ==========================================
@@ -751,21 +641,6 @@
       <article class="lab-card" id="lab3">
         <span class="lab-badge">Laboratorio 3 • Struttura di ℤ &amp; Opposti</span>
         <h3 class="lab-title">La Retta Numerica Dinamica: Spostamenti, Debiti e Calcolo del Resto</h3>
-
-        <div class="theory-link-box">
-          <span class="tl-icon">🔗</span>
-          <div>
-            <strong>Collegamento Teoria ↔ Pratica:</strong> Questo esercizio approfondisce la
-            <a href="#teoria-1" class="theory-link-anchor"
-              onclick="event.preventDefault(); scrollToTheory('teoria-1');">Teoria 1 • Insieme degli Interi
-              $\mathbb{Z}$</a>
-            e la
-            <a href="#teoria-4" class="theory-link-anchor"
-              onclick="event.preventDefault(); scrollToTheory('teoria-4');">Teoria 4 • Dinamica del Segno e Opposti</a>:
-            sottrarre un numero maggiore del credito posseduto genera un saldo negativo (debito: $2 - 6 = -4$), mentre
-            sottrarre un debito inverte la direzione e arricchisce il saldo ($a - (-b) = a + b$).
-          </div>
-        </div>
 
         <p class="lab-intro">
           Cosa succede quando affrontiamo spese che superano il credito in tasca come <strong>$2 - 6 = -4$</strong>?
@@ -914,6 +789,22 @@
             </div>
           </div>
         </div>
+      
+
+        <!-- Pillola Teoria Just-in-Time (a fine laboratorio) -->
+        <div class="theory-card" id="teoria-4">
+          <div class="theory-card-header">
+            <span class="pill-num">4</span>
+            <span>La Teoria in Breve • La Dinamica del Segno in $\mathbb{Z}$</span>
+          </div>
+          <ul class="theory-list">
+            <li><strong>Il segno meno</strong> indica un <em>cambio di verso</em> sulla retta numerica (l'opposto).</li>
+            <li>Sottrarre un debito arricchisce: $a - (-b) = a + b$.</li>
+            <li><strong>Regola dei segni</strong>: $(-) \cdot (-) = (+)$ perché l'opposto dell'inversione ripristina il
+              verso concorde.</li>
+          </ul>
+        </div>
+
       </article>
 
       <!-- ==========================================
@@ -922,23 +813,6 @@
       <article class="lab-card" id="lab4">
         <span class="lab-badge">Laboratorio 4 • Razionali ℚ &amp; Semplificazione</span>
         <h3 class="lab-title">L'Arte della Frazione Comoda: Semplifica in Croce</h3>
-
-        <div class="theory-link-box">
-          <span class="tl-icon">🔗</span>
-          <div>
-            <strong>Collegamento Teoria ↔ Pratica:</strong> Questo esercizio approfondisce la
-            <a href="#teoria-1" class="theory-link-anchor"
-              onclick="event.preventDefault(); scrollToTheory('teoria-1');">Teoria 1 • Moltiplicazione in
-              $\mathbb{Q}$</a>,
-            la <a href="#teoria-2" class="theory-link-anchor"
-              onclick="event.preventDefault(); scrollToTheory('teoria-2');">Teoria 2 • Commutativa, Associativa ed
-              Elemento Neutro</a>
-            e la <a href="#teoria-3" class="theory-link-anchor"
-              onclick="event.preventDefault(); scrollToTheory('teoria-3');">Teoria 3 • Proprietà Invariantiva</a>:
-            scambiare idealmente i denominatori ($\frac{21}{14} \times \frac{25}{20}$) permette di dividere sopra e
-            sotto per i fattori comuni ($7$ e $5$) prima di moltiplicare.
-          </div>
-        </div>
 
         <p class="lab-intro">
           <strong>Calcola</strong>: $\frac{21}{20} \times \frac{25}{14}$. <br>
@@ -987,6 +861,24 @@
             </div>
           </div>
         </div>
+      
+
+        <!-- Pillola Teoria Just-in-Time (a fine laboratorio) -->
+        <div class="theory-card" id="teoria-3">
+          <div class="theory-card-header">
+            <span class="pill-num">3</span>
+            <span>La Teoria in Breve • L'Abito Comodo &amp; Proprietà Invariantiva</span>
+          </div>
+          <ul class="theory-list">
+            <li>Ogni numero razionale ha infinite vesti equivalenti: $0,25 = \frac{1}{4} = 25\% = 25 \times 10^{-2}$.
+            </li>
+            <li><strong>Regola aurea</strong>: trasforma il decimale in frazione se moltiplichi o dividi (es. $\times
+              0,25 \iff \div 4$).</li>
+            <li><strong>Invariantiva &amp; Compensazione</strong>: $\frac{a}{b} = \frac{a \cdot k}{b \cdot k}$
+              (moltiplica o dividi entrambi i termini per $k \neq 0$); nella somma compensa ($98 + 45 = 100 + 43$).</li>
+          </ul>
+        </div>
+
       </article>
 
       <!-- ==========================================
@@ -995,20 +887,6 @@
       <article class="lab-card" id="lab5">
         <span class="lab-badge">Laboratorio 5 • Addizione &amp; Sottrazione in ℚ</span>
         <h3 class="lab-title">La Taglia Comune: Sommare e Sottrarre Frazioni con Intuizione</h3>
-
-        <div class="theory-link-box">
-          <span class="tl-icon">🔗</span>
-          <div>
-            <strong>Collegamento Teoria ↔ Pratica:</strong> Questo laboratorio approfondisce la
-            <a href="#teoria-5" class="theory-link-anchor"
-              onclick="event.preventDefault(); scrollToTheory('teoria-5');">Teoria 5 • Somma &amp; Sottrazione in
-              $\mathbb{Q}$ (La Taglia Comune)</a>
-            e la <a href="#teoria-3" class="theory-link-anchor"
-              onclick="event.preventDefault(); scrollToTheory('teoria-3');">Teoria 3 • Frazioni Equivalenti</a>:
-            per sommare o sottrarre porzioni diverse occorre trasformarle in frazioni equivalenti aventi come
-            denominatore il <strong>m.c.m.</strong>
-          </div>
-        </div>
 
         <p class="lab-intro">
           Perché non si possono sommare direttamente i numeratori? <br>
@@ -1117,6 +995,24 @@
           </div>
         </div>
 
+      
+
+        <!-- Pillola Teoria Just-in-Time (a fine laboratorio) -->
+        <div class="theory-card" id="teoria-5">
+          <div class="theory-card-header">
+            <span class="pill-num">5</span>
+            <span>La Teoria in Breve • Somma &amp; Sottrazione in $\mathbb{Q}$ (La Taglia Comune)</span>
+          </div>
+          <ul class="theory-list">
+            <li><strong>Mai sommare i denominatori!</strong> $\frac{1}{2} + \frac{1}{3} \neq \frac{2}{5}$. Servono fette
+              della stessa taglia comune (il m.c.m.).</li>
+            <li><strong>m.c.m. senza fatica</strong>: se i denominatori sono primi tra loro, moltiplica ($3 \times 4 =
+              12$); se uno è multiplo dell'altro, prendi il maggiore ($4$ e $12 \to 12$).</li>
+            <li><strong>Intero $\pm$ Frazione</strong>: $1 - \frac{a}{b} = \frac{b-a}{b}$ (es. $1 - \frac{3}{7} =
+              \frac{4}{7}$); per $n \pm \frac{a}{b}$ trasforma $n = \frac{n \cdot b}{b}$.</li>
+          </ul>
+        </div>
+
       </article>
 
       <!-- ==========================================
@@ -1125,19 +1021,6 @@
       <article class="lab-card" id="lab6">
         <span class="lab-badge">Laboratorio 6 • Palestra &amp; Scienze Umane</span>
         <h3 class="lab-title">Flash Mental Gym: Problemi Reali &amp; Euristica</h3>
-
-        <div class="theory-link-box">
-          <span class="tl-icon">🔗</span>
-          <div>
-            <strong>Collegamento Teoria ↔ Pratica:</strong> Questa palestra mette a frutto insieme
-            <a href="#teoria-2" class="theory-link-anchor"
-              onclick="event.preventDefault(); scrollToTheory('teoria-2');">Teoria 2 • Proprietà Associativa</a>
-            e <a href="#teoria-3" class="theory-link-anchor"
-              onclick="event.preventDefault(); scrollToTheory('teoria-3');">Teoria 3 • Abito Comodo &amp; Proprietà
-              Invariantiva</a>.
-            Ciascuno dei 4 mini-problemi indica qui sotto la specifica proprietà teorica coinvolta.
-          </div>
-        </div>
 
         <p class="lab-intro">
           Quattro situazioni tipiche in contesti sociali, economici e psicologici risolvibili in meno di 5 secondi
@@ -1246,19 +1129,6 @@
       <article class="lab-card" id="lab7">
         <span class="lab-badge">Laboratorio 7 • Modello a Barre &amp; Ripartizione</span>
         <h3 class="lab-title">La Ripartizione del Fondo Sociale di Comunità</h3>
-
-        <div class="theory-link-box">
-          <span class="tl-icon">🔗</span>
-          <div>
-            <strong>Collegamento Teoria ↔ Pratica:</strong> Questo laboratorio guidato approfondisce la
-            <a href="#teoria-5" class="theory-link-anchor"
-              onclick="event.preventDefault(); scrollToTheory('teoria-5');">Teoria 5 • Taglia Comune (m.c.m.)</a>
-            e la <a href="#teoria-6" class="theory-link-anchor"
-              onclick="event.preventDefault(); scrollToTheory('teoria-6');">Teoria 6 • Problemi di Ripartizione,
-              Frazione Complementare e Unità Frazionaria</a>,
-            preparandoti passo dopo passo a svolgere in autonomia la Scheda Operativa per casa.
-          </div>
-        </div>
 
         <p class="lab-intro">
           Come si risolve un problema di divisione di risorse nella vita reale senza ricorrere a formule complicate?
@@ -1427,6 +1297,24 @@
           </div>
         </div>
 
+      
+
+        <!-- Pillola Teoria Just-in-Time (a fine laboratorio) -->
+        <div class="theory-card" id="teoria-6">
+          <div class="theory-card-header">
+            <span class="pill-num">6</span>
+            <span>La Teoria in Breve • Problemi di Ripartizione &amp; Frazioni Complementari</span>
+          </div>
+          <ul class="theory-list">
+            <li><strong>Conservazione del Tutto</strong>: quando una risorsa si ripartisce, la somma delle quote
+              frazionarie deve dare l'intero: $f_A + f_B + f_C = 1$.</li>
+            <li><strong>Frazione Complementare (Residuo)</strong>: se conosci le quote già stanziate, la quota restante
+              è $1 - (f_A + f_B)$.</li>
+            <li><strong>Taglia Comune &amp; Unità Frazionaria</strong>: trovando il m.c.m. si divide la risorsa in
+              mattoncini uguali; 1 mattoncino vale $\frac{\text{Totale}}{\text{m.c.m.}}$.</li>
+          </ul>
+        </div>
+
       </article>
 
     </main>
@@ -1476,23 +1364,6 @@
         <h3 class="scheda-title">
           Scheda Operativa: «Il Bilancio Partecipativo della Consulta Giovanile»
         </h3>
-
-        <div class="theory-link-box">
-          <span class="tl-icon">🔗</span>
-          <div>
-            <strong>Collegamento Teoria ↔ Pratica:</strong> Questo compito di realtà per casa approfondisce e mette a
-            sistema la
-            <a href="#teoria-3" class="theory-link-anchor"
-              onclick="event.preventDefault(); scrollToTheory('teoria-3');">Teoria 3 • Frazioni Equivalenti &amp;
-              Invariantiva</a>,
-            la <a href="#teoria-5" class="theory-link-anchor"
-              onclick="event.preventDefault(); scrollToTheory('teoria-5');">Teoria 5 • Taglia Comune (m.c.m. tra
-              multipli $4$ e $12$)</a>
-            e la <a href="#teoria-6" class="theory-link-anchor"
-              onclick="event.preventDefault(); scrollToTheory('teoria-6');">Teoria 6 • Frazioni Complementari e Metodo
-              dell'Unità Frazionaria</a>.
-          </div>
-        </div>
 
         <div class="scheda-delivery-callout">
           <strong>📅 Modalità di lavoro e consegna (Assegno per Casa):</strong> Questo compito di realtà conclude la

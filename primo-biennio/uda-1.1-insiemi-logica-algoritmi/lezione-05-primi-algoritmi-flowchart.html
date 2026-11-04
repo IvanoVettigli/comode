@@ -373,135 +373,6 @@
     <!-- ========================================================
          SEZIONE 1: SCHEDA TEORIA FLASH (6 Ancore #teoria-1..6)
          ======================================================== -->
-    <section class="theory-wrapper">
-      <div class="section-header">
-        <h2 class="section-title">
-          <span class="icon">⚡</span> Scheda Teoria Flash: Algoritmi, Variabili e Flowchart
-        </h2>
-        <button id="toggleTheoryBtn" class="collapse-btn">
-          <span>Nascondi Teoria</span> ▴
-        </button>
-      </div>
-
-      <div id="theoryContent" class="theory-grid">
-
-        <!-- Teoria 1 -->
-        <div class="theory-card" id="teoria-1">
-          <div class="theory-card-header">
-            <span class="pill-num">1</span>
-            <span>Che cos'è un Algoritmo? (4 Proprietà)</span>
-          </div>
-          <ul class="theory-list">
-            <li>Un <strong>algoritmo</strong> (dal nome del matematico persiano <em>al-Khwārizmī</em>, IX sec.) è una
-              sequenza ordinata di istruzioni che trasforma dati di <strong>Input</strong> in un <strong>Output</strong>.
-            </li>
-            <li>Deve rispettare 4 requisiti: <strong>1. Finitezza</strong> (termina sempre in un numero finito di
-              passi); <strong>2. Non ambiguità</strong> (niente frasi vaghe come «aggiungi un pizzico»);
-              <strong>3. Determinismo</strong> (stesso input $\to$ stesso output); <strong>4. Generalità</strong> (vale
-              per tutta una classe di dati).</li>
-          </ul>
-        </div>
-
-        <!-- Teoria 2 -->
-        <div class="theory-card" id="teoria-2">
-          <div class="theory-card-header">
-            <span class="pill-num">2</span>
-            <span>Variabili, Assegnazione ($\leftarrow$) e Tabella di Traccia</span>
-          </div>
-          <ul class="theory-list">
-            <li>Una <strong>variabile</strong> è un contenitore con un nome che custodisce un valore aggiornabile nel
-              tempo.</li>
-            <li>L'istruzione <code>x ← x + 3</code> <strong>non è un'equazione</strong>, ma un'<strong>assegnazione</strong>:
-              calcola prima la destra usando il vecchio valore di <code>x</code> e salva il risultato dentro
-              <code>x</code>!</li>
-            <li>La <strong>Tabella di Traccia (*Trace Table*)</strong> annota riga per riga i valori assunti da tutte le
-              variabili per prevedere l'esito del programma e scovare errori (<em>debugging</em>).</li>
-          </ul>
-        </div>
-
-        <!-- Teoria 3 -->
-        <div class="theory-card" id="teoria-3">
-          <div class="theory-card-header">
-            <span class="pill-num">3</span>
-            <span>Diagrammi di Flusso &amp; Strutture di Controllo</span>
-          </div>
-          <ul class="theory-list">
-            <li><strong>Geometria dei blocchi</strong>: <em>Ovale</em> = Inizio/Fine; <em>Parallelogramma</em> =
-              Input/Output; <em>Rettangolo</em> = Azione/Assegnazione; <em>Rombo</em> = Condizione logica (rami
-              <strong>Vero / Falso</strong>).</li>
-            <li><strong>Teorema di Böhm-Jacopini (1966)</strong>: qualunque algoritmo si può scrivere combinando solo
-              <strong>3 strutture</strong>: <strong>Sequenza</strong>, <strong>Selezione</strong>
-              (<code>se ... allora ... altrimenti</code>) e <strong>Iterazione</strong> (ciclo <code>mentre</code>).
-            </li>
-          </ul>
-        </div>
-
-        <!-- Teoria 4 -->
-        <div class="theory-card" id="teoria-4">
-          <div class="theory-card-header">
-            <span class="pill-num">4</span>
-            <span>Algoritmo di Euclide delle Divisioni Successive</span>
-          </div>
-          <ul class="theory-list">
-            <li>Come trovare $\text{M.C.D.}(a, b)$ su numeri grandi senza scomporli in fattori primi?</li>
-            <li>Si usa la proprietà $\text{M.C.D.}(a, b) = \text{M.C.D.}(b, r)$, dove $r$ è il <strong>resto</strong> di
-              $a : b$:
-              <br>• <strong>Ciclo:</strong> finché $b \neq 0$, calcola il resto $r$ di $a : b$, poi poni
-              <code>a ← b</code> e <code>b ← r</code>.
-              <br>• Quando $b$ diventa $0$, il valore rimasto in $a$ è il <strong>M.C.D.</strong>!
-            </li>
-          </ul>
-        </div>
-
-        <!-- Teoria 5 -->
-        <div class="theory-card" id="teoria-5">
-          <div class="theory-card-header">
-            <span class="pill-num">5</span>
-            <span>Ricerca Lineare vs Ricerca Binaria</span>
-          </div>
-          <ul class="theory-list">
-            <li><strong>Ricerca Lineare</strong> (lista disordinata): controlli un elemento dopo l'altro; nel caso
-              peggiore servono <strong>$N$ controlli</strong>.</li>
-            <li><strong>Ricerca Binaria</strong> (lista <em>ordinata</em>): controlli sempre l'elemento centrale e scarti
-              metà lista ad ogni domanda! Bastano $k$ passi con $2^k \ge N$ (su $1\,000$ nomi ordinati bastano
-              <strong>$10$ passi</strong> perché $2^{10} = 1\,024$!).</li>
-          </ul>
-        </div>
-
-        <!-- Teoria 6 -->
-        <div class="theory-card" id="teoria-6">
-          <div class="theory-card-header">
-            <span class="pill-num">6</span>
-            <span>Psicologia Cognitiva: Algoritmi vs Euristiche</span>
-          </div>
-          <ul class="theory-list">
-            <li>Gli psicologi <em>Herbert Simon</em> e <em>Daniel Kahneman</em> distinguono due strategie nella mente
-              umana:</li>
-            <li><strong>Algoritmo (*Sistema 2*, lento e analitico)</strong>: procedura passo-passo che garantisce il
-              risultato esatto, ma richiede tempo e concentrazione.</li>
-            <li><strong>Euristica (*Sistema 1*, veloce e intuitivo)</strong>: scorciatoia mentale rapida ed economica per
-              decidere nella vita quotidiana, ma esposta a trabocchetti cognitivi (<em>bias</em>).</li>
-          </ul>
-        </div>
-
-        <!-- Quote Interdisciplinare Scienze Umane -->
-        <div class="quote-box">
-          <span class="quote-icon">🤖</span>
-          <div class="quote-text">
-            <strong>Ponte con la Psicologia &amp; Sociologia:</strong> Un computer esegue miliardi di istruzioni al
-            secondo senza mai distrarsi, ma non comprende il contesto umano; un essere umano usa brillanti
-            <em>euristiche</em> intuitive ed empatiche, ma può cadere in pregiudizi se non controlla i passaggi. Saper
-            unire rigore algoritmico e sensibilità umana è la chiave della cittadinanza contemporanea.
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-
-    <!-- ========================================================
-         SEZIONE 2: I 6 LABORATORI INTERATTIVI
-         ======================================================== -->
     <main class="labs-container">
 
       <!-- ======================================================
@@ -516,19 +387,6 @@
         </div>
 
         <h3 class="lab-title">Simulatore Visivo di Flowchart: Lo Sconto della Cooperativa Scolastica</h3>
-
-        <div class="theory-link-box">
-          <span class="tl-icon">🔗</span>
-          <div>
-            <strong>Collegamento Teoria ↔ Pratica:</strong> Questo laboratorio visualizza la
-            <a href="#teoria-1" class="theory-link-anchor"
-              onclick="event.preventDefault(); scrollToTheory('teoria-1');">Teoria 1 • Determinismo dell'Algoritmo</a>
-            e la
-            <a href="#teoria-3" class="theory-link-anchor"
-              onclick="event.preventDefault(); scrollToTheory('teoria-3');">Teoria 3 • Blocchi del Flowchart e Selezione
-              <code>se-allora-altrimenti</code></a>.
-          </div>
-        </div>
 
         <p class="lab-objective">
           Scegli qui sotto i dati di <strong>Input</strong> (`spesa` e `tessera`) e premi <strong>▶️ Simula
@@ -651,6 +509,43 @@
             </div>
           </div>
         </div>
+      
+
+        <!-- Pillola Teoria Just-in-Time (a fine laboratorio) -->
+        <div class="theory-card" id="teoria-1">
+          <div class="theory-card-header">
+            <span class="pill-num">1</span>
+            <span>La Teoria in Breve • Che cos'è un Algoritmo? (4 Proprietà)</span>
+          </div>
+          <ul class="theory-list">
+            <li>Un <strong>algoritmo</strong> (dal nome del matematico persiano <em>al-Khwārizmī</em>, IX sec.) è una
+              sequenza ordinata di istruzioni che trasforma dati di <strong>Input</strong> in un <strong>Output</strong>.
+            </li>
+            <li>Deve rispettare 4 requisiti: <strong>1. Finitezza</strong> (termina sempre in un numero finito di
+              passi); <strong>2. Non ambiguità</strong> (niente frasi vaghe come «aggiungi un pizzico»);
+              <strong>3. Determinismo</strong> (stesso input $\to$ stesso output); <strong>4. Generalità</strong> (vale
+              per tutta una classe di dati).</li>
+          </ul>
+        </div>
+
+
+        <!-- Pillola Teoria Just-in-Time (a fine laboratorio) -->
+        <div class="theory-card" id="teoria-3">
+          <div class="theory-card-header">
+            <span class="pill-num">3</span>
+            <span>La Teoria in Breve • Diagrammi di Flusso &amp; Strutture di Controllo</span>
+          </div>
+          <ul class="theory-list">
+            <li><strong>Geometria dei blocchi</strong>: <em>Ovale</em> = Inizio/Fine; <em>Parallelogramma</em> =
+              Input/Output; <em>Rettangolo</em> = Azione/Assegnazione; <em>Rombo</em> = Condizione logica (rami
+              <strong>Vero / Falso</strong>).</li>
+            <li><strong>Teorema di Böhm-Jacopini (1966)</strong>: qualunque algoritmo si può scrivere combinando solo
+              <strong>3 strutture</strong>: <strong>Sequenza</strong>, <strong>Selezione</strong>
+              (<code>se ... allora ... altrimenti</code>) e <strong>Iterazione</strong> (ciclo <code>mentre</code>).
+            </li>
+          </ul>
+        </div>
+
       </article>
 
 
@@ -666,17 +561,6 @@
         </div>
 
         <h3 class="lab-title">Tracciamento dello Stato delle Variabili (Tabella di Traccia)</h3>
-
-        <div class="theory-link-box">
-          <span class="tl-icon">🔗</span>
-          <div>
-            <strong>Collegamento Teoria ↔ Pratica:</strong> Questo laboratorio allena direttamente la competenza
-            informatica ministeriale della
-            <a href="#teoria-2" class="theory-link-anchor"
-              onclick="event.preventDefault(); scrollToTheory('teoria-2');">Teoria 2 • Variabili, Assegnazione e Trace
-              Table</a>.
-          </div>
-        </div>
 
         <p class="lab-objective">
           Prima osserva nell'<strong>Esempio Animato</strong> come un ciclo aggiorna passo dopo passo le variabili
@@ -757,6 +641,25 @@
             </div>
           </div>
         </div>
+      
+
+        <!-- Pillola Teoria Just-in-Time (a fine laboratorio) -->
+        <div class="theory-card" id="teoria-2">
+          <div class="theory-card-header">
+            <span class="pill-num">2</span>
+            <span>La Teoria in Breve • Variabili, Assegnazione ($\leftarrow$) e Tabella di Traccia</span>
+          </div>
+          <ul class="theory-list">
+            <li>Una <strong>variabile</strong> è un contenitore con un nome che custodisce un valore aggiornabile nel
+              tempo.</li>
+            <li>L'istruzione <code>x ← x + 3</code> <strong>non è un'equazione</strong>, ma un'<strong>assegnazione</strong>:
+              calcola prima la destra usando il vecchio valore di <code>x</code> e salva il risultato dentro
+              <code>x</code>!</li>
+            <li>La <strong>Tabella di Traccia (*Trace Table*)</strong> annota riga per riga i valori assunti da tutte le
+              variabili per prevedere l'esito del programma e scovare errori (<em>debugging</em>).</li>
+          </ul>
+        </div>
+
       </article>
 
 
@@ -772,17 +675,6 @@
         </div>
 
         <h3 class="lab-title">L'Algoritmo di Euclide delle Divisioni Successive Passo dopo Passo</h3>
-
-        <div class="theory-link-box">
-          <span class="tl-icon">🔗</span>
-          <div>
-            <strong>Collegamento Teoria ↔ Pratica:</strong> Questo laboratorio esegue la
-            <a href="#teoria-4" class="theory-link-anchor"
-              onclick="event.preventDefault(); scrollToTheory('teoria-4');">Teoria 4 • M.C.D. per Divisioni Successive
-              ($a \leftarrow b, b \leftarrow r$)</a>,
-            il più antico algoritmo non banale giunto fino a noi (*Elementi*, Libro VII).
-          </div>
-        </div>
 
         <p class="lab-objective">
           Inserisci due numeri interi positivi qualsiasi (o usa i pulsanti rapidi) per generare istantaneamente la
@@ -854,6 +746,25 @@
             </div>
           </div>
         </div>
+      
+
+        <!-- Pillola Teoria Just-in-Time (a fine laboratorio) -->
+        <div class="theory-card" id="teoria-4">
+          <div class="theory-card-header">
+            <span class="pill-num">4</span>
+            <span>La Teoria in Breve • Algoritmo di Euclide delle Divisioni Successive</span>
+          </div>
+          <ul class="theory-list">
+            <li>Come trovare $\text{M.C.D.}(a, b)$ su numeri grandi senza scomporli in fattori primi?</li>
+            <li>Si usa la proprietà $\text{M.C.D.}(a, b) = \text{M.C.D.}(b, r)$, dove $r$ è il <strong>resto</strong> di
+              $a : b$:
+              <br>• <strong>Ciclo:</strong> finché $b \neq 0$, calcola il resto $r$ di $a : b$, poi poni
+              <code>a ← b</code> e <code>b ← r</code>.
+              <br>• Quando $b$ diventa $0$, il valore rimasto in $a$ è il <strong>M.C.D.</strong>!
+            </li>
+          </ul>
+        </div>
+
       </article>
 
 
@@ -869,16 +780,6 @@
         </div>
 
         <h3 class="lab-title">La Potenza della Ricerca Binaria: Dimezzare per Trovare in un Lampo</h3>
-
-        <div class="theory-link-box">
-          <span class="tl-icon">🔗</span>
-          <div>
-            <strong>Collegamento Teoria ↔ Pratica:</strong> Questo laboratorio mostra in azione la
-            <a href="#teoria-5" class="theory-link-anchor"
-              onclick="event.preventDefault(); scrollToTheory('teoria-5');">Teoria 5 • Ricerca Lineare vs Ricerca Binaria
-              ($2^k \ge N$)</a>.
-          </div>
-        </div>
 
         <p class="lab-objective">
           Il computer ha nascosto un numero segreto tra $1$ e $20$ nell'elenco ordinato qui sotto. Clicca su
@@ -931,6 +832,23 @@
             </div>
           </div>
         </div>
+      
+
+        <!-- Pillola Teoria Just-in-Time (a fine laboratorio) -->
+        <div class="theory-card" id="teoria-5">
+          <div class="theory-card-header">
+            <span class="pill-num">5</span>
+            <span>La Teoria in Breve • Ricerca Lineare vs Ricerca Binaria</span>
+          </div>
+          <ul class="theory-list">
+            <li><strong>Ricerca Lineare</strong> (lista disordinata): controlli un elemento dopo l'altro; nel caso
+              peggiore servono <strong>$N$ controlli</strong>.</li>
+            <li><strong>Ricerca Binaria</strong> (lista <em>ordinata</em>): controlli sempre l'elemento centrale e scarti
+              metà lista ad ogni domanda! Bastano $k$ passi con $2^k \ge N$ (su $1\,000$ nomi ordinati bastano
+              <strong>$10$ passi</strong> perché $2^{10} = 1\,024$!).</li>
+          </ul>
+        </div>
+
       </article>
 
 
@@ -946,16 +864,6 @@
         </div>
 
         <h3 class="lab-title">Mente Umana vs Computer: Procedura Algoritmica o Euristica Intuitiva?</h3>
-
-        <div class="theory-link-box">
-          <span class="tl-icon">🔗</span>
-          <div>
-            <strong>Collegamento Teoria ↔ Pratica:</strong> Questo laboratorio esplora la
-            <a href="#teoria-6" class="theory-link-anchor"
-              onclick="event.preventDefault(); scrollToTheory('teoria-6');">Teoria 6 • Psicologia Cognitiva dei Compiti
-              Procedurali vs Euristiche (Sistema 1 e Sistema 2)</a>.
-          </div>
-        </div>
 
         <div class="l05-stage">
           <div class="l05-controls-row">
@@ -1000,6 +908,24 @@
             </div>
           </div>
         </div>
+      
+
+        <!-- Pillola Teoria Just-in-Time (a fine laboratorio) -->
+        <div class="theory-card" id="teoria-6">
+          <div class="theory-card-header">
+            <span class="pill-num">6</span>
+            <span>La Teoria in Breve • Psicologia Cognitiva: Algoritmi vs Euristiche</span>
+          </div>
+          <ul class="theory-list">
+            <li>Gli psicologi <em>Herbert Simon</em> e <em>Daniel Kahneman</em> distinguono due strategie nella mente
+              umana:</li>
+            <li><strong>Algoritmo (*Sistema 2*, lento e analitico)</strong>: procedura passo-passo che garantisce il
+              risultato esatto, ma richiede tempo e concentrazione.</li>
+            <li><strong>Euristica (*Sistema 1*, veloce e intuitivo)</strong>: scorciatoia mentale rapida ed economica per
+              decidere nella vita quotidiana, ma esposta a trabocchetti cognitivi (<em>bias</em>).</li>
+          </ul>
+        </div>
+
       </article>
 
 
@@ -1015,14 +941,6 @@
         </div>
 
         <h3 class="lab-title">4 Sfide Rapide su Variabili, Cicli, Resti e Dimezzamenti</h3>
-
-        <div class="theory-link-box">
-          <span class="tl-icon">🔗</span>
-          <div>
-            <strong>Collegamento Teoria ↔ Pratica:</strong> Risolvi le 4 schede rapide di pensiero computazionale
-            facendo riferimento alla pillola teorica indicata su ciascuna.
-          </div>
-        </div>
 
         <div class="gym-grid">
           <!-- Gym 1 -->
@@ -1165,23 +1083,6 @@
         <h3 class="scheda-title">
           Scheda Operativa: «Algoritmo di Triage Scolastico e Sociale»
         </h3>
-
-        <div class="theory-link-box">
-          <span class="tl-icon">🔗</span>
-          <div>
-            <strong>Collegamento Teoria ↔ Pratica:</strong> Questo compito di realtà integra la
-            <a href="#teoria-1" class="theory-link-anchor"
-              onclick="event.preventDefault(); scrollToTheory('teoria-1');">Teoria 1 • Non Ambiguità e Finitezza</a>,
-            la <a href="#teoria-2" class="theory-link-anchor"
-              onclick="event.preventDefault(); scrollToTheory('teoria-2');">Teoria 2 • Tabella di Traccia</a>,
-            la <a href="#teoria-3" class="theory-link-anchor"
-              onclick="event.preventDefault(); scrollToTheory('teoria-3');">Teoria 3 • Flowchart con Selezione
-              Annidata</a>
-            e la <a href="#teoria-6" class="theory-link-anchor"
-              onclick="event.preventDefault(); scrollToTheory('teoria-6');">Teoria 6 • Algoritmi vs Empatia ed
-              Euristiche Umane</a>.
-          </div>
-        </div>
 
         <div class="scheda-delivery-callout">
           <strong>📅 Modalità di lavoro e consegna (Assegno per Casa):</strong> Puoi svolgere questo compito di realtà
