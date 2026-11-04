@@ -348,7 +348,7 @@
       <h1 class="hero-title">Calcolo dei Limiti e Forme Indeterminate</h1>
       <p class="hero-desc">
         Dall'algebra dei limiti alle strategie per sciogliere i vicoli ciechi: scopri come eliminare i fattori nulli in
-        $[rac{0}{0}]$, dominare la crescita in $[rac{\infty}{\infty}]$ con la gerarchia degli infiniti e prevedere i
+        $[\frac{0}{0}]$, dominare la crescita in $[\frac{\infty}{\infty}]$ con la gerarchia degli infiniti e prevedere i
         tetti di saturazione nei social network.
       </p>
 
@@ -375,7 +375,7 @@
           <li>
             <span class="po-icon">✓</span>
             <div><strong>Concetto di limite e asintoti (Lezione 5.M1.1):</strong> interpretare il limite come
-              avvicinamento dinamico e riconoscere asintoti verticali ($x 	o x_0$) e orizzontali ($x 	o \pm\infty$).</div>
+              avvicinamento dinamico e riconoscere asintoti verticali ($x \to x_0$) e orizzontali ($x \to \pm\infty$).</div>
           </li>
           <li>
             <span class="po-icon">✓</span>
@@ -385,7 +385,7 @@
           <li>
             <span class="po-icon">✓</span>
             <div><strong>Proprietà delle potenze, esponenziali e logaritmi (UDA 4.M1):</strong> andamento di $a^x$ e
-              $\ln(x)$ per $x 	o +\infty$.</div>
+              $\ln(x)$ per $x \to +\infty$.</div>
           </li>
         </ul>
       </div>
@@ -403,12 +403,12 @@
           </li>
           <li>
             <span class="po-icon">🚀</span>
-            <div><strong>Sciogliere $[rac{0}{0}]$:</strong> fattorizzare il binomio $(x - x_0)$ o razionalizzare con
+            <div><strong>Sciogliere $[\frac{0}{0}]$:</strong> fattorizzare il binomio $(x - x_0)$ o razionalizzare con
               il coniugato per svelare il vero valore del limite.</div>
           </li>
           <li>
             <span class="po-icon">🚀</span>
-            <div><strong>Padroneggiare la gerarchia degli infiniti in $[rac{\infty}{\infty}]$:</strong> confrontare
+            <div><strong>Padroneggiare la gerarchia degli infiniti in $[\frac{\infty}{\infty}]$:</strong> confrontare
               scale logaritmiche, polinomiali ed esponenziali senza calcoli laboriosi.</div>
           </li>
           <li>
@@ -445,7 +445,7 @@
           <span class="m1l1-context-icon">🚦</span>
           <div>
             <strong>La prima regola d'oro: Prova sempre a sostituire!</strong><br>
-            Quando calcoli $\displaystyle\lim_{x 	o x_0} f(x)$, la prima mossa è valutare l'espressione in $x_0$. Se la funzione
+            Quando calcoli $\displaystyle\lim_{x \to x_0} f(x)$, la prima mossa è valutare l'espressione in $x_0$. Se la funzione
             è continua o non presenta conflitti, i teoremi sull'algebra dei limiti garantiscono che:
             il limite della somma è la somma dei limiti, il limite del prodotto è il prodotto dei limiti, e il limite del
             quoziente è il quoziente dei limiti (se il denominatore non tende a zero).
@@ -462,7 +462,7 @@
           <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1rem;">
             <!-- Caso A -->
             <div style="background: var(--bg-surface); padding: 1rem; border-radius: var(--radius-md); border: 1px solid var(--border-subtle);">
-              <div style="font-weight: 700; margin-bottom: 0.4rem;">Caso A: $\displaystyle\lim_{x 	o 3} rac{x^2 + 1}{x + 2}$</div>
+              <div style="font-weight: 700; margin-bottom: 0.4rem;">Caso A: $\displaystyle\lim_{x \to 3} \frac{x^2 + 1}{x + 2}$</div>
               <div class="m1l2-choice-row" id="lab1ChoiceA">
                 <button type="button" class="m1l2-choice-btn" data-val="det" onclick="selectChoice('lab1A', this)">🟢 Determinata (2)</button>
                 <button type="button" class="m1l2-choice-btn" data-val="indet" onclick="selectChoice('lab1A', this)">🟡 Indeterminata</button>
@@ -471,7 +471,7 @@
 
             <!-- Caso B -->
             <div style="background: var(--bg-surface); padding: 1rem; border-radius: var(--radius-md); border: 1px solid var(--border-subtle);">
-              <div style="font-weight: 700; margin-bottom: 0.4rem;">Caso B: $\displaystyle\lim_{x 	o 0^+} rac{5}{x}$</div>
+              <div style="font-weight: 700; margin-bottom: 0.4rem;">Caso B: $\displaystyle\lim_{x \to 0^+} \frac{5}{x}$</div>
               <div class="m1l2-choice-row" id="lab1ChoiceB">
                 <button type="button" class="m1l2-choice-btn" data-val="det" onclick="selectChoice('lab1B', this)">🟢 Determinata ($+\infty$)</button>
                 <button type="button" class="m1l2-choice-btn" data-val="indet" onclick="selectChoice('lab1B', this)">🟡 Indeterminata</button>
@@ -480,16 +480,16 @@
 
             <!-- Caso C -->
             <div style="background: var(--bg-surface); padding: 1rem; border-radius: var(--radius-md); border: 1px solid var(--border-subtle);">
-              <div style="font-weight: 700; margin-bottom: 0.4rem;">Caso C: $\displaystyle\lim_{x 	o 1} rac{x^2 - 1}{x - 1}$</div>
+              <div style="font-weight: 700; margin-bottom: 0.4rem;">Caso C: $\displaystyle\lim_{x \to 1} \frac{x^2 - 1}{x - 1}$</div>
               <div class="m1l2-choice-row" id="lab1ChoiceC">
                 <button type="button" class="m1l2-choice-btn" data-val="det" onclick="selectChoice('lab1C', this)">🟢 Determinata</button>
-                <button type="button" class="m1l2-choice-btn" data-val="indet" onclick="selectChoice('lab1C', this)">🟡 Indeterminata $[rac{0}{0}]$</button>
+                <button type="button" class="m1l2-choice-btn" data-val="indet" onclick="selectChoice('lab1C', this)">🟡 Indeterminata $[\frac{0}{0}]$</button>
               </div>
             </div>
 
             <!-- Caso D -->
             <div style="background: var(--bg-surface); padding: 1rem; border-radius: var(--radius-md); border: 1px solid var(--border-subtle);">
-              <div style="font-weight: 700; margin-bottom: 0.4rem;">Caso D: $\displaystyle\lim_{x 	o +\infty} (x^3 - 5x^2)$</div>
+              <div style="font-weight: 700; margin-bottom: 0.4rem;">Caso D: $\displaystyle\lim_{x \to +\infty} (x^3 - 5x^2)$</div>
               <div class="m1l2-choice-row" id="lab1ChoiceD">
                 <button type="button" class="m1l2-choice-btn" data-val="det" onclick="selectChoice('lab1D', this)">🟢 Determinata</button>
                 <button type="button" class="m1l2-choice-btn" data-val="indet" onclick="selectChoice('lab1D', this)">🟡 Indeterminata $[+\infty - \infty]$</button>
@@ -511,14 +511,12 @@
           </div>
           <ul class="theory-list">
             <li><strong>Teoremi Fondamentali:</strong> Se $\lim f(x) = L$ e $\lim g(x) = M$ (finiti), allora
-              $\lim (f \pm g) = L \pm M$, $\lim (f \cdot g) = L \cdot M$ e $\lim rac{f}{g} = rac{L}{M}$ (se $M 
-eq 0$).</li>
+              $\lim (f \pm g) = L \pm M$, $\lim (f \cdot g) = L \cdot M$ e $\lim \frac{f}{g} = \frac{L}{M}$ (se $M \neq 0$).</li>
             <li><strong>Regole sicure con l'infinito (Forme Determinate):</strong>
-              $$rac{k}{\pm\infty} 	o 0, \qquad rac{k}{0^\pm} 	o \pm\infty \quad (k 
-eq 0), \qquad (+\infty) + (+\infty) 	o +\infty$$
-              $$(+\infty) \cdot (+\infty) 	o +\infty, \qquad (-\infty) \cdot (-\infty) 	o +\infty, \qquad 0 \cdot k 	o 0$$
+              $$\frac{k}{\pm\infty} \to 0, \qquad \frac{k}{0^\pm} \to \pm\infty \quad (k \neq 0), \qquad (+\infty) + (+\infty) \to +\infty$$
+              $$(+\infty) \cdot (+\infty) \to +\infty, \qquad (-\infty) \cdot (-\infty) \to +\infty, \qquad 0 \cdot k \to 0$$
             </li>
-            <li><strong>Le 4 Forme Indeterminate canoniche dell'Analisi:</strong> $[rac{0}{0}]$, $[rac{\infty}{\infty}]$,
+            <li><strong>Le 4 Forme Indeterminate canoniche dell'Analisi:</strong> $[\frac{0}{0}]$, $[\frac{\infty}{\infty}]$,
               $[+\infty - \infty]$, $[0 \cdot \infty]$. «Indeterminata» non significa che il limite non esiste, ma che la semplice
               sostituzione aritmetica non basta a determinare il risultato: occorre un'indagine algebrica!</li>
           </ul>
@@ -539,16 +537,15 @@ eq 0), \qquad (+\infty) + (+\infty) 	o +\infty$$
         <div class="m1l1-context">
           <span class="m1l1-context-icon">🔍</span>
           <div>
-            <strong>Perché compare $[rac{0}{0}]$?</strong><br>
-            Se sia il numeratore che il denominatore si annullano per $x 	o x_0$, per il <em>Teorema di Ruffini</em>
+            <strong>Perché compare $[\frac{0}{0}]$?</strong><br>
+            Se sia il numeratore che il denominatore si annullano per $x \to x_0$, per il <em>Teorema di Ruffini</em>
             entrambi contengono il fattore nascosto <strong>$(x - x_0)$</strong> che genera lo zero!
-            Basta scomporre in fattori, semplificare il blocco responsabile $(x - x_0) 
-eq 0$ e ricalcolare il limite immediato.
+            Basta scomporre in fattori, semplificare il blocco responsabile $(x - x_0) \neq 0$ e ricalcolare il limite immediato.
           </div>
         </div>
 
         <p class="lab-intro">
-          Esplora la funzione $f(x) = rac{x^2 - 4}{x - 2}$. Per $x = 2$ la frazione dà $[rac{0}{0}]$. Muovi il cursore di $x$
+          Esplora la funzione $f(x) = \frac{x^2 - 4}{x - 2}$. Per $x = 2$ la frazione dà $[\frac{0}{0}]$. Muovi il cursore di $x$
           avvicinandoti a $2$ sia da sinistra che da destra: osserva come i valori della frazione si avvicinano stabilmente a $4$.
         </p>
 
@@ -563,7 +560,7 @@ eq 0$ e ricalcolare il limite immediato.
           <svg id="lab2Svg" class="m1l2-svg" viewBox="0 0 640 280" role="img"
             aria-label="Grafico retta y = x + 2 con buco in x = 2 e punto limite (2, 4)"></svg>
           <div class="m1l2-legend">
-            <span style="--legend-color: var(--accent-math);">Curva $f(x) = rac{x^2-4}{x-2}$</span>
+            <span style="--legend-color: var(--accent-math);">Curva $f(x) = \frac{x^2-4}{x-2}$</span>
             <span style="--legend-color: var(--accent-gold);">Punto limite $L = 4$ (buco rimovibile in $x=2$)</span>
             <span style="--legend-color: var(--accent-success);">Punto corrente $(x, f(x))$</span>
           </div>
@@ -580,12 +577,12 @@ eq 0$ e ricalcolare il limite immediato.
           <div class="step-content">
             <p style="margin-bottom: 0.65rem;">
               Calcola il limite con scomposizione per differenza di cubi o raccoglimento:
-              $$\lim_{x 	o 3} rac{x^2 - 9}{x - 3} = \ ? \qquad 	ext{e} \qquad \lim_{x 	o 1} rac{x^2 + 2x - 3}{x - 1} = \ ?$$
+              $$\lim_{x \to 3} \frac{x^2 - 9}{x - 3} = \ ? \qquad \text{e} \qquad \lim_{x \to 1} \frac{x^2 + 2x - 3}{x - 1} = \ ?$$
             </p>
             <div class="verify-box" style="margin-bottom: 0.6rem;">
-              <label for="lab2Ans1" style="font-weight: 600;">1) $\lim_{x 	o 3} rac{x^2 - 9}{x - 3} =$</label>
+              <label for="lab2Ans1" style="font-weight: 600;">1) $\lim_{x \to 3} \frac{x^2 - 9}{x - 3} =$</label>
               <input type="text" id="lab2Ans1" class="inline-input" style="width: 80px;" placeholder="L1">
-              <label for="lab2Ans2" style="font-weight: 600; margin-left: 0.8rem;">2) $\lim_{x 	o 1} rac{x^2 + 2x - 3}{x - 1} =$</label>
+              <label for="lab2Ans2" style="font-weight: 600; margin-left: 0.8rem;">2) $\lim_{x \to 1} \frac{x^2 + 2x - 3}{x - 1} =$</label>
               <input type="text" id="lab2Ans2" class="inline-input" style="width: 80px;" placeholder="L2">
               <button type="button" class="btn-action" onclick="verifyLab2()">Verifica Limiti</button>
               <span id="lab2Msg" class="feedback-msg" style="display: none;"></span>
@@ -602,10 +599,10 @@ eq 0$ e ricalcolare il limite immediato.
           <ul class="theory-list">
             <li><strong>Fattorizzazione algebrica:</strong> Se $P(x_0) = 0$ e $Q(x_0) = 0$, sia $P(x)$ che $Q(x)$ sono divisibili per $(x - x_0)$.
               Scomponendo:
-              $$\lim_{x 	o x_0} rac{P(x)}{Q(x)} = \lim_{x 	o x_0} rac{(x - x_0) \cdot P_1(x)}{(x - x_0) \cdot Q_1(x)} = \lim_{x 	o x_0} rac{P_1(x)}{Q_1(x)}$$
+              $$\lim_{x \to x_0} \frac{P(x)}{Q(x)} = \lim_{x \to x_0} \frac{(x - x_0) \cdot P_1(x)}{(x - x_0) \cdot Q_1(x)} = \lim_{x \to x_0} \frac{P_1(x)}{Q_1(x)}$$
             </li>
             <li><strong>Razionalizzazione con radicali:</strong> Se compare una radice quadrata come $(\sqrt{x + a} - b)$, si moltiplica numeratore e denominatore per il binomio coniugato $(\sqrt{x + a} + b)$ sfruttando $(A - B)(A + B) = A^2 - B^2$.</li>
-            <li><strong>Interpretazione geometrica:</strong> Se $\lim_{x 	o x_0} rac{P(x)}{Q(x)} = L$ finito, la funzione presenta in $x_0$ un <strong>buco rimovibile (discontinuità di 3ª specie o eliminabile)</strong>: il grafico è una curva continua interrotta da un solo punto mancante.</li>
+            <li><strong>Interpretazione geometrica:</strong> Se $\lim_{x \to x_0} \frac{P(x)}{Q(x)} = L$ finito, la funzione presenta in $x_0$ un <strong>buco rimovibile (discontinuità di 3ª specie o eliminabile)</strong>: il grafico è una curva continua interrotta da un solo punto mancante.</li>
           </ul>
         </div>
       </article>
@@ -625,8 +622,8 @@ eq 0$ e ricalcolare il limite immediato.
           <span class="m1l1-context-icon">🚀</span>
           <div>
             <strong>Non tutti gli infiniti crescono alla stessa velocità!</strong><br>
-            Quando $x 	o +\infty$, funzioni diverse esplodono con ritmi incomparabili: i logaritmi sono i più lenti di tutti,
-            le potenze $x^lpha$ crescono con ritmo polinomiale, mentre le funzioni esponenziali $a^x$ ($a > 1$) fuggono a velocità vertiginosa,
+            Quando $x \to +\infty$, funzioni diverse esplodono con ritmi incomparabili: i logaritmi sono i più lenti di tutti,
+            le potenze $x^\alpha$ crescono con ritmo polinomiale, mentre le funzioni esponenziali $a^x$ ($a > 1$) fuggono a velocità vertiginosa,
             dominando qualsiasi polinomio.
           </div>
         </div>
@@ -639,7 +636,7 @@ eq 0$ e ricalcolare il limite immediato.
           </div>
           <span class="m1l2-h-sep">&lt;&lt;</span>
           <div class="m1l2-h-step">
-            <strong>$x^lpha$ ($lpha > 0$)</strong>
+            <strong>$x^\alpha$ ($\alpha > 0$)</strong>
             <small style="color:var(--text-muted);">Lepre Polinomiale</small>
           </div>
           <span class="m1l2-h-sep">&lt;&lt;</span>
@@ -689,7 +686,7 @@ eq 0$ e ricalcolare il limite immediato.
           <div class="step-content">
             <p style="margin-bottom: 0.65rem;">
               Senza fare lunghi calcoli, quanto valgono i seguenti limiti immediati?
-              $$\lim_{x 	o +\infty} rac{\ln(x)}{x^4} = \ ? \qquad \lim_{x 	o +\infty} rac{e^x}{x^{100}} = \ ? \qquad \lim_{x 	o +\infty} rac{7x^3 - 5}{2x^3 + 9} = \ ?$$
+              $$\lim_{x \to +\infty} \frac{\ln(x)}{x^4} = \ ? \qquad \lim_{x \to +\infty} \frac{e^x}{x^{100}} = \ ? \qquad \lim_{x \to +\infty} \frac{7x^3 - 5}{2x^3 + 9} = \ ?$$
             </p>
             <div class="verify-box">
               <input type="text" id="lab3Ans1" class="inline-input" style="width: 70px;" placeholder="0">
@@ -705,15 +702,15 @@ eq 0$ e ricalcolare il limite immediato.
         <div class="theory-card" id="teoria-3">
           <div class="theory-card-header">
             <span class="pill-num">3</span>
-            <span>La Teoria in Breve • Risoluzione di $[rac{\infty}{\infty}]$ e Gerarchia</span>
+            <span>La Teoria in Breve • Risoluzione di $[\frac{\infty}{\infty}]$ e Gerarchia</span>
           </div>
           <ul class="theory-list">
-            <li><strong>Polinomi fratti per $x 	o \pm\infty$ (Raccoglimento del grado massimo):</strong>
-              $$\lim_{x 	o \pm\infty} rac{a_n x^n + \dots}{b_m x^m + \dots} = \lim_{x 	o \pm\infty} rac{a_n x^n}{b_m x^m}$$
-              Se $n &lt; m$ il limite è $0$; se $n = m$ è il rapporto dei coefficienti direttivi $rac{a_n}{b_m}$; se $n &gt; m$ è $\pm\infty$.
+            <li><strong>Polinomi fratti per $x \to \pm\infty$ (Raccoglimento del grado massimo):</strong>
+              $$\lim_{x \to \pm\infty} \frac{a_n x^n + \dots}{b_m x^m + \dots} = \lim_{x \to \pm\infty} \frac{a_n x^n}{b_m x^m}$$
+              Se $n &lt; m$ il limite è $0$; se $n = m$ è il rapporto dei coefficienti direttivi $\frac{a_n}{b_m}$; se $n &gt; m$ è $\pm\infty$.
             </li>
-            <li><strong>Regola di dominanza degli infiniti:</strong> Per $x 	o +\infty$, un infinito di ordine superiore al denominatore schiaccia il limite a $0$; se è al numeratore lo porta a $+\infty$:
-              $$\lim_{x 	o +\infty} rac{\ln^eta x}{x^lpha} = 0, \qquad \lim_{x 	o +\infty} rac{x^lpha}{a^x} = 0 \quad (lpha > 0,\ a > 1)$$
+            <li><strong>Regola di dominanza degli infiniti:</strong> Per $x \to +\infty$, un infinito di ordine superiore al denominatore schiaccia il limite a $0$; se è al numeratore lo porta a $+\infty$:
+              $$\lim_{x \to +\infty} \frac{\ln^\beta x}{x^\alpha} = 0, \qquad \lim_{x \to +\infty} \frac{x^\alpha}{a^x} = 0 \quad (\alpha > 0,\ a > 1)$$
             </li>
           </ul>
         </div>
@@ -740,7 +737,7 @@ eq 0$ e ricalcolare il limite immediato.
         </div>
 
         <p class="lab-intro">
-          Considera la funzione $f(x) = \sqrt{x^2 + 6x} - x$. Quando $x 	o +\infty$, entrambi i termini divergono a $+\infty$, ma la loro differenza
+          Considera la funzione $f(x) = \sqrt{x^2 + 6x} - x$. Quando $x \to +\infty$, entrambi i termini divergono a $+\infty$, ma la loro differenza
           si stabilizza su un valore numerico preciso. Usa lo slider per osservare la convergenza al limite:
         </p>
 
@@ -773,7 +770,7 @@ eq 0$ e ricalcolare il limite immediato.
           <div class="step-content">
             <p style="margin-bottom: 0.65rem;">
               Moltiplica e dividi per $(\sqrt{x^2 + 6x} + x)$:
-              $$\lim_{x 	o +\infty} (\sqrt{x^2 + 6x} - x) \cdot rac{\sqrt{x^2 + 6x} + x}{\sqrt{x^2 + 6x} + x} = \lim_{x 	o +\infty} rac{(x^2 + 6x) - x^2}{\sqrt{x^2(1 + rac{6}{x})} + x} = \lim_{x 	o +\infty} rac{6x}{2x} = \ ?$$
+              $$\lim_{x \to +\infty} (\sqrt{x^2 + 6x} - x) \cdot \frac{\sqrt{x^2 + 6x} + x}{\sqrt{x^2 + 6x} + x} = \lim_{x \to +\infty} \frac{(x^2 + 6x) - x^2}{\sqrt{x^2(1 + \frac{6}{x})} + x} = \lim_{x \to +\infty} \frac{6x}{2x} = \ ?$$
             </p>
             <div class="verify-box">
               <label for="lab4Input" style="font-weight: 600;">Valore esatto del limite:</label>
@@ -792,11 +789,11 @@ eq 0$ e ricalcolare il limite immediato.
           </div>
           <ul class="theory-list">
             <li><strong>Polinomi:</strong> Si raccoglie a fattor comune la potenza di grado massimo:
-              $$\lim_{x 	o +\infty} (2x^3 - 5x^2 + 1) = \lim_{x 	o +\infty} x^3 \left(2 - rac{5}{x} + rac{1}{x^3}ight) = +\infty \cdot (2 - 0 + 0) = +\infty$$
+              $$\lim_{x \to +\infty} (2x^3 - 5x^2 + 1) = \lim_{x \to +\infty} x^3 \left(2 - \frac{5}{x} + \frac{1}{x^3}\right) = +\infty \cdot (2 - 0 + 0) = +\infty$$
             </li>
             <li><strong>Radici quadratiche:</strong> Se i termini di grado massimo sotto radice e fuori radice si equivalgono, si moltiplica e divide per il fattore coniugato:
-              $$\sqrt{A} - B = rac{(\sqrt{A} - B)(\sqrt{A} + B)}{\sqrt{A} + B} = rac{A - B^2}{\sqrt{A} + B}$$
-              trasformando l'indeterminazione da $[+\infty - \infty]$ a $[rac{\infty}{\infty}]$, risolvibile poi raccogliendo $x$.
+              $$\sqrt{A} - B = \frac{(\sqrt{A} - B)(\sqrt{A} + B)}{\sqrt{A} + B} = \frac{A - B^2}{\sqrt{A} + B}$$
+              trasformando l'indeterminazione da $[+\infty - \infty]$ a $[\frac{\infty}{\infty}]$, risolvibile poi raccogliendo $x$.
             </li>
           </ul>
         </div>
@@ -820,7 +817,7 @@ eq 0$ e ricalcolare il limite immediato.
               <div class="m1l2-gym-badge">Sfida A • Limite Immediato a Tranello</div>
               <button type="button" class="theory-ref-pill" onclick="scrollToTheory('teoria-1')">🔗 Teoria 1 • Algebra</button>
               <div class="m1l2-gym-question">
-                Quanto vale $\displaystyle\lim_{x 	o 0} rac{x^2 + 5}{x + 1}$? Attento: è un semaforo verde, non farti ingannare da zeri inesistenti!
+                Quanto vale $\displaystyle\lim_{x \to 0} \frac{x^2 + 5}{x + 1}$? Attento: è un semaforo verde, non farti ingannare da zeri inesistenti!
               </div>
             </div>
             <div>
@@ -838,7 +835,7 @@ eq 0$ e ricalcolare il limite immediato.
               <div class="m1l2-gym-badge">Sfida B • Forma [0/0] con Ruffini</div>
               <button type="button" class="theory-ref-pill" onclick="scrollToTheory('teoria-2')">🔗 Teoria 2 • Scomposizione</button>
               <div class="m1l2-gym-question">
-                Calcola $\displaystyle\lim_{x 	o 2} rac{x^2 - 5x + 6}{x - 2}$. Scomponi il trinomio $x^2 - 5x + 6 = (x - 2)(x - 3)$.
+                Calcola $\displaystyle\lim_{x \to 2} \frac{x^2 - 5x + 6}{x - 2}$. Scomponi il trinomio $x^2 - 5x + 6 = (x - 2)(x - 3)$.
               </div>
             </div>
             <div>
@@ -856,7 +853,7 @@ eq 0$ e ricalcolare il limite immediato.
               <div class="m1l2-gym-badge">Sfida C • Grado Diverso all'Infinito</div>
               <button type="button" class="theory-ref-pill" onclick="scrollToTheory('teoria-3')">🔗 Teoria 3 • Polinomi</button>
               <div class="m1l2-gym-question">
-                Calcola $\displaystyle\lim_{x 	o +\infty} rac{4x^2 - 7}{9x^3 + 2}$. Il denominatore ha grado maggiore del numeratore.
+                Calcola $\displaystyle\lim_{x \to +\infty} \frac{4x^2 - 7}{9x^3 + 2}$. Il denominatore ha grado maggiore del numeratore.
               </div>
             </div>
             <div>
@@ -874,7 +871,7 @@ eq 0$ e ricalcolare il limite immediato.
               <div class="m1l2-gym-badge">Sfida D • Gerarchia Esponenziale</div>
               <button type="button" class="theory-ref-pill" onclick="scrollToTheory('teoria-3')">🔗 Teoria 3 • Gerarchia</button>
               <div class="m1l2-gym-question">
-                Calcola $\displaystyle\lim_{x 	o +\infty} rac{3^x}{x^5 + 10x}$. Chi domina tra la potenza e l'esponenziale?
+                Calcola $\displaystyle\lim_{x \to +\infty} \frac{3^x}{x^5 + 10x}$. Chi domina tra la potenza e l'esponenziale?
               </div>
             </div>
             <div>
@@ -908,7 +905,7 @@ eq 0$ e ricalcolare il limite immediato.
             Nelle scienze sociali e nella sociologia della comunicazione, la crescita di utenti di una nuova piattaforma digitale non può
             proseguire all'infinito con ritmo esponenziale: le risorse umane connesse sono finite.
             Il numero di utenti attivi (in milioni) dopo $t$ mesi dal lancio è modellato dalla <strong>curva logistica</strong>:
-            $$U(t) = rac{120}{1 + 9\,e^{-0{,}3\,t}}, \qquad t \ge 0$$
+            $$U(t) = \frac{120}{1 + 9\,e^{-0{,}3\,t}}, \qquad t \ge 0$$
           </div>
         </div>
 
@@ -929,7 +926,7 @@ eq 0$ e ricalcolare il limite immediato.
             aria-label="Curva logistica di adozione del social network con asintoto orizzontale a 120 milioni"></svg>
           <div class="m1l2-legend">
             <span style="--legend-color: var(--accent-math);">Utenti $U(t)$</span>
-            <span style="--legend-color: var(--accent-success);">Tetto asintotico $L = 120$ milioni ($t 	o +\infty$)</span>
+            <span style="--legend-color: var(--accent-success);">Tetto asintotico $L = 120$ milioni ($t \to +\infty$)</span>
             <span style="--legend-color: var(--accent-gold);">Stato attuale</span>
           </div>
         </div>
@@ -937,7 +934,7 @@ eq 0$ e ricalcolare il limite immediato.
         <!-- Fasi di risoluzione commentate -->
         <div class="m1l2-worked-controls">
           <button type="button" class="m1l2-choice-btn selected" id="btnStep1" onclick="showWorkedStep(1)">Passo 1: Lancio Iniziale ($t = 0$)</button>
-          <button type="button" class="m1l2-choice-btn" id="btnStep2" onclick="showWorkedStep(2)">Passo 2: Il Limite all'Infinito ($t 	o +\infty$)</button>
+          <button type="button" class="m1l2-choice-btn" id="btnStep2" onclick="showWorkedStep(2)">Passo 2: Il Limite all'Infinito ($t \to +\infty$)</button>
           <button type="button" class="m1l2-choice-btn" id="btnStep3" onclick="showWorkedStep(3)">Passo 3: Risoluzione della Forma Indeterminata</button>
           <button type="button" class="m1l2-choice-btn" id="btnStep4" onclick="showWorkedStep(4)">Passo 4: Conclusioni Sociologiche</button>
         </div>
@@ -950,7 +947,7 @@ eq 0$ e ricalcolare il limite immediato.
             <div class="step-content">
               <p>Al momento iniziale del debutto sul mercato ($t = 0$ mesi), poiché $e^0 = 1$:</p>
               <div class="m1l1-formula-line">
-                $$U(0) = rac{120}{1 + 9\,e^0} = rac{120}{1 + 9} = rac{120}{10} = 12	ext{ milioni di utenti}$$
+                $$U(0) = \frac{120}{1 + 9\,e^0} = \frac{120}{1 + 9} = \frac{120}{10} = 12\text{ milioni di utenti}$$
               </div>
               <p>Gli utenti iniziali (early adopters e pre-iscritti) costituiscono il $10\%$ della capienza potenziale massima.</p>
             </div>
@@ -958,14 +955,14 @@ eq 0$ e ricalcolare il limite immediato.
 
           <div class="m1l2-worked-step" id="workedStep2">
             <div class="step-header">
-              <span class="step-tag">Passo 2 • Il Calcolo del Limite di Lungo Periodo ($t 	o +\infty$)</span>
+              <span class="step-tag">Passo 2 • Il Calcolo del Limite di Lungo Periodo ($t \to +\infty$)</span>
             </div>
             <div class="step-content">
-              <p>Cosa accadrà dopo molti mesi o anni? Valutiamo il limite per $t 	o +\infty$ applicando l'algebra dei limiti:</p>
+              <p>Cosa accadrà dopo molti mesi o anni? Valutiamo il limite per $t \to +\infty$ applicando l'algebra dei limiti:</p>
               <div class="m1l1-formula-line">
-                $$\lim_{t 	o +\infty} U(t) = \lim_{t 	o +\infty} rac{120}{1 + 9\,e^{-0{,}3t}}$$
+                $$\lim_{t \to +\infty} U(t) = \lim_{t \to +\infty} \frac{120}{1 + 9\,e^{-0{,}3t}}$$
               </div>
-              <p>Poiché l'esponente è negativo, per le proprietà dell'esponenziale: $\displaystyle\lim_{t 	o +\infty} e^{-0{,}3t} = \lim_{t 	o +\infty} rac{1}{e^{0{,}3t}} = rac{1}{+\infty} = 0$.</p>
+              <p>Poiché l'esponente è negativo, per le proprietà dell'esponenziale: $\displaystyle\lim_{t \to +\infty} e^{-0{,}3t} = \lim_{t \to +\infty} \frac{1}{e^{0{,}3t}} = \frac{1}{+\infty} = 0$.</p>
             </div>
           </div>
 
@@ -976,7 +973,7 @@ eq 0$ e ricalcolare il limite immediato.
             <div class="step-content">
               <p>Sostituendo il valore del limite infinitesimo del termine esponenziale:</p>
               <div class="m1l1-formula-line">
-                $$\lim_{t 	o +\infty} U(t) = rac{120}{1 + 9 \cdot 0} = rac{120}{1} = 120	ext{ milioni di utenti}$$
+                $$\lim_{t \to +\infty} U(t) = \frac{120}{1 + 9 \cdot 0} = \frac{120}{1} = 120\text{ milioni di utenti}$$
               </div>
               <p>Non c'è alcuna indeterminazione! La retta orizzontale <strong>$y = 120$</strong> è un <strong>asintoto orizzontale destro</strong> per la curva logistica.</p>
             </div>
@@ -1072,11 +1069,11 @@ eq 0$ e ricalcolare il limite immediato.
         <div class="scheda-problem-box">
           <strong>La Situazione-Problema:</strong><br>
           Una ONG lancia una campagna di crowdfunding per riqualificare un parco giochi periferico inclusivo. I fondi raccolti (in migliaia di euro) dopo $t$ giorni seguono la legge:
-          $$F(t) = rac{80\,t^2 + 100\,t}{2\,t^2 + 25}, \qquad t \ge 0$$
+          $$F(t) = \frac{80\,t^2 + 100\,t}{2\,t^2 + 25}, \qquad t \ge 0$$
           <ol style="margin-top: 0.5rem; padding-left: 1.25rem; line-height: 1.6;">
             <li>Calcola i fondi raccolti dopo $5$ giorni ($F(5)$).</li>
-            <li>Determina il tetto massimo raggiungibile dalla raccolta calcolando $\lim_{t 	o +\infty} F(t)$, esplicitando quale forma indeterminata si presenta e come la risolvi.</li>
-            <li>Se l'obiettivo minimo dell'opera è di $35.000	ext{ €}$, la campagna riuscirà a finanziarla interamente nel lungo periodo? Argomenta con il valore del limite calcolato.</li>
+            <li>Determina il tetto massimo raggiungibile dalla raccolta calcolando $\lim_{t \to +\infty} F(t)$, esplicitando quale forma indeterminata si presenta e come la risolvi.</li>
+            <li>Se l'obiettivo minimo dell'opera è di $35.000\text{ €}$, la campagna riuscirà a finanziarla interamente nel lungo periodo? Argomenta con il valore del limite calcolato.</li>
           </ol>
         </div>
 
@@ -1124,8 +1121,7 @@ eq 0$ e ricalcolare il limite immediato.
       <div class="takeaways-row">
         <div class="takeaway-item">
           <strong>1. Prova Sempre la Sostituzione</strong>
-          <p>Non tutte le frazioni sono indeterminate: se $Q(x_0) 
-eq 0$ o se hai $rac{k}{0} 	o \infty$, il limite è immediato!</p>
+          <p>Non tutte le frazioni sono indeterminate: se $Q(x_0) \neq 0$ o se hai $\frac{k}{0} \to \infty$, il limite è immediato!</p>
         </div>
         <div class="takeaway-item">
           <strong>2. $[0/0]$: Caccia al Fattore $(x - x_0)$</strong>
@@ -1133,11 +1129,11 @@ eq 0$ o se hai $rac{k}{0} 	o \infty$, il limite è immediato!</p>
         </div>
         <div class="takeaway-item">
           <strong>3. $[\infty/\infty]$: Comanda il Grado Massimo</strong>
-          <p>Nelle frazioni algebriche conta solo il rapporto dei termini di grado più alto: $\lim rac{a x^n}{b x^m}$.</p>
+          <p>Nelle frazioni algebriche conta solo il rapporto dei termini di grado più alto: $\lim \frac{a x^n}{b x^m}$.</p>
         </div>
         <div class="takeaway-item">
           <strong>4. La Gerarchia Salva dai Calcoli</strong>
-          <p>$\ln(x) \ll x^lpha \ll a^x$: l'esponenziale vince su qualsiasi polinomio, e il polinomio vince su qualsiasi logaritmo.</p>
+          <p>$\ln(x) \ll x^\alpha \ll a^x$: l'esponenziale vince su qualsiasi polinomio, e il polinomio vince su qualsiasi logaritmo.</p>
         </div>
       </div>
     </footer>

@@ -311,11 +311,11 @@
 
       <div class="lab-content">
         <p>
-          Un maestro ceramista realizza piastrelle quadrate di lato nominale $l_0 = 3	ext{ dm}$, la cui area è $A_0 = 3^2 = 9	ext{ dm}^2$.
+          Un maestro ceramista realizza piastrelle quadrate di lato nominale $l_0 = 3\text{ dm}$, la cui area è $A_0 = 3^2 = 9\text{ dm}^2$.
           La macchina da taglio, per quanto accurata, presenta sempre una minuscola tolleranza: se il lato effettivo misura $l = l_0 + \Delta l$, l'area della piastrella diventa $A(l) = l^2$.
         </p>
         <p>
-          Il cliente ordina che l'area non si discosti da $9	ext{ dm}^2$ per più di una severa tolleranza $arepsilon$ (ad esempio $arepsilon = 0.5	ext{ dm}^2$). L'artigiano si chiede:
+          Il cliente ordina che l'area non si discosti da $9\text{ dm}^2$ per più di una severa tolleranza $\varepsilon$ (ad esempio $\varepsilon = 0.5\text{ dm}^2$). L'artigiano si chiede:
           <em>«Qual è la massima variazione consentita sul lato $\delta$ affinché l'area rimanga all'interno della tolleranza richiesta?»</em>
         </p>
 
@@ -349,8 +349,8 @@
           </div>
 
           <p style="font-size: 0.88rem; color: var(--text-muted); margin-top: 0.85rem; line-height: 1.5;">
-            💡 <strong>Cosa notiamo:</strong> Quando $\Delta l$ diventa piccolissimo ($\Delta l 	o 0$), la variazione dell'area $\Delta A = A(l) - A_0$ diventa a sua volta arbitrariamente piccola ($\Delta A 	o 0$).
-            Non ci sono «salti» improvvisi: per garantire che l'area non sgarri di più di $arepsilon$, basta regolare la lama con una precisione $\delta$.
+            💡 <strong>Cosa notiamo:</strong> Quando $\Delta l$ diventa piccolissimo ($\Delta l \to 0$), la variazione dell'area $\Delta A = A(l) - A_0$ diventa a sua volta arbitrariamente piccola ($\Delta A \to 0$).
+            Non ci sono «salti» improvvisi: per garantire che l'area non sgarri di più di $\varepsilon$, basta regolare la lama con una precisione $\delta$.
             Questo è il cuore dell'idea di <strong>continuità</strong>!
           </p>
         </div>
@@ -362,21 +362,21 @@
             <span class="theory-pill">Teoria 1</span>
           </h4>
           <p>
-            Una funzione $f(x)$ si definisce <strong>continua nel punto $x_0 \in 	ext{Dom}(f)$</strong> se il limite della funzione per $x$ che tende a $x_0$ coincide esattamente con il valore che la funzione assume in $x_0$:
+            Una funzione $f(x)$ si definisce <strong>continua nel punto $x_0 \in \text{Dom}(f)$</strong> se il limite della funzione per $x$ che tende a $x_0$ coincide esattamente con il valore che la funzione assume in $x_0$:
           </p>
-          $$\lim_{x 	o x_0} f(x) = f(x_0)$$
+          $$\lim_{x \to x_0} f(x) = f(x_0)$$
           <p>
             Questa sintetica uguaglianza racchiude tre condizioni obbligatorie:
           </p>
           <ol style="margin-left: 1.25rem; font-size: 0.92rem; line-height: 1.6;">
             <li><strong>Esistenza del punto:</strong> $x_0$ appartiene al dominio della funzione, cioè $f(x_0)$ è un numero reale finito e calcolabile.</li>
-            <li><strong>Esistenza del limite:</strong> Esiste finito il limite $\lim_{x 	o x_0} f(x) = L \in \mathbb{R}$, il che implica che il limite sinistro e quello destro coincidano: $\lim_{x 	o x_0^-} f(x) = \lim_{x 	o x_0^+} f(x) = L$.</li>
+            <li><strong>Esistenza del limite:</strong> Esiste finito il limite $\lim_{x \to x_0} f(x) = L \in \mathbb{R}$, il che implica che il limite sinistro e quello destro coincidano: $\lim_{x \to x_0^-} f(x) = \lim_{x \to x_0^+} f(x) = L$.</li>
             <li><strong>Coincidenza tra limite e valore:</strong> Il valore di tendenza $L$ è identico al valore effettivo $f(x_0)$.</li>
           </ol>
           <div style="background: var(--bg-surface); border: 1px solid var(--border-subtle); padding: 0.85rem; border-radius: var(--radius-sm); margin-top: 0.75rem; font-size: 0.88rem;">
-            🎯 <strong>Definizione con $arepsilon$ e $\delta$:</strong>
-            $f$ è continua in $x_0$ se $orall arepsilon > 0, \exists \delta > 0 : orall x \in 	ext{Dom}(f), |x - x_0| < \delta \implies |f(x) - f(x_0)| < arepsilon$.<br>
-            <em>Continuità in un intervallo $[a, b]$:</em> una funzione è continua in $[a, b]$ se è continua in ogni punto interno di $(a, b)$, continua da destra in $a$ ($\lim_{x 	o a^+} f(x) = f(a)$) e continua da sinistra in $b$ ($\lim_{x 	o b^-} f(x) = f(b)$).
+            🎯 <strong>Definizione con $\varepsilon$ e $\delta$:</strong>
+            $f$ è continua in $x_0$ se $\forall \varepsilon > 0, \exists \delta > 0 : \forall x \in \text{Dom}(f), |x - x_0| < \delta \implies |f(x) - f(x_0)| < \varepsilon$.<br>
+            <em>Continuità in un intervallo $[a, b]$:</em> una funzione è continua in $[a, b]$ se è continua in ogni punto interno di $(a, b)$, continua da destra in $a$ ($\lim_{x \to a^+} f(x) = f(a)$) e continua da sinistra in $b$ ($\lim_{x \to b^-} f(x) = f(b)$).
           </div>
         </div>
 
@@ -420,7 +420,7 @@
           <div style="margin-bottom: 0.75rem;">
             <strong style="color: var(--accent-math); font-size: 1.05rem;" id="discTitle">1ª Specie: Salto Finito (Jump)</strong>
             <p style="font-size: 0.9rem; color: var(--text-muted); margin: 0.35rem 0;" id="discDesc">
-              I limiti sinistro e destro per $x 	o x_0$ esistono entrambi FINITI, ma sono DIVERSI tra loro.
+              I limiti sinistro e destro per $x \to x_0$ esistono entrambi FINITI, ma sono DIVERSI tra loro.
             </p>
           </div>
 
@@ -441,7 +441,7 @@
           </h4>
           <p>
             Per classificare una discontinuità nel punto $x_0$, si calcolano sempre i due limiti laterali:
-            $l_1 = \lim_{x 	o x_0^-} f(x)$ e $l_2 = \lim_{x 	o x_0^+} f(x)$.
+            $l_1 = \lim_{x \to x_0^-} f(x)$ e $l_2 = \lim_{x \to x_0^+} f(x)$.
           </p>
           <div style="overflow-x: auto; margin-top: 0.75rem;">
             <table class="bisection-table">
@@ -456,24 +456,21 @@
               <tbody>
                 <tr>
                   <td><strong>1ª Specie (Salto)</strong></td>
-                  <td>$\lim_{x 	o x_0^-} f(x) = l_1 \in \mathbb{R}$, $\lim_{x 	o x_0^+} f(x) = l_2 \in \mathbb{R}$ con $l_1 
-eq l_2$</td>
+                  <td>$\lim_{x \to x_0^-} f(x) = l_1 \in \mathbb{R}$, $\lim_{x \to x_0^+} f(x) = l_2 \in \mathbb{R}$ con $l_1 \neq l_2$</td>
                   <td>C'è un gradino verticale. Il <em>salto</em> misura $S = |l_2 - l_1|$.</td>
-                  <td>Funzione segno $	ext{sgn}(x)$ o tariffe postali a scaglioni di peso</td>
+                  <td>Funzione segno $\text{sgn}(x)$ o tariffe postali a scaglioni di peso</td>
                 </tr>
                 <tr>
                   <td><strong>2ª Specie (Essenziale)</strong></td>
                   <td>Almeno uno dei due limiti laterali vale $\pm\infty$ oppure non esiste</td>
                   <td>Asintoto verticale $x = x_0$ oppure oscillazione selvaggia senza limite</td>
-                  <td>$f(x) = rac{1}{x - 2}$ oppure $f(x) = \sin(1/x)$ in $x_0 = 0$</td>
+                  <td>$f(x) = \frac{1}{x - 2}$ oppure $f(x) = \sin(1/x)$ in $x_0 = 0$</td>
                 </tr>
                 <tr>
                   <td><strong>3ª Specie (Eliminabile)</strong></td>
-                  <td>$\lim_{x 	o x_0^-} f(x) = \lim_{x 	o x_0^+} f(x) = L \in \mathbb{R}$, ma $x_0 
-otin 	ext{Dom}$ oppure $f(x_0) 
-eq L$</td>
+                  <td>$\lim_{x \to x_0^-} f(x) = \lim_{x \to x_0^+} f(x) = L \in \mathbb{R}$, ma $x_0 \notin \text{Dom}$ oppure $f(x_0) \neq L$</td>
                   <td>Il grafico è continuo ovunque tranne per un singolo «buco» o un punto isolato</td>
-                  <td>$f(x) = rac{x^2 - 4}{x - 2}$ in $x_0 = 2$ ($L = 4$)</td>
+                  <td>$f(x) = \frac{x^2 - 4}{x - 2}$ in $x_0 = 2$ ($L = 4$)</td>
                 </tr>
               </tbody>
             </table>
@@ -531,7 +528,7 @@ eq L$</td>
             <strong>Enunciato del Teorema di Weierstrass:</strong><br>
             Se una funzione $f(x)$ è <strong>continua</strong> in un intervallo <strong>chiuso e limitato</strong> $[a, b]$, allora essa assume in tale intervallo il suo <strong>valore massimo assoluto $M$</strong> e il suo <strong>valore minimo assoluto $m$</strong>.
           </p>
-          $$\exists c, d \in [a, b] : f(c) = m \le f(x) \le M = f(d), \quad orall x \in [a, b]$$
+          $$\exists c, d \in [a, b] : f(c) = m \le f(x) \le M = f(d), \quad \forall x \in [a, b]$$
           <p>
             <strong>Le tre ipotesi imprescindibili:</strong>
           </p>
@@ -591,7 +588,7 @@ eq L$</td>
                 <th>Passo $k$</th>
                 <th>Estremo $a$</th>
                 <th>Estremo $b$</th>
-                <th>Punto Medio $m = rac{a+b}{2}$</th>
+                <th>Punto Medio $m = \frac{a+b}{2}$</th>
                 <th>Segno di $f(m)$</th>
                 <th>Nuovo Intervallo</th>
               </tr>
@@ -651,7 +648,7 @@ eq L$</td>
           <div style="background: var(--bg-surface-elevated); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.15rem;">
             <span class="m1l3-badge" style="background: rgba(56, 189, 248, 0.15); color: var(--accent-math); margin-bottom: 0.5rem;">Sfida 1</span>
             <p style="font-size: 0.92rem; font-weight: 700; margin-bottom: 0.5rem;">
-              Quale discontinuità presenta $f(x) = rac{x^2 - 9}{x - 3}$ in $x = 3$?
+              Quale discontinuità presenta $f(x) = \frac{x^2 - 9}{x - 3}$ in $x = 3$?
             </p>
             <div style="display: flex; flex-direction: column; gap: 0.35rem; font-size: 0.88rem;">
               <button class="btn quiz-opt" onclick="checkQuiz(1, 0, this)">1ª Specie (Salto finito di 6)</button>
@@ -665,11 +662,11 @@ eq L$</td>
           <div style="background: var(--bg-surface-elevated); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.15rem;">
             <span class="m1l3-badge" style="background: rgba(245, 158, 11, 0.15); color: var(--accent-gold); margin-bottom: 0.5rem;">Sfida 2</span>
             <p style="font-size: 0.92rem; font-weight: 700; margin-bottom: 0.5rem;">
-              Il Teorema di Weierstrass si applica a $f(x) = rac{1}{x}$ nell'intervallo $(0, 4]$?
+              Il Teorema di Weierstrass si applica a $f(x) = \frac{1}{x}$ nell'intervallo $(0, 4]$?
             </p>
             <div style="display: flex; flex-direction: column; gap: 0.35rem; font-size: 0.88rem;">
-              <button class="btn quiz-opt" onclick="checkQuiz(2, 0, this)">Sì, perché $4 \in 	ext{Dom}(f)$ ed è limitato</button>
-              <button class="btn quiz-opt" onclick="checkQuiz(2, 1, this)">No, l'intervallo non è chiuso in 0 e per $x 	o 0^+$ $f(x) 	o +\infty$</button>
+              <button class="btn quiz-opt" onclick="checkQuiz(2, 0, this)">Sì, perché $4 \in \text{Dom}(f)$ ed è limitato</button>
+              <button class="btn quiz-opt" onclick="checkQuiz(2, 1, this)">No, l'intervallo non è chiuso in 0 e per $x \to 0^+$ $f(x) \to +\infty$</button>
               <button class="btn quiz-opt" onclick="checkQuiz(2, 2, this)">Sì, ma solo per il minimo assoluto</button>
             </div>
             <div id="quizFeedback2" style="font-size: 0.85rem; margin-top: 0.5rem; display: none;"></div>
@@ -693,7 +690,7 @@ eq L$</td>
           <div style="background: var(--bg-surface-elevated); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.15rem;">
             <span class="m1l3-badge" style="background: rgba(16, 185, 129, 0.15); color: var(--accent-success); margin-bottom: 0.5rem;">Sfida 4</span>
             <p style="font-size: 0.92rem; font-weight: 700; margin-bottom: 0.5rem;">
-              Per quale valore di $k$ la funzione a tratti $f(x) = egin{cases} 2x + k & x < 3 \ x^2 - 1 & x \ge 3 \end{cases}$ è continua in $x = 3$?
+              Per quale valore di $k$ la funzione a tratti $f(x) = \begin{cases} 2x + k & x < 3 \ x^2 - 1 & x \ge 3 \end{cases}$ è continua in $x = 3$?
             </p>
             <div style="display: flex; flex-direction: column; gap: 0.35rem; font-size: 0.88rem;">
               <button class="btn quiz-opt" onclick="checkQuiz(4, 0, this)">$k = 0$</button>
@@ -725,7 +722,7 @@ eq L$</td>
           Un Comune sta riformando il sistema di sussidi per il canone di locazione destinato alle famiglie residenti in funzione del reddito ISEE $x$ (espresso in migliaia di euro, per $x \in [0, 30]$).
           La delibera propone un sussidio annuo in euro $S(x)$ diviso in due fasce:
         </p>
-        $$S(x) = egin{cases} 600 - 15x & 0 \le x < 12 \ rac{k}{x + 4} & 12 \le x \le 30 \end{cases}$$
+        $$S(x) = \begin{cases} 600 - 15x & 0 \le x < 12 \ \frac{k}{x + 4} & 12 \le x \le 30 \end{cases}$$
         <p>
           <strong>Il dilemma sociale e amministrativo:</strong><br>
           Se nel punto di passaggio $x = 12$ (ISEE di 12.000 €) ci fosse un "salto" verso il basso, si creerebbe la cosiddetta <em>«trappola della povertà»</em>: una famiglia che guadagna 10 euro in più perderebbe improvvisamente centinaia di euro di sussidio!
@@ -756,23 +753,23 @@ eq L$</td>
           <ol style="margin-left: 1.25rem; font-size: 0.92rem; line-height: 1.6;">
             <li>
               <strong>Calcolo del limite sinistro in $x = 12$:</strong><br>
-              $\lim_{x 	o 12^-} S(x) = 600 - 15(12) = 600 - 180 = 420	ext{ euro}$.
+              $\lim_{x \to 12^-} S(x) = 600 - 15(12) = 600 - 180 = 420\text{ euro}$.
             </li>
             <li>
               <strong>Calcolo del valore e limite destro in $x = 12$:</strong><br>
-              $S(12) = \lim_{x 	o 12^+} S(x) = rac{k}{12 + 4} = rac{k}{16}$.
+              $S(12) = \lim_{x \to 12^+} S(x) = \frac{k}{12 + 4} = \frac{k}{16}$.
             </li>
             <li>
               <strong>Uguaglianza di continuità:</strong><br>
-              Affinché la funzione sia continua in $x = 12$, deve valere $\lim_{x 	o 12^-} S(x) = \lim_{x 	o 12^+} S(x) = S(12)$:<br>
-              $$rac{k}{16} = 420 \implies k = 420 	imes 16 = 6720$$
+              Affinché la funzione sia continua in $x = 12$, deve valere $\lim_{x \to 12^-} S(x) = \lim_{x \to 12^+} S(x) = S(12)$:<br>
+              $$\frac{k}{16} = 420 \implies k = 420 \times 16 = 6720$$
             </li>
             <li>
               <strong>Applicazione del Teorema di Weierstrass:</strong><br>
               Con $k = 6720$, la funzione è continua nell'intervallo chiuso e limitato $[0, 30]$. Per il Teorema di Weierstrass ammette massimo e minimo assoluti:
               <ul>
-                <li><strong>Sussidio massimo:</strong> $S(0) = 600	ext{ euro}$ (per le famiglie con ISEE pari a 0).</li>
-                <li><strong>Sussidio minimo:</strong> $S(30) = rac{6720}{30 + 4} = rac{6720}{34} pprox 197.65	ext{ euro}$ (alla soglia massima di 30.000 €).</li>
+                <li><strong>Sussidio massimo:</strong> $S(0) = 600\text{ euro}$ (per le famiglie con ISEE pari a 0).</li>
+                <li><strong>Sussidio minimo:</strong> $S(30) = \frac{6720}{30 + 4} = \frac{6720}{34} \approx 197.65\text{ euro}$ (alla soglia massima di 30.000 €).</li>
               </ul>
             </li>
           </ol>
@@ -804,15 +801,15 @@ eq L$</td>
 
       <div style="font-size: 0.93rem; line-height: 1.6; color: var(--text-main);">
         <p><strong>Esercizio 1 (Analisi di Continuità e Singolarità):</strong><br>
-          Data la funzione $f(x) = rac{x^2 - 4x + 3}{x - 1}$:
+          Data la funzione $f(x) = \frac{x^2 - 4x + 3}{x - 1}$:
           <br>a) Determina il dominio di $f(x)$.
-          <br>b) Calcola $\lim_{x 	o 1} f(x)$ e individua la natura della singolarità in $x = 1$.
+          <br>b) Calcola $\lim_{x \to 1} f(x)$ e individua la natura della singolarità in $x = 1$.
           <br>c) Come è possibile estendere per continuità la funzione all'intero asse reale $\mathbb{R}$?
         </p>
 
         <p style="margin-top: 1.25rem;"><strong>Esercizio 2 (Raccordo Continuo di un Servizio Asilo Nido):</strong><br>
           La retta mensile per l'asilo nido comunale in base all'ISEE familiare $x \in [0, 40]$ (in migliaia di euro) segue la legge:
-          $$T(x) = egin{cases} 80 + 10x & 0 \le x \le 15 \ ax + 30 & 15 < x \le 40 \end{cases}$$
+          $$T(x) = \begin{cases} 80 + 10x & 0 \le x \le 15 \ ax + 30 & 15 < x \le 40 \end{cases}$$
           <br>a) Calcola il valore del parametro $a$ affinché la retta sia continua nel punto di raccordo $x = 15$.
           <br>b) Disegna il grafico della tariffa con il valore di $a$ trovato.
           <br>c) Spiega quali garanzie offre il Teorema di Weierstrass rispetto alla retta minima e massima applicata dal Comune.
@@ -894,14 +891,13 @@ eq L$</td>
           <tbody>
             <tr>
               <td><strong>Funzione Continua</strong></td>
-              <td>$$\lim_{x 	o x_0} f(x) = f(x_0)$$</td>
-              <td>$x_0 \in 	ext{Dom}(f)$ ed esiste finito il limite uguale al valore nel punto</td>
-              <td>Assenza di buchi o salti improvvisi; tolleranza $arepsilon$-$\delta$</td>
+              <td>$$\lim_{x \to x_0} f(x) = f(x_0)$$</td>
+              <td>$x_0 \in \text{Dom}(f)$ ed esiste finito il limite uguale al valore nel punto</td>
+              <td>Assenza di buchi o salti improvvisi; tolleranza $\varepsilon$-$\delta$</td>
             </tr>
             <tr>
               <td><strong>Discontinuità 1ª Specie</strong></td>
-              <td>$\lim_{x 	o x_0^-} f(x) = l_1 
-eq \lim_{x 	o x_0^+} f(x) = l_2$</td>
+              <td>$\lim_{x \to x_0^-} f(x) = l_1 \neq \lim_{x \to x_0^+} f(x) = l_2$</td>
               <td>Limiti laterali entrambi finiti ma distinti ($S = |l_2 - l_1|$)</td>
               <td>Tariffe a gradini (trappola della povertà nei sussidi)</td>
             </tr>
@@ -913,8 +909,7 @@ eq \lim_{x 	o x_0^+} f(x) = l_2$</td>
             </tr>
             <tr>
               <td><strong>Discontinuità 3ª Specie</strong></td>
-              <td>Esiste $\lim_{x 	o x_0} f(x) = L$, ma $f(x_0) 
-eq L$ o non esiste</td>
+              <td>Esiste $\lim_{x \to x_0} f(x) = L$, ma $f(x_0) \neq L$ o non esiste</td>
               <td>Limite finito unico, buco eliminabile ponendo $f(x_0) = L$</td>
               <td>Errori strumentali o forme [0/0] semplificabili</td>
             </tr>

@@ -304,19 +304,19 @@
 
       <div class="lab-content">
         <p>
-          Immagina un'automobile in autostrada controllata dal sistema Tutor. Tra due portali distanti 60 km impiega 30 minuti esatti: la sua <strong>velocità media</strong> è stata di $rac{60	ext{ km}}{0.5	ext{ h}} = 120	ext{ km/h}$.
-          Tuttavia, durante il percorso, il tachimetro non è mai rimasto immobile: in un sorpasso ha toccato $138	ext{ km/h}$, in frenata è sceso a $95	ext{ km/h}$.
+          Immagina un'automobile in autostrada controllata dal sistema Tutor. Tra due portali distanti 60 km impiega 30 minuti esatti: la sua <strong>velocità media</strong> è stata di $\frac{60\text{ km}}{0.5\text{ h}} = 120\text{ km/h}$.
+          Tuttavia, durante il percorso, il tachimetro non è mai rimasto immobile: in un sorpasso ha toccato $138\text{ km/h}$, in frenata è sceso a $95\text{ km/h}$.
         </p>
         <p>
           <em>Come è possibile definire e calcolare la velocità esatta in un singolo istante $t_0$, se in un istante il tempo trascorso è nullo ($\Delta t = 0$) e lo spazio percorso è zero ($\Delta s = 0$)?</em>
-          La risposta è lo strumento supremo dell'analisi infinitesimale: il <strong>limite del rapporto incrementale per l'intervallo temporale che tende a zero ($h 	o 0$)</strong>.
+          La risposta è lo strumento supremo dell'analisi infinitesimale: il <strong>limite del rapporto incrementale per l'intervallo temporale che tende a zero ($h \to 0$)</strong>.
         </p>
 
         <!-- Simulatore Interattivo Rapporto Incrementale -->
         <div class="m1l4-stage">
           <p style="font-size: 0.92rem; margin-bottom: 0.75rem;">
             Consideriamo la legge oraria di un treno ad alta velocità in accelerazione: <strong>$s(t) = 4t^2 + 10t$</strong> (in metri, con $t$ in secondi).
-            Vogliamo conoscere la velocità esatta all'istante <strong>$t_0 = 3	ext{ secondi}$</strong> ($s(3) = 4(9) + 30 = 66	ext{ metri}$).
+            Vogliamo conoscere la velocità esatta all'istante <strong>$t_0 = 3\text{ secondi}$</strong> ($s(3) = 4(9) + 30 = 66\text{ metri}$).
           </p>
 
           <div class="m1l4-slider-panel">
@@ -335,7 +335,7 @@
                   <th>Spazio Iniziale $s(t_0)$</th>
                   <th>Spazio Finale $s(t_0 + h)$</th>
                   <th>Variazione Spazio $\Delta s$</th>
-                  <th>Velocità Media $rac{\Delta s}{h}$</th>
+                  <th>Velocità Media $\frac{\Delta s}{h}$</th>
                 </tr>
               </thead>
               <tbody>
@@ -364,14 +364,13 @@
           </h4>
           <p>
             Sia $f(x)$ una funzione definita in un intervallo aperto contenente il punto $x_0$.
-            Si definisce <strong>rapporto incrementale</strong> di $f$ relativo al punto $x_0$ e all'incremento $h 
-eq 0$:
+            Si definisce <strong>rapporto incrementale</strong> di $f$ relativo al punto $x_0$ e all'incremento $h \neq 0$:
           </p>
-          $$rac{\Delta y}{\Delta x} = rac{f(x_0 + h) - f(x_0)}{h}$$
+          $$\frac{\Delta y}{\Delta x} = \frac{f(x_0 + h) - f(x_0)}{h}$$
           <p>
-            Si definisce <strong>derivata prima di $f$ in $x_0$</strong> (indicata con $f'(x_0)$ o $rac{df}{dx}(x_0)$) il <strong>limite finito</strong> del rapporto incrementale al tendere dell'incremento $h$ a zero:
+            Si definisce <strong>derivata prima di $f$ in $x_0$</strong> (indicata con $f'(x_0)$ o $\frac{df}{dx}(x_0)$) il <strong>limite finito</strong> del rapporto incrementale al tendere dell'incremento $h$ a zero:
           </p>
-          $$f'(x_0) = \lim_{h 	o 0} rac{f(x_0 + h) - f(x_0)}{h}$$
+          $$f'(x_0) = \lim_{h \to 0} \frac{f(x_0 + h) - f(x_0)}{h}$$
           <div style="background: var(--bg-surface); border: 1px solid var(--border-subtle); padding: 0.85rem; border-radius: var(--radius-sm); margin-top: 0.75rem; font-size: 0.88rem;">
             🔍 <strong>Significato Fisico ed Empirico:</strong>
             Mentre il rapporto incrementale misura la <em>velocità media</em> di variazione su un intervallo di ampiezza $h$, la derivata prima ne rappresenta la <strong>velocità istantanea di variazione</strong> in quel preciso momento.
@@ -391,13 +390,13 @@ eq 0$:
     <section class="lab-card" id="lab-2">
       <div class="lab-header">
         <div class="lab-badge">Laboratorio 2 • Geometria Differenziale</div>
-        <h2 class="lab-title">La Retta Tangente: Secante che Diventa Tangente per $h 	o 0$</h2>
+        <h2 class="lab-title">La Retta Tangente: Secante che Diventa Tangente per $h \to 0$</h2>
       </div>
 
       <div class="lab-content">
         <p>
           Geometricamente, cosa rappresenta il rapporto incrementale? È il <strong>coefficiente angolare (pendenza) della retta secante</strong> che taglia la curva nei due punti $P(x_0, f(x_0))$ e $Q(x_0 + h, f(x_0 + h))$.
-          Cosa succede quando facciamo scorrere il punto mobile $Q$ lungo la curva verso il punto fisso $P$, portando l'incremento $h 	o 0$?
+          Cosa succede quando facciamo scorrere il punto mobile $Q$ lungo la curva verso il punto fisso $P$, portando l'incremento $h \to 0$?
         </p>
 
         <!-- Simulatore Interattivo Secante / Tangente -->
@@ -407,18 +406,18 @@ eq 0$:
             <input type="range" id="tangentHSlider" min="-2.0" max="2.0" step="0.1" value="1.5"
               oninput="updateTangentSim()">
             <span class="m1l4-readout" id="tangentHVal">h = +1.50</span>
-            <button class="btn btn-sm" onclick="setInfinitesimalH()">Porta $h 	o 0$ (Tangente Esatta)</button>
+            <button class="btn btn-sm" onclick="setInfinitesimalH()">Porta $h \to 0$ (Tangente Esatta)</button>
           </div>
 
           <svg id="tangentSvg" class="m1l4-svg" viewBox="0 0 640 340" role="img" aria-label="Grafico interattivo della parabola con retta secante che diventa retta tangente"></svg>
 
           <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; margin-top: 1rem;">
             <div style="background: var(--bg-surface); padding: 0.75rem 1rem; border-radius: var(--radius-md); border: 1px solid var(--border-subtle); text-align: center;">
-              <span style="font-size: 0.78rem; color: var(--text-muted); font-weight: 700;">PENDENZA SECANTE $m_{	ext{sec}}$</span><br>
+              <span style="font-size: 0.78rem; color: var(--text-muted); font-weight: 700;">PENDENZA SECANTE $m_{\text{sec}}$</span><br>
               <strong style="font-family: var(--font-mono); font-size: 1.15rem; color: var(--accent-gold);" id="mSecText">1.75</strong>
             </div>
             <div style="background: var(--bg-surface); padding: 0.75rem 1rem; border-radius: var(--radius-md); border: 1px solid var(--border-subtle); text-align: center;">
-              <span style="font-size: 0.78rem; color: var(--text-muted); font-weight: 700;">PENDENZA TANGENTE $m_{	ext{tan}} = f'(x_0)$</span><br>
+              <span style="font-size: 0.78rem; color: var(--text-muted); font-weight: 700;">PENDENZA TANGENTE $m_{\text{tan}} = f'(x_0)$</span><br>
               <strong style="font-family: var(--font-mono); font-size: 1.15rem; color: var(--accent-math);" id="mTanText">1.00</strong>
             </div>
             <div style="background: var(--bg-surface); padding: 0.75rem 1rem; border-radius: var(--radius-md); border: 1px solid var(--border-subtle); text-align: center;">
@@ -437,7 +436,7 @@ eq 0$:
           <p>
             Il valore della derivata prima $f'(x_0)$ coincide con il <strong>coefficiente angolare $m$ della retta tangente</strong> al grafico della funzione nel punto $P(x_0, f(x_0))$:
           </p>
-          $$m_{	ext{tan}} = \lim_{h 	o 0} m_{	ext{sec}} = f'(x_0)$$
+          $$m_{\text{tan}} = \lim_{h \to 0} m_{\text{sec}} = f'(x_0)$$
           <p>
             Ricordando l'equazione del fascio di rette passante per un punto $(x_0, y_0)$, l'<strong>equazione della retta tangente</strong> è:
           </p>
@@ -478,7 +477,7 @@ eq 0$:
         <div class="m1l3-tab-group">
           <button class="m1l4-tab-btn active" id="btnDer1" onclick="showDerivExample(1)">Polinomio: $f(x) = 3x^3 - 5x^2 + 7x - 4$</button>
           <button class="m1l4-tab-btn" id="btnDer2" onclick="showDerivExample(2)">Prodotto: $f(x) = x^2 \cdot e^x$</button>
-          <button class="m1l4-tab-btn" id="btnDer3" onclick="showDerivExample(3)">Quoziente: $f(x) = rac{2x + 1}{x - 3}$</button>
+          <button class="m1l4-tab-btn" id="btnDer3" onclick="showDerivExample(3)">Quoziente: $f(x) = \frac{2x + 1}{x - 3}$</button>
           <button class="m1l4-tab-btn" id="btnDer4" onclick="showDerivExample(4)">Radice: $f(x) = \sqrt{x} = x^{1/2}$</button>
         </div>
 
@@ -519,7 +518,7 @@ eq 0$:
                 </tr>
                 <tr>
                   <td>$\sqrt{x}$</td>
-                  <td>$rac{1}{2\sqrt{x}}$</td>
+                  <td>$\frac{1}{2\sqrt{x}}$</td>
                   <td><strong>Prodotto (Leibniz)</strong></td>
                   <td>$D[f \cdot g] = f' \cdot g + f \cdot g'$</td>
                 </tr>
@@ -527,11 +526,11 @@ eq 0$:
                   <td>$e^x$</td>
                   <td>$e^x$</td>
                   <td><strong>Quoziente (Rapporto)</strong></td>
-                  <td>$D\left[rac{f}{g}ight] = rac{f' \cdot g - f \cdot g'}{g^2}$</td>
+                  <td>$D\left[\frac{f}{g}\right] = \frac{f' \cdot g - f \cdot g'}{g^2}$</td>
                 </tr>
                 <tr>
                   <td>$\ln(x)$</td>
-                  <td>$rac{1}{x}$</td>
+                  <td>$\frac{1}{x}$</td>
                   <td><strong>Funzione Composta (Catena)</strong></td>
                   <td>$D[f(g(x))] = f'(g(x)) \cdot g'(x)$</td>
                 </tr>
@@ -576,8 +575,7 @@ eq 0$:
           <div style="margin-bottom: 0.75rem;">
             <strong style="color: var(--accent-math); font-size: 1.05rem;" id="ndTitle">Punto Angoloso (Spigolo)</strong>
             <p style="font-size: 0.9rem; color: var(--text-muted); margin: 0.35rem 0;" id="ndDesc">
-              Le derivate sinistra e destra esistono entrambe finite, ma sono diverse tra loro: $f'_-(x_0) 
-eq f'_+(x_0)$.
+              Le derivate sinistra e destra esistono entrambe finite, ma sono diverse tra loro: $f'_-(x_0) \neq f'_+(x_0)$.
             </p>
           </div>
 
@@ -596,12 +594,11 @@ eq f'_+(x_0)$.
           </h4>
           <p>
             Per stabilire la derivabilità in un punto $x_0$ in cui la funzione è continua, si calcolano i due limiti laterali del rapporto incrementale:
-            $f'_-(x_0) = \lim_{h 	o 0^-} rac{f(x_0+h)-f(x_0)}{h}$ e $f'_+(x_0) = \lim_{h 	o 0^+} rac{f(x_0+h)-f(x_0)}{h}$.
+            $f'_-(x_0) = \lim_{h \to 0^-} \frac{f(x_0+h)-f(x_0)}{h}$ e $f'_+(x_0) = \lim_{h \to 0^+} \frac{f(x_0+h)-f(x_0)}{h}$.
           </p>
           <ul style="margin-left: 1.25rem; font-size: 0.92rem; line-height: 1.6;">
             <li>
-              <strong>Punto Angoloso:</strong> I due limiti laterali sono <strong>finiti ma diversi</strong> ($f'_-(x_0) 
-eq f'_+(x_0)$), oppure uno è finito e l'altro è infinito. Nel punto si incontrano due semitangenti con inclinazioni differenti (es. $f(x) = |x|$ in $0$).
+              <strong>Punto Angoloso:</strong> I due limiti laterali sono <strong>finiti ma diversi</strong> ($f'_-(x_0) \neq f'_+(x_0)$), oppure uno è finito e l'altro è infinito. Nel punto si incontrano due semitangenti con inclinazioni differenti (es. $f(x) = |x|$ in $0$).
             </li>
             <li>
               <strong>Cuspide:</strong> Entrambi i limiti laterali sono <strong>infiniti con segni opposti</strong> ($f'_-(x_0) = -\infty$ e $f'_+(x_0) = +\infty$, oppure viceversa). Le due semitangenti si sovrappongono verticalmente formando una punta aguzza (es. $f(x) = \sqrt{|x|}$ in $0$).
@@ -718,7 +715,7 @@ eq f'_+(x_0)$), oppure uno è finito e l'altro è infinito. Nel punto si incontr
           <em>«Quanto costa alla cooperativa produrre quella singola unità aggiuntiva?»</em>
           In economia e sociologia aziendale, questa grandezza si chiama <strong>Costo Marginale</strong> ed è la <strong>derivata prima del costo totale</strong>:
         </p>
-        $$C'(q) = rac{dC}{dq}$$
+        $$C'(q) = \frac{dC}{dq}$$
 
         <!-- Simulatore Costo Marginale vs Medio -->
         <div class="m1l4-stage">
@@ -761,7 +758,7 @@ eq f'_+(x_0)$), oppure uno è finito e l'altro è infinito. Nel punto si incontr
             </li>
             <li>
               <strong>Costo Marginale per $q = 30$ pezzi:</strong><br>
-              $C'(30) = 0.15(30)^2 - 6(30) + 80 = 0.15(900) - 180 + 80 = 135 - 180 + 80 = 35	ext{ €/pz}$.<br>
+              $C'(30) = 0.15(30)^2 - 6(30) + 80 = 0.15(900) - 180 + 80 = 135 - 180 + 80 = 35\text{ €/pz}$.<br>
               <em>Significato:</em> Produrre il 31° manufatto costerà alla cooperativa circa 35 euro (meno del costo medio di 51.67 €!).
             </li>
             <li>
@@ -800,19 +797,19 @@ eq f'_+(x_0)$), oppure uno è finito e l'altro è infinito. Nel punto si incontr
         <p><strong>Esercizio 1 (Rapporto Incrementale e Derivata dalla Definizione):</strong><br>
           Data la funzione $f(x) = 2x^2 - 3x$:
           <br>a) Calcola l'incremento $\Delta y = f(1 + h) - f(1)$.
-          <br>b) Determina il rapporto incrementale $rac{\Delta y}{h}$.
-          <br>c) Calcola $\lim_{h 	o 0} rac{\Delta y}{h}$ e verifica che il risultato coincide con la derivata $f'(1)$ calcolata con le regole algebriche.
+          <br>b) Determina il rapporto incrementale $\frac{\Delta y}{h}$.
+          <br>c) Calcola $\lim_{h \to 0} \frac{\Delta y}{h}$ e verifica che il risultato coincide con la derivata $f'(1)$ calcolata con le regole algebriche.
         </p>
 
         <p style="margin-top: 1.25rem;"><strong>Esercizio 2 (Retta Tangente e Diffusione Virale sui Social Network):</strong><br>
-          Il numero di persone $N(t)$ (in migliaia) raggiunte da una campagna di sensibilizzazione sui diritti umani dopo $t$ giorni segue l'andamento $N(t) = -rac{1}{3}t^3 + 4t^2 + 10$.
+          Il numero di persone $N(t)$ (in migliaia) raggiunte da una campagna di sensibilizzazione sui diritti umani dopo $t$ giorni segue l'andamento $N(t) = -\frac{1}{3}t^3 + 4t^2 + 10$.
           <br>a) Calcola la funzione derivata prima $N'(t)$, che esprime la velocità istantanea di diffusione (migliaia di utenti/giorno).
           <br>b) Determina la velocità di diffusione dopo 2 giorni ($t = 2$) e dopo 5 giorni ($t = 5$).
           <br>c) Scrivi l'equazione della retta tangente al grafico di $N(t)$ nel punto in cui $t = 3$.
         </p>
 
         <p style="margin-top: 1.25rem;"><strong>Esercizio 3 (Analisi di Non Derivabilità):</strong><br>
-          Considera la funzione $f(x) = egin{cases} x^2 & x \le 2 \ 4x - 4 & x > 2 \end{cases}$.
+          Considera la funzione $f(x) = \begin{cases} x^2 & x \le 2 \ 4x - 4 & x > 2 \end{cases}$.
           <br>a) Verifica se $f(x)$ è continua in $x = 2$.
           <br>b) Calcola la derivata sinistra $f'_-(2)$ e la derivata destra $f'_+(2)$.
           <br>c) Stabilisci se la funzione è derivabile in $x = 2$ oppure classifica il tipo di punto di non derivabilità.
@@ -828,7 +825,7 @@ eq f'_+(x_0)$), oppure uno è finito e l'altro è infinito. Nel punto si incontr
         <div class="rubric-grid">
           <div class="rubric-card">
             <div class="rubric-card-title">1. Rapporto Incrementale (0-2.5 pt)</div>
-            <p>Corretta impostazione analitica degli incrementi $\Delta x$ e $\Delta y$; calcolo rigoroso del limite per $h 	o 0$.</p>
+            <p>Corretta impostazione analitica degli incrementi $\Delta x$ e $\Delta y$; calcolo rigoroso del limite per $h \to 0$.</p>
           </div>
           <div class="rubric-card">
             <div class="rubric-card-title">2. Calcolo Differenziale (0-2.5 pt)</div>
@@ -888,14 +885,14 @@ eq f'_+(x_0)$), oppure uno è finito e l'altro è infinito. Nel punto si incontr
           <tbody>
             <tr>
               <td><strong>Rapporto Incrementale</strong></td>
-              <td>$$rac{\Delta y}{\Delta x} = rac{f(x_0+h)-f(x_0)}{h}$$</td>
-              <td>Pendenza $m_{	ext{sec}}$ della secante per $P$ e $Q$; velocità media</td>
+              <td>$$\frac{\Delta y}{\Delta x} = \frac{f(x_0+h)-f(x_0)}{h}$$</td>
+              <td>Pendenza $m_{\text{sec}}$ della secante per $P$ e $Q$; velocità media</td>
               <td>Tasso medio di crescita demografica o economica</td>
             </tr>
             <tr>
               <td><strong>Derivata Prima</strong></td>
-              <td>$$f'(x_0) = \lim_{h 	o 0} rac{f(x_0+h)-f(x_0)}{h}$$</td>
-              <td>Pendenza $m_{	ext{tan}}$ della retta tangente; velocità istantanea</td>
+              <td>$$f'(x_0) = \lim_{h \to 0} \frac{f(x_0+h)-f(x_0)}{h}$$</td>
+              <td>Pendenza $m_{\text{tan}}$ della retta tangente; velocità istantanea</td>
               <td>Tasso istantaneo di diffusione di un'idea o contagio</td>
             </tr>
             <tr>
@@ -906,14 +903,13 @@ eq f'_+(x_0)$), oppure uno è finito e l'altro è infinito. Nel punto si incontr
             </tr>
             <tr>
               <td><strong>Derivabilità $\implies$ Continuità</strong></td>
-              <td>$f 	ext{ derivabile} \implies f 	ext{ continua}$</td>
+              <td>$f \text{ derivabile} \implies f \text{ continua}$</td>
               <td>Non ci possono essere salti dove esiste la tangente non verticale</td>
               <td>Una curva fluida non presenta fratture improvvise</td>
             </tr>
             <tr>
               <td><strong>Punto Angoloso</strong></td>
-              <td>$f'_-(x_0) 
-eq f'_+(x_0)$ (finiti)</td>
+              <td>$f'_-(x_0) \neq f'_+(x_0)$ (finiti)</td>
               <td>Spigolo con due semitangenti distinte</td>
               <td>Cambiamento improvviso di regime o aliquota fiscale</td>
             </tr>
@@ -925,7 +921,7 @@ eq f'_+(x_0)$ (finiti)</td>
             </tr>
             <tr>
               <td><strong>Costo Marginale</strong></td>
-              <td>$$C'(q) = rac{dC}{dq}$$</td>
+              <td>$$C'(q) = \frac{dC}{dq}$$</td>
               <td>Pendenza della curva di costo; costo dell'unità aggiuntiva</td>
               <td>Decisioni di produzione ottimale nel welfare d'impresa</td>
             </tr>

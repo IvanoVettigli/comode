@@ -351,7 +351,7 @@
           <!-- Formula 1: Limite Finito -->
           <div class="clil-spoken-card">
             <span style="font-size: 0.75rem; text-transform: uppercase; font-weight: 700; color: var(--text-muted);">Finite Limit</span>
-            <div class="clil-spoken-formula">$$\lim_{x 	o 3} f(x) = 5$$</div>
+            <div class="clil-spoken-formula">$$\lim_{x \to 3} f(x) = 5$$</div>
             <p style="font-size: 0.88rem; font-style: italic; color: var(--text-main); margin: 0.2rem 0;">
               "The limit of f of x as x approaches 3 is equal to 5."
             </p>
@@ -369,7 +369,7 @@
           <!-- Formula 2: Limite Destro e Sinistro -->
           <div class="clil-spoken-card">
             <span style="font-size: 0.75rem; text-transform: uppercase; font-weight: 700; color: var(--text-muted);">One-Sided Limits</span>
-            <div class="clil-spoken-formula">$$\lim_{x 	o 2^+} f(x) = +\infty$$</div>
+            <div class="clil-spoken-formula">$$\lim_{x \to 2^+} f(x) = +\infty$$</div>
             <p style="font-size: 0.88rem; font-style: italic; color: var(--text-main); margin: 0.2rem 0;">
               "The limit of f of x as x approaches 2 from the right is positive infinity."
             </p>
@@ -387,7 +387,7 @@
           <!-- Formula 3: Forma Indeterminata -->
           <div class="clil-spoken-card">
             <span style="font-size: 0.75rem; text-transform: uppercase; font-weight: 700; color: var(--text-muted);">Indeterminate Form</span>
-            <div class="clil-spoken-formula">$$\left[rac{0}{0}ight], \quad \left[rac{\infty}{\infty}ight]$$</div>
+            <div class="clil-spoken-formula">$$\left[\frac{0}{0}\right], \quad \left[\frac{\infty}{\infty}\right]$$</div>
             <p style="font-size: 0.88rem; font-style: italic; color: var(--text-main); margin: 0.2rem 0;">
               "Zero over zero indeterminate form; infinity over infinity indeterminate form."
             </p>
@@ -405,7 +405,7 @@
           <!-- Formula 4: Funzione Continua -->
           <div class="clil-spoken-card">
             <span style="font-size: 0.75rem; text-transform: uppercase; font-weight: 700; color: var(--text-muted);">Continuity Definition</span>
-            <div class="clil-spoken-formula">$$\lim_{x 	o x_0} f(x) = f(x_0)$$</div>
+            <div class="clil-spoken-formula">$$\lim_{x \to x_0} f(x) = f(x_0)$$</div>
             <p style="font-size: 0.88rem; font-style: italic; color: var(--text-main); margin: 0.2rem 0;">
               "The limit of f of x as x approaches x naught equals f of x naught."
             </p>
@@ -423,7 +423,7 @@
           <!-- Formula 5: Rapporto Incrementale e Derivata -->
           <div class="clil-spoken-card">
             <span style="font-size: 0.75rem; text-transform: uppercase; font-weight: 700; color: var(--text-muted);">Derivative &amp; Difference Quotient</span>
-            <div class="clil-spoken-formula">$$f'(x_0) = \lim_{h 	o 0} rac{f(x_0 + h) - f(x_0)}{h}$$</div>
+            <div class="clil-spoken-formula">$$f'(x_0) = \lim_{h \to 0} \frac{f(x_0 + h) - f(x_0)}{h}$$</div>
             <p style="font-size: 0.88rem; font-style: italic; color: var(--text-main); margin: 0.2rem 0;">
               "f prime of x naught equals the limit as h approaches zero of the difference quotient."
             </p>
@@ -504,7 +504,7 @@
                 <td>
                   <button class="clil-audio-btn" style="padding: 0.2rem 0.5rem; font-size: 0.75rem;" onclick="readClilText('approach')">🔊 /əˈprəʊtʃ/</button>
                 </td>
-                <td>To get arbitrarily close to a target point without necessarily reaching it ($x 	o x_0$).</td>
+                <td>To get arbitrarily close to a target point without necessarily reaching it ($x \to x_0$).</td>
                 <td>Tendere / Avvicinarsi</td>
               </tr>
               <tr>
@@ -512,7 +512,7 @@
                 <td>
                   <button class="clil-audio-btn" style="padding: 0.2rem 0.5rem; font-size: 0.75rem;" onclick="readClilText('difference quotient')">🔊 /ˈdɪf.ər.əns ˈkwəʊ.ʃənt/</button>
                 </td>
-                <td>The fraction $rac{\Delta y}{\Delta x} = rac{f(x_0+h)-f(x_0)}{h}$ representing average slope.</td>
+                <td>The fraction $\frac{\Delta y}{\Delta x} = \frac{f(x_0+h)-f(x_0)}{h}$ representing average slope.</td>
                 <td>Rapporto incrementale</td>
               </tr>
               <tr>
@@ -544,7 +544,7 @@
                 <td>
                   <button class="clil-audio-btn" style="padding: 0.2rem 0.5rem; font-size: 0.75rem;" onclick="readClilText('marginal cost')">🔊 /ˈmɑː.dʒɪ.nəl kɒst/</button>
                 </td>
-                <td>The cost of producing one additional unit of a good: $C'(q) = rac{dC}{dq}$.</td>
+                <td>The cost of producing one additional unit of a good: $C'(q) = \frac{dC}{dq}$.</td>
                 <td>Costo marginale</td>
               </tr>
               <tr>
@@ -612,8 +612,7 @@
             </div>
             <strong style="color: var(--accent-math); font-size: 1.05rem;">Corner Point</strong>
             <p style="font-size: 0.88rem; color: var(--text-muted); margin: 0.4rem 0;">
-              <em>"The left-hand and right-hand derivatives are both finite numbers, but they do not match: $f'_-(x_0) 
-eq f'_+(x_0)$."</em>
+              <em>"The left-hand and right-hand derivatives are both finite numbers, but they do not match: $f'_-(x_0) \neq f'_+(x_0)$."</em>
             </p>
             <div style="font-size: 0.82rem; color: var(--text-main); background: var(--bg-surface); padding: 0.5rem; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle);">
               <strong>Key Example:</strong> $f(x) = |x|$ at $x = 0$, where $f'_-(0) = -1$ and $f'_+(0) = +1$.
@@ -674,14 +673,14 @@ eq f'_+(x_0)$."</em>
           In sociology and cultural studies, sociologist Everett Rogers (1962) modeled the <em>Diffusion of Innovations</em>.
           The cumulative proportion of individuals adopting a new social practice or technology over time $t$ (in months) follows a logistic sigmoid curve:
         </p>
-        $$P(t) = rac{1}{1 + e^{-0.4(t - 10)}}$$
+        $$P(t) = \frac{1}{1 + e^{-0.4(t - 10)}}$$
 
         <div class="clil-stage">
           <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem;">
             <div>
               <strong style="color: var(--accent-math);">Sociological Question:</strong><br>
               <span style="font-size: 0.92rem; color: var(--text-muted);">
-                What does the derivative $P'(t) = rac{dP}{dt}$ represent, and when does the cultural adoption rate reach its maximum?
+                What does the derivative $P'(t) = \frac{dP}{dt}$ represent, and when does the cultural adoption rate reach its maximum?
               </span>
             </div>
             <button class="clil-audio-btn" onclick="readClilText('The derivative of cumulative adoption represents the instantaneous adoption rate, measuring how many new individuals join the trend per month. The maximum rate occurs at the inflection point when time t equals 10 months.')">
@@ -694,7 +693,7 @@ eq f'_+(x_0)$."</em>
               While $P(t)$ measures the <em>cumulative percentage</em> of adopters (from 0 to 1, or 0% to 100%), the derivative $P'(t)$ measures the <strong>instantaneous speed of adoption</strong> (new adopters per month).
             </p>
             <p style="margin-top: 0.5rem;"><strong>2. The Inflection Point ($t = 10$ months):</strong><br>
-              At $t = 10$, $P(10) = rac{1}{1 + 1} = 0.50$ (50% of the population has adopted the innovation).
+              At $t = 10$, $P(10) = \frac{1}{1 + 1} = 0.50$ (50% of the population has adopted the innovation).
               At this exact inflection point, the tangent line reaches its <strong>maximum steepness ($P'(10) = 0.10$ or 10% per month)</strong>.
               After $t = 10$, the market becomes saturated, the derivative $P'(t)$ decreases, and the curve flattens toward the horizontal asymptote $y = 1$ ($100\%$).
             </p>
@@ -777,7 +776,7 @@ eq f'_+(x_0)$."</em>
 
         <p style="margin-top: 1.25rem;"><strong>Exercise 2 (Mathematical Continuity in a Childcare Benefit Scheme):</strong><br>
           A British local council designs a subsidized childcare grant $G(x)$ in pounds per month based on annual family income $x$ (in thousands of pounds, $x \in [0, 50]$):
-          $$G(x) = egin{cases} 500 - 8x & 0 \le x < 25 \ rac{k}{x + 15} & 25 \le x \le 50 \end{cases}$$
+          $$G(x) = \begin{cases} 500 - 8x & 0 \le x < 25 \ \frac{k}{x + 15} & 25 \le x \le 50 \end{cases}$$
           <br>a) Determine the exact parameter $k$ so that the benefit function is <strong>continuous</strong> at the transition income threshold $x = 25$.
           <br>b) Calculate the maximum benefit received by a low-income family ($x = 0$) and the minimum benefit for a family with $x = 50$.
           <br>c) Explain in English how the Weierstrass Extreme Value Theorem guarantees the existence of a maximum and minimum grant.
@@ -785,7 +784,7 @@ eq f'_+(x_0)$."</em>
 
         <p style="margin-top: 1.25rem;"><strong>Exercise 3 (Marginal Cost &amp; Break-Even Analysis in a Social Enterprise):</strong><br>
           A non-profit cooperative produces eco-friendly solar chargers. Its total cost function (in thousands of euros) is $C(q) = 0.02q^3 - 0.9q^2 + 15q + 20$, and its revenue is $R(q) = 12q$, for $q \in [5, 40]$ chargers (in hundreds).
-          <br>a) Calculate the <strong>marginal cost function</strong> $C'(q) = rac{dC}{dq}$.
+          <br>a) Calculate the <strong>marginal cost function</strong> $C'(q) = \frac{dC}{dq}$.
           <br>b) Compute the marginal cost when production is $q = 20$ hundred units ($2,000$ chargers).
           <br>c) Using the Intermediate Value Theorem, prove that the net profit function $P(q) = R(q) - C(q)$ has at least one root (break-even point) in the interval $[10, 30]$.
         </p>
