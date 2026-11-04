@@ -1,0 +1,1650 @@
+<!DOCTYPE html>
+<html lang="it" data-theme="dark">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lezione 5.M1.4: Il Rapporto Incrementale e la Derivata • comode</title>
+  <meta name="description"
+    content="Lezione interattiva per il 5° anno del Liceo delle Scienze Umane: dalla velocità media alla velocità istantanea, definizione di derivata prima, significato geometrico della retta tangente, regole di derivazione, punti di non derivabilità e costo marginale nelle imprese sociali.">
+
+  <!-- Font Google -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+
+  <!-- KaTeX 0.19.1 per rendering matematico -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.19.1/dist/katex.min.css" crossorigin="anonymous">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.19.1/dist/katex.min.js" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.19.1/dist/contrib/auto-render.min.js"
+    crossorigin="anonymous"></script>
+
+  <!-- CSS Condiviso comode (Profondità 3) -->
+  <link rel="stylesheet" href="../../../shared/css/comode.css">
+
+  <style>
+    /* Stili specifici per la Lezione 5.M1.4 */
+    .m1l4-badge {
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 0.25rem 0.65rem;
+      border-radius: var(--radius-pill);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .m1l4-stage {
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 1.25rem;
+      margin: 1.25rem 0;
+    }
+
+    .m1l4-slider-panel {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      flex-wrap: wrap;
+      margin-bottom: 0.85rem;
+      font-size: 0.92rem;
+    }
+
+    .m1l4-readout {
+      font-family: var(--font-mono);
+      font-weight: 700;
+      color: var(--accent-math);
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      padding: 0.2rem 0.6rem;
+      border-radius: var(--radius-sm);
+    }
+
+    .m1l4-svg {
+      width: 100%;
+      max-width: 680px;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+    }
+
+    .m1l4-tab-group {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-bottom: 1rem;
+    }
+
+    .m1l4-tab-btn {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+      padding: 0.5rem 1rem;
+      border-radius: var(--radius-md);
+      font-size: 0.88rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .m1l4-tab-btn:hover {
+      border-color: var(--accent-math);
+      color: var(--text-main);
+    }
+
+    .m1l4-tab-btn.active {
+      background: rgba(56, 189, 248, 0.15);
+      border-color: var(--accent-math);
+      color: var(--accent-math);
+    }
+
+    .der-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+      font-size: 0.88rem;
+    }
+
+    .der-table th,
+    .der-table td {
+      border: 1px solid var(--border-subtle);
+      padding: 0.5rem 0.75rem;
+      text-align: center;
+    }
+
+    .der-table th {
+      background: var(--bg-surface);
+      font-weight: 700;
+      color: var(--text-muted);
+    }
+
+    /* Card di Teoria integrata in calce ai laboratori */
+    .lab-card .theory-card {
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-subtle);
+      border-left: 3.5px solid var(--accent-math);
+      border-radius: var(--radius-md);
+      padding: 1.25rem;
+      margin-top: 1.5rem;
+    }
+
+    .lab-card .theory-card h4 {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.98rem;
+      margin-bottom: 0.75rem;
+      color: var(--accent-math);
+      font-weight: 800;
+    }
+
+    .theory-pill {
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 0.2rem 0.55rem;
+      border-radius: var(--radius-pill);
+      background: rgba(56, 189, 248, 0.15);
+      color: var(--accent-math);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+    }
+
+    /* Homework Worksheet */
+    .worksheet-section {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      margin: 2.5rem 0;
+    }
+
+    .worksheet-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      border-bottom: 2px dashed var(--border-subtle);
+      padding-bottom: 1.25rem;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .rubric-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    .rubric-card {
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 1rem;
+    }
+
+    .rubric-card-title {
+      font-size: 0.85rem;
+      font-weight: 800;
+      color: var(--accent-math);
+      margin-bottom: 0.4rem;
+    }
+
+    .rubric-card p {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      line-height: 1.45;
+      margin: 0;
+    }
+
+    @media print {
+      .navbar, .breadcrumbs, .lesson-hero, .lab-chips-wrap,
+      .flashcard-section, .completion-card, .btn, .m1l4-tab-group,
+      .m1l4-slider-panel {
+        display: none !important;
+      }
+      .worksheet-section {
+        border: none;
+        padding: 0;
+        margin: 0;
+      }
+    }
+  </style>
+</head>
+
+<body data-theme="dark">
+
+  <div class="container">
+    <!-- Navbar Superiore con Gamification e Controlli -->
+    <nav class="navbar">
+      <a href="../../../index.html" class="brand">
+        📐 comode<span>.</span>
+      </a>
+      <div class="nav-actions">
+        <div class="gamification-widget" title="Il tuo livello attuale e punti XP">
+          <span class="level-badge user-level-val">Liv. 1 🌱</span>
+          <span class="xp-counter user-xp-val">0 XP</span>
+        </div>
+        <button id="audioToggleBtn" class="icon-btn" aria-label="Attiva o disattiva audio">
+          🔊 <span class="nav-text">Suoni</span>
+        </button>
+        <button id="themeToggleBtn" class="theme-toggle-btn" aria-label="Cambia tema chiaro/scuro">
+          <span id="themeIcon">☀️</span>
+          <span id="themeLabel">Chiaro</span>
+        </button>
+      </div>
+    </nav>
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumbs">
+      <a href="../../../index.html">le comode lezioni d'Ivano</a>
+      <span class="sep">/</span>
+      <a href="../../index.html">Quinto Anno</a>
+      <span class="sep">/</span>
+      <a href="index.html">UDA 5.M1: Limiti, Continuità e Derivate</a>
+      <span class="sep">/</span>
+      <span class="current">Lezione 5.M1.4</span>
+    </div>
+
+    <!-- Hero Lezione 5.M1.4 -->
+    <header class="lesson-hero">
+      <div class="uda-badge-pill">
+        📐 Matematica • 5° Anno Liceo delle Scienze Umane • Lezione 5.M1.4
+      </div>
+      <h1 class="lesson-title">
+        Il Rapporto Incrementale e <span>la Derivata</span>
+      </h1>
+      <p class="lesson-desc">
+        Dalla velocità media del viaggio alla velocità istantanea registrata sul tachimetro, dalla retta secante alla retta tangente: scopri il significato intuitivo e geometrico della derivata prima, padroneggia le regole operative del calcolo differenziale, classifica i punti di non derivabilità (angolosi, cuspidi, flessi a tangente verticale) e applica il concetto di costo marginale alle economie sociali.
+      </p>
+
+      <!-- Barra di Progresso Laboratori -->
+      <div class="lab-progress-tracker" style="margin-top: 1.5rem;">
+        <div class="lab-chips-wrap">
+          <button class="lab-chip active" id="chip-lab-1" onclick="scrollToLab(1)">
+            <span class="chip-num">1</span> Variazione Istantanea
+          </button>
+          <button class="lab-chip" id="chip-lab-2" onclick="scrollToLab(2)">
+            <span class="chip-num">2</span> Secante → Tangente
+          </button>
+          <button class="lab-chip" id="chip-lab-3" onclick="scrollToLab(3)">
+            <span class="chip-num">3</span> Regole di Derivazione
+          </button>
+          <button class="lab-chip" id="chip-lab-4" onclick="scrollToLab(4)">
+            <span class="chip-num">4</span> Non Derivabilità
+          </button>
+          <button class="lab-chip" id="chip-lab-5" onclick="scrollToLab(5)">
+            <span class="chip-num">5</span> Palestra Mentale
+          </button>
+          <button class="lab-chip" id="chip-lab-6" onclick="scrollToLab(6)">
+            <span class="chip-num">6</span> Costo Marginale
+          </button>
+        </div>
+        <div class="lab-stats-row">
+          <span>Laboratori completati: <strong id="labsCompletedCount">0</strong> su 6</span>
+          <span class="badge" style="background: rgba(56, 189, 248, 0.15); color: var(--accent-math);">+60 XP in palio</span>
+        </div>
+      </div>
+    </header>
+
+
+    <!-- ======================================================== -->
+    <!-- LABORATORIO 1: RAPPORTO INCREMENTALE                    -->
+    <!-- ======================================================== -->
+    <section class="lab-card" id="lab-1">
+      <div class="lab-header">
+        <div class="lab-badge">Laboratorio 1 • Il Battito del Cambiamento</div>
+        <h2 class="lab-title">Dalla Variazione Media alla Variazione Istantanea: Il Rapporto Incrementale</h2>
+      </div>
+
+      <div class="lab-content">
+        <p>
+          Immagina un'automobile in autostrada controllata dal sistema Tutor. Tra due portali distanti 60 km impiega 30 minuti esatti: la sua <strong>velocità media</strong> è stata di $rac{60	ext{ km}}{0.5	ext{ h}} = 120	ext{ km/h}$.
+          Tuttavia, durante il percorso, il tachimetro non è mai rimasto immobile: in un sorpasso ha toccato $138	ext{ km/h}$, in frenata è sceso a $95	ext{ km/h}$.
+        </p>
+        <p>
+          <em>Come è possibile definire e calcolare la velocità esatta in un singolo istante $t_0$, se in un istante il tempo trascorso è nullo ($\Delta t = 0$) e lo spazio percorso è zero ($\Delta s = 0$)?</em>
+          La risposta è lo strumento supremo dell'analisi infinitesimale: il <strong>limite del rapporto incrementale per l'intervallo temporale che tende a zero ($h 	o 0$)</strong>.
+        </p>
+
+        <!-- Simulatore Interattivo Rapporto Incrementale -->
+        <div class="m1l4-stage">
+          <p style="font-size: 0.92rem; margin-bottom: 0.75rem;">
+            Consideriamo la legge oraria di un treno ad alta velocità in accelerazione: <strong>$s(t) = 4t^2 + 10t$</strong> (in metri, con $t$ in secondi).
+            Vogliamo conoscere la velocità esatta all'istante <strong>$t_0 = 3	ext{ secondi}$</strong> ($s(3) = 4(9) + 30 = 66	ext{ metri}$).
+          </p>
+
+          <div class="m1l4-slider-panel">
+            <label for="stepHSlider">Intervallo di osservazione $h = \Delta t$ (in secondi):</label>
+            <input type="range" id="stepHSlider" min="0" max="4" step="1" value="0"
+              oninput="updateIncrementSim()">
+            <span class="m1l4-readout" id="stepHVal">h = 1.0 s</span>
+          </div>
+
+          <div style="overflow-x: auto;">
+            <table class="der-table">
+              <thead>
+                <tr>
+                  <th>Istante Iniziale $t_0$</th>
+                  <th>Istante Finale $t_0 + h$</th>
+                  <th>Spazio Iniziale $s(t_0)$</th>
+                  <th>Spazio Finale $s(t_0 + h)$</th>
+                  <th>Variazione Spazio $\Delta s$</th>
+                  <th>Velocità Media $rac{\Delta s}{h}$</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>3.0 s</strong></td>
+                  <td id="tableT1">4.0 s</td>
+                  <td>66.00 m</td>
+                  <td id="tableS1">104.00 m</td>
+                  <td id="tableDeltaS" style="color: var(--accent-gold); font-weight: 700;">+38.00 m</td>
+                  <td id="tableVMedia" style="color: var(--accent-math); font-size: 1.1rem; font-weight: 800;">38.00 m/s (136.8 km/h)</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div id="incrementFormulaAnalysis" style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); padding: 0.85rem; margin-top: 1rem; font-family: var(--font-mono); font-size: 0.9rem; line-height: 1.55;">
+            <!-- Riempito via JS -->
+          </div>
+        </div>
+
+        <!-- TEORIA 1 IN CALCE AL LABORATORIO -->
+        <div class="theory-card" id="teoria-1">
+          <h4>
+            <span>La Teoria in Breve • Definizione Rigorosa di Derivata Prima</span>
+            <span class="theory-pill">Teoria 1</span>
+          </h4>
+          <p>
+            Sia $f(x)$ una funzione definita in un intervallo aperto contenente il punto $x_0$.
+            Si definisce <strong>rapporto incrementale</strong> di $f$ relativo al punto $x_0$ e all'incremento $h 
+eq 0$:
+          </p>
+          $$rac{\Delta y}{\Delta x} = rac{f(x_0 + h) - f(x_0)}{h}$$
+          <p>
+            Si definisce <strong>derivata prima di $f$ in $x_0$</strong> (indicata con $f'(x_0)$ o $rac{df}{dx}(x_0)$) il <strong>limite finito</strong> del rapporto incrementale al tendere dell'incremento $h$ a zero:
+          </p>
+          $$f'(x_0) = \lim_{h 	o 0} rac{f(x_0 + h) - f(x_0)}{h}$$
+          <div style="background: var(--bg-surface); border: 1px solid var(--border-subtle); padding: 0.85rem; border-radius: var(--radius-sm); margin-top: 0.75rem; font-size: 0.88rem;">
+            🔍 <strong>Significato Fisico ed Empirico:</strong>
+            Mentre il rapporto incrementale misura la <em>velocità media</em> di variazione su un intervallo di ampiezza $h$, la derivata prima ne rappresenta la <strong>velocità istantanea di variazione</strong> in quel preciso momento.
+          </div>
+        </div>
+
+        <button class="btn btn-primary" onclick="markLabCompleted(1)" style="margin-top: 1rem;">
+          Rapporto Incrementale Compreso → Segna Laboratorio 1 Completato
+        </button>
+      </div>
+    </section>
+
+
+    <!-- ======================================================== -->
+    <!-- LABORATORIO 2: LA RETTA TANGENTE                        -->
+    <!-- ======================================================== -->
+    <section class="lab-card" id="lab-2">
+      <div class="lab-header">
+        <div class="lab-badge">Laboratorio 2 • Geometria Differenziale</div>
+        <h2 class="lab-title">La Retta Tangente: Secante che Diventa Tangente per $h 	o 0$</h2>
+      </div>
+
+      <div class="lab-content">
+        <p>
+          Geometricamente, cosa rappresenta il rapporto incrementale? È il <strong>coefficiente angolare (pendenza) della retta secante</strong> che taglia la curva nei due punti $P(x_0, f(x_0))$ e $Q(x_0 + h, f(x_0 + h))$.
+          Cosa succede quando facciamo scorrere il punto mobile $Q$ lungo la curva verso il punto fisso $P$, portando l'incremento $h 	o 0$?
+        </p>
+
+        <!-- Simulatore Interattivo Secante / Tangente -->
+        <div class="m1l4-stage">
+          <div class="m1l4-slider-panel">
+            <label for="tangentHSlider">Distanza orizzontale $h$ tra $P$ e $Q$:</label>
+            <input type="range" id="tangentHSlider" min="-2.0" max="2.0" step="0.1" value="1.5"
+              oninput="updateTangentSim()">
+            <span class="m1l4-readout" id="tangentHVal">h = +1.50</span>
+            <button class="btn btn-sm" onclick="setInfinitesimalH()">Porta $h 	o 0$ (Tangente Esatta)</button>
+          </div>
+
+          <svg id="tangentSvg" class="m1l4-svg" viewBox="0 0 640 340" role="img" aria-label="Grafico interattivo della parabola con retta secante che diventa retta tangente"></svg>
+
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; margin-top: 1rem;">
+            <div style="background: var(--bg-surface); padding: 0.75rem 1rem; border-radius: var(--radius-md); border: 1px solid var(--border-subtle); text-align: center;">
+              <span style="font-size: 0.78rem; color: var(--text-muted); font-weight: 700;">PENDENZA SECANTE $m_{	ext{sec}}$</span><br>
+              <strong style="font-family: var(--font-mono); font-size: 1.15rem; color: var(--accent-gold);" id="mSecText">1.75</strong>
+            </div>
+            <div style="background: var(--bg-surface); padding: 0.75rem 1rem; border-radius: var(--radius-md); border: 1px solid var(--border-subtle); text-align: center;">
+              <span style="font-size: 0.78rem; color: var(--text-muted); font-weight: 700;">PENDENZA TANGENTE $m_{	ext{tan}} = f'(x_0)$</span><br>
+              <strong style="font-family: var(--font-mono); font-size: 1.15rem; color: var(--accent-math);" id="mTanText">1.00</strong>
+            </div>
+            <div style="background: var(--bg-surface); padding: 0.75rem 1rem; border-radius: var(--radius-md); border: 1px solid var(--border-subtle); text-align: center;">
+              <span style="font-size: 0.78rem; color: var(--text-muted); font-weight: 700;">EQUAZIONE RETTA TANGENTE</span><br>
+              <strong style="font-family: var(--font-mono); font-size: 1.05rem; color: var(--accent-purple);" id="eqTanText">y = x</strong>
+            </div>
+          </div>
+        </div>
+
+        <!-- TEORIA 2 IN CALCE AL LABORATORIO -->
+        <div class="theory-card" id="teoria-2">
+          <h4>
+            <span>La Teoria in Breve • Significato Geometrico della Derivata</span>
+            <span class="theory-pill">Teoria 2</span>
+          </h4>
+          <p>
+            Il valore della derivata prima $f'(x_0)$ coincide con il <strong>coefficiente angolare $m$ della retta tangente</strong> al grafico della funzione nel punto $P(x_0, f(x_0))$:
+          </p>
+          $$m_{	ext{tan}} = \lim_{h 	o 0} m_{	ext{sec}} = f'(x_0)$$
+          <p>
+            Ricordando l'equazione del fascio di rette passante per un punto $(x_0, y_0)$, l'<strong>equazione della retta tangente</strong> è:
+          </p>
+          $$y - f(x_0) = f'(x_0)(x - x_0)$$
+          <div style="background: var(--bg-surface); border: 1px solid var(--border-subtle); padding: 0.85rem; border-radius: var(--radius-sm); margin-top: 0.75rem; font-size: 0.88rem;">
+            📈 <strong>Interpretazione Visiva:</strong>
+            <ul>
+              <li>Se $f'(x_0) > 0$, la retta tangente sale verso destra $\implies$ la funzione è localmente <strong>crescente</strong>.</li>
+              <li>Se $f'(x_0) < 0$, la retta tangente scende verso destra $\implies$ la funzione è localmente <strong>decrescente</strong>.</li>
+              <li>Se $f'(x_0) = 0$, la retta tangente è perfettamente orizzontale $\implies$ punto stazionario (possibile massimo, minimo o flesso orizzontale).</li>
+            </ul>
+          </div>
+        </div>
+
+        <button class="btn btn-primary" onclick="markLabCompleted(2)" style="margin-top: 1rem;">
+          Geometria della Tangente Acquisita → Segna Laboratorio 2 Completato
+        </button>
+      </div>
+    </section>
+
+
+    <!-- ======================================================== -->
+    <!-- LABORATORIO 3: REGOLE DI DERIVAZIONE                    -->
+    <!-- ======================================================== -->
+    <section class="lab-card" id="lab-3">
+      <div class="lab-header">
+        <div class="lab-badge">Laboratorio 3 • Calcolo Algebrico</div>
+        <h2 class="lab-title">L'Officina del Calcolo: Dalle Basi alle Regole di Derivazione</h2>
+      </div>
+
+      <div class="lab-content">
+        <p>
+          Calcolare ogni volta il limite del rapporto incrementale sarebbe lungo e faticoso. Fortunatamente, i matematici hanno distillato delle <strong>regole algebriche universali</strong>.
+          Seleziona un modello di funzione per osservarne la derivata passo-passo.
+        </p>
+
+        <!-- Calcolatore Interattivo Regole di Derivazione -->
+        <div class="m1l3-tab-group">
+          <button class="m1l4-tab-btn active" id="btnDer1" onclick="showDerivExample(1)">Polinomio: $f(x) = 3x^3 - 5x^2 + 7x - 4$</button>
+          <button class="m1l4-tab-btn" id="btnDer2" onclick="showDerivExample(2)">Prodotto: $f(x) = x^2 \cdot e^x$</button>
+          <button class="m1l4-tab-btn" id="btnDer3" onclick="showDerivExample(3)">Quoziente: $f(x) = rac{2x + 1}{x - 3}$</button>
+          <button class="m1l4-tab-btn" id="btnDer4" onclick="showDerivExample(4)">Radice: $f(x) = \sqrt{x} = x^{1/2}$</button>
+        </div>
+
+        <div class="m1l4-stage">
+          <div id="derExampleContent" style="font-size: 0.93rem; line-height: 1.6;">
+            <!-- Riempito dinamicamente via JS -->
+          </div>
+        </div>
+
+        <!-- TEORIA 3 IN CALCE AL LABORATORIO -->
+        <div class="theory-card" id="teoria-3">
+          <h4>
+            <span>La Teoria in Breve • Tavola delle Derivate e Regole di Calcolo</span>
+            <span class="theory-pill">Teoria 3</span>
+          </h4>
+          <div style="overflow-x: auto; margin-top: 0.75rem;">
+            <table class="der-table">
+              <thead>
+                <tr>
+                  <th>Funzione Base $f(x)$</th>
+                  <th>Derivata $f'(x)$</th>
+                  <th>Regola di Operazione</th>
+                  <th>Formula di Derivazione</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>$k$ (costante)</td>
+                  <td>$0$</td>
+                  <td><strong>Prodotto per costante</strong></td>
+                  <td>$D[k \cdot f(x)] = k \cdot f'(x)$</td>
+                </tr>
+                <tr>
+                  <td>$x^n$ (potenza)</td>
+                  <td>$n \cdot x^{n-1}$</td>
+                  <td><strong>Somma / Differenza</strong></td>
+                  <td>$D[f(x) \pm g(x)] = f'(x) \pm g'(x)$</td>
+                </tr>
+                <tr>
+                  <td>$\sqrt{x}$</td>
+                  <td>$rac{1}{2\sqrt{x}}$</td>
+                  <td><strong>Prodotto (Leibniz)</strong></td>
+                  <td>$D[f \cdot g] = f' \cdot g + f \cdot g'$</td>
+                </tr>
+                <tr>
+                  <td>$e^x$</td>
+                  <td>$e^x$</td>
+                  <td><strong>Quoziente (Rapporto)</strong></td>
+                  <td>$D\left[rac{f}{g}ight] = rac{f' \cdot g - f \cdot g'}{g^2}$</td>
+                </tr>
+                <tr>
+                  <td>$\ln(x)$</td>
+                  <td>$rac{1}{x}$</td>
+                  <td><strong>Funzione Composta (Catena)</strong></td>
+                  <td>$D[f(g(x))] = f'(g(x)) \cdot g'(x)$</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <button class="btn btn-primary" onclick="markLabCompleted(3)" style="margin-top: 1rem;">
+          Regole di Derivazione Acquisite → Segna Laboratorio 3 Completato
+        </button>
+      </div>
+    </section>
+
+
+    <!-- ======================================================== -->
+    <!-- LABORATORIO 4: PUNTI DI NON DERIVABILITÀ                -->
+    <!-- ======================================================== -->
+    <section class="lab-card" id="lab-4">
+      <div class="lab-header">
+        <div class="lab-badge">Laboratorio 4 • Spigoli e Singolarità</div>
+        <h2 class="lab-title">Continuità vs Derivabilità e Punti di Non Derivabilità</h2>
+      </div>
+
+      <div class="lab-content">
+        <p>
+          Un teorema fondamentale garantisce che: <em>«Se una funzione è derivabile in $x_0$, allora è sicuramente continua in $x_0$»</em>.
+          Tuttavia, <strong>il viceversa non è vero!</strong> Una funzione può essere perfettamente continua (senza buchi né salti), eppure non essere derivabile in un punto.
+        </p>
+        <p>
+          Cosa accade quando la derivata prima non esiste? Si generano <strong>punti di non derivabilità</strong>, classificati in tre specie: <em>punti angolosi</em>, <em>cuspidi</em> e <em>flessi a tangente verticale</em>.
+        </p>
+
+        <!-- Switcher Punti di Non Derivabilità -->
+        <div class="m1l4-tab-group">
+          <button class="m1l4-tab-btn active" id="btnNd1" onclick="selectNonDer(1)">Punto Angoloso</button>
+          <button class="m1l4-tab-btn" id="btnNd2" onclick="selectNonDer(2)">Cuspide</button>
+          <button class="m1l4-tab-btn" id="btnNd3" onclick="selectNonDer(3)">Flesso a Tangente Verticale</button>
+        </div>
+
+        <div class="m1l4-stage">
+          <div style="margin-bottom: 0.75rem;">
+            <strong style="color: var(--accent-math); font-size: 1.05rem;" id="ndTitle">Punto Angoloso (Spigolo)</strong>
+            <p style="font-size: 0.9rem; color: var(--text-muted); margin: 0.35rem 0;" id="ndDesc">
+              Le derivate sinistra e destra esistono entrambe finite, ma sono diverse tra loro: $f'_-(x_0) 
+eq f'_+(x_0)$.
+            </p>
+          </div>
+
+          <svg id="ndSvg" class="m1l4-svg" viewBox="0 0 600 320" role="img" aria-label="Grafico interattivo del punto di non derivabilità selezionato"></svg>
+
+          <div id="ndFormulaBox" style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); padding: 0.85rem; margin-top: 1rem; font-family: var(--font-mono); font-size: 0.9rem;">
+            <!-- Riempito via JS -->
+          </div>
+        </div>
+
+        <!-- TEORIA 4 IN CALCE AL LABORATORIO -->
+        <div class="theory-card" id="teoria-4">
+          <h4>
+            <span>La Teoria in Breve • Classificazione dei Punti di Non Derivabilità</span>
+            <span class="theory-pill">Teoria 4</span>
+          </h4>
+          <p>
+            Per stabilire la derivabilità in un punto $x_0$ in cui la funzione è continua, si calcolano i due limiti laterali del rapporto incrementale:
+            $f'_-(x_0) = \lim_{h 	o 0^-} rac{f(x_0+h)-f(x_0)}{h}$ e $f'_+(x_0) = \lim_{h 	o 0^+} rac{f(x_0+h)-f(x_0)}{h}$.
+          </p>
+          <ul style="margin-left: 1.25rem; font-size: 0.92rem; line-height: 1.6;">
+            <li>
+              <strong>Punto Angoloso:</strong> I due limiti laterali sono <strong>finiti ma diversi</strong> ($f'_-(x_0) 
+eq f'_+(x_0)$), oppure uno è finito e l'altro è infinito. Nel punto si incontrano due semitangenti con inclinazioni differenti (es. $f(x) = |x|$ in $0$).
+            </li>
+            <li>
+              <strong>Cuspide:</strong> Entrambi i limiti laterali sono <strong>infiniti con segni opposti</strong> ($f'_-(x_0) = -\infty$ e $f'_+(x_0) = +\infty$, oppure viceversa). Le due semitangenti si sovrappongono verticalmente formando una punta aguzza (es. $f(x) = \sqrt{|x|}$ in $0$).
+            </li>
+            <li>
+              <strong>Flesso a Tangente Verticale:</strong> Entrambi i limiti laterali sono <strong>infiniti con lo stesso segno</strong> ($f'_-(x_0) = f'_+(x_0) = +\infty$ oppure $-\infty$). La curva attraversa la retta tangente verticale (es. $f(x) = \sqrt[3]{x}$ in $0$).
+            </li>
+          </ul>
+        </div>
+
+        <button class="btn btn-primary" onclick="markLabCompleted(4)" style="margin-top: 1rem;">
+          Punti di Non Derivabilità Compresi → Segna Laboratorio 4 Completato
+        </button>
+      </div>
+    </section>
+
+
+    <!-- ======================================================== -->
+    <!-- LABORATORIO 5: PALESTRA MENTALE                         -->
+    <!-- ======================================================== -->
+    <section class="lab-card" id="lab-5">
+      <div class="lab-header">
+        <div class="lab-badge">Laboratorio 5 • Problem Solving Istantaneo</div>
+        <h2 class="lab-title">Palestra Mentale: 4 Sfide Flash su Derivate e Tangenti</h2>
+      </div>
+
+      <div class="lab-content">
+        <p>
+          Metti alla prova la tua abilità di calcolo e ragionamento geometrico con queste quattro sfide rapide.
+        </p>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; margin-top: 1rem;">
+          <!-- Sfida 1 -->
+          <div style="background: var(--bg-surface-elevated); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.15rem;">
+            <span class="m1l4-badge" style="background: rgba(56, 189, 248, 0.15); color: var(--accent-math); margin-bottom: 0.5rem;">Sfida 1</span>
+            <p style="font-size: 0.92rem; font-weight: 700; margin-bottom: 0.5rem;">
+              Qual è la derivata di $f(x) = 4x^3 - 5x + 7$?
+            </p>
+            <div style="display: flex; flex-direction: column; gap: 0.35rem; font-size: 0.88rem;">
+              <button class="btn quiz-opt" onclick="checkQuiz(1, 0, this)">$f'(x) = 12x^2 - 5$</button>
+              <button class="btn quiz-opt" onclick="checkQuiz(1, 1, this)">$f'(x) = 12x^3 - 5x$</button>
+              <button class="btn quiz-opt" onclick="checkQuiz(1, 2, this)">$f'(x) = 4x^2 - 5$</button>
+            </div>
+            <div id="quizFeedback1" style="font-size: 0.85rem; margin-top: 0.5rem; display: none;"></div>
+          </div>
+
+          <!-- Sfida 2 -->
+          <div style="background: var(--bg-surface-elevated); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.15rem;">
+            <span class="m1l4-badge" style="background: rgba(245, 158, 11, 0.15); color: var(--accent-gold); margin-bottom: 0.5rem;">Sfida 2</span>
+            <p style="font-size: 0.92rem; font-weight: 700; margin-bottom: 0.5rem;">
+              Quanto vale la pendenza della retta tangente a $y = x^2 - 3x$ nel punto di ascissa $x_0 = 4$?
+            </p>
+            <div style="display: flex; flex-direction: column; gap: 0.35rem; font-size: 0.88rem;">
+              <button class="btn quiz-opt" onclick="checkQuiz(2, 0, this)">$m = 4$</button>
+              <button class="btn quiz-opt" onclick="checkQuiz(2, 1, this)">$m = 5$ (poiché $f'(x) = 2x - 3 \implies f'(4) = 8 - 3 = 5$)</button>
+              <button class="btn quiz-opt" onclick="checkQuiz(2, 2, this)">$m = 8$</button>
+            </div>
+            <div id="quizFeedback2" style="font-size: 0.85rem; margin-top: 0.5rem; display: none;"></div>
+          </div>
+
+          <!-- Sfida 3 -->
+          <div style="background: var(--bg-surface-elevated); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.15rem;">
+            <span class="m1l4-badge" style="background: rgba(168, 85, 247, 0.15); color: var(--accent-purple); margin-bottom: 0.5rem;">Sfida 3</span>
+            <p style="font-size: 0.92rem; font-weight: 700; margin-bottom: 0.5rem;">
+              Quale punto di non derivabilità presenta $f(x) = |x|$ nell'origine $x = 0$?
+            </p>
+            <div style="display: flex; flex-direction: column; gap: 0.35rem; font-size: 0.88rem;">
+              <button class="btn quiz-opt" onclick="checkQuiz(3, 0, this)">Punto angoloso ($f'_-(0) = -1$ e $f'_+(0) = +1$)</button>
+              <button class="btn quiz-opt" onclick="checkQuiz(3, 1, this)">Cuspide con tangente verticale</button>
+              <button class="btn quiz-opt" onclick="checkQuiz(3, 2, this)">Flesso a tangente verticale</button>
+            </div>
+            <div id="quizFeedback3" style="font-size: 0.85rem; margin-top: 0.5rem; display: none;"></div>
+          </div>
+
+          <!-- Sfida 4 -->
+          <div style="background: var(--bg-surface-elevated); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.15rem;">
+            <span class="m1l4-badge" style="background: rgba(16, 185, 129, 0.15); color: var(--accent-success); margin-bottom: 0.5rem;">Sfida 4</span>
+            <p style="font-size: 0.92rem; font-weight: 700; margin-bottom: 0.5rem;">
+              Quale relazione logica è sempre corretta per una funzione in un punto $x_0$?
+            </p>
+            <div style="display: flex; flex-direction: column; gap: 0.35rem; font-size: 0.88rem;">
+              <button class="btn quiz-opt" onclick="checkQuiz(4, 0, this)">Continuità $\implies$ Derivabilità</button>
+              <button class="btn quiz-opt" onclick="checkQuiz(4, 1, this)">Derivabilità $\implies$ Continuità</button>
+              <button class="btn quiz-opt" onclick="checkQuiz(4, 2, this)">Sono due concetti completamente indipendenti</button>
+            </div>
+            <div id="quizFeedback4" style="font-size: 0.85rem; margin-top: 0.5rem; display: none;"></div>
+          </div>
+        </div>
+
+        <button class="btn btn-primary" onclick="markLabCompleted(5)" style="margin-top: 1.25rem;">
+          Tutte le Sfide Superate → Segna Laboratorio 5 Completato
+        </button>
+      </div>
+    </section>
+
+
+    <!-- ======================================================== -->
+    <!-- LABORATORIO 6: COMPITO DI REALTÀ SVOLTO                 -->
+    <!-- ======================================================== -->
+    <section class="lab-card" id="lab-6">
+      <div class="lab-header">
+        <div class="lab-badge">Laboratorio 6 • Compito di Realtà Svolto</div>
+        <h2 class="lab-title">Costo Marginale di Produzione ed Economie di Scala nel Terzo Settore</h2>
+      </div>
+
+      <div class="lab-content">
+        <p>
+          Una cooperativa sociale produce manufatti tessili tramite inserimento lavorativo protetto.
+          La funzione del <strong>costo totale mensile di produzione</strong> (in euro) in funzione del numero di manufatti $q \in [10, 80]$ è:
+        </p>
+        $$C(q) = 0.05q^3 - 3q^2 + 80q + 500$$
+        <p>
+          Il Consiglio Direttivo riceve la richiesta per una commessa speciale di 1 pezzo in più. La domanda chiave è:
+          <em>«Quanto costa alla cooperativa produrre quella singola unità aggiuntiva?»</em>
+          In economia e sociologia aziendale, questa grandezza si chiama <strong>Costo Marginale</strong> ed è la <strong>derivata prima del costo totale</strong>:
+        </p>
+        $$C'(q) = rac{dC}{dq}$$
+
+        <!-- Simulatore Costo Marginale vs Medio -->
+        <div class="m1l4-stage">
+          <div class="m1l4-slider-panel">
+            <label for="marginalQSlider">Quantità prodotta $q$ (unità al mese):</label>
+            <input type="range" id="marginalQSlider" min="10" max="70" step="1" value="30"
+              oninput="updateMarginalSim()">
+            <span class="m1l4-readout" id="marginalQVal">q = 30 pezzi</span>
+          </div>
+
+          <svg id="marginalSvg" class="m1l4-svg" viewBox="0 0 640 330" role="img" aria-label="Grafico del costo medio e del costo marginale"></svg>
+
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 1rem;">
+            <div style="background: var(--bg-surface); padding: 0.75rem 1rem; border-radius: var(--radius-md); border: 1px solid var(--border-subtle); text-align: center;">
+              <span style="font-size: 0.78rem; color: var(--text-muted); font-weight: 700;">COSTO TOTALE $C(q)$</span><br>
+              <strong style="font-family: var(--font-mono); font-size: 1.15rem; color: var(--text-main);" id="totCostVal">1550 €</strong>
+            </div>
+            <div style="background: var(--bg-surface); padding: 0.75rem 1rem; border-radius: var(--radius-md); border: 1px solid var(--border-subtle); text-align: center;">
+              <span style="font-size: 0.78rem; color: var(--text-muted); font-weight: 700;">COSTO MEDIO $\overline{C}(q) = C(q)/q$</span><br>
+              <strong style="font-family: var(--font-mono); font-size: 1.15rem; color: var(--accent-gold);" id="avgCostVal">51.67 €/pz</strong>
+            </div>
+            <div style="background: var(--bg-surface); padding: 0.75rem 1rem; border-radius: var(--radius-md); border: 1px solid var(--border-subtle); text-align: center;">
+              <span style="font-size: 0.78rem; color: var(--text-muted); font-weight: 700;">COSTO MARGINALE $C'(q)$</span><br>
+              <strong style="font-family: var(--font-mono); font-size: 1.15rem; color: var(--accent-math);" id="marCostVal">35.00 €/pz</strong>
+            </div>
+          </div>
+
+          <div id="marginalAnalysisText" style="font-size: 0.9rem; color: var(--text-muted); margin-top: 0.85rem; line-height: 1.55;">
+            <!-- Riempito via JS -->
+          </div>
+        </div>
+
+        <div style="background: var(--bg-surface-elevated); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem; margin-top: 1.25rem;">
+          <h4 style="color: var(--accent-math); margin-bottom: 0.5rem;">Risoluzione Guidata Passo-Passo per l'Esame</h4>
+          <ol style="margin-left: 1.25rem; font-size: 0.92rem; line-height: 1.6;">
+            <li>
+              <strong>Calcolo analitico del Costo Marginale:</strong><br>
+              Applichiamo le regole di derivazione di potenze e costanti:
+              $$C'(q) = D[0.05q^3 - 3q^2 + 80q + 500] = 0.05 \cdot 3q^2 - 3 \cdot 2q + 80 + 0 = 0.15q^2 - 6q + 80$$
+            </li>
+            <li>
+              <strong>Costo Marginale per $q = 30$ pezzi:</strong><br>
+              $C'(30) = 0.15(30)^2 - 6(30) + 80 = 0.15(900) - 180 + 80 = 135 - 180 + 80 = 35	ext{ €/pz}$.<br>
+              <em>Significato:</em> Produrre il 31° manufatto costerà alla cooperativa circa 35 euro (meno del costo medio di 51.67 €!).
+            </li>
+            <li>
+              <strong>Il Teorema Economico della Minima Efficienza:</strong><br>
+              Finché il costo marginale è inferiore al costo medio ($C'(q) < \overline{C}(q)$), ogni nuovo manufatto costa meno della media e fa <em>abbassare</em> il costo medio complessivo (economie di scala!).
+              Il costo medio tocca il suo <strong>minimo assoluto esattamente nel punto di intersezione</strong> in cui $C'(q) = \overline{C}(q)$!
+            </li>
+          </ol>
+        </div>
+
+        <button class="btn btn-primary" onclick="markLabCompleted(6)" style="margin-top: 1.25rem;">
+          Compito di Realtà Svolto → Segna Laboratorio 6 Completato
+        </button>
+      </div>
+    </section>
+
+
+    <!-- ======================================================== -->
+    <!-- SCHEDA OPERATIVA PER CASA (STAMPABILE)                   -->
+    <!-- ======================================================== -->
+    <section class="worksheet-section" id="scheda-casa">
+      <div class="worksheet-header">
+        <div>
+          <span class="m1l4-badge" style="background: rgba(245, 158, 11, 0.15); color: var(--accent-gold); margin-bottom: 0.4rem;">
+            Compito Autentico per Casa • Laboratorio d'Esame
+          </span>
+          <h2 style="font-size: 1.45rem; font-weight: 800; margin: 0;">Scheda Operativa: «Diffusione di Notizie &amp; Analisi Marginale»</h2>
+          <span style="font-size: 0.88rem; color: var(--text-muted);">Nome e Cognome: ____________________________________ Data: ______________ Classe: 5ª ___</span>
+        </div>
+        <button class="btn" onclick="window.print()" style="display: inline-flex; align-items: center; gap: 0.4rem;">
+          🖨️ Stampa Scheda
+        </button>
+      </div>
+
+      <div style="font-size: 0.93rem; line-height: 1.6; color: var(--text-main);">
+        <p><strong>Esercizio 1 (Rapporto Incrementale e Derivata dalla Definizione):</strong><br>
+          Data la funzione $f(x) = 2x^2 - 3x$:
+          <br>a) Calcola l'incremento $\Delta y = f(1 + h) - f(1)$.
+          <br>b) Determina il rapporto incrementale $rac{\Delta y}{h}$.
+          <br>c) Calcola $\lim_{h 	o 0} rac{\Delta y}{h}$ e verifica che il risultato coincide con la derivata $f'(1)$ calcolata con le regole algebriche.
+        </p>
+
+        <p style="margin-top: 1.25rem;"><strong>Esercizio 2 (Retta Tangente e Diffusione Virale sui Social Network):</strong><br>
+          Il numero di persone $N(t)$ (in migliaia) raggiunte da una campagna di sensibilizzazione sui diritti umani dopo $t$ giorni segue l'andamento $N(t) = -rac{1}{3}t^3 + 4t^2 + 10$.
+          <br>a) Calcola la funzione derivata prima $N'(t)$, che esprime la velocità istantanea di diffusione (migliaia di utenti/giorno).
+          <br>b) Determina la velocità di diffusione dopo 2 giorni ($t = 2$) e dopo 5 giorni ($t = 5$).
+          <br>c) Scrivi l'equazione della retta tangente al grafico di $N(t)$ nel punto in cui $t = 3$.
+        </p>
+
+        <p style="margin-top: 1.25rem;"><strong>Esercizio 3 (Analisi di Non Derivabilità):</strong><br>
+          Considera la funzione $f(x) = egin{cases} x^2 & x \le 2 \ 4x - 4 & x > 2 \end{cases}$.
+          <br>a) Verifica se $f(x)$ è continua in $x = 2$.
+          <br>b) Calcola la derivata sinistra $f'_-(2)$ e la derivata destra $f'_+(2)$.
+          <br>c) Stabilisci se la funzione è derivabile in $x = 2$ oppure classifica il tipo di punto di non derivabilità.
+        </p>
+
+        <p style="margin-top: 1.25rem;"><strong>Esercizio 4 (Quesito Argomentativo per il Colloquio d'Esame):</strong><br>
+          Nelle scienze sociali e nell'economia del benessere si fa largo uso del concetto di «utilità marginale decrescente»: all'aumentare della quantità disponibile di un bene o servizio, l'incremento di benessere generato da un'unità aggiuntiva diminuisce gradualmente.
+          Spiega come questo principio psicologico e sociologico si traduce nel linguaggio delle derivate prime e seconde.
+        </p>
+
+        <!-- Rubrica di Valutazione -->
+        <h4 style="margin-top: 2rem; color: var(--accent-math);">Griglia di Valutazione delle Competenze (Rubrica in Decimi)</h4>
+        <div class="rubric-grid">
+          <div class="rubric-card">
+            <div class="rubric-card-title">1. Rapporto Incrementale (0-2.5 pt)</div>
+            <p>Corretta impostazione analitica degli incrementi $\Delta x$ e $\Delta y$; calcolo rigoroso del limite per $h 	o 0$.</p>
+          </div>
+          <div class="rubric-card">
+            <div class="rubric-card-title">2. Calcolo Differenziale (0-2.5 pt)</div>
+            <p>Applicazione fluida e precisa delle regole di derivazione di potenze, somme, prodotti e quozienti.</p>
+          </div>
+          <div class="rubric-card">
+            <div class="rubric-card-title">3. Geometria della Tangente (0-2.5 pt)</div>
+            <p>Determinazione corretta dell'equazione della retta tangente; interpretazione della pendenza e classificazione dei punti singolari.</p>
+          </div>
+          <div class="rubric-card">
+            <div class="rubric-card-title">4. Contestualizzazione Umana (0-2.5 pt)</div>
+            <p>Capacità di interpretare le derivate in contesti reali (velocità istantanea, costo marginale, utilità marginale, flussi sociali).</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ======================================================== -->
+    <!-- FLASHCARDS INTERATTIVE                                   -->
+    <!-- ======================================================== -->
+    <section class="flashcard-section" style="margin: 2.5rem 0;">
+      <div class="section-header" style="margin-bottom: 1.25rem;">
+        <h2 class="section-title">
+          <span class="icon">⚡</span> Palestra di Ripasso: Flashcards Attive
+        </h2>
+        <span class="badge" style="background: rgba(168, 85, 247, 0.15); color: var(--accent-purple); font-weight: 700; padding: 0.3rem 0.8rem; border-radius: var(--radius-pill); font-size: 0.8rem;">
+          Autovalutazione Rapida
+        </span>
+      </div>
+      <div id="lessonFlashcardDeck"></div>
+    </section>
+
+
+    <!-- ======================================================== -->
+    <!-- QUADRO DI RIEPILOGO FINALE DELLA TEORIA                 -->
+    <!-- ======================================================== -->
+    <footer class="final-recap" id="finalRecap" style="background: var(--bg-surface-elevated); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: 2rem; margin-top: 3rem;">
+      <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.25rem;">
+        <span style="font-size: 1.8rem;">📜</span>
+        <div>
+          <h3 style="font-size: 1.25rem; font-weight: 800; margin: 0;">Quadro Sinottico Finale: Teoria Istituzionale della Lezione 5.M1.4</h3>
+          <span style="font-size: 0.85rem; color: var(--text-muted);">Sintesi visuale per il ripasso e per il colloquio d'Esame di Stato</span>
+        </div>
+      </div>
+
+      <div style="overflow-x: auto;">
+        <table class="der-table">
+          <thead>
+            <tr>
+              <th>Concetto Cardine</th>
+              <th>Formula Fondamentale</th>
+              <th>Significato Geometrico / Fisico</th>
+              <th>Applicazione nelle Scienze Umane</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Rapporto Incrementale</strong></td>
+              <td>$$rac{\Delta y}{\Delta x} = rac{f(x_0+h)-f(x_0)}{h}$$</td>
+              <td>Pendenza $m_{	ext{sec}}$ della secante per $P$ e $Q$; velocità media</td>
+              <td>Tasso medio di crescita demografica o economica</td>
+            </tr>
+            <tr>
+              <td><strong>Derivata Prima</strong></td>
+              <td>$$f'(x_0) = \lim_{h 	o 0} rac{f(x_0+h)-f(x_0)}{h}$$</td>
+              <td>Pendenza $m_{	ext{tan}}$ della retta tangente; velocità istantanea</td>
+              <td>Tasso istantaneo di diffusione di un'idea o contagio</td>
+            </tr>
+            <tr>
+              <td><strong>Retta Tangente</strong></td>
+              <td>$$y - f(x_0) = f'(x_0)(x - x_0)$$</td>
+              <td>Migliore approssimazione lineare della curva nell'intorno di $x_0$</td>
+              <td>Previsioni a brevissimo termine (differenziale)</td>
+            </tr>
+            <tr>
+              <td><strong>Derivabilità $\implies$ Continuità</strong></td>
+              <td>$f 	ext{ derivabile} \implies f 	ext{ continua}$</td>
+              <td>Non ci possono essere salti dove esiste la tangente non verticale</td>
+              <td>Una curva fluida non presenta fratture improvvise</td>
+            </tr>
+            <tr>
+              <td><strong>Punto Angoloso</strong></td>
+              <td>$f'_-(x_0) 
+eq f'_+(x_0)$ (finiti)</td>
+              <td>Spigolo con due semitangenti distinte</td>
+              <td>Cambiamento improvviso di regime o aliquota fiscale</td>
+            </tr>
+            <tr>
+              <td><strong>Cuspide / Flesso Verticale</strong></td>
+              <td>Derivate laterali infinite ($\pm\infty$)</td>
+              <td>Punta aguzza (segni opposti) o flesso verticale (stesso segno)</td>
+              <td>Saturazione verticale o shock sistemico repentino</td>
+            </tr>
+            <tr>
+              <td><strong>Costo Marginale</strong></td>
+              <td>$$C'(q) = rac{dC}{dq}$$</td>
+              <td>Pendenza della curva di costo; costo dell'unità aggiuntiva</td>
+              <td>Decisioni di produzione ottimale nel welfare d'impresa</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Card di Completamento Lezione con Gamification -->
+      <div class="completion-card" style="margin-top: 2rem; background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.5rem; text-align: center;">
+        <div style="font-size: 2.2rem; margin-bottom: 0.5rem;">🎉</div>
+        <h3 style="font-size: 1.25rem; font-weight: 800; margin-bottom: 0.4rem;">Congratulazioni per aver completato la Lezione 5.M1.4!</h3>
+        <p style="font-size: 0.92rem; color: var(--text-muted); max-width: 600px; margin: 0 auto 1.25rem;">
+          Hai padroneggiato il rapporto incrementale, la retta tangente, le regole di derivazione, i punti di non derivabilità e il costo marginale.
+        </p>
+        <button class="btn btn-primary" id="btnCompleteLesson" style="padding: 0.75rem 1.75rem; font-size: 1rem; font-weight: 800;">
+          🏆 Riscatta +60 XP e Registra Completamento
+        </button>
+      </div>
+    </footer>
+
+  </div>
+
+
+  <!-- ======================================================== -->
+  <!-- JAVASCRIPT DINAMICO E INTERATTIVO                        -->
+  <!-- ======================================================== -->
+  <script src="../../../shared/js/comode-audio.js"></script>
+  <script src="../../../shared/js/comode-gamification.js"></script>
+  <script src="../../../shared/js/comode-flashcards.js"></script>
+
+  <script>
+    const LESSON_ID = 'qa-5.m1-l04';
+    const LABS_STORAGE_KEY = 'comode_labs_completed_' + LESSON_ID;
+    const completedLabs = new Set();
+
+    /* GESTIONE COMPLETAMENTO LABORATORI */
+    function markLabCompleted(num, silent = false) {
+      if (completedLabs.has(num)) return;
+      completedLabs.add(num);
+
+      const chip = document.getElementById('chip-lab-' + num);
+      if (chip) chip.classList.add('completed');
+
+      document.getElementById('labsCompletedCount').textContent = completedLabs.size;
+
+      if (!silent) {
+        if (window.ComodeAudio) ComodeAudio.play('success');
+        if (window.ComodeGamification) {
+          ComodeGamification.addXP(10, 'Laboratorio ' + num + ' completato!');
+        }
+      }
+
+      saveLabsProgress();
+      checkAllLabsDone();
+    }
+
+    function markAllLabsCompleted(silent = false) {
+      for (let i = 1; i <= 6; i++) {
+        markLabCompleted(i, true);
+      }
+      if (!silent) {
+        if (window.ComodeAudio) ComodeAudio.play('achievement');
+        if (window.ComodeGamification) {
+          ComodeGamification.addXP(60, 'Lezione 5.M1.4 Completata con Successo!');
+          ComodeGamification.markLessonCompleted(LESSON_ID);
+        }
+      }
+    }
+
+    function saveLabsProgress() {
+      try {
+        localStorage.setItem(LABS_STORAGE_KEY, JSON.stringify([...completedLabs]));
+      } catch (e) {}
+    }
+
+    function checkAllLabsDone() {
+      if (completedLabs.size === 6) {
+        const btn = document.getElementById('btnCompleteLesson');
+        if (btn) {
+          btn.classList.add('completed');
+          btn.textContent = '✅ Lezione Completata (+60 XP Riscattati)';
+          btn.disabled = true;
+        }
+      }
+    }
+
+    function scrollToLab(num) {
+      const el = document.getElementById('lab-' + num);
+      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    /* ========================================================
+       LABORATORIO 1: VARIAZIONE ISTANTANEA
+       ======================================================== */
+    const hValues = [1.0, 0.5, 0.1, 0.01, 0.001];
+
+    function updateIncrementSim() {
+      const slider = document.getElementById('stepHSlider');
+      const idx = parseInt(slider.value, 10);
+      const h = hValues[idx];
+      const t0 = 3.0;
+      const s0 = 4 * (t0 * t0) + 10 * t0; // 4(9) + 30 = 66 m
+      const t1 = t0 + h;
+      const s1 = 4 * (t1 * t1) + 10 * t1;
+      const deltaS = s1 - s0;
+      const vMedia = deltaS / h;
+      const vKmh = vMedia * 3.6;
+
+      document.getElementById('stepHVal').textContent = 'h = ' + h.toFixed(3) + ' s';
+      document.getElementById('tableT1').textContent = t1.toFixed(3) + ' s';
+      document.getElementById('tableS1').textContent = s1.toFixed(3) + ' m';
+      document.getElementById('tableDeltaS').textContent = '+' + deltaS.toFixed(3) + ' m';
+      document.getElementById('tableVMedia').textContent = `${vMedia.toFixed(2)} m/s (${vKmh.toFixed(1)} km/h)`;
+
+      const analysisBox = document.getElementById('incrementFormulaAnalysis');
+      analysisBox.innerHTML = `
+        <strong>Calcolo algebrico del limite:</strong><br>
+        $\frac{\Delta s}{h} = \frac{4(3 + h)^2 + 10(3 + h) - 66}{h} = \frac{4(9 + 6h + h^2) + 30 + 10h - 66}{h} = \frac{34h + 4h^2}{h} = 34 + 4h$.<br>
+        Per $h \to 0$, il termine $4h \to 0$, quindi la <strong>velocità istantanea esatta</strong> è:
+        $$v(3) = s'(3) = \lim_{h \to 0} (34 + 4h) = 34\text{ m/s} = 122.4\text{ km/h}$$
+      `;
+
+      if (window.renderMathInElement) {
+        renderMathInElement(analysisBox, { delimiters: [{left: "$", right: "$", display: false}] });
+      }
+    }
+
+    /* ========================================================
+       LABORATORIO 2: LA RETTA TANGENTE
+       ======================================================== */
+    function updateTangentSim() {
+      const slider = document.getElementById('tangentHSlider');
+      let h = parseFloat(slider.value);
+      if (Math.abs(h) < 0.05) h = (h >= 0 ? 0.05 : -0.05);
+
+      const x0 = 2.0;
+      const f = (x) => 0.25 * x * x + 1;
+      const y0 = f(x0); // 0.25(4) + 1 = 2
+      const x1 = x0 + h;
+      const y1 = f(x1);
+
+      const mSec = (y1 - y0) / h;
+      const mTan = 0.5 * x0; // f'(x) = 0.5x => f'(2) = 1.0
+
+      document.getElementById('tangentHVal').textContent = 'h = ' + (h >= 0 ? '+' : '') + h.toFixed(2);
+      document.getElementById('mSecText').textContent = mSec.toFixed(3);
+      document.getElementById('mTanText').textContent = mTan.toFixed(2);
+      document.getElementById('eqTanText').textContent = `y = ${mTan.toFixed(1)}x`;
+
+      renderTangentSvg(h, x0, y0, x1, y1, mSec, mTan);
+    }
+
+    function setInfinitesimalH() {
+      const slider = document.getElementById('tangentHSlider');
+      slider.value = 0.05;
+      updateTangentSim();
+    }
+
+    function renderTangentSvg(h, x0, y0, x1, y1, mSec, mTan) {
+      const svg = document.getElementById('tangentSvg');
+      const w = 640, hSvg = 340;
+      const ox = 120, oy = 280;
+
+      // Scala: X da 0 a 6 -> mappato con scaleX = 75 px per unità
+      const scaleX = 75;
+      const scaleY = 75;
+
+      const mapX = (x) => ox + x * scaleX;
+      const mapY = (y) => oy - y * scaleY;
+
+      let html = `
+        <defs>
+          <pattern id="tanGrid" width="25" height="25" patternUnits="userSpaceOnUse">
+            <path d="M 25 0 L 0 0 0 25" fill="none" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+          </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill="var(--bg-surface)" rx="8"/>
+        <rect width="100%" height="100%" fill="url(#tanGrid)" rx="8"/>
+
+        <!-- Assi -->
+        <line x1="${ox - 40}" y1="${oy}" x2="${ox + 460}" y2="${oy}" stroke="var(--border-subtle)" stroke-width="1.5"/>
+        <line x1="${ox}" y1="${oy + 30}" x2="${ox}" y2="30" stroke="var(--border-subtle)" stroke-width="1.5"/>
+        <text x="${ox + 450}" y="${oy - 8}" fill="var(--text-muted)" font-size="11">x</text>
+        <text x="${ox + 10}" y="42" fill="var(--text-muted)" font-size="11">y</text>
+      `;
+
+      // Disegno curva parabola f(x) = 0.25 x^2 + 1 da x=0 a x=5.5
+      let pathD = '';
+      for (let x = 0; x <= 5.5; x += 0.1) {
+        const sx = mapX(x);
+        const sy = mapY(0.25 * x * x + 1);
+        if (x === 0) pathD += `M ${sx.toFixed(1)} ${sy.toFixed(1)}`;
+        else pathD += ` L ${sx.toFixed(1)} ${sy.toFixed(1)}`;
+      }
+      html += `<path d="${pathD}" fill="none" stroke="var(--accent-math)" stroke-width="3"/>`;
+
+      // Retta Tangente fissa in P(2, 2): y - 2 = 1*(x - 2) => y = x
+      const tanXStart = 0, tanYStart = mapY(tanXStart);
+      const tanXEnd = 5.0, tanYEnd = mapY(tanXEnd);
+      html += `
+        <line x1="${mapX(tanXStart)}" y1="${tanYStart}" x2="${mapX(tanXEnd)}" y2="${tanYEnd}" stroke="var(--accent-purple)" stroke-width="2" stroke-dasharray="5,4"/>
+      `;
+
+      // Retta Secante per P(x0, y0) e Q(x1, y1): y - y0 = mSec * (x - x0)
+      const secXStart = -0.5;
+      const secYStart = mapY(y0 + mSec * (secXStart - x0));
+      const secXEnd = 5.2;
+      const secYEnd = mapY(y0 + mSec * (secXEnd - x0));
+      html += `
+        <line x1="${mapX(secXStart)}" y1="${secYStart}" x2="${mapX(secXEnd)}" y2="${secYEnd}" stroke="var(--accent-gold)" stroke-width="2.5"/>
+      `;
+
+      // Punti P e Q
+      const px = mapX(x0), py = mapY(y0);
+      const qx = mapX(x1), qy = mapY(y1);
+
+      html += `
+        <!-- Tratteggi coordinate P -->
+        <line x1="${px}" y1="${py}" x2="${px}" y2="${oy}" stroke="rgba(255,255,255,0.15)" stroke-dasharray="3,3"/>
+        <line x1="${px}" y1="${py}" x2="${ox}" y2="${py}" stroke="rgba(255,255,255,0.15)" stroke-dasharray="3,3"/>
+
+        <!-- Tratteggi coordinate Q -->
+        <line x1="${qx}" y1="${qy}" x2="${qx}" y2="${oy}" stroke="rgba(245,158,11,0.25)" stroke-dasharray="3,3"/>
+
+        <!-- Quota h -->
+        <line x1="${px}" y1="${oy + 15}" x2="${qx}" y2="${oy + 15}" stroke="var(--accent-gold)" stroke-width="1.5"/>
+        <text x="${(px + qx)/2}" y="${oy + 30}" fill="var(--accent-gold)" font-size="11" font-weight="700" text-anchor="middle">h</text>
+
+        <!-- Punto Fisso P -->
+        <circle cx="${px}" cy="${py}" r="6" fill="var(--accent-math)" stroke="var(--bg-surface)" stroke-width="2"/>
+        <text x="${px - 15}" y="${py - 12}" fill="var(--accent-math)" font-size="12" font-weight="800">P(x₀, f(x₀))</text>
+
+        <!-- Punto Mobile Q -->
+        <circle cx="${qx}" cy="${qy}" r="6" fill="var(--accent-gold)" stroke="var(--bg-surface)" stroke-width="2"/>
+        <text x="${qx + 12}" y="${qy - 8}" fill="var(--accent-gold)" font-size="12" font-weight="800">Q(x₀+h, f(x₀+h))</text>
+
+        <!-- Legenda grafichetta -->
+        <g transform="translate(380, 50)">
+          <rect width="210" height="75" fill="var(--bg-surface-elevated)" rx="6" stroke="var(--border-subtle)"/>
+          <line x1="12" y1="25" x2="35" y2="25" stroke="var(--accent-gold)" stroke-width="2.5"/>
+          <text x="45" y="29" fill="var(--accent-gold)" font-size="11" font-weight="700">Secante (pendenza m_sec)</text>
+          <line x1="12" y1="52" x2="35" y2="52" stroke="var(--accent-purple)" stroke-width="2" stroke-dasharray="5,4"/>
+          <text x="45" y="56" fill="var(--accent-purple)" font-size="11" font-weight="700">Tangente (limite m_tan = 1)</text>
+        </g>
+      `;
+
+      svg.innerHTML = html;
+    }
+
+    /* ========================================================
+       LABORATORIO 3: REGOLE DI DERIVAZIONE
+       ======================================================== */
+    const derExamples = {
+      1: {
+        title: 'Derivata di un Polinomio: Regola della Potenza e Somma',
+        formula: '$f(x) = 3x^3 - 5x^2 + 7x - 4$',
+        steps: [
+          'Applichiamo la regola di linearità: $D[c_1 f_1 + c_2 f_2] = c_1 D[f_1] + c_2 D[f_2]$.',
+          '$D[3x^3] = 3 \cdot (3x^{3-1}) = 9x^2$.',
+          '$D[-5x^2] = -5 \cdot (2x^{2-1}) = -10x$.',
+          '$D[7x] = 7 \cdot 1 = 7$.',
+          '$D[-4] = 0$ (la derivata di qualsiasi costante è nulla).',
+          '<strong>Risultato Finale:</strong> $f'(x) = 9x^2 - 10x + 7$'
+        ]
+      },
+      2: {
+        title: 'Derivata di un Prodotto (Regola di Leibniz)',
+        formula: '$f(x) = x^2 \cdot e^x$',
+        steps: [
+          'Identifichiamo i due fattori: $u(x) = x^2$ e $v(x) = e^x$.',
+          'Calcoliamo le derivate singole: $u'(x) = 2x$ e $v'(x) = e^x$.',
+          'Applichiamo la formula di Leibniz: $D[u \cdot v] = u'v + uv'$.',
+          '$f'(x) = (2x) \cdot e^x + x^2 \cdot (e^x)$.',
+          'Raccogliamo a fattor comune $x e^x$:',
+          '<strong>Risultato Finale:</strong> $f'(x) = x e^x (x + 2)$'
+        ]
+      },
+      3: {
+        title: 'Derivata di un Quoziente (Rapporto di Funzioni)',
+        formula: '$f(x) = \frac{2x + 1}{x - 3}$',
+        steps: [
+          'Identifichiamo numeratore $N(x) = 2x + 1$ e denominatore $D(x) = x - 3$.',
+          'Derivate singole: $N'(x) = 2$ e $D'(x) = 1$.',
+          'Applichiamo la regola del quoziente: $D\left[\frac{N}{D}\right] = \frac{N'D - ND'}{D^2}$.',
+          '$f'(x) = \frac{2(x - 3) - (2x + 1)(1)}{(x - 3)^2} = \frac{2x - 6 - 2x - 1}{(x - 3)^2}$.',
+          'Semplificando i termini $2x$ al numeratore otteniamo:',
+          '<strong>Risultato Finale:</strong> $f'(x) = -\frac{7}{(x - 3)^2}$'
+        ]
+      },
+      4: {
+        title: 'Derivata di una Radice (Esponente Frazionario)',
+        formula: '$f(x) = \sqrt{x} = x^{1/2}$',
+        steps: [
+          'Riscriviamo la radice come potenza ad esponente reale: $x^{1/2}$.',
+          'Applichiamo la regola della potenza $D[x^n] = n x^{n-1}$ con $n = 1/2$:',
+          '$f'(x) = \frac{1}{2} x^{(1/2 - 1)} = \frac{1}{2} x^{-1/2}$.',
+          'Riconvertiamo l'esponente negativo e frazionario in frazione con radice al denominatore:',
+          '<strong>Risultato Finale:</strong> $f'(x) = \frac{1}{2\sqrt{x}}$'
+        ]
+      }
+    };
+
+    function showDerivExample(id) {
+      for (let i = 1; i <= 4; i++) {
+        const btn = document.getElementById('btnDer' + i);
+        if (btn) btn.classList.toggle('active', i === id);
+      }
+
+      const ex = derExamples[id];
+      const container = document.getElementById('derExampleContent');
+      let html = `
+        <h4 style="color: var(--accent-math); margin-bottom: 0.5rem;">${ex.title}</h4>
+        <div style="font-family: var(--font-mono); font-size: 1.1rem; color: var(--accent-gold); margin-bottom: 0.75rem;">${ex.formula}</div>
+        <ol style="margin-left: 1.25rem;">
+      `;
+      ex.steps.forEach(st => html += `<li style="margin-bottom: 0.35rem;">${st}</li>`);
+      html += `</ol>`;
+
+      container.innerHTML = html;
+      if (window.renderMathInElement) {
+        renderMathInElement(container, { delimiters: [{left: "$", right: "$", display: false}] });
+      }
+    }
+
+    /* ========================================================
+       LABORATORIO 4: PUNTI DI NON DERIVABILITÀ
+       ======================================================== */
+    let currentNd = 1;
+
+    function selectNonDer(type) {
+      currentNd = type;
+      for (let i = 1; i <= 3; i++) {
+        const btn = document.getElementById('btnNd' + i);
+        if (btn) btn.classList.toggle('active', i === type);
+      }
+
+      const titleEl = document.getElementById('ndTitle');
+      const descEl = document.getElementById('ndDesc');
+      const formulaEl = document.getElementById('ndFormulaBox');
+
+      if (type === 1) {
+        titleEl.textContent = 'Punto Angoloso (Spigolo)';
+        titleEl.style.color = 'var(--accent-math)';
+        descEl.textContent = 'Le derivate sinistra e destra esistono entrambe finite, ma sono diverse tra loro: f'_-(x₀) ≠ f'_+(x₀).';
+        formulaEl.innerHTML = `
+          <strong>Condizione:</strong> $f'_-(x_0) = l_1 \in \mathbb{R}$, $f'_+(x_0) = l_2 \in \mathbb{R}$ con $l_1 \neq l_2$.<br>
+          <strong>Geometria:</strong> In $P$ si incontrano due semitangenti distinte formanti un angolo non nullo.<br>
+          <em>Esempio principe:</em> $f(x) = |x|$ in $x_0 = 0$, dove $f'_-(0) = -1$ e $f'_+(0) = +1$.
+        `;
+      } else if (type === 2) {
+        titleEl.textContent = 'Cuspide (Punta Aguzza)';
+        titleEl.style.color = 'var(--accent-gold)';
+        descEl.textContent = 'Entrambe le derivate laterali sono infinite ma con SEGNI OPPOSTI (+∞ e -∞).';
+        formulaEl.innerHTML = `
+          <strong>Condizione:</strong> $f'_-(x_0) = -\infty$ e $f'_+(x_0) = +\infty$ (o viceversa).<br>
+          <strong>Geometria:</strong> La retta tangente è verticale e i due rami si toccano formando una punta acuta.<br>
+          <em>Esempio:</em> $f(x) = \sqrt{|x|}$ in $x_0 = 0$, oppure $f(x) = 1 - \sqrt[3]{x^2}$.
+        `;
+      } else if (type === 3) {
+        titleEl.textContent = 'Flesso a Tangente Verticale';
+        titleEl.style.color = 'var(--accent-purple)';
+        descEl.textContent = 'Entrambe le derivate laterali sono infinite con lo STESSO SEGNO (+∞ e +∞, oppure -∞ e -∞).';
+        formulaEl.innerHTML = `
+          <strong>Condizione:</strong> $f'_-(x_0) = f'_+(x_0) = +\infty$ oppure $f'_-(x_0) = f'_+(x_0) = -\infty$.<br>
+          <strong>Geometria:</strong> La retta tangente è verticale e la curva la attraversa cambiando concavità.<br>
+          <em>Esempio:</em> $f(x) = \sqrt[3]{x}$ in $x_0 = 0$, dove sia a sinistra che a destra la pendenza esplode a $+\infty$.
+        `;
+      }
+
+      if (window.renderMathInElement) {
+        renderMathInElement(formulaEl, { delimiters: [{left: "$", right: "$", display: false}] });
+      }
+
+      renderNdSvg(type);
+    }
+
+    function renderNdSvg(type) {
+      const svg = document.getElementById('ndSvg');
+      const ox = 300, oy = 160;
+
+      let html = `
+        <defs>
+          <pattern id="ndGrid" width="30" height="30" patternUnits="userSpaceOnUse">
+            <path d="M 30 0 L 0 0 0 30" fill="none" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+          </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill="var(--bg-surface)" rx="8"/>
+        <rect width="100%" height="100%" fill="url(#ndGrid)" rx="8"/>
+
+        <!-- Assi cartesiani -->
+        <line x1="40" y1="${oy}" x2="560" y2="${oy}" stroke="var(--border-subtle)" stroke-width="1.5"/>
+        <line x1="${ox}" y1="30" x2="${ox}" y2="290" stroke="var(--border-subtle)" stroke-width="1.5"/>
+        <text x="555" y="${oy - 8}" fill="var(--text-muted)" font-size="11">x</text>
+        <text x="${ox + 10}" y="42" fill="var(--text-muted)" font-size="11">y</text>
+      `;
+
+      if (type === 1) {
+        // Angoloso f(x) = |x|: ramo sx y = -x, ramo dx y = x
+        html += `
+          <line x1="120" y1="40" x2="${ox}" y2="${oy}" stroke="var(--accent-math)" stroke-width="3.5"/>
+          <line x1="${ox}" y1="${oy}" x2="480" y2="40" stroke="var(--accent-math)" stroke-width="3.5"/>
+          <circle cx="${ox}" cy="${oy}" r="6" fill="var(--accent-math)" stroke="var(--bg-surface)" stroke-width="2"/>
+
+          <!-- Semitangenti colorate -->
+          <line x1="${ox}" y1="${oy}" x2="220" y2="${oy + 80}" stroke="var(--accent-gold)" stroke-width="2" stroke-dasharray="4,4"/>
+          <line x1="${ox}" y1="${oy}" x2="380" y2="${oy - 80}" stroke="var(--accent-purple)" stroke-width="2" stroke-dasharray="4,4"/>
+
+          <text x="180" y="${oy + 100}" fill="var(--accent-gold)" font-size="12" font-weight="700">m_sx = -1</text>
+          <text x="390" y="${oy - 85}" fill="var(--accent-purple)" font-size="12" font-weight="700">m_dx = +1</text>
+          <text x="${ox + 15}" y="${oy + 22}" fill="var(--text-main)" font-size="12" font-weight="800">Punto Angoloso</text>
+        `;
+      } else if (type === 2) {
+        // Cuspide f(x) = sqrt(|x|)
+        // A sx scende con pendenza verticale a -inf verso l'origine, a dx sale con +inf
+        html += `
+          <path d="M 120 70 Q 250 120 ${ox} ${oy}" fill="none" stroke="var(--accent-gold)" stroke-width="3.5"/>
+          <path d="M ${ox} ${oy} Q 350 120 480 70" fill="none" stroke="var(--accent-gold)" stroke-width="3.5"/>
+          <circle cx="${ox}" cy="${oy}" r="6" fill="var(--accent-gold)" stroke="var(--bg-surface)" stroke-width="2"/>
+
+          <!-- Tangente verticale comune -->
+          <line x1="${ox}" y1="40" x2="${ox}" y2="280" stroke="#ef4444" stroke-width="2" stroke-dasharray="5,4"/>
+          <text x="${ox + 10}" y="70" fill="#ef4444" font-size="11" font-weight="700">Tangente Verticale x = 0</text>
+          <text x="${ox - 85}" y="220" fill="var(--text-muted)" font-size="11">f'_-(0) = -∞</text>
+          <text x="${ox + 15}" y="220" fill="var(--text-muted)" font-size="11">f'_+(0) = +∞</text>
+          <text x="${ox + 15}" y="${oy + 22}" fill="var(--accent-gold)" font-size="12" font-weight="800">Cuspide</text>
+        `;
+      } else if (type === 3) {
+        // Flesso verticale f(x) = cbrt(x)
+        html += `
+          <path d="M 100 240 Q 230 210 ${ox} ${oy}" fill="none" stroke="var(--accent-purple)" stroke-width="3.5"/>
+          <path d="M ${ox} ${oy} Q 370 110 500 80" fill="none" stroke="var(--accent-purple)" stroke-width="3.5"/>
+          <circle cx="${ox}" cy="${oy}" r="6" fill="var(--accent-purple)" stroke="var(--bg-surface)" stroke-width="2"/>
+
+          <!-- Tangente verticale -->
+          <line x1="${ox}" y1="40" x2="${ox}" y2="280" stroke="#ef4444" stroke-width="2" stroke-dasharray="5,4"/>
+          <text x="${ox + 10}" y="70" fill="#ef4444" font-size="11" font-weight="700">Tangente Verticale</text>
+          <text x="${ox - 85}" y="250" fill="var(--text-muted)" font-size="11">f'_-(0) = +∞</text>
+          <text x="${ox + 15}" y="250" fill="var(--text-muted)" font-size="11">f'_+(0) = +∞</text>
+          <text x="${ox + 15}" y="${oy - 15}" fill="var(--accent-purple)" font-size="12" font-weight="800">Flesso a Tangente Verticale</text>
+        `;
+      }
+
+      svg.innerHTML = html;
+    }
+
+    /* ========================================================
+       LABORATORIO 5: PALESTRA MENTALE
+       ======================================================== */
+    const quizSolutions = {
+      1: { correct: 0, exp: 'Esatto! $D[4x^3] = 12x^2$, $D[-5x] = -5$ e $D[7] = 0$. Dunque $f'(x) = 12x^2 - 5$.' },
+      2: { correct: 1, exp: 'Corretto! La pendenza è la derivata nel punto: $f'(x) = 2x - 3$, quindi $f'(4) = 2(4) - 3 = 8 - 3 = 5$.' },
+      3: { correct: 0, exp: 'Ottimo! In $x = 0$ la funzione valore assoluto ha derivata sinistra $-1$ e destra $+1$: le derivate sono finite ma diverse $\implies$ punto angoloso.' },
+      4: { correct: 1, exp: 'Perfetto! La derivabilità è una proprietà più forte che implica sempre la continuità. Il viceversa è falso (controesempio: $|x|$ è continua ma non derivabile in 0).' }
+    };
+
+    function checkQuiz(qNum, chosenOpt, btn) {
+      const container = btn.parentElement;
+      const buttons = container.querySelectorAll('.quiz-opt');
+      const fb = document.getElementById('quizFeedback' + qNum);
+      const sol = quizSolutions[qNum];
+
+      buttons.forEach(b => b.disabled = true);
+
+      if (chosenOpt === sol.correct) {
+        btn.style.background = 'rgba(16, 185, 129, 0.2)';
+        btn.style.borderColor = 'var(--accent-success)';
+        fb.innerHTML = '✅ ' + sol.exp;
+        fb.style.color = 'var(--accent-success)';
+      } else {
+        btn.style.background = 'rgba(239, 68, 68, 0.2)';
+        btn.style.borderColor = '#ef4444';
+        fb.innerHTML = '❌ Risposta errata. ' + sol.exp;
+        fb.style.color = '#ef4444';
+      }
+      fb.style.display = 'block';
+
+      if (window.renderMathInElement) {
+        renderMathInElement(fb, { delimiters: [{left: "$", right: "$", display: false}] });
+      }
+    }
+
+    /* ========================================================
+       LABORATORIO 6: COMPITO DI REALTÀ COSTO MARGINALE
+       ======================================================== */
+    function updateMarginalSim() {
+      const slider = document.getElementById('marginalQSlider');
+      const q = parseFloat(slider.value);
+      document.getElementById('marginalQVal').textContent = `q = ${q} pezzi`;
+
+      // C(q) = 0.05 q^3 - 3 q^2 + 80 q + 500
+      const cTot = 0.05 * Math.pow(q, 3) - 3 * Math.pow(q, 2) + 80 * q + 500;
+      const cMed = cTot / q;
+      // C'(q) = 0.15 q^2 - 6 q + 80
+      const cMar = 0.15 * Math.pow(q, 2) - 6 * q + 80;
+
+      document.getElementById('totCostVal').textContent = `${cTot.toFixed(0)} €`;
+      document.getElementById('avgCostVal').textContent = `${cMed.toFixed(2)} €/pz`;
+      document.getElementById('marCostVal').textContent = `${cMar.toFixed(2)} €/pz`;
+
+      const analysis = document.getElementById('marginalAnalysisText');
+      if (cMar < cMed) {
+        analysis.innerHTML = `
+          💡 <strong>Fase di Economie di Scala ($C'(q) < \overline{C}(q)$):</strong> Il costo marginale per fabbricare un pezzo in più (${cMar.toFixed(2)} €) è <em>inferiore</em> al costo medio attuale (${cMed.toFixed(2)} €). Conviene incrementare la produzione perché farà <strong>diminuire</strong> il costo medio per tutti i manufatti!
+        `;
+      } else if (Math.abs(cMar - cMed) < 1.0) {
+        analysis.innerHTML = `
+          🎯 <strong>Punto di Ottimo di Scala ($C'(q) \approx \overline{C}(q)$):</strong> Il costo medio raggiunge il suo <strong>minimo assoluto</strong>! La cooperativa sta lavorando alla massima efficienza produttiva possibile.
+        `;
+      } else {
+        analysis.innerHTML = `
+          ⚠️ <strong>Fase di Diseconomie di Scala ($C'(q) > \overline{C}(q)$):</strong> Produrre un pezzo aggiuntivo costa ${cMar.toFixed(2)} €, più del costo medio. Aumentare ancora la produzione farà <strong>salire</strong> il costo medio unitario a causa di sovraccarico o straordinari!
+        `;
+      }
+
+      renderMarginalSvg(q);
+    }
+
+    function renderMarginalSvg(qCurrent) {
+      const svg = document.getElementById('marginalSvg');
+      const ox = 70, oy = 280;
+
+      // Scala: Q da 10 a 70 mappato su [ox, ox + 520]
+      const scaleX = 520 / 60;
+      // Scala: Costo da 0 a 100 mappato su [oy, oy - 230]
+      const scaleY = 230 / 100;
+
+      const mapX = (q) => ox + (q - 10) * scaleX;
+      const mapY = (c) => oy - c * scaleY;
+
+      let html = `
+        <defs>
+          <pattern id="marGrid" width="25" height="25" patternUnits="userSpaceOnUse">
+            <path d="M 25 0 L 0 0 0 25" fill="none" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+          </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill="var(--bg-surface)" rx="8"/>
+        <rect width="100%" height="100%" fill="url(#marGrid)" rx="8"/>
+
+        <!-- Assi -->
+        <line x1="${ox}" y1="${oy}" x2="${ox + 540}" y2="${oy}" stroke="var(--border-subtle)" stroke-width="1.5"/>
+        <line x1="${ox}" y1="${oy}" x2="${ox}" y2="30" stroke="var(--border-subtle)" stroke-width="1.5"/>
+        <text x="${ox + 530}" y="${oy - 8}" fill="var(--text-muted)" font-size="11">Quantità q</text>
+        <text x="${ox + 10}" y="42" fill="var(--text-muted)" font-size="11">€ / pezzo</text>
+
+        <!-- Etichette X -->
+        <text x="${mapX(10)}" y="${oy + 18}" fill="var(--text-muted)" font-size="11" text-anchor="middle">10</text>
+        <text x="${mapX(30)}" y="${oy + 18}" fill="var(--text-muted)" font-size="11" text-anchor="middle">30</text>
+        <text x="${mapX(50)}" y="${oy + 18}" fill="var(--text-muted)" font-size="11" text-anchor="middle">50</text>
+        <text x="${mapX(70)}" y="${oy + 18}" fill="var(--text-muted)" font-size="11" text-anchor="middle">70</text>
+      `;
+
+      // Curva Costo Medio C_med(q)
+      let dMed = '';
+      for (let q = 10; q <= 70; q += 1) {
+        const cTot = 0.05 * Math.pow(q, 3) - 3 * Math.pow(q, 2) + 80 * q + 500;
+        const cMed = cTot / q;
+        const sx = mapX(q), sy = mapY(cMed);
+        if (q === 10) dMed += `M ${sx.toFixed(1)} ${sy.toFixed(1)}`;
+        else dMed += ` L ${sx.toFixed(1)} ${sy.toFixed(1)}`;
+      }
+      html += `<path d="${dMed}" fill="none" stroke="var(--accent-gold)" stroke-width="3"/>`;
+
+      // Curva Costo Marginale C'(q)
+      let dMar = '';
+      for (let q = 10; q <= 70; q += 1) {
+        const cMar = 0.15 * Math.pow(q, 2) - 6 * q + 80;
+        const sx = mapX(q), sy = mapY(cMar);
+        if (q === 10) dMar += `M ${sx.toFixed(1)} ${sy.toFixed(1)}`;
+        else dMar += ` L ${sx.toFixed(1)} ${sy.toFixed(1)}`;
+      }
+      html += `<path d="${dMar}" fill="none" stroke="var(--accent-math)" stroke-width="3"/>`;
+
+      // Evidenziazione punto corrente
+      const curCTot = 0.05 * Math.pow(qCurrent, 3) - 3 * Math.pow(qCurrent, 2) + 80 * qCurrent + 500;
+      const curCMed = curCTot / qCurrent;
+      const curCMar = 0.15 * Math.pow(qCurrent, 2) - 6 * qCurrent + 80;
+
+      const curX = mapX(qCurrent);
+      const curMedY = mapY(curCMed);
+      const curMarY = mapY(curCMar);
+
+      html += `
+        <!-- Linea verticale posizione q -->
+        <line x1="${curX}" y1="40" x2="${curX}" y2="${oy}" stroke="rgba(255,255,255,0.2)" stroke-dasharray="3,3"/>
+
+        <!-- Pallino Medio -->
+        <circle cx="${curX}" cy="${curMedY}" r="6" fill="var(--accent-gold)" stroke="var(--bg-surface)" stroke-width="2"/>
+        <!-- Pallino Marginale -->
+        <circle cx="${curX}" cy="${curMarY}" r="6" fill="var(--accent-math)" stroke="var(--bg-surface)" stroke-width="2"/>
+
+        <!-- Legenda -->
+        <g transform="translate(420, 50)">
+          <rect width="180" height="65" fill="var(--bg-surface-elevated)" rx="6" stroke="var(--border-subtle)"/>
+          <line x1="12" y1="22" x2="35" y2="22" stroke="var(--accent-gold)" stroke-width="3"/>
+          <text x="42" y="26" fill="var(--accent-gold)" font-size="11" font-weight="700">Costo Medio C(q)/q</text>
+          <line x1="12" y1="46" x2="35" y2="46" stroke="var(--accent-math)" stroke-width="3"/>
+          <text x="42" y="50" fill="var(--accent-math)" font-size="11" font-weight="700">Costo Marginale C'(q)</text>
+        </g>
+      `;
+
+      svg.innerHTML = html;
+    }
+
+    /* ========================================================
+       INIZIALIZZAZIONE FLASHCARDS & LEZIONE
+       ======================================================== */
+    function initLesson() {
+      updateIncrementSim();
+      updateTangentSim();
+      showDerivExample(1);
+      selectNonDer(1);
+      updateMarginalSim();
+
+      const isLessonDone = window.ComodeGamification && window.ComodeGamification.isLessonCompleted(LESSON_ID);
+      if (isLessonDone) {
+        markAllLabsCompleted(true);
+      } else {
+        try {
+          const raw = localStorage.getItem(LABS_STORAGE_KEY);
+          if (raw) {
+            const list = JSON.parse(raw);
+            if (Array.isArray(list)) list.forEach(n => markLabCompleted(n, true));
+          }
+        } catch (e) {}
+      }
+
+      const completeBtn = document.getElementById('btnCompleteLesson');
+      if (completeBtn && !completeBtn._m1l4Bound) {
+        completeBtn._m1l4Bound = true;
+        completeBtn.addEventListener('click', () => markAllLabsCompleted(false));
+      }
+
+      if (window.ComodeFlashcards) {
+        ComodeFlashcards.init('lessonFlashcardDeck', {
+          deckId: 'qa-5.m1-l04-deck',
+          xpPerCard: 15,
+          completionXP: 25,
+          cards: [
+            {
+              category: 'Rapporto Incrementale',
+              theoryRef: 'Teoria 1 • Definizione di Derivata',
+              theoryTargetId: 'teoria-1',
+              question: 'Cosa rappresenta il rapporto incrementale $\frac{f(x_0+h)-f(x_0)}{h}$ dal punto di vista fisico?',
+              options: [
+                'La velocità istantanea all'istante $x_0$',
+                'La velocità media di variazione nell'intervallo temporale di durata $h$',
+                'L'accelerazione del corpo',
+                'Lo spazio totale percorso fin dall'origine dei tempi'
+              ],
+              correct: 1,
+              explanation: 'Il rapporto incrementale misura la variazione media nell'intervallo $[x_0, x_0+h]$. Diventa velocità istantanea solo passando al limite per $h \to 0$.'
+            },
+            {
+              category: 'Significato Geometrico',
+              theoryRef: 'Teoria 2 • Retta Tangente',
+              theoryTargetId: 'teoria-2',
+              question: 'Qual è il significato geometrico del valore della derivata prima $f'(x_0)$?',
+              options: [
+                'L'ordinata del punto di intersezione con l'asse delle ascisse',
+                'L'area sottesa dal grafico della funzione',
+                'Il coefficiente angolare (pendenza $m$) della retta tangente al grafico in $x_0$',
+                'La lunghezza dell'arco di curva tra $0$ e $x_0$'
+              ],
+              correct: 2,
+              explanation: '$f'(x_0) = m_{\text{tan}}$: indica la pendenza della retta tangente al grafico nel punto di coordinate $(x_0, f(x_0))$.'
+            },
+            {
+              category: 'Regole di Derivazione',
+              theoryRef: 'Teoria 3 • Derivata del Prodotto',
+              theoryTargetId: 'teoria-3',
+              question: 'Qual è la regola corretta per derivare il prodotto di due funzioni $f(x) \cdot g(x)$?',
+              options: [
+                '$f'(x) \cdot g'(x)$',
+                '$f'(x) \cdot g(x) + f(x) \cdot g'(x)$',
+                '$\frac{f'(x)}{g'(x)}$',
+                '$f(x) \cdot g(x) + f'(x) \cdot g'(x)$'
+              ],
+              correct: 1,
+              explanation: 'La regola di Leibniz afferma che la derivata del prodotto è la somma della derivata del primo per il secondo non derivato più il primo non derivato per la derivata del secondo.'
+            },
+            {
+              category: 'Punti di Non Derivabilità',
+              theoryRef: 'Teoria 4 • Cuspide vs Punto Angoloso',
+              theoryTargetId: 'teoria-4',
+              question: 'In cosa si differenzia una cuspide da un punto angoloso?',
+              options: [
+                'Nel punto angoloso le derivate laterali sono finite ma diverse, mentre nella cuspide sono entrambe infinite con segni opposti',
+                'Nella cuspide la funzione è discontinua, nel punto angoloso è continua',
+                'Sono sinonimi perfetti della stessa singolarità geometrica',
+                'Nel punto angoloso la tangente è sempre orizzontale'
+              ],
+              correct: 0,
+              explanation: 'Nel punto angoloso le derivate laterali sono finite e distinte (due semitangenti oblique distinte); nella cuspide esplodono a $\pm\infty$ con segni opposti formando una punta aguzza.'
+            },
+            {
+              category: 'Economia & Welfare',
+              theoryRef: 'Teoria • Costo Marginale',
+              theoryTargetId: 'teoria-4',
+              question: 'Cosa indica in economia il costo marginale $C'(q) = \frac{dC}{dq}$?',
+              options: [
+                'Il costo fisso iniziale per avviare l'impresa',
+                'Il costo sostenuto per produrre una singola unità aggiuntiva di bene o servizio',
+                'Il fatturato totale derivante dalle vendite',
+                'Il costo medio diviso per il numero dei soci lavoratori'
+              ],
+              correct: 1,
+              explanation: 'Il costo marginale è la derivata prima del costo totale: misura il costo aggiuntivo necessario per incrementare la produzione di un'unità infinitesima.'
+            }
+          ]
+        });
+      }
+    }
+
+    if (document.readyState !== 'loading') {
+      initLesson();
+    } else {
+      document.addEventListener('DOMContentLoaded', initLesson);
+    }
+  </script>
+</body>
+
+</html>

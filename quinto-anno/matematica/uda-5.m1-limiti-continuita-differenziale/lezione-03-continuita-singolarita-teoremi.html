@@ -1,0 +1,1765 @@
+<!DOCTYPE html>
+<html lang="it" data-theme="dark">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lezione 5.M1.3: Continuità, Singolarità e Teoremi Cardinali • comode</title>
+  <meta name="description"
+    content="Lezione interattiva per il 5° anno del Liceo delle Scienze Umane: definizione di continuità, piastrella dell'artigiano, classificazione delle singolarità (salto, essenziale, eliminabile), Teorema di Weierstrass, Teorema dei Valori Intermedi ed Esistenza degli Zeri con bisezione.">
+
+  <!-- Font Google -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+
+  <!-- KaTeX 0.19.1 per rendering matematico -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.19.1/dist/katex.min.css" crossorigin="anonymous">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.19.1/dist/katex.min.js" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.19.1/dist/contrib/auto-render.min.js"
+    crossorigin="anonymous"></script>
+
+  <!-- CSS Condiviso comode (Profondità 3) -->
+  <link rel="stylesheet" href="../../../shared/css/comode.css">
+
+  <style>
+    /* Stili specifici per la Lezione 5.M1.3 */
+    .m1l3-badge {
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 0.25rem 0.65rem;
+      border-radius: var(--radius-pill);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .m1l3-stage {
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 1.25rem;
+      margin: 1.25rem 0;
+    }
+
+    .m1l3-slider-panel {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      flex-wrap: wrap;
+      margin-bottom: 0.85rem;
+      font-size: 0.92rem;
+    }
+
+    .m1l3-readout {
+      font-family: var(--font-mono);
+      font-weight: 700;
+      color: var(--accent-math);
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      padding: 0.2rem 0.6rem;
+      border-radius: var(--radius-sm);
+    }
+
+    .m1l3-svg {
+      width: 100%;
+      max-width: 680px;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+    }
+
+    /* Tab switcher per singolarità */
+    .m1l3-tab-group {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-bottom: 1rem;
+    }
+
+    .m1l3-tab-btn {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+      padding: 0.5rem 1rem;
+      border-radius: var(--radius-md);
+      font-size: 0.88rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .m1l3-tab-btn:hover {
+      border-color: var(--accent-math);
+      color: var(--text-main);
+    }
+
+    .m1l3-tab-btn.active {
+      background: rgba(56, 189, 248, 0.15);
+      border-color: var(--accent-math);
+      color: var(--accent-math);
+    }
+
+    /* Bisection table and steps */
+    .bisection-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+      font-size: 0.88rem;
+    }
+
+    .bisection-table th,
+    .bisection-table td {
+      border: 1px solid var(--border-subtle);
+      padding: 0.5rem 0.75rem;
+      text-align: center;
+    }
+
+    .bisection-table th {
+      background: var(--bg-surface);
+      font-weight: 700;
+      color: var(--text-muted);
+    }
+
+    .bisection-table tr.current-step {
+      background: rgba(56, 189, 248, 0.1);
+      font-weight: 700;
+    }
+
+    /* Card di Teoria integrata in calce ai laboratori */
+    .lab-card .theory-card {
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-subtle);
+      border-left: 3.5px solid var(--accent-math);
+      border-radius: var(--radius-md);
+      padding: 1.25rem;
+      margin-top: 1.5rem;
+    }
+
+    .lab-card .theory-card h4 {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.98rem;
+      margin-bottom: 0.75rem;
+      color: var(--accent-math);
+      font-weight: 800;
+    }
+
+    .theory-pill {
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 0.2rem 0.55rem;
+      border-radius: var(--radius-pill);
+      background: rgba(56, 189, 248, 0.15);
+      color: var(--accent-math);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+    }
+
+    /* Homework Worksheet */
+    .worksheet-section {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      margin: 2.5rem 0;
+    }
+
+    .worksheet-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      border-bottom: 2px dashed var(--border-subtle);
+      padding-bottom: 1.25rem;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .rubric-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    .rubric-card {
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 1rem;
+    }
+
+    .rubric-card-title {
+      font-size: 0.85rem;
+      font-weight: 800;
+      color: var(--accent-math);
+      margin-bottom: 0.4rem;
+    }
+
+    .rubric-card p {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      line-height: 1.45;
+      margin: 0;
+    }
+
+    @media print {
+      .navbar, .breadcrumbs, .lesson-hero, .lab-chips-wrap,
+      .flashcard-section, .completion-card, .btn, .m1l3-tab-group,
+      .m1l3-slider-panel {
+        display: none !important;
+      }
+      .worksheet-section {
+        border: none;
+        padding: 0;
+        margin: 0;
+      }
+    }
+  </style>
+</head>
+
+<body data-theme="dark">
+
+  <div class="container">
+    <!-- Navbar Superiore con Gamification e Controlli -->
+    <nav class="navbar">
+      <a href="../../../index.html" class="brand">
+        📐 comode<span>.</span>
+      </a>
+      <div class="nav-actions">
+        <div class="gamification-widget" title="Il tuo livello attuale e punti XP">
+          <span class="level-badge user-level-val">Liv. 1 🌱</span>
+          <span class="xp-counter user-xp-val">0 XP</span>
+        </div>
+        <button id="audioToggleBtn" class="icon-btn" aria-label="Attiva o disattiva audio">
+          🔊 <span class="nav-text">Suoni</span>
+        </button>
+        <button id="themeToggleBtn" class="theme-toggle-btn" aria-label="Cambia tema chiaro/scuro">
+          <span id="themeIcon">☀️</span>
+          <span id="themeLabel">Chiaro</span>
+        </button>
+      </div>
+    </nav>
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumbs">
+      <a href="../../../index.html">le comode lezioni d'Ivano</a>
+      <span class="sep">/</span>
+      <a href="../../index.html">Quinto Anno</a>
+      <span class="sep">/</span>
+      <a href="index.html">UDA 5.M1: Limiti, Continuità e Derivate</a>
+      <span class="sep">/</span>
+      <span class="current">Lezione 5.M1.3</span>
+    </div>
+
+    <!-- Hero Lezione 5.M1.3 -->
+    <header class="lesson-hero">
+      <div class="uda-badge-pill">
+        📐 Matematica • 5° Anno Liceo delle Scienze Umane • Lezione 5.M1.3
+      </div>
+      <h1 class="lesson-title">
+        Continuità, Singolarità e <span>Teoremi Cardinali</span>
+      </h1>
+      <p class="lesson-desc">
+        Dalla precisione millimetrica della piastrella in ceramica ai salti imprevisti delle tariffe sociali: esplora il significato intuitivo e formale di funzione continua, classifica i tre tipi di discontinuità e padroneggia i tre grandi teoremi dell'analisi (Weierstrass, Valori Intermedi ed Esistenza degli Zeri) con l'algoritmo di bisezione.
+      </p>
+
+      <!-- Barra di Progresso Laboratori -->
+      <div class="lab-progress-tracker" style="margin-top: 1.5rem;">
+        <div class="lab-chips-wrap">
+          <button class="lab-chip active" id="chip-lab-1" onclick="scrollToLab(1)">
+            <span class="chip-num">1</span> Piastrella dell'Artigiano
+          </button>
+          <button class="lab-chip" id="chip-lab-2" onclick="scrollToLab(2)">
+            <span class="chip-num">2</span> 3 Tipi di Discontinuità
+          </button>
+          <button class="lab-chip" id="chip-lab-3" onclick="scrollToLab(3)">
+            <span class="chip-num">3</span> Teorema di Weierstrass
+          </button>
+          <button class="lab-chip" id="chip-lab-4" onclick="scrollToLab(4)">
+            <span class="chip-num">4</span> Zeri &amp; Bisezione
+          </button>
+          <button class="lab-chip" id="chip-lab-5" onclick="scrollToLab(5)">
+            <span class="chip-num">5</span> Palestra Mentale
+          </button>
+          <button class="lab-chip" id="chip-lab-6" onclick="scrollToLab(6)">
+            <span class="chip-num">6</span> Compito di Realtà: Welfare
+          </button>
+        </div>
+        <div class="lab-stats-row">
+          <span>Laboratori completati: <strong id="labsCompletedCount">0</strong> su 6</span>
+          <span class="badge" style="background: rgba(56, 189, 248, 0.15); color: var(--accent-math);">+60 XP in palio</span>
+        </div>
+      </div>
+    </header>
+
+
+    <!-- ======================================================== -->
+    <!-- LABORATORIO 1: LA PIASTRELLA DELL'ARTIGIANO             -->
+    <!-- ======================================================== -->
+    <section class="lab-card" id="lab-1">
+      <div class="lab-header">
+        <div class="lab-badge">Laboratorio 1 • Il Principio del Continuo</div>
+        <h2 class="lab-title">La Piastrella dell'Artigiano: Continuità come Variazione Senza Salti</h2>
+      </div>
+
+      <div class="lab-content">
+        <p>
+          Un maestro ceramista realizza piastrelle quadrate di lato nominale $l_0 = 3	ext{ dm}$, la cui area è $A_0 = 3^2 = 9	ext{ dm}^2$.
+          La macchina da taglio, per quanto accurata, presenta sempre una minuscola tolleranza: se il lato effettivo misura $l = l_0 + \Delta l$, l'area della piastrella diventa $A(l) = l^2$.
+        </p>
+        <p>
+          Il cliente ordina che l'area non si discosti da $9	ext{ dm}^2$ per più di una severa tolleranza $arepsilon$ (ad esempio $arepsilon = 0.5	ext{ dm}^2$). L'artigiano si chiede:
+          <em>«Qual è la massima variazione consentita sul lato $\delta$ affinché l'area rimanga all'interno della tolleranza richiesta?»</em>
+        </p>
+
+        <!-- Simulatore Interattivo Piastrella -->
+        <div class="m1l3-stage">
+          <div class="m1l3-slider-panel">
+            <label for="tileDeltaLSlider">Variazione del lato $\Delta l$ (in dm):</label>
+            <input type="range" id="tileDeltaLSlider" min="-0.4" max="0.4" step="0.05" value="0.1"
+              oninput="updateTileSim()">
+            <span class="m1l3-readout" id="tileDeltaLVal">+0.10 dm</span>
+          </div>
+
+          <!-- SVG Visualizzatore Piastrella con bordi incrementali -->
+          <svg id="tileSvg" class="m1l3-svg" viewBox="0 0 500 360" role="img" aria-label="Geometria della piastrella quadrata con incremento di lato e area">
+            <!-- Disegnato dinamicamente via JS -->
+          </svg>
+
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 1rem;">
+            <div style="background: var(--bg-surface); padding: 0.75rem 1rem; border-radius: var(--radius-md); border: 1px solid var(--border-subtle); text-align: center;">
+              <span style="font-size: 0.78rem; color: var(--text-muted); font-weight: 700;">NUOVO LATO $l$</span><br>
+              <strong style="font-family: var(--font-mono); font-size: 1.15rem; color: var(--accent-math);" id="tileSideText">3.10 dm</strong>
+            </div>
+            <div style="background: var(--bg-surface); padding: 0.75rem 1rem; border-radius: var(--radius-md); border: 1px solid var(--border-subtle); text-align: center;">
+              <span style="font-size: 0.78rem; color: var(--text-muted); font-weight: 700;">NUOVA AREA $A(l) = l^2$</span><br>
+              <strong style="font-family: var(--font-mono); font-size: 1.15rem; color: var(--accent-gold);" id="tileAreaText">9.61 dm²</strong>
+            </div>
+            <div style="background: var(--bg-surface); padding: 0.75rem 1rem; border-radius: var(--radius-md); border: 1px solid var(--border-subtle); text-align: center;">
+              <span style="font-size: 0.78rem; color: var(--text-muted); font-weight: 700;">VARIAZIONE AREA $\Delta A$</span><br>
+              <strong style="font-family: var(--font-mono); font-size: 1.15rem; color: var(--accent-purple);" id="tileDeltaAText">+0.61 dm²</strong>
+            </div>
+          </div>
+
+          <p style="font-size: 0.88rem; color: var(--text-muted); margin-top: 0.85rem; line-height: 1.5;">
+            💡 <strong>Cosa notiamo:</strong> Quando $\Delta l$ diventa piccolissimo ($\Delta l 	o 0$), la variazione dell'area $\Delta A = A(l) - A_0$ diventa a sua volta arbitrariamente piccola ($\Delta A 	o 0$).
+            Non ci sono «salti» improvvisi: per garantire che l'area non sgarri di più di $arepsilon$, basta regolare la lama con una precisione $\delta$.
+            Questo è il cuore dell'idea di <strong>continuità</strong>!
+          </p>
+        </div>
+
+        <!-- TEORIA 1 IN CALCE AL LABORATORIO -->
+        <div class="theory-card" id="teoria-1">
+          <h4>
+            <span>La Teoria in Breve • Definizione Rigorosa di Funzione Continua</span>
+            <span class="theory-pill">Teoria 1</span>
+          </h4>
+          <p>
+            Una funzione $f(x)$ si definisce <strong>continua nel punto $x_0 \in 	ext{Dom}(f)$</strong> se il limite della funzione per $x$ che tende a $x_0$ coincide esattamente con il valore che la funzione assume in $x_0$:
+          </p>
+          $$\lim_{x 	o x_0} f(x) = f(x_0)$$
+          <p>
+            Questa sintetica uguaglianza racchiude tre condizioni obbligatorie:
+          </p>
+          <ol style="margin-left: 1.25rem; font-size: 0.92rem; line-height: 1.6;">
+            <li><strong>Esistenza del punto:</strong> $x_0$ appartiene al dominio della funzione, cioè $f(x_0)$ è un numero reale finito e calcolabile.</li>
+            <li><strong>Esistenza del limite:</strong> Esiste finito il limite $\lim_{x 	o x_0} f(x) = L \in \mathbb{R}$, il che implica che il limite sinistro e quello destro coincidano: $\lim_{x 	o x_0^-} f(x) = \lim_{x 	o x_0^+} f(x) = L$.</li>
+            <li><strong>Coincidenza tra limite e valore:</strong> Il valore di tendenza $L$ è identico al valore effettivo $f(x_0)$.</li>
+          </ol>
+          <div style="background: var(--bg-surface); border: 1px solid var(--border-subtle); padding: 0.85rem; border-radius: var(--radius-sm); margin-top: 0.75rem; font-size: 0.88rem;">
+            🎯 <strong>Definizione con $arepsilon$ e $\delta$:</strong>
+            $f$ è continua in $x_0$ se $orall arepsilon > 0, \exists \delta > 0 : orall x \in 	ext{Dom}(f), |x - x_0| < \delta \implies |f(x) - f(x_0)| < arepsilon$.<br>
+            <em>Continuità in un intervallo $[a, b]$:</em> una funzione è continua in $[a, b]$ se è continua in ogni punto interno di $(a, b)$, continua da destra in $a$ ($\lim_{x 	o a^+} f(x) = f(a)$) e continua da sinistra in $b$ ($\lim_{x 	o b^-} f(x) = f(b)$).
+          </div>
+        </div>
+
+        <button class="btn btn-primary" onclick="markLabCompleted(1)" style="margin-top: 1rem;">
+          Compreさ la Continuità → Segna Laboratorio 1 Completato
+        </button>
+      </div>
+    </section>
+
+
+    <!-- ======================================================== -->
+    <!-- LABORATORIO 2: I TRE TIPI DI SINGOLARITÀ                -->
+    <!-- ======================================================== -->
+    <section class="lab-card" id="lab-2">
+      <div class="lab-header">
+        <div class="lab-badge">Laboratorio 2 • Esploratore Grafico</div>
+        <h2 class="lab-title">I Tre Tipi di Singolarità: Quando la Funzione si Spezza</h2>
+      </div>
+
+      <div class="lab-content">
+        <p>
+          Cosa accade quando una delle tre condizioni di continuità fallisce? Si genera un <strong>punto di singolarità</strong> (o di discontinuità).
+          La matematica classifica queste fratture in <strong>tre specie ben distinte</strong>. Esplorale interattivamente selezionando le schede sottostanti.
+        </p>
+
+        <!-- Switcher dei tre tipi -->
+        <div class="m1l3-tab-group">
+          <button class="m1l3-tab-btn active" id="btnSpecie1" onclick="selectDiscontinuity(1)">
+            1ª Specie • Salto Finito
+          </button>
+          <button class="m1l3-tab-btn" id="btnSpecie2" onclick="selectDiscontinuity(2)">
+            2ª Specie • Asintotica / Essenziale
+          </button>
+          <button class="m1l3-tab-btn" id="btnSpecie3" onclick="selectDiscontinuity(3)">
+            3ª Specie • Eliminabile / Bucata
+          </button>
+        </div>
+
+        <!-- Stage Grafico Singolarità -->
+        <div class="m1l3-stage">
+          <div style="margin-bottom: 0.75rem;">
+            <strong style="color: var(--accent-math); font-size: 1.05rem;" id="discTitle">1ª Specie: Salto Finito (Jump)</strong>
+            <p style="font-size: 0.9rem; color: var(--text-muted); margin: 0.35rem 0;" id="discDesc">
+              I limiti sinistro e destro per $x 	o x_0$ esistono entrambi FINITI, ma sono DIVERSI tra loro.
+            </p>
+          </div>
+
+          <svg id="discSvg" class="m1l3-svg" viewBox="0 0 600 320" role="img" aria-label="Grafico interattivo del tipo di discontinuità selezionato">
+            <!-- Disegnato via JS -->
+          </svg>
+
+          <div id="discFormulaBox" style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); padding: 0.85rem; margin-top: 1rem; font-family: var(--font-mono); font-size: 0.9rem;">
+            <!-- Riempito via JS -->
+          </div>
+        </div>
+
+        <!-- TEORIA 2 IN CALCE AL LABORATORIO -->
+        <div class="theory-card" id="teoria-2">
+          <h4>
+            <span>La Teoria in Breve • Classificazione Rigorosa delle Singolarità</span>
+            <span class="theory-pill">Teoria 2</span>
+          </h4>
+          <p>
+            Per classificare una discontinuità nel punto $x_0$, si calcolano sempre i due limiti laterali:
+            $l_1 = \lim_{x 	o x_0^-} f(x)$ e $l_2 = \lim_{x 	o x_0^+} f(x)$.
+          </p>
+          <div style="overflow-x: auto; margin-top: 0.75rem;">
+            <table class="bisection-table">
+              <thead>
+                <tr>
+                  <th>Tipo di Singolarità</th>
+                  <th>Comportamento dei Limiti Laterali</th>
+                  <th>Caratteristica Geometrica</th>
+                  <th>Esempio Tipico</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>1ª Specie (Salto)</strong></td>
+                  <td>$\lim_{x 	o x_0^-} f(x) = l_1 \in \mathbb{R}$, $\lim_{x 	o x_0^+} f(x) = l_2 \in \mathbb{R}$ con $l_1 
+eq l_2$</td>
+                  <td>C'è un gradino verticale. Il <em>salto</em> misura $S = |l_2 - l_1|$.</td>
+                  <td>Funzione segno $	ext{sgn}(x)$ o tariffe postali a scaglioni di peso</td>
+                </tr>
+                <tr>
+                  <td><strong>2ª Specie (Essenziale)</strong></td>
+                  <td>Almeno uno dei due limiti laterali vale $\pm\infty$ oppure non esiste</td>
+                  <td>Asintoto verticale $x = x_0$ oppure oscillazione selvaggia senza limite</td>
+                  <td>$f(x) = rac{1}{x - 2}$ oppure $f(x) = \sin(1/x)$ in $x_0 = 0$</td>
+                </tr>
+                <tr>
+                  <td><strong>3ª Specie (Eliminabile)</strong></td>
+                  <td>$\lim_{x 	o x_0^-} f(x) = \lim_{x 	o x_0^+} f(x) = L \in \mathbb{R}$, ma $x_0 
+otin 	ext{Dom}$ oppure $f(x_0) 
+eq L$</td>
+                  <td>Il grafico è continuo ovunque tranne per un singolo «buco» o un punto isolato</td>
+                  <td>$f(x) = rac{x^2 - 4}{x - 2}$ in $x_0 = 2$ ($L = 4$)</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p style="font-size: 0.88rem; color: var(--text-muted); margin-top: 0.75rem;">
+            💡 <em>Perché si chiama eliminabile?</em> Perché basta ridefinire la funzione ponendo $f(x_0) = L$ per «tappare il buco» e renderla continua!
+          </p>
+        </div>
+
+        <button class="btn btn-primary" onclick="markLabCompleted(2)" style="margin-top: 1rem;">
+          Classificazione Compresa → Segna Laboratorio 2 Completato
+        </button>
+      </div>
+    </section>
+
+
+    <!-- ======================================================== -->
+    <!-- LABORATORIO 3: IL TEOREMA DI WEIERSTRASS                -->
+    <!-- ======================================================== -->
+    <section class="lab-card" id="lab-3">
+      <div class="lab-header">
+        <div class="lab-badge">Laboratorio 3 • Massimi e Minimi Assoluti</div>
+        <h2 class="lab-title">Il Teorema di Weierstrass e la Ricerca dell'Ottimo</h2>
+      </div>
+
+      <div class="lab-content">
+        <p>
+          In economia e sociologia ci si domanda continuamente: <em>«Possiamo essere certi che esista un punto di massimo benessere sociale o di minimo costo operativo?»</em>
+          Il matematico Karl Weierstrass ha dimostrato che sotto tre condizioni ben precise, la risposta è un categorico <strong>SÌ</strong>.
+        </p>
+
+        <div class="m1l3-stage">
+          <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.85rem;">
+            <button class="m1l3-tab-btn active" id="btnW1" onclick="setWeierstrassCase(1)">Ipotesi Rispettate (Esiste Max e Min)</button>
+            <button class="m1l3-tab-btn" id="btnW2" onclick="setWeierstrassCase(2)">Cade l'Intervallo Chiuso: Intervallo Aperto (a, b)</button>
+            <button class="m1l3-tab-btn" id="btnW3" onclick="setWeierstrassCase(3)">Cade la Continuità: Funzione con Salto</button>
+          </div>
+
+          <svg id="weierstrassSvg" class="m1l3-svg" viewBox="0 0 620 320" role="img" aria-label="Dimostrazione visiva del Teorema di Weierstrass e dei controesempi">
+            <!-- Disegnato via JS -->
+          </svg>
+
+          <div id="weierstrassStatusBox" style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); padding: 0.85rem; margin-top: 1rem; font-size: 0.92rem; line-height: 1.5;">
+            <!-- Riempito via JS -->
+          </div>
+        </div>
+
+        <!-- TEORIA 3 IN CALCE AL LABORATORIO -->
+        <div class="theory-card" id="teoria-3">
+          <h4>
+            <span>La Teoria in Breve • Il Teorema di Weierstrass</span>
+            <span class="theory-pill">Teoria 3</span>
+          </h4>
+          <p>
+            <strong>Enunciato del Teorema di Weierstrass:</strong><br>
+            Se una funzione $f(x)$ è <strong>continua</strong> in un intervallo <strong>chiuso e limitato</strong> $[a, b]$, allora essa assume in tale intervallo il suo <strong>valore massimo assoluto $M$</strong> e il suo <strong>valore minimo assoluto $m$</strong>.
+          </p>
+          $$\exists c, d \in [a, b] : f(c) = m \le f(x) \le M = f(d), \quad orall x \in [a, b]$$
+          <p>
+            <strong>Le tre ipotesi imprescindibili:</strong>
+          </p>
+          <ul style="margin-left: 1.25rem; font-size: 0.92rem; line-height: 1.6;">
+            <li><strong>1. Funzione Continua:</strong> Se c'è una discontinuità, il massimo potrebbe trovarsi in un «buco» non raggiunto oppure la funzione potrebbe schizzare a infinito.</li>
+            <li><strong>2. Intervallo Chiuso:</strong> Gli estremi $a$ e $b$ devono appartenere all'intervallo. Se l'intervallo è aperto $(a, b)$, la funzione $f(x) = x$ su $(0, 1)$ non ha né minimo (si avvicina a 0 senza mai toccarlo) né massimo (si avvicina a 1 senza mai toccarlo).</li>
+            <li><strong>3. Intervallo Limitato:</strong> L'intervallo deve avere lunghezza finita (non può essere $[0, +\infty)$). La funzione $f(x) = x$ su $[0, +\infty)$ è continua e su intervallo chiuso, ma non ha massimo perché cresce all'infinito.</li>
+          </ul>
+        </div>
+
+        <button class="btn btn-primary" onclick="markLabCompleted(3)" style="margin-top: 1rem;">
+          Teorema di Weierstrass Acquisito → Segna Laboratorio 3 Completato
+        </button>
+      </div>
+    </section>
+
+
+    <!-- ======================================================== -->
+    <!-- LABORATORIO 4: ZERI & BISEZIONE                         -->
+    <!-- ======================================================== -->
+    <section class="lab-card" id="lab-4">
+      <div class="lab-header">
+        <div class="lab-badge">Laboratorio 4 • Algoritmi Numerici</div>
+        <h2 class="lab-title">Teorema di Esistenza degli Zeri &amp; Algoritmo di Bisezione</h2>
+      </div>
+
+      <div class="lab-content">
+        <p>
+          Come fa un software a trovare la soluzione di un'equazione complessa come $x^3 - 3x - 1 = 0$ per la quale non esistono formule elementari?
+          Sfrutta un risultato fondamentale dell'analisi: il <strong>Teorema di Esistenza degli Zeri</strong> (corollario del Teorema dei Valori Intermedi), trasformato nel potentissimo <strong>Algoritmo di Bisezione</strong>.
+        </p>
+
+        <div class="m1l3-stage">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 0.85rem;">
+            <div>
+              <strong>Equazione bersaglio:</strong> $f(x) = x^3 - 3x - 1 = 0$ nell'intervallo $[1, 2]$.<br>
+              <span style="font-size: 0.85rem; color: var(--text-muted);">$f(1) = 1 - 3 - 1 = -3 < 0$, $f(2) = 8 - 6 - 1 = +1 > 0$ (Segni opposti!)</span>
+            </div>
+            <div style="display: flex; gap: 0.5rem;">
+              <button class="btn btn-primary" id="btnNextBisection" onclick="stepBisection()">
+                Esegui Passo di Bisezione 🔍
+              </button>
+              <button class="btn" onclick="resetBisection()">
+                Azzera
+              </button>
+            </div>
+          </div>
+
+          <svg id="bisectionSvg" class="m1l3-svg" viewBox="0 0 620 280" role="img" aria-label="Rappresentazione grafica dell'intervallo che si dimezza con la bisezione">
+            <!-- Disegnato via JS -->
+          </svg>
+
+          <!-- Tabella dei Passi -->
+          <table class="bisection-table">
+            <thead>
+              <tr>
+                <th>Passo $k$</th>
+                <th>Estremo $a$</th>
+                <th>Estremo $b$</th>
+                <th>Punto Medio $m = rac{a+b}{2}$</th>
+                <th>Segno di $f(m)$</th>
+                <th>Nuovo Intervallo</th>
+              </tr>
+            </thead>
+            <tbody id="bisectionTbody">
+              <!-- Riempito dinamicamente -->
+            </tbody>
+          </table>
+
+          <div id="bisectionSummary" style="font-size: 0.88rem; color: var(--accent-math); margin-top: 0.75rem; font-weight: 700;">
+            Passo 0: Intervallo iniziale $[1.000, 2.000]$, ampiezza $\Delta = 1.000$.
+          </div>
+        </div>
+
+        <!-- TEORIA 4 IN CALCE AL LABORATORIO -->
+        <div class="theory-card" id="teoria-4">
+          <h4>
+            <span>La Teoria in Breve • Teorema dei Valori Intermedi ed Esistenza degli Zeri</span>
+            <span class="theory-pill">Teoria 4</span>
+          </h4>
+          <p>
+            <strong>Teorema dei Valori Intermedi (di Bolzano):</strong><br>
+            Se $f(x)$ è continua in un intervallo chiuso e limitato $[a, b]$, allora essa assume <strong>almeno una volta tutti i valori compresi tra il suo valore minimo $m$ e il suo valore massimo $M$</strong>.
+            Geometricamente: una curva continua che va da un'ordinata all'altra non può saltare alcun livello intermedio senza attraversarlo.
+          </p>
+          <div style="background: var(--bg-surface); border: 1px solid var(--border-subtle); padding: 0.85rem; border-radius: var(--radius-sm); margin-top: 0.75rem;">
+            <strong>Corollario • Teorema di Esistenza degli Zeri:</strong><br>
+            Se $f(x)$ è continua in $[a, b]$ e agli estremi assume valori di <strong>segno opposto</strong> ($f(a) \cdot f(b) < 0$), allora esiste <strong>almeno un punto $c \in (a, b)$</strong> tale che:
+            $$f(c) = 0$$
+            Se inoltre la funzione è <em>strettamente crescente</em> o <em>strettamente decrescente</em> in $[a, b]$, tale radice $c$ è <strong>unica</strong>.
+          </div>
+        </div>
+
+        <button class="btn btn-primary" onclick="markLabCompleted(4)" style="margin-top: 1rem;">
+          Algoritmo di Bisezione Acquisito → Segna Laboratorio 4 Completato
+        </button>
+      </div>
+    </section>
+
+
+    <!-- ======================================================== -->
+    <!-- LABORATORIO 5: PALESTRA MENTALE                         -->
+    <!-- ======================================================== -->
+    <section class="lab-card" id="lab-5">
+      <div class="lab-header">
+        <div class="lab-badge">Laboratorio 5 • Problem Solving Istantaneo</div>
+        <h2 class="lab-title">Palestra Mentale: 4 Sfide Flash su Continuità e Teoremi</h2>
+      </div>
+
+      <div class="lab-content">
+        <p>
+          Verifica la tua prontezza nel riconoscere al volo le singolarità e applicare i teoremi con queste 4 sfide guidate.
+        </p>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; margin-top: 1rem;">
+          <!-- Sfida 1 -->
+          <div style="background: var(--bg-surface-elevated); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.15rem;">
+            <span class="m1l3-badge" style="background: rgba(56, 189, 248, 0.15); color: var(--accent-math); margin-bottom: 0.5rem;">Sfida 1</span>
+            <p style="font-size: 0.92rem; font-weight: 700; margin-bottom: 0.5rem;">
+              Quale discontinuità presenta $f(x) = rac{x^2 - 9}{x - 3}$ in $x = 3$?
+            </p>
+            <div style="display: flex; flex-direction: column; gap: 0.35rem; font-size: 0.88rem;">
+              <button class="btn quiz-opt" onclick="checkQuiz(1, 0, this)">1ª Specie (Salto finito di 6)</button>
+              <button class="btn quiz-opt" onclick="checkQuiz(1, 1, this)">2ª Specie (Asintoto verticale)</button>
+              <button class="btn quiz-opt" onclick="checkQuiz(1, 2, this)">3ª Specie (Eliminabile con buco in $y=6$)</button>
+            </div>
+            <div id="quizFeedback1" style="font-size: 0.85rem; margin-top: 0.5rem; display: none;"></div>
+          </div>
+
+          <!-- Sfida 2 -->
+          <div style="background: var(--bg-surface-elevated); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.15rem;">
+            <span class="m1l3-badge" style="background: rgba(245, 158, 11, 0.15); color: var(--accent-gold); margin-bottom: 0.5rem;">Sfida 2</span>
+            <p style="font-size: 0.92rem; font-weight: 700; margin-bottom: 0.5rem;">
+              Il Teorema di Weierstrass si applica a $f(x) = rac{1}{x}$ nell'intervallo $(0, 4]$?
+            </p>
+            <div style="display: flex; flex-direction: column; gap: 0.35rem; font-size: 0.88rem;">
+              <button class="btn quiz-opt" onclick="checkQuiz(2, 0, this)">Sì, perché $4 \in 	ext{Dom}(f)$ ed è limitato</button>
+              <button class="btn quiz-opt" onclick="checkQuiz(2, 1, this)">No, l'intervallo non è chiuso in 0 e per $x 	o 0^+$ $f(x) 	o +\infty$</button>
+              <button class="btn quiz-opt" onclick="checkQuiz(2, 2, this)">Sì, ma solo per il minimo assoluto</button>
+            </div>
+            <div id="quizFeedback2" style="font-size: 0.85rem; margin-top: 0.5rem; display: none;"></div>
+          </div>
+
+          <!-- Sfida 3 -->
+          <div style="background: var(--bg-surface-elevated); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.15rem;">
+            <span class="m1l3-badge" style="background: rgba(168, 85, 247, 0.15); color: var(--accent-purple); margin-bottom: 0.5rem;">Sfida 3</span>
+            <p style="font-size: 0.92rem; font-weight: 700; margin-bottom: 0.5rem;">
+              Data $f(x) = x^3 + 2x - 5$, ammette sicuramente uno zero in $[1, 2]$?
+            </p>
+            <div style="display: flex; flex-direction: column; gap: 0.35rem; font-size: 0.88rem;">
+              <button class="btn quiz-opt" onclick="checkQuiz(3, 0, this)">Sì: $f(1) = -2 < 0$ e $f(2) = 7 > 0$, sono discordi</button>
+              <button class="btn quiz-opt" onclick="checkQuiz(3, 1, this)">No, perché $f(x)$ non tocca lo zero tra 1 e 2</button>
+              <button class="btn quiz-opt" onclick="checkQuiz(3, 2, this)">Non si può stabilire senza derivata</button>
+            </div>
+            <div id="quizFeedback3" style="font-size: 0.85rem; margin-top: 0.5rem; display: none;"></div>
+          </div>
+
+          <!-- Sfida 4 -->
+          <div style="background: var(--bg-surface-elevated); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.15rem;">
+            <span class="m1l3-badge" style="background: rgba(16, 185, 129, 0.15); color: var(--accent-success); margin-bottom: 0.5rem;">Sfida 4</span>
+            <p style="font-size: 0.92rem; font-weight: 700; margin-bottom: 0.5rem;">
+              Per quale valore di $k$ la funzione a tratti $f(x) = egin{cases} 2x + k & x < 3 \ x^2 - 1 & x \ge 3 \end{cases}$ è continua in $x = 3$?
+            </p>
+            <div style="display: flex; flex-direction: column; gap: 0.35rem; font-size: 0.88rem;">
+              <button class="btn quiz-opt" onclick="checkQuiz(4, 0, this)">$k = 0$</button>
+              <button class="btn quiz-opt" onclick="checkQuiz(4, 1, this)">$k = 2$ (poiché $2(3) + k = 3^2 - 1 \implies 6 + k = 8$)</button>
+              <button class="btn quiz-opt" onclick="checkQuiz(4, 2, this)">$k = -2$</button>
+            </div>
+            <div id="quizFeedback4" style="font-size: 0.85rem; margin-top: 0.5rem; display: none;"></div>
+          </div>
+        </div>
+
+        <button class="btn btn-primary" onclick="markLabCompleted(5)" style="margin-top: 1.25rem;">
+          Tutte le Sfide Superate → Segna Laboratorio 5 Completato
+        </button>
+      </div>
+    </section>
+
+
+    <!-- ======================================================== -->
+    <!-- LABORATORIO 6: COMPITO DI REALTÀ SVOLTO                 -->
+    <!-- ======================================================== -->
+    <section class="lab-card" id="lab-6">
+      <div class="lab-header">
+        <div class="lab-badge">Laboratorio 6 • Compito di Realtà Svolto</div>
+        <h2 class="lab-title">Modelli di Welfare: Continuità delle Tariffe ed Equità Sociale</h2>
+      </div>
+
+      <div class="lab-content">
+        <p>
+          Un Comune sta riformando il sistema di sussidi per il canone di locazione destinato alle famiglie residenti in funzione del reddito ISEE $x$ (espresso in migliaia di euro, per $x \in [0, 30]$).
+          La delibera propone un sussidio annuo in euro $S(x)$ diviso in due fasce:
+        </p>
+        $$S(x) = egin{cases} 600 - 15x & 0 \le x < 12 \ rac{k}{x + 4} & 12 \le x \le 30 \end{cases}$$
+        <p>
+          <strong>Il dilemma sociale e amministrativo:</strong><br>
+          Se nel punto di passaggio $x = 12$ (ISEE di 12.000 €) ci fosse un "salto" verso il basso, si creerebbe la cosiddetta <em>«trappola della povertà»</em>: una famiglia che guadagna 10 euro in più perderebbe improvvisamente centinaia di euro di sussidio!
+          Il Consiglio Comunale ti incarica di trovare il valore del parametro $k$ per garantire la <strong>perfetta continuità</strong> del servizio.
+        </p>
+
+        <!-- Simulatore Parametro k -->
+        <div class="m1l3-stage">
+          <div class="m1l3-slider-panel">
+            <label for="welfareKSlider">Parametro $k$ della seconda fascia:</label>
+            <input type="range" id="welfareKSlider" min="4000" max="9000" step="160" value="5000"
+              oninput="updateWelfareSim()">
+            <span class="m1l3-readout" id="welfareKVal">k = 5000</span>
+            <button class="btn btn-sm" onclick="setOptimalK()">Imposta Valore Continuo ($k = 6720$)</button>
+          </div>
+
+          <svg id="welfareSvg" class="m1l3-svg" viewBox="0 0 640 320" role="img" aria-label="Grafico della funzione sussidio al variare di k">
+            <!-- Disegnato via JS -->
+          </svg>
+
+          <div id="welfareFeedback" style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); padding: 0.85rem; margin-top: 1rem; font-size: 0.9rem; line-height: 1.5;">
+            <!-- Riempito via JS -->
+          </div>
+        </div>
+
+        <div style="background: var(--bg-surface-elevated); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem; margin-top: 1.25rem;">
+          <h4 style="color: var(--accent-math); margin-bottom: 0.5rem;">Risoluzione Guidata Passo-Passo per l'Esame</h4>
+          <ol style="margin-left: 1.25rem; font-size: 0.92rem; line-height: 1.6;">
+            <li>
+              <strong>Calcolo del limite sinistro in $x = 12$:</strong><br>
+              $\lim_{x 	o 12^-} S(x) = 600 - 15(12) = 600 - 180 = 420	ext{ euro}$.
+            </li>
+            <li>
+              <strong>Calcolo del valore e limite destro in $x = 12$:</strong><br>
+              $S(12) = \lim_{x 	o 12^+} S(x) = rac{k}{12 + 4} = rac{k}{16}$.
+            </li>
+            <li>
+              <strong>Uguaglianza di continuità:</strong><br>
+              Affinché la funzione sia continua in $x = 12$, deve valere $\lim_{x 	o 12^-} S(x) = \lim_{x 	o 12^+} S(x) = S(12)$:<br>
+              $$rac{k}{16} = 420 \implies k = 420 	imes 16 = 6720$$
+            </li>
+            <li>
+              <strong>Applicazione del Teorema di Weierstrass:</strong><br>
+              Con $k = 6720$, la funzione è continua nell'intervallo chiuso e limitato $[0, 30]$. Per il Teorema di Weierstrass ammette massimo e minimo assoluti:
+              <ul>
+                <li><strong>Sussidio massimo:</strong> $S(0) = 600	ext{ euro}$ (per le famiglie con ISEE pari a 0).</li>
+                <li><strong>Sussidio minimo:</strong> $S(30) = rac{6720}{30 + 4} = rac{6720}{34} pprox 197.65	ext{ euro}$ (alla soglia massima di 30.000 €).</li>
+              </ul>
+            </li>
+          </ol>
+        </div>
+
+        <button class="btn btn-primary" onclick="markLabCompleted(6)" style="margin-top: 1.25rem;">
+          Compito di Realtà Svolto → Segna Laboratorio 6 Completato
+        </button>
+      </div>
+    </section>
+
+
+    <!-- ======================================================== -->
+    <!-- SCHEDA OPERATIVA PER CASA (STAMPABILE)                   -->
+    <!-- ======================================================== -->
+    <section class="worksheet-section" id="scheda-casa">
+      <div class="worksheet-header">
+        <div>
+          <span class="m1l3-badge" style="background: rgba(245, 158, 11, 0.15); color: var(--accent-gold); margin-bottom: 0.4rem;">
+            Compito Autentico per Casa • Laboratorio d'Esame
+          </span>
+          <h2 style="font-size: 1.45rem; font-weight: 800; margin: 0;">Scheda Operativa: «Stabilità di Sistemi Sociali &amp; Tariffe Pubbliche»</h2>
+          <span style="font-size: 0.88rem; color: var(--text-muted);">Nome e Cognome: ____________________________________ Data: ______________ Classe: 5ª ___</span>
+        </div>
+        <button class="btn" onclick="window.print()" style="display: inline-flex; align-items: center; gap: 0.4rem;">
+          🖨️ Stampa Scheda
+        </button>
+      </div>
+
+      <div style="font-size: 0.93rem; line-height: 1.6; color: var(--text-main);">
+        <p><strong>Esercizio 1 (Analisi di Continuità e Singolarità):</strong><br>
+          Data la funzione $f(x) = rac{x^2 - 4x + 3}{x - 1}$:
+          <br>a) Determina il dominio di $f(x)$.
+          <br>b) Calcola $\lim_{x 	o 1} f(x)$ e individua la natura della singolarità in $x = 1$.
+          <br>c) Come è possibile estendere per continuità la funzione all'intero asse reale $\mathbb{R}$?
+        </p>
+
+        <p style="margin-top: 1.25rem;"><strong>Esercizio 2 (Raccordo Continuo di un Servizio Asilo Nido):</strong><br>
+          La retta mensile per l'asilo nido comunale in base all'ISEE familiare $x \in [0, 40]$ (in migliaia di euro) segue la legge:
+          $$T(x) = egin{cases} 80 + 10x & 0 \le x \le 15 \ ax + 30 & 15 < x \le 40 \end{cases}$$
+          <br>a) Calcola il valore del parametro $a$ affinché la retta sia continua nel punto di raccordo $x = 15$.
+          <br>b) Disegna il grafico della tariffa con il valore di $a$ trovato.
+          <br>c) Spiega quali garanzie offre il Teorema di Weierstrass rispetto alla retta minima e massima applicata dal Comune.
+        </p>
+
+        <p style="margin-top: 1.25rem;"><strong>Esercizio 3 (Applicazione della Bisezione al Pareggio di Bilancio):</strong><br>
+          Una cooperativa sociale di inserimento lavorativo calcola che il suo profitto netto (in migliaia di euro) in funzione del numero di soci $x$ (in decine) è $P(x) = x^3 - 2x - 5$.
+          <br>a) Dimostra, tramite il Teorema di esistenza degli zeri, che l'attività raggiunge il pareggio di bilancio ($P(x) = 0$) in un intervallo compreso tra 2 e 3 (cioè tra 20 e 30 soci).
+          <br>b) Applica manualmente due passi dell'algoritmo di bisezione per restringere l'intervallo che contiene la radice, compilando una tabella analoga a quella del Laboratorio 4.
+        </p>
+
+        <p style="margin-top: 1.25rem;"><strong>Esercizio 4 (Quesito Argomentativo per il Colloquio d'Esame):</strong><br>
+          Il filosofo Leibniz sosteneva il celebre principio <em>«Natura non facit saltus»</em> (La natura non compie salti).
+          Analizza criticamente questa affermazione alla luce della continuità matematica e confrontala con i fenomeni studiati nelle scienze umane (ad esempio: mutamenti sociali graduali versus rivoluzioni repentine, oppure soglie psicologiche di percezione).
+        </p>
+
+        <!-- Rubrica di Valutazione -->
+        <h4 style="margin-top: 2rem; color: var(--accent-math);">Griglia di Valutazione delle Competenze (Rubrica in Decimi)</h4>
+        <div class="rubric-grid">
+          <div class="rubric-card">
+            <div class="rubric-card-title">1. Padronanza Teorica (0-2.5 pt)</div>
+            <p>Chiarezza nelle definizioni di limite e continuità; corretto riconoscimento e denominazione delle tre specie di discontinuità.</p>
+          </div>
+          <div class="rubric-card">
+            <div class="rubric-card-title">2. Calcolo &amp; Raccordi (0-2.5 pt)</div>
+            <p>Precisione algebrica nella determinazione dei parametri di raccordo nei modelli a tratti; calcolo accurato dei limiti laterali.</p>
+          </div>
+          <div class="rubric-card">
+            <div class="rubric-card-title">3. Algoritmo di Bisezione (0-2.5 pt)</div>
+            <p>Rigore nell'applicazione del Teorema degli Zeri e precisione nei passaggi numerici successivi del metodo di bisezione.</p>
+          </div>
+          <div class="rubric-card">
+            <div class="rubric-card-title">4. Contestualizzazione Umana (0-2.5 pt)</div>
+            <p>Capacità di interpretare le implicazioni sociali del principio di continuità (equità fiscale, welfare, trappole della povertà).</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ======================================================== -->
+    <!-- FLASHCARDS INTERATTIVE                                   -->
+    <!-- ======================================================== -->
+    <section class="flashcard-section" style="margin: 2.5rem 0;">
+      <div class="section-header" style="margin-bottom: 1.25rem;">
+        <h2 class="section-title">
+          <span class="icon">⚡</span> Palestra di Ripasso: Flashcards Attive
+        </h2>
+        <span class="badge" style="background: rgba(168, 85, 247, 0.15); color: var(--accent-purple); font-weight: 700; padding: 0.3rem 0.8rem; border-radius: var(--radius-pill); font-size: 0.8rem;">
+          Autovalutazione Rapida
+        </span>
+      </div>
+      <div id="lessonFlashcardDeck"></div>
+    </section>
+
+
+    <!-- ======================================================== -->
+    <!-- QUADRO DI RIEPILOGO FINALE DELLA TEORIA                 -->
+    <!-- ======================================================== -->
+    <footer class="final-recap" id="finalRecap" style="background: var(--bg-surface-elevated); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: 2rem; margin-top: 3rem;">
+      <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.25rem;">
+        <span style="font-size: 1.8rem;">📜</span>
+        <div>
+          <h3 style="font-size: 1.25rem; font-weight: 800; margin: 0;">Quadro Sinottico Finale: Teoria Istituzionale della Lezione 5.M1.3</h3>
+          <span style="font-size: 0.85rem; color: var(--text-muted);">Sintesi visuale per il ripasso e per il colloquio d'Esame di Stato</span>
+        </div>
+      </div>
+
+      <div style="overflow-x: auto;">
+        <table class="bisection-table">
+          <thead>
+            <tr>
+              <th>Concetto Cardine</th>
+              <th>Formula o Enunciato</th>
+              <th>Condizioni Richieste</th>
+              <th>Applicazione o Significato Reale</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Funzione Continua</strong></td>
+              <td>$$\lim_{x 	o x_0} f(x) = f(x_0)$$</td>
+              <td>$x_0 \in 	ext{Dom}(f)$ ed esiste finito il limite uguale al valore nel punto</td>
+              <td>Assenza di buchi o salti improvvisi; tolleranza $arepsilon$-$\delta$</td>
+            </tr>
+            <tr>
+              <td><strong>Discontinuità 1ª Specie</strong></td>
+              <td>$\lim_{x 	o x_0^-} f(x) = l_1 
+eq \lim_{x 	o x_0^+} f(x) = l_2$</td>
+              <td>Limiti laterali entrambi finiti ma distinti ($S = |l_2 - l_1|$)</td>
+              <td>Tariffe a gradini (trappola della povertà nei sussidi)</td>
+            </tr>
+            <tr>
+              <td><strong>Discontinuità 2ª Specie</strong></td>
+              <td>Almeno un limite è $\pm\infty$ o non esiste</td>
+              <td>Asintoto verticale o oscillazione irrisolvibile</td>
+              <td>Costi di bonifica al 100%, saturazione totale</td>
+            </tr>
+            <tr>
+              <td><strong>Discontinuità 3ª Specie</strong></td>
+              <td>Esiste $\lim_{x 	o x_0} f(x) = L$, ma $f(x_0) 
+eq L$ o non esiste</td>
+              <td>Limite finito unico, buco eliminabile ponendo $f(x_0) = L$</td>
+              <td>Errori strumentali o forme [0/0] semplificabili</td>
+            </tr>
+            <tr>
+              <td><strong>Teorema di Weierstrass</strong></td>
+              <td>$\exists c, d \in [a, b] : f(c) = m \le f(x) \le M = f(d)$</td>
+              <td>Funzione continua in intervallo <strong>chiuso e limitato</strong> $[a, b]$</td>
+              <td>Certezza di esistenza del massimo benessere o minimo costo</td>
+            </tr>
+            <tr>
+              <td><strong>Teorema degli Zeri</strong></td>
+              <td>$f(a) \cdot f(b) < 0 \implies \exists c \in (a, b) : f(c) = 0$</td>
+              <td>Funzione continua in $[a, b]$ con valori discordi agli estremi</td>
+              <td>Fondamento teorico dell'algoritmo di bisezione (Break-Even)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Card di Completamento Lezione con Gamification -->
+      <div class="completion-card" style="margin-top: 2rem; background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.5rem; text-align: center;">
+        <div style="font-size: 2.2rem; margin-bottom: 0.5rem;">🎉</div>
+        <h3 style="font-size: 1.25rem; font-weight: 800; margin-bottom: 0.4rem;">Congratulazioni per aver completato la Lezione 5.M1.3!</h3>
+        <p style="font-size: 0.92rem; color: var(--text-muted); max-width: 600px; margin: 0 auto 1.25rem;">
+          Hai padroneggiato la continuità, catalogato i 3 tipi di singolarità e compreso i teoremi di Weierstrass e degli zeri.
+        </p>
+        <button class="btn btn-primary" id="btnCompleteLesson" style="padding: 0.75rem 1.75rem; font-size: 1rem; font-weight: 800;">
+          🏆 Riscatta +60 XP e Registra Completamento
+        </button>
+      </div>
+    </footer>
+
+  </div>
+
+
+  <!-- ======================================================== -->
+  <!-- JAVASCRIPT DINAMICO E INTERATTIVO                        -->
+  <!-- ======================================================== -->
+  <script src="../../../shared/js/comode-audio.js"></script>
+  <script src="../../../shared/js/comode-gamification.js"></script>
+  <script src="../../../shared/js/comode-flashcards.js"></script>
+
+  <script>
+    const LESSON_ID = 'qa-5.m1-l03';
+    const LABS_STORAGE_KEY = 'comode_labs_completed_' + LESSON_ID;
+    const completedLabs = new Set();
+
+    /* GESTIONE COMPLETAMENTO LABORATORI */
+    function markLabCompleted(num, silent = false) {
+      if (completedLabs.has(num)) return;
+      completedLabs.add(num);
+
+      const chip = document.getElementById('chip-lab-' + num);
+      if (chip) chip.classList.add('completed');
+
+      document.getElementById('labsCompletedCount').textContent = completedLabs.size;
+
+      if (!silent) {
+        if (window.ComodeAudio) ComodeAudio.play('success');
+        if (window.ComodeGamification) {
+          ComodeGamification.addXP(10, 'Laboratorio ' + num + ' completato!');
+        }
+      }
+
+      saveLabsProgress();
+      checkAllLabsDone();
+    }
+
+    function markAllLabsCompleted(silent = false) {
+      for (let i = 1; i <= 6; i++) {
+        markLabCompleted(i, true);
+      }
+      if (!silent) {
+        if (window.ComodeAudio) ComodeAudio.play('achievement');
+        if (window.ComodeGamification) {
+          ComodeGamification.addXP(60, 'Lezione 5.M1.3 Completata con Successo!');
+          ComodeGamification.markLessonCompleted(LESSON_ID);
+        }
+      }
+    }
+
+    function saveLabsProgress() {
+      try {
+        localStorage.setItem(LABS_STORAGE_KEY, JSON.stringify([...completedLabs]));
+      } catch (e) {}
+    }
+
+    function checkAllLabsDone() {
+      if (completedLabs.size === 6) {
+        const btn = document.getElementById('btnCompleteLesson');
+        if (btn) {
+          btn.classList.add('completed');
+          btn.textContent = '✅ Lezione Completata (+60 XP Riscattati)';
+          btn.disabled = true;
+        }
+      }
+    }
+
+    function scrollToLab(num) {
+      const el = document.getElementById('lab-' + num);
+      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    /* ========================================================
+       LABORATORIO 1: PIASTRELLA DELL'ARTIGIANO
+       ======================================================== */
+    function updateTileSim() {
+      const slider = document.getElementById('tileDeltaLSlider');
+      const dL = parseFloat(slider.value);
+      const l0 = 3.0;
+      const l = l0 + dL;
+      const a0 = l0 * l0;
+      const a = l * l;
+      const dA = a - a0;
+
+      document.getElementById('tileDeltaLVal').textContent = (dL >= 0 ? '+' : '') + dL.toFixed(2) + ' dm';
+      document.getElementById('tileSideText').textContent = l.toFixed(2) + ' dm';
+      document.getElementById('tileAreaText').textContent = a.toFixed(2) + ' dm²';
+      document.getElementById('tileDeltaAText').textContent = (dA >= 0 ? '+' : '') + dA.toFixed(2) + ' dm²';
+
+      renderTileSvg(dL, l0, l, a0, a, dA);
+    }
+
+    function renderTileSvg(dL, l0, l, a0, a, dA) {
+      const svg = document.getElementById('tileSvg');
+      const baseSize = 160;
+      const scale = baseSize / l0; // px per dm
+      const ox = 70;
+      const oy = 50;
+
+      const basePx = l0 * scale;
+      const dLPx = dL * scale;
+
+      let html = `
+        <defs>
+          <pattern id="tileGrid" width="20" height="20" patternUnits="userSpaceOnUse">
+            <path d="M 20 0 L 0 0 0 20" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+          </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill="var(--bg-surface)" rx="8"/>
+        <rect width="100%" height="100%" fill="url(#tileGrid)" rx="8"/>
+
+        <!-- Piastrella Base (3x3 dm) -->
+        <rect x="${ox}" y="${oy}" width="${basePx}" height="${basePx}" fill="rgba(56, 189, 248, 0.2)" stroke="var(--accent-math)" stroke-width="2"/>
+        <text x="${ox + basePx/2}" y="${oy + basePx/2 + 5}" fill="var(--accent-math)" font-size="14" font-weight="700" text-anchor="middle">
+          Area Base A₀ = 9 dm²
+        </text>
+      `;
+
+      if (dL > 0) {
+        // Strip orizzontale in alto/destra
+        html += `
+          <!-- Incremento orizzontale (lato destro) -->
+          <rect x="${ox + basePx}" y="${oy}" width="${dLPx}" height="${basePx}" fill="rgba(245, 158, 11, 0.3)" stroke="var(--accent-gold)" stroke-width="1.5" stroke-dasharray="3,3"/>
+          <!-- Incremento verticale (bordo inferiore) -->
+          <rect x="${ox}" y="${oy + basePx}" width="${basePx}" height="${dLPx}" fill="rgba(245, 158, 11, 0.3)" stroke="var(--accent-gold)" stroke-width="1.5" stroke-dasharray="3,3"/>
+          <!-- Angolino dL x dL -->
+          <rect x="${ox + basePx}" y="${oy + basePx}" width="${dLPx}" height="${dLPx}" fill="rgba(168, 85, 247, 0.4)" stroke="var(--accent-purple)" stroke-width="1.5"/>
+
+          <text x="${ox + basePx + dLPx/2}" y="${oy + basePx/2}" fill="var(--accent-gold)" font-size="11" font-weight="700" text-anchor="middle" transform="rotate(90 ${ox + basePx + dLPx/2} ${oy + basePx/2})">
+            +Δl
+          </text>
+          <text x="${ox + basePx/2}" y="${oy + basePx + dLPx/2 + 4}" fill="var(--accent-gold)" font-size="11" font-weight="700" text-anchor="middle">
+            +Δl
+          </text>
+        `;
+      } else if (dL < 0) {
+        // Riduzione tratteggiata
+        const shrinkPx = Math.abs(dLPx);
+        html += `
+          <rect x="${ox + basePx - shrinkPx}" y="${oy}" width="${shrinkPx}" height="${basePx}" fill="rgba(239, 68, 68, 0.3)" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="3,3"/>
+          <rect x="${ox}" y="${oy + basePx - shrinkPx}" width="${basePx}" height="${shrinkPx}" fill="rgba(239, 68, 68, 0.3)" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="3,3"/>
+          <text x="${ox + basePx - shrinkPx/2}" y="${oy + basePx/2}" fill="#ef4444" font-size="10" font-weight="700" text-anchor="middle" transform="rotate(90 ${ox + basePx - shrinkPx/2} ${oy + basePx/2})">
+            -Δl
+          </text>
+        `;
+      }
+
+      // Quote quote lato iniziale e totale
+      html += `
+        <!-- Quota lato nominale -->
+        <line x1="${ox}" y1="${oy - 15}" x2="${ox + basePx}" y2="${oy - 15}" stroke="var(--text-muted)" stroke-width="1.5"/>
+        <text x="${ox + basePx/2}" y="${oy - 20}" fill="var(--text-muted)" font-size="11" text-anchor="middle">l₀ = 3.00 dm</text>
+
+        <!-- Quota totale nuovo lato -->
+        <line x1="${ox}" y1="${oy + basePx + (dL > 0 ? dLPx : 0) + 25}" x2="${ox + basePx + dLPx}" y2="${oy + basePx + (dL > 0 ? dLPx : 0) + 25}" stroke="var(--accent-math)" stroke-width="1.5"/>
+        <text x="${ox + (basePx + dLPx)/2}" y="${oy + basePx + (dL > 0 ? dLPx : 0) + 40}" fill="var(--accent-math)" font-size="12" font-weight="700" text-anchor="middle">
+          l = ${l.toFixed(2)} dm
+        </text>
+
+        <!-- Box legenda a destra -->
+        <g transform="translate(310, 60)">
+          <rect width="170" height="150" fill="var(--bg-surface-elevated)" rx="6" stroke="var(--border-subtle)"/>
+          <text x="12" y="24" fill="var(--text-main)" font-size="12" font-weight="700">Analisi Incrementale</text>
+          <text x="12" y="50" fill="var(--accent-math)" font-size="11">■ Base: 9.00 dm²</text>
+          <text x="12" y="74" fill="var(--accent-gold)" font-size="11">■ 2·l₀·Δl = ${(2 * l0 * dL).toFixed(2)} dm²</text>
+          <text x="12" y="98" fill="var(--accent-purple)" font-size="11">■ (Δl)² = ${(dL * dL).toFixed(3)} dm²</text>
+          <line x1="12" y1="112" x2="158" y2="112" stroke="var(--border-subtle)"/>
+          <text x="12" y="132" fill="var(--text-main)" font-size="11" font-weight="700">ΔA = ${(dA).toFixed(2)} dm²</text>
+        </g>
+      `;
+
+      svg.innerHTML = html;
+    }
+
+    /* ========================================================
+       LABORATORIO 2: I TRE TIPI DI SINGOLARITÀ
+       ======================================================== */
+    let currentDiscontinuity = 1;
+
+    function selectDiscontinuity(type) {
+      currentDiscontinuity = type;
+      for (let i = 1; i <= 3; i++) {
+        const btn = document.getElementById('btnSpecie' + i);
+        if (btn) btn.classList.toggle('active', i === type);
+      }
+
+      const titleEl = document.getElementById('discTitle');
+      const descEl = document.getElementById('discDesc');
+      const formulaEl = document.getElementById('discFormulaBox');
+
+      if (type === 1) {
+        titleEl.textContent = '1ª Specie: Salto Finito (Jump)';
+        titleEl.style.color = 'var(--accent-math)';
+        descEl.textContent = 'I limiti laterali sinistro e destro sono entrambi finiti, ma diversi. La funzione compie un vero e proprio gradino.';
+        formulaEl.innerHTML = `
+          <strong>Condizione:</strong> $\lim_{x \to x_0^-} f(x) = l_1 \in \mathbb{R}$, $\lim_{x \to x_0^+} f(x) = l_2 \in \mathbb{R}$ con $l_1 \neq l_2$.<br>
+          <strong>Ampiezza del Salto:</strong> $S = |l_2 - l_1| = |5 - 2| = 3$.<br>
+          <em>Esempio:</em> Tariffe a scaglioni o funzione $f(x) = \begin{cases} x + 1 & x < 2 \\ x + 3 & x \ge 2 \end{cases}$ in $x_0 = 2$.
+        `;
+      } else if (type === 2) {
+        titleEl.textContent = '2ª Specie: Singolarità Asintotica / Essenziale';
+        titleEl.style.color = 'var(--accent-gold)';
+        descEl.textContent = 'Almeno uno dei due limiti laterali per $x \to x_0$ è infinito ($\pm\infty$) oppure non esiste affatto (oscillazione).';
+        formulaEl.innerHTML = `
+          <strong>Condizione:</strong> $\lim_{x \to x_0^-} f(x) = \pm\infty$ oppure $\lim_{x \to x_0^+} f(x) = \pm\infty$.<br>
+          <strong>Geometria:</strong> La retta verticale $x = x_0$ è un <strong>asintoto verticale</strong>.<br>
+          <em>Esempio classico:</em> $f(x) = \frac{1}{x - 2}$ in $x_0 = 2$, dove $\lim_{x \to 2^-} f(x) = -\infty$ e $\lim_{x \to 2^+} f(x) = +\infty$.
+        `;
+      } else if (type === 3) {
+        titleEl.textContent = '3ª Specie: Singolarità Eliminabile (Bucata)';
+        titleEl.style.color = 'var(--accent-purple)';
+        descEl.textContent = 'Esiste unico e finito il limite globale $\lim_{x \to x_0} f(x) = L$, ma il valore $f(x_0)$ o non esiste o è diverso da $L$.';
+        formulaEl.innerHTML = `
+          <strong>Condizione:</strong> $\lim_{x \to x_0} f(x) = L \in \mathbb{R}$, ma $x_0 \notin \text{Dom}(f)$ oppure $f(x_0) \neq L$.<br>
+          <strong>Risoluzione:</strong> Basta porre $f^*(x_0) = L$ per «tappare il buco» e rendere la funzione continua ovunque.<br>
+          <em>Esempio:</em> $f(x) = \frac{x^2 - 4}{x - 2}$ in $x_0 = 2$, dove $\lim_{x \to 2} f(x) = 4$, ma $f(2)$ non è definita.
+        `;
+      }
+
+      if (window.renderMathInElement) {
+        renderMathInElement(formulaEl, { delimiters: [{left: "$", right: "$", display: false}] });
+      }
+
+      renderDiscSvg(type);
+    }
+
+    function renderDiscSvg(type) {
+      const svg = document.getElementById('discSvg');
+      const w = 600, h = 320;
+      const ox = 300, oy = 160;
+
+      let html = `
+        <defs>
+          <pattern id="discGrid" width="30" height="30" patternUnits="userSpaceOnUse">
+            <path d="M 30 0 L 0 0 0 30" fill="none" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+          </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill="var(--bg-surface)" rx="8"/>
+        <rect width="100%" height="100%" fill="url(#discGrid)" rx="8"/>
+
+        <!-- Assi cartesiani -->
+        <line x1="40" y1="${oy}" x2="560" y2="${oy}" stroke="var(--border-subtle)" stroke-width="1.5"/>
+        <line x1="${ox}" y1="30" x2="${ox}" y2="290" stroke="var(--border-subtle)" stroke-width="1.5"/>
+        <text x="555" y="${oy - 8}" fill="var(--text-muted)" font-size="12">x</text>
+        <text x="${ox + 10}" y="42" fill="var(--text-muted)" font-size="12">y</text>
+        <text x="${ox - 16}" y="${oy + 18}" fill="var(--text-muted)" font-size="12">x₀</text>
+      `;
+
+      if (type === 1) {
+        // Salto: a sinistra arriva a oy + 40 (valore l1), a destra parte da oy - 50 (valore l2)
+        html += `
+          <!-- Ramo sinistro -->
+          <path d="M 70 ${oy + 90} Q 180 ${oy + 70} ${ox} ${oy + 40}" fill="none" stroke="var(--accent-math)" stroke-width="3"/>
+          <circle cx="${ox}" cy="${oy + 40}" r="5" fill="var(--accent-math)" stroke="var(--bg-surface)" stroke-width="2"/>
+
+          <!-- Ramo destro -->
+          <path d="M ${ox} ${oy - 50} Q 420 ${oy - 60} 530 ${oy - 80}" fill="none" stroke="var(--accent-math)" stroke-width="3"/>
+          <circle cx="${ox}" cy="${oy - 50}" r="5" fill="var(--bg-surface)" stroke="var(--accent-math)" stroke-width="2.5"/>
+
+          <!-- Quota del salto -->
+          <line x1="${ox + 20}" y1="${oy + 40}" x2="${ox + 20}" y2="${oy - 50}" stroke="var(--accent-gold)" stroke-width="2" stroke-dasharray="4,4"/>
+          <text x="${ox + 30}" y="${oy - 5}" fill="var(--accent-gold)" font-size="12" font-weight="700">Salto S = |l₂ - l₁|</text>
+          <text x="${ox - 35}" y="${oy + 45}" fill="var(--text-muted)" font-size="11">l₁</text>
+          <text x="${ox - 35}" y="${oy - 45}" fill="var(--text-muted)" font-size="11">l₂</text>
+        `;
+      } else if (type === 2) {
+        // Asintoto verticale: a sinistra va giù a -inf, a destra va su a +inf
+        html += `
+          <!-- Asintoto tratteggiato -->
+          <line x1="${ox}" y1="30" x2="${ox}" y2="290" stroke="var(--accent-gold)" stroke-width="2" stroke-dasharray="6,4"/>
+          <text x="${ox + 8}" y="65" fill="var(--accent-gold)" font-size="11" font-weight="700">Asintoto x = x₀</text>
+
+          <!-- Ramo sinistro -> -inf -->
+          <path d="M 80 ${oy + 5} Q 220 ${oy + 10} 270 ${oy + 40} T ${ox - 10} 290" fill="none" stroke="var(--accent-gold)" stroke-width="3"/>
+          <!-- Ramo destro -> +inf -->
+          <path d="M ${ox + 10} 30 Q 330 ${oy - 40} 380 ${oy - 10} T 520 ${oy - 5}" fill="none" stroke="var(--accent-gold)" stroke-width="3"/>
+        `;
+      } else if (type === 3) {
+        // Eliminabile: curva continua con buco aperto in (ox, oy - 40)
+        html += `
+          <!-- Curva passante con buco -->
+          <path d="M 80 ${oy + 60} Q 200 ${oy + 20} ${ox - 6} ${oy - 38}" fill="none" stroke="var(--accent-purple)" stroke-width="3"/>
+          <path d="M ${ox + 6} ${oy - 42} Q 400 ${oy - 70} 520 ${oy - 90}" fill="none" stroke="var(--accent-purple)" stroke-width="3"/>
+
+          <!-- Buco vuoto -->
+          <circle cx="${ox}" cy="${oy - 40}" r="6" fill="var(--bg-surface)" stroke="var(--accent-purple)" stroke-width="3"/>
+          <text x="${ox + 15}" y="${oy - 42}" fill="var(--accent-purple)" font-size="12" font-weight="700">Punto Bucato (Limite = L)</text>
+
+          <!-- Eventuale punto isolato spostato -->
+          <circle cx="${ox}" cy="${oy + 30}" r="5" fill="var(--accent-purple)" stroke="var(--bg-surface)" stroke-width="2"/>
+          <text x="${ox + 15}" y="${oy + 34}" fill="var(--text-muted)" font-size="11">Valore isolato f(x₀) ≠ L</text>
+        `;
+      }
+
+      svg.innerHTML = html;
+    }
+
+    /* ========================================================
+       LABORATORIO 3: TEOREMA DI WEIERSTRASS
+       ======================================================== */
+    let currentWeierstrassCase = 1;
+
+    function setWeierstrassCase(c) {
+      currentWeierstrassCase = c;
+      for (let i = 1; i <= 3; i++) {
+        const btn = document.getElementById('btnW' + i);
+        if (btn) btn.classList.toggle('active', i === c);
+      }
+
+      const statusBox = document.getElementById('weierstrassStatusBox');
+      if (c === 1) {
+        statusBox.innerHTML = `
+          <strong style="color: var(--accent-success);">Tutte le Ipotesi Valide:</strong> Intervallo chiuso $[a, b]$ e funzione continua.<br>
+          ✅ <strong>Esito:</strong> La funzione tocca obbligatoriamente il suo <strong>massimo assoluto $M$</strong> in $d$ e il suo <strong>minimo assoluto $m$</strong> in $c$. Il Teorema di Weierstrass è pienamente soddisfatto!
+        `;
+      } else if (c === 2) {
+        statusBox.innerHTML = `
+          <strong style="color: var(--accent-gold);">Cade l'ipotesi di intervallo chiuso:</strong> Consideriamo l'intervallo <em>aperto</em> $(a, b)$.<br>
+          ⚠️ <strong>Esito:</strong> La funzione cresce avvicinandosi all'estremo destro $b$, ma poiché $b \notin (a, b)$, quel valore estremo non viene MAI toccato. La funzione ammette un estremo superiore (sup), ma <strong>NON possiede un massimo assoluto</strong>!
+        `;
+      } else if (c === 3) {
+        statusBox.innerHTML = `
+          <strong style="color: #ef4444);">Cade l'ipotesi di continuità:</strong> C'è un salto o un buco proprio nel punto di picco.<br>
+          ⚠️ <strong>Esito:</strong> Nel punto in cui la funzione avrebbe dovuto raggiungere il vertice, c'è un buco vuoto e il valore effettivo è caduto in basso. Il massimo assoluto <strong>non esiste</strong>!
+        `;
+      }
+
+      if (window.renderMathInElement) {
+        renderMathInElement(statusBox, { delimiters: [{left: "$", right: "$", display: false}] });
+      }
+
+      renderWeierstrassSvg(c);
+    }
+
+    function renderWeierstrassSvg(c) {
+      const svg = document.getElementById('weierstrassSvg');
+      const ax = 120, bx = 500, oy = 250;
+
+      let html = `
+        <defs>
+          <pattern id="wGrid" width="30" height="30" patternUnits="userSpaceOnUse">
+            <path d="M 30 0 L 0 0 0 30" fill="none" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+          </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill="var(--bg-surface)" rx="8"/>
+        <rect width="100%" height="100%" fill="url(#wGrid)" rx="8"/>
+
+        <!-- Asse X -->
+        <line x1="60" y1="${oy}" x2="560" y2="${oy}" stroke="var(--border-subtle)" stroke-width="1.5"/>
+
+        <!-- Estremi a e b -->
+        <line x1="${ax}" y1="${oy - 5}" x2="${ax}" y2="${oy + 5}" stroke="var(--text-muted)" stroke-width="2"/>
+        <text x="${ax}" y="${oy + 22}" fill="var(--text-muted)" font-size="12" font-weight="700" text-anchor="middle">a</text>
+        <line x1="${bx}" y1="${oy - 5}" x2="${bx}" y2="${oy + 5}" stroke="var(--text-muted)" stroke-width="2"/>
+        <text x="${bx}" y="${oy + 22}" fill="var(--text-muted)" font-size="12" font-weight="700" text-anchor="middle">b</text>
+
+        <!-- Tratteggi verticali estremi -->
+        <line x1="${ax}" y1="50" x2="${ax}" y2="${oy}" stroke="rgba(255,255,255,0.08)" stroke-dasharray="4,4"/>
+        <line x1="${bx}" y1="50" x2="${bx}" y2="${oy}" stroke="rgba(255,255,255,0.08)" stroke-dasharray="4,4"/>
+      `;
+
+      if (c === 1) {
+        // Continua con Max in d (x=360, y=70) e Min in a (x=120, y=210)
+        html += `
+          <path d="M ${ax} 210 Q 200 120 280 130 T 360 70 T 450 140 T ${bx} 160" fill="none" stroke="var(--accent-math)" stroke-width="3.5"/>
+          <circle cx="${ax}" cy="210" r="5" fill="var(--accent-math)"/>
+          <circle cx="${bx}" cy="160" r="5" fill="var(--accent-math)"/>
+
+          <!-- Punto di Massimo M -->
+          <circle cx="360" cy="70" r="6" fill="var(--accent-gold)" stroke="var(--bg-surface)" stroke-width="2"/>
+          <line x1="360" y1="70" x2="360" y2="${oy}" stroke="var(--accent-gold)" stroke-dasharray="3,3"/>
+          <text x="360" y="55" fill="var(--accent-gold)" font-size="12" font-weight="700" text-anchor="middle">Massimo Assoluto M</text>
+          <text x="360" y="${oy + 22}" fill="var(--accent-gold)" font-size="11" font-weight="700" text-anchor="middle">d</text>
+
+          <!-- Punto di Minimo m -->
+          <circle cx="${ax}" cy="210" r="6" fill="#10b981" stroke="var(--bg-surface)" stroke-width="2"/>
+          <text x="${ax + 10}" y="195" fill="#10b981" font-size="11" font-weight="700">Minimo m</text>
+        `;
+      } else if (c === 2) {
+        // Aperto (a, b): pallini vuoti agli estremi
+        html += `
+          <path d="M ${ax + 5} 190 L ${bx - 5} 60" fill="none" stroke="var(--accent-gold)" stroke-width="3"/>
+          <!-- Pallini aperti agli estremi -->
+          <circle cx="${ax}" cy="190" r="5" fill="var(--bg-surface)" stroke="var(--accent-gold)" stroke-width="2.5"/>
+          <circle cx="${bx}" cy="60" r="5" fill="var(--bg-surface)" stroke="var(--accent-gold)" stroke-width="2.5"/>
+          <text x="${bx}" y="45" fill="var(--accent-gold)" font-size="11" font-weight="700" text-anchor="middle">Sup non raggiunto (b ∉ Dominio)</text>
+          <text x="${bx - 30}" y="95" fill="var(--text-muted)" font-size="11">Nessun Max!</text>
+        `;
+      } else if (c === 3) {
+        // Discontinua: vertice con buco
+        html += `
+          <path d="M ${ax} 200 Q 220 100 325 72" fill="none" stroke="#ef4444" stroke-width="3"/>
+          <path d="M 335 150 Q 420 180 ${bx} 170" fill="none" stroke="#ef4444" stroke-width="3"/>
+          <circle cx="330" cy="70" r="6" fill="var(--bg-surface)" stroke="#ef4444" stroke-width="2.5"/>
+          <circle cx="330" cy="150" r="5" fill="#ef4444"/>
+          <text x="330" y="52" fill="#ef4444" font-size="11" font-weight="700" text-anchor="middle">Buco nel vertice: Max Inesistente!</text>
+        `;
+      }
+
+      svg.innerHTML = html;
+    }
+
+    /* ========================================================
+       LABORATORIO 4: ZERI & BISEZIONE
+       ======================================================== */
+    let bisectionSteps = [];
+    const targetF = (x) => x*x*x - 3*x - 1;
+
+    function resetBisection() {
+      bisectionSteps = [{
+        k: 0,
+        a: 1.0,
+        b: 2.0,
+        m: 1.5,
+        fm: targetF(1.5),
+        nextInterval: '[1.500, 2.000]'
+      }];
+      renderBisectionTable();
+      renderBisectionSvg();
+      document.getElementById('btnNextBisection').disabled = false;
+      document.getElementById('bisectionSummary').textContent = 'Passo 0: Intervallo iniziale [1.000, 2.000], ampiezza Δ = 1.000.';
+    }
+
+    function stepBisection() {
+      if (bisectionSteps.length >= 6) {
+        document.getElementById('bisectionSummary').textContent = '🎯 Bisezione completata con ottima precisione! Radice c ≈ ' + bisectionSteps[bisectionSteps.length - 1].m.toFixed(4);
+        document.getElementById('btnNextBisection').disabled = true;
+        return;
+      }
+
+      const prev = bisectionSteps[bisectionSteps.length - 1];
+      let newA = prev.a;
+      let newB = prev.b;
+
+      // Se f(a) e f(m) hanno segni opposti, la radice sta in [a, m], altrimenti in [m, b]
+      const fa = targetF(prev.a);
+      if (fa * prev.fm < 0) {
+        newB = prev.m;
+      } else {
+        newA = prev.m;
+      }
+
+      const newM = (newA + newB) / 2;
+      const newFm = targetF(newM);
+      const k = bisectionSteps.length;
+
+      const nextIntStr = (targetF(newA) * newFm < 0)
+        ? `[${newA.toFixed(3)}, ${newM.toFixed(3)}]`
+        : `[${newM.toFixed(3)}, ${newB.toFixed(3)}]`;
+
+      bisectionSteps.push({
+        k: k,
+        a: newA,
+        b: newB,
+        m: newM,
+        fm: newFm,
+        nextInterval: nextIntStr
+      });
+
+      renderBisectionTable();
+      renderBisectionSvg();
+
+      const delta = Math.abs(newB - newA);
+      document.getElementById('bisectionSummary').textContent =
+        `Passo ${k}: Ampiezza dimezzata a Δ = ${delta.toFixed(4)}. Radice stimata: c ≈ ${newM.toFixed(4)}`;
+    }
+
+    function renderBisectionTable() {
+      const tbody = document.getElementById('bisectionTbody');
+      let html = '';
+      bisectionSteps.forEach((s, idx) => {
+        const isLast = idx === bisectionSteps.length - 1;
+        const signStr = s.fm > 0 ? '+ (positivo)' : '- (negativo)';
+        const signColor = s.fm > 0 ? 'var(--accent-math)' : '#ef4444';
+        html += `
+          <tr class="${isLast ? 'current-step' : ''}">
+            <td><strong>${s.k}</strong></td>
+            <td>${s.a.toFixed(3)}</td>
+            <td>${s.b.toFixed(3)}</td>
+            <td style="color: var(--accent-gold); font-weight: 700;">${s.m.toFixed(3)}</td>
+            <td style="color: ${signColor};">${signStr}</td>
+            <td style="font-family: var(--font-mono);">${s.nextInterval}</td>
+          </tr>
+        `;
+      });
+      tbody.innerHTML = html;
+    }
+
+    function renderBisectionSvg() {
+      const svg = document.getElementById('bisectionSvg');
+      const last = bisectionSteps[bisectionSteps.length - 1];
+      const oy = 140;
+
+      // Coordinate scala x: intervallo [1.0, 2.0] mappato su [80, 540]
+      const mapX = (x) => 80 + (x - 1.0) * 460;
+
+      let html = `
+        <defs>
+          <pattern id="biGrid" width="20" height="20" patternUnits="userSpaceOnUse">
+            <path d="M 20 0 L 0 0 0 20" fill="none" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+          </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill="var(--bg-surface)" rx="8"/>
+        <rect width="100%" height="100%" fill="url(#biGrid)" rx="8"/>
+
+        <!-- Asse x = 0 -->
+        <line x1="50" y1="${oy}" x2="570" y2="${oy}" stroke="var(--border-subtle)" stroke-width="1.5"/>
+        <text x="560" y="${oy - 8}" fill="var(--text-muted)" font-size="11">x</text>
+
+        <!-- Curva f(x) = x³ - 3x - 1 -->
+        <!-- Campionamento punti -->
+      `;
+
+      let pathD = 'M ' + mapX(1.0) + ' ' + (oy - targetF(1.0) * 40);
+      for (let x = 1.02; x <= 2.0; x += 0.02) {
+        const px = mapX(x);
+        const py = oy - targetF(x) * 40;
+        pathD += ' L ' + px.toFixed(1) + ' ' + py.toFixed(1);
+      }
+      html += `<path d="${pathD}" fill="none" stroke="var(--accent-math)" stroke-width="3"/>`;
+
+      // Evidenziazione intervallo corrente [a, b]
+      const axPx = mapX(last.a);
+      const bxPx = mapX(last.b);
+      const mxPx = mapX(last.m);
+
+      html += `
+        <!-- Fascia intervallo ristretto -->
+        <rect x="${axPx}" y="30" width="${bxPx - axPx}" height="220" fill="rgba(56, 189, 248, 0.12)" stroke="var(--accent-math)" stroke-width="1.5" stroke-dasharray="4,4"/>
+
+        <!-- Estremo a -->
+        <line x1="${axPx}" y1="${oy - 10}" x2="${axPx}" y2="${oy + 10}" stroke="var(--text-main)" stroke-width="2"/>
+        <text x="${axPx}" y="${oy + 25}" fill="var(--text-main)" font-size="11" font-weight="700" text-anchor="middle">a = ${last.a.toFixed(3)}</text>
+
+        <!-- Estremo b -->
+        <line x1="${bxPx}" y1="${oy - 10}" x2="${bxPx}" y2="${oy + 10}" stroke="var(--text-main)" stroke-width="2"/>
+        <text x="${bxPx}" y="${oy + 25}" fill="var(--text-main)" font-size="11" font-weight="700" text-anchor="middle">b = ${last.b.toFixed(3)}</text>
+
+        <!-- Punto medio m -->
+        <circle cx="${mxPx}" cy="${oy}" r="5" fill="var(--accent-gold)"/>
+        <line x1="${mxPx}" y1="40" x2="${mxPx}" y2="${oy + 15}" stroke="var(--accent-gold)" stroke-width="1.5" stroke-dasharray="2,2"/>
+        <text x="${mxPx}" y="${oy - 15}" fill="var(--accent-gold)" font-size="11" font-weight="700" text-anchor="middle">m = ${last.m.toFixed(3)}</text>
+      `;
+
+      svg.innerHTML = html;
+    }
+
+    /* ========================================================
+       LABORATORIO 5: PALESTRA MENTALE
+       ======================================================== */
+    const quizSolutions = {
+      1: { correct: 2, exp: 'Esatto! Scomponendo $\frac{(x-3)(x+3)}{x-3} = x+3$, per $x \to 3$ il limite vale 6. La funzione non esiste in $x=3$, quindi è una discontinuità eliminabile (3ª specie).' },
+      2: { correct: 1, exp: 'Corretto! L\'intervallo $(0, 4]$ non è chiuso in 0, dove la funzione diverge a $+\infty$. Weierstrass richiede obbligatoriamente intervallo chiuso e limitato!' },
+      3: { correct: 0, exp: 'Ottimo! Essendo un polinomio, la funzione è continua. Poiché $f(1) = -2$ e $f(2) = 7$ hanno segni opposti, il Teorema degli Zeri garantisce almeno una radice in $(1, 2)$.' },
+      4: { correct: 1, exp: 'Perfetto! Limite sinistro: $2(3) + k = 6 + k$. Limite destro e valore in 3: $3^2 - 1 = 8$. Imponendo $6 + k = 8$ si ricava $k = 2$.' }
+    };
+
+    function checkQuiz(qNum, chosenOpt, btn) {
+      const container = btn.parentElement;
+      const buttons = container.querySelectorAll('.quiz-opt');
+      const fb = document.getElementById('quizFeedback' + qNum);
+      const sol = quizSolutions[qNum];
+
+      buttons.forEach(b => b.disabled = true);
+
+      if (chosenOpt === sol.correct) {
+        btn.style.background = 'rgba(16, 185, 129, 0.2)';
+        btn.style.borderColor = 'var(--accent-success)';
+        fb.innerHTML = '✅ ' + sol.exp;
+        fb.style.color = 'var(--accent-success)';
+      } else {
+        btn.style.background = 'rgba(239, 68, 68, 0.2)';
+        btn.style.borderColor = '#ef4444';
+        fb.innerHTML = '❌ Risposta errata. ' + sol.exp;
+        fb.style.color = '#ef4444';
+      }
+      fb.style.display = 'block';
+
+      if (window.renderMathInElement) {
+        renderMathInElement(fb, { delimiters: [{left: "$", right: "$", display: false}] });
+      }
+    }
+
+    /* ========================================================
+       LABORATORIO 6: COMPITO DI REALTÀ WELFARE
+       ======================================================== */
+    function updateWelfareSim() {
+      const slider = document.getElementById('welfareKSlider');
+      const k = parseFloat(slider.value);
+      document.getElementById('welfareKVal').textContent = 'k = ' + k;
+
+      const limSx = 600 - 15 * 12; // 420
+      const limDx = k / (12 + 4); // k / 16
+      const jump = Math.abs(limDx - limSx);
+
+      const fb = document.getElementById('welfareFeedback');
+      if (Math.abs(k - 6720) < 50) {
+        fb.innerHTML = `
+          <strong style="color: var(--accent-success);">🎉 PERFETTA CONTINUITÀ RAGGIUNTA ($k = 6720$):</strong><br>
+          Limite sinistro: $S(12^-) = 420$ € • Limite destro: $S(12^+) = \frac{6720}{16} = 420$ €.<br>
+          Nessuna penalizzazione o trappola della povertà: la curva delle tariffe è fluida e continua per tutti i cittadini da 0 a 30.000 € di ISEE!
+        `;
+      } else {
+        fb.innerHTML = `
+          <strong style="color: var(--accent-gold);">⚠️ DISCONTINUITÀ DI 1ª SPECIE PRESENTE:</strong><br>
+          A sinistra di 12: $S(12^-) = 420$ € • A destra di 12: $S(12^+) = ${limDx.toFixed(1)}$ €.<br>
+          <strong>Salto tariffario:</strong> $S = |${limDx.toFixed(1)} - 420| = ${jump.toFixed(1)}$ euro. ${limDx < limSx ? 'Le famiglie che superano 12.000 € subiscono un taglio improvviso!' : 'Le famiglie che superano 12.000 € ricevono un balzo ingiustificato!'}
+        `;
+      }
+
+      if (window.renderMathInElement) {
+        renderMathInElement(fb, { delimiters: [{left: "$", right: "$", display: false}] });
+      }
+
+      renderWelfareSvg(k);
+    }
+
+    function setOptimalK() {
+      const slider = document.getElementById('welfareKSlider');
+      slider.value = 6720;
+      updateWelfareSim();
+    }
+
+    function renderWelfareSvg(k) {
+      const svg = document.getElementById('welfareSvg');
+      const w = 640, h = 320;
+      const ox = 70, oy = 260;
+
+      // Scala: X da 0 a 30 mappato su [ox, ox + 520]
+      const scaleX = 520 / 30;
+      // Scala: Y da 0 a 700 mappato su [oy, oy - 220]
+      const scaleY = 220 / 700;
+
+      const mapX = (x) => ox + x * scaleX;
+      const mapY = (y) => oy - y * scaleY;
+
+      let html = `
+        <defs>
+          <pattern id="welGrid" width="25" height="25" patternUnits="userSpaceOnUse">
+            <path d="M 25 0 L 0 0 0 25" fill="none" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+          </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill="var(--bg-surface)" rx="8"/>
+        <rect width="100%" height="100%" fill="url(#welGrid)" rx="8"/>
+
+        <!-- Assi -->
+        <line x1="${ox}" y1="${oy}" x2="${ox + 540}" y2="${oy}" stroke="var(--border-subtle)" stroke-width="1.5"/>
+        <line x1="${ox}" y1="${oy}" x2="${ox}" y2="30" stroke="var(--border-subtle)" stroke-width="1.5"/>
+        <text x="${ox + 530}" y="${oy - 8}" fill="var(--text-muted)" font-size="11">ISEE (k€)</text>
+        <text x="${ox + 10}" y="42" fill="var(--text-muted)" font-size="11">Sussidio (€)</text>
+
+        <!-- Linea di soglia x = 12 -->
+        <line x1="${mapX(12)}" y1="40" x2="${mapX(12)}" y2="${oy}" stroke="rgba(255,255,255,0.15)" stroke-dasharray="4,4"/>
+        <text x="${mapX(12)}" y="${oy + 20}" fill="var(--text-muted)" font-size="11" text-anchor="middle">12 k€</text>
+        <text x="${mapX(0)}" y="${oy + 20}" fill="var(--text-muted)" font-size="11" text-anchor="middle">0</text>
+        <text x="${mapX(30)}" y="${oy + 20}" fill="var(--text-muted)" font-size="11" text-anchor="middle">30 k€</text>
+      `;
+
+      // 1° Tratto: S(x) = 600 - 15x da x=0 a x=12
+      const x0 = mapX(0), y0 = mapY(600);
+      const x12 = mapX(12), y12Sx = mapY(420);
+      html += `
+        <line x1="${x0}" y1="${y0}" x2="${x12}" y2="${y12Sx}" stroke="var(--accent-math)" stroke-width="3.5"/>
+        <circle cx="${x0}" cy="${y0}" r="4" fill="var(--accent-math)"/>
+        <circle cx="${x12}" cy="${y12Sx}" r="5" fill="var(--bg-surface)" stroke="var(--accent-math)" stroke-width="2.5"/>
+      `;
+
+      // 2° Tratto: S(x) = k / (x + 4) da x=12 a x=30
+      let d2 = '';
+      for (let x = 12.0; x <= 30.0; x += 0.5) {
+        const sx = mapX(x);
+        const sy = mapY(k / (x + 4));
+        if (x === 12.0) d2 += `M ${sx.toFixed(1)} ${sy.toFixed(1)}`;
+        else d2 += ` L ${sx.toFixed(1)} ${sy.toFixed(1)}`;
+      }
+      const y12Dx = mapY(k / 16);
+      html += `
+        <path d="${d2}" fill="none" stroke="var(--accent-gold)" stroke-width="3.5"/>
+        <circle cx="${x12}" cy="${y12Dx}" r="5" fill="var(--accent-gold)"/>
+        <circle cx="${mapX(30)}" cy="${mapY(k / 34)}" r="4" fill="var(--accent-gold)"/>
+      `;
+
+      // Se c'è un salto, mostriamo la congiungente rossa
+      if (Math.abs(y12Sx - y12Dx) > 3) {
+        html += `
+          <line x1="${x12}" y1="${y12Sx}" x2="${x12}" y2="${y12Dx}" stroke="#ef4444" stroke-width="2" stroke-dasharray="3,3"/>
+          <text x="${x12 + 10}" y="${(y12Sx + y12Dx)/2 + 4}" fill="#ef4444" font-size="11" font-weight="700">Salto!</text>
+        `;
+      } else {
+        html += `
+          <circle cx="${x12}" cy="${y12Sx}" r="7" fill="var(--accent-success)" stroke="var(--bg-surface)" stroke-width="2"/>
+          <text x="${x12 + 14}" y="${y12Sx + 4}" fill="var(--accent-success)" font-size="11" font-weight="700">Raccordo Continuo</text>
+        `;
+      }
+
+      svg.innerHTML = html;
+    }
+
+    /* ========================================================
+       INIZIALIZZAZIONE FLASHCARDS & LEZIONE
+       ======================================================== */
+    function initLesson() {
+      updateTileSim();
+      selectDiscontinuity(1);
+      setWeierstrassCase(1);
+      resetBisection();
+      updateWelfareSim();
+
+      const isLessonDone = window.ComodeGamification && window.ComodeGamification.isLessonCompleted(LESSON_ID);
+      if (isLessonDone) {
+        markAllLabsCompleted(true);
+      } else {
+        try {
+          const raw = localStorage.getItem(LABS_STORAGE_KEY);
+          if (raw) {
+            const list = JSON.parse(raw);
+            if (Array.isArray(list)) list.forEach(n => markLabCompleted(n, true));
+          }
+        } catch (e) {}
+      }
+
+      const completeBtn = document.getElementById('btnCompleteLesson');
+      if (completeBtn && !completeBtn._m1l3Bound) {
+        completeBtn._m1l3Bound = true;
+        completeBtn.addEventListener('click', () => markAllLabsCompleted(false));
+      }
+
+      if (window.ComodeFlashcards) {
+        ComodeFlashcards.init('lessonFlashcardDeck', {
+          deckId: 'qa-5.m1-l03-deck',
+          xpPerCard: 15,
+          completionXP: 25,
+          cards: [
+            {
+              category: 'Continuità nel Punto',
+              theoryRef: 'Teoria 1 • Definizione Fondamentale',
+              theoryTargetId: 'teoria-1',
+              question: 'Qual è la condizione necessaria e sufficiente affinché $f(x)$ sia continua in $x_0$?',
+              options: [
+                'Che la funzione sia sempre derivabile in $x_0$',
+                'Che esista $f(x_0)$ ed esista il limite $\lim_{x \to x_0} f(x)$, con $\lim_{x \to x_0} f(x) = f(x_0)$',
+                'Che il dominio sia limitato tra $-1$ e $+1$',
+                'Che la derivata seconda sia positiva'
+              ],
+              correct: 1,
+              explanation: 'La continuità richiede 3 condizioni: punto appartenente al dominio, esistenza del limite finito e coincidenza tra limite e valore reale.'
+            },
+            {
+              category: 'Discontinuità di 1ª Specie',
+              theoryRef: 'Teoria 2 • Classificazione Singolarità',
+              theoryTargetId: 'teoria-2',
+              question: 'Se $\lim_{x \to 2^-} f(x) = 4$ e $\lim_{x \to 2^+} f(x) = 7$, che tipo di discontinuità abbiamo in $x = 2$?',
+              options: [
+                'Discontinuità di 3ª specie (eliminabile)',
+                'Discontinuità di 2ª specie (asintotica)',
+                'Discontinuità di 1ª specie (salto di ampiezza 3)',
+                'La funzione è continua perché entrambi i limiti sono finiti'
+              ],
+              correct: 2,
+              explanation: 'Quando entrambi i limiti laterali esistono finiti ma sono diversi, siamo di fronte a un salto finito (1ª specie). Il salto vale $|7 - 4| = 3$.'
+            },
+            {
+              category: 'Discontinuità Eliminabile',
+              theoryRef: 'Teoria 2 • Singolarità di 3ª Specie',
+              theoryTargetId: 'teoria-2',
+              question: 'Perché la funzione $f(x) = \frac{x^2 - 16}{x - 4}$ ha una discontinuità eliminabile in $x = 4$?',
+              options: [
+                'Perché per $x \to 4$ il limite vale $\pm\infty$',
+                'Perché esiste finito il limite $\lim_{x \to 4} f(x) = 8$, ma $f(4)$ non è definita: basta porre $f(4) = 8$ per renderla continua',
+                'Perché la funzione non è definita in nessun punto',
+                'Perché presenta un salto di ampiezza 16'
+              ],
+              correct: 1,
+              explanation: 'Scomponendo $x^2 - 16 = (x-4)(x+4)$, si elide il fattore nullo e il limite per $x \to 4$ vale 8. Essendoci solo un buco, la discontinuità è eliminabile.'
+            },
+            {
+              category: 'Teorema di Weierstrass',
+              theoryRef: 'Teoria 3 • Massimi e Minimi Assoluti',
+              theoryTargetId: 'teoria-3',
+              question: 'Quali sono le tre condizioni richieste dal Teorema di Weierstrass per garantire l'esistenza di massimo e minimo assoluti?',
+              options: [
+                'Funzione continua, intervallo chiuso, intervallo limitato $[a, b]$',
+                'Funzione derivabile, intervallo aperto $(a, b)$, segno costante',
+                'Funzione polinomiale, intervallo illimitato, limiti all'infinito',
+                'Funzione crescente e concava'
+              ],
+              correct: 0,
+              explanation: 'Weierstrass richiede che la funzione sia continua e che l'insieme di definizione sia un intervallo chiuso e limitato $[a, b]$. Se manca anche una sola condizione, il teorema decade.'
+            },
+            {
+              category: 'Teorema degli Zeri',
+              theoryRef: 'Teoria 4 • Teorema di Bolzano & Bisezione',
+              theoryTargetId: 'teoria-4',
+              question: 'Se $f(x)$ è continua in $[1, 5]$ con $f(1) = -4$ e $f(5) = +6$, cosa garantisce il Teorema degli Zeri?',
+              options: [
+                'Che la derivata si annulla in $x = 3$',
+                'Che esiste almeno un punto $c \in (1, 5)$ in cui $f(c) = 0$',
+                'Che il massimo della funzione vale obbligatoriamente 6',
+                'Che la funzione è una retta'
+              ],
+              correct: 1,
+              explanation: 'Se una funzione continua assume agli estremi di un intervallo valori di segno opposto ($f(1) \cdot f(5) < 0$), attraversa necessariamente l'asse delle ascisse in almeno un punto $c$.'
+            }
+          ]
+        });
+      }
+    }
+
+    if (document.readyState !== 'loading') {
+      initLesson();
+    } else {
+      document.addEventListener('DOMContentLoaded', initLesson);
+    }
+  </script>
+</body>
+
+</html>

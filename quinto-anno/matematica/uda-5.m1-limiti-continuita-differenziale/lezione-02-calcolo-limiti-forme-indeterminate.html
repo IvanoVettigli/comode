@@ -1,0 +1,1654 @@
+<!DOCTYPE html>
+<html lang="it" data-theme="dark">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lezione 5.M1.2: Calcolo dei Limiti e Forme Indeterminate • comode</title>
+  <meta name="description"
+    content="Lezione interattiva per il 5° anno del Liceo delle Scienze Umane: algebra dei limiti, risoluzione delle forme indeterminate [0/0], [∞/∞], [∞-∞], gerarchia degli infiniti e modelli di adozione nei social media.">
+
+  <!-- Font Google -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+
+  <!-- KaTeX 0.19.1 per rendering matematico -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.19.1/dist/katex.min.css" crossorigin="anonymous">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.19.1/dist/katex.min.js" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.19.1/dist/contrib/auto-render.min.js"
+    crossorigin="anonymous"></script>
+
+  <!-- CSS Condiviso comode (Profondità 3) -->
+  <link rel="stylesheet" href="../../../shared/css/comode.css">
+
+  <style>
+    /* Stili specifici per la Lezione 5.M1.2 */
+    .m1l2-badge {
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 0.25rem 0.65rem;
+      border-radius: var(--radius-pill);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .m1l2-stage {
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 1.25rem;
+      margin: 1.25rem 0;
+    }
+
+    .m1l2-slider-panel {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      flex-wrap: wrap;
+      margin-bottom: 0.85rem;
+      font-size: 0.92rem;
+    }
+
+    .m1l2-readout {
+      font-family: var(--font-mono);
+      font-weight: 700;
+      color: var(--accent-math);
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      padding: 0.25rem 0.65rem;
+      border-radius: var(--radius-sm);
+    }
+
+    .m1l2-readout.gold {
+      color: var(--accent-gold);
+      border-color: rgba(251, 191, 36, 0.3);
+      background: rgba(251, 191, 36, 0.08);
+    }
+
+    .m1l2-readout.success {
+      color: var(--accent-success);
+      border-color: rgba(16, 185, 129, 0.3);
+      background: rgba(16, 185, 129, 0.08);
+    }
+
+    .m1l2-readout.danger {
+      color: var(--accent-danger);
+      border-color: rgba(239, 68, 68, 0.3);
+      background: rgba(239, 68, 68, 0.08);
+    }
+
+    .m1l2-svg {
+      width: 100%;
+      height: auto;
+      max-height: 290px;
+      display: block;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+    }
+
+    .m1l2-legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.25rem;
+      margin-top: 0.85rem;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      justify-content: center;
+    }
+
+    .m1l2-legend>span {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .m1l2-legend>span::before {
+      content: '';
+      width: 12px;
+      height: 12px;
+      border-radius: 3px;
+      background: var(--legend-color, var(--accent-math));
+    }
+
+    /* Griglia 4 Forme Indeterminate */
+    .m1l2-fi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1rem;
+      margin: 1.25rem 0;
+    }
+
+    .m1l2-fi-card {
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 1rem 1.15rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      transition: var(--transition);
+    }
+
+    .m1l2-fi-card:hover {
+      border-color: var(--border-accent);
+      transform: translateY(-2px);
+    }
+
+    .m1l2-fi-tag {
+      font-family: var(--font-mono);
+      font-weight: 800;
+      font-size: 1.15rem;
+      color: var(--accent-gold);
+    }
+
+    /* Gerarchia Infinitesimi e Infiniti */
+    .m1l2-hierarchy-strip {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 1rem 1.25rem;
+      margin: 1rem 0;
+      overflow-x: auto;
+      font-size: 0.95rem;
+    }
+
+    .m1l2-h-step {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 0.45rem 0.85rem;
+      border-radius: var(--radius-sm);
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      white-space: nowrap;
+    }
+
+    .m1l2-h-sep {
+      color: var(--accent-gold);
+      font-weight: 900;
+      font-size: 1.15rem;
+    }
+
+    /* Palestra Mentale */
+    .m1l2-gym-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.25rem;
+      margin-top: 1rem;
+    }
+
+    .m1l2-gym-card {
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .m1l2-gym-card.solved {
+      border-color: rgba(16, 185, 129, 0.45);
+      background: rgba(16, 185, 129, 0.05);
+    }
+
+    .m1l2-gym-badge {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--accent-purple);
+      margin-bottom: 0.5rem;
+    }
+
+    .m1l2-gym-question {
+      font-size: 0.95rem;
+      line-height: 1.55;
+      margin-bottom: 0.85rem;
+    }
+
+    .m1l2-gym-feedback {
+      font-size: 0.88rem;
+      min-height: 22px;
+      margin-top: 0.35rem;
+      font-weight: 600;
+    }
+
+    .m1l2-choice-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin: 0.65rem 0;
+    }
+
+    .m1l2-choice-btn {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-main);
+      padding: 0.45rem 0.85rem;
+      border-radius: var(--radius-md);
+      font-size: 0.88rem;
+      cursor: pointer;
+      transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .m1l2-choice-btn:hover {
+      border-color: var(--accent-math);
+      background: rgba(56, 189, 248, 0.08);
+    }
+
+    .m1l2-choice-btn.selected {
+      background: var(--accent-math);
+      color: #0b0f19;
+      font-weight: 700;
+      border-color: var(--accent-math);
+    }
+
+    /* Compito Svolto */
+    .m1l2-worked-controls {
+      display: flex;
+      gap: 0.6rem;
+      margin: 1.15rem 0 0.85rem;
+      flex-wrap: wrap;
+    }
+
+    .m1l2-worked-step {
+      display: none;
+      animation: m1l2FadeIn 0.28s ease;
+    }
+
+    .m1l2-worked-step.revealed {
+      display: block;
+    }
+
+    @keyframes m1l2FadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(6px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .theory-card {
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-subtle);
+      border-left: 3.5px solid var(--accent-math);
+      border-radius: var(--radius-md);
+      padding: 1.15rem 1.35rem;
+      margin-top: 1.25rem;
+    }
+
+    .theory-card-header {
+      color: var(--accent-math);
+      margin-bottom: 0.65rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 700;
+      font-size: 1rem;
+    }
+  </style>
+</head>
+
+<body data-theme="dark" data-lesson-id="qa-5.m1-l02" data-xp="60" data-unit="uda-5.m1">
+
+  <div class="container">
+
+    <!-- NAVBAR CONDIVISA -->
+    <nav class="navbar">
+      <a href="../../../index.html" class="brand">
+        📐 comode<span>.</span>
+      </a>
+      <div class="nav-actions">
+        <div class="gamification-widget" title="Il tuo livello e punti XP">
+          <span class="level-badge user-level-val">Liv. 1 🌱</span>
+          <span class="xp-counter user-xp-val">0 XP</span>
+        </div>
+        <button id="audioToggleBtn" class="icon-btn" aria-label="Attiva o disattiva audio">
+          🔊 <span class="nav-text">Suoni</span>
+        </button>
+        <button id="themeToggleBtn" class="theme-toggle-btn" aria-label="Cambia tema">
+          <span id="themeIcon">☀️</span>
+          <span id="themeLabel">Chiaro</span>
+        </button>
+      </div>
+    </nav>
+
+    <!-- BREADCRUMBS -->
+    <div class="breadcrumbs">
+      <a href="../../../index.html">le comode lezioni d'Ivano</a>
+      <span class="sep">/</span>
+      <a href="../../index.html">Quinto Anno</a>
+      <span class="sep">/</span>
+      <a href="index.html">UDA 5.M1: Limiti, Continuità e Derivate</a>
+      <span class="sep">/</span>
+      <span class="current">Lezione 5.M1.2</span>
+    </div>
+
+    <!-- HERO CARD -->
+    <header class="hero-card">
+      <div class="hero-badges">
+        <span class="badge badge-primary">Matematica • 5° Anno</span>
+        <span class="badge badge-secondary">UDA 5.M1 • Limiti, Continuità e Derivate</span>
+        <span class="badge badge-meta">Verso l'Esame di Stato</span>
+      </div>
+      <h1 class="hero-title">Calcolo dei Limiti e Forme Indeterminate</h1>
+      <p class="hero-desc">
+        Dall'algebra dei limiti alle strategie per sciogliere i vicoli ciechi: scopri come eliminare i fattori nulli in
+        $[rac{0}{0}]$, dominare la crescita in $[rac{\infty}{\infty}]$ con la gerarchia degli infiniti e prevedere i
+        tetti di saturazione nei social network.
+      </p>
+
+      <!-- Barra avanzamento laboratori -->
+      <div class="progress-bar-card">
+        <div class="progress-label">
+          <span>🎯 Progresso Attività:</span>
+          <span class="progress-score" id="progressScore">0 / 6 completati</span>
+        </div>
+        <div class="progress-track">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+      </div>
+    </header>
+
+    <!-- PREREQUISITI E COMPETENZE IN USCITA -->
+    <div class="prereq-objectives-grid">
+      <div class="prereq-card">
+        <div class="card-top-label prereq">
+          <span>🔑</span> Prerequisiti Consigliati
+        </div>
+        <h2 class="po-title">Cosa ti serve prima di iniziare</h2>
+        <ul class="po-list">
+          <li>
+            <span class="po-icon">✓</span>
+            <div><strong>Concetto di limite e asintoti (Lezione 5.M1.1):</strong> interpretare il limite come
+              avvicinamento dinamico e riconoscere asintoti verticali ($x 	o x_0$) e orizzontali ($x 	o \pm\infty$).</div>
+          </li>
+          <li>
+            <span class="po-icon">✓</span>
+            <div><strong>Scomposizione di polinomi (1° Biennio):</strong> prodotti notevoli (differenza di quadrati
+              $A^2 - B^2$, cubi), raccoglimento totale e parziale, regola di Ruffini.</div>
+          </li>
+          <li>
+            <span class="po-icon">✓</span>
+            <div><strong>Proprietà delle potenze, esponenziali e logaritmi (UDA 4.M1):</strong> andamento di $a^x$ e
+              $\ln(x)$ per $x 	o +\infty$.</div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="objectives-card">
+        <div class="card-top-label objectives">
+          <span>🎯</span> Competenze in Uscita
+        </div>
+        <h2 class="po-title">Cosa saprai fare alla fine della lezione</h2>
+        <ul class="po-list">
+          <li>
+            <span class="po-icon">🚀</span>
+            <div><strong>Applicare l'algebra dei limiti:</strong> distinguere al primo sguardo un limite immediato (forma
+              determinata) da un'indeterminazione matematica.</div>
+          </li>
+          <li>
+            <span class="po-icon">🚀</span>
+            <div><strong>Sciogliere $[rac{0}{0}]$:</strong> fattorizzare il binomio $(x - x_0)$ o razionalizzare con
+              il coniugato per svelare il vero valore del limite.</div>
+          </li>
+          <li>
+            <span class="po-icon">🚀</span>
+            <div><strong>Padroneggiare la gerarchia degli infiniti in $[rac{\infty}{\infty}]$:</strong> confrontare
+              scale logaritmiche, polinomiali ed esponenziali senza calcoli laboriosi.</div>
+          </li>
+          <li>
+            <span class="po-icon">🚀</span>
+            <div><strong>Modellizzare la saturazione di reti sociali:</strong> calcolare limiti di funzioni logistiche nei
+              compiti autentici delle Scienze Umane ed Economia.</div>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+
+    <!-- ========================================================
+         LABORATORI OPERATIVI INTERATTIVI CON TEORIA INTEGRATA
+         ======================================================== -->
+    <main class="labs-container">
+      <div class="section-header">
+        <h2 class="section-title">
+          <span class="icon">🧪</span> Laboratori Operativi &amp; Teoria Integrata
+        </h2>
+      </div>
+
+      <!-- ==========================================
+           LABORATORIO 1: ALGEBRA DEI LIMITI & LIMITI IMMEDIATI
+           ========================================== -->
+      <article class="lab-card" id="lab1">
+        <div class="lab-badge-row">
+          <span class="lab-badge">Laboratorio 1 • Algebra dei Limiti</span>
+          <span class="lab-xp-badge">+10 XP</span>
+        </div>
+        <h3 class="lab-title">Il Semaforo del Calcolo: Limiti Immediati vs Forme Indeterminate</h3>
+
+        <div class="m1l1-context">
+          <span class="m1l1-context-icon">🚦</span>
+          <div>
+            <strong>La prima regola d'oro: Prova sempre a sostituire!</strong><br>
+            Quando calcoli $\displaystyle\lim_{x 	o x_0} f(x)$, la prima mossa è valutare l'espressione in $x_0$. Se la funzione
+            è continua o non presenta conflitti, i teoremi sull'algebra dei limiti garantiscono che:
+            il limite della somma è la somma dei limiti, il limite del prodotto è il prodotto dei limiti, e il limite del
+            quoziente è il quoziente dei limiti (se il denominatore non tende a zero).
+          </div>
+        </div>
+
+        <p class="lab-intro">
+          Metti alla prova il tuo colpo d'occhio: seleziona ciascuna delle 4 espressioni e decidi se il semaforo è
+          <strong>VERDE (Forma Determinata Immediata)</strong> oppure <strong>GIALLO (Forma Indeterminata che richiede
+            strategie)</strong>:
+        </p>
+
+        <div class="m1l2-stage">
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1rem;">
+            <!-- Caso A -->
+            <div style="background: var(--bg-surface); padding: 1rem; border-radius: var(--radius-md); border: 1px solid var(--border-subtle);">
+              <div style="font-weight: 700; margin-bottom: 0.4rem;">Caso A: $\displaystyle\lim_{x 	o 3} rac{x^2 + 1}{x + 2}$</div>
+              <div class="m1l2-choice-row" id="lab1ChoiceA">
+                <button type="button" class="m1l2-choice-btn" data-val="det" onclick="selectChoice('lab1A', this)">🟢 Determinata (2)</button>
+                <button type="button" class="m1l2-choice-btn" data-val="indet" onclick="selectChoice('lab1A', this)">🟡 Indeterminata</button>
+              </div>
+            </div>
+
+            <!-- Caso B -->
+            <div style="background: var(--bg-surface); padding: 1rem; border-radius: var(--radius-md); border: 1px solid var(--border-subtle);">
+              <div style="font-weight: 700; margin-bottom: 0.4rem;">Caso B: $\displaystyle\lim_{x 	o 0^+} rac{5}{x}$</div>
+              <div class="m1l2-choice-row" id="lab1ChoiceB">
+                <button type="button" class="m1l2-choice-btn" data-val="det" onclick="selectChoice('lab1B', this)">🟢 Determinata ($+\infty$)</button>
+                <button type="button" class="m1l2-choice-btn" data-val="indet" onclick="selectChoice('lab1B', this)">🟡 Indeterminata</button>
+              </div>
+            </div>
+
+            <!-- Caso C -->
+            <div style="background: var(--bg-surface); padding: 1rem; border-radius: var(--radius-md); border: 1px solid var(--border-subtle);">
+              <div style="font-weight: 700; margin-bottom: 0.4rem;">Caso C: $\displaystyle\lim_{x 	o 1} rac{x^2 - 1}{x - 1}$</div>
+              <div class="m1l2-choice-row" id="lab1ChoiceC">
+                <button type="button" class="m1l2-choice-btn" data-val="det" onclick="selectChoice('lab1C', this)">🟢 Determinata</button>
+                <button type="button" class="m1l2-choice-btn" data-val="indet" onclick="selectChoice('lab1C', this)">🟡 Indeterminata $[rac{0}{0}]$</button>
+              </div>
+            </div>
+
+            <!-- Caso D -->
+            <div style="background: var(--bg-surface); padding: 1rem; border-radius: var(--radius-md); border: 1px solid var(--border-subtle);">
+              <div style="font-weight: 700; margin-bottom: 0.4rem;">Caso D: $\displaystyle\lim_{x 	o +\infty} (x^3 - 5x^2)$</div>
+              <div class="m1l2-choice-row" id="lab1ChoiceD">
+                <button type="button" class="m1l2-choice-btn" data-val="det" onclick="selectChoice('lab1D', this)">🟢 Determinata</button>
+                <button type="button" class="m1l2-choice-btn" data-val="indet" onclick="selectChoice('lab1D', this)">🟡 Indeterminata $[+\infty - \infty]$</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="verify-box" style="margin-top: 1rem;">
+            <button type="button" class="btn-action" onclick="verifyLab1()">Verifica Semaforo</button>
+            <span id="lab1Msg" class="feedback-msg" style="display: none;"></span>
+          </div>
+        </div>
+
+        <!-- Pillola Teoria 1 Just-in-Time -->
+        <div class="theory-card" id="teoria-1">
+          <div class="theory-card-header">
+            <span class="pill-num">1</span>
+            <span>La Teoria in Breve • Algebra dei Limiti e Forme Determinate con l'Infinito</span>
+          </div>
+          <ul class="theory-list">
+            <li><strong>Teoremi Fondamentali:</strong> Se $\lim f(x) = L$ e $\lim g(x) = M$ (finiti), allora
+              $\lim (f \pm g) = L \pm M$, $\lim (f \cdot g) = L \cdot M$ e $\lim rac{f}{g} = rac{L}{M}$ (se $M 
+eq 0$).</li>
+            <li><strong>Regole sicure con l'infinito (Forme Determinate):</strong>
+              $$rac{k}{\pm\infty} 	o 0, \qquad rac{k}{0^\pm} 	o \pm\infty \quad (k 
+eq 0), \qquad (+\infty) + (+\infty) 	o +\infty$$
+              $$(+\infty) \cdot (+\infty) 	o +\infty, \qquad (-\infty) \cdot (-\infty) 	o +\infty, \qquad 0 \cdot k 	o 0$$
+            </li>
+            <li><strong>Le 4 Forme Indeterminate canoniche dell'Analisi:</strong> $[rac{0}{0}]$, $[rac{\infty}{\infty}]$,
+              $[+\infty - \infty]$, $[0 \cdot \infty]$. «Indeterminata» non significa che il limite non esiste, ma che la semplice
+              sostituzione aritmetica non basta a determinare il risultato: occorre un'indagine algebrica!</li>
+          </ul>
+        </div>
+      </article>
+
+
+      <!-- ==========================================
+           LABORATORIO 2: LA FORMA INDETERMINATA [0/0]
+           ========================================== -->
+      <article class="lab-card" id="lab2">
+        <div class="lab-badge-row">
+          <span class="lab-badge">Laboratorio 2 • Forma Indeterminata [0/0]</span>
+          <span class="lab-xp-badge">+10 XP</span>
+        </div>
+        <h3 class="lab-title">La Trappola di Zero su Zero: Scomporre e Semplificare il Fattore Nullo</h3>
+
+        <div class="m1l1-context">
+          <span class="m1l1-context-icon">🔍</span>
+          <div>
+            <strong>Perché compare $[rac{0}{0}]$?</strong><br>
+            Se sia il numeratore che il denominatore si annullano per $x 	o x_0$, per il <em>Teorema di Ruffini</em>
+            entrambi contengono il fattore nascosto <strong>$(x - x_0)$</strong> che genera lo zero!
+            Basta scomporre in fattori, semplificare il blocco responsabile $(x - x_0) 
+eq 0$ e ricalcolare il limite immediato.
+          </div>
+        </div>
+
+        <p class="lab-intro">
+          Esplora la funzione $f(x) = rac{x^2 - 4}{x - 2}$. Per $x = 2$ la frazione dà $[rac{0}{0}]$. Muovi il cursore di $x$
+          avvicinandoti a $2$ sia da sinistra che da destra: osserva come i valori della frazione si avvicinano stabilmente a $4$.
+        </p>
+
+        <div class="m1l2-stage">
+          <div class="m1l2-slider-panel">
+            <label for="lab2Slider">🔎 Avvicina $x$ a $2$:</label>
+            <input type="range" id="lab2Slider" class="m1l1-range" min="1.0" max="3.0" step="0.05" value="1.5"
+              oninput="renderLab2()">
+            <span class="m1l2-readout" id="lab2X">x = 1,50</span>
+            <span class="m1l2-readout gold" id="lab2Fx">f(x) = 3,50</span>
+          </div>
+          <svg id="lab2Svg" class="m1l2-svg" viewBox="0 0 640 280" role="img"
+            aria-label="Grafico retta y = x + 2 con buco in x = 2 e punto limite (2, 4)"></svg>
+          <div class="m1l2-legend">
+            <span style="--legend-color: var(--accent-math);">Curva $f(x) = rac{x^2-4}{x-2}$</span>
+            <span style="--legend-color: var(--accent-gold);">Punto limite $L = 4$ (buco rimovibile in $x=2$)</span>
+            <span style="--legend-color: var(--accent-success);">Punto corrente $(x, f(x))$</span>
+          </div>
+        </div>
+
+        <div class="step-box">
+          <div class="step-header">
+            <span class="step-tag">Sfida 2: Risolvi la forma [0/0] (+10 XP)</span>
+            <button type="button" class="theory-ref-pill" style="margin-bottom: 0;"
+              onclick="scrollToTheory('teoria-2')">
+              🔗 Rif. Teoria 2 • Scomposizione
+            </button>
+          </div>
+          <div class="step-content">
+            <p style="margin-bottom: 0.65rem;">
+              Calcola il limite con scomposizione per differenza di cubi o raccoglimento:
+              $$\lim_{x 	o 3} rac{x^2 - 9}{x - 3} = \ ? \qquad 	ext{e} \qquad \lim_{x 	o 1} rac{x^2 + 2x - 3}{x - 1} = \ ?$$
+            </p>
+            <div class="verify-box" style="margin-bottom: 0.6rem;">
+              <label for="lab2Ans1" style="font-weight: 600;">1) $\lim_{x 	o 3} rac{x^2 - 9}{x - 3} =$</label>
+              <input type="text" id="lab2Ans1" class="inline-input" style="width: 80px;" placeholder="L1">
+              <label for="lab2Ans2" style="font-weight: 600; margin-left: 0.8rem;">2) $\lim_{x 	o 1} rac{x^2 + 2x - 3}{x - 1} =$</label>
+              <input type="text" id="lab2Ans2" class="inline-input" style="width: 80px;" placeholder="L2">
+              <button type="button" class="btn-action" onclick="verifyLab2()">Verifica Limiti</button>
+              <span id="lab2Msg" class="feedback-msg" style="display: none;"></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Pillola Teoria 2 Just-in-Time -->
+        <div class="theory-card" id="teoria-2">
+          <div class="theory-card-header">
+            <span class="pill-num">2</span>
+            <span>La Teoria in Breve • Risoluzione della Forma Indeterminata $[0/0]$</span>
+          </div>
+          <ul class="theory-list">
+            <li><strong>Fattorizzazione algebrica:</strong> Se $P(x_0) = 0$ e $Q(x_0) = 0$, sia $P(x)$ che $Q(x)$ sono divisibili per $(x - x_0)$.
+              Scomponendo:
+              $$\lim_{x 	o x_0} rac{P(x)}{Q(x)} = \lim_{x 	o x_0} rac{(x - x_0) \cdot P_1(x)}{(x - x_0) \cdot Q_1(x)} = \lim_{x 	o x_0} rac{P_1(x)}{Q_1(x)}$$
+            </li>
+            <li><strong>Razionalizzazione con radicali:</strong> Se compare una radice quadrata come $(\sqrt{x + a} - b)$, si moltiplica numeratore e denominatore per il binomio coniugato $(\sqrt{x + a} + b)$ sfruttando $(A - B)(A + B) = A^2 - B^2$.</li>
+            <li><strong>Interpretazione geometrica:</strong> Se $\lim_{x 	o x_0} rac{P(x)}{Q(x)} = L$ finito, la funzione presenta in $x_0$ un <strong>buco rimovibile (discontinuità di 3ª specie o eliminabile)</strong>: il grafico è una curva continua interrotta da un solo punto mancante.</li>
+          </ul>
+        </div>
+      </article>
+
+
+      <!-- ==========================================
+           LABORATORIO 3: LA FORMA [∞/∞] & GERARCHIA DEGLI INFINITI
+           ========================================== -->
+      <article class="lab-card" id="lab3">
+        <div class="lab-badge-row">
+          <span class="lab-badge">Laboratorio 3 • Forma Indeterminata [∞/∞]</span>
+          <span class="lab-xp-badge">+10 XP</span>
+        </div>
+        <h3 class="lab-title">La Gerarchia degli Infiniti: Chi Vince la Gara verso l'Infinito?</h3>
+
+        <div class="m1l1-context">
+          <span class="m1l1-context-icon">🚀</span>
+          <div>
+            <strong>Non tutti gli infiniti crescono alla stessa velocità!</strong><br>
+            Quando $x 	o +\infty$, funzioni diverse esplodono con ritmi incomparabili: i logaritmi sono i più lenti di tutti,
+            le potenze $x^lpha$ crescono con ritmo polinomiale, mentre le funzioni esponenziali $a^x$ ($a > 1$) fuggono a velocità vertiginosa,
+            dominando qualsiasi polinomio.
+          </div>
+        </div>
+
+        <div class="m1l2-hierarchy-strip">
+          <span style="font-weight: 800; font-size: 0.82rem; text-transform: uppercase; color: var(--text-muted);">Ordine di Crescita:</span>
+          <div class="m1l2-h-step">
+            <strong>$\ln(x)$</strong>
+            <small style="color:var(--text-muted);">Tartaruga Logaritmica</small>
+          </div>
+          <span class="m1l2-h-sep">&lt;&lt;</span>
+          <div class="m1l2-h-step">
+            <strong>$x^lpha$ ($lpha > 0$)</strong>
+            <small style="color:var(--text-muted);">Lepre Polinomiale</small>
+          </div>
+          <span class="m1l2-h-sep">&lt;&lt;</span>
+          <div class="m1l2-h-step">
+            <strong>$a^x$ ($a > 1$)</strong>
+            <small style="color:var(--text-muted);">Razzo Esponenziale</small>
+          </div>
+          <span class="m1l2-h-sep">&lt;&lt;</span>
+          <div class="m1l2-h-step">
+            <strong>$x! \ll x^x$</strong>
+            <small style="color:var(--text-muted);">Super-infiniti</small>
+          </div>
+        </div>
+
+        <p class="lab-intro">
+          Muovi lo slider di $x$ fino a $500$ e osserva la gara numerica e grafica tra il logaritmo, la potenza e l'esponenziale:
+          nota come il rapporto tra esponenziale e polinomio cresca inesorabilmente verso $+\infty$, mentre il rapporto tra logaritmo e potenza crolli a zero!
+        </p>
+
+        <div class="m1l2-stage">
+          <div class="m1l2-slider-panel">
+            <label for="lab3Slider">📈 Valore di $x$:</label>
+            <input type="range" id="lab3Slider" class="m1l1-range" min="2" max="60" step="1" value="10"
+              oninput="renderLab3()">
+            <span class="m1l2-readout" id="lab3X">x = 10</span>
+            <span class="m1l2-readout gold" id="lab3RatioLog">ln(x) / x = 0,230</span>
+            <span class="m1l2-readout danger" id="lab3RatioExp">e^(0.1x) / x = 0,272</span>
+          </div>
+          <svg id="lab3Svg" class="m1l2-svg" viewBox="0 0 640 280" role="img"
+            aria-label="Confronto grafico di crescita tra logaritmo, retta, parabola ed esponenziale"></svg>
+          <div class="m1l2-legend">
+            <span style="--legend-color: var(--accent-success);">$y = \ln(x)$ (lenta)</span>
+            <span style="--legend-color: var(--accent-math);">$y = x$ (lineare)</span>
+            <span style="--legend-color: var(--accent-purple);">$y = x^2$ (quadratica)</span>
+            <span style="--legend-color: var(--accent-danger);">$y = e^{0{,}15x}$ (esponenziale dominante)</span>
+          </div>
+        </div>
+
+        <div class="step-box">
+          <div class="step-header">
+            <span class="step-tag">Sfida 3: Applica la Gerarchia al Volo (+10 XP)</span>
+            <button type="button" class="theory-ref-pill" style="margin-bottom: 0;"
+              onclick="scrollToTheory('teoria-3')">
+              🔗 Rif. Teoria 3 • Gerarchia
+            </button>
+          </div>
+          <div class="step-content">
+            <p style="margin-bottom: 0.65rem;">
+              Senza fare lunghi calcoli, quanto valgono i seguenti limiti immediati?
+              $$\lim_{x 	o +\infty} rac{\ln(x)}{x^4} = \ ? \qquad \lim_{x 	o +\infty} rac{e^x}{x^{100}} = \ ? \qquad \lim_{x 	o +\infty} rac{7x^3 - 5}{2x^3 + 9} = \ ?$$
+            </p>
+            <div class="verify-box">
+              <input type="text" id="lab3Ans1" class="inline-input" style="width: 70px;" placeholder="0">
+              <input type="text" id="lab3Ans2" class="inline-input" style="width: 70px;" placeholder="+inf">
+              <input type="text" id="lab3Ans3" class="inline-input" style="width: 70px;" placeholder="7/2">
+              <button type="button" class="btn-action" onclick="verifyLab3()">Verifica Risposte</button>
+              <span id="lab3Msg" class="feedback-msg" style="display: none;"></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Pillola Teoria 3 Just-in-Time -->
+        <div class="theory-card" id="teoria-3">
+          <div class="theory-card-header">
+            <span class="pill-num">3</span>
+            <span>La Teoria in Breve • Risoluzione di $[rac{\infty}{\infty}]$ e Gerarchia</span>
+          </div>
+          <ul class="theory-list">
+            <li><strong>Polinomi fratti per $x 	o \pm\infty$ (Raccoglimento del grado massimo):</strong>
+              $$\lim_{x 	o \pm\infty} rac{a_n x^n + \dots}{b_m x^m + \dots} = \lim_{x 	o \pm\infty} rac{a_n x^n}{b_m x^m}$$
+              Se $n &lt; m$ il limite è $0$; se $n = m$ è il rapporto dei coefficienti direttivi $rac{a_n}{b_m}$; se $n &gt; m$ è $\pm\infty$.
+            </li>
+            <li><strong>Regola di dominanza degli infiniti:</strong> Per $x 	o +\infty$, un infinito di ordine superiore al denominatore schiaccia il limite a $0$; se è al numeratore lo porta a $+\infty$:
+              $$\lim_{x 	o +\infty} rac{\ln^eta x}{x^lpha} = 0, \qquad \lim_{x 	o +\infty} rac{x^lpha}{a^x} = 0 \quad (lpha > 0,\ a > 1)$$
+            </li>
+          </ul>
+        </div>
+      </article>
+
+
+      <!-- ==========================================
+           LABORATORIO 4: LA FORMA [+∞ - ∞] & RADICALI
+           ========================================== -->
+      <article class="lab-card" id="lab4">
+        <div class="lab-badge-row">
+          <span class="lab-badge">Laboratorio 4 • Forma Indeterminata [+∞ − ∞]</span>
+          <span class="lab-xp-badge">+10 XP</span>
+        </div>
+        <h3 class="lab-title">Il Duello degli Infiniti: Quando l'Infinito Mangia l'Altro</h3>
+
+        <div class="m1l1-context">
+          <span class="m1l1-context-icon">⚔️</span>
+          <div>
+            <strong>Perché $[+\infty - \infty]$ non fa zero?</strong><br>
+            Sottrarre due quantità enormi non porta necessariamente a zero: dipende da quale delle due cresce più rapidamente o se la loro differenza
+            si stabilizza su uno scarto costante. Nei polinomi basta raccogliere il termine di grado massimo; nelle espressioni con radici quadrate si moltiplica e divide per il binomio coniugato.
+          </div>
+        </div>
+
+        <p class="lab-intro">
+          Considera la funzione $f(x) = \sqrt{x^2 + 6x} - x$. Quando $x 	o +\infty$, entrambi i termini divergono a $+\infty$, ma la loro differenza
+          si stabilizza su un valore numerico preciso. Usa lo slider per osservare la convergenza al limite:
+        </p>
+
+        <div class="m1l2-stage">
+          <div class="m1l2-slider-panel">
+            <label for="lab4Slider">📏 Valore di $x$:</label>
+            <input type="range" id="lab4Slider" class="m1l1-range" min="1" max="120" step="1" value="10"
+              oninput="renderLab4()">
+            <span class="m1l2-readout" id="lab4X">x = 10</span>
+            <span class="m1l2-readout gold" id="lab4Diff">f(x) ≈ 2,649</span>
+            <span class="m1l2-readout success" id="lab4Limit">Limite teorico L = 3,00</span>
+          </div>
+          <svg id="lab4Svg" class="m1l2-svg" viewBox="0 0 640 280" role="img"
+            aria-label="Convergenza della funzione radice meno x alla quota asintotica y = 3"></svg>
+          <div class="m1l2-legend">
+            <span style="--legend-color: var(--accent-math);">$f(x) = \sqrt{x^2+6x} - x$</span>
+            <span style="--legend-color: var(--accent-success);">Asintoto orizzontale $y = 3$</span>
+            <span style="--legend-color: var(--accent-gold);">Punto corrente $(x, f(x))$</span>
+          </div>
+        </div>
+
+        <div class="step-box">
+          <div class="step-header">
+            <span class="step-tag">Sfida 4: Razionalizza e Conquista (+10 XP)</span>
+            <button type="button" class="theory-ref-pill" style="margin-bottom: 0;"
+              onclick="scrollToTheory('teoria-4')">
+              🔗 Rif. Teoria 4 • Coniugato
+            </button>
+          </div>
+          <div class="step-content">
+            <p style="margin-bottom: 0.65rem;">
+              Moltiplica e dividi per $(\sqrt{x^2 + 6x} + x)$:
+              $$\lim_{x 	o +\infty} (\sqrt{x^2 + 6x} - x) \cdot rac{\sqrt{x^2 + 6x} + x}{\sqrt{x^2 + 6x} + x} = \lim_{x 	o +\infty} rac{(x^2 + 6x) - x^2}{\sqrt{x^2(1 + rac{6}{x})} + x} = \lim_{x 	o +\infty} rac{6x}{2x} = \ ?$$
+            </p>
+            <div class="verify-box">
+              <label for="lab4Input" style="font-weight: 600;">Valore esatto del limite:</label>
+              <input type="text" id="lab4Input" class="inline-input" style="width: 80px;" placeholder="L">
+              <button type="button" class="btn-action" onclick="verifyLab4()">Verifica Calcolo</button>
+              <span id="lab4Msg" class="feedback-msg" style="display: none;"></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Pillola Teoria 4 Just-in-Time -->
+        <div class="theory-card" id="teoria-4">
+          <div class="theory-card-header">
+            <span class="pill-num">4</span>
+            <span>La Teoria in Breve • Risoluzione di $[+\infty - \infty]$</span>
+          </div>
+          <ul class="theory-list">
+            <li><strong>Polinomi:</strong> Si raccoglie a fattor comune la potenza di grado massimo:
+              $$\lim_{x 	o +\infty} (2x^3 - 5x^2 + 1) = \lim_{x 	o +\infty} x^3 \left(2 - rac{5}{x} + rac{1}{x^3}ight) = +\infty \cdot (2 - 0 + 0) = +\infty$$
+            </li>
+            <li><strong>Radici quadratiche:</strong> Se i termini di grado massimo sotto radice e fuori radice si equivalgono, si moltiplica e divide per il fattore coniugato:
+              $$\sqrt{A} - B = rac{(\sqrt{A} - B)(\sqrt{A} + B)}{\sqrt{A} + B} = rac{A - B^2}{\sqrt{A} + B}$$
+              trasformando l'indeterminazione da $[+\infty - \infty]$ a $[rac{\infty}{\infty}]$, risolvibile poi raccogliendo $x$.
+            </li>
+          </ul>
+        </div>
+      </article>
+
+
+      <!-- ==========================================
+           LABORATORIO 5: PALESTRA MENTALE (4 SFIDE LAMPO)
+           ========================================== -->
+      <article class="lab-card" id="lab5">
+        <div class="lab-badge-row">
+          <span class="lab-badge">Laboratorio 5 • Palestra di Consolidamento</span>
+          <span class="lab-xp-badge">+5 XP a sfida • +10 XP finale</span>
+        </div>
+        <h3 class="lab-title">Palestra Mentale: 4 Sfide Lampo sulle Forme Indeterminate</h3>
+
+        <div class="m1l2-gym-grid">
+          <!-- Gym 1 -->
+          <div class="m1l2-gym-card" id="m1l2gym1">
+            <div>
+              <div class="m1l2-gym-badge">Sfida A • Limite Immediato a Tranello</div>
+              <button type="button" class="theory-ref-pill" onclick="scrollToTheory('teoria-1')">🔗 Teoria 1 • Algebra</button>
+              <div class="m1l2-gym-question">
+                Quanto vale $\displaystyle\lim_{x 	o 0} rac{x^2 + 5}{x + 1}$? Attento: è un semaforo verde, non farti ingannare da zeri inesistenti!
+              </div>
+            </div>
+            <div>
+              <div class="verify-box">
+                <input type="text" id="m1l2gym1Input" class="inline-input" style="width: 85px;" placeholder="L">
+                <button type="button" class="btn-action" onclick="checkGym(1)">Verifica</button>
+              </div>
+              <div id="m1l2gym1Feedback" class="m1l2-gym-feedback"></div>
+            </div>
+          </div>
+
+          <!-- Gym 2 -->
+          <div class="m1l2-gym-card" id="m1l2gym2">
+            <div>
+              <div class="m1l2-gym-badge">Sfida B • Forma [0/0] con Ruffini</div>
+              <button type="button" class="theory-ref-pill" onclick="scrollToTheory('teoria-2')">🔗 Teoria 2 • Scomposizione</button>
+              <div class="m1l2-gym-question">
+                Calcola $\displaystyle\lim_{x 	o 2} rac{x^2 - 5x + 6}{x - 2}$. Scomponi il trinomio $x^2 - 5x + 6 = (x - 2)(x - 3)$.
+              </div>
+            </div>
+            <div>
+              <div class="verify-box">
+                <input type="text" id="m1l2gym2Input" class="inline-input" style="width: 85px;" placeholder="L">
+                <button type="button" class="btn-action" onclick="checkGym(2)">Verifica</button>
+              </div>
+              <div id="m1l2gym2Feedback" class="m1l2-gym-feedback"></div>
+            </div>
+          </div>
+
+          <!-- Gym 3 -->
+          <div class="m1l2-gym-card" id="m1l2gym3">
+            <div>
+              <div class="m1l2-gym-badge">Sfida C • Grado Diverso all'Infinito</div>
+              <button type="button" class="theory-ref-pill" onclick="scrollToTheory('teoria-3')">🔗 Teoria 3 • Polinomi</button>
+              <div class="m1l2-gym-question">
+                Calcola $\displaystyle\lim_{x 	o +\infty} rac{4x^2 - 7}{9x^3 + 2}$. Il denominatore ha grado maggiore del numeratore.
+              </div>
+            </div>
+            <div>
+              <div class="verify-box">
+                <input type="text" id="m1l2gym3Input" class="inline-input" style="width: 85px;" placeholder="L">
+                <button type="button" class="btn-action" onclick="checkGym(3)">Verifica</button>
+              </div>
+              <div id="m1l2gym3Feedback" class="m1l2-gym-feedback"></div>
+            </div>
+          </div>
+
+          <!-- Gym 4 -->
+          <div class="m1l2-gym-card" id="m1l2gym4">
+            <div>
+              <div class="m1l2-gym-badge">Sfida D • Gerarchia Esponenziale</div>
+              <button type="button" class="theory-ref-pill" onclick="scrollToTheory('teoria-3')">🔗 Teoria 3 • Gerarchia</button>
+              <div class="m1l2-gym-question">
+                Calcola $\displaystyle\lim_{x 	o +\infty} rac{3^x}{x^5 + 10x}$. Chi domina tra la potenza e l'esponenziale?
+              </div>
+            </div>
+            <div>
+              <div class="verify-box">
+                <input type="text" id="m1l2gym4Input" class="inline-input" style="width: 85px;" placeholder="+inf">
+                <button type="button" class="btn-action" onclick="checkGym(4)">Verifica</button>
+              </div>
+              <div id="m1l2gym4Feedback" class="m1l2-gym-feedback"></div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+
+      <!-- ==========================================
+           LABORATORIO 6: COMPITO DI REALTÀ SVOLTO
+           ========================================== -->
+      <article class="lab-card m1l1-worked-card" id="lab6">
+        <div class="lab-badge-row">
+          <span class="lab-badge"
+            style="background: rgba(16, 185, 129, 0.15); color: var(--accent-success); border-color: rgba(16, 185, 129, 0.3);">
+            Laboratorio 6 • Compito di Realtà Svolto
+          </span>
+          <span class="lab-xp-badge">+10 XP</span>
+        </div>
+        <h3 class="lab-title">Studio di Caso Svolto: La Saturazione di un Social Network (Modello Logistico)</h3>
+
+        <div class="m1l1-context">
+          <span class="m1l1-context-icon">📱</span>
+          <div>
+            Nelle scienze sociali e nella sociologia della comunicazione, la crescita di utenti di una nuova piattaforma digitale non può
+            proseguire all'infinito con ritmo esponenziale: le risorse umane connesse sono finite.
+            Il numero di utenti attivi (in milioni) dopo $t$ mesi dal lancio è modellato dalla <strong>curva logistica</strong>:
+            $$U(t) = rac{120}{1 + 9\,e^{-0{,}3\,t}}, \qquad t \ge 0$$
+          </div>
+        </div>
+
+        <p class="lab-intro">
+          Usa lo slider temporale per osservare come la popolazione di iscritti cresce inizialmente in modo esponenziale per poi
+          rallentare e «saturare» verso un tetto massimo invalicabile.
+        </p>
+
+        <div class="m1l2-stage">
+          <div class="m1l2-slider-panel">
+            <label for="lab6Slider">⏱️ Mesi dal lancio $t$:</label>
+            <input type="range" id="lab6Slider" class="m1l1-range" min="0" max="36" step="1" value="0"
+              oninput="renderLab6()">
+            <span class="m1l2-readout" id="lab6Time">t = 0 mesi</span>
+            <span class="m1l2-readout gold" id="lab6Users">U(0) = 12,0 milioni</span>
+          </div>
+          <svg id="lab6Svg" class="m1l2-svg" viewBox="0 0 640 280" role="img"
+            aria-label="Curva logistica di adozione del social network con asintoto orizzontale a 120 milioni"></svg>
+          <div class="m1l2-legend">
+            <span style="--legend-color: var(--accent-math);">Utenti $U(t)$</span>
+            <span style="--legend-color: var(--accent-success);">Tetto asintotico $L = 120$ milioni ($t 	o +\infty$)</span>
+            <span style="--legend-color: var(--accent-gold);">Stato attuale</span>
+          </div>
+        </div>
+
+        <!-- Fasi di risoluzione commentate -->
+        <div class="m1l2-worked-controls">
+          <button type="button" class="m1l2-choice-btn selected" id="btnStep1" onclick="showWorkedStep(1)">Passo 1: Lancio Iniziale ($t = 0$)</button>
+          <button type="button" class="m1l2-choice-btn" id="btnStep2" onclick="showWorkedStep(2)">Passo 2: Il Limite all'Infinito ($t 	o +\infty$)</button>
+          <button type="button" class="m1l2-choice-btn" id="btnStep3" onclick="showWorkedStep(3)">Passo 3: Risoluzione della Forma Indeterminata</button>
+          <button type="button" class="m1l2-choice-btn" id="btnStep4" onclick="showWorkedStep(4)">Passo 4: Conclusioni Sociologiche</button>
+        </div>
+
+        <div class="step-box" style="margin-top: 0.5rem;">
+          <div class="m1l2-worked-step revealed" id="workedStep1">
+            <div class="step-header">
+              <span class="step-tag">Passo 1 • La Base di Partenza al Momento del Lancio ($t = 0$)</span>
+            </div>
+            <div class="step-content">
+              <p>Al momento iniziale del debutto sul mercato ($t = 0$ mesi), poiché $e^0 = 1$:</p>
+              <div class="m1l1-formula-line">
+                $$U(0) = rac{120}{1 + 9\,e^0} = rac{120}{1 + 9} = rac{120}{10} = 12	ext{ milioni di utenti}$$
+              </div>
+              <p>Gli utenti iniziali (early adopters e pre-iscritti) costituiscono il $10\%$ della capienza potenziale massima.</p>
+            </div>
+          </div>
+
+          <div class="m1l2-worked-step" id="workedStep2">
+            <div class="step-header">
+              <span class="step-tag">Passo 2 • Il Calcolo del Limite di Lungo Periodo ($t 	o +\infty$)</span>
+            </div>
+            <div class="step-content">
+              <p>Cosa accadrà dopo molti mesi o anni? Valutiamo il limite per $t 	o +\infty$ applicando l'algebra dei limiti:</p>
+              <div class="m1l1-formula-line">
+                $$\lim_{t 	o +\infty} U(t) = \lim_{t 	o +\infty} rac{120}{1 + 9\,e^{-0{,}3t}}$$
+              </div>
+              <p>Poiché l'esponente è negativo, per le proprietà dell'esponenziale: $\displaystyle\lim_{t 	o +\infty} e^{-0{,}3t} = \lim_{t 	o +\infty} rac{1}{e^{0{,}3t}} = rac{1}{+\infty} = 0$.</p>
+            </div>
+          </div>
+
+          <div class="m1l2-worked-step" id="workedStep3">
+            <div class="step-header">
+              <span class="step-tag">Passo 3 • Forma Determinata Svelata e Asintoto Orizzontale</span>
+            </div>
+            <div class="step-content">
+              <p>Sostituendo il valore del limite infinitesimo del termine esponenziale:</p>
+              <div class="m1l1-formula-line">
+                $$\lim_{t 	o +\infty} U(t) = rac{120}{1 + 9 \cdot 0} = rac{120}{1} = 120	ext{ milioni di utenti}$$
+              </div>
+              <p>Non c'è alcuna indeterminazione! La retta orizzontale <strong>$y = 120$</strong> è un <strong>asintoto orizzontale destro</strong> per la curva logistica.</p>
+            </div>
+          </div>
+
+          <div class="m1l2-worked-step" id="workedStep4">
+            <div class="step-header">
+              <span class="step-tag">Passo 4 • Interpretazione per le Scienze Umane e la Sociologia dei Media</span>
+            </div>
+            <div class="step-content">
+              <p>Quali riflessioni traggono i sociologi della comunicazione da questo risultato?</p>
+              <ul class="po-list" style="margin-top: 0.5rem;">
+                <li><span class="po-icon">📌</span> <div><strong>L'illusione della crescita infinita:</strong> I modelli puramente lineari ($U(t) = m t + q$) ipotizzano una crescita senza tetto, portando a previsioni fallaci. Il limite logistico descrive fedelmente la saturazione del mercato reale.</div></li>
+                <li><span class="po-icon">📌</span> <div><strong>Capacità portante (*Carrying Capacity*):</strong> $120$ milioni rappresenta il bacino massimo di utenti appartenenti al target socio-demografico della piattaforma.</div></li>
+              </ul>
+              <div class="verify-box" style="margin-top: 0.85rem;">
+                <button type="button" class="btn-action" onclick="verifyWorkedLab()">Ho Compreso il Compito Svolto (+10 XP)</button>
+                <span id="lab6Msg" class="feedback-msg" style="display: none;"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+    </main>
+
+    <!-- ========================================================
+         SEZIONE 3: FLASHCARDS DI AUTOVALUTAZIONE
+         ======================================================== -->
+    <section class="flashcard-section" id="flashcardSection">
+      <div class="section-header">
+        <h2 class="section-title">
+          <span class="icon">🃏</span> Flashcards di Autovalutazione (+15 XP per carta)
+        </h2>
+        <span class="tag info-tag"
+          style="background: rgba(56, 189, 248, 0.12); color: var(--accent-math); padding: 0.25rem 0.65rem; border-radius: 9999px; font-size: 0.8rem; font-weight: 700;">
+          🔁 Tentativi Infiniti &amp; Shuffle
+        </span>
+      </div>
+      <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1.5rem;">
+        Allena il tuo intuito e il calcolo mentale con le flashcards sulle forme indeterminate e la gerarchia degli infiniti:
+      </p>
+
+      <div id="lessonFlashcardDeck"></div>
+    </section>
+
+    <!-- ========================================================
+         SEZIONE 4: SCHEDA OPERATIVA PER CASA
+         ======================================================== -->
+    <section class="homework-section" id="homeworkSection">
+      <div class="section-header">
+        <h2 class="section-title">
+          <span class="icon">📋</span> Scheda Operativa per Casa
+        </h2>
+        <button type="button" class="print-btn" onclick="window.print()">
+          🖨️ Stampa Scheda
+        </button>
+      </div>
+
+      <article class="scheda-container">
+        <h3 class="scheda-title">
+          Compito Autentico: «Analisi di Saturazione di una Campagna Virale di Crowdfunding Sociale»
+        </h3>
+
+        <div class="theory-link-box">
+          <span class="tl-icon">🔗</span>
+          <div>
+            <strong>Collegamento Teoria ↔ Pratica:</strong> Questo compito autentico applica il calcolo dei limiti con forme indeterminate
+            e modelli esponenziali/logistici esaminati nel <a href="#lab6" class="theory-link-anchor"
+              onclick="event.preventDefault(); document.getElementById('lab6').scrollIntoView({behavior:'smooth'});">Laboratorio 6 Svolto</a>.
+          </div>
+        </div>
+
+        <div class="scheda-delivery-callout">
+          <strong>📅 Modalità di consegna:</strong> Svolgi la scheda individualmente o in coppia con un compagno e portala compilata per la lezione successiva.
+        </div>
+
+        <div class="scheda-student-fields">
+          <div class="scheda-field-item">
+            <span class="scheda-field-label">Studente / Studentessa:</span>
+            <div class="scheda-field-line"></div>
+          </div>
+          <div class="scheda-field-item">
+            <span class="scheda-field-label">Classe &amp; Data:</span>
+            <div class="scheda-field-line"></div>
+          </div>
+          <div class="scheda-field-item">
+            <span class="scheda-field-label">Modalità:</span>
+            <div class="scheda-field-line"></div>
+          </div>
+        </div>
+
+        <div class="scheda-problem-box">
+          <strong>La Situazione-Problema:</strong><br>
+          Una ONG lancia una campagna di crowdfunding per riqualificare un parco giochi periferico inclusivo. I fondi raccolti (in migliaia di euro) dopo $t$ giorni seguono la legge:
+          $$F(t) = rac{80\,t^2 + 100\,t}{2\,t^2 + 25}, \qquad t \ge 0$$
+          <ol style="margin-top: 0.5rem; padding-left: 1.25rem; line-height: 1.6;">
+            <li>Calcola i fondi raccolti dopo $5$ giorni ($F(5)$).</li>
+            <li>Determina il tetto massimo raggiungibile dalla raccolta calcolando $\lim_{t 	o +\infty} F(t)$, esplicitando quale forma indeterminata si presenta e come la risolvi.</li>
+            <li>Se l'obiettivo minimo dell'opera è di $35.000	ext{ €}$, la campagna riuscirà a finanziarla interamente nel lungo periodo? Argomenta con il valore del limite calcolato.</li>
+          </ol>
+        </div>
+
+        <div class="rubric-box">
+          <div class="rubric-title">Griglia di Valutazione Autentica (Livelli di Padronanza)</div>
+          <table class="rubric-table">
+            <thead>
+              <tr>
+                <th>Dimensione</th>
+                <th>Base (1-2)</th>
+                <th>Intermedio (3-4)</th>
+                <th>Avanzato (5)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>1. Riconoscimento Forme</strong></td>
+                <td>Confonde forme determinate e indeterminate.</td>
+                <td>Individua correttamente la forma $[\infty/\infty]$.</td>
+                <td>Classifica e argomenta le forme senza esitazione.</td>
+              </tr>
+              <tr>
+                <td><strong>2. Calcolo Algebrico</strong></td>
+                <td>Errori nel raccoglimento del grado massimo.</td>
+                <td>Raccoglie $t^2$ e calcola il limite corretto $40$.</td>
+                <td>Mostra passaggi rigorosi e padronanza dei simboli.</td>
+              </tr>
+              <tr>
+                <td><strong>3. Interpretazione Decisionale</strong></td>
+                <td>Non collega il limite all'obiettivo di 35k€.</td>
+                <td>Conclude correttamente che 40k€ > 35k€.</td>
+                <td>Articola una riflessione di sostenibilità economica e sociale matura.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </article>
+    </section>
+
+    <!-- SINTESI E TAKEAWAY -->
+    <footer class="final-recap" id="finalRecap">
+      <div class="recap-icon">🎓</div>
+      <h2 class="recap-title">Takeaway della Lezione 5.M1.2</h2>
+      <p class="recap-subtitle">I 4 pilastri per dominare il calcolo dei limiti.</p>
+      <div class="takeaways-row">
+        <div class="takeaway-item">
+          <strong>1. Prova Sempre la Sostituzione</strong>
+          <p>Non tutte le frazioni sono indeterminate: se $Q(x_0) 
+eq 0$ o se hai $rac{k}{0} 	o \infty$, il limite è immediato!</p>
+        </div>
+        <div class="takeaway-item">
+          <strong>2. $[0/0]$: Caccia al Fattore $(x - x_0)$</strong>
+          <p>Se numeratore e denominatore si annullano, scomponi con prodotti notevoli o Ruffini e semplifica il blocco nullo.</p>
+        </div>
+        <div class="takeaway-item">
+          <strong>3. $[\infty/\infty]$: Comanda il Grado Massimo</strong>
+          <p>Nelle frazioni algebriche conta solo il rapporto dei termini di grado più alto: $\lim rac{a x^n}{b x^m}$.</p>
+        </div>
+        <div class="takeaway-item">
+          <strong>4. La Gerarchia Salva dai Calcoli</strong>
+          <p>$\ln(x) \ll x^lpha \ll a^x$: l'esponenziale vince su qualsiasi polinomio, e il polinomio vince su qualsiasi logaritmo.</p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- CARD COMPLETAMENTO -->
+    <div class="completion-card" id="lessonCompletionCard">
+      <div class="completion-icon">🏆</div>
+      <h3 class="completion-title">Hai completato la Lezione 5.M1.2?</h3>
+      <p class="completion-desc">
+        Registra il tuo traguardo per guadagnare +60 XP verso il titolo <em>Signore dell'Infinitesimo</em>!
+      </p>
+      <button id="btnCompleteLesson" class="btn-complete">
+        ✨ Segna come Completata (+60 XP)
+      </button>
+    </div>
+
+  </div>
+
+  <!-- SCRIPTS CONDIVISI COMODE -->
+  <script src="../../../shared/js/audio.js"></script>
+  <script src="../../../shared/js/theme.js"></script>
+  <script src="../../../shared/js/gamification.js"></script>
+  <script src="../../../shared/js/components.js"></script>
+  <script src="../../../shared/js/flashcards.js"></script>
+  <script src="../../../shared/js/comode.js"></script>
+
+  <!-- LOGICA INTERATTIVA LEZIONE 5.M1.2 -->
+  <script>
+    const LESSON_ID = 'qa-5.m1-l02';
+    const LABS_STORAGE_KEY = 'comode_labs_' + LESSON_ID;
+    const completedLabs = new Set();
+
+    function saveCompletedLabs() {
+      try {
+        localStorage.setItem(LABS_STORAGE_KEY, JSON.stringify(Array.from(completedLabs)));
+      } catch (e) {}
+    }
+
+    function markLabCompleted(labNum, silent = false) {
+      if (!completedLabs.has(labNum)) {
+        completedLabs.add(labNum);
+        const card = document.getElementById(`lab${labNum}`);
+        if (card) card.classList.add('completed');
+
+        if (!silent) {
+          if (window.ComodeAudio) window.ComodeAudio.playSuccess();
+          if (window.ComodeGamification) {
+            window.ComodeGamification.addXP(10, `Lezione 5.M1.2 • Laboratorio ${labNum} completato!`);
+          }
+        }
+        saveCompletedLabs();
+        updateLessonProgress();
+      }
+    }
+
+    function markAllLabsCompleted(silent = false) {
+      for (let i = 1; i <= 6; i++) {
+        markLabCompleted(i, silent);
+      }
+    }
+
+    function updateLessonProgress() {
+      const count = completedLabs.size;
+      const pct = (count / 6) * 100;
+      const fill = document.getElementById('progressFill');
+      const score = document.getElementById('progressScore');
+      if (fill) fill.style.width = pct + '%';
+      if (score) score.textContent = `${count} / 6 completati`;
+
+      if (count === 6) {
+        if (window.ComodeAudio) window.ComodeAudio.playLevelUp();
+      }
+    }
+
+    const selectedChoices = {};
+    function selectChoice(group, btn) {
+      if (window.ComodeAudio) window.ComodeAudio.playClick();
+      const parent = btn.parentElement;
+      parent.querySelectorAll('.m1l2-choice-btn').forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+      selectedChoices[group] = btn.getAttribute('data-val');
+    }
+
+    /* LAB 1: VERIFICA SEMAFORO */
+    function verifyLab1() {
+      const a = selectedChoices['lab1A'];
+      const b = selectedChoices['lab1B'];
+      const c = selectedChoices['lab1C'];
+      const d = selectedChoices['lab1D'];
+      const msg = document.getElementById('lab1Msg');
+      msg.style.display = 'inline-flex';
+
+      if (a === 'det' && b === 'det' && c === 'indet' && d === 'indet') {
+        msg.className = 'feedback-msg success';
+        msg.textContent = 'Perfetto! A e B sono determinate (basta sostituire!), mentre C è [0/0] e D è [+inf - inf]!';
+        markLabCompleted(1);
+      } else {
+        if (window.ComodeAudio) window.ComodeAudio.playError();
+        msg.className = 'feedback-msg error';
+        msg.textContent = 'Controlla: Caso A (3^2+1)/(3+2) = 10/5 = 2 (determinata); Caso B 5/0+ = +inf (determinata); C e D sono forme indeterminate!';
+      }
+    }
+
+    /* LAB 2: RENDERING & VERIFICA [0/0] */
+    function renderLab2() {
+      const slider = document.getElementById('lab2Slider');
+      if (!slider) return;
+      const x = parseFloat(slider.value);
+      const fx = x + 2; // (x^2 - 4) / (x - 2) = x + 2 for x != 2
+
+      document.getElementById('lab2X').textContent = `x = ${x.toFixed(2).replace('.', ',')}`;
+      document.getElementById('lab2Fx').textContent = `f(x) = ${fx.toFixed(2).replace('.', ',')}`;
+
+      const svg = document.getElementById('lab2Svg');
+      if (!svg) return;
+      svg.innerHTML = '';
+
+      // x in [0.5, 3.5] -> [75, 565]
+      // y in [2, 6] -> [240, 35]
+      const toSvgX = (vx) => 75 + ((vx - 0.5) / 3.0) * 490;
+      const toSvgY = (vy) => 240 - ((vy - 2.0) / 4.0) * 205;
+
+      let grid = '';
+      let ticks = '';
+      [1, 1.5, 2, 2.5, 3].forEach(vx => {
+        const sx = toSvgX(vx);
+        grid += `<line x1="${sx}" y1="${toSvgY(6)}" x2="${sx}" y2="${toSvgY(2)}" stroke="var(--border-subtle)" stroke-opacity="0.35" stroke-dasharray="2,3" />`;
+        ticks += `<line x1="${sx}" y1="${toSvgY(2) - 4}" x2="${sx}" y2="${toSvgY(2) + 4}" stroke="var(--text-muted)" />
+                  <text x="${sx}" y="${toSvgY(2) + 18}" fill="var(--text-muted)" font-size="11" text-anchor="middle">${vx}</text>`;
+      });
+      [2, 3, 4, 5, 6].forEach(vy => {
+        const sy = toSvgY(vy);
+        grid += `<line x1="${toSvgX(0.5)}" y1="${sy}" x2="${toSvgX(3.5)}" y2="${sy}" stroke="var(--border-subtle)" stroke-opacity="0.35" stroke-dasharray="2,3" />`;
+        ticks += `<line x1="${toSvgX(0.5) - 4}" y1="${sy}" x2="${toSvgX(0.5) + 4}" stroke="var(--text-muted)" />
+                  <text x="${toSvgX(0.5) - 10}" y="${sy + 4}" fill="var(--text-muted)" font-size="11" text-anchor="end">${vy}</text>`;
+      });
+
+      const axes = `
+        <line x1="58" y1="${toSvgY(2)}" x2="590" y2="${toSvgY(2)}" stroke="var(--border-subtle)" stroke-width="1.6" />
+        <line x1="${toSvgX(0.5)}" y1="255" x2="${toSvgX(0.5)}" y2="24" stroke="var(--border-subtle)" stroke-width="1.6" />
+        <text x="620" y="${toSvgY(2) + 4}" fill="var(--text-muted)" font-size="11" font-weight="600" text-anchor="end">x</text>
+        <text x="${toSvgX(0.5) + 6}" y="22" fill="var(--text-muted)" font-size="11" font-weight="600">y</text>
+      `;
+
+      // Retta y = x + 2
+      const line = `
+        <line x1="${toSvgX(0.6)}" y1="${toSvgY(2.6)}" x2="${toSvgX(3.4)}" y2="${toSvgY(5.4)}" stroke="var(--accent-math)" stroke-width="3" />
+      `;
+
+      // Punto buco in (2, 4)
+      const buco = `
+        <circle cx="${toSvgX(2)}" cy="${toSvgY(4)}" r="6" fill="var(--bg-surface)" stroke="var(--accent-gold)" stroke-width="2.5" />
+        <line x1="${toSvgX(2)}" y1="${toSvgY(2)}" x2="${toSvgX(2)}" y2="${toSvgY(4) + 6}" stroke="var(--accent-gold)" stroke-dasharray="3,3" stroke-width="1.2" />
+        <line x1="${toSvgX(0.5)}" y1="${toSvgY(4)}" x2="${toSvgX(2) - 6}" y2="${toSvgY(4)}" stroke="var(--accent-gold)" stroke-dasharray="3,3" stroke-width="1.2" />
+        <text x="${toSvgX(2) + 10}" y="${toSvgY(4) - 8}" fill="var(--accent-gold)" font-size="11" font-weight="700">Buco in (2, 4) -> Limite L = 4</text>
+      `;
+
+      // Punto corrente
+      const curPt = `
+        <circle cx="${toSvgX(x)}" cy="${toSvgY(fx)}" r="5.5" fill="var(--accent-success)" stroke="#fff" stroke-width="1.5" />
+      `;
+
+      svg.innerHTML = grid + axes + ticks + line + buco + curPt;
+    }
+
+    function verifyLab2() {
+      const a1 = parseFloat(document.getElementById('lab2Ans1').value.trim().replace(',', '.'));
+      const a2 = parseFloat(document.getElementById('lab2Ans2').value.trim().replace(',', '.'));
+      const msg = document.getElementById('lab2Msg');
+      msg.style.display = 'inline-flex';
+
+      if (Math.abs(a1 - 6) < 0.05 && Math.abs(a2 - 4) < 0.05) {
+        msg.className = 'feedback-msg success';
+        msg.textContent = 'Esatto! (x^2-9)/(x-3) = x+3 -> 6, e (x^2+2x-3)/(x-1) = (x-1)(x+3)/(x-1) = x+3 -> 4!';
+        markLabCompleted(2);
+      } else {
+        if (window.ComodeAudio) window.ComodeAudio.playError();
+        msg.className = 'feedback-msg error';
+        msg.textContent = 'Rivedi: per il primo scomponi (x-3)(x+3)/(x-3) = x+3 -> 3+3=6; per il secondo scomponi (x-1)(x+3)/(x-1) -> 1+3=4.';
+      }
+    }
+
+    /* LAB 3: GERARCHIA DEGLI INFINITI */
+    function renderLab3() {
+      const slider = document.getElementById('lab3Slider');
+      if (!slider) return;
+      const x = parseFloat(slider.value);
+
+      const rLog = Math.log(x) / x;
+      const rExp = Math.exp(0.1 * x) / x;
+
+      document.getElementById('lab3X').textContent = `x = ${x}`;
+      document.getElementById('lab3RatioLog').textContent = `ln(x) / x = ${rLog.toFixed(3)}`;
+      document.getElementById('lab3RatioExp').textContent = `e^(0,1x) / x = ${rExp.toFixed(3)}`;
+
+      const svg = document.getElementById('lab3Svg');
+      if (!svg) return;
+      svg.innerHTML = '';
+
+      // x in [1, 60] -> [75, 565]
+      // y in [0, 80] -> [240, 35]
+      const toSvgX = (vx) => 75 + ((vx - 1) / 59) * 490;
+      const toSvgY = (vy) => 240 - (Math.min(vy, 80) / 80) * 205;
+
+      let dLog = `M ${toSvgX(1)} ${toSvgY(0)}`;
+      let dLin = `M ${toSvgX(1)} ${toSvgY(1)}`;
+      let dExp = `M ${toSvgX(1)} ${toSvgY(Math.exp(0.15))}`;
+
+      for (let vx = 2; vx <= 60; vx += 2) {
+        dLog += ` L ${toSvgX(vx)} ${toSvgY(Math.log(vx))}`;
+        dLin += ` L ${toSvgX(vx)} ${toSvgY(vx)}`;
+        dExp += ` L ${toSvgX(vx)} ${toSvgY(Math.exp(0.15 * vx))}`;
+      }
+
+      const paths = `
+        <path d="${dLog}" fill="none" stroke="var(--accent-success)" stroke-width="2.5" />
+        <path d="${dLin}" fill="none" stroke="var(--accent-math)" stroke-width="2" stroke-dasharray="3,2" />
+        <path d="${dExp}" fill="none" stroke="var(--accent-danger)" stroke-width="3" />
+      `;
+
+      const marker = `
+        <line x1="${toSvgX(x)}" y1="${toSvgY(0)}" x2="${toSvgX(x)}" y2="25" stroke="var(--accent-gold)" stroke-dasharray="3,3" stroke-width="1.2" />
+        <circle cx="${toSvgX(x)}" cy="${toSvgY(Math.log(x))}" r="4" fill="var(--accent-success)" />
+        <circle cx="${toSvgX(x)}" cy="${toSvgY(x)}" r="4" fill="var(--accent-math)" />
+        <circle cx="${toSvgX(x)}" cy="${toSvgY(Math.exp(0.15 * x))}" r="5" fill="var(--accent-danger)" stroke="#fff" />
+      `;
+
+      svg.innerHTML = paths + marker;
+    }
+
+    function verifyLab3() {
+      const a1 = document.getElementById('lab3Ans1').value.trim();
+      const a2 = document.getElementById('lab3Ans2').value.trim().toLowerCase();
+      const a3 = document.getElementById('lab3Ans3').value.trim().replace(',', '.');
+      const msg = document.getElementById('lab3Msg');
+      msg.style.display = 'inline-flex';
+
+      const isA1 = (a1 === '0');
+      const isA2 = (a2 === '+inf' || a2 === 'inf' || a2 === '+infinito' || a2 === 'infinito' || a2 === '∞');
+      const isA3 = (a3 === '7/2' || a3 === '3.5' || a3 === '3,5');
+
+      if (isA1 && isA2 && isA3) {
+        msg.className = 'feedback-msg success';
+        msg.textContent = 'Bravissimo! 1) 0 (la potenza schiaccia il logaritmo); 2) +inf (l'esponenziale vince su qualsiasi potenza); 3) 7/2 (rapporto gradi massimi)!';
+        markLabCompleted(3);
+      } else {
+        if (window.ComodeAudio) window.ComodeAudio.playError();
+        msg.className = 'feedback-msg error';
+        msg.textContent = 'Rivedi: ln(x)/x^4 -> 0; e^x domina x^100 -> +inf; (7x^3)/(2x^3) -> 7/2.';
+      }
+    }
+
+    /* LAB 4: [∞ - ∞] */
+    function renderLab4() {
+      const slider = document.getElementById('lab4Slider');
+      if (!slider) return;
+      const x = parseFloat(slider.value);
+      const fx = Math.sqrt(x * x + 6 * x) - x;
+
+      document.getElementById('lab4X').textContent = `x = ${x}`;
+      document.getElementById('lab4Diff').textContent = `f(x) ≈ ${fx.toFixed(3)}`;
+
+      const svg = document.getElementById('lab4Svg');
+      if (!svg) return;
+      svg.innerHTML = '';
+
+      // x in [1, 120] -> [75, 565]
+      // y in [1.5, 3.5] -> [240, 35]
+      const toSvgX = (vx) => 75 + ((vx - 1) / 119) * 490;
+      const toSvgY = (vy) => 240 - ((vy - 1.5) / 2.0) * 205;
+
+      let d = `M ${toSvgX(1)} ${toSvgY(Math.sqrt(7) - 1)}`;
+      for (let vx = 2; vx <= 120; vx += 2) {
+        d += ` L ${toSvgX(vx)} ${toSvgY(Math.sqrt(vx * vx + 6 * vx) - vx)}`;
+      }
+
+      const asintoto = `
+        <line x1="75" y1="${toSvgY(3)}" x2="565" y2="${toSvgY(3)}" stroke="var(--accent-success)" stroke-dasharray="4,3" stroke-width="2" />
+        <text x="560" y="${toSvgY(3) - 6}" fill="var(--accent-success)" font-size="11" font-weight="700" text-anchor="end">y = 3 (asintoto)</text>
+      `;
+
+      const curPt = `
+        <circle cx="${toSvgX(x)}" cy="${toSvgY(fx)}" r="5.5" fill="var(--accent-gold)" stroke="#fff" stroke-width="1.5" />
+      `;
+
+      svg.innerHTML = asintoto + `<path d="${d}" fill="none" stroke="var(--accent-math)" stroke-width="2.8" />` + curPt;
+    }
+
+    function verifyLab4() {
+      const val = parseFloat(document.getElementById('lab4Input').value.trim().replace(',', '.'));
+      const msg = document.getElementById('lab4Msg');
+      msg.style.display = 'inline-flex';
+
+      if (Math.abs(val - 3) < 0.05) {
+        msg.className = 'feedback-msg success';
+        msg.textContent = 'Esatto! 6x / 2x = 3: la differenza apparentemente infinita si stabilizza a quota 3!';
+        markLabCompleted(4);
+      } else {
+        if (window.ComodeAudio) window.ComodeAudio.playError();
+        msg.className = 'feedback-msg error';
+        msg.textContent = 'Calcola: 6x / (x + x) = 6x / 2x = 3.';
+      }
+    }
+
+    /* LAB 5: PALESTRA MENTALE */
+    const gymAnswers = {
+      1: { correct: ['5'], explain: '(0+5)/(0+1) = 5/1 = 5. Era una forma determinata!' },
+      2: { correct: ['-1', '- 1'], explain: '(x-2)(x-3)/(x-2) = x-3 -> 2-3 = -1!' },
+      3: { correct: ['0', 'zero'], explain: 'Grado numeratore 2 < grado denominatore 3: il limite fa 0!' },
+      4: { correct: ['+inf', 'inf', '+infinito', 'infinito', '∞'], explain: 'L'esponenziale 3^x domina qualsiasi polinomio -> +inf!' }
+    };
+    const gymSolved = new Set();
+
+    function checkGym(num) {
+      const input = document.getElementById(`m1l2gym${num}Input`).value.trim().toLowerCase();
+      const fb = document.getElementById(`m1l2gym${num}Feedback`);
+      const card = document.getElementById(`m1l2gym${num}`);
+      const expected = gymAnswers[num];
+
+      if (expected.correct.includes(input)) {
+        if (!gymSolved.has(num)) {
+          gymSolved.add(num);
+          if (window.ComodeAudio) window.ComodeAudio.playSuccess();
+          if (window.ComodeGamification) window.ComodeGamification.addXP(5, `Sfida ${num} Palestra Mentale superata!`);
+        }
+        card.classList.add('solved');
+        fb.style.color = 'var(--accent-success)';
+        fb.innerHTML = `✓ Esatto! ${expected.explain}`;
+
+        if (gymSolved.size === 4) {
+          markLabCompleted(5);
+        }
+      } else {
+        if (window.ComodeAudio) window.ComodeAudio.playError();
+        fb.style.color = 'var(--accent-danger)';
+        fb.textContent = 'Non proprio, riprova! Controlla il riferimento teorico associato.';
+      }
+    }
+
+    /* LAB 6: COMPITO DI REALTÀ (CURVA LOGISTICA) */
+    function renderLab6() {
+      const slider = document.getElementById('lab6Slider');
+      if (!slider) return;
+      const t = parseFloat(slider.value);
+      const u = 120 / (1 + 9 * Math.exp(-0.3 * t));
+
+      document.getElementById('lab6Time').textContent = `t = ${t} mesi`;
+      document.getElementById('lab6Users').textContent = `U(${t}) = ${u.toFixed(1).replace('.', ',')} milioni`;
+
+      const svg = document.getElementById('lab6Svg');
+      if (!svg) return;
+      svg.innerHTML = '';
+
+      // t in [0, 36] -> [75, 565]
+      // u in [0, 140] -> [240, 35]
+      const toSvgX = (vt) => 75 + (vt / 36) * 490;
+      const toSvgY = (vu) => 240 - (vu / 140) * 205;
+
+      let d = `M ${toSvgX(0)} ${toSvgY(12)}`;
+      for (let vt = 1; vt <= 36; vt += 1) {
+        d += ` L ${toSvgX(vt)} ${toSvgY(120 / (1 + 9 * Math.exp(-0.3 * vt)))}`;
+      }
+
+      const asintoto = `
+        <line x1="75" y1="${toSvgY(120)}" x2="565" y2="${toSvgY(120)}" stroke="var(--accent-success)" stroke-dasharray="4,3" stroke-width="2" />
+        <text x="560" y="${toSvgY(120) - 6}" fill="var(--accent-success)" font-size="11" font-weight="700" text-anchor="end">Asintoto y = 120 milioni (t -> +inf)</text>
+      `;
+
+      const curPt = `
+        <circle cx="${toSvgX(t)}" cy="${toSvgY(u)}" r="5.5" fill="var(--accent-gold)" stroke="#fff" stroke-width="1.5" />
+      `;
+
+      svg.innerHTML = asintoto + `<path d="${d}" fill="none" stroke="var(--accent-math)" stroke-width="3" />` + curPt;
+    }
+
+    function showWorkedStep(num) {
+      if (window.ComodeAudio) window.ComodeAudio.playClick();
+      for (let i = 1; i <= 4; i++) {
+        const s = document.getElementById(`workedStep${i}`);
+        const b = document.getElementById(`btnStep${i}`);
+        if (s) s.classList.remove('revealed');
+        if (b) b.classList.remove('selected');
+      }
+      const activeStep = document.getElementById(`workedStep${num}`);
+      const activeBtn = document.getElementById(`btnStep${num}`);
+      if (activeStep) activeStep.classList.add('revealed');
+      if (activeBtn) activeBtn.classList.add('selected');
+    }
+
+    function verifyWorkedLab() {
+      const msg = document.getElementById('lab6Msg');
+      msg.style.display = 'inline-flex';
+      msg.className = 'feedback-msg success';
+      msg.textContent = 'Ottimo lavoro! Ora sei pronto per la Scheda Operativa per casa!';
+      markLabCompleted(6);
+    }
+
+    /* FLASHCARDS */
+    function initLesson() {
+      renderLab2();
+      renderLab3();
+      renderLab4();
+      renderLab6();
+
+      const isLessonDone = window.ComodeGamification && window.ComodeGamification.isLessonCompleted(LESSON_ID);
+      if (isLessonDone) {
+        markAllLabsCompleted(true);
+      } else {
+        try {
+          const raw = localStorage.getItem(LABS_STORAGE_KEY);
+          if (raw) {
+            const list = JSON.parse(raw);
+            if (Array.isArray(list)) list.forEach(n => markLabCompleted(n, true));
+          }
+        } catch (e) {}
+      }
+      updateLessonProgress();
+
+      const completeBtn = document.getElementById('btnCompleteLesson');
+      if (completeBtn && !completeBtn._m1l2Bound) {
+        completeBtn._m1l2Bound = true;
+        completeBtn.addEventListener('click', () => markAllLabsCompleted(false));
+      }
+
+      if (window.ComodeFlashcards) {
+        ComodeFlashcards.init('lessonFlashcardDeck', {
+          deckId: 'qa-5.m1-l02-deck',
+          xpPerCard: 15,
+          completionXP: 25,
+          cards: [
+            {
+              category: 'Forme Determinate',
+              theoryRef: 'Teoria 1 • Algebra dei Limiti',
+              theoryTargetId: 'teoria-1',
+              question: 'Quanto vale il limite $\lim_{x \to 0^+} \frac{3}{x}$?',
+              options: [
+                'Vale $+\infty$',
+                'Vale 0',
+                'È una forma indeterminata [0/0]',
+                'Non esiste perché non si può dividere per zero'
+              ],
+              correct: 0,
+              explanation: 'Dividere un numero positivo finito $k > 0$ per quantità positive infinitesime vicine a zero dà $+\infty$. È una forma determinata!'
+            },
+            {
+              category: 'Forma [0/0]',
+              theoryRef: 'Teoria 2 • Scomposizione',
+              theoryTargetId: 'teoria-2',
+              question: 'Come si risolve l'indeterminazione in $\lim_{x \to 5} \frac{x^2 - 25}{x - 5}$?',
+              options: [
+                'Si sostituisce 0 a numeratore e denominatore',
+                'Si scompone $x^2 - 25 = (x - 5)(x + 5)$ e si semplifica $(x - 5)$, ottenendo 10',
+                'Il limite fa sempre $+\infty$',
+                'Si applica la gerarchia degli infiniti'
+              ],
+              correct: 1,
+              explanation: 'Scomponendo la differenza di quadrati, si elide il binomio nullo $(x - 5)$ che generava lo zero, ottenendo $\lim_{x \to 5} (x + 5) = 10$.'
+            },
+            {
+              category: 'Forma [∞/∞]',
+              theoryRef: 'Teoria 3 • Rapporto di Polinomi',
+              theoryTargetId: 'teoria-3',
+              question: 'Quanto vale $\lim_{x \to +\infty} \frac{6x^3 + 2x}{2x^3 - 5}$?',
+              options: [
+                'Vale 0',
+                'Vale 3 (il rapporto dei coefficienti direttivi 6/2)',
+                'Vale $+\infty$',
+                'È un'indeterminazione non risolvibile'
+              ],
+              correct: 1,
+              explanation: 'Avendo numeratore e denominatore lo stesso grado (3), il limite per $x \to \infty$ è semplicemente il rapporto dei coefficienti dei termini di grado massimo: 6/2 = 3.'
+            },
+            {
+              category: 'Gerarchia degli Infiniti',
+              theoryRef: 'Teoria 3 • Ordine di Crescita',
+              theoryTargetId: 'teoria-3',
+              question: 'Qual è il valore di $\lim_{x \to +\infty} \frac{\ln(x)}{x}$?',
+              options: [
+                'Vale $+\infty$',
+                'Vale 1',
+                'Vale 0, perché il polinomio cresce infinitamente più veloce del logaritmo',
+                'Non esiste'
+              ],
+              correct: 2,
+              explanation: 'Per la gerarchia degli infiniti, $\ln(x) \ll x^\alpha$: il denominatore polinomiale cresce infinitamente più in fretta, portando il quoziente a 0.'
+            },
+            {
+              category: 'Forma [+∞ - ∞]',
+              theoryRef: 'Teoria 4 • Razionalizzazione con Coniugato',
+              theoryTargetId: 'teoria-4',
+              question: 'Quale tecnica è fondamentale per risolvere $\lim_{x \to +\infty} (\sqrt{x^2 + 4} - x)$?',
+              options: [
+                'Moltiplicare e dividere per il coniugato $(\sqrt{x^2 + 4} + x)$',
+                'Semplificare direttamente le radici',
+                'Sostituire zero',
+                'Applicare la regola di Ruffini'
+              ],
+              correct: 0,
+              explanation: 'Moltiplicando e dividendo per il binomio coniugato, si sfrutta $(A - B)(A + B) = A^2 - B^2$, sciogliendo la differenza tra radici.'
+            }
+          ]
+        });
+      }
+    }
+
+    if (document.readyState !== 'loading') {
+      initLesson();
+    } else {
+      document.addEventListener('DOMContentLoaded', initLesson);
+    }
+  </script>
+</body>
+
+</html>
