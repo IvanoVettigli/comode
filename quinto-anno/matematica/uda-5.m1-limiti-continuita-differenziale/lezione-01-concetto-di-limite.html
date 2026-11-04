@@ -629,9 +629,9 @@
       <article class="lab-card" id="lab1">
         <div class="lab-badge-row">
           <span class="lab-badge">Laboratorio 1 • Intorni &amp; Avvicinamento Numerico</span>
-          <span class="lab-xp-badge">+10 XP</span>
+          <span class="lab-xp-badge">+5 XP + 10 XP</span>
         </div>
-        <h3 class="lab-title">Che Cos'è un Intorno? Il Termostato della Serra Botanica</h3>
+        <h3 class="lab-title">Che Cos'è un Intorno? Dalla Serra Botanica all'Idea Intuitiva di Limite</h3>
 
         <div class="m1l1-context">
           <span class="m1l1-context-icon">🌿</span>
@@ -673,7 +673,7 @@
 
         <div class="step-box" style="margin-bottom: 1.5rem;">
           <div class="step-header">
-            <span class="step-tag">Sfida 1: Costruisci l'intorno $I_\delta(x_0)$ (+10 XP)</span>
+            <span class="step-tag">Sfida 1A: Costruisci l'intorno $I_\delta(x_0)$ (+5 XP)</span>
             <button type="button" class="theory-ref-pill" style="margin-bottom: 0;"
               onclick="scrollToTheory('teoria-1')">
               🔗 Rif. Teoria 1 • Definizione di Intorno $(x_0 - \delta;\ x_0 + \delta)$
@@ -702,6 +702,105 @@
             </div>
             <div id="hintLab1a" class="hint-text">
               Sottrai e aggiungi l'ampiezza $\delta = 2{,}5$ al centro $x_0 = 20$: a sinistra $20 - 2{,}5 = 17{,}5$, a destra $20 + 2{,}5 = 22{,}5$. L'intorno è quindi $(17{,}5;\ 22{,}5)$ e $18{,}5$ cade proprio al suo interno!
+            </div>
+          </div>
+        </div>
+
+        <!-- =====================================================
+             PARTE 2: DALL'INTORNO AL LIMITE (ESEMPIO CONCRETO)
+             ===================================================== -->
+        <div class="m1l1-part-divider">
+          <span class="m1l1-part-badge">Parte 2 • Dall'Intorno al Limite</span>
+          <h4 class="m1l1-part-title">L'Umidificatore della Serra: Come l'Umidità si Avvicina al Valore Limite</h4>
+        </div>
+
+        <div class="m1l1-context">
+          <span class="m1l1-context-icon">💧</span>
+          <div>
+            <strong>Cosa significa fare il limite con gli intorni?</strong><br>
+            Nella stessa serra botanica, un umidificatore automatico calcola la percentuale di <strong>umidità dell'aria $U$ (in $\%$)</strong> in funzione della temperatura $T$ misurata (in $°\text{C}$) tramite la relazione:
+            $$U(T) = 30 + 2\,T \qquad (\text{in } \%)$$
+            Attorno alla temperatura ideale di <strong>$T_0 = 20\,°\text{C}$</strong>, la centralina vuole verificare quale sia l'umidità di riferimento (il <em>valore limite</em>).<br>
+            Se <strong>stringiamo progressivamente l'intorno</strong> $I_\delta(20)$ scegliendo un raggio $\delta$ via via più piccolo:
+            <ul style="margin: 0.45rem 0 0.25rem 1.25rem; padding: 0; line-height: 1.6;">
+              <li>Tutte le temperature $T$ dentro l'intorno $(20 - \delta;\ 20 + \delta)$ sono vicinissime a $20\,°\text{C}$.</li>
+              <li>I corrispondenti valori di umidità $U(T)$ <strong>restano intrappolati in una fascia sempre più stretta</strong> attorno al valore <strong>$L = 70\%$</strong>!</li>
+              <li>Nessun valore all'interno dell'intorno può «scappare» lontano dal limite: più stringiamo $\delta$, più la funzione è inchiodata vicino a $70\%$.</li>
+            </ul>
+          </div>
+        </div>
+
+        <p class="lab-intro">
+          Sposta il cursore per <strong>stringere l'ampiezza $\delta$ dell'intorno</strong>: osserva come la fascia azzurra delle temperature e la fascia dorata dell'umidità collassano sul punto limite $(20\,°\text{C};\ 70\%)$, mentre la tabella registra i valori numerici.
+        </p>
+
+        <div class="m1l1-stage">
+          <div class="m1l1-slider-panel">
+            <label for="lab1bDelta">🔍 Ampiezza intorno $\delta$ attorno a $20\,°\text{C}$:</label>
+            <input type="range" id="lab1bDelta" class="m1l1-range" min="0" max="4" step="1" value="0" oninput="renderLab1b()">
+            <span class="m1l1-readout gold" id="lab1bDeltaReadout">δ = 2,0 °C</span>
+            <span class="m1l1-readout" id="lab1bIntervalReadout">T ∈ (18,0 ; 22,0) °C</span>
+          </div>
+          <div class="m1l1-slider-panel" style="margin-top: 0.5rem;">
+            <span class="m1l1-readout" id="lab1bHumReadout">U ∈ (66,0% ; 74,0%)</span>
+            <span class="m1l1-readout gold" id="lab1bDistReadout">|U − 70%| ≤ 4,0%</span>
+          </div>
+          <svg id="lab1bSvg" class="m1l1-svg" viewBox="0 0 640 280" role="img"
+            aria-label="Grafico della convergenza dell'umidità al limite 70% stringendo l'intorno"></svg>
+          <div class="m1l1-legend">
+            <span style="--legend-color: var(--accent-math);">Intorno temperatura $I_\delta(20)$</span>
+            <span style="--legend-color: var(--accent-gold);">Fascia umidità attorno a $L = 70\%$</span>
+            <span style="--legend-color: var(--accent-purple);">$U(T) = 30 + 2T$</span>
+          </div>
+          <div id="lab1bStatus" class="m1l1-status"></div>
+
+          <div class="m1l1-table-wrap">
+            <table class="m1l1-table">
+              <thead>
+                <tr>
+                  <th>Ampiezza $\delta$</th>
+                  <th>$T = 20 - \delta$ (sinistra)</th>
+                  <th>$U(T)$ da sinistra</th>
+                  <th>$T = 20 + \delta$ (destra)</th>
+                  <th>$U(T)$ da destra</th>
+                  <th>Distanza max da $70\%$</th>
+                </tr>
+              </thead>
+              <tbody id="lab1bTableBody"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="step-box" style="margin-bottom: 1.5rem;">
+          <div class="step-header">
+            <span class="step-tag">Sfida 1B: Riconosci il Valore Limite (+10 XP)</span>
+            <button type="button" class="theory-ref-pill" style="margin-bottom: 0;"
+              onclick="scrollToTheory('teoria-1')">
+              🔗 Rif. Teoria 1 • Idea Intuitiva di Limite
+            </button>
+          </div>
+          <div class="step-content">
+            <p style="margin-bottom: 0.75rem;">
+              1) Osservando la tabella e il grafico quando l'ampiezza $\delta$ dell'intorno diventa piccolissima, a quale valore limite tende l'umidità $U(T)$ quando la temperatura si avvicina a $20\,°\text{C}$? Completa:
+              $$\lim_{T \to 20} (30 + 2T) = \ ?$$
+            </p>
+            <div class="verify-box" style="margin-bottom: 0.75rem;">
+              <input type="text" id="lab1bInput" class="inline-input" style="width: 90px;" placeholder="L = ?">
+              <span style="font-weight: 700;">%</span>
+            </div>
+            <p style="margin-bottom: 0.5rem; font-weight: 600;">2) Cosa significa concretamente che $\displaystyle\lim_{T \to 20} U(T) = 70\%$?</p>
+            <div class="m1l1-choice-row" id="lab1bChoices" style="margin-bottom: 0.75rem;">
+              <button type="button" class="m1l1-choice-btn" data-val="approx" onclick="selectChoice('lab1b', this)">Che stringendo l'intorno attorno a $20\,°\text{C}$, i valori di umidità restano intrappolati vicinissimi a $70\%$</button>
+              <button type="button" class="m1l1-choice-btn" data-val="exact" onclick="selectChoice('lab1b', this)">Che la temperatura deve essere esattamente pari a $20\,°\text{C}$, altrimenti l'umidità non ha senso</button>
+              <button type="button" class="m1l1-choice-btn" data-val="zero" onclick="selectChoice('lab1b', this)">Che con un intorno piccolo l'umidità tende ad azzerarsi</button>
+            </div>
+            <div class="verify-box">
+              <button type="button" class="btn-action" onclick="verifyLab1b()">Verifica Limite</button>
+              <button type="button" class="hint-btn" style="margin-top: 0;" onclick="toggleHint('hintLab1b')">💡 Suggerimento</button>
+              <span id="lab1bMsg" class="feedback-msg" style="display: none;"></span>
+            </div>
+            <div id="hintLab1b" class="hint-text">
+              Guarda l'ultima riga della tabella: man mano che $\delta$ diventa $0{,}1$ e poi $0{,}01$, sia da sinistra ($69{,}98\%$) sia da destra ($70{,}02\%$) l'umidità converge verso il numero intero $70$. Questo significa che dentro l'intorno i valori sono vicinissimi a $70\%$!
             </div>
           </div>
         </div>
@@ -2024,12 +2123,196 @@
 
       if (Math.abs(leftVal - 17.5) < 0.01 && Math.abs(rightVal - 22.5) < 0.01 && choice === 'yes') {
         msg.className = 'feedback-msg success';
-        msg.textContent = 'Perfetto! L\'intorno è (17,5 ; 22,5) e 18,5 cade al suo interno.';
-        markLabCompleted(1);
+        msg.textContent = 'Perfetto! L\'intorno è (17,5 ; 22,5) e 18,5 cade al suo interno. Ora prosegui con la Parte 2 qui sotto per scoprire come l\'intorno genera il limite!';
+        if (!lab1aSolved) {
+          lab1aSolved = true;
+          if (window.ComodeAudio) window.ComodeAudio.playSuccess();
+          if (window.ComodeGamification) {
+            window.ComodeGamification.addXP(5, 'Lezione 5.M1.1 • Sfida 1A (Intorno) completata!');
+          }
+        }
       } else {
         if (window.ComodeAudio) window.ComodeAudio.playError();
         msg.className = 'feedback-msg error';
         msg.textContent = 'Controlla: con centro x₀ = 20 e ampiezza δ = 2,5, gli estremi sono 20 − 2,5 = 17,5 e 20 + 2,5 = 22,5; inoltre 18,5 è compreso tra 17,5 e 22,5!';
+      }
+    }
+
+    /* ========================================================
+       LABORATORIO 1 - PARTE 2: DALL'INTORNO AL LIMITE (U(T) = 30 + 2T)
+       ======================================================== */
+    const lab1bDeltaSteps = [2.0, 1.0, 0.5, 0.1, 0.01];
+
+    function renderLab1b() {
+      const slider = document.getElementById('lab1bDelta');
+      if (!slider) return;
+      const idx = parseInt(slider.value, 10);
+      const delta = lab1bDeltaSteps[idx];
+      const T0 = 20;
+      const L = 70; // U(20) = 30 + 2*20 = 70 %
+
+      const tLeft = T0 - delta;
+      const tRight = T0 + delta;
+      const uLeft = 30 + 2 * tLeft;
+      const uRight = 30 + 2 * tRight;
+      const maxGap = 2 * delta;
+
+      const fmtT = (n) => (delta < 0.1 ? n.toFixed(2) : n.toFixed(1)).replace('.', ',');
+      const fmtU = (n) => (delta < 0.1 ? n.toFixed(2) : n.toFixed(1)).replace('.', ',');
+      const fmtD = (n) => (delta < 0.1 ? n.toFixed(2) : n.toFixed(1)).replace('.', ',');
+
+      document.getElementById('lab1bDeltaReadout').textContent = `δ = ${fmtD(delta)} °C`;
+      document.getElementById('lab1bIntervalReadout').textContent = `T ∈ (${fmtT(tLeft)} ; ${fmtT(tRight)}) °C`;
+      document.getElementById('lab1bHumReadout').textContent = `U ∈ (${fmtU(uLeft)}% ; ${fmtU(uRight)}%)`;
+      document.getElementById('lab1bDistReadout').textContent = `|U − 70%| ≤ ${fmtU(maxGap)}%`;
+
+      const status = document.getElementById('lab1bStatus');
+      if (idx === 0) {
+        status.innerHTML = `<strong>Ampiezza iniziale ($\delta = 2\,°\text{C}$):</strong> La temperatura oscilla tra $18\,°\text{C}$ e $22\,°\text{C}$. L'umidità varia tra $66\%$ e $74\%$ (scarto fino a $\pm 4\%$ dal valore limite $70\%$). Muovi lo slider per <strong>stringere l'intorno</strong>!`;
+      } else if (idx < 3) {
+        status.innerHTML = `<strong>Intorno ristretto ($\delta = ${fmtD(delta)}\,°\text{C}$):</strong> La temperatura è confinata in $(${fmtT(tLeft)}\,;\ ${fmtT(tRight)})\,°\text{C}$. L'umidità $U(T)$ è intrappolata tra $${fmtU(uLeft)}\%$ e $${fmtU(uRight)}\%$ (distanza dal valore limite $\le ${fmtU(maxGap)}\%$).`;
+      } else {
+        status.innerHTML = `<span style="color:var(--accent-success); font-weight:700;">🎯 Intorno piccolissimo ($\delta = ${fmtD(delta)}\,°\text{C}$):</span> Per qualunque temperatura $T$ scelta vicino a $20\,°\text{C}$, l'umidità $U(T)$ è <strong>incollata al valore limite $70\%$</strong> (distanza inferiore a $${fmtU(maxGap)}\%$). Ecco cosa significa che $\displaystyle\lim_{T \to 20} U(T) = 70\%$!`;
+      }
+      if (window.ComodeComponents) window.ComodeComponents.renderMath(status);
+
+      // Tabella progressiva dei valori
+      const tbody = document.getElementById('lab1bTableBody');
+      if (tbody) {
+        let html = '';
+        for (let i = 0; i <= idx; i++) {
+          const curD = lab1bDeltaSteps[i];
+          const curTL = T0 - curD;
+          const curTR = T0 + curD;
+          const curUL = 30 + 2 * curTL;
+          const curUR = 30 + 2 * curTR;
+          const curGap = 2 * curD;
+          const isLatest = (i === idx) ? 'class="latest"' : '';
+          const fD = (curD < 0.1 ? curD.toFixed(2) : curD.toFixed(1)).replace('.', ',');
+          const fTL = (curD < 0.1 ? curTL.toFixed(2) : curTL.toFixed(1)).replace('.', ',');
+          const fTR = (curD < 0.1 ? curTR.toFixed(2) : curTR.toFixed(1)).replace('.', ',');
+          const fUL = (curD < 0.1 ? curUL.toFixed(2) : curUL.toFixed(1)).replace('.', ',');
+          const fUR = (curD < 0.1 ? curUR.toFixed(2) : curUR.toFixed(1)).replace('.', ',');
+          const fG = (curD < 0.1 ? curGap.toFixed(2) : curGap.toFixed(1)).replace('.', ',');
+
+          html += `<tr ${isLatest}>
+            <td><strong>±${fD} °C</strong></td>
+            <td>${fTL} °C</td>
+            <td><strong>${fUL}%</strong></td>
+            <td>${fTR} °C</td>
+            <td><strong>${fUR}%</strong></td>
+            <td><span style="color:var(--accent-gold); font-weight:700;">≤ ${fG}%</span></td>
+          </tr>`;
+        }
+        if (idx === lab1bDeltaSteps.length - 1) {
+          html += `<tr style="border-top: 2px solid var(--accent-math); background: rgba(56, 189, 248, 0.08);">
+            <td><strong>Limite (δ → 0)</strong></td>
+            <td>→ 20,0 °C</td>
+            <td><strong>→ 70%</strong></td>
+            <td>→ 20,0 °C</td>
+            <td><strong>→ 70%</strong></td>
+            <td><strong style="color:var(--accent-success);">→ 0% (Perfetta convergenza!)</strong></td>
+          </tr>`;
+        }
+        tbody.innerHTML = html;
+        if (window.ComodeComponents) window.ComodeComponents.renderMath(tbody);
+      }
+
+      // Grafico SVG interattivo
+      const svg = document.getElementById('lab1bSvg');
+      if (!svg) return;
+
+      // Coordinate mapping: T in [14, 26] -> x in [75, 565]; U in [54, 86] -> y in [235, 35]
+      const toSvgX = (t) => 75 + ((t - 14) / 12) * 490;
+      const toSvgY = (u) => 235 - ((u - 54) / 32) * 200;
+
+      const sx0 = toSvgX(T0);
+      const sy0 = toSvgY(L);
+      const sLeft = toSvgX(tLeft);
+      const sRight = toSvgX(tRight);
+      const sTop = toSvgY(uRight);
+      const sBottom = toSvgY(uLeft);
+
+      // Griglia e tacche assi
+      let grid = '';
+      let ticks = `<text x="${toSvgX(14) - 8}" y="${toSvgY(54) + 16}" fill="var(--text-dim)" font-size="10.5" text-anchor="end">14</text>`;
+      [16, 18, 20, 22, 24, 26].forEach(t => {
+        const sx = toSvgX(t);
+        const isCenter = (t === 20);
+        grid += `<line x1="${sx}" y1="${toSvgY(86)}" x2="${sx}" y2="${toSvgY(54)}" stroke="var(--border-subtle)" stroke-opacity="${isCenter ? '0.6' : '0.35'}" stroke-dasharray="2,3" />`;
+        ticks += `<line x1="${sx}" y1="${toSvgY(54) - 4}" x2="${sx}" y2="${toSvgY(54) + 4}" stroke="${isCenter ? 'var(--accent-math)' : 'var(--text-muted)'}" stroke-width="${isCenter ? '2' : '1'}" />
+                  <text x="${sx}" y="${toSvgY(54) + 18}" fill="${isCenter ? 'var(--accent-math)' : 'var(--text-muted)'}" font-size="11" font-weight="${isCenter ? '800' : '400'}" text-anchor="middle">${t}°C</text>`;
+      });
+      [60, 65, 70, 75, 80].forEach(u => {
+        const sy = toSvgY(u);
+        const isTarget = (u === 70);
+        grid += `<line x1="${toSvgX(14)}" y1="${sy}" x2="${toSvgX(26)}" y2="${sy}" stroke="var(--border-subtle)" stroke-opacity="${isTarget ? '0.6' : '0.35'}" stroke-dasharray="2,3" />`;
+        ticks += `<line x1="${toSvgX(14) - 4}" y1="${sy}" x2="${toSvgX(14) + 4}" stroke="${isTarget ? 'var(--accent-gold)' : 'var(--text-muted)'}" stroke-width="${isTarget ? '2' : '1'}" />
+                  <text x="${toSvgX(14) - 10}" y="${sy + 4}" fill="${isTarget ? 'var(--accent-gold)' : 'var(--text-muted)'}" font-size="11" font-weight="${isTarget ? '800' : '400'}" text-anchor="end">${u}%</text>`;
+      });
+
+      // Assi
+      const axes = `
+        <line x1="58" y1="${toSvgY(54)}" x2="590" y2="${toSvgY(54)}" stroke="var(--border-subtle)" stroke-width="1.6" />
+        <polygon points="596,${toSvgY(54)} 588,${toSvgY(54) - 4} 588,${toSvgY(54) + 4}" fill="var(--text-muted)" />
+        <line x1="${toSvgX(14)}" y1="245" x2="${toSvgX(14)}" y2="24" stroke="var(--border-subtle)" stroke-width="1.6" />
+        <polygon points="${toSvgX(14)},18 ${toSvgX(14) - 4},26 ${toSvgX(14) + 4},26" fill="var(--text-muted)" />
+        <text x="625" y="258" fill="var(--text-muted)" font-size="11" font-weight="600" text-anchor="end">Temperatura T (°C)</text>
+        <text x="82" y="24" fill="var(--text-muted)" font-size="11" font-weight="600" text-anchor="start">Umidità U(T) (%)</text>
+      `;
+
+      // Fascia verticale intorno input (x0 - delta, x0 + delta)
+      const inputBand = `
+        <rect x="${sLeft}" y="${toSvgY(86)}" width="${sRight - sLeft}" height="${toSvgY(54) - toSvgY(86)}" fill="rgba(56, 189, 248, 0.12)" stroke="var(--accent-math)" stroke-opacity="0.45" stroke-dasharray="3,3" />
+        <line x1="${sx0}" y1="${toSvgY(86)}" x2="${sx0}" y2="${toSvgY(54)}" stroke="var(--accent-math)" stroke-width="1.8" stroke-dasharray="3,2" />
+        <text x="${sx0}" y="${toSvgY(86) - 6}" fill="var(--accent-math)" font-size="11" font-weight="800" text-anchor="middle">Intorno I_δ(20 °C)</text>
+      `;
+
+      // Fascia orizzontale valori funzione (L - 2delta, L + 2delta)
+      const outputBand = `
+        <rect x="${toSvgX(14)}" y="${sTop}" width="${toSvgX(26) - toSvgX(14)}" height="${sBottom - sTop}" fill="rgba(251, 191, 36, 0.11)" stroke="var(--accent-gold)" stroke-opacity="0.5" stroke-dasharray="3,3" />
+        <line x1="${toSvgX(14)}" y1="${sy0}" x2="${toSvgX(26)}" y2="${sy0}" stroke="var(--accent-gold)" stroke-width="1.8" stroke-dasharray="3,2" />
+        <text x="${toSvgX(26) + 8}" y="${sy0 + 4}" fill="var(--accent-gold)" font-size="11" font-weight="800">Limite L = 70%</text>
+      `;
+
+      // Retta U(T) = 30 + 2T da T = 14 a 26
+      const line = `
+        <line x1="${toSvgX(14)}" y1="${toSvgY(58)}" x2="${toSvgX(26)}" y2="${toSvgY(82)}" stroke="var(--accent-purple)" stroke-width="3" stroke-linecap="round" />
+      `;
+
+      // Punti sinistro, destro e centro
+      const points = `
+        <!-- Proiezioni estremo sinistro -->
+        <line x1="${sLeft}" y1="${toSvgY(54)}" x2="${sLeft}" y2="${sBottom}" stroke="var(--accent-math)" stroke-dasharray="2,2" stroke-width="1.2" />
+        <line x1="${toSvgX(14)}" y1="${sBottom}" x2="${sLeft}" y2="${sBottom}" stroke="var(--accent-gold)" stroke-dasharray="2,2" stroke-width="1.2" />
+        <circle cx="${sLeft}" cy="${sBottom}" r="5" fill="var(--accent-math)" stroke="#fff" stroke-width="1.5" />
+
+        <!-- Proiezioni estremo destro -->
+        <line x1="${sRight}" y1="${toSvgY(54)}" x2="${sRight}" y2="${sTop}" stroke="var(--accent-math)" stroke-dasharray="2,2" stroke-width="1.2" />
+        <line x1="${toSvgX(14)}" y1="${sTop}" x2="${sRight}" y2="${sTop}" stroke="var(--accent-gold)" stroke-dasharray="2,2" stroke-width="1.2" />
+        <circle cx="${sRight}" cy="${sTop}" r="5" fill="var(--accent-math)" stroke="#fff" stroke-width="1.5" />
+
+        <!-- Punto limite centrale (20 °C ; 70%) -->
+        <circle cx="${sx0}" cy="${sy0}" r="6.5" fill="var(--accent-success)" stroke="#fff" stroke-width="2" />
+      `;
+
+      svg.innerHTML = grid + axes + ticks + inputBand + outputBand + line + points;
+    }
+
+    function verifyLab1b() {
+      const val = parseFloat(document.getElementById('lab1bInput').value.trim().replace(',', '.').replace('%', ''));
+      const choice = selectedChoices['lab1b'];
+      const msg = document.getElementById('lab1bMsg');
+      msg.style.display = 'inline-flex';
+
+      if (Math.abs(val - 70) < 0.1 && choice === 'approx') {
+        msg.className = 'feedback-msg success';
+        msg.textContent = 'Bravissimo! Il valore limite è L = 70%: stringendo l\'intorno della temperatura attorno a 20 °C, l\'umidità resta intrappolata vicinissima a 70%!';
+        markLabCompleted(1);
+      } else {
+        if (window.ComodeAudio) window.ComodeAudio.playError();
+        msg.className = 'feedback-msg error';
+        msg.textContent = 'Controlla: sia da sinistra (69,98%) che da destra (70,02%) l\'umidità converge al valore limite intero 70%! Inoltre, stringere l\'intorno significa che i valori restano intrappolati vicinissimi al limite.';
       }
     }
 
@@ -2837,6 +3120,7 @@
        ======================================================== */
     function initLesson() {
       renderLab1a();
+      renderLab1b();
       renderLab2();
       renderLab3();
       renderLab4();
