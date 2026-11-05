@@ -601,10 +601,10 @@
               <strong>Punto Angoloso:</strong> I due limiti laterali sono <strong>finiti ma diversi</strong> ($f'_-(x_0) \neq f'_+(x_0)$), oppure uno è finito e l'altro è infinito. Nel punto si incontrano due semitangenti con inclinazioni differenti (es. $f(x) = |x|$ in $0$).
             </li>
             <li>
-              <strong>Cuspide:</strong> Entrambi i limiti laterali sono <strong>infiniti con segni opposti</strong> ($f'_-(x_0) = -\infty$ e $f'_+(x_0) = +\infty$, oppure viceversa). Le due semitangenti si sovrappongono verticalmente formando una punta aguzza (es. $f(x) = \sqrt{|x|}$ in $0$).
+              <strong>Cuspide:</strong> Entrambi i limiti laterali sono <strong>infiniti con segni opposti</strong> ($f'_-(x_0) = -\\infty$ e $f'_+(x_0) = +\\infty$, oppure viceversa). Le due semitangenti si sovrappongono verticalmente formando una punta aguzza (es. $f(x) = \\sqrt{|x|}$ in $0$).
             </li>
             <li>
-              <strong>Flesso a Tangente Verticale:</strong> Entrambi i limiti laterali sono <strong>infiniti con lo stesso segno</strong> ($f'_-(x_0) = f'_+(x_0) = +\infty$ oppure $-\infty$). La curva attraversa la retta tangente verticale (es. $f(x) = \sqrt[3]{x}$ in $0$).
+              <strong>Flesso a Tangente Verticale:</strong> Entrambi i limiti laterali sono <strong>infiniti con lo stesso segno</strong> ($f'_-(x_0) = f'_+(x_0) = +\infty$ oppure $-\infty$). La curva attraversa la retta tangente verticale (es. $f(x) = \\sqrt[3]{x}$ in $0$).
             </li>
           </ul>
         </div>
@@ -1039,9 +1039,9 @@
       const analysisBox = document.getElementById('incrementFormulaAnalysis');
       analysisBox.innerHTML = `
         <strong>Calcolo algebrico del limite:</strong><br>
-        $\frac{\Delta s}{h} = \frac{4(3 + h)^2 + 10(3 + h) - 66}{h} = \frac{4(9 + 6h + h^2) + 30 + 10h - 66}{h} = \frac{34h + 4h^2}{h} = 34 + 4h$.<br>
-        Per $h \to 0$, il termine $4h \to 0$, quindi la <strong>velocità istantanea esatta</strong> è:
-        $$v(3) = s'(3) = \lim_{h \to 0} (34 + 4h) = 34\text{ m/s} = 122.4\text{ km/h}$$
+        $\\frac{\\Delta s}{h} = \\frac{4(3 + h)^2 + 10(3 + h) - 66}{h} = \\frac{4(9 + 6h + h^2) + 30 + 10h - 66}{h} = \\frac{34h + 4h^2}{h} = 34 + 4h$.<br>
+        Per $h \\to 0$, il termine $4h \\to 0$, quindi la <strong>velocità istantanea esatta</strong> è:
+        $$v(3) = s'(3) = \\lim_{h \\to 0} (34 + 4h) = 34\\text{ m/s} = 122.4\\text{ km/h}$$
       `;
 
       if (window.renderMathInElement) {
@@ -1276,18 +1276,18 @@
         titleEl.style.color = 'var(--accent-gold)';
         descEl.textContent = 'Entrambe le derivate laterali sono infinite ma con SEGNI OPPOSTI (+∞ e -∞).';
         formulaEl.innerHTML = `
-          <strong>Condizione:</strong> $f'_-(x_0) = -\infty$ e $f'_+(x_0) = +\infty$ (o viceversa).<br>
+          <strong>Condizione:</strong> $f'_-(x_0) = -\\infty$ e $f'_+(x_0) = +\\infty$ (o viceversa).<br>
           <strong>Geometria:</strong> La retta tangente è verticale e i due rami si toccano formando una punta acuta.<br>
-          <em>Esempio:</em> $f(x) = \sqrt{|x|}$ in $x_0 = 0$, oppure $f(x) = 1 - \sqrt[3]{x^2}$.
+          <em>Esempio:</em> $f(x) = \\sqrt{|x|}$ in $x_0 = 0$, oppure $f(x) = 1 - \\sqrt[3]{x^2}$.
         `;
       } else if (type === 3) {
         titleEl.textContent = 'Flesso a Tangente Verticale';
         titleEl.style.color = 'var(--accent-purple)';
         descEl.textContent = 'Entrambe le derivate laterali sono infinite con lo STESSO SEGNO (+∞ e +∞, oppure -∞ e -∞).';
         formulaEl.innerHTML = `
-          <strong>Condizione:</strong> $f'_-(x_0) = f'_+(x_0) = +\infty$ oppure $f'_-(x_0) = f'_+(x_0) = -\infty$.<br>
+          <strong>Condizione:</strong> $f'_-(x_0) = f'_+(x_0) = +\\infty$ oppure $f'_-(x_0) = f'_+(x_0) = -\\infty$.<br>
           <strong>Geometria:</strong> La retta tangente è verticale e la curva la attraversa cambiando concavità.<br>
-          <em>Esempio:</em> $f(x) = \sqrt[3]{x}$ in $x_0 = 0$, dove sia a sinistra che a destra la pendenza esplode a $+\infty$.
+          <em>Esempio:</em> $f(x) = \\sqrt[3]{x}$ in $x_0 = 0$, dove sia a sinistra che a destra la pendenza esplode a $+\\infty$.
         `;
       }
 

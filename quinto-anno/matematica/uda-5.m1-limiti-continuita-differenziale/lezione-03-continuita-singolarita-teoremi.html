@@ -464,13 +464,13 @@
                   <td><strong>2ª Specie (Essenziale)</strong></td>
                   <td>Almeno uno dei due limiti laterali vale $\pm\infty$ oppure non esiste</td>
                   <td>Asintoto verticale $x = x_0$ oppure oscillazione selvaggia senza limite</td>
-                  <td>$f(x) = \frac{1}{x - 2}$ oppure $f(x) = \sin(1/x)$ in $x_0 = 0$</td>
+                  <td>$f(x) = \\frac{1}{x - 2}$ oppure $f(x) = \sin(1/x)$ in $x_0 = 0$</td>
                 </tr>
                 <tr>
                   <td><strong>3ª Specie (Eliminabile)</strong></td>
                   <td>$\lim_{x \to x_0^-} f(x) = \lim_{x \to x_0^+} f(x) = L \in \mathbb{R}$, ma $x_0 \notin \text{Dom}$ oppure $f(x_0) \neq L$</td>
                   <td>Il grafico è continuo ovunque tranne per un singolo «buco» o un punto isolato</td>
-                  <td>$f(x) = \frac{x^2 - 4}{x - 2}$ in $x_0 = 2$ ($L = 4$)</td>
+                  <td>$f(x) = \\frac{x^2 - 4}{x - 2}$ in $x_0 = 2$ ($L = 4$)</td>
                 </tr>
               </tbody>
             </table>
@@ -535,7 +535,7 @@
           <ul style="margin-left: 1.25rem; font-size: 0.92rem; line-height: 1.6;">
             <li><strong>1. Funzione Continua:</strong> Se c'è una discontinuità, il massimo potrebbe trovarsi in un «buco» non raggiunto oppure la funzione potrebbe schizzare a infinito.</li>
             <li><strong>2. Intervallo Chiuso:</strong> Gli estremi $a$ e $b$ devono appartenere all'intervallo. Se l'intervallo è aperto $(a, b)$, la funzione $f(x) = x$ su $(0, 1)$ non ha né minimo (si avvicina a 0 senza mai toccarlo) né massimo (si avvicina a 1 senza mai toccarlo).</li>
-            <li><strong>3. Intervallo Limitato:</strong> L'intervallo deve avere lunghezza finita (non può essere $[0, +\infty)$). La funzione $f(x) = x$ su $[0, +\infty)$ è continua e su intervallo chiuso, ma non ha massimo perché cresce all'infinito.</li>
+            <li><strong>3. Intervallo Limitato:</strong> L'intervallo deve avere lunghezza finita (non può essere $[0, +\\infty)$). La funzione $f(x) = x$ su $[0, +\\infty)$ è continua e su intervallo chiuso, ma non ha massimo perché cresce all'infinito.</li>
           </ul>
         </div>
 
@@ -666,7 +666,7 @@
             </p>
             <div style="display: flex; flex-direction: column; gap: 0.35rem; font-size: 0.88rem;">
               <button class="btn quiz-opt" onclick="checkQuiz(2, 0, this)">Sì, perché $4 \in \text{Dom}(f)$ ed è limitato</button>
-              <button class="btn quiz-opt" onclick="checkQuiz(2, 1, this)">No, l'intervallo non è chiuso in 0 e per $x \to 0^+$ $f(x) \to +\infty$</button>
+              <button class="btn quiz-opt" onclick="checkQuiz(2, 1, this)">No, l'intervallo non è chiuso in 0 e per $x \to 0^+$ $f(x) \to +\\infty$</button>
               <button class="btn quiz-opt" onclick="checkQuiz(2, 2, this)">Sì, ma solo per il minimo assoluto</button>
             </div>
             <div id="quizFeedback2" style="font-size: 0.85rem; margin-top: 0.5rem; display: none;"></div>
@@ -1138,25 +1138,25 @@
         formulaEl.innerHTML = `
           <strong>Condizione:</strong> $\lim_{x \to x_0^-} f(x) = l_1 \in \mathbb{R}$, $\lim_{x \to x_0^+} f(x) = l_2 \in \mathbb{R}$ con $l_1 \neq l_2$.<br>
           <strong>Ampiezza del Salto:</strong> $S = |l_2 - l_1| = |5 - 2| = 3$.<br>
-          <em>Esempio:</em> Tariffe a scaglioni o funzione $f(x) = \begin{cases} x + 1 & x < 2 \\ x + 3 & x \ge 2 \end{cases}$ in $x_0 = 2$.
+          <em>Esempio:</em> Tariffe a scaglioni o funzione $f(x) = \begin{cases} x + 1 & x < 2 \\ x + 3 & x \\ge 2 \\end{cases}$ in $x_0 = 2$.
         `;
       } else if (type === 2) {
         titleEl.textContent = '2ª Specie: Singolarità Asintotica / Essenziale';
         titleEl.style.color = 'var(--accent-gold)';
-        descEl.textContent = 'Almeno uno dei due limiti laterali per $x \to x_0$ è infinito ($\pm\infty$) oppure non esiste affatto (oscillazione).';
+        descEl.textContent = 'Almeno uno dei due limiti laterali per $x \to x_0$ è infinito ($\\pm\\infty$) oppure non esiste affatto (oscillazione).';
         formulaEl.innerHTML = `
-          <strong>Condizione:</strong> $\lim_{x \to x_0^-} f(x) = \pm\infty$ oppure $\lim_{x \to x_0^+} f(x) = \pm\infty$.<br>
+          <strong>Condizione:</strong> $\lim_{x \to x_0^-} f(x) = \\pm\\infty$ oppure $\lim_{x \to x_0^+} f(x) = \\pm\\infty$.<br>
           <strong>Geometria:</strong> La retta verticale $x = x_0$ è un <strong>asintoto verticale</strong>.<br>
-          <em>Esempio classico:</em> $f(x) = \frac{1}{x - 2}$ in $x_0 = 2$, dove $\lim_{x \to 2^-} f(x) = -\infty$ e $\lim_{x \to 2^+} f(x) = +\infty$.
+          <em>Esempio classico:</em> $f(x) = \\frac{1}{x - 2}$ in $x_0 = 2$, dove $\lim_{x \to 2^-} f(x) = -\\infty$ e $\lim_{x \to 2^+} f(x) = +\\infty$.
         `;
       } else if (type === 3) {
         titleEl.textContent = '3ª Specie: Singolarità Eliminabile (Bucata)';
         titleEl.style.color = 'var(--accent-purple)';
         descEl.textContent = 'Esiste unico e finito il limite globale $\lim_{x \to x_0} f(x) = L$, ma il valore $f(x_0)$ o non esiste o è diverso da $L$.';
         formulaEl.innerHTML = `
-          <strong>Condizione:</strong> $\lim_{x \to x_0} f(x) = L \in \mathbb{R}$, ma $x_0 \notin \text{Dom}(f)$ oppure $f(x_0) \neq L$.<br>
+          <strong>Condizione:</strong> $\lim_{x \to x_0} f(x) = L \in \mathbb{R}$, ma $x_0 \\notin \\text{Dom}(f)$ oppure $f(x_0) \neq L$.<br>
           <strong>Risoluzione:</strong> Basta porre $f^*(x_0) = L$ per «tappare il buco» e rendere la funzione continua ovunque.<br>
-          <em>Esempio:</em> $f(x) = \frac{x^2 - 4}{x - 2}$ in $x_0 = 2$, dove $\lim_{x \to 2} f(x) = 4$, ma $f(2)$ non è definita.
+          <em>Esempio:</em> $f(x) = \\frac{x^2 - 4}{x - 2}$ in $x_0 = 2$, dove $\lim_{x \to 2} f(x) = 4$, ma $f(2)$ non è definita.
         `;
       }
 
@@ -1493,7 +1493,7 @@
        ======================================================== */
     const quizSolutions = {
       1: { correct: 2, exp: 'Esatto! Scomponendo $\frac{(x-3)(x+3)}{x-3} = x+3$, per $x \to 3$ il limite vale 6. La funzione non esiste in $x=3$, quindi è una discontinuità eliminabile (3ª specie).' },
-      2: { correct: 1, exp: 'Corretto! L\'intervallo $(0, 4]$ non è chiuso in 0, dove la funzione diverge a $+\infty$. Weierstrass richiede obbligatoriamente intervallo chiuso e limitato!' },
+      2: { correct: 1, exp: 'Corretto! L\'intervallo $(0, 4]$ non è chiuso in 0, dove la funzione diverge a $+\\infty$. Weierstrass richiede obbligatoriamente intervallo chiuso e limitato!' },
       3: { correct: 0, exp: 'Ottimo! Essendo un polinomio, la funzione è continua. Poiché $f(1) = -2$ e $f(2) = 7$ hanno segni opposti, il Teorema degli Zeri garantisce almeno una radice in $(1, 2)$.' },
       4: { correct: 1, exp: 'Perfetto! Limite sinistro: $2(3) + k = 6 + k$. Limite destro e valore in 3: $3^2 - 1 = 8$. Imponendo $6 + k = 8$ si ricava $k = 2$.' }
     };
@@ -1540,7 +1540,7 @@
       if (Math.abs(k - 6720) < 50) {
         fb.innerHTML = `
           <strong style="color: var(--accent-success);">🎉 PERFETTA CONTINUITÀ RAGGIUNTA ($k = 6720$):</strong><br>
-          Limite sinistro: $S(12^-) = 420$ € • Limite destro: $S(12^+) = \frac{6720}{16} = 420$ €.<br>
+          Limite sinistro: $S(12^-) = 420$ € • Limite destro: $S(12^+) = \\frac{6720}{16} = 420$ €.<br>
           Nessuna penalizzazione o trappola della povertà: la curva delle tariffe è fluida e continua per tutti i cittadini da 0 a 30.000 € di ISEE!
         `;
       } else {
