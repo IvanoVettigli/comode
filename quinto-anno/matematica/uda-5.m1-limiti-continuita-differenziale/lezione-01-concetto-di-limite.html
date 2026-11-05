@@ -957,7 +957,7 @@
             <span class="m1l1-readout" id="lab1bFahrReadout">F ∈ (208,4 ; 215,6) °F</span>
             <span class="m1l1-readout gold" id="lab1bDistReadout">|F − 212| ≤ 3,6 °F</span>
           </div>
-          <svg id="lab1bSvg" class="m1l1-svg" viewBox="0 0 640 280" role="img"
+          <svg id="lab1bSvg" class="m1l1-svg" viewBox="0 0 660 300" role="img"
             aria-label="Grafico della convergenza della temperatura Fahrenheit al limite 212 °F stringendo l'intorno"></svg>
           <div class="m1l1-legend">
             <span style="--legend-color: var(--accent-math);">Intorno temperatura Celsius $I_\delta(100)$</span>
@@ -2712,14 +2712,22 @@
       document.getElementById('lab1bFahrReadout').textContent = `F ∈ (${fmtF(fLeft)} ; ${fmtF(fRight)}) °F`;
       document.getElementById('lab1bDistReadout').textContent = `|F − 212| ≤ ${fmtF(maxGap)} °F`;
 
-      const status = document.getElementById('lab1bStatus');
-      if (idx === 0) {
-        status.innerHTML = `<strong>Ampiezza iniziale ($\delta = 2$ °C):</strong> La temperatura in Celsius oscilla tra $98$ °C e $102$ °C. In Fahrenheit varia tra $208{,}4$ °F e $215{,}6$ °F (scarto massimo di $\pm 3{,}6$ °F dal valore limite $212$ °F). Muovi lo slider per <strong>stringere l'intorno</strong>!`;
-      } else if (idx < 3) {
-        status.innerHTML = `<strong>Intorno ristretto ($\delta = ${fmtD(delta)}$ °C):</strong> La temperatura è confinata nell'intervallo $(${fmtC(cLeft)}\,;\ ${fmtC(cRight)})$ °C. La temperatura in Fahrenheit $F(C)$ è intrappolata tra $${fmtF(fLeft)}$ °F e $${fmtF(fRight)}$ °F (distanza dal valore limite $\le ${fmtF(maxGap)}$ °F).`;
-      } else {
-        status.innerHTML = `<span style="color:var(--accent-success); font-weight:700;">🎯 Intorno piccolissimo ($\delta = ${fmtD(delta)}$ °C):</span> Per qualunque temperatura Celsius $C$ vicina a $100$ °C, la temperatura in Fahrenheit $F(C)$ è <strong>incollata al valore limite $212$ °F</strong> (distanza inferiore a $${fmtF(maxGap)}$ °F). Ecco cosa significa che $\displaystyle\lim_{C \to 100} F(C) = 212$ °F!`;
-      }
+      const status = document.getElementById('lab1bStatus');
+
+      if (idx === 0) {
+
+        status.innerHTML = `<strong>Ampiezza iniziale ($\delta = 2$ °C):</strong> La temperatura in Celsius oscilla tra $98$ °C e $102$ °C. In Fahrenheit varia tra $208{,}4$ °F e $215{,}6$ °F (scarto massimo di $\pm 3{,}6$ °F dal valore limite $212$ °F). Muovi lo slider per <strong>stringere l'intorno</strong>!`;
+
+      } else if (idx < 3) {
+
+        status.innerHTML = `<strong>Intorno ristretto ($\delta = ${fmtD(delta)}$ °C):</strong> La temperatura è confinata nell'intervallo $(${fmtC(cLeft)}\,;\ ${fmtC(cRight)})$ °C. La temperatura in Fahrenheit $F(C)$ è intrappolata tra $${fmtF(fLeft)}$ °F e $${fmtF(fRight)}$ °F (distanza dal valore limite $\le ${fmtF(maxGap)}$ °F).`;
+
+      } else {
+
+        status.innerHTML = `<span style="color:var(--accent-success); font-weight:700;">🎯 Intorno piccolissimo ($\delta = ${fmtD(delta)}$ °C):</span> Per qualunque temperatura Celsius $C$ vicina a $100$ °C, la temperatura in Fahrenheit $F(C)$ è <strong>incollata al valore limite $212$ °F</strong> (distanza inferiore a $${fmtF(maxGap)}$ °F). Ecco cosa significa che $\displaystyle\lim_{C \to 100} F(C) = 212$ °F!`;
+
+      }
+
       if (window.ComodeComponents) window.ComodeComponents.renderMath(status);
 
       // Tabella progressiva dei valori
@@ -2768,9 +2776,9 @@
       const svg = document.getElementById('lab1bSvg');
       if (!svg) return;
 
-      // Coordinate mapping: C in [94, 106] -> x in [75, 565]; F in [196, 228] -> y in [235, 35]
-      const toSvgX = (c) => 75 + ((c - 94) / 12) * 490;
-      const toSvgY = (f) => 235 - ((f - 196) / 32) * 200;
+      // Coordinate mapping: C in [94, 106] -> x in [80, 520]; F in [196, 228] -> y in [240, 40]
+      const toSvgX = (c) => 80 + ((c - 94) / 12) * 440;
+      const toSvgY = (f) => 240 - ((f - 196) / 32) * 200;
 
       const sx0 = toSvgX(C0);
       const sy0 = toSvgY(L);
@@ -2779,63 +2787,64 @@
       const sTop = toSvgY(fRight);
       const sBottom = toSvgY(fLeft);
 
-      // Griglia e tacche assi
+      // Griglia e tacche assi (senza duplicazione di 94)
       let grid = '';
-      let ticks = `<text x="${toSvgX(94) - 8}" y="${toSvgY(196) + 16}" fill="var(--text-dim)" font-size="10.5" text-anchor="end">94</text>`;
+      let ticks = '';
       [94, 96, 98, 100, 102, 104, 106].forEach(c => {
         const sx = toSvgX(c);
         const isCenter = (c === 100);
-        grid += `<line x1="${sx}" y1="${toSvgY(228)}" x2="${sx}" y2="${toSvgY(196)}" stroke="var(--border-subtle)" stroke-opacity="${isCenter ? '0.6' : '0.35'}" stroke-dasharray="2,3" />`;
-        ticks += `<line x1="${sx}" y1="${toSvgY(196) - 4}" x2="${sx}" y2="${toSvgY(196) + 4}" stroke="${isCenter ? 'var(--accent-math)' : 'var(--text-muted)'}" stroke-width="${isCenter ? '2' : '1'}" />
-                  <text x="${sx}" y="${toSvgY(196) + 18}" fill="${isCenter ? 'var(--accent-math)' : 'var(--text-muted)'}" font-size="11" font-weight="${isCenter ? '800' : '400'}" text-anchor="middle">${c}°C</text>`;
+        grid += `<line x1="${sx}" y1="${toSvgY(228)}" x2="240" stroke="var(--border-subtle)" stroke-opacity="${isCenter ? '0.6' : '0.35'}" stroke-dasharray="2,3" />`;
+        ticks += `<line x1="${sx}" y1="236" x2="${sx}" y2="244" stroke="${isCenter ? 'var(--accent-math)' : 'var(--text-muted)'}" stroke-width="${isCenter ? '2' : '1'}" />
+                  <text x="${sx}" y="258" fill="${isCenter ? 'var(--accent-math)' : 'var(--text-muted)'}" font-size="11" font-weight="${isCenter ? '800' : '400'}" text-anchor="middle">${c}°C</text>`;
       });
       [200, 206, 212, 218, 224].forEach(f => {
         const sy = toSvgY(f);
         const isTarget = (f === 212);
-        grid += `<line x1="${toSvgX(94)}" y1="${sy}" x2="${toSvgX(106)}" y2="${sy}" stroke="var(--border-subtle)" stroke-opacity="${isTarget ? '0.6' : '0.35'}" stroke-dasharray="2,3" />`;
-        ticks += `<line x1="${toSvgX(94) - 4}" y1="${sy}" x2="${toSvgX(94) + 4}" stroke="${isTarget ? 'var(--accent-gold)' : 'var(--text-muted)'}" stroke-width="${isTarget ? '2' : '1'}" />
-                  <text x="${toSvgX(94) - 10}" y="${sy + 4}" fill="${isTarget ? 'var(--accent-gold)' : 'var(--text-muted)'}" font-size="11" font-weight="${isTarget ? '800' : '400'}" text-anchor="end">${f}°F</text>`;
+        grid += `<line x1="80" y1="${sy}" x2="520" y2="${sy}" stroke="var(--border-subtle)" stroke-opacity="${isTarget ? '0.6' : '0.35'}" stroke-dasharray="2,3" />`;
+        ticks += `<line x1="76" y1="${sy}" x2="84" y2="${sy}" stroke="${isTarget ? 'var(--accent-gold)' : 'var(--text-muted)'}" stroke-width="${isTarget ? '2' : '1'}" />
+                  <text x="70" y="${sy + 4}" fill="${isTarget ? 'var(--accent-gold)' : 'var(--text-muted)'}" font-size="11" font-weight="${isTarget ? '800' : '400'}" text-anchor="end">${f}°F</text>`;
       });
 
-      // Assi
+      // Assi ben distanziati dai tick
       const axes = `
-        <line x1="58" y1="${toSvgY(196)}" x2="590" y2="${toSvgY(196)}" stroke="var(--border-subtle)" stroke-width="1.6" />
-        <polygon points="596,${toSvgY(196)} 588,${toSvgY(196) - 4} 588,${toSvgY(196) + 4}" fill="var(--text-muted)" />
-        <line x1="${toSvgX(94)}" y1="245" x2="${toSvgX(94)}" y2="24" stroke="var(--border-subtle)" stroke-width="1.6" />
-        <polygon points="${toSvgX(94)},18 ${toSvgX(94) - 4},26 ${toSvgX(94) + 4},26" fill="var(--text-muted)" />
-        <text x="625" y="258" fill="var(--text-muted)" font-size="11" font-weight="600" text-anchor="end">Temperatura C (°C)</text>
-        <text x="82" y="24" fill="var(--text-muted)" font-size="11" font-weight="600" text-anchor="start">F(C) (°F)</text>
+        <line x1="60" y1="240" x2="615" y2="240" stroke="var(--border-subtle)" stroke-width="1.6" />
+        <polygon points="622,240 614,236 614,244" fill="var(--text-muted)" />
+        <line x1="80" y1="250" x2="80" y2="24" stroke="var(--border-subtle)" stroke-width="1.6" />
+        <polygon points="80,18 76,26 84,26" fill="var(--text-muted)" />
+        <!-- Titolo asse orizzontale centrato sotto i valori, senza collisioni -->
+        <text x="300" y="286" fill="var(--text-muted)" font-size="11.5" font-weight="600" text-anchor="middle">Temperatura C (°C)</text>
+        <text x="88" y="24" fill="var(--text-muted)" font-size="11.5" font-weight="600" text-anchor="start">F(C) (°F)</text>
       `;
 
       // Fascia verticale intorno input (C0 - delta, C0 + delta)
       const inputBand = `
-        <rect x="${sLeft}" y="${toSvgY(228)}" width="${sRight - sLeft}" height="${toSvgY(196) - toSvgY(228)}" fill="rgba(56, 189, 248, 0.12)" stroke="var(--accent-math)" stroke-opacity="0.45" stroke-dasharray="3,3" />
-        <line x1="${sx0}" y1="${toSvgY(228)}" x2="${sx0}" y2="${toSvgY(196)}" stroke="var(--accent-math)" stroke-width="1.8" stroke-dasharray="3,2" />
-        <text x="${sx0}" y="${toSvgY(228) - 6}" fill="var(--accent-math)" font-size="11" font-weight="800" text-anchor="middle">Intorno I_δ(100 °C)</text>
+        <rect x="${sLeft}" y="${toSvgY(228)}" width="${sRight - sLeft}" height="${240 - toSvgY(228)}" fill="rgba(56, 189, 248, 0.12)" stroke="var(--accent-math)" stroke-opacity="0.45" stroke-dasharray="3,3" />
+        <line x1="${sx0}" y1="${toSvgY(228)}" x2="${sx0}" y2="240" stroke="var(--accent-math)" stroke-width="1.8" stroke-dasharray="3,2" />
+        <text x="${sx0}" y="${toSvgY(228) - 8}" fill="var(--accent-math)" font-size="11" font-weight="800" text-anchor="middle">Intorno I_δ(100 °C)</text>
       `;
 
-      // Fascia orizzontale valori funzione (212 - 1.8delta, 212 + 1.8delta)
+      // Fascia orizzontale valori funzione (212 - 1.8delta, 212 + 1.8delta) con spazio pieno a destra
       const outputBand = `
-        <rect x="${toSvgX(94)}" y="${sTop}" width="${toSvgX(106) - toSvgX(94)}" height="${sBottom - sTop}" fill="rgba(251, 191, 36, 0.11)" stroke="var(--accent-gold)" stroke-opacity="0.5" stroke-dasharray="3,3" />
-        <line x1="${toSvgX(94)}" y1="${sy0}" x2="${toSvgX(106)}" y2="${sy0}" stroke="var(--accent-gold)" stroke-width="1.8" stroke-dasharray="3,2" />
-        <text x="${toSvgX(106) + 8}" y="${sy0 + 4}" fill="var(--accent-gold)" font-size="11" font-weight="800">Limite L = 212 °F</text>
+        <rect x="80" y="${sTop}" width="440" height="${sBottom - sTop}" fill="rgba(251, 191, 36, 0.11)" stroke="var(--accent-gold)" stroke-opacity="0.5" stroke-dasharray="3,3" />
+        <line x1="80" y1="${sy0}" x2="520" y2="${sy0}" stroke="var(--accent-gold)" stroke-width="1.8" stroke-dasharray="3,2" />
+        <text x="528" y="${sy0 + 4}" fill="var(--accent-gold)" font-size="11" font-weight="800">Limite L = 212 °F</text>
       `;
 
       // Retta F(C) = 1.8 C + 32 da C = 94 (201.2) a C = 106 (222.8)
       const line = `
-        <line x1="${toSvgX(94)}" y1="${toSvgY(1.8 * 94 + 32)}" x2="${toSvgX(106)}" y2="${toSvgY(1.8 * 106 + 32)}" stroke="var(--accent-purple)" stroke-width="3" stroke-linecap="round" />
+        <line x1="80" y1="${toSvgY(1.8 * 94 + 32)}" x2="520" y2="${toSvgY(1.8 * 106 + 32)}" stroke="var(--accent-purple)" stroke-width="3" stroke-linecap="round" />
       `;
 
       // Punti sinistro, destro e centro
       const points = `
         <!-- Proiezioni estremo sinistro -->
-        <line x1="${sLeft}" y1="${toSvgY(196)}" x2="${sLeft}" y2="${sBottom}" stroke="var(--accent-math)" stroke-dasharray="2,2" stroke-width="1.2" />
-        <line x1="${toSvgX(94)}" y1="${sBottom}" x2="${sLeft}" y2="${sBottom}" stroke="var(--accent-gold)" stroke-dasharray="2,2" stroke-width="1.2" />
+        <line x1="${sLeft}" y1="240" x2="${sLeft}" y2="${sBottom}" stroke="var(--accent-math)" stroke-dasharray="2,2" stroke-width="1.2" />
+        <line x1="80" y1="${sBottom}" x2="${sLeft}" y2="${sBottom}" stroke="var(--accent-gold)" stroke-dasharray="2,2" stroke-width="1.2" />
         <circle cx="${sLeft}" cy="${sBottom}" r="5" fill="var(--accent-math)" stroke="#fff" stroke-width="1.5" />
 
         <!-- Proiezioni estremo destro -->
-        <line x1="${sRight}" y1="${toSvgY(196)}" x2="${sRight}" y2="${sTop}" stroke="var(--accent-math)" stroke-dasharray="2,2" stroke-width="1.2" />
-        <line x1="${toSvgX(94)}" y1="${sTop}" x2="${sRight}" y2="${sTop}" stroke="var(--accent-gold)" stroke-dasharray="2,2" stroke-width="1.2" />
+        <line x1="${sRight}" y1="240" x2="${sRight}" y2="${sTop}" stroke="var(--accent-math)" stroke-dasharray="2,2" stroke-width="1.2" />
+        <line x1="80" y1="${sTop}" x2="${sRight}" y2="${sTop}" stroke="var(--accent-gold)" stroke-dasharray="2,2" stroke-width="1.2" />
         <circle cx="${sRight}" cy="${sTop}" r="5" fill="var(--accent-math)" stroke="#fff" stroke-width="1.5" />
 
         <!-- Punto limite centrale (100 °C ; 212 °F) -->
