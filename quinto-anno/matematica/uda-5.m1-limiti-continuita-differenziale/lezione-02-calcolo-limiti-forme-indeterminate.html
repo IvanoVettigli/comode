@@ -44,6 +44,15 @@
       margin: 1.25rem 0;
     }
 
+    .m1l2-range,
+    .m1l1-range {
+      flex: 1;
+      min-width: 180px;
+      max-width: 380px;
+      accent-color: var(--accent-math);
+      cursor: pointer;
+    }
+
     .m1l2-slider-panel {
       display: flex;
       align-items: center;
@@ -430,6 +439,71 @@
           <span class="icon">🧪</span> Laboratori Operativi &amp; Teoria Integrata
         </h2>
       </div>
+
+      <!-- ==========================================
+           INTRODUZIONE CONCETTUALE: CHE COS'È UNA FORMA INDETERMINATA?
+           ========================================== -->
+      <article class="intro-concept-card" id="intro-forme-indeterminate" style="margin-bottom: 2rem; background: var(--bg-surface-elevated); border: 1.5px solid var(--accent-math); border-radius: var(--radius-lg); padding: 1.5rem; box-shadow: 0 4px 20px rgba(56, 189, 248, 0.08);">
+        <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem; flex-wrap: wrap;">
+          <span style="font-size: 1.6rem;">💡</span>
+          <div>
+            <span class="tag info-tag" style="background: rgba(56, 189, 248, 0.15); color: var(--accent-math); border: 1px solid rgba(56, 189, 248, 0.3); font-weight: 700; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 0.05em; padding: 0.2rem 0.6rem; border-radius: var(--radius-pill);">
+              Inquadramento Concettuale Fondamentale
+            </span>
+            <h3 style="font-size: 1.35rem; font-weight: 800; margin-top: 0.25rem; color: var(--text-normal);">
+              Cos'è davvero una «Forma Indeterminata»? Il Braccio di Ferro dei Limiti
+            </h3>
+          </div>
+        </div>
+
+        <div style="line-height: 1.65; color: var(--text-normal); font-size: 0.96rem;">
+          <p style="margin-bottom: 0.85rem;">
+            Nel linguaggio comune «indeterminato» può sembrare sinonimo di <em>«misterioso»</em> o <em>«impossibile»</em>. 
+            Nell'aritmetica ordinaria di base ci hanno insegnato che dividere per zero, come $\frac{5}{0}$, è <strong>impossibile</strong> (perché nessun numero reale moltiplicato per $0$ può restituire $5$). 
+            <strong>Nel calcolo dei limiti, però, la situazione è completamente diversa: non stiamo mai dividendo per zero!</strong>
+          </p>
+
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; margin: 1.15rem 0;">
+            <div style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-left: 3.5px solid var(--accent-danger); border-radius: var(--radius-md); padding: 1rem;">
+              <strong style="color: var(--accent-danger); display: flex; align-items: center; gap: 0.4rem; margin-bottom: 0.4rem;">
+                <span>❌</span> Il Falso Mito da Sfatare
+              </strong>
+              <p style="font-size: 0.9rem; margin: 0; color: var(--text-muted);">
+                $\left[\frac{0}{0}\right]$ o $\left[\frac{\infty}{\infty}\right]$ <strong>NON significano che il limite non esiste o che l'operazione è vietata</strong>. Significano soltanto che il valore del limite <em>non è determinabile a priori</em> usando le regole algebriche immediate: serve un'indagine più ravvicinata.
+              </p>
+            </div>
+
+            <div style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-left: 3.5px solid var(--accent-success); border-radius: var(--radius-md); padding: 1rem;">
+              <strong style="color: var(--accent-success); display: flex; align-items: center; gap: 0.4rem; margin-bottom: 0.4rem;">
+                <span>🤼</span> La Vera Metafora: Il "Braccio di Ferro"
+              </strong>
+              <p style="font-size: 0.9rem; margin: 0; color: var(--text-muted);">
+                Una forma indeterminata è una <strong>gara di velocità tra due forze opposte</strong>:
+                in $\left[\frac{0}{0}\right]$, il numeratore spinge la frazione a diventare zero, ma il denominatore la spinge a esplodere all'infinito. Il risultato finale (finito, zero o infinito) dipende da <em>chi corre a zero più velocemente</em>!
+              </p>
+            </div>
+          </div>
+
+          <!-- Esempio concreto reale: Il Tachimetro dell'Automobile -->
+          <div style="background: linear-gradient(135deg, rgba(251, 191, 36, 0.08) 0%, rgba(56, 189, 248, 0.08) 100%); border: 1px solid rgba(251, 191, 36, 0.3); border-radius: var(--radius-md); padding: 1.15rem; margin-top: 1rem;">
+            <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem; font-weight: 700; color: var(--accent-gold);">
+              <span style="font-size: 1.25rem;">🚗</span> L'Esempio Concreto della Vita Reale: Il Tachimetro dell'Auto e la Velocità Istantanea
+            </div>
+            <p style="margin: 0 0 0.65rem 0; font-size: 0.92rem;">
+              Immagina di guidare su una strada statale: guardi il cruscotto e la lancetta segna esattamente <strong>$60\,\text{km/h}$</strong>. Ti sei mai chiesto come faccia il sensore della ruota a misurare la velocità in <em>questo preciso istante</em>?
+            </p>
+            <ul style="margin: 0; padding-left: 1.25rem; font-size: 0.9rem; line-height: 1.6; color: var(--text-muted);">
+              <li>La formula fisica della velocità media è $v_m = \frac{\Delta s}{\Delta t}$ (spazio percorso diviso intervallo di tempo).</li>
+              <li>Per catturare la velocità istantanea, il computer di bordo deve rimpicciolire il tempo fino a farlo tendere a zero: $\Delta t \to 0$.</li>
+              <li>Ma se l'intervallo temporale tende a zero, anche lo spazio percorso dall'auto in quell'istante si riduce a zero: $\Delta s \to 0$!</li>
+              <li>Il computer deve quindi valutare il limite:
+                $$\lim_{\Delta t \to 0} \frac{\Delta s}{\Delta t} = \left[\frac{0}{0}\right]$$
+              </li>
+              <li>Se la forma indeterminata $\left[\frac{0}{0}\right]$ significasse "impossibile", nessun tachimetro al mondo potrebbe mai funzionare e la velocità istantanea non esisterebbe! Invece il tachimetro segna con precisione $60\,\text{km/h}$, perché spazio e tempo tendono entrambi a zero, ma il loro <em>rapporto dinamico</em> converge stabilmente a $60$. Risolvere una forma indeterminata significa proprio svelare questo valore reale nascosto!</li>
+            </ul>
+          </div>
+        </div>
+      </article>
 
       <!-- ==========================================
            LABORATORIO 1: ALGEBRA DEI LIMITI & LIMITI IMMEDIATI
@@ -889,6 +963,9 @@
       <!-- ==========================================
            LABORATORIO 6: COMPITO DI REALTÀ SVOLTO
            ========================================== -->
+            <!-- ==========================================
+           LABORATORIO 6: COMPITO DI REALTÀ SVOLTO
+           ========================================== -->
       <article class="lab-card m1l1-worked-card" id="lab6">
         <div class="lab-badge-row">
           <span class="lab-badge"
@@ -897,33 +974,33 @@
           </span>
           <span class="lab-xp-badge">+10 XP</span>
         </div>
-        <h3 class="lab-title">Studio di Caso Svolto: La Saturazione di un Social Network (Modello Logistico)</h3>
+        <h3 class="lab-title">Studio di Caso Svolto: La Diffusione Virale e Saturazione di una Piattaforma Sociale Solidale</h3>
 
         <div class="m1l1-context">
           <span class="m1l1-context-icon">📱</span>
           <div>
-            Nelle scienze sociali e nella sociologia della comunicazione, la crescita di utenti di una nuova piattaforma digitale non può
-            proseguire all'infinito con ritmo esponenziale: le risorse umane connesse sono finite.
-            Il numero di utenti attivi (in milioni) dopo $t$ mesi dal lancio è modellato dalla <strong>curva logistica</strong>:
-            $$U(t) = \frac{120}{1 + 9\,e^{-0{,}3\,t}}, \qquad t \ge 0$$
+            Nelle scienze sociali e nella sociologia della comunicazione, la crescita di iscritti a una nuova piattaforma digitale solidale non può
+            proseguire all'infinito con ritmo indefinito: le risorse umane connesse nel territorio sono finite.
+            Il numero di utenti attivi (in milioni) dopo $t$ mesi dal debutto è modellato dalla legge razionale di saturazione:
+            $$U(t) = \frac{120\,t^2 + 80\,t}{t^2 + 2\,t + 25}, \qquad t \ge 0$$
           </div>
         </div>
 
         <p class="lab-intro">
-          Usa lo slider temporale per osservare come la popolazione di iscritti cresce inizialmente in modo esponenziale per poi
-          rallentare e «saturare» verso un tetto massimo invalicabile.
+          Usa lo slider temporale per osservare come la popolazione di iscritti cresce rapidamente nei primi mesi per poi
+          rallentare e stabilizzarsi verso un tetto massimo invalicabile (asintoto orizzontale).
         </p>
 
         <div class="m1l2-stage">
           <div class="m1l2-slider-panel">
             <label for="lab6Slider">⏱️ Mesi dal lancio $t$:</label>
-            <input type="range" id="lab6Slider" class="m1l1-range" min="0" max="36" step="1" value="0"
+            <input type="range" id="lab6Slider" class="m1l2-range" min="0" max="36" step="1" value="0"
               oninput="renderLab6()">
             <span class="m1l2-readout" id="lab6Time">t = 0 mesi</span>
-            <span class="m1l2-readout gold" id="lab6Users">U(0) = 12,0 milioni</span>
+            <span class="m1l2-readout gold" id="lab6Users">U(0) = 0,0 milioni</span>
           </div>
-          <svg id="lab6Svg" class="m1l2-svg" viewBox="0 0 640 280" role="img"
-            aria-label="Curva logistica di adozione del social network con asintoto orizzontale a 120 milioni"></svg>
+          <svg id="lab6Svg" class="m1l2-svg" viewBox="0 0 660 300" role="img"
+            aria-label="Curva di saturazione di iscritti con forma indeterminata inf su inf e asintoto orizzontale a 120 milioni"></svg>
           <div class="m1l2-legend">
             <span style="--legend-color: var(--accent-math);">Utenti $U(t)$</span>
             <span style="--legend-color: var(--accent-success);">Tetto asintotico $L = 120$ milioni ($t \to +\infty$)</span>
@@ -933,8 +1010,8 @@
 
         <!-- Fasi di risoluzione commentate -->
         <div class="m1l2-worked-controls">
-          <button type="button" class="m1l2-choice-btn selected" id="btnStep1" onclick="showWorkedStep(1)">Passo 1: Lancio Iniziale ($t = 0$)</button>
-          <button type="button" class="m1l2-choice-btn" id="btnStep2" onclick="showWorkedStep(2)">Passo 2: Il Limite all'Infinito ($t \to +\infty$)</button>
+          <button type="button" class="m1l2-choice-btn selected" id="btnStep1" onclick="showWorkedStep(1)">Passo 1: Lancio e Breve Termine</button>
+          <button type="button" class="m1l2-choice-btn" id="btnStep2" onclick="showWorkedStep(2)">Passo 2: Emersione di [∞/∞]</button>
           <button type="button" class="m1l2-choice-btn" id="btnStep3" onclick="showWorkedStep(3)">Passo 3: Risoluzione della Forma Indeterminata</button>
           <button type="button" class="m1l2-choice-btn" id="btnStep4" onclick="showWorkedStep(4)">Passo 4: Conclusioni Sociologiche</button>
         </div>
@@ -942,52 +1019,56 @@
         <div class="step-box" style="margin-top: 0.5rem;">
           <div class="m1l2-worked-step revealed" id="workedStep1">
             <div class="step-header">
-              <span class="step-tag">Passo 1 • La Base di Partenza al Momento del Lancio ($t = 0$)</span>
+              <span class="step-tag">Passo 1 • La Base di Partenza e la Crescita Iniziale ($t = 0, 1, 2$)</span>
             </div>
             <div class="step-content">
-              <p>Al momento iniziale del debutto sul mercato ($t = 0$ mesi), poiché $e^0 = 1$:</p>
+              <p>Al momento iniziale del lancio sul mercato ($t = 0$ mesi):</p>
               <div class="m1l1-formula-line">
-                $$U(0) = \frac{120}{1 + 9\,e^0} = \frac{120}{1 + 9} = \frac{120}{10} = 12\text{ milioni di utenti}$$
+                $$U(0) = \frac{120 \cdot 0^2 + 80 \cdot 0}{0^2 + 2 \cdot 0 + 25} = \frac{0}{25} = 0\text{ milioni}$$
               </div>
-              <p>Gli utenti iniziali (early adopters e pre-iscritti) costituiscono il $10\%$ della capienza potenziale massima.</p>
+              <p>Dopo soli 2 mesi, gli iscritti raggiungono: $\displaystyle U(2) = \frac{120 \cdot 4 + 80 \cdot 2}{4 + 4 + 25} = \frac{640}{33} \approx 19{,}4\text{ milioni}$, con un tasso di crescita travolgente tipico della fase di decollo virale.</p>
             </div>
           </div>
 
           <div class="m1l2-worked-step" id="workedStep2">
             <div class="step-header">
-              <span class="step-tag">Passo 2 • Il Calcolo del Limite di Lungo Periodo ($t \to +\infty$)</span>
+              <span class="step-tag">Passo 2 • La Proiezione di Lungo Periodo ed Emersione della Forma [∞/∞]</span>
             </div>
             <div class="step-content">
-              <p>Cosa accadrà dopo molti mesi o anni? Valutiamo il limite per $t \to +\infty$ applicando l'algebra dei limiti:</p>
+              <p>Cosa accadrà dopo molti mesi o anni? Valutiamo la tendenza per $t \to +\infty$ provando la sostituzione diretta dei limiti:</p>
               <div class="m1l1-formula-line">
-                $$\lim_{t \to +\infty} U(t) = \lim_{t \to +\infty} \frac{120}{1 + 9\,e^{-0{,}3t}}$$
+                $$\lim_{t \to +\infty} U(t) = \lim_{t \to +\infty} \frac{120\,t^2 + 80\,t}{t^2 + 2\,t + 25} = \left[\frac{+\infty}{+\infty}\right]$$
               </div>
-              <p>Poiché l'esponente è negativo, per le proprietà dell'esponenziale: $\displaystyle\lim_{t \to +\infty} e^{-0{,}3t} = \lim_{t \to +\infty} \frac{1}{e^{0{,}3t}} = \frac{1}{+\infty} = 0$.</p>
+              <p><strong>Compare la Forma Indeterminata $\left[\frac{\infty}{\infty}\right]$!</strong> Sia il numeratore che il denominatore crescono senza limiti. Non possiamo concludere nulla a priori: occorre analizzare la gerarchia dei gradi per sciogliere il braccio di ferro.</p>
             </div>
           </div>
 
           <div class="m1l2-worked-step" id="workedStep3">
             <div class="step-header">
-              <span class="step-tag">Passo 3 • Forma Determinata Svelata e Asintoto Orizzontale</span>
+              <span class="step-tag">Passo 3 • Risoluzione Rigorosa con Raccoglimento a Fattor Comune</span>
             </div>
             <div class="step-content">
-              <p>Sostituendo il valore del limite infinitesimo del termine esponenziale:</p>
+              <p>Raccogliamo il termine di grado massimo $t^2$ sia a numeratore che a denominatore, per poi semplificarlo:</p>
               <div class="m1l1-formula-line">
-                $$\lim_{t \to +\infty} U(t) = \frac{120}{1 + 9 \cdot 0} = \frac{120}{1} = 120\text{ milioni di utenti}$$
+                $$U(t) = \frac{t^2 \cdot \left(120 + \frac{80}{t}\right)}{t^2 \cdot \left(1 + \frac{2}{t} + \frac{25}{t^2}\right)} = \frac{120 + \frac{80}{t}}{1 + \frac{2}{t} + \frac{25}{t^2}}$$
               </div>
-              <p>Non c'è alcuna indeterminazione! La retta orizzontale <strong>$y = 120$</strong> è un <strong>asintoto orizzontale destro</strong> per la curva logistica.</p>
+              <p>Per $t \to +\infty$, tutte le frazioni con $t$ al denominatore diventano infinitesime (tendono a $0$):</p>
+              <div class="m1l1-formula-line">
+                $$\lim_{t \to +\infty} U(t) = \frac{120 + 0}{1 + 0 + 0} = \frac{120}{1} = 120\text{ milioni di utenti}$$
+              </div>
+              <p>La forma indeterminata è sciolta! La retta orizzontale <strong>$y = 120$</strong> è l'<strong>asintoto orizzontale</strong> della curva di adozione.</p>
             </div>
           </div>
 
           <div class="m1l2-worked-step" id="workedStep4">
             <div class="step-header">
-              <span class="step-tag">Passo 4 • Interpretazione per le Scienze Umane e la Sociologia dei Media</span>
+              <span class="step-tag">Passo 4 • Interpretazione per le Scienze Umane e Decisione Operativa</span>
             </div>
             <div class="step-content">
-              <p>Quali riflessioni traggono i sociologi della comunicazione da questo risultato?</p>
+              <p>Quali conclusioni operative traggono i sociologi della comunicazione e i manager della piattaforma?</p>
               <ul class="po-list" style="margin-top: 0.5rem;">
-                <li><span class="po-icon">📌</span> <div><strong>L'illusione della crescita infinita:</strong> I modelli puramente lineari ($U(t) = m t + q$) ipotizzano una crescita senza tetto, portando a previsioni fallaci. Il limite logistico descrive fedelmente la saturazione del mercato reale.</div></li>
-                <li><span class="po-icon">📌</span> <div><strong>Capacità portante (*Carrying Capacity*):</strong> $120$ milioni rappresenta il bacino massimo di utenti appartenenti al target socio-demografico della piattaforma.</div></li>
+                <li><span class="po-icon">📌</span> <div><strong>Capacità portante (*Carrying Capacity*):</strong> $120$ milioni rappresenta il bacino massimo di utenti appartenenti al target socio-demografico. Nessun piano di marketing potrà superare questa soglia senza espandersi in altri mercati.</div></li>
+                <li><span class="po-icon">📌</span> <div><strong>Dimensionamento delle Infrastrutture:</strong> Sapendo che $U(t) \to 120$, l'ente gestore pianifica l'infrastruttura server per sopportare al massimo 120 milioni di profili, evitando sprechi milionari di budget pubblico.</div></li>
               </ul>
               <div class="verify-box" style="margin-top: 0.85rem;">
                 <button type="button" class="btn-action" onclick="verifyWorkedLab()">Ho Compreso il Compito Svolto (+10 XP)</button>
@@ -1377,7 +1458,7 @@
 
       if (isA1 && isA2 && isA3) {
         msg.className = 'feedback-msg success';
-        msg.textContent = 'Bravissimo! 1) 0 (la potenza schiaccia il logaritmo); 2) +inf (l'esponenziale vince su qualsiasi potenza); 3) 7/2 (rapporto gradi massimi)!';
+        msg.textContent = 'Bravissimo! 1) 0 (la potenza schiaccia il logaritmo); 2) +inf (l\'esponenziale vince su qualsiasi potenza); 3) 7/2 (rapporto gradi massimi)!';
         markLabCompleted(3);
       } else {
         if (window.ComodeAudio) window.ComodeAudio.playError();
@@ -1443,7 +1524,7 @@
       1: { correct: ['5'], explain: '(0+5)/(0+1) = 5/1 = 5. Era una forma determinata!' },
       2: { correct: ['-1', '- 1'], explain: '(x-2)(x-3)/(x-2) = x-3 -> 2-3 = -1!' },
       3: { correct: ['0', 'zero'], explain: 'Grado numeratore 2 < grado denominatore 3: il limite fa 0!' },
-      4: { correct: ['+inf', 'inf', '+infinito', 'infinito', '∞'], explain: 'L'esponenziale 3^x domina qualsiasi polinomio -> +inf!' }
+      4: { correct: ['+inf', 'inf', '+infinito', 'infinito', '∞'], explain: 'L\'esponenziale 3^x domina qualsiasi polinomio -> +inf!' }
     };
     const gymSolved = new Set();
 
@@ -1576,63 +1657,77 @@
                 'Non esiste perché non si può dividere per zero'
               ],
               correct: 0,
-              explanation: 'Dividere un numero positivo finito $k > 0$ per quantità positive infinitesime vicine a zero dà $+\infty$. È una forma determinata!'
+              explanation: 'Dividere una costante positiva $k > 0$ per quantità infinitesime positive vicine a zero dà $+\infty$. È una forma determinata immediata!'
             },
             {
               category: 'Forma [0/0]',
               theoryRef: 'Teoria 2 • Scomposizione',
               theoryTargetId: 'teoria-2',
-              question: 'Come si risolve l'indeterminazione in $\lim_{x \to 5} \frac{x^2 - 25}{x - 5}$?',
+              question: 'Come si risolve l\'indeterminazione in $\lim_{x \to 5} \frac{x^2 - 25}{x - 5}$?',
               options: [
                 'Si sostituisce 0 a numeratore e denominatore',
-                'Si scompone $x^2 - 25 = (x - 5)(x + 5)$ e si semplifica $(x - 5)$, ottenendo 10',
+                'Si scompone $x^2 - 25 = (x - 5)(x + 5)$ e si elide il binomio nullo $(x - 5)$, ottenendo 10',
                 'Il limite fa sempre $+\infty$',
                 'Si applica la gerarchia degli infiniti'
               ],
               correct: 1,
-              explanation: 'Scomponendo la differenza di quadrati, si elide il binomio nullo $(x - 5)$ che generava lo zero, ottenendo $\lim_{x \to 5} (x + 5) = 10$.'
+              explanation: 'Scomponendo la differenza di quadrati si semplifica il fattore $(x - 5) \neq 0$ responsabile dello zero, ottenendo $\lim_{x \to 5} (x + 5) = 10$.'
             },
             {
               category: 'Forma [∞/∞]',
-              theoryRef: 'Teoria 3 • Rapporto di Polinomi',
+              theoryRef: 'Teoria 3 • Raccoglimento Grado Massimo',
               theoryTargetId: 'teoria-3',
-              question: 'Quanto vale $\lim_{x \to +\infty} \frac{6x^3 + 2x}{2x^3 - 5}$?',
+              question: 'Quanto vale $\lim_{x \to +\infty} \frac{6x^2 - 4}{2x^2 + 5x}$?',
               options: [
+                'Vale 3 (il rapporto tra i coefficienti di grado massimo 6 e 2)',
+                'Vale $+\infty$ perché i polinomi crescono all\'infinito',
                 'Vale 0',
-                'Vale 3 (il rapporto dei coefficienti direttivi 6/2)',
-                'Vale $+\infty$',
-                'È un'indeterminazione non risolvibile'
+                'È un\'indeterminazione non risolvibile'
               ],
-              correct: 1,
-              explanation: 'Avendo numeratore e denominatore lo stesso grado (3), il limite per $x \to \infty$ è semplicemente il rapporto dei coefficienti dei termini di grado massimo: 6/2 = 3.'
+              correct: 0,
+              explanation: 'Avendo numeratore e denominatore lo stesso grado massimo (2), il limite coincide con il rapporto dei coefficienti dominanti: $\frac{6}{2} = 3$.'
             },
             {
               category: 'Gerarchia degli Infiniti',
-              theoryRef: 'Teoria 3 • Ordine di Crescita',
+              theoryRef: 'Teoria 3 • Scala di Crescita',
               theoryTargetId: 'teoria-3',
-              question: 'Qual è il valore di $\lim_{x \to +\infty} \frac{\ln(x)}{x}$?',
+              question: 'Per $x \to +\infty$, quale funzione cresce più rapidamente tra logaritmica, potenza ed esponenziale?',
               options: [
-                'Vale $+\infty$',
-                'Vale 1',
-                'Vale 0, perché il polinomio cresce infinitamente più veloce del logaritmo',
-                'Non esiste'
-              ],
-              correct: 2,
-              explanation: 'Per la gerarchia degli infiniti, $\ln(x) \ll x^\alpha$: il denominatore polinomiale cresce infinitamente più in fretta, portando il quoziente a 0.'
-            },
-            {
-              category: 'Forma [+∞ - ∞]',
-              theoryRef: 'Teoria 4 • Razionalizzazione con Coniugato',
-              theoryTargetId: 'teoria-4',
-              question: 'Quale tecnica è fondamentale per risolvere $\lim_{x \to +\infty} (\sqrt{x^2 + 4} - x)$?',
-              options: [
-                'Moltiplicare e dividere per il coniugato $(\sqrt{x^2 + 4} + x)$',
-                'Semplificare direttamente le radici',
-                'Sostituire zero',
-                'Applicare la regola di Ruffini'
+                'La funzione esponenziale $2^x$',
+                'La funzione potenza $x^3$',
+                'La funzione logaritmica $\ln(x)$',
+                'Crescono tutte allo stesso ritmo'
               ],
               correct: 0,
-              explanation: 'Moltiplicando e dividendo per il binomio coniugato, si sfrutta $(A - B)(A + B) = A^2 - B^2$, sciogliendo la differenza tra radici.'
+              explanation: 'La gerarchia degli infiniti stabilisce che $\ln(x) \ll x^n \ll a^x$ (con $a > 1$). L\'esponenziale supera qualsiasi potenza di $x$!'
+            },
+            {
+              category: 'Forma [+∞ − ∞]',
+              theoryRef: 'Teoria 4 • Trappola del Falso Zero',
+              theoryTargetId: 'teoria-4',
+              question: 'Perché $\lim_{x \to +\infty} (x^3 - 2x) \neq 0$ nonostante sia della forma $[+\infty - \infty]$?',
+              options: [
+                'Perché $x^3$ è un infinito di ordine superiore che domina e trascina il risultato a $+\infty$',
+                'Perché l\'infinito non ammette mai sottrazioni',
+                'Perché il segno meno si trasforma sempre in più',
+                'Fa 0 in base alla proprietà invariantiva'
+              ],
+              correct: 0,
+              explanation: 'Raccogliendo $x^3(1 - 2/x^2)$, per $x \to +\infty$ la parentesi tende a $1$ e $x^3 \to +\infty$. L\'infinito di grado 3 schiaccia quello di grado 1!'
+            },
+            {
+              category: 'Significato Reale di [0/0]',
+              theoryRef: 'Inquadramento • Tachimetro e Velocità Istantanea',
+              theoryTargetId: 'intro-forme-indeterminate',
+              question: 'Cosa rappresenta fisicamente la forma indeterminata $\left[\frac{0}{0}\right]$ nella vita quotidiana?',
+              options: [
+                'Il calcolo della velocità istantanea $v = \lim_{\Delta t \to 0} \frac{\Delta s}{\Delta t}$ sul tachimetro dell\'auto',
+                'Un guasto irreversibile dei circuiti elettronici',
+                'Il consumo di carburante ad auto spenta',
+                'Un errore di misurazione non risolvibile'
+              ],
+              correct: 0,
+              explanation: 'La velocità istantanea è il limite del rapporto incrementale quando tempo e spazio tendono entrambi a zero: una forma $\left[\frac{0}{0}\right]$ che converge stabilmente al valore reale segnato dal tachimetro!'
             }
           ]
         });
