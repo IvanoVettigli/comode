@@ -631,7 +631,7 @@
             <span class="m1l2-readout" id="lab2X">x = 1,50</span>
             <span class="m1l2-readout gold" id="lab2Fx">f(x) = 3,50</span>
           </div>
-          <svg id="lab2Svg" class="m1l2-svg" viewBox="0 0 640 280" role="img"
+          <svg id="lab2Svg" class="m1l2-svg" viewBox="0 0 660 300" role="img"
             aria-label="Grafico retta y = x + 2 con buco in x = 2 e punto limite (2, 4)"></svg>
           <div class="m1l2-legend">
             <span style="--legend-color: var(--accent-math);">Curva $f(x) = \frac{x^2-4}{x-2}$</span>
@@ -650,14 +650,14 @@
           </div>
           <div class="step-content">
             <p style="margin-bottom: 0.65rem;">
-              Calcola il limite con scomposizione per differenza di cubi o raccoglimento:
-              $$\lim_{x \to 3} \frac{x^2 - 9}{x - 3} = \ ? \qquad \text{e} \qquad \lim_{x \to 1} \frac{x^2 + 2x - 3}{x - 1} = \ ?$$
+              Calcola i due limiti scomponendo con i prodotti notevoli (differenza di quadrati e quadrato di binomio):
+              $$\lim_{x \to 3} \frac{x^2 - 9}{x - 3} = \ ? \qquad \text{e} \qquad \lim_{x \to 1} \frac{x^2 - 2x + 1}{x - 1} = \ ?$$
             </p>
             <div class="verify-box" style="margin-bottom: 0.6rem;">
-              <label for="lab2Ans1" style="font-weight: 600;">1) $\lim_{x \to 3} \frac{x^2 - 9}{x - 3} =$</label>
-              <input type="text" id="lab2Ans1" class="inline-input" style="width: 80px;" placeholder="L1">
-              <label for="lab2Ans2" style="font-weight: 600; margin-left: 0.8rem;">2) $\lim_{x \to 1} \frac{x^2 + 2x - 3}{x - 1} =$</label>
-              <input type="text" id="lab2Ans2" class="inline-input" style="width: 80px;" placeholder="L2">
+              <label for="lab2Ans1" style="font-weight: 600;">1) $\displaystyle\lim_{x \to 3} \frac{x^2 - 9}{x - 3} =$</label>
+              <input type="text" id="lab2Ans1" class="inline-input" style="width: 75px;" placeholder="L1">
+              <label for="lab2Ans2" style="font-weight: 600; margin-left: 0.8rem;">2) $\displaystyle\lim_{x \to 1} \frac{x^2 - 2x + 1}{x - 1} =$</label>
+              <input type="text" id="lab2Ans2" class="inline-input" style="width: 75px;" placeholder="L2">
               <button type="button" class="btn-action" onclick="verifyLab2()">Verifica Limiti</button>
               <span id="lab2Msg" class="feedback-msg" style="display: none;"></span>
             </div>
@@ -725,9 +725,36 @@
           </div>
         </div>
 
-        <p class="lab-intro">
-          Muovi lo slider di $x$ fino a $500$ e osserva la gara numerica e grafica tra il logaritmo, la potenza e l'esponenziale:
-          nota come il rapporto tra esponenziale e polinomio cresca inesorabilmente verso $+\infty$, mentre il rapporto tra logaritmo e potenza crolli a zero!
+        <!-- Approfondimento Regola del Vincitore e Pareggio di Grado -->
+        <div style="background: rgba(56, 189, 248, 0.07); border: 1px solid rgba(56, 189, 248, 0.25); border-left: 3.5px solid var(--accent-math); border-radius: var(--radius-md); padding: 1.15rem; margin: 1.15rem 0; line-height: 1.6;">
+          <strong style="color: var(--accent-math); font-size: 0.95rem; display: flex; align-items: center; gap: 0.4rem; margin-bottom: 0.45rem;">
+            <span>⚖️</span> La Regola d'Oro del Rapporto $\frac{N(x)}{D(x)}$ per $x \to +\infty$: Chi Vince la Gara?
+          </strong>
+          <p style="font-size: 0.92rem; margin: 0 0 0.5rem 0;">
+            Quando calcoli $\lim_{x \to +\infty} \frac{N(x)}{D(x)}$ con la forma indeterminata $\left[\frac{\infty}{\infty}\right]$, immagina una vera e propria gara di velocità:
+          </p>
+          <ul style="margin: 0; padding-left: 1.25rem; font-size: 0.9rem; color: var(--text-muted); line-height: 1.55;">
+            <li><strong style="color:var(--text-normal);">1. Il Numeratore cresce più velocemente ($N \gg D$):</strong> Vince il numeratore $\implies$ la frazione esplode a <strong>$\pm\infty$</strong> (es. $\frac{e^x}{x^{100}} \to +\infty$ oppure $\frac{x^3}{2x + 1} \to +\infty$).</li>
+            <li><strong style="color:var(--text-normal);">2. Il Denominatore cresce più velocemente ($D \gg N$):</strong> Vince il denominatore $\implies$ la frazione viene schiacciata a <strong>$0$</strong> (es. $\frac{\ln(x)}{x} \to 0$ oppure $\frac{5x}{x^2 + 4} \to 0$).</li>
+            <li><strong style="color:var(--accent-gold);">3. Crescono alla STESSA VELOCITÀ (Stesso Grado / Pareggio):</strong> Nessuno prevale all'infinito! I termini di grado inferiore diventano trascurabili e il limite è dato semplicemente dal <strong>rapporto dei coefficienti numerici davanti al grado più alto</strong>:
+              $$\lim_{x \to +\infty} \frac{a_n x^n + \dots}{b_n x^n + \dots} = \frac{a_n}{b_n}$$
+              <em>Esempio:</em> in $\frac{6x^2 + 4x}{2x^2 + 5}$, per $x$ grandissimo i termini $4x$ e $5$ non contano più: il rapporto si stabilizza esattamente a $\frac{6}{2} = 3$!
+            </li>
+          </ul>
+        </div>
+
+        <!-- Selettore Modalità Grafico Interattivo -->
+        <div style="display: flex; gap: 0.6rem; margin: 1rem 0 0.75rem; flex-wrap: wrap; justify-content: center;">
+          <button type="button" class="m1l2-choice-btn selected" id="btnLab3Mode1" onclick="setLab3Mode('hierarchy')">
+            🚀 Modalità 1: Gara di Crescita (Logaritmo vs Retta vs Esponenziale)
+          </button>
+          <button type="button" class="m1l2-choice-btn" id="btnLab3Mode2" onclick="setLab3Mode('tie')">
+            🎯 Modalità 2: Stesso Grado &amp; Rapporto Coefficienti ($	o 6/2 = 3$)
+          </button>
+        </div>
+
+        <p class="lab-intro" id="lab3IntroText">
+          Muovi lo slider di $x$ e osserva la gara grafica: l'esponenziale fugge verso l'alto ed esce naturalmente dal grafico senza piegarsi in orizzontale; il logaritmo rimane schiacciato vicino all'asse.
         </p>
 
         <div class="m1l2-stage">
@@ -739,7 +766,7 @@
             <span class="m1l2-readout gold" id="lab3RatioLog">ln(x) / x = 0,230</span>
             <span class="m1l2-readout danger" id="lab3RatioExp">e^(0.1x) / x = 0,272</span>
           </div>
-          <svg id="lab3Svg" class="m1l2-svg" viewBox="0 0 640 280" role="img"
+          <svg id="lab3Svg" class="m1l2-svg" viewBox="0 0 660 300" role="img"
             aria-label="Confronto grafico di crescita tra logaritmo, retta, parabola ed esponenziale"></svg>
           <div class="m1l2-legend">
             <span style="--legend-color: var(--accent-success);">$y = \ln(x)$ (lenta)</span>
@@ -1318,64 +1345,83 @@
       }
     }
 
-    /* LAB 2: RENDERING & VERIFICA [0/0] */
+        /* LAB 2: RENDERING & VERIFICA [0/0] */
     function renderLab2() {
       const slider = document.getElementById('lab2Slider');
       if (!slider) return;
       const x = parseFloat(slider.value);
+      const isExactly2 = Math.abs(x - 2.0) < 0.001;
       const fx = x + 2; // (x^2 - 4) / (x - 2) = x + 2 for x != 2
 
       document.getElementById('lab2X').textContent = `x = ${x.toFixed(2).replace('.', ',')}`;
-      document.getElementById('lab2Fx').textContent = `f(x) = ${fx.toFixed(2).replace('.', ',')}`;
+      if (isExactly2) {
+        document.getElementById('lab2Fx').innerHTML = `<span style="color:var(--accent-danger); font-weight:700;">f(2) = 0/0 (Indeterminata!)</span>`;
+      } else {
+        document.getElementById('lab2Fx').textContent = `f(x) = ${fx.toFixed(2).replace('.', ',')}`;
+      }
 
       const svg = document.getElementById('lab2Svg');
       if (!svg) return;
       svg.innerHTML = '';
 
-      // x in [0.5, 3.5] -> [75, 565]
-      // y in [2, 6] -> [240, 35]
-      const toSvgX = (vx) => 75 + ((vx - 0.5) / 3.0) * 490;
-      const toSvgY = (vy) => 240 - ((vy - 2.0) / 4.0) * 205;
+      // x in [0.5, 3.5] -> [80, 520]
+      // y in [2, 6] -> [240, 40]
+      const toSvgX = (vx) => 80 + ((vx - 0.5) / 3.0) * 440;
+      const toSvgY = (vy) => 240 - ((vy - 2.0) / 4.0) * 200;
 
       let grid = '';
       let ticks = '';
       [1, 1.5, 2, 2.5, 3].forEach(vx => {
         const sx = toSvgX(vx);
-        grid += `<line x1="${sx}" y1="${toSvgY(6)}" x2="${sx}" y2="${toSvgY(2)}" stroke="var(--border-subtle)" stroke-opacity="0.35" stroke-dasharray="2,3" />`;
-        ticks += `<line x1="${sx}" y1="${toSvgY(2) - 4}" x2="${sx}" y2="${toSvgY(2) + 4}" stroke="var(--text-muted)" />
-                  <text x="${sx}" y="${toSvgY(2) + 18}" fill="var(--text-muted)" font-size="11" text-anchor="middle">${vx}</text>`;
+        const isTarget = (vx === 2);
+        grid += `<line x1="${sx}" y1="40" x2="${sx}" y2="240" stroke="var(--border-subtle)" stroke-opacity="${isTarget ? '0.6' : '0.35'}" stroke-dasharray="2,3" />`;
+        ticks += `<line x1="${sx}" y1="236" x2="${sx}" y2="244" stroke="${isTarget ? 'var(--accent-math)' : 'var(--text-muted)'}" stroke-width="${isTarget ? '2' : '1'}" />
+                  <text x="${sx}" y="258" fill="${isTarget ? 'var(--accent-math)' : 'var(--text-muted)'}" font-size="11" font-weight="${isTarget ? '800' : '500'}" text-anchor="middle">${vx.toString().replace('.', ',')}</text>`;
       });
       [2, 3, 4, 5, 6].forEach(vy => {
         const sy = toSvgY(vy);
-        grid += `<line x1="${toSvgX(0.5)}" y1="${sy}" x2="${toSvgX(3.5)}" y2="${sy}" stroke="var(--border-subtle)" stroke-opacity="0.35" stroke-dasharray="2,3" />`;
-        ticks += `<line x1="${toSvgX(0.5) - 4}" y1="${sy}" x2="${toSvgX(0.5) + 4}" stroke="var(--text-muted)" />
-                  <text x="${toSvgX(0.5) - 10}" y="${sy + 4}" fill="var(--text-muted)" font-size="11" text-anchor="end">${vy}</text>`;
+        const isLimit = (vy === 4);
+        grid += `<line x1="80" y1="${sy}" x2="520" y2="${sy}" stroke="var(--border-subtle)" stroke-opacity="${isLimit ? '0.6' : '0.35'}" stroke-dasharray="2,3" />`;
+        ticks += `<line x1="76" y1="${sy}" x2="84" y2="${sy}" stroke="${isLimit ? 'var(--accent-gold)' : 'var(--text-muted)'}" stroke-width="${isLimit ? '2' : '1'}" />
+                  <text x="70" y="${sy + 4}" fill="${isLimit ? 'var(--accent-gold)' : 'var(--text-muted)'}" font-size="11" font-weight="${isLimit ? '800' : '500'}" text-anchor="end">${vy}</text>`;
       });
 
       const axes = `
-        <line x1="58" y1="${toSvgY(2)}" x2="590" y2="${toSvgY(2)}" stroke="var(--border-subtle)" stroke-width="1.6" />
-        <line x1="${toSvgX(0.5)}" y1="255" x2="${toSvgX(0.5)}" y2="24" stroke="var(--border-subtle)" stroke-width="1.6" />
-        <text x="620" y="${toSvgY(2) + 4}" fill="var(--text-muted)" font-size="11" font-weight="600" text-anchor="end">x</text>
-        <text x="${toSvgX(0.5) + 6}" y="22" fill="var(--text-muted)" font-size="11" font-weight="600">y</text>
+        <line x1="60" y1="240" x2="580" y2="240" stroke="var(--border-subtle)" stroke-width="1.6" />
+        <polygon points="588,240 580,236 580,244" fill="var(--text-muted)" />
+        <line x1="80" y1="250" x2="80" y2="24" stroke="var(--border-subtle)" stroke-width="1.6" />
+        <polygon points="80,18 76,26 84,26" fill="var(--text-muted)" />
+        <text x="300" y="286" fill="var(--text-muted)" font-size="11.5" font-weight="600" text-anchor="middle">Valore della variabile x</text>
+        <text x="88" y="24" fill="var(--text-muted)" font-size="11.5" font-weight="600" text-anchor="start">y = f(x)</text>
       `;
 
       // Retta y = x + 2
       const line = `
-        <line x1="${toSvgX(0.6)}" y1="${toSvgY(2.6)}" x2="${toSvgX(3.4)}" y2="${toSvgY(5.4)}" stroke="var(--accent-math)" stroke-width="3" />
+        <line x1="${toSvgX(0.6)}" y1="${toSvgY(2.6)}" x2="${toSvgX(3.4)}" y2="${toSvgY(5.4)}" stroke="var(--accent-math)" stroke-width="3" stroke-linecap="round" />
       `;
 
       // Punto buco in (2, 4)
       const buco = `
-        <circle cx="${toSvgX(2)}" cy="${toSvgY(4)}" r="6" fill="var(--bg-surface)" stroke="var(--accent-gold)" stroke-width="2.5" />
-        <line x1="${toSvgX(2)}" y1="${toSvgY(2)}" x2="${toSvgX(2)}" y2="${toSvgY(4) + 6}" stroke="var(--accent-gold)" stroke-dasharray="3,3" stroke-width="1.2" />
-        <line x1="${toSvgX(0.5)}" y1="${toSvgY(4)}" x2="${toSvgX(2) - 6}" y2="${toSvgY(4)}" stroke="var(--accent-gold)" stroke-dasharray="3,3" stroke-width="1.2" />
-        <text x="${toSvgX(2) + 10}" y="${toSvgY(4) - 8}" fill="var(--accent-gold)" font-size="11" font-weight="700">Buco in (2, 4) -> Limite L = 4</text>
+        <line x1="${toSvgX(2)}" y1="240" x2="${toSvgX(2)}" y2="${toSvgY(4) + 8}" stroke="var(--accent-gold)" stroke-dasharray="3,3" stroke-width="1.4" />
+        <line x1="80" y1="${toSvgY(4)}" x2="${toSvgX(2) - 8}" y2="${toSvgY(4)}" stroke="var(--accent-gold)" stroke-dasharray="3,3" stroke-width="1.4" />
+        <circle cx="${toSvgX(2)}" cy="${toSvgY(4)}" r="6.5" fill="var(--bg-surface)" stroke="var(--accent-gold)" stroke-width="2.8" />
+        <text x="${toSvgX(2) + 12}" y="${toSvgY(4) - 8}" fill="var(--accent-gold)" font-size="11" font-weight="800">Buco in (2; 4) • Limite L = 4</text>
       `;
 
       // Punto corrente
-      const curPt = `
-        <circle cx="${toSvgX(x)}" cy="${toSvgY(fx)}" r="5.5" fill="var(--accent-success)" stroke="#fff" stroke-width="1.5" />
-      `;
+      let curPt = '';
+      if (!isExactly2) {
+        curPt = `
+          <line x1="${toSvgX(x)}" y1="240" x2="${toSvgX(x)}" y2="${toSvgY(fx)}" stroke="var(--accent-success)" stroke-dasharray="2,2" stroke-width="1.2" />
+          <line x1="80" y1="${toSvgY(fx)}" x2="${toSvgX(x)}" y2="${toSvgY(fx)}" stroke="var(--accent-success)" stroke-dasharray="2,2" stroke-width="1.2" />
+          <circle cx="${toSvgX(x)}" cy="${toSvgY(fx)}" r="5.5" fill="var(--accent-success)" stroke="#fff" stroke-width="1.5" />
+        `;
+      } else {
+        curPt = `
+          <circle cx="${toSvgX(2)}" cy="${toSvgY(4)}" r="9" fill="none" stroke="var(--accent-danger)" stroke-width="2" stroke-dasharray="3,2" />
+          <text x="${toSvgX(2)}" y="${toSvgY(4) + 24}" fill="var(--accent-danger)" font-size="11" font-weight="700" text-anchor="middle">f(2) NON definita!</text>
+        `;
+      }
 
       svg.innerHTML = grid + axes + ticks + line + buco + curPt;
     }
@@ -1386,18 +1432,41 @@
       const msg = document.getElementById('lab2Msg');
       msg.style.display = 'inline-flex';
 
-      if (Math.abs(a1 - 6) < 0.05 && Math.abs(a2 - 4) < 0.05) {
+      if (Math.abs(a1 - 6) < 0.05 && Math.abs(a2 - 0) < 0.05) {
         msg.className = 'feedback-msg success';
-        msg.textContent = 'Esatto! (x^2-9)/(x-3) = x+3 -> 6, e (x^2+2x-3)/(x-1) = (x-1)(x+3)/(x-1) = x+3 -> 4!';
+        msg.textContent = 'Bravissimo! 1) (x^2 - 9)/(x - 3) = x + 3 -> 6; 2) Riconoscendo il quadrato di binomio (x - 1)^2 / (x - 1) = x - 1 -> 0!';
         markLabCompleted(2);
       } else {
         if (window.ComodeAudio) window.ComodeAudio.playError();
         msg.className = 'feedback-msg error';
-        msg.textContent = 'Rivedi: per il primo scomponi (x-3)(x+3)/(x-3) = x+3 -> 3+3=6; per il secondo scomponi (x-1)(x+3)/(x-1) -> 1+3=4.';
+        msg.textContent = 'Rivedi: per il primo scomponi la differenza di quadrati (x-3)(x+3)/(x-3) = x+3 -> 6; per il secondo riconosci il quadrato di binomio (x-1)^2/(x-1) = x-1 -> 0.';
       }
     }
 
-    /* LAB 3: GERARCHIA DEGLI INFINITI */
+    /* LAB 3: GERARCHIA DEGLI INFINITI & PAREGGIO DI GRADO */
+    let lab3CurrentMode = 'hierarchy';
+
+    function setLab3Mode(mode) {
+      if (window.ComodeAudio) window.ComodeAudio.playClick();
+      lab3CurrentMode = mode;
+      const btn1 = document.getElementById('btnLab3Mode1');
+      const btn2 = document.getElementById('btnLab3Mode2');
+      const intro = document.getElementById('lab3IntroText');
+      if (btn1 && btn2) {
+        btn1.classList.toggle('selected', mode === 'hierarchy');
+        btn2.classList.toggle('selected', mode === 'tie');
+      }
+      if (intro) {
+        if (mode === 'hierarchy') {
+          intro.textContent = "Modalità 1: L'esponenziale e^(0.15x) fugge verso l'alto ed esce naturalmente dal grafico senza piegarsi; il logaritmo rimane schiacciato vicino all'asse.";
+        } else {
+          intro.innerHTML = "Modalità 2 (Pareggio di Grado): Funzione $f(x) = \\frac{6x^2 + 4x}{2x^2 + 5}$. All'aumentare di $x$, la curva converge perfettamente sull'asintoto orizzontale $\\frac{6}{2} = 3$!";
+          if (window.ComodeComponents) window.ComodeComponents.renderMath(intro);
+        }
+      }
+      renderLab3();
+    }
+
     function renderLab3() {
       const slider = document.getElementById('lab3Slider');
       if (!slider) return;
@@ -1405,44 +1474,141 @@
 
       const rLog = Math.log(x) / x;
       const rExp = Math.exp(0.1 * x) / x;
+      const rRatio = (6 * x * x + 4 * x) / (2 * x * x + 5);
 
       document.getElementById('lab3X').textContent = `x = ${x}`;
-      document.getElementById('lab3RatioLog').textContent = `ln(x) / x = ${rLog.toFixed(3)}`;
-      document.getElementById('lab3RatioExp').textContent = `e^(0,1x) / x = ${rExp.toFixed(3)}`;
+      if (lab3CurrentMode === 'hierarchy') {
+        document.getElementById('lab3RatioLog').textContent = `ln(x) / x = ${rLog.toFixed(3)}`;
+        document.getElementById('lab3RatioExp').textContent = `e^(0,1x) / x = ${rExp.toFixed(3)}`;
+      } else {
+        document.getElementById('lab3RatioLog').textContent = `Grado max: 6x² / 2x²`;
+        document.getElementById('lab3RatioExp').textContent = `f(x) = ${rRatio.toFixed(3)} → 3,000`;
+      }
 
       const svg = document.getElementById('lab3Svg');
       if (!svg) return;
       svg.innerHTML = '';
 
-      // x in [1, 60] -> [75, 565]
-      // y in [0, 80] -> [240, 35]
-      const toSvgX = (vx) => 75 + ((vx - 1) / 59) * 490;
-      const toSvgY = (vy) => 240 - (Math.min(vy, 80) / 80) * 205;
+      if (lab3CurrentMode === 'hierarchy') {
+        // x in [1, 60] -> [80, 540]
+        // y in [0, 80] -> [240, 40]
+        const toSvgX = (vx) => 80 + ((vx - 1) / 59) * 460;
+        const toSvgY = (vy) => 240 - (vy / 80) * 200; // NO Math.min clamping!
 
-      let dLog = `M ${toSvgX(1)} ${toSvgY(0)}`;
-      let dLin = `M ${toSvgX(1)} ${toSvgY(1)}`;
-      let dExp = `M ${toSvgX(1)} ${toSvgY(Math.exp(0.15))}`;
+        // Assi e griglia
+        let grid = '';
+        let ticks = '';
+        [10, 20, 30, 40, 50, 60].forEach(vx => {
+          const sx = toSvgX(vx);
+          grid += `<line x1="${sx}" y1="40" x2="${sx}" y2="240" stroke="var(--border-subtle)" stroke-opacity="0.25" stroke-dasharray="2,3" />`;
+          ticks += `<line x1="${sx}" y1="236" x2="${sx}" y2="244" stroke="var(--text-muted)" />
+                    <text x="${sx}" y="258" fill="var(--text-muted)" font-size="11" text-anchor="middle">${vx}</text>`;
+        });
+        [0, 20, 40, 60, 80].forEach(vy => {
+          const sy = toSvgY(vy);
+          grid += `<line x1="80" y1="${sy}" x2="540" y2="${sy}" stroke="var(--border-subtle)" stroke-opacity="0.25" stroke-dasharray="2,3" />`;
+          ticks += `<line x1="76" y1="${sy}" x2="84" y2="${sy}" stroke="var(--text-muted)" />
+                    <text x="70" y="${sy + 4}" fill="var(--text-muted)" font-size="11" text-anchor="end">${vy}</text>`;
+        });
 
-      for (let vx = 2; vx <= 60; vx += 2) {
-        dLog += ` L ${toSvgX(vx)} ${toSvgY(Math.log(vx))}`;
-        dLin += ` L ${toSvgX(vx)} ${toSvgY(vx)}`;
-        dExp += ` L ${toSvgX(vx)} ${toSvgY(Math.exp(0.15 * vx))}`;
+        const axes = `
+          <line x1="60" y1="240" x2="590" y2="240" stroke="var(--border-subtle)" stroke-width="1.6" />
+          <polygon points="596,240 588,236 588,244" fill="var(--text-muted)" />
+          <line x1="80" y1="250" x2="80" y2="24" stroke="var(--border-subtle)" stroke-width="1.6" />
+          <polygon points="80,18 76,26 84,26" fill="var(--text-muted)" />
+          <text x="310" y="286" fill="var(--text-muted)" font-size="11.5" font-weight="600" text-anchor="middle">Valore della variabile x</text>
+          <text x="88" y="24" fill="var(--text-muted)" font-size="11.5" font-weight="600" text-anchor="start">Valore di y</text>
+        `;
+
+        let dLog = `M ${toSvgX(1)} ${toSvgY(0)}`;
+        let dLin = `M ${toSvgX(1)} ${toSvgY(1)}`;
+        let dExp = `M ${toSvgX(1)} ${toSvgY(Math.exp(0.15))}`;
+
+        for (let vx = 1.5; vx <= 60; vx += 0.5) {
+          dLog += ` L ${toSvgX(vx)} ${toSvgY(Math.log(vx))}`;
+          dLin += ` L ${toSvgX(vx)} ${toSvgY(vx)}`;
+          dExp += ` L ${toSvgX(vx)} ${toSvgY(Math.exp(0.15 * vx))}`;
+        }
+
+        // Definiamo un clipPath che ritaglia l'area interna: la curva sale ed esce naturalmente dal grafico!
+        const clipDef = `
+          <defs>
+            <clipPath id="lab3PlotClip">
+              <rect x="80" y="30" width="465" height="211" />
+            </clipPath>
+          </defs>
+        `;
+
+        const paths = `
+          <g clip-path="url(#lab3PlotClip)">
+            <path d="${dLog}" fill="none" stroke="var(--accent-success)" stroke-width="2.5" />
+            <path d="${dLin}" fill="none" stroke="var(--accent-math)" stroke-width="2" stroke-dasharray="3,2" />
+            <path d="${dExp}" fill="none" stroke="var(--accent-danger)" stroke-width="3" stroke-linecap="round" />
+          </g>
+        `;
+
+        const expVal = Math.exp(0.15 * x);
+        const marker = `
+          <line x1="${toSvgX(x)}" y1="240" x2="${toSvgX(x)}" y2="35" stroke="var(--accent-gold)" stroke-dasharray="3,3" stroke-width="1.2" />
+          <circle cx="${toSvgX(x)}" cy="${toSvgY(Math.log(x))}" r="4" fill="var(--accent-success)" />
+          <circle cx="${toSvgX(x)}" cy="${toSvgY(x)}" r="4" fill="var(--accent-math)" />
+          ${expVal <= 80 ? `<circle cx="${toSvgX(x)}" cy="${toSvgY(expVal)}" r="5.5" fill="var(--accent-danger)" stroke="#fff" stroke-width="1.5" />` : ''}
+        `;
+
+        svg.innerHTML = clipDef + grid + axes + ticks + paths + marker;
+      } else {
+        // Modalità 2: Stesso Grado & Rapporto Coefficienti f(x) = (6x^2 + 4x) / (2x^2 + 5) -> 3
+        // x in [1, 60] -> [80, 540]
+        // y in [0, 4] -> [240, 40]
+        const toSvgX = (vx) => 80 + ((vx - 1) / 59) * 460;
+        const toSvgY = (vy) => 240 - (vy / 4) * 200;
+
+        let grid = '';
+        let ticks = '';
+        [10, 20, 30, 40, 50, 60].forEach(vx => {
+          const sx = toSvgX(vx);
+          grid += `<line x1="${sx}" y1="40" x2="${sx}" y2="240" stroke="var(--border-subtle)" stroke-opacity="0.25" stroke-dasharray="2,3" />`;
+          ticks += `<line x1="${sx}" y1="236" x2="${sx}" y2="244" stroke="var(--text-muted)" />
+                    <text x="${sx}" y="258" fill="var(--text-muted)" font-size="11" text-anchor="middle">${vx}</text>`;
+        });
+        [0, 1, 2, 3, 4].forEach(vy => {
+          const sy = toSvgY(vy);
+          const isAsymptote = (vy === 3);
+          grid += `<line x1="80" y1="${sy}" x2="540" y2="${sy}" stroke="var(--border-subtle)" stroke-opacity="${isAsymptote ? '0.6' : '0.25'}" stroke-dasharray="2,3" />`;
+          ticks += `<line x1="76" y1="${sy}" x2="84" y2="${sy}" stroke="${isAsymptote ? 'var(--accent-gold)' : 'var(--text-muted)'}" stroke-width="${isAsymptote ? '2' : '1'}" />
+                    <text x="70" y="${sy + 4}" fill="${isAsymptote ? 'var(--accent-gold)' : 'var(--text-muted)'}" font-size="11" font-weight="${isAsymptote ? '800' : '500'}" text-anchor="end">${vy}</text>`;
+        });
+
+        const axes = `
+          <line x1="60" y1="240" x2="590" y2="240" stroke="var(--border-subtle)" stroke-width="1.6" />
+          <polygon points="596,240 588,236 588,244" fill="var(--text-muted)" />
+          <line x1="80" y1="250" x2="80" y2="24" stroke="var(--border-subtle)" stroke-width="1.6" />
+          <polygon points="80,18 76,26 84,26" fill="var(--text-muted)" />
+          <text x="310" y="286" fill="var(--text-muted)" font-size="11.5" font-weight="600" text-anchor="middle">Valore di x</text>
+          <text x="88" y="24" fill="var(--text-muted)" font-size="11.5" font-weight="600" text-anchor="start">f(x) = (6x² + 4x)/(2x² + 5)</text>
+        `;
+
+        let dCurve = `M ${toSvgX(1)} ${toSvgY((6 + 4) / (2 + 5))}`;
+        for (let vx = 1.5; vx <= 60; vx += 0.5) {
+          const val = (6 * vx * vx + 4 * vx) / (2 * vx * vx + 5);
+          dCurve += ` L ${toSvgX(vx)} ${toSvgY(val)}`;
+        }
+
+        const asintoto = `
+          <line x1="80" y1="${toSvgY(3)}" x2="560" y2="${toSvgY(3)}" stroke="var(--accent-gold)" stroke-dasharray="4,3" stroke-width="2" />
+          <text x="565" y="${toSvgY(3) + 4}" fill="var(--accent-gold)" font-size="11" font-weight="800">Asintoto y = 6/2 = 3</text>
+        `;
+
+        const curVal = (6 * x * x + 4 * x) / (2 * x * x + 5);
+        const marker = `
+          <line x1="${toSvgX(x)}" y1="240" x2="${toSvgX(x)}" y2="${toSvgY(curVal)}" stroke="var(--accent-success)" stroke-dasharray="2,2" stroke-width="1.2" />
+          <line x1="80" y1="${toSvgY(curVal)}" x2="${toSvgX(x)}" y2="${toSvgY(curVal)}" stroke="var(--accent-success)" stroke-dasharray="2,2" stroke-width="1.2" />
+          <circle cx="${toSvgX(x)}" cy="${toSvgY(curVal)}" r="6" fill="var(--accent-success)" stroke="#fff" stroke-width="1.5" />
+          <text x="${toSvgX(x) + 8}" y="${toSvgY(curVal) - 8}" fill="var(--accent-success)" font-size="11" font-weight="700">f(${x}) = ${curVal.toFixed(3)}</text>
+        `;
+
+        svg.innerHTML = grid + axes + ticks + asintoto + `<path d="${dCurve}" fill="none" stroke="var(--accent-math)" stroke-width="3" stroke-linecap="round" />` + marker;
       }
-
-      const paths = `
-        <path d="${dLog}" fill="none" stroke="var(--accent-success)" stroke-width="2.5" />
-        <path d="${dLin}" fill="none" stroke="var(--accent-math)" stroke-width="2" stroke-dasharray="3,2" />
-        <path d="${dExp}" fill="none" stroke="var(--accent-danger)" stroke-width="3" />
-      `;
-
-      const marker = `
-        <line x1="${toSvgX(x)}" y1="${toSvgY(0)}" x2="${toSvgX(x)}" y2="25" stroke="var(--accent-gold)" stroke-dasharray="3,3" stroke-width="1.2" />
-        <circle cx="${toSvgX(x)}" cy="${toSvgY(Math.log(x))}" r="4" fill="var(--accent-success)" />
-        <circle cx="${toSvgX(x)}" cy="${toSvgY(x)}" r="4" fill="var(--accent-math)" />
-        <circle cx="${toSvgX(x)}" cy="${toSvgY(Math.exp(0.15 * x))}" r="5" fill="var(--accent-danger)" stroke="#fff" />
-      `;
-
-      svg.innerHTML = paths + marker;
     }
 
     function verifyLab3() {
@@ -1463,7 +1629,7 @@
       } else {
         if (window.ComodeAudio) window.ComodeAudio.playError();
         msg.className = 'feedback-msg error';
-        msg.textContent = 'Rivedi: ln(x)/x^4 -> 0; e^x domina x^100 -> +inf; (7x^3)/(2x^3) -> 7/2.';
+        msg.textContent = 'Rivedi: 1) ln(x)/x^4 -> 0; 2) e^x/x^100 -> +inf; 3) (7x^3)/(2x^3) -> 7/2.';
       }
     }
 
@@ -1649,85 +1815,85 @@
               category: 'Forme Determinate',
               theoryRef: 'Teoria 1 • Algebra dei Limiti',
               theoryTargetId: 'teoria-1',
-              question: 'Quanto vale il limite $\lim_{x \to 0^+} \frac{3}{x}$?',
+              question: 'Quanto vale il limite $\\lim_{x \\to 0^+} \\frac{3}{x}$?',
               options: [
-                'Vale $+\infty$',
+                'Vale $+\\infty$',
                 'Vale 0',
                 'È una forma indeterminata [0/0]',
                 'Non esiste perché non si può dividere per zero'
               ],
               correct: 0,
-              explanation: 'Dividere una costante positiva $k > 0$ per quantità infinitesime positive vicine a zero dà $+\infty$. È una forma determinata immediata!'
+              explanation: 'Dividere una costante positiva $k > 0$ per quantità positive infinitesime vicine a zero dà $+\\infty$. È una forma determinata immediata!'
             },
             {
               category: 'Forma [0/0]',
               theoryRef: 'Teoria 2 • Scomposizione',
               theoryTargetId: 'teoria-2',
-              question: 'Come si risolve l\'indeterminazione in $\lim_{x \to 5} \frac{x^2 - 25}{x - 5}$?',
+              question: 'Come si risolve l\'indeterminazione in $\\lim_{x \\to 5} \\frac{x^2 - 25}{x - 5}$?',
               options: [
                 'Si sostituisce 0 a numeratore e denominatore',
                 'Si scompone $x^2 - 25 = (x - 5)(x + 5)$ e si elide il binomio nullo $(x - 5)$, ottenendo 10',
-                'Il limite fa sempre $+\infty$',
+                'Il limite fa sempre $+\\infty$',
                 'Si applica la gerarchia degli infiniti'
               ],
               correct: 1,
-              explanation: 'Scomponendo la differenza di quadrati si semplifica il fattore $(x - 5) \neq 0$ responsabile dello zero, ottenendo $\lim_{x \to 5} (x + 5) = 10$.'
+              explanation: 'Scomponendo la differenza di quadrati si semplifica il fattore $(x - 5) \\neq 0$ responsabile dello zero, ottenendo $\\lim_{x \\to 5} (x + 5) = 10$.'
             },
             {
               category: 'Forma [∞/∞]',
               theoryRef: 'Teoria 3 • Raccoglimento Grado Massimo',
               theoryTargetId: 'teoria-3',
-              question: 'Quanto vale $\lim_{x \to +\infty} \frac{6x^2 - 4}{2x^2 + 5x}$?',
+              question: 'Quanto vale $\\lim_{x \\to +\\infty} \\frac{6x^2 - 4}{2x^2 + 5x}$?',
               options: [
                 'Vale 3 (il rapporto tra i coefficienti di grado massimo 6 e 2)',
-                'Vale $+\infty$ perché i polinomi crescono all\'infinito',
+                'Vale $+\\infty$ perché i polinomi crescono all\'infinito',
                 'Vale 0',
                 'È un\'indeterminazione non risolvibile'
               ],
               correct: 0,
-              explanation: 'Avendo numeratore e denominatore lo stesso grado massimo (2), il limite coincide con il rapporto dei coefficienti dominanti: $\frac{6}{2} = 3$.'
+              explanation: 'Avendo numeratore e denominatore lo stesso grado massimo (2), il limite coincide con il rapporto dei coefficienti dominanti: $\\frac{6}{2} = 3$.'
             },
             {
               category: 'Gerarchia degli Infiniti',
               theoryRef: 'Teoria 3 • Scala di Crescita',
               theoryTargetId: 'teoria-3',
-              question: 'Per $x \to +\infty$, quale funzione cresce più rapidamente tra logaritmica, potenza ed esponenziale?',
+              question: 'Per $x \\to +\\infty$, quale funzione cresce più rapidamente tra logaritmica, potenza ed esponenziale?',
               options: [
                 'La funzione esponenziale $2^x$',
                 'La funzione potenza $x^3$',
-                'La funzione logaritmica $\ln(x)$',
+                'La funzione logaritmica $\\ln(x)$',
                 'Crescono tutte allo stesso ritmo'
               ],
               correct: 0,
-              explanation: 'La gerarchia degli infiniti stabilisce che $\ln(x) \ll x^n \ll a^x$ (con $a > 1$). L\'esponenziale supera qualsiasi potenza di $x$!'
+              explanation: 'La gerarchia degli infiniti stabilisce che $\\ln(x) \\ll x^n \\ll a^x$ (con $a > 1$). L\'esponenziale supera qualsiasi potenza di $x$!'
             },
             {
               category: 'Forma [+∞ − ∞]',
               theoryRef: 'Teoria 4 • Trappola del Falso Zero',
               theoryTargetId: 'teoria-4',
-              question: 'Perché $\lim_{x \to +\infty} (x^3 - 2x) \neq 0$ nonostante sia della forma $[+\infty - \infty]$?',
+              question: 'Perché $\\lim_{x \\to +\\infty} (x^3 - 2x) \\neq 0$ nonostante sia della forma $[+\\infty - \\infty]$?',
               options: [
-                'Perché $x^3$ è un infinito di ordine superiore che domina e trascina il risultato a $+\infty$',
+                'Perché $x^3$ è un infinito di ordine superiore che domina e trascina il risultato a $+\\infty$',
                 'Perché l\'infinito non ammette mai sottrazioni',
                 'Perché il segno meno si trasforma sempre in più',
                 'Fa 0 in base alla proprietà invariantiva'
               ],
               correct: 0,
-              explanation: 'Raccogliendo $x^3(1 - 2/x^2)$, per $x \to +\infty$ la parentesi tende a $1$ e $x^3 \to +\infty$. L\'infinito di grado 3 schiaccia quello di grado 1!'
+              explanation: 'Raccogliendo $x^3(1 - 2/x^2)$, per $x \\to +\\infty$ la parentesi tende a $1$ e $x^3 \\to +\\infty$. L\'infinito di grado 3 schiaccia quello di grado 1!'
             },
             {
               category: 'Significato Reale di [0/0]',
               theoryRef: 'Inquadramento • Tachimetro e Velocità Istantanea',
               theoryTargetId: 'intro-forme-indeterminate',
-              question: 'Cosa rappresenta fisicamente la forma indeterminata $\left[\frac{0}{0}\right]$ nella vita quotidiana?',
+              question: 'Cosa rappresenta fisicamente la forma indeterminata $\\left[\\frac{0}{0}\\right]$ nella vita quotidiana?',
               options: [
-                'Il calcolo della velocità istantanea $v = \lim_{\Delta t \to 0} \frac{\Delta s}{\Delta t}$ sul tachimetro dell\'auto',
+                'Il calcolo della velocità istantanea $v = \\lim_{\\Delta t \\to 0} \\frac{\\Delta s}{\\Delta t}$ sul tachimetro dell\'auto',
                 'Un guasto irreversibile dei circuiti elettronici',
                 'Il consumo di carburante ad auto spenta',
                 'Un errore di misurazione non risolvibile'
               ],
               correct: 0,
-              explanation: 'La velocità istantanea è il limite del rapporto incrementale quando tempo e spazio tendono entrambi a zero: una forma $\left[\frac{0}{0}\right]$ che converge stabilmente al valore reale segnato dal tachimetro!'
+              explanation: 'La velocità istantanea è il limite del rapporto incrementale quando tempo e spazio tendono entrambi a zero: una forma $\\left[\\frac{0}{0}\\right]$ che converge stabilmente al valore reale segnato dal tachimetro!'
             }
           ]
         });
