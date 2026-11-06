@@ -1004,14 +1004,14 @@
             <p style="margin-bottom: 0.5rem; font-weight: 600;">2) Cosa significa concretamente che $\lim_{C \to 100}
               F(C) = 212$?</p>
             <div class="m1l1-choice-row" id="lab1bChoices" style="margin-bottom: 0.75rem;">
-              <button type="button" class="m1l1-choice-btn" data-val="approx" onclick="selectChoice('lab1b', 'approx')">
+              <button type="button" class="m1l1-choice-btn" data-val="approx" onclick="selectChoice('lab1b', this)">
                 A) Che possiamo rendere $F(C)$ vicino a 212 °F quanto vogliamo, basta prendere $C$ sufficientemente
                 vicino a 100 °C
               </button>
-              <button type="button" class="m1l1-choice-btn" data-val="exact" onclick="selectChoice('lab1b', 'exact')">
+              <button type="button" class="m1l1-choice-btn" data-val="exact" onclick="selectChoice('lab1b', this)">
                 B) Che il termometro deve segnare obbligatoriamente 100 °C esatti, altrimenti il limite non esiste
               </button>
-              <button type="button" class="m1l1-choice-btn" data-val="zero" onclick="selectChoice('lab1b', 'zero')">
+              <button type="button" class="m1l1-choice-btn" data-val="zero" onclick="selectChoice('lab1b', this)">
                 C) Che per $C = 100$ la temperatura in Fahrenheit si azzera
               </button>
             </div>
@@ -2542,8 +2542,14 @@
 
     // Gestione bottoni a scelta multipla
     const selectedChoices = {};
-    function selectChoice(group, btn) {
+    function selectChoice(group, btnOrVal) {
       if (window.ComodeAudio) window.ComodeAudio.playClick();
+      let btn = btnOrVal;
+      if (typeof btnOrVal === 'string') {
+        const container = document.getElementById(group + 'Choices') || document;
+        btn = container.querySelector(`.m1l1-choice-btn[data-val="${btnOrVal}"]`);
+      }
+      if (!btn || !btn.parentElement) return;
       const parent = btn.parentElement;
       parent.querySelectorAll('.m1l1-choice-btn').forEach(b => b.classList.remove('selected'));
       btn.classList.add('selected');
@@ -2855,19 +2861,32 @@
     }
 
     function verifyLab1b() {
-      const val = parseFloat(document.getElementById('lab1bInput').value.trim().replace(',', '.'));
+      const inputEl = document.getElementById('lab1bInput');
+      const rawVal = inputEl ? inputEl.value.trim().replace(',', '.') : '';
+      const val = parseFloat(rawVal);
       const choice = selectedChoices['lab1b'];
       const msg = document.getElementById('lab1bMsg');
       msg.style.display = 'inline-flex';
 
-      if (Math.abs(val - 212) < 0.1 && choice === 'approx') {
+      const isValCorrect = !isNaN(val) && Math.abs(val - 212) < 0.1;
+      const isChoiceCorrect = choice === 'approx';
+
+      if (isValCorrect && isChoiceCorrect) {
         msg.className = 'feedback-msg success';
         msg.textContent = 'Bravissimo! Il valore limite è L = 212 °F: stringendo l\'intorno della temperatura Celsius attorno a 100 °C, i valori in Fahrenheit restano intrappolati vicinissimi a 212 °F!';
         markLabCompleted(1);
       } else {
         if (window.ComodeAudio) window.ComodeAudio.playError();
         msg.className = 'feedback-msg error';
-        msg.textContent = 'Controlla: sia da sinistra (211,98 °F) che da destra (212,02 °F) la temperatura converge al valore limite 212 °F! Inoltre, stringere l\'intorno significa che i valori restano intrappolati vicinissimi al limite.';
+        if (!isValCorrect && !choice) {
+          msg.textContent = 'Inserisci il valore numerico del limite nel campo (212) e seleziona una delle tre risposte concettuali (A, B o C).';
+        } else if (!isValCorrect) {
+          msg.textContent = 'Il valore numerico non è corretto: controlla nella tabella a quale valore converge F(C) per C che si avvicina a 100 °C (suggerimento: 212 °F).';
+        } else if (!choice) {
+          msg.textContent = 'Ottimo per il valore numerico 212 °F! Ora seleziona una delle opzioni concettuali (A, B o C) per completare la sfida.';
+        } else {
+          msg.textContent = 'Il valore numerico 212 °F è corretto, ma l\'interpretazione concettuale selezionata non è esatta. Ricorda: il limite descrive l\'avvicinamento arbitrario a 212 °F quando ci si avvicina a 100 °C!';
+        }
       }
     }
 
