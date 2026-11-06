@@ -37,10 +37,10 @@
       border: 1px solid rgba(168, 85, 247, 0.3);
       padding: 0.3rem 0.8rem;
       border-radius: var(--radius-pill);
-      font-size: 0.82rem;
+      font-size: 0.8rem;
       font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 0.05em;
+      letter-spacing: 0.04em;
     }
 
     .clil-voice-bar {
@@ -48,7 +48,7 @@
       align-items: center;
       gap: 0.5rem;
       flex-wrap: wrap;
-      margin-top: 0.85rem;
+      margin-top: 1.1rem;
       padding: 0.65rem 1rem;
       background: var(--bg-surface-elevated);
       border: 1px solid var(--border-subtle);
@@ -62,7 +62,7 @@
       font-family: inherit;
       font-size: 0.8rem;
       font-weight: 700;
-      padding: 0.3rem 0.75rem;
+      padding: 0.35rem 0.8rem;
       border-radius: var(--radius-pill);
       cursor: pointer;
       transition: var(--transition);
@@ -109,6 +109,7 @@
       border-radius: var(--radius-pill);
       font-size: 0.82rem;
       font-weight: 700;
+      font-family: inherit;
       cursor: pointer;
       transition: var(--transition);
       align-self: flex-start;
@@ -119,13 +120,35 @@
       color: #0b0f19;
     }
 
+    .clil-trans-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+      padding: 0.35rem 0.75rem;
+      border-radius: var(--radius-pill);
+      font-size: 0.82rem;
+      font-weight: 600;
+      font-family: inherit;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .clil-trans-btn:hover {
+      border-color: var(--accent-math);
+      color: var(--text-main);
+    }
+
     .clil-trans-box {
       margin-top: 0.4rem;
-      font-size: 0.82rem;
+      font-size: 0.84rem;
       color: var(--text-muted);
       border-top: 1px dashed var(--border-subtle);
-      padding-top: 0.4rem;
+      padding-top: 0.45rem;
       display: none;
+      line-height: 1.55;
     }
 
     .clil-false-friends-box {
@@ -138,24 +161,42 @@
       line-height: 1.65;
     }
 
-    .clil-lab-card {
-      background: var(--bg-surface);
-      border: 1px solid var(--border-subtle);
-      border-radius: var(--radius-lg);
-      padding: 1.75rem;
-      margin-bottom: 2rem;
-    }
-
-    .clil-lab-card.active-border {
-      border-left: 4px solid var(--accent-purple);
-    }
-
     .clil-stage {
       background: var(--bg-surface-elevated);
       border: 1px solid var(--border-subtle);
       border-radius: var(--radius-md);
       padding: 1.25rem;
       margin: 1.15rem 0;
+    }
+
+    .clil-slider-panel {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      flex-wrap: wrap;
+      margin-bottom: 0.85rem;
+      font-size: 0.92rem;
+    }
+
+    .clil-readout {
+      font-family: var(--font-mono);
+      font-weight: 700;
+      color: var(--accent-purple);
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      padding: 0.2rem 0.6rem;
+      border-radius: var(--radius-sm);
+    }
+
+    .clil-svg {
+      width: 100%;
+      max-width: 680px;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
     }
 
     .clil-table {
@@ -178,24 +219,90 @@
       color: var(--text-muted);
     }
 
-    /* Homework Worksheet */
-    .worksheet-section {
+    .clil-choice-btn {
       background: var(--bg-surface);
       border: 1px solid var(--border-subtle);
-      border-radius: var(--radius-lg);
-      padding: 2rem;
-      margin: 2.5rem 0;
+      color: var(--text-main);
+      padding: 0.55rem 0.95rem;
+      border-radius: var(--radius-md);
+      font-size: 0.88rem;
+      font-family: inherit;
+      cursor: pointer;
+      transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+      text-align: left;
+      width: 100%;
+      line-height: 1.4;
+      margin-bottom: 0.45rem;
     }
 
-    .worksheet-header {
+    .clil-choice-btn:hover:not(:disabled) {
+      border-color: var(--accent-purple);
+      background: rgba(168, 85, 247, 0.08);
+      color: var(--accent-purple);
+    }
+
+    .clil-choice-btn.correct {
+      background: rgba(16, 185, 129, 0.18) !important;
+      border-color: var(--accent-success) !important;
+      color: var(--accent-success) !important;
+      font-weight: 700;
+    }
+
+    .clil-choice-btn.wrong {
+      background: rgba(239, 68, 68, 0.18) !important;
+      border-color: #ef4444 !important;
+      color: #ef4444 !important;
+      font-weight: 700;
+    }
+
+    .clil-sentence-frames {
+      background: var(--bg-surface-elevated);
+      border: 1px solid rgba(168, 85, 247, 0.3);
+      border-radius: var(--radius-md);
+      padding: 1rem 1.2rem;
+      margin: 1.25rem 0;
+      font-size: 0.9rem;
+      line-height: 1.65;
+    }
+
+    .print-btn {
+      background: var(--bg-surface-elevated);
+      color: var(--text-main);
+      border: 1px solid var(--border-subtle);
+      font-family: inherit;
+      font-size: 0.85rem;
+      font-weight: 600;
+      padding: 0.45rem 0.9rem;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: var(--transition);
+    }
+
+    .print-btn:hover {
+      border-color: var(--accent-purple);
+      color: var(--accent-purple);
+    }
+
+    .verify-box {
+      margin-top: 1.25rem;
       display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      border-bottom: 2px dashed var(--border-subtle);
-      padding-bottom: 1.25rem;
-      margin-bottom: 1.5rem;
-      flex-wrap: wrap;
+      align-items: center;
       gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .feedback-msg {
+      font-size: 0.88rem;
+      font-weight: 600;
+    }
+
+    .feedback-msg.success {
+      color: var(--accent-success);
     }
 
     .rubric-grid {
@@ -227,15 +334,16 @@
     }
 
     @media print {
-      .navbar, .breadcrumbs, .lesson-hero, .lab-chips-wrap,
-      .flashcard-section, .completion-card, .btn, .clil-voice-bar,
-      .clil-audio-btn {
+      .navbar, .breadcrumbs, .hero-card, .progress-bar-card, .prereq-objectives-grid,
+      .flashcard-section, .completion-card, .btn-action, .clil-voice-bar,
+      .clil-audio-btn, .clil-trans-btn, .clil-slider-panel, .verify-box, .print-btn {
         display: none !important;
       }
-      .worksheet-section {
-        border: none;
-        padding: 0;
-        margin: 0;
+      .homework-section, .scheda-container {
+        border: none !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        box-shadow: none !important;
       }
     }
   </style>
@@ -275,16 +383,16 @@
       <span class="current">Modulo CLIL</span>
     </div>
 
-    <!-- Hero Modulo CLIL -->
-    <header class="lesson-hero">
-      <div class="flag-pill">
-        🇬🇧 CLIL Module • English for Mathematics • 5° Anno Liceo delle Scienze Umane
+    <!-- Hero Card Modulo CLIL -->
+    <header class="hero-card">
+      <div class="hero-badges">
+        <span class="flag-pill">🇬🇧 CLIL Module • English for Mathematics</span>
+        <span class="badge badge-primary">Matematica • 5° Anno</span>
+        <span class="badge badge-secondary">UDA 5.M1 Capstone</span>
       </div>
-      <h1 class="lesson-title">
-        CLIL: <span>Limits, Continuity &amp; Rates of Change</span>
-      </h1>
-      <p class="lesson-desc">
-        Padroneggia il lessico scientifico internazionale dell'analisi infinitesimale: ascolta la pronuncia madrelingua nativa con Web Speech API, impara a leggere formule e teoremi ad alta voce in inglese per il colloquio d'Esame di Stato, evita i falsi amici e analizza modelli applicati alle scienze umane (Rogers diffusion curve e soglie di welfare).
+      <h1 class="hero-title">CLIL: Limits, Continuity &amp; Rates of Change</h1>
+      <p class="hero-desc">
+        Padroneggia il lessico scientifico internazionale dell'analisi infinitesimale: ascolta la pronuncia madrelingua nativa con Web Speech API, impara a leggere formule e teoremi ad alta voce in inglese per il colloquio d'Esame di Stato, evita i falsi amici e analizza modelli applicati alle scienze umane (<em>Rogers diffusion curve</em> e <em>welfare tapers</em>).
       </p>
 
       <!-- Barra di selezione accento vocale Web Speech API -->
@@ -292,529 +400,673 @@
         <span style="font-size: 0.85rem; font-weight: 700; color: var(--text-muted); display: inline-flex; align-items: center; gap: 0.35rem;">
           🗣️ Pronunciation Accent:
         </span>
-        <button class="clil-accent-btn active" id="btnAccentUS" onclick="setClilAccent('en-US', this)">
+        <button type="button" class="clil-accent-btn active" id="btnAccentUS" onclick="setClilAccent('en-US', this)">
           🇺🇸 American English (US)
         </button>
-        <button class="clil-accent-btn" id="btnAccentGB" onclick="setClilAccent('en-GB', this)">
+        <button type="button" class="clil-accent-btn" id="btnAccentGB" onclick="setClilAccent('en-GB', this)">
           🇬🇧 British English (UK)
         </button>
-        <button class="clil-accent-btn" onclick="stopClilSpeech()" style="color: #ef4444; border-color: rgba(239, 68, 68, 0.3);">
+        <button type="button" class="clil-accent-btn" onclick="stopClilSpeech()" style="color: #ef4444; border-color: rgba(239, 68, 68, 0.3);">
           ⏹️ Stop Audio
         </button>
       </div>
 
-      <!-- Barra di Progresso Attività CLIL -->
-      <div class="lab-progress-tracker" style="margin-top: 1.5rem;">
-        <div class="lab-chips-wrap">
-          <button class="lab-chip active" id="chip-task-1" onclick="scrollToTask(1)">
-            <span class="chip-num">1</span> Spoken Formulas
-          </button>
-          <button class="lab-chip" id="chip-task-2" onclick="scrollToTask(2)">
-            <span class="chip-num">2</span> Core Lexicon
-          </button>
-          <button class="lab-chip" id="chip-task-3" onclick="scrollToTask(3)">
-            <span class="chip-num">3</span> Non-Differentiability
-          </button>
-          <button class="lab-chip" id="chip-task-4" onclick="scrollToTask(4)">
-            <span class="chip-num">4</span> Rogers Diffusion
-          </button>
-          <button class="lab-chip" id="chip-task-5" onclick="scrollToTask(5)">
-            <span class="chip-num">5</span> Welfare Tapers
-          </button>
+      <!-- Progress Tracker -->
+      <div class="progress-bar-card" style="margin-top: 1.25rem;">
+        <div class="progress-label">
+          <span>🎯 CLIL Tasks Progress:</span>
+          <span class="progress-score" id="progressScore">0 / 5 completed</span>
         </div>
-        <div class="lab-stats-row">
-          <span>CLIL Tasks completed: <strong id="tasksCompletedCount">0</strong> of 5</span>
-          <span class="badge" style="background: rgba(168, 85, 247, 0.15); color: var(--accent-purple);">+70 XP in palio</span>
+        <div class="progress-track">
+          <div class="progress-fill" id="progressFill"></div>
         </div>
       </div>
     </header>
 
+    <!-- PREREQUISITI E OBIETTIVI BILINGUI -->
+    <div class="prereq-objectives-grid">
+      <div class="prereq-card">
+        <div class="card-top-label prereq">
+          <span>🔑</span> Prerequisites / Prerequisiti
+        </div>
+        <h2 class="po-title">What you need before starting</h2>
+        <ul class="po-list">
+          <li>
+            <span class="po-icon">✓</span>
+            <div><strong>Limits &amp; Indeterminate Forms (Lessons 5.M1.1–2):</strong> one-sided limits $\lim_{x \to x_0^\pm} f(x)$, asymptotes, and $[0/0]$, $[\infty/\infty]$.</div>
+          </li>
+          <li>
+            <span class="po-icon">✓</span>
+            <div><strong>Continuity &amp; Derivatives (Lessons 5.M1.3–4):</strong> jump discontinuities, Weierstrass &amp; Bolzano theorems, difference quotient, and tangent slope $f'(x_0)$.</div>
+          </li>
+          <li>
+            <span class="po-icon">✓</span>
+            <div><strong>English Level B1 / B2:</strong> readiness to listen to native pronunciation and read short sociological and economic case studies with Italian support.</div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="objectives-card">
+        <div class="card-top-label objectives">
+          <span>🎯</span> Learning Outcomes / Competenze in Uscita
+        </div>
+        <h2 class="po-title">What you will be able to do</h2>
+        <ul class="po-list">
+          <li>
+            <span class="po-icon">🗣️</span>
+            <div><strong>Read Calculus Formulas Aloud in English:</strong> pronounce limits, one-sided limits, difference quotients, and derivatives fluently for the oral exam.</div>
+          </li>
+          <li>
+            <span class="po-icon">⚠️</span>
+            <div><strong>Master Technical Lexicon &amp; Avoid False Friends:</strong> distinguish <em>continuous vs continual</em>, <em>actual vs current</em>, and English decimal points (`0.25` vs `2,000`).</div>
+          </li>
+          <li>
+            <span class="po-icon">🌍</span>
+            <div><strong>Model Social &amp; Economic Phenomena in English:</strong> interpret Everett Rogers' innovation diffusion S-curve and continuous welfare taper functions.</div>
+          </li>
+        </ul>
+      </div>
+    </div>
+
 
     <!-- ======================================================== -->
-    <!-- SECTION 1: SPOKEN MATH - COME LEGGERE LE FORMULE       -->
+    <!-- TASK 1: SPOKEN MATH - COME LEGGERE LE FORMULE           -->
     <!-- ======================================================== -->
-    <section class="clil-lab-card active-border" id="task-1">
-      <div class="lab-header">
-        <div class="lab-badge" style="background: rgba(168, 85, 247, 0.15); color: var(--accent-purple);">
+    <article class="lab-card" id="lab1">
+      <div class="lab-badge-row">
+        <span class="lab-badge" style="background: rgba(168, 85, 247, 0.15); color: var(--accent-purple); border-color: rgba(168, 85, 247, 0.3);">
           CLIL Task 1 • Spoken Calculus
-        </div>
-        <h2 class="lab-title">How to Read Calculus Aloud: Spoken Formulas in English</h2>
+        </span>
+        <span class="lab-xp-badge">+14 XP</span>
       </div>
+      <h3 class="lab-title">How to Read Calculus Aloud: Spoken Formulas in English</h3>
 
-      <div class="lab-content">
-        <p>
-          All'Esame di Stato e nei contesti internazionali, leggere correttamente le formule matematiche in inglese dimostra padronanza scientifica.
-          Clicca su <strong>🔊 Listen</strong> per ascoltare la voce nativa, ripeti ad alta voce e usa <strong>🇮🇹 Traduzione</strong> per chiarire ogni passaggio.
-        </p>
+      <p>
+        All'Esame di Stato e nei contesti accademici internazionali, saper leggere ad alta voce le formule matematiche in inglese dimostra piena padronanza interdisciplinare.
+        Clicca su <strong>🔊 Listen</strong> per ascoltare la pronuncia madrelingua, ripeti ad alta voce e usa <strong>🇮🇹 Traduzione</strong> per verificare ogni espressione.
+      </p>
 
-        <div class="clil-spoken-grid">
-          <!-- Formula 1: Limite Finito -->
-          <div class="clil-spoken-card">
-            <span style="font-size: 0.75rem; text-transform: uppercase; font-weight: 700; color: var(--text-muted);">Finite Limit</span>
-            <div class="clil-spoken-formula">$$\lim_{x \to 3} f(x) = 5$$</div>
-            <p style="font-size: 0.88rem; font-style: italic; color: var(--text-main); margin: 0.2rem 0;">
-              "The limit of f of x as x approaches 3 is equal to 5."
-            </p>
-            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
-              <button class="clil-audio-btn" onclick="readClilText('The limit of f of x as x approaches 3 is equal to 5')">
-                🔊 Listen
-              </button>
-              <button class="btn btn-sm" onclick="toggleTranslation('tr1')">🇮🇹 Traduzione</button>
-            </div>
-            <div class="clil-trans-box" id="tr1">
-              <strong>Italiano:</strong> «Il limite di f di x per x che tende a 3 è uguale a 5».
-            </div>
-          </div>
-
-          <!-- Formula 2: Limite Destro e Sinistro -->
-          <div class="clil-spoken-card">
-            <span style="font-size: 0.75rem; text-transform: uppercase; font-weight: 700; color: var(--text-muted);">One-Sided Limits</span>
-            <div class="clil-spoken-formula">$$\lim_{x \to 2^+} f(x) = +\infty$$</div>
-            <p style="font-size: 0.88rem; font-style: italic; color: var(--text-main); margin: 0.2rem 0;">
-              "The limit of f of x as x approaches 2 from the right is positive infinity."
-            </p>
-            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
-              <button class="clil-audio-btn" onclick="readClilText('The limit of f of x as x approaches 2 from the right is positive infinity')">
-                🔊 Listen
-              </button>
-              <button class="btn btn-sm" onclick="toggleTranslation('tr2')">🇮🇹 Traduzione</button>
-            </div>
-            <div class="clil-trans-box" id="tr2">
-              <strong>Italiano:</strong> «Il limite di f di x per x che tende a 2 da destra è più infinito» (limite destro = right-hand limit).
-            </div>
-          </div>
-
-          <!-- Formula 3: Forma Indeterminata -->
-          <div class="clil-spoken-card">
-            <span style="font-size: 0.75rem; text-transform: uppercase; font-weight: 700; color: var(--text-muted);">Indeterminate Form</span>
-            <div class="clil-spoken-formula">$$\left[\frac{0}{0}\right], \quad \left[\frac{\infty}{\infty}\right]$$</div>
-            <p style="font-size: 0.88rem; font-style: italic; color: var(--text-main); margin: 0.2rem 0;">
-              "Zero over zero indeterminate form; infinity over infinity indeterminate form."
-            </p>
-            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
-              <button class="clil-audio-btn" onclick="readClilText('Zero over zero indeterminate form; infinity over infinity indeterminate form')">
-                🔊 Listen
-              </button>
-              <button class="btn btn-sm" onclick="toggleTranslation('tr3')">🇮🇹 Traduzione</button>
-            </div>
-            <div class="clil-trans-box" id="tr3">
-              <strong>Italiano:</strong> «Forma indeterminata zero su zero; infinito su infinito».
-            </div>
-          </div>
-
-          <!-- Formula 4: Funzione Continua -->
-          <div class="clil-spoken-card">
-            <span style="font-size: 0.75rem; text-transform: uppercase; font-weight: 700; color: var(--text-muted);">Continuity Definition</span>
-            <div class="clil-spoken-formula">$$\lim_{x \to x_0} f(x) = f(x_0)$$</div>
-            <p style="font-size: 0.88rem; font-style: italic; color: var(--text-main); margin: 0.2rem 0;">
-              "The limit of f of x as x approaches x naught equals f of x naught."
-            </p>
-            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
-              <button class="clil-audio-btn" onclick="readClilText('The limit of f of x as x approaches x naught equals f of x naught')">
-                🔊 Listen
-              </button>
-              <button class="btn btn-sm" onclick="toggleTranslation('tr4')">🇮🇹 Traduzione</button>
-            </div>
-            <div class="clil-trans-box" id="tr4">
-              <strong>Italiano:</strong> «Il limite di f(x) per x che tende a x con zero è uguale al valore f(x con zero)». Nota: $x_0$ si pronuncia <em>"x naught"</em> (UK) o <em>"x zero / x sub zero"</em> (US).
-            </div>
-          </div>
-
-          <!-- Formula 5: Rapporto Incrementale e Derivata -->
-          <div class="clil-spoken-card">
-            <span style="font-size: 0.75rem; text-transform: uppercase; font-weight: 700; color: var(--text-muted);">Derivative &amp; Difference Quotient</span>
-            <div class="clil-spoken-formula">$$f'(x_0) = \lim_{h \to 0} \frac{f(x_0 + h) - f(x_0)}{h}$$</div>
-            <p style="font-size: 0.88rem; font-style: italic; color: var(--text-main); margin: 0.2rem 0;">
-              "f prime of x naught equals the limit as h approaches zero of the difference quotient."
-            </p>
-            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
-              <button class="clil-audio-btn" onclick="readClilText('f prime of x naught equals the limit as h approaches zero of the difference quotient')">
-                🔊 Listen
-              </button>
-              <button class="btn btn-sm" onclick="toggleTranslation('tr5')">🇮🇹 Traduzione</button>
-            </div>
-            <div class="clil-trans-box" id="tr5">
-              <strong>Italiano:</strong> «f primo di x con zero è uguale al limite per h che tende a zero del rapporto incrementale (difference quotient)».
-            </div>
-          </div>
-
-          <!-- Formula 6: Retta Tangente -->
-          <div class="clil-spoken-card">
-            <span style="font-size: 0.75rem; text-transform: uppercase; font-weight: 700; color: var(--text-muted);">Tangent Line Equation</span>
-            <div class="clil-spoken-formula">$$y - f(x_0) = f'(x_0)(x - x_0)$$</div>
-            <p style="font-size: 0.88rem; font-style: italic; color: var(--text-main); margin: 0.2rem 0;">
-              "y minus f of x naught equals f prime of x naught times the quantity x minus x naught."
-            </p>
-            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
-              <button class="clil-audio-btn" onclick="readClilText('y minus f of x naught equals f prime of x naught times the quantity x minus x naught')">
-                🔊 Listen
-              </button>
-              <button class="btn btn-sm" onclick="toggleTranslation('tr6')">🇮🇹 Traduzione</button>
-            </div>
-            <div class="clil-trans-box" id="tr6">
-              <strong>Italiano:</strong> «Equazione della retta tangente: y meno f(x con zero) uguale a f primo per (x meno x con zero)».
-            </div>
-          </div>
-        </div>
-
-        <button class="btn btn-primary" onclick="markClilTask(1)" style="margin-top: 1.25rem;">
-          Task 1 Mastered → Mark as Done
-        </button>
-      </div>
-    </section>
-
-
-    <!-- ======================================================== -->
-    <!-- SECTION 2: THE CALCULUS LEXICON & FALSE FRIENDS        -->
-    <!-- ======================================================== -->
-    <section class="clil-lab-card" id="task-2">
-      <div class="lab-header">
-        <div class="lab-badge" style="background: rgba(168, 85, 247, 0.15); color: var(--accent-purple);">
-          CLIL Task 2 • Technical Lexicon
-        </div>
-        <h2 class="lab-title">The Calculus Lexicon: Glossary &amp; False Friends in Social Sciences</h2>
-      </div>
-
-      <div class="lab-content">
-        <p>
-          I termini matematici inglesi possono trarre in inganno. Esplora il glossario sonoro ed esamina i <strong>Falsi Amici</strong> per evitare scivoloni linguistici.
-        </p>
-
-        <div style="overflow-x: auto;">
-          <table class="clil-table">
-            <thead>
-              <tr>
-                <th>English Term</th>
-                <th>Audio &amp; IPA</th>
-                <th>Meaning in Calculus</th>
-                <th>Italian Equivalent</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><strong>Rate of change</strong></td>
-                <td>
-                  <button class="clil-audio-btn" style="padding: 0.2rem 0.5rem; font-size: 0.75rem;" onclick="readClilText('rate of change')">🔊 /reɪt əv tʃeɪndʒ/</button>
-                </td>
-                <td>The ratio measuring how quickly a dependent variable changes with respect to an independent variable.</td>
-                <td>Velocità / Tasso di variazione</td>
-              </tr>
-              <tr>
-                <td><strong>Approach</strong></td>
-                <td>
-                  <button class="clil-audio-btn" style="padding: 0.2rem 0.5rem; font-size: 0.75rem;" onclick="readClilText('approach')">🔊 /əˈprəʊtʃ/</button>
-                </td>
-                <td>To get arbitrarily close to a target point without necessarily reaching it ($x \to x_0$).</td>
-                <td>Tendere / Avvicinarsi</td>
-              </tr>
-              <tr>
-                <td><strong>Difference quotient</strong></td>
-                <td>
-                  <button class="clil-audio-btn" style="padding: 0.2rem 0.5rem; font-size: 0.75rem;" onclick="readClilText('difference quotient')">🔊 /ˈdɪf.ər.əns ˈkwəʊ.ʃənt/</button>
-                </td>
-                <td>The fraction $\frac{\Delta y}{\Delta x} = \frac{f(x_0+h)-f(x_0)}{h}$ representing average slope.</td>
-                <td>Rapporto incrementale</td>
-              </tr>
-              <tr>
-                <td><strong>Secant line</strong></td>
-                <td>
-                  <button class="clil-audio-btn" style="padding: 0.2rem 0.5rem; font-size: 0.75rem;" onclick="readClilText('secant line')">🔊 /ˈsiː.kənt laɪn/</button>
-                </td>
-                <td>A line that intersects a curve at two or more distinct points.</td>
-                <td>Retta secante</td>
-              </tr>
-              <tr>
-                <td><strong>Tangent line</strong></td>
-                <td>
-                  <button class="clil-audio-btn" style="padding: 0.2rem 0.5rem; font-size: 0.75rem;" onclick="readClilText('tangent line')">🔊 /ˈtæn.dʒənt laɪn/</button>
-                </td>
-                <td>The limiting position of secant lines, kissing the curve at point $P$ with slope $f'(x_0)$.</td>
-                <td>Retta tangente</td>
-              </tr>
-              <tr>
-                <td><strong>Smooth function</strong></td>
-                <td>
-                  <button class="clil-audio-btn" style="padding: 0.2rem 0.5rem; font-size: 0.75rem;" onclick="readClilText('smooth function')">🔊 /smuːð ˈfʌŋk.ʃən/</button>
-                </td>
-                <td>A differentiable function whose graph exhibits no sharp corners, cusps, or breaks.</td>
-                <td>Funzione liscia / derivabile</td>
-              </tr>
-              <tr>
-                <td><strong>Marginal cost</strong></td>
-                <td>
-                  <button class="clil-audio-btn" style="padding: 0.2rem 0.5rem; font-size: 0.75rem;" onclick="readClilText('marginal cost')">🔊 /ˈmɑː.dʒɪ.nəl kɒst/</button>
-                </td>
-                <td>The cost of producing one additional unit of a good: $C'(q) = \frac{dC}{dq}$.</td>
-                <td>Costo marginale</td>
-              </tr>
-              <tr>
-                <td><strong>Break-even point</strong></td>
-                <td>
-                  <button class="clil-audio-btn" style="padding: 0.2rem 0.5rem; font-size: 0.75rem;" onclick="readClilText('break even point')">🔊 /ˈbreɪk ˈiː.vən pɔɪnt/</button>
-                </td>
-                <td>The production volume where profit equals zero, guaranteed by the Intermediate Value Theorem.</td>
-                <td>Punto di pareggio / radice $f(x)=0$</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-        <!-- Box False Friends -->
-        <div class="clil-false-friends-box">
-          <h4 style="color: var(--accent-gold); margin-bottom: 0.6rem; display: flex; align-items: center; gap: 0.4rem;">
-            ⚠️ False Friends &amp; Language Traps to Avoid
-          </h4>
-          <ul style="margin-left: 1.25rem; font-size: 0.9rem; line-height: 1.65;">
-            <li>
-              <strong>Continuous vs Continual:</strong> In English, <em>continuous</em> means uninterrupted in space or time (unbroken curve: $f$ has no gaps). <em>Continual</em> means recurring repeatedly with interruptions (e.g., continual phone ringing). Never say *"continual function"*!
-            </li>
-            <li>
-              <strong>Derivative:</strong> In calculus, it is the rate of change $f'(x)$. In financial economics, a <em>derivative</em> (strumento derivato) is a tradable contract (options, futures) whose price is derived from an underlying asset!
-            </li>
-            <li>
-              <strong>Actual:</strong> Does <strong>NOT</strong> mean "attuale" (which translates to <em>current</em> or <em>present</em>). <em>Actual</em> means <strong>effettivo / reale</strong> (e.g. *"the actual value $f(x_0)$ may differ from the limit $L$"*).
-            </li>
-            <li>
-              <strong>Rate:</strong> Can mean <em>velocità</em> (rate of change), <em>aliquota</em> (tax rate), <em>tasso d'interesse</em> (interest rate), or the verb <em>valutare</em> (to rate an experience).
-            </li>
-          </ul>
-        </div>
-
-        <button class="btn btn-primary" onclick="markClilTask(2)" style="margin-top: 1.25rem;">
-          Task 2 Mastered → Mark as Done
-        </button>
-      </div>
-    </section>
-
-
-    <!-- ======================================================== -->
-    <!-- SECTION 3: NON-DIFFERENTIABLE FEATURES                  -->
-    <!-- ======================================================== -->
-    <section class="clil-lab-card" id="task-3">
-      <div class="lab-header">
-        <div class="lab-badge" style="background: rgba(168, 85, 247, 0.15); color: var(--accent-purple);">
-          CLIL Task 3 • Geometry &amp; Singularities
-        </div>
-        <h2 class="lab-title">Classifying Non-Differentiable Features in English</h2>
-      </div>
-
-      <div class="lab-content">
-        <p>
-          Read the following three mathematical definitions in English. Test your comprehension by matching each definition with its correct geometric feature and listening to the pronunciation.
-        </p>
-
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; margin-top: 1rem;">
-          <!-- Feature 1 -->
-          <div style="background: var(--bg-surface-elevated); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.15rem;">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
-              <span class="flag-pill" style="font-size: 0.75rem;">Feature A</span>
-              <button class="clil-audio-btn" style="padding: 0.2rem 0.5rem; font-size: 0.75rem;" onclick="readClilText('Corner Point. The left-hand and right-hand derivatives are both finite but unequal.')">🔊 Audio</button>
-            </div>
-            <strong style="color: var(--accent-math); font-size: 1.05rem;">Corner Point</strong>
-            <p style="font-size: 0.88rem; color: var(--text-muted); margin: 0.4rem 0;">
-              <em>"The left-hand and right-hand derivatives are both finite numbers, but they do not match: $f'_-(x_0) \neq f'_+(x_0)$."</em>
-            </p>
-            <div style="font-size: 0.82rem; color: var(--text-main); background: var(--bg-surface); padding: 0.5rem; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle);">
-              <strong>Key Example:</strong> $f(x) = |x|$ at $x = 0$, where $f'_-(0) = -1$ and $f'_+(0) = +1$.
-            </div>
-          </div>
-
-          <!-- Feature 2 -->
-          <div style="background: var(--bg-surface-elevated); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.15rem;">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
-              <span class="flag-pill" style="font-size: 0.75rem;">Feature B</span>
-              <button class="clil-audio-btn" style="padding: 0.2rem 0.5rem; font-size: 0.75rem;" onclick="readClilText('Cusp. Both one-sided derivatives are infinite with opposite signs.')">🔊 Audio</button>
-            </div>
-            <strong style="color: var(--accent-gold); font-size: 1.05rem;">Cusp</strong>
-            <p style="font-size: 0.88rem; color: var(--text-muted); margin: 0.4rem 0;">
-              <em>"Both one-sided derivatives explode to infinity with opposite signs ($f'_-(x_0) = -\infty$ and $f'_+(x_0) = +\infty$), creating a sharp point."</em>
-            </p>
-            <div style="font-size: 0.82rem; color: var(--text-main); background: var(--bg-surface); padding: 0.5rem; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle);">
-              <strong>Key Example:</strong> $f(x) = \sqrt{|x|}$ at $x = 0$, where the tangent is vertical.
-            </div>
-          </div>
-
-          <!-- Feature 3 -->
-          <div style="background: var(--bg-surface-elevated); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.15rem;">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
-              <span class="flag-pill" style="font-size: 0.75rem;">Feature C</span>
-              <button class="clil-audio-btn" style="padding: 0.2rem 0.5rem; font-size: 0.75rem;" onclick="readClilText('Vertical Tangent Inflection. Both one-sided derivatives approach infinity with the same sign.')">🔊 Audio</button>
-            </div>
-            <strong style="color: var(--accent-purple); font-size: 1.05rem;">Vertical Tangent Inflection</strong>
-            <p style="font-size: 0.88rem; color: var(--text-muted); margin: 0.4rem 0;">
-              <em>"Both one-sided derivatives approach infinity with the same sign ($f'_-(x_0) = f'_+(x_0) = +\infty$). The curve crosses a vertical tangent."</em>
-            </p>
-            <div style="font-size: 0.82rem; color: var(--text-main); background: var(--bg-surface); padding: 0.5rem; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle);">
-              <strong>Key Example:</strong> $f(x) = \sqrt[3]{x}$ at $x = 0$.
-            </div>
-          </div>
-        </div>
-
-        <button class="btn btn-primary" onclick="markClilTask(3)" style="margin-top: 1.25rem;">
-          Task 3 Mastered → Mark as Done
-        </button>
-      </div>
-    </section>
-
-
-    <!-- ======================================================== -->
-    <!-- SECTION 4: ROGERS DIFFUSION OF INNOVATIONS              -->
-    <!-- ======================================================== -->
-    <section class="clil-lab-card" id="task-4">
-      <div class="lab-header">
-        <div class="lab-badge" style="background: rgba(168, 85, 247, 0.15); color: var(--accent-purple);">
-          CLIL Task 4 • Applied Sociology Case Study
-        </div>
-        <h2 class="lab-title">The Rogers Diffusion Curve: Rate of Cultural &amp; Technological Adoption</h2>
-      </div>
-
-      <div class="lab-content">
-        <p>
-          In sociology and cultural studies, sociologist Everett Rogers (1962) modeled the <em>Diffusion of Innovations</em>.
-          The cumulative proportion of individuals adopting a new social practice or technology over time $t$ (in months) follows a logistic sigmoid curve:
-        </p>
-        $$P(t) = \frac{1}{1 + e^{-0.4(t - 10)}}$$
-
-        <div class="clil-stage">
-          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem;">
-            <div>
-              <strong style="color: var(--accent-math);">Sociological Question:</strong><br>
-              <span style="font-size: 0.92rem; color: var(--text-muted);">
-                What does the derivative $P'(t) = \frac{dP}{dt}$ represent, and when does the cultural adoption rate reach its maximum?
-              </span>
-            </div>
-            <button class="clil-audio-btn" onclick="readClilText('The derivative of cumulative adoption represents the instantaneous adoption rate, measuring how many new individuals join the trend per month. The maximum rate occurs at the inflection point when time t equals 10 months.')">
-              🔊 Read Explanation
+      <div class="clil-spoken-grid">
+        <!-- Formula 1: Limite Finito -->
+        <div class="clil-spoken-card">
+          <span style="font-size: 0.75rem; text-transform: uppercase; font-weight: 700; color: var(--text-muted);">1. Finite Limit</span>
+          <div class="clil-spoken-formula">$$\lim_{x \to 3} f(x) = 5$$</div>
+          <p style="font-size: 0.88rem; font-style: italic; color: var(--text-main); margin: 0.2rem 0;">
+            "The limit of f of x as x approaches 3 is equal to 5."
+          </p>
+          <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+            <button type="button" class="clil-audio-btn" onclick="readClilText('The limit of f of x as x approaches 3 is equal to 5')">
+              🔊 Listen
             </button>
+            <button type="button" class="clil-trans-btn" onclick="toggleTranslation('tr1')">🇮🇹 Traduzione</button>
           </div>
-
-          <div style="margin-top: 1rem; background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1rem; font-size: 0.92rem; line-height: 1.6;">
-            <p><strong>1. The Derivative as Adoption Speed:</strong><br>
-              While $P(t)$ measures the <em>cumulative percentage</em> of adopters (from 0 to 1, or 0% to 100%), the derivative $P'(t)$ measures the <strong>instantaneous speed of adoption</strong> (new adopters per month).
-            </p>
-            <p style="margin-top: 0.5rem;"><strong>2. The Inflection Point ($t = 10$ months):</strong><br>
-              At $t = 10$, $P(10) = \frac{1}{1 + 1} = 0.50$ (50% of the population has adopted the innovation).
-              At this exact inflection point, the tangent line reaches its <strong>maximum steepness ($P'(10) = 0.10$ or 10% per month)</strong>.
-              After $t = 10$, the market becomes saturated, the derivative $P'(t)$ decreases, and the curve flattens toward the horizontal asymptote $y = 1$ ($100\%$).
-            </p>
+          <div class="clil-trans-box" id="tr1">
+            <strong>Italiano:</strong> «Il limite di $f(x)$ per $x$ che tende a $3$ è uguale a $5$». Nota: il verbo <em>tendere a</em> si traduce con <strong>approaches</strong> (o <em>tends to</em>).
           </div>
         </div>
 
-        <button class="btn btn-primary" onclick="markClilTask(4)" style="margin-top: 1.25rem;">
-          Task 4 Mastered → Mark as Done
-        </button>
-      </div>
-    </section>
-
-
-    <!-- ======================================================== -->
-    <!-- SECTION 5: WELFARE TAPERS & THE POVERTY TRAP            -->
-    <!-- ======================================================== -->
-    <section class="clil-lab-card" id="task-5">
-      <div class="lab-header">
-        <div class="lab-badge" style="background: rgba(168, 85, 247, 0.15); color: var(--accent-purple);">
-          CLIL Task 5 • Global Policy &amp; Economics
+        <!-- Formula 2: Limite Destro e Sinistro -->
+        <div class="clil-spoken-card">
+          <span style="font-size: 0.75rem; text-transform: uppercase; font-weight: 700; color: var(--text-muted);">2. One-Sided Limits</span>
+          <div class="clil-spoken-formula">$$\lim_{x \to 2^+} f(x) = +\infty$$</div>
+          <p style="font-size: 0.88rem; font-style: italic; color: var(--text-main); margin: 0.2rem 0;">
+            "The limit of f of x as x approaches 2 from the right is positive infinity."
+          </p>
+          <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+            <button type="button" class="clil-audio-btn" onclick="readClilText('The limit of f of x as x approaches 2 from the right is positive infinity')">
+              🔊 Listen
+            </button>
+            <button type="button" class="clil-trans-btn" onclick="toggleTranslation('tr2')">🇮🇹 Traduzione</button>
+          </div>
+          <div class="clil-trans-box" id="tr2">
+            <strong>Italiano:</strong> «Il limite di $f(x)$ per $x$ che tende a $2$ da destra è più infinito» (limite destro = <em>right-hand limit</em>; da sinistra = <em>from the left</em>).
+          </div>
         </div>
-        <h2 class="lab-title">Welfare Taper Rates: Why Public Policy Requires Mathematical Continuity</h2>
+
+        <!-- Formula 3: Forma Indeterminata -->
+        <div class="clil-spoken-card">
+          <span style="font-size: 0.75rem; text-transform: uppercase; font-weight: 700; color: var(--text-muted);">3. Indeterminate Form</span>
+          <div class="clil-spoken-formula">$$\left[\frac{0}{0}\right], \quad \left[\frac{\infty}{\infty}\right]$$</div>
+          <p style="font-size: 0.88rem; font-style: italic; color: var(--text-main); margin: 0.2rem 0;">
+            "Zero over zero indeterminate form; infinity over infinity indeterminate form."
+          </p>
+          <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+            <button type="button" class="clil-audio-btn" onclick="readClilText('Zero over zero indeterminate form; infinity over infinity indeterminate form')">
+              🔊 Listen
+            </button>
+            <button type="button" class="clil-trans-btn" onclick="toggleTranslation('tr3')">🇮🇹 Traduzione</button>
+          </div>
+          <div class="clil-trans-box" id="tr3">
+            <strong>Italiano:</strong> «Forma indeterminata zero su zero; infinito su infinito». La linea di frazione si legge <strong>over</strong>.
+          </div>
+        </div>
+
+        <!-- Formula 4: Funzione Continua -->
+        <div class="clil-spoken-card">
+          <span style="font-size: 0.75rem; text-transform: uppercase; font-weight: 700; color: var(--text-muted);">4. Continuity Definition</span>
+          <div class="clil-spoken-formula">$$\lim_{x \to x_0} f(x) = f(x_0)$$</div>
+          <p style="font-size: 0.88rem; font-style: italic; color: var(--text-main); margin: 0.2rem 0;">
+            "The limit of f of x as x approaches x naught equals f of x naught."
+          </p>
+          <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+            <button type="button" class="clil-audio-btn" onclick="readClilText('The limit of f of x as x approaches x naught equals f of x naught')">
+              🔊 Listen
+            </button>
+            <button type="button" class="clil-trans-btn" onclick="toggleTranslation('tr4')">🇮🇹 Traduzione</button>
+          </div>
+          <div class="clil-trans-box" id="tr4">
+            <strong>Italiano:</strong> «Il limite di $f(x)$ per $x$ che tende a $x$ con zero è uguale a $f(x_0)$». Nota: $x_0$ si pronuncia <em>"x naught"</em> (UK/US) oppure <em>"x sub zero"</em>.
+          </div>
+        </div>
+
+        <!-- Formula 5: Rapporto Incrementale e Derivata -->
+        <div class="clil-spoken-card">
+          <span style="font-size: 0.75rem; text-transform: uppercase; font-weight: 700; color: var(--text-muted);">5. Derivative &amp; Difference Quotient</span>
+          <div class="clil-spoken-formula">$$f'(x_0) = \lim_{h \to 0} \frac{f(x_0 + h) - f(x_0)}{h}$$</div>
+          <p style="font-size: 0.88rem; font-style: italic; color: var(--text-main); margin: 0.2rem 0;">
+            "f prime of x naught equals the limit as h approaches zero of the difference quotient."
+          </p>
+          <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+            <button type="button" class="clil-audio-btn" onclick="readClilText('f prime of x naught equals the limit as h approaches zero of the difference quotient')">
+              🔊 Listen
+            </button>
+            <button type="button" class="clil-trans-btn" onclick="toggleTranslation('tr5')">🇮🇹 Traduzione</button>
+          </div>
+          <div class="clil-trans-box" id="tr5">
+            <strong>Italiano:</strong> «$f$ primo di $x_0$ è uguale al limite per $h$ che tende a zero del rapporto incrementale (<em>difference quotient</em>)». L'apice della derivata $f'$ si legge <strong>f prime</strong>!
+          </div>
+        </div>
+
+        <!-- Formula 6: Retta Tangente -->
+        <div class="clil-spoken-card">
+          <span style="font-size: 0.75rem; text-transform: uppercase; font-weight: 700; color: var(--text-muted);">6. Tangent Line Equation</span>
+          <div class="clil-spoken-formula">$$y - f(x_0) = f'(x_0)(x - x_0)$$</div>
+          <p style="font-size: 0.88rem; font-style: italic; color: var(--text-main); margin: 0.2rem 0;">
+            "y minus f of x naught equals f prime of x naught times the quantity x minus x naught."
+          </p>
+          <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+            <button type="button" class="clil-audio-btn" onclick="readClilText('y minus f of x naught equals f prime of x naught times the quantity x minus x naught')">
+              🔊 Listen
+            </button>
+            <button type="button" class="clil-trans-btn" onclick="toggleTranslation('tr6')">🇮🇹 Traduzione</button>
+          </div>
+          <div class="clil-trans-box" id="tr6">
+            <strong>Italiano:</strong> «Equazione della retta tangente: $y - f(x_0)$ uguale a $f'(x_0)$ che moltiplica aperta tonda $(x - x_0)$ (<em>times the quantity $x$ minus $x$ naught</em>)».
+          </div>
+        </div>
       </div>
 
-      <div class="lab-content">
-        <p>
-          In comparative welfare state research, economists analyze how government benefits decrease as household earned income $x$ rises.
-          Read the following excerpt from an international policy report:
+      <!-- Mini Check Interattivo Task 1 -->
+      <div class="clil-stage" style="margin-top: 1.25rem;">
+        <strong style="color: var(--accent-purple); font-size: 0.95rem;">🎯 Quick Check • Spoken Calculus:</strong>
+        <p style="font-size: 0.9rem; margin: 0.4rem 0 0.75rem;">
+          How do you read the symbol $f'(x_0)$ aloud in English during an oral exam presentation?
         </p>
-
-        <div style="background: var(--bg-surface-elevated); border-left: 3px solid var(--accent-purple); padding: 1.15rem; border-radius: 0 var(--radius-sm) var(--radius-sm) 0; margin-bottom: 1rem; font-style: italic; line-height: 1.7; font-size: 0.93rem;">
-          "A fundamental principle in optimal taxation is the avoidance of <strong>cliff-edge discontinuities</strong>.
-          When a social assistance program abruptly terminates benefits at an income threshold $x_0$ (creating a jump discontinuity of first species), the effective marginal tax rate exceeds 100%.
-          Consequently, a citizen earning an additional pound or euro loses hundreds of pounds in net benefits, giving rise to the so-called <strong>poverty trap</strong>.
-          Modern social protection schemes therefore employ <strong>continuous tapering functions</strong>, ensuring that the net disposable income function $N(x) = x + B(x) - T(x)$ is continuous everywhere."
-        </div>
-
-        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1rem;">
-          <button class="clil-audio-btn" onclick="readClilText('A fundamental principle in optimal taxation is the avoidance of cliff-edge discontinuities. When benefits abruptly terminate at an income threshold, the citizen loses hundreds of pounds, creating a poverty trap. Modern schemes therefore employ continuous tapering functions.')">
-            🔊 Listen to Policy Brief
-          </button>
-          <button class="btn btn-sm" onclick="toggleTranslation('welfarePolicyTr')">🇮🇹 Mostra Traduzione Italiana</button>
-        </div>
-
-        <div class="clil-trans-box" id="welfarePolicyTr" style="margin-bottom: 1.25rem; font-size: 0.88rem; line-height: 1.6;">
-          <strong>Traduzione in Italiano:</strong> «Un principio fondamentale nella tassazione ottimale è l'eliminazione delle discontinuità a gradino (cliff-edges). Quando un sussidio cessa bruscamente al superamento di una soglia di reddito (creando una discontinuità di 1ª specie con salto), l'aliquota marginale effettiva supera il 100%: guadagnare un euro in più fa perdere centinaia di euro di sussidio, intrappolando il cittadino nella povertà. I sistemi moderni adottano perciò funzioni di raccordo continuo (tapering), garantendo la continuità matematica del reddito netto disponibile».
-        </div>
-
-        <button class="btn btn-primary" onclick="markClilTask(5)" style="margin-top: 0.5rem;">
-          Task 5 Mastered → Mark as Done
-        </button>
-      </div>
-    </section>
-
-
-    <!-- ======================================================== -->
-    <!-- PRINTABLE CLIL WORKSHEET                                 -->
-    <!-- ======================================================== -->
-    <section class="worksheet-section" id="clil-worksheet">
-      <div class="worksheet-header">
         <div>
-          <span class="flag-pill" style="margin-bottom: 0.4rem;">
-            Authentic CLIL Worksheet • Esame di Stato Prep
-          </span>
-          <h2 style="font-size: 1.45rem; font-weight: 800; margin: 0;">Worksheet: «Calculus in Social Sciences &amp; Public Policy»</h2>
-          <span style="font-size: 0.88rem; color: var(--text-muted);">Student Name: ____________________________________ Date: ______________ Class: 5th Year ___</span>
+          <button type="button" class="clil-choice-btn" onclick="checkClilMiniQuiz(1, 0, this)">"f first of x zero"</button>
+          <button type="button" class="clil-choice-btn" onclick="checkClilMiniQuiz(1, 1, this)">"f prime of x naught" (or "f prime of x sub zero")</button>
+          <button type="button" class="clil-choice-btn" onclick="checkClilMiniQuiz(1, 2, this)">"f apostrophe of x naught"</button>
         </div>
-        <button class="btn" onclick="window.print()" style="display: inline-flex; align-items: center; gap: 0.4rem;">
+        <div id="clilQuizFb1" style="font-size: 0.86rem; font-weight: 600; margin-top: 0.5rem; display: none;"></div>
+      </div>
+
+      <div class="verify-box">
+        <button type="button" class="btn-action" onclick="verifyClilTask(1)">
+          <span>✅</span> Complete CLIL Task 1 (+14 XP)
+        </button>
+        <span class="feedback-msg" id="lab1Msg" style="display: none;"></span>
+      </div>
+    </article>
+
+
+    <!-- ======================================================== -->
+    <!-- TASK 2: THE CALCULUS LEXICON & FALSE FRIENDS            -->
+    <!-- ======================================================== -->
+    <article class="lab-card" id="lab2">
+      <div class="lab-badge-row">
+        <span class="lab-badge" style="background: rgba(168, 85, 247, 0.15); color: var(--accent-purple); border-color: rgba(168, 85, 247, 0.3);">
+          CLIL Task 2 • Technical Lexicon
+        </span>
+        <span class="lab-xp-badge">+14 XP</span>
+      </div>
+      <h3 class="lab-title">The Calculus Lexicon: Glossary &amp; False Friends in Social Sciences</h3>
+
+      <p>
+        I termini matematici inglesi possono nascondere insidie lessicali e di punteggiatura. Esplora il glossario sonoro con trascrizione fonetica IPA ed esamina i <strong>False Friends</strong> da evitare al colloquio.
+      </p>
+
+      <div style="overflow-x: auto;">
+        <table class="clil-table">
+          <thead>
+            <tr>
+              <th>English Term</th>
+              <th>Audio &amp; IPA</th>
+              <th>Meaning in Calculus</th>
+              <th>Italian Equivalent</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Rate of change</strong></td>
+              <td>
+                <button type="button" class="clil-audio-btn" style="padding: 0.2rem 0.55rem; font-size: 0.76rem;" onclick="readClilText('rate of change')">🔊 /reɪt əv tʃeɪndʒ/</button>
+              </td>
+              <td>The ratio measuring how quickly a dependent variable changes with respect to an independent variable.</td>
+              <td>Velocità / Tasso di variazione</td>
+            </tr>
+            <tr>
+              <td><strong>Approach</strong></td>
+              <td>
+                <button type="button" class="clil-audio-btn" style="padding: 0.2rem 0.55rem; font-size: 0.76rem;" onclick="readClilText('approach')">🔊 /əˈprəʊtʃ/</button>
+              </td>
+              <td>To get arbitrarily close to a target point without necessarily reaching it ($x \to x_0$).</td>
+              <td>Tendere / Avvicinarsi</td>
+            </tr>
+            <tr>
+              <td><strong>Difference quotient</strong></td>
+              <td>
+                <button type="button" class="clil-audio-btn" style="padding: 0.2rem 0.55rem; font-size: 0.76rem;" onclick="readClilText('difference quotient')">🔊 /ˈdɪf.ər.əns ˈkwəʊ.ʃənt/</button>
+              </td>
+              <td>The fraction $\frac{\Delta y}{\Delta x} = \frac{f(x_0+h)-f(x_0)}{h}$ representing average slope.</td>
+              <td>Rapporto incrementale</td>
+            </tr>
+            <tr>
+              <td><strong>Secant line</strong></td>
+              <td>
+                <button type="button" class="clil-audio-btn" style="padding: 0.2rem 0.55rem; font-size: 0.76rem;" onclick="readClilText('secant line')">🔊 /ˈsiː.kənt laɪn/</button>
+              </td>
+              <td>A line that intersects a curve at two distinct points $P$ and $Q$.</td>
+              <td>Retta secante</td>
+            </tr>
+            <tr>
+              <td><strong>Tangent line</strong></td>
+              <td>
+                <button type="button" class="clil-audio-btn" style="padding: 0.2rem 0.55rem; font-size: 0.76rem;" onclick="readClilText('tangent line')">🔊 /ˈtæn.dʒənt laɪn/</button>
+              </td>
+              <td>The limiting position of secant lines, touching the curve at point $P$ with slope $f'(x_0)$.</td>
+              <td>Retta tangente</td>
+            </tr>
+            <tr>
+              <td><strong>Smooth function</strong></td>
+              <td>
+                <button type="button" class="clil-audio-btn" style="padding: 0.2rem 0.55rem; font-size: 0.76rem;" onclick="readClilText('smooth function')">🔊 /smuːð ˈfʌŋk.ʃən/</button>
+              </td>
+              <td>A differentiable function whose graph exhibits no sharp corners, cusps, or breaks.</td>
+              <td>Funzione liscia / derivabile</td>
+            </tr>
+            <tr>
+              <td><strong>Marginal cost</strong></td>
+              <td>
+                <button type="button" class="clil-audio-btn" style="padding: 0.2rem 0.55rem; font-size: 0.76rem;" onclick="readClilText('marginal cost')">🔊 /ˈmɑː.dʒɪ.nəl kɒst/</button>
+              </td>
+              <td>The cost of producing one additional unit of a good: $C'(q) = \frac{dC}{dq}$.</td>
+              <td>Costo marginale</td>
+            </tr>
+            <tr>
+              <td><strong>Break-even point</strong></td>
+              <td>
+                <button type="button" class="clil-audio-btn" style="padding: 0.2rem 0.55rem; font-size: 0.76rem;" onclick="readClilText('break even point')">🔊 /ˈbreɪk ˈiː.vən pɔɪnt/</button>
+              </td>
+              <td>The production volume where net profit equals zero, guaranteed by the Intermediate Value Theorem.</td>
+              <td>Punto di pareggio ($P(q)=0$)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Box False Friends -->
+      <div class="clil-false-friends-box">
+        <h4 style="color: var(--accent-gold); margin-bottom: 0.6rem; display: flex; align-items: center; gap: 0.4rem;">
+          ⚠️ False Friends &amp; International Notation Traps to Avoid
+        </h4>
+        <ul style="margin-left: 1.25rem; font-size: 0.9rem; line-height: 1.65;">
+          <li>
+            <strong>Continuous vs Continual:</strong> In English, <em>continuous</em> means uninterrupted in space or time (an unbroken curve: $\lim_{x \to x_0} f(x) = f(x_0)$). <em>Continual</em> means recurring repeatedly with pauses (e.g., continual interruptions). Never say <em>"continual function"</em>!
+          </li>
+          <li>
+            <strong>Actual vs Current:</strong> <em>Actual</em> does <strong>NOT</strong> mean "attuale" (which translates to <em>current</em> or <em>present</em>). <em>Actual</em> means <strong>effettivo / reale</strong> (e.g., <em>"the actual value $f(x_0)$ coincides with the limit $L$"</em>).
+          </li>
+          <li>
+            <strong>Derivative (Calculus vs Finance):</strong> In mathematics, it is the instantaneous rate of change $f'(x)$. In economics and finance, a <em>financial derivative</em> (strumento derivato) is a contract whose value derives from an underlying asset.
+          </li>
+          <li>
+            <strong>Decimal Point vs Thousand Comma:</strong> English uses a <strong>point</strong> for decimals (<code>0.25</code> = $0,25$) and a <strong>comma</strong> for thousands (<code>2,000</code> = duemila!).
+          </li>
+        </ul>
+      </div>
+
+      <!-- Mini Check Interattivo Task 2 -->
+      <div class="clil-stage">
+        <strong style="color: var(--accent-purple); font-size: 0.95rem;">🎯 Quick Check • False Friends Spotter:</strong>
+        <p style="font-size: 0.9rem; margin: 0.4rem 0 0.75rem;">
+          Which English sentence correctly states that $f(x)$ has no jumps or holes and that its real value in $x_0$ equals the limit?
+        </p>
+        <div>
+          <button type="button" class="clil-choice-btn" onclick="checkClilMiniQuiz(2, 0, this)">"For a continual function, the current value f(x₀) equals the limit L."</button>
+          <button type="button" class="clil-choice-btn" onclick="checkClilMiniQuiz(2, 1, this)">"For a continuous function, the actual value f(x₀) equals the limit L."</button>
+          <button type="button" class="clil-choice-btn" onclick="checkClilMiniQuiz(2, 2, this)">"For a continuous function, the eventual value f(x₀) equals the derivative."</button>
+        </div>
+        <div id="clilQuizFb2" style="font-size: 0.86rem; font-weight: 600; margin-top: 0.5rem; display: none;"></div>
+      </div>
+
+      <div class="verify-box">
+        <button type="button" class="btn-action" onclick="verifyClilTask(2)">
+          <span>✅</span> Complete CLIL Task 2 (+14 XP)
+        </button>
+        <span class="feedback-msg" id="lab2Msg" style="display: none;"></span>
+      </div>
+    </article>
+
+
+    <!-- ======================================================== -->
+    <!-- TASK 3: NON-DIFFERENTIABLE FEATURES                     -->
+    <!-- ======================================================== -->
+    <article class="lab-card" id="lab3">
+      <div class="lab-badge-row">
+        <span class="lab-badge" style="background: rgba(168, 85, 247, 0.15); color: var(--accent-purple); border-color: rgba(168, 85, 247, 0.3);">
+          CLIL Task 3 • Geometry &amp; Singularities
+        </span>
+        <span class="lab-xp-badge">+14 XP</span>
+      </div>
+      <h3 class="lab-title">Classifying Non-Differentiable Features in English</h3>
+
+      <p>
+        Read the three mathematical definitions in English and click each card to inspect its interactive geometric graph and listen to the native audio description.
+      </p>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1rem; margin-top: 1rem;">
+        <!-- Feature 1 -->
+        <div id="clilFeatCard1" onclick="selectClilFeature(1)" style="cursor: pointer; background: var(--bg-surface-elevated); border: 2px solid var(--accent-math); border-radius: var(--radius-md); padding: 1.15rem; transition: var(--transition);">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+            <span class="flag-pill" style="font-size: 0.72rem;">Feature A • Click to View</span>
+            <button type="button" class="clil-audio-btn" style="padding: 0.2rem 0.55rem; font-size: 0.75rem;" onclick="event.stopPropagation(); readClilText('Corner Point. The left-hand and right-hand derivatives are both finite but unequal.')">🔊 Audio</button>
+          </div>
+          <strong style="color: var(--accent-math); font-size: 1.05rem;">1. Corner Point (Punto Angoloso)</strong>
+          <p style="font-size: 0.88rem; color: var(--text-muted); margin: 0.4rem 0;">
+            <em>"The left-hand and right-hand derivatives are both finite numbers, but they do not match: $f'_-(x_0) \neq f'_+(x_0)$."</em>
+          </p>
+          <div style="font-size: 0.82rem; color: var(--text-main); background: var(--bg-surface); padding: 0.5rem; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle);">
+            <strong>Key Example:</strong> $f(x) = |x|$ at $x = 0$, where $f'_-(0) = -1$ and $f'_+(0) = +1$.
+          </div>
+        </div>
+
+        <!-- Feature 2 -->
+        <div id="clilFeatCard2" onclick="selectClilFeature(2)" style="cursor: pointer; background: var(--bg-surface-elevated); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.15rem; transition: var(--transition);">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+            <span class="flag-pill" style="font-size: 0.72rem;">Feature B • Click to View</span>
+            <button type="button" class="clil-audio-btn" style="padding: 0.2rem 0.55rem; font-size: 0.75rem;" onclick="event.stopPropagation(); readClilText('Cusp. Both one-sided derivatives are infinite with opposite signs.')">🔊 Audio</button>
+          </div>
+          <strong style="color: var(--accent-gold); font-size: 1.05rem;">2. Cusp (Cuspide)</strong>
+          <p style="font-size: 0.88rem; color: var(--text-muted); margin: 0.4rem 0;">
+            <em>"Both one-sided derivatives explode to infinity with opposite signs ($f'_-(x_0) = -\infty$ and $f'_+(x_0) = +\infty$), creating a sharp peak."</em>
+          </p>
+          <div style="font-size: 0.82rem; color: var(--text-main); background: var(--bg-surface); padding: 0.5rem; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle);">
+            <strong>Key Example:</strong> $f(x) = \sqrt{|x|}$ at $x = 0$, where the tangent is vertical.
+          </div>
+        </div>
+
+        <!-- Feature 3 -->
+        <div id="clilFeatCard3" onclick="selectClilFeature(3)" style="cursor: pointer; background: var(--bg-surface-elevated); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.15rem; transition: var(--transition);">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+            <span class="flag-pill" style="font-size: 0.72rem;">Feature C • Click to View</span>
+            <button type="button" class="clil-audio-btn" style="padding: 0.2rem 0.55rem; font-size: 0.75rem;" onclick="event.stopPropagation(); readClilText('Vertical Tangent Inflection. Both one-sided derivatives approach infinity with the same sign.')">🔊 Audio</button>
+          </div>
+          <strong style="color: var(--accent-purple); font-size: 1.05rem;">3. Vertical Tangent Inflection</strong>
+          <p style="font-size: 0.88rem; color: var(--text-muted); margin: 0.4rem 0;">
+            <em>"Both one-sided derivatives approach infinity with the same sign ($f'_-(x_0) = f'_+(x_0) = +\infty$). The curve crosses a vertical tangent."</em>
+          </p>
+          <div style="font-size: 0.82rem; color: var(--text-main); background: var(--bg-surface); padding: 0.5rem; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle);">
+            <strong>Key Example:</strong> $f(x) = \sqrt[3]{x}$ at $x = 0$.
+          </div>
+        </div>
+      </div>
+
+      <div class="clil-stage">
+        <svg id="clilNdSvg" class="clil-svg" viewBox="0 0 600 260" role="img" aria-label="Interactive English graph of non-differentiable points"></svg>
+      </div>
+
+      <div class="verify-box">
+        <button type="button" class="btn-action" onclick="verifyClilTask(3)">
+          <span>✅</span> Complete CLIL Task 3 (+14 XP)
+        </button>
+        <span class="feedback-msg" id="lab3Msg" style="display: none;"></span>
+      </div>
+    </article>
+
+
+    <!-- ======================================================== -->
+    <!-- TASK 4: ROGERS DIFFUSION OF INNOVATIONS                 -->
+    <!-- ======================================================== -->
+    <article class="lab-card" id="lab4">
+      <div class="lab-badge-row">
+        <span class="lab-badge" style="background: rgba(168, 85, 247, 0.15); color: var(--accent-purple); border-color: rgba(168, 85, 247, 0.3);">
+          CLIL Task 4 • Applied Sociology Case Study
+        </span>
+        <span class="lab-xp-badge">+14 XP</span>
+      </div>
+      <h3 class="lab-title">The Rogers Diffusion Curve: Rate of Cultural &amp; Technological Adoption</h3>
+
+      <p>
+        In sociology and communication studies, Everett Rogers (1962) modeled the <em>Diffusion of Innovations</em>.
+        The cumulative proportion of citizens adopting a new social practice or technology over time $t$ (in months) follows a logistic sigmoid function:
+      </p>
+      $$P(t) = \frac{1}{1 + e^{-0.4(t - 10)}}$$
+
+      <div class="clil-stage">
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 0.85rem;">
+          <div>
+            <strong style="color: var(--accent-math);">Interactive Sociological Simulator:</strong><br>
+            <span style="font-size: 0.9rem; color: var(--text-muted);">
+              Slide time $t$ from $0$ to $20$ months to compare cumulative adoption $P(t)$ and instantaneous adoption speed $P'(t) = \frac{dP}{dt}$:
+            </span>
+          </div>
+          <button type="button" class="clil-audio-btn" onclick="readClilText('The derivative of cumulative adoption represents the instantaneous adoption rate, measuring how many new individuals join the trend per month. The maximum rate occurs at the inflection point when time t equals 10 months.')">
+            🔊 Read Sociological Explanation
+          </button>
+        </div>
+
+        <div class="clil-slider-panel">
+          <label for="rogersTSlider">Time elapsed $t$ (months):</label>
+          <input type="range" id="rogersTSlider" min="0" max="20" step="0.5" value="10" oninput="updateRogersSim()">
+          <span class="clil-readout" id="rogersTVal">t = 10.0 months</span>
+        </div>
+
+        <svg id="rogersSvg" class="clil-svg" viewBox="0 0 640 310" role="img" aria-label="Rogers S-curve of cumulative adoption and derivative adoption speed"></svg>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 0.85rem; margin-top: 1rem;">
+          <div style="background: var(--bg-surface); padding: 0.7rem 0.9rem; border-radius: var(--radius-md); border: 1px solid var(--border-subtle); text-align: center;">
+            <span style="font-size: 0.75rem; color: var(--text-muted); font-weight: 700;">CUMULATIVE ADOPTION $P(t)$</span><br>
+            <strong style="font-family: var(--font-mono); font-size: 1.1rem; color: var(--accent-math);" id="rogersPVal">50.0%</strong>
+          </div>
+          <div style="background: var(--bg-surface); padding: 0.7rem 0.9rem; border-radius: var(--radius-md); border: 1px solid var(--border-subtle); text-align: center;">
+            <span style="font-size: 0.75rem; color: var(--text-muted); font-weight: 700;">ADOPTION RATE $P'(t) = dP/dt$</span><br>
+            <strong style="font-family: var(--font-mono); font-size: 1.1rem; color: var(--accent-gold);" id="rogersRateVal">10.0% / month</strong>
+          </div>
+          <div style="background: var(--bg-surface); padding: 0.7rem 0.9rem; border-radius: var(--radius-md); border: 1px solid var(--border-subtle); text-align: center;">
+            <span style="font-size: 0.75rem; color: var(--text-muted); font-weight: 700;">ROGERS ADOPTER GROUP</span><br>
+            <strong style="font-size: 0.95rem; color: var(--accent-purple);" id="rogersGroupVal">Inflection Peak (50%)</strong>
+          </div>
+        </div>
+
+        <div style="margin-top: 1rem; background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1rem; font-size: 0.9rem; line-height: 1.6;">
+          <p style="margin: 0 0 0.5rem 0;"><strong>1. The Derivative as Adoption Speed:</strong>
+            While $P(t)$ measures the <em>cumulative percentage</em> of adopters (from $0\%$ to $100\%$), the derivative $P'(t)$ measures the <strong>instantaneous speed of adoption</strong> (new adopters per month).
+          </p>
+          <p style="margin: 0;"><strong>2. The Inflection Point ($t = 10$ months):</strong>
+            At $t = 10$, $P(10) = 0.50$ ($50\%$ of the population). At this exact inflection point, the tangent line reaches its <strong>maximum steepness ($P'(10) = 0.10 = 10\%/\text{month}$)</strong>. Afterwards, the market saturates and $P(t)$ approaches the horizontal asymptote $y = 1$ ($100\%$).
+          </p>
+        </div>
+      </div>
+
+      <div class="verify-box">
+        <button type="button" class="btn-action" onclick="verifyClilTask(4)">
+          <span>✅</span> Complete CLIL Task 4 (+14 XP)
+        </button>
+        <span class="feedback-msg" id="lab4Msg" style="display: none;"></span>
+      </div>
+    </article>
+
+
+    <!-- ======================================================== -->
+    <!-- TASK 5: WELFARE TAPERS & THE POVERTY TRAP               -->
+    <!-- ======================================================== -->
+    <article class="lab-card" id="lab5">
+      <div class="lab-badge-row">
+        <span class="lab-badge" style="background: rgba(168, 85, 247, 0.15); color: var(--accent-purple); border-color: rgba(168, 85, 247, 0.3);">
+          CLIL Task 5 • Global Policy &amp; Economics
+        </span>
+        <span class="lab-xp-badge">+14 XP</span>
+      </div>
+      <h3 class="lab-title">Welfare Taper Rates: Why Public Policy Requires Mathematical Continuity</h3>
+
+      <p>
+        In comparative welfare state research, economists analyze how government benefits decrease as household earned income $x$ rises.
+        Read the following excerpt from an international policy report:
+      </p>
+
+      <div style="background: var(--bg-surface-elevated); border-left: 3.5px solid var(--accent-purple); padding: 1.15rem 1.25rem; border-radius: 0 var(--radius-sm) var(--radius-sm) 0; margin-bottom: 1rem; font-style: italic; line-height: 1.7; font-size: 0.93rem;">
+        "A fundamental principle in optimal taxation is the avoidance of <strong>cliff-edge discontinuities</strong>.
+        When a social assistance program abruptly terminates benefits at an income threshold $x_0$ (creating a jump discontinuity of first species), the effective marginal tax rate exceeds $100\%$.
+        Consequently, a citizen earning an additional pound or euro loses hundreds of pounds in net benefits, giving rise to the so-called <strong>poverty trap</strong>.
+        Modern social protection schemes therefore employ <strong>continuous tapering functions</strong>, ensuring that the net disposable income function $N(x) = x + B(x) - T(x)$ is continuous everywhere."
+      </div>
+
+      <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.85rem;">
+        <button type="button" class="clil-audio-btn" onclick="readClilText('A fundamental principle in optimal taxation is the avoidance of cliff-edge discontinuities. When benefits abruptly terminate at an income threshold, the citizen loses hundreds of pounds, creating a poverty trap. Modern schemes therefore employ continuous tapering functions.')">
+          🔊 Listen to Policy Brief
+        </button>
+        <button type="button" class="clil-trans-btn" onclick="toggleTranslation('welfarePolicyTr')">🇮🇹 Mostra Traduzione Italiana</button>
+      </div>
+
+      <div class="clil-trans-box" id="welfarePolicyTr" style="margin-bottom: 1.15rem;">
+        <strong>Traduzione in Italiano:</strong> «Un principio fondamentale nella tassazione ottimale è l'eliminazione delle discontinuità a gradino (<em>cliff-edges</em>). Quando un sussidio cessa bruscamente al superamento di una soglia di reddito $x_0$ (creando una discontinuità di 1ª specie con salto), l'aliquota marginale effettiva supera il $100\%$: guadagnare un euro in più fa perdere centinaia di euro di sussidio, intrappolando il cittadino nella povertà (<em>poverty trap</em>). I sistemi moderni adottano perciò funzioni di raccordo continuo (<em>tapering</em>), garantendo la continuità matematica del reddito netto disponibile».
+      </div>
+
+      <!-- Mini Check Interattivo Task 5 -->
+      <div class="clil-stage">
+        <strong style="color: var(--accent-purple); font-size: 0.95rem;">🎯 Policy Case Check • Eliminating the Cliff-Edge:</strong>
+        <p style="font-size: 0.9rem; margin: 0.4rem 0 0.75rem;">
+          In the policy report above, what mathematical defect causes the "poverty trap" at an income threshold $x_0$?
+        </p>
+        <div>
+          <button type="button" class="clil-choice-btn" onclick="checkClilMiniQuiz(3, 0, this)">A jump discontinuity (1st species) where $\lim_{x \to x_0^-} B(x) \neq \lim_{x \to x_0^+} B(x)$</button>
+          <button type="button" class="clil-choice-btn" onclick="checkClilMiniQuiz(3, 1, this)">A horizontal asymptote as $x \to +\infty$</button>
+          <button type="button" class="clil-choice-btn" onclick="checkClilMiniQuiz(3, 2, this)">A constant derivative equal to zero everywhere</button>
+        </div>
+        <div id="clilQuizFb3" style="font-size: 0.86rem; font-weight: 600; margin-top: 0.5rem; display: none;"></div>
+      </div>
+
+      <div class="verify-box">
+        <button type="button" class="btn-action" onclick="verifyClilTask(5)">
+          <span>✅</span> Complete CLIL Task 5 (+14 XP)
+        </button>
+        <span class="feedback-msg" id="lab5Msg" style="display: none;"></span>
+      </div>
+    </article>
+
+
+    <!-- ======================================================== -->
+    <!-- PRINTABLE CLIL WORKSHEET (SCHEDA OPERATIVA)              -->
+    <!-- ======================================================== -->
+    <section class="homework-section" id="homeworkSection">
+      <div class="section-header">
+        <h2 class="section-title">
+          <span class="icon">📋</span> Printable CLIL Worksheet (Scheda Operativa)
+        </h2>
+        <button type="button" class="print-btn" onclick="window.print()">
           🖨️ Print Worksheet
         </button>
       </div>
 
-      <div style="font-size: 0.93rem; line-height: 1.65; color: var(--text-main);">
-        <p><strong>Exercise 1 (Reading and Writing Spoken Math):</strong><br>
-          Write the following spoken English expressions in formal mathematical symbols and evaluate the result:
-          <br>a) <em>"The limit of the fraction x squared minus nine over x minus three, as x approaches three."</em>
-          <br>b) <em>"The derivative of f of x equals three x to the fourth power minus five x plus two."</em>
-          <br>c) <em>"The difference quotient of f of x equals x squared at x naught equals two with an increment h equals zero point one."</em>
-        </p>
+      <article class="scheda-container">
+        <h3 class="scheda-title">
+          Authentic CLIL Task: «Calculus in Social Sciences &amp; Public Policy»
+        </h3>
 
-        <p style="margin-top: 1.25rem;"><strong>Exercise 2 (Mathematical Continuity in a Childcare Benefit Scheme):</strong><br>
-          A British local council designs a subsidized childcare grant $G(x)$ in pounds per month based on annual family income $x$ (in thousands of pounds, $x \in [0, 50]$):
-          $$G(x) = \begin{cases} 500 - 8x & 0 \le x < 25 \ \frac{k}{x + 15} & 25 \le x \le 50 \end{cases}$$
-          <br>a) Determine the exact parameter $k$ so that the benefit function is <strong>continuous</strong> at the transition income threshold $x = 25$.
-          <br>b) Calculate the maximum benefit received by a low-income family ($x = 0$) and the minimum benefit for a family with $x = 50$.
-          <br>c) Explain in English how the Weierstrass Extreme Value Theorem guarantees the existence of a maximum and minimum grant.
-        </p>
-
-        <p style="margin-top: 1.25rem;"><strong>Exercise 3 (Marginal Cost &amp; Break-Even Analysis in a Social Enterprise):</strong><br>
-          A non-profit cooperative produces eco-friendly solar chargers. Its total cost function (in thousands of euros) is $C(q) = 0.02q^3 - 0.9q^2 + 15q + 20$, and its revenue is $R(q) = 12q$, for $q \in [5, 40]$ chargers (in hundreds).
-          <br>a) Calculate the <strong>marginal cost function</strong> $C'(q) = \frac{dC}{dq}$.
-          <br>b) Compute the marginal cost when production is $q = 20$ hundred units ($2,000$ chargers).
-          <br>c) Using the Intermediate Value Theorem, prove that the net profit function $P(q) = R(q) - C(q)$ has at least one root (break-even point) in the interval $[10, 30]$.
-        </p>
-
-        <p style="margin-top: 1.25rem;"><strong>Exercise 4 (Discussion Question for the Esame di Stato Oral Exam):</strong><br>
-          <em>"Natura non facit saltus"</em> (Nature does not make jumps) was a central philosophical axiom of Leibniz and 18th-century thinkers.
-          In a short English essay (150–200 words), discuss whether historical, sociological, and psychological phenomena evolve continuously or through sharp, discrete discontinuities (e.g., social revolutions, tipping points, phase shifts).
-        </p>
-
-        <!-- Evaluation Rubric -->
-        <h4 style="margin-top: 2rem; color: var(--accent-purple);">CLIL Assessment Rubric (10-Point Scale)</h4>
-        <div class="rubric-grid">
-          <div class="rubric-card">
-            <div class="rubric-card-title">1. Mathematical Accuracy (0-2.5 pt)</div>
-            <p>Rigorous limit computation, algebraic simplification of indeterminate forms, correct derivative rules.</p>
-          </div>
-          <div class="rubric-card">
-            <div class="rubric-card-title">2. Lexical Precision (0-2.5 pt)</div>
-            <p>Accurate use of English calculus terminology (approaches, difference quotient, secant/tangent, taper rate).</p>
-          </div>
-          <div class="rubric-card">
-            <div class="rubric-card-title">3. Applied Modelling (0-2.5 pt)</div>
-            <p>Understanding how continuity prevents poverty traps and how marginal cost guides sustainable enterprise choices.</p>
-          </div>
-          <div class="rubric-card">
-            <div class="rubric-card-title">4. English Fluency (0-2.5 pt)</div>
-            <p>Clarity and grammatical coherence in written and spoken English during the state exam interview.</p>
+        <div class="theory-link-box">
+          <span class="tl-icon">🔗</span>
+          <div>
+            <strong>Theory ↔ Practice Connection:</strong> Integrates spoken mathematical notation, continuity parameters for welfare tapering functions, marginal cost derivatives, and the Intermediate Value Theorem across UDA 5.M1.
           </div>
         </div>
-      </div>
+
+        <div class="scheda-delivery-callout">
+          <strong>📅 Submission Guidelines (Modalità di consegna):</strong> Complete this worksheet individually or with a study partner and bring it to the next class session.
+        </div>
+
+        <div class="scheda-student-fields">
+          <div class="scheda-field-item">
+            <span class="scheda-field-label">Student Name:</span>
+            <div class="scheda-field-line"></div>
+          </div>
+          <div class="scheda-field-item">
+            <span class="scheda-field-label">Class:</span>
+            <div class="scheda-field-line" style="max-width: 120px;"></div>
+          </div>
+          <div class="scheda-field-item">
+            <span class="scheda-field-label">Date:</span>
+            <div class="scheda-field-line" style="max-width: 160px;"></div>
+          </div>
+        </div>
+
+        <div style="font-size: 0.93rem; line-height: 1.65; color: var(--text-main);">
+          <p><strong>Exercise 1 (Translating Spoken English into Formal Math):</strong><br>
+            Write the following spoken English expressions in formal mathematical symbols and compute the result:
+            <br>a) <em>"The limit of the fraction x squared minus nine over x minus three, as x approaches three."</em>
+            <br>b) <em>"The derivative f prime of x of the polynomial three x to the fourth power minus five x plus two."</em>
+            <br>c) <em>"The difference quotient of f of x equals x squared at x naught equals two with an increment h equals zero point one."</em>
+          </p>
+
+          <p style="margin-top: 1.25rem;"><strong>Exercise 2 (Mathematical Continuity in a Childcare Benefit Scheme):</strong><br>
+            A local council designs a subsidized childcare grant $G(x)$ in pounds per month based on annual family income $x$ (in thousands of pounds, $x \in [0, 50]$):
+            $$G(x) = \begin{cases} 500 - 8x & 0 \le x < 25 \\ \frac{k}{x + 15} & 25 \le x \le 50 \end{cases}$$
+            <br>a) Determine the exact parameter $k$ so that the benefit function is <strong>continuous</strong> at the transition income threshold $x = 25$.
+            <br>b) Calculate the maximum benefit received by a low-income family ($x = 0$) and the minimum benefit for a family with $x = 50$.
+            <br>c) Explain in English how the Weierstrass Extreme Value Theorem guarantees the existence of a maximum and minimum grant.
+          </p>
+
+          <p style="margin-top: 1.25rem;"><strong>Exercise 3 (Marginal Cost &amp; Break-Even Analysis in a Social Enterprise):</strong><br>
+            A non-profit cooperative produces eco-friendly solar chargers. Its total cost function (in thousands of euros) is $C(q) = 0.02q^3 - 0.9q^2 + 15q + 20$, and its revenue is $R(q) = 12q$, for $q \in [5, 40]$ hundred units.
+            <br>a) Calculate the <strong>marginal cost function</strong> $C'(q) = \frac{dC}{dq}$.
+            <br>b) Compute the marginal cost when production is $q = 20$ hundred units ($2,000$ chargers).
+            <br>c) Using the Intermediate Value Theorem (Bolzano), prove that the net profit function $P(q) = R(q) - C(q)$ has at least one root (break-even point) in the interval $[10, 30]$.
+          </p>
+
+          <p style="margin-top: 1.25rem;"><strong>Exercise 4 (Discussion Essay for the Esame di Stato Oral Exam):</strong><br>
+            <em>"Natura non facit saltus"</em> (Nature does not make jumps) was a central philosophical axiom of Leibniz and 18th-century thinkers.
+            In a short English paragraph (120–160 words), discuss whether historical, sociological, and psychological phenomena evolve continuously or through sharp discontinuities (e.g., social revolutions, tipping points, welfare thresholds).
+          </p>
+
+          <div class="clil-sentence-frames">
+            <strong>🇬🇧 Useful English Sentence Starters (Scaffolding per l'Esposizione Scritta e Orale):</strong><br>
+            • <em>"To ensure that the function is <strong>continuous</strong> at the threshold $x = 25$, we equate the left-hand limit and the right-hand limit..."</em><br>
+            • <em>"From an economic perspective, the <strong>marginal cost</strong> $C'(q)$ represents the instantaneous rate of change of total cost..."</em><br>
+            • <em>"According to the <strong>Intermediate Value Theorem</strong>, since $P(q)$ is continuous on $[10, 30]$ and changes sign..."</em><br>
+            • <em>"While classical calculus assumes smooth, unbroken curves, sociological systems often experience <strong>jump discontinuities</strong> when..."</em>
+          </div>
+
+          <!-- Evaluation Rubric -->
+          <h4 style="margin-top: 1.75rem; color: var(--accent-purple);">CLIL Competency Assessment Rubric (Griglia in Decimi)</h4>
+          <div class="rubric-grid">
+            <div class="rubric-card">
+              <div class="rubric-card-title">1. Mathematical Accuracy (0-2.5 pt)</div>
+              <p>Rigorous limit computation, algebraic simplification of indeterminate forms, and accurate derivative rules.</p>
+            </div>
+            <div class="rubric-card">
+              <div class="rubric-card-title">2. Lexical Precision (0-2.5 pt)</div>
+              <p>Accurate use of English calculus terminology (approaches, difference quotient, secant/tangent, taper rate).</p>
+            </div>
+            <div class="rubric-card">
+              <div class="rubric-card-title">3. Applied Modelling (0-2.5 pt)</div>
+              <p>Understanding how continuity prevents poverty traps and how marginal cost guides sustainable enterprise choices.</p>
+            </div>
+            <div class="rubric-card">
+              <div class="rubric-card-title">4. English Fluency (0-2.5 pt)</div>
+              <p>Clarity, syntactic coherence, and avoidance of false friends in written and spoken English.</p>
+            </div>
+          </div>
+        </div>
+      </article>
     </section>
 
 
@@ -827,7 +1079,7 @@
           <span class="icon">⚡</span> State Exam English Flashcards: Calculus &amp; Society
         </h2>
         <span class="badge" style="background: rgba(168, 85, 247, 0.15); color: var(--accent-purple); font-weight: 700; padding: 0.3rem 0.8rem; border-radius: var(--radius-pill); font-size: 0.8rem;">
-          Bilingual Review
+          Bilingual Mastery Review
         </span>
       </div>
       <div id="clilFlashcardDeck"></div>
@@ -842,11 +1094,11 @@
         <span style="font-size: 1.8rem;">🇬🇧</span>
         <div>
           <h3 style="font-size: 1.25rem; font-weight: 800; margin: 0;">Sentence Starters for the Esame di Stato Interview</h3>
-          <span style="font-size: 0.85rem; color: var(--text-muted);">Frasi modello per esporre argomenti di matematica in inglese durante il colloquio</span>
+          <span style="font-size: 0.85rem; color: var(--text-muted);">Frasi modello pronte all'uso per esporre collegamenti di matematica in inglese durante il colloquio</span>
         </div>
       </div>
 
-      <div style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem; font-size: 0.92rem; line-height: 1.7;">
+      <div style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem; font-size: 0.92rem; line-height: 1.75;">
         <ul style="margin-left: 1.25rem;">
           <li><em>"From a geometric perspective, the derivative $f'(x_0)$ represents the instantaneous slope of the tangent line touching the curve at point $P$."</em></li>
           <li><em>"As the independent variable approaches the critical threshold, the function exhibits a jump discontinuity of first species."</em></li>
@@ -860,10 +1112,10 @@
         <div style="font-size: 2.2rem; margin-bottom: 0.5rem;">🎉</div>
         <h3 style="font-size: 1.25rem; font-weight: 800; margin-bottom: 0.4rem;">Congratulations! You completed the CLIL Module!</h3>
         <p style="font-size: 0.92rem; color: var(--text-muted); max-width: 600px; margin: 0 auto 1.25rem;">
-          You have mastered spoken formulas, avoided false friends, analyzed Rogers diffusion curve and understood welfare tapers in English.
+          You have mastered spoken formulas, avoided false friends, analyzed Rogers' diffusion curve, and understood welfare tapers in English.
         </p>
-        <button class="btn btn-primary" id="btnCompleteClil" style="padding: 0.75rem 1.75rem; font-size: 1rem; font-weight: 800;">
-          🏆 Claim +70 XP &amp; Register Completion
+        <button type="button" id="btnCompleteClil" class="btn-complete" onclick="markAllTasksCompleted(false)">
+          🏆 Claim +70 XP &amp; Complete CLIL Module
         </button>
       </div>
     </footer>
@@ -874,10 +1126,13 @@
   <!-- ======================================================== -->
   <!-- JAVASCRIPT DINAMICO E SINTESI VOCALE                     -->
   <!-- ======================================================== -->
-  <script src="../../../shared/js/comode-audio.js"></script>
-  <script src="../../../shared/js/comode-gamification.js"></script>
-  <script src="../../../shared/js/comode-flashcards.js"></script>
+  <script src="../../../shared/js/audio.js"></script>
+  <script src="../../../shared/js/theme.js"></script>
+  <script src="../../../shared/js/gamification.js"></script>
+  <script src="../../../shared/js/components.js"></script>
+  <script src="../../../shared/js/flashcards.js"></script>
   <script src="../../../shared/js/speech.js"></script>
+  <script src="../../../shared/js/comode.js"></script>
 
   <script>
     const LESSON_ID = 'qa-5.m1-clil';
@@ -914,20 +1169,255 @@
       }
     }
 
-    function scrollToTask(num) {
-      const el = document.getElementById('task-' + num);
-      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    /* MINI QUIZZES IN TASKS 1, 2, 5 */
+    const clilMiniSolutions = {
+      1: {
+        correct: 1,
+        exp: 'Correct! In English, $f\'(x_0)$ is read "f prime of x naught" (or "f prime of x sub zero").'
+      },
+      2: {
+        correct: 1,
+        exp: 'Spot on! "Continuous" means unbroken without jumps, and "actual" means real/effective ($f(x_0)$).'
+      },
+      3: {
+        correct: 0,
+        exp: 'Exactly! A sudden drop at $x_0$ is a jump discontinuity (1st species), creating a cliff-edge poverty trap.'
+      }
+    };
+
+    function checkClilMiniQuiz(qId, chosenIdx, btn) {
+      const parent = btn.parentElement;
+      const buttons = parent.querySelectorAll('.clil-choice-btn');
+      const fb = document.getElementById('clilQuizFb' + qId);
+      const sol = clilMiniSolutions[qId];
+
+      buttons.forEach(b => b.disabled = true);
+
+      if (chosenIdx === sol.correct) {
+        btn.classList.add('correct');
+        fb.innerHTML = '✅ ' + sol.exp;
+        fb.style.color = 'var(--accent-success)';
+        if (window.ComodeAudio) ComodeAudio.play('success');
+      } else {
+        btn.classList.add('wrong');
+        buttons[sol.correct].classList.add('correct');
+        fb.innerHTML = '❌ Not quite. ' + sol.exp;
+        fb.style.color = '#ef4444';
+        if (window.ComodeAudio) ComodeAudio.play('error');
+      }
+      fb.style.display = 'block';
+
+      if (window.renderMathInElement) {
+        renderMathInElement(fb, { delimiters: [{ left: '$', right: '$', display: false }] });
+      }
     }
 
-    /* TASK MANAGEMENT */
+    /* TASK 3: INTERACTIVE NON-DIFFERENTIABLE SVG */
+    function selectClilFeature(type) {
+      const colors = { 1: 'var(--accent-math)', 2: 'var(--accent-gold)', 3: 'var(--accent-purple)' };
+      for (let i = 1; i <= 3; i++) {
+        const card = document.getElementById('clilFeatCard' + i);
+        if (card) {
+          card.style.border = (i === type) ? `2px solid ${colors[i]}` : '1px solid var(--border-subtle)';
+        }
+      }
+
+      const svg = document.getElementById('clilNdSvg');
+      if (!svg) return;
+      const ox = 300;
+      const oy = (type === 2) ? 200 : 140;
+
+      let html = `
+        <defs>
+          <pattern id="clilGrid" width="30" height="30" patternUnits="userSpaceOnUse">
+            <path d="M 30 0 L 0 0 0 30" fill="none" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+          </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill="var(--bg-surface)" rx="8"/>
+        <rect width="100%" height="100%" fill="url(#clilGrid)" rx="8"/>
+        <line x1="40" y1="${oy}" x2="560" y2="${oy}" stroke="var(--border-subtle)" stroke-width="1.5"/>
+        <line x1="${ox}" y1="20" x2="${ox}" y2="240" stroke="var(--border-subtle)" stroke-width="1.5"/>
+      `;
+
+      if (type === 1) {
+        html += `
+          <line x1="130" y1="35" x2="${ox}" y2="${oy}" stroke="var(--accent-math)" stroke-width="3.5"/>
+          <line x1="${ox}" y1="${oy}" x2="470" y2="35" stroke="var(--accent-math)" stroke-width="3.5"/>
+          <line x1="${ox}" y1="${oy}" x2="380" y2="${oy + 50}" stroke="var(--accent-gold)" stroke-width="2" stroke-dasharray="4,4"/>
+          <line x1="${ox}" y1="${oy}" x2="220" y2="${oy + 50}" stroke="var(--accent-purple)" stroke-width="2" stroke-dasharray="4,4"/>
+          <circle cx="${ox}" cy="${oy}" r="6" fill="var(--accent-math)" stroke="var(--bg-surface)" stroke-width="2"/>
+          <text x="${ox}" y="${oy - 14}" fill="var(--accent-math)" font-size="12" font-weight="800" text-anchor="middle">Corner Point: Left-hand slope (-1) ≠ Right-hand slope (+1)</text>
+        `;
+      } else if (type === 2) {
+        html += `
+          <path d="M 100 50 Q ${ox} 100 ${ox} ${oy}" fill="none" stroke="var(--accent-gold)" stroke-width="3.5"/>
+          <path d="M ${ox} ${oy} Q ${ox} 100 500 50" fill="none" stroke="var(--accent-gold)" stroke-width="3.5"/>
+          <line x1="${ox}" y1="25" x2="${ox}" y2="235" stroke="#ef4444" stroke-width="2" stroke-dasharray="5,4"/>
+          <circle cx="${ox}" cy="${oy}" r="6" fill="var(--accent-gold)" stroke="var(--bg-surface)" stroke-width="2"/>
+          <text x="${ox}" y="${oy + 24}" fill="var(--accent-gold)" font-size="12" font-weight="800" text-anchor="middle">Cusp: Opposite Infinite One-Sided Derivatives (-∞ and +∞)</text>
+        `;
+      } else {
+        html += `
+          <path d="M 100 225 Q ${ox} 210 ${ox} ${oy}" fill="none" stroke="var(--accent-purple)" stroke-width="3.5"/>
+          <path d="M ${ox} ${oy} Q ${ox} 70 500 55" fill="none" stroke="var(--accent-purple)" stroke-width="3.5"/>
+          <line x1="${ox}" y1="25" x2="${ox}" y2="235" stroke="#ef4444" stroke-width="2" stroke-dasharray="5,4"/>
+          <circle cx="${ox}" cy="${oy}" r="6" fill="var(--accent-purple)" stroke="var(--bg-surface)" stroke-width="2"/>
+          <text x="${ox + 14}" y="${oy + 22}" fill="var(--accent-purple)" font-size="12" font-weight="800">Vertical Tangent Inflection (+∞ and +∞)</text>
+        `;
+      }
+
+      svg.innerHTML = html;
+    }
+
+    /* TASK 4: ROGERS DIFFUSION CURVE SIMULATOR */
+    function updateRogersSim() {
+      const slider = document.getElementById('rogersTSlider');
+      if (!slider) return;
+      const t = parseFloat(slider.value);
+      const k = 0.4;
+      const t0 = 10.0;
+
+      // P(t) = 1 / (1 + e^(-0.4*(t - 10)))
+      const p = 1 / (1 + Math.exp(-k * (t - t0)));
+      // P'(t) = k * P(t) * (1 - P(t))
+      const dp = k * p * (1 - p);
+
+      document.getElementById('rogersTVal').textContent = `t = ${t.toFixed(1)} months`;
+      document.getElementById('rogersPVal').textContent = `${(p * 100).toFixed(1)}%`;
+      document.getElementById('rogersRateVal').textContent = `${(dp * 100).toFixed(2)}% / month`;
+
+      const groupEl = document.getElementById('rogersGroupVal');
+      if (Math.abs(t - 10) < 0.3) {
+        groupEl.textContent = 'Inflection Point (Peak Speed!)';
+      } else if (t < 4.5) {
+        groupEl.textContent = 'Innovators & Early Adopters';
+      } else if (t < 10) {
+        groupEl.textContent = 'Early Majority (Accelerating)';
+      } else if (t <= 15.5) {
+        groupEl.textContent = 'Late Majority (Decelerating)';
+      } else {
+        groupEl.textContent = 'Laggards (Market Saturation)';
+      }
+
+      renderRogersSvg(t, p, dp);
+    }
+
+    function renderRogersSvg(tCur, pCur, dpCur) {
+      const svg = document.getElementById('rogersSvg');
+      if (!svg) return;
+      const ox = 65, oy = 265;
+      const scaleX = 520 / 20; // t in [0, 20]
+      const scaleY = 210;      // P in [0, 1]
+
+      const mapX = (t) => ox + t * scaleX;
+      const mapY = (p) => oy - p * scaleY;
+
+      let html = `
+        <defs>
+          <pattern id="rogGrid" width="26" height="26" patternUnits="userSpaceOnUse">
+            <path d="M 26 0 L 0 0 0 26" fill="none" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+          </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill="var(--bg-surface)" rx="8"/>
+        <rect width="100%" height="100%" fill="url(#rogGrid)" rx="8"/>
+
+        <!-- Horizontal Asymptote y = 1 (100%) -->
+        <line x1="${ox}" y1="${mapY(1)}" x2="${ox + 530}" y2="${mapY(1)}" stroke="rgba(168,85,247,0.4)" stroke-width="1.5" stroke-dasharray="5,4"/>
+        <text x="${ox + 525}" y="${mapY(1) - 6}" fill="var(--accent-purple)" font-size="10.5" font-weight="700" text-anchor="end">Horizontal Asymptote y = 100% (Saturation)</text>
+
+        <!-- Axes -->
+        <line x1="${ox}" y1="${oy}" x2="${ox + 540}" y2="${oy}" stroke="var(--border-subtle)" stroke-width="1.5"/>
+        <line x1="${ox}" y1="${oy}" x2="${ox}" y2="25" stroke="var(--border-subtle)" stroke-width="1.5"/>
+        <text x="${ox + 535}" y="${oy + 18}" fill="var(--text-muted)" font-size="11" text-anchor="end">Time t (months)</text>
+        <text x="${ox - 8}" y="${mapY(0.5) + 4}" fill="var(--text-muted)" font-size="10.5" text-anchor="end">50%</text>
+        <text x="${ox - 8}" y="${mapY(1.0) + 4}" fill="var(--text-muted)" font-size="10.5" text-anchor="end">100%</text>
+        <text x="${mapX(10)}" y="${oy + 18}" fill="var(--accent-gold)" font-size="11" font-weight="700" text-anchor="middle">t = 10 (Inflection)</text>
+      `;
+
+      // Logistic curve P(t)
+      let dP = '';
+      // Derivative curve P'(t) scaled x4 for visual comparison
+      let dRate = '';
+      for (let t = 0; t <= 20; t += 0.25) {
+        const p = 1 / (1 + Math.exp(-0.4 * (t - 10)));
+        const dp = 0.4 * p * (1 - p);
+        const sx = mapX(t);
+        const syP = mapY(p);
+        const syR = mapY(dp * 4.5);
+        if (t === 0) {
+          dP += `M ${sx.toFixed(1)} ${syP.toFixed(1)}`;
+          dRate += `M ${sx.toFixed(1)} ${syR.toFixed(1)}`;
+        } else {
+          dP += ` L ${sx.toFixed(1)} ${syP.toFixed(1)}`;
+          dRate += ` L ${sx.toFixed(1)} ${syR.toFixed(1)}`;
+        }
+      }
+      html += `<path d="${dRate}" fill="none" stroke="var(--accent-gold)" stroke-width="2.2" stroke-dasharray="4,3"/>`;
+      html += `<path d="${dP}" fill="none" stroke="var(--accent-math)" stroke-width="3.2"/>`;
+
+      // Tangent segment at tCur on P(t)
+      const tLeft = Math.max(0, tCur - 3.0);
+      const tRight = Math.min(20, tCur + 3.0);
+      const pLeft = pCur + dpCur * (tLeft - tCur);
+      const pRight = pCur + dpCur * (tRight - tCur);
+
+      const cx = mapX(tCur), cy = mapY(pCur);
+      const ry = mapY(dpCur * 4.5);
+
+      html += `
+        <line x1="${cx}" y1="35" x2="${cx}" y2="${oy}" stroke="rgba(255,255,255,0.18)" stroke-dasharray="3,3"/>
+        <line x1="${mapX(tLeft)}" y1="${mapY(pLeft)}" x2="${mapX(tRight)}" y2="${mapY(pRight)}" stroke="var(--accent-purple)" stroke-width="2.2"/>
+        <circle cx="${cx}" cy="${cy}" r="6" fill="var(--accent-math)" stroke="var(--bg-surface)" stroke-width="2"/>
+        <circle cx="${cx}" cy="${ry}" r="5" fill="var(--accent-gold)" stroke="var(--bg-surface)" stroke-width="1.5"/>
+
+        <!-- Legend -->
+        <g transform="translate(80, 32)">
+          <rect width="235" height="64" fill="var(--bg-surface-elevated)" rx="6" stroke="var(--border-subtle)"/>
+          <line x1="10" y1="20" x2="32" y2="20" stroke="var(--accent-math)" stroke-width="3"/>
+          <text x="40" y="24" fill="var(--accent-math)" font-size="10.5" font-weight="700">Cumulative P(t) + Tangent</text>
+          <line x1="10" y1="44" x2="32" y2="44" stroke="var(--accent-gold)" stroke-width="2.2" stroke-dasharray="4,3"/>
+          <text x="40" y="48" fill="var(--accent-gold)" font-size="10.5" font-weight="700">Adoption Rate P'(t) (Speed)</text>
+        </g>
+      `;
+
+      svg.innerHTML = html;
+    }
+
+    /* TASK COMPLETION & GAMIFICATION */
+    function updateClilProgress() {
+      const count = completedTasks.size;
+      const pct = (count / 5) * 100;
+      const fill = document.getElementById('progressFill');
+      const score = document.getElementById('progressScore');
+      if (fill) fill.style.width = pct + '%';
+      if (score) score.textContent = `${count} / 5 completed`;
+
+      if (count === 5) {
+        const btn = document.getElementById('btnCompleteClil');
+        if (btn) {
+          btn.classList.add('completed');
+          btn.textContent = '✅ CLIL Module Completed (+70 XP Claimed)';
+          btn.disabled = true;
+        }
+      }
+    }
+
+    function verifyClilTask(num) {
+      markClilTask(num, false);
+      const msg = document.getElementById('lab' + num + 'Msg');
+      if (msg) {
+        msg.className = 'feedback-msg success';
+        msg.textContent = 'Great job! CLIL Task ' + num + ' completed (+14 XP).';
+        msg.style.display = 'inline-flex';
+      }
+    }
+
     function markClilTask(num, silent = false) {
       if (completedTasks.has(num)) return;
       completedTasks.add(num);
 
-      const chip = document.getElementById('chip-task-' + num);
-      if (chip) chip.classList.add('completed');
-
-      document.getElementById('tasksCompletedCount').textContent = completedTasks.size;
+      const card = document.getElementById('lab' + num);
+      if (card) card.classList.add('completed');
 
       if (!silent) {
         if (window.ComodeAudio) ComodeAudio.play('success');
@@ -937,7 +1427,7 @@
       }
 
       saveTasksProgress();
-      checkAllTasksDone();
+      updateClilProgress();
     }
 
     function markAllTasksCompleted(silent = false) {
@@ -951,6 +1441,8 @@
           ComodeGamification.markLessonCompleted(LESSON_ID);
         }
       }
+      saveTasksProgress();
+      updateClilProgress();
     }
 
     function saveTasksProgress() {
@@ -959,19 +1451,11 @@
       } catch (e) {}
     }
 
-    function checkAllTasksDone() {
-      if (completedTasks.size === 5) {
-        const btn = document.getElementById('btnCompleteClil');
-        if (btn) {
-          btn.classList.add('completed');
-          btn.textContent = '✅ CLIL Module Completed (+70 XP Claimed)';
-          btn.disabled = true;
-        }
-      }
-    }
-
     /* INITIALIZATION */
     function initClilLesson() {
+      selectClilFeature(1);
+      updateRogersSim();
+
       const isLessonDone = window.ComodeGamification && window.ComodeGamification.isLessonCompleted(LESSON_ID);
       if (isLessonDone) {
         markAllTasksCompleted(true);
@@ -985,11 +1469,7 @@
         } catch (e) {}
       }
 
-      const completeBtn = document.getElementById('btnCompleteClil');
-      if (completeBtn && !completeBtn._clilBound) {
-        completeBtn._clilBound = true;
-        completeBtn.addEventListener('click', () => markAllTasksCompleted(false));
-      }
+      updateClilProgress();
 
       if (window.ComodeFlashcards) {
         ComodeFlashcards.init('clilFlashcardDeck', {
@@ -999,9 +1479,9 @@
           cards: [
             {
               category: 'Spoken Limits in English',
-              theoryRef: 'Section 1 • Spoken Math',
-              theoryTargetId: 'task-1',
-              question: 'How do you correctly read $\lim_{x \to 4^-} f(x) = 7$ aloud in English?',
+              theoryRef: 'Task 1 • Spoken Calculus',
+              theoryTargetId: 'lab1',
+              question: 'How do you correctly read $\\lim_{x \\to 4^-} f(x) = 7$ aloud in English?',
               options: [
                 '"The limit of f of x as x approaches 4 from the right is equal to 7"',
                 '"The limit of f of x as x approaches 4 from the left is equal to 7"',
@@ -1013,9 +1493,9 @@
             },
             {
               category: 'Difference Quotient & Rate',
-              theoryRef: 'Section 2 • The Calculus Lexicon',
-              theoryTargetId: 'task-2',
-              question: 'What is the exact English mathematical term for the fraction $\frac{f(x_0+h) - f(x_0)}{h}$?',
+              theoryRef: 'Task 2 • The Calculus Lexicon',
+              theoryTargetId: 'lab2',
+              question: 'What is the exact English mathematical term for the fraction $\\frac{f(x_0+h) - f(x_0)}{h}$?',
               options: [
                 'Integral fraction',
                 'Difference quotient (or average rate of change)',
@@ -1023,13 +1503,13 @@
                 'Continuous factor'
               ],
               correct: 1,
-              explanation: 'In English calculus textbooks, $\frac{\Delta y}{\Delta x}$ is universally called the "difference quotient".'
+              explanation: 'In English calculus textbooks, $\\frac{\\Delta y}{\\Delta x}$ is universally called the "difference quotient".'
             },
             {
               category: 'False Friends Alert',
-              theoryRef: 'Section 2 • Language Traps',
-              theoryTargetId: 'task-2',
-              question: 'In an English economics report, what does the word "Actual" mean in <em>"The actual revenue exceeded estimates"</em>?',
+              theoryRef: 'Task 2 • Language Traps',
+              theoryTargetId: 'lab2',
+              question: 'In an English economics report, what does the word "Actual" mean in "The actual revenue exceeded estimates"?',
               options: [
                 '"Attuale" (current / present-day revenue)',
                 '"Effettivo" / "Reale" (realized, factual revenue)',
@@ -1037,44 +1517,44 @@
                 '"Approssimato"'
               ],
               correct: 1,
-              explanation: '"Actual" is a famous false friend: it means "effettivo/reale", whereas "attuale" translates to "current" or "present".'
+              explanation: '"Actual" is a classic false friend: it means "effettivo/reale", whereas "attuale" translates to "current" or "present".'
             },
             {
               category: 'Singularities in English',
-              theoryRef: 'Section 3 • Non-Differentiability',
-              theoryTargetId: 'task-3',
+              theoryRef: 'Task 3 • Non-Differentiability',
+              theoryTargetId: 'lab3',
               question: 'What is a "corner point" (punto angoloso)?',
               options: [
                 'A point where both one-sided derivatives are infinite with opposite signs',
                 'A point where the left-hand and right-hand derivatives are finite but unequal',
-                'A point where the function has an asymptote',
+                'A point where the function has a vertical asymptote',
                 'A point where the derivative equals zero'
               ],
               correct: 1,
-              explanation: 'A corner point has two distinct finite slopes meeting at a sharp joint: $f'_-(x_0) \neq f'_+(x_0)$.'
+              explanation: "A corner point has two distinct finite slopes meeting at a sharp joint: $f'_-(x_0) \\neq f'_+(x_0)$."
             },
             {
               category: 'Sociological Models',
-              theoryRef: 'Section 4 • Rogers Diffusion Curve',
-              theoryTargetId: 'task-4',
-              question: 'In Everett Rogers' diffusion curve, what happens at the inflection point of cumulative adoption $P(t)$?',
+              theoryRef: 'Task 4 • Rogers Diffusion Curve',
+              theoryTargetId: 'lab4',
+              question: "In Everett Rogers' diffusion curve, what happens at the inflection point of cumulative adoption $P(t)$?",
               options: [
                 'The adoption speed drops to zero',
-                'The instantaneous rate of adoption (the derivative $P'(t)$) reaches its maximum peak',
+                "The instantaneous rate of adoption (the derivative $P'(t)$) reaches its maximum peak",
                 'The innovation is abandoned by all users',
                 'The curve becomes non-differentiable'
               ],
               correct: 1,
-              explanation: 'At the inflection point, the tangent slope is steepest: new adopters join at the highest rate.'
+              explanation: 'At the inflection point ($t = 10$, $P = 50\\%$), the tangent slope is steepest: new adopters join at the highest rate.'
             },
             {
               category: 'Welfare Policy',
-              theoryRef: 'Section 5 • Welfare Tapers',
-              theoryTargetId: 'task-5',
-              question: 'Why do welfare programs avoid step (jump) discontinuities at income thresholds?',
+              theoryRef: 'Task 5 • Welfare Tapers',
+              theoryTargetId: 'lab5',
+              question: 'Why do modern welfare programs avoid step (jump) discontinuities at income thresholds?',
               options: [
                 'Because computer software cannot handle fractions',
-                'Because a sudden benefit drop creates a poverty trap with marginal tax rates over 100%',
+                'Because a sudden benefit drop creates a poverty trap with effective marginal tax rates over 100%',
                 'Because the law requires every citizen to receive identical funds',
                 'Because the derivative would be zero everywhere'
               ],

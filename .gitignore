@@ -1,0 +1,25 @@
+# ==============================================================================
+# COMODE - .gitignore
+# ==============================================================================
+
+# Script e strumenti di utilità locale (non pubblicati su GitHub)
+tools/
+scratch/
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyc
+
+# Ambienti virtuali
+.venv/
+venv/
+env/
+
+# File di sistema e temporanei
+.DS_Store
+Thumbs.db
+*.tmp
+*.bak
+

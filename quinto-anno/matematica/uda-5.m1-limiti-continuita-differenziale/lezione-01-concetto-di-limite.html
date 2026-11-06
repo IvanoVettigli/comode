@@ -2716,15 +2716,15 @@
 
       if (idx === 0) {
 
-        status.innerHTML = `<strong>Ampiezza iniziale ($\delta = 2$ °C):</strong> La temperatura in Celsius oscilla tra $98$ °C e $102$ °C. In Fahrenheit varia tra $208{,}4$ °F e $215{,}6$ °F (scarto massimo di $\pm 3{,}6$ °F dal valore limite $212$ °F). Muovi lo slider per <strong>stringere l'intorno</strong>!`;
+        status.innerHTML = `<strong>Ampiezza iniziale ($\\delta = 2$ °C):</strong> La temperatura in Celsius oscilla tra $98$ °C e $102$ °C. In Fahrenheit varia tra $208{,}4$ °F e $215{,}6$ °F (scarto massimo di $\\pm 3{,}6$ °F dal valore limite $212$ °F). Muovi lo slider per <strong>stringere l'intorno</strong>!`;
 
       } else if (idx < 3) {
 
-        status.innerHTML = `<strong>Intorno ristretto ($\delta = ${fmtD(delta)}$ °C):</strong> La temperatura è confinata nell'intervallo $(${fmtC(cLeft)}\,;\ ${fmtC(cRight)})$ °C. La temperatura in Fahrenheit $F(C)$ è intrappolata tra $${fmtF(fLeft)}$ °F e $${fmtF(fRight)}$ °F (distanza dal valore limite $\le ${fmtF(maxGap)}$ °F).`;
+        status.innerHTML = `<strong>Intorno ristretto ($\\delta = ${fmtD(delta)}$ °C):</strong> La temperatura è confinata nell'intervallo $(${fmtC(cLeft)}\\,;\\ ${fmtC(cRight)})$ °C. La temperatura in Fahrenheit $F(C)$ è intrappolata tra $${fmtF(fLeft)}$ °F e $${fmtF(fRight)}$ °F (distanza dal valore limite $\\le ${fmtF(maxGap)}$ °F).`;
 
       } else {
 
-        status.innerHTML = `<span style="color:var(--accent-success); font-weight:700;">🎯 Intorno piccolissimo ($\delta = ${fmtD(delta)}$ °C):</span> Per qualunque temperatura Celsius $C$ vicina a $100$ °C, la temperatura in Fahrenheit $F(C)$ è <strong>incollata al valore limite $212$ °F</strong> (distanza inferiore a $${fmtF(maxGap)}$ °F). Ecco cosa significa che $\displaystyle\lim_{C \to 100} F(C) = 212$ °F!`;
+        status.innerHTML = `<span style="color:var(--accent-success); font-weight:700;">🎯 Intorno piccolissimo ($\\delta = ${fmtD(delta)}$ °C):</span> Per qualunque temperatura Celsius $C$ vicina a $100$ °C, la temperatura in Fahrenheit $F(C)$ è <strong>incollata al valore limite $212$ °F</strong> (distanza inferiore a $${fmtF(maxGap)}$ °F). Ecco cosa significa che $\\displaystyle\\lim_{C \\to 100} F(C) = 212$ °F!`;
 
       }
 
