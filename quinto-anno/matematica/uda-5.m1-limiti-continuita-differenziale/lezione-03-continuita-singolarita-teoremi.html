@@ -206,24 +206,44 @@
       background: var(--bg-surface);
       border: 1px solid var(--border-subtle);
       color: var(--text-main);
-      padding: 0.55rem 0.95rem;
+      padding: 0.6rem 1rem;
       border-radius: var(--radius-md);
-      font-size: 0.88rem;
+      font-size: 0.9rem;
       font-family: inherit;
       cursor: pointer;
       transition: var(--transition);
-      display: inline-flex;
-      align-items: center;
+      display: block;
       text-align: left;
       width: 100%;
-      line-height: 1.4;
-      margin-bottom: 0.45rem;
+      line-height: 1.5;
+      margin-bottom: 0.5rem;
+    }
+
+    .inline-input.correct {
+      border-color: var(--accent-success) !important;
+      background: rgba(16, 185, 129, 0.12) !important;
+      color: var(--accent-success) !important;
+      font-weight: 700;
+    }
+
+    .inline-input.wrong {
+      border-color: #ef4444 !important;
+      background: rgba(239, 68, 68, 0.12) !important;
+      color: #ef4444 !important;
+      font-weight: 700;
     }
 
     .m1l3-choice-btn:hover:not(:disabled) {
       border-color: var(--accent-math);
       background: rgba(56, 189, 248, 0.08);
       color: var(--accent-math);
+    }
+
+    .m1l3-choice-btn.selected {
+      background: rgba(56, 189, 248, 0.16);
+      border-color: var(--accent-math);
+      color: var(--accent-math);
+      font-weight: 700;
     }
 
     .m1l3-choice-btn.correct {
@@ -238,6 +258,33 @@
       border-color: #ef4444 !important;
       color: #ef4444 !important;
       font-weight: 700;
+    }
+
+    .worked-example-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 0.9rem;
+      margin-top: 0.9rem;
+    }
+
+    .worked-example-box {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-left: 3px solid var(--accent-gold);
+      border-radius: var(--radius-sm);
+      padding: 0.85rem 1rem;
+      font-size: 0.88rem;
+      line-height: 1.6;
+    }
+
+    .worked-example-title {
+      font-weight: 800;
+      color: var(--accent-gold);
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      margin-bottom: 0.35rem;
+      display: block;
     }
 
     .print-btn {
@@ -522,6 +569,25 @@
             <li><strong>Esistenza del limite:</strong> Esiste finito il limite $\lim_{x \to x_0} f(x) = L \in \mathbb{R}$, il che implica che il limite sinistro e quello destro coincidano: $\lim_{x \to x_0^-} f(x) = \lim_{x \to x_0^+} f(x) = L$.</li>
             <li><strong>Coincidenza tra limite e valore:</strong> Il valore di tendenza $L$ è identico al valore effettivo $f(x_0)$.</li>
           </ol>
+
+          <div class="worked-example-grid">
+            <div class="worked-example-box">
+              <span class="worked-example-title">📌 Esempio Svolto 1 • Funzione Elementare</span>
+              Verifichiamo se $f(x) = 2x^2 - 1$ è continua in $x_0 = 3$:<br>
+              1) <strong>Valore nel punto:</strong> $f(3) = 2(3)^2 - 1 = 18 - 1 = 17$ (esiste finito).<br>
+              2) <strong>Limite per $x \to 3$:</strong> $\lim_{x \to 3} (2x^2 - 1) = 17$.<br>
+              3) <strong>Confronto:</strong> $\lim_{x \to 3} f(x) = f(3) = 17 \implies$ <strong>$f(x)$ è continua in $x_0 = 3$</strong>.
+            </div>
+            <div class="worked-example-box">
+              <span class="worked-example-title">📌 Esempio Svolto 2 • Funzione a Tratti</span>
+              Studiamo $g(x) = \begin{cases} 3x + 2 & x < 1 \\ x^2 + 4 & x \ge 1 \end{cases}$ nel punto di raccordo $x_0 = 1$:<br>
+              • Valore: $g(1) = 1^2 + 4 = 5$.<br>
+              • Limite sinistro: $\lim_{x \to 1^-} (3x + 2) = 3(1) + 2 = 5$.<br>
+              • Limite destro: $\lim_{x \to 1^+} (x^2 + 4) = 1^2 + 4 = 5$.<br>
+              Poiché $l^- = l^+ = g(1) = 5$, i due rami si saldano perfettamente: <strong>$g(x)$ è continua in $x_0 = 1$</strong>!
+            </div>
+          </div>
+
           <div style="background: var(--bg-surface); border: 1px solid var(--border-subtle); padding: 0.85rem; border-radius: var(--radius-sm); margin-top: 0.75rem; font-size: 0.88rem;">
             🎯 <strong>Definizione con $\varepsilon$ e $\delta$:</strong>
             $f$ è continua in $x_0$ se $\forall \varepsilon > 0, \exists \delta > 0 : \forall x \in \text{Dom}(f), |x - x_0| < \delta \implies |f(x) - f(x_0)| < \varepsilon$.<br>
@@ -529,11 +595,52 @@
           </div>
         </div>
 
-        <div class="verify-box">
-          <button type="button" class="btn-action" onclick="verifyLab(1)">
-            <span>✅</span> Salva e Completa Laboratorio 1 (+10 XP)
-          </button>
-          <span class="feedback-msg" id="lab1Msg" style="display: none;"></span>
+        <!-- ESERCIZIO CONCRETO 1 -->
+        <div class="step-box" style="margin-top: 1.5rem;">
+          <div class="step-header">
+            <span class="step-tag">✏️ Esercizio Concreto 1 • Verifica le 3 Condizioni di Continuità (+10 XP)</span>
+            <button type="button" class="theory-ref-pill" style="margin-bottom: 0;" onclick="scrollToTheory('teoria-1')">
+              🔗 Rif. Teoria 1
+            </button>
+          </div>
+          <div class="step-content">
+            <p style="margin-bottom: 0.75rem;">
+              Considera la funzione definita a tratti nel punto di raccordo $x_0 = 2$:
+              $$f(x) = \begin{cases} 4x - 1 & x < 2 \\ x^2 + 3 & x \ge 2 \end{cases}$$
+            </p>
+            <div class="verify-box" style="border-top: none; padding-top: 0; margin-top: 0.5rem; margin-bottom: 0.85rem;">
+              <label for="lab1ValF2" style="font-weight: 600;">1) Calcola il valore $f(2) =$</label>
+              <input type="text" id="lab1ValF2" class="inline-input" style="width: 85px;" placeholder="es. 7">
+              <label for="lab1LimSx" style="font-weight: 600; margin-left: 0.5rem;">e il limite sinistro $\lim_{x \to 2^-} f(x) =$</label>
+              <input type="text" id="lab1LimSx" class="inline-input" style="width: 85px;" placeholder="es. 7">
+            </div>
+            <p style="margin-bottom: 0.5rem; font-weight: 600;">
+              2) Se invece per $x \ge 2$ la legge fosse $x^2 + 1$ (quindi $f(2) = 5$), quale delle tre condizioni di continuità verrebbe a mancare in $x_0 = 2$?
+            </p>
+            <div id="lab1Choices" style="margin-bottom: 0.75rem;">
+              <button type="button" class="m1l3-choice-btn" data-val="cond1" onclick="selectChoice('lab1', this)">
+                A) La 1ª condizione: $f(2)$ non esisterebbe nel dominio
+              </button>
+              <button type="button" class="m1l3-choice-btn" data-val="cond2" onclick="selectChoice('lab1', this)">
+                B) La 2ª condizione: il limite sinistro ($7$) e il limite destro ($5$) sarebbero diversi, quindi $\lim_{x \to 2} f(x)$ non esisterebbe
+              </button>
+              <button type="button" class="m1l3-choice-btn" data-val="cond3" onclick="selectChoice('lab1', this)">
+                C) Nessuna: la funzione resterebbe comunque continua in $x_0 = 2$
+              </button>
+            </div>
+            <div class="verify-box">
+              <button type="button" class="btn-action" onclick="verifyLab1()">
+                <span>✅</span> Verifica Esercizio 1 (+10 XP)
+              </button>
+              <button type="button" class="hint-btn" style="margin-top: 0;" onclick="toggleHint('hintLab1')">
+                💡 Suggerimento
+              </button>
+              <span class="feedback-msg" id="lab1Msg" style="display: none;"></span>
+            </div>
+            <div id="hintLab1" class="hint-text">
+              Per calcolare $f(2)$ usa il secondo ramo ($x \ge 2$): $2^2 + 3 = 7$. Per $\lim_{x \to 2^-} f(x)$ usa il primo ramo ($x < 2$): $4(2) - 1 = 7$. Se il secondo ramo fosse $x^2 + 1$, a destra avremmo $2^2 + 1 = 5 \neq 7$, creando un salto!
+            </div>
+          </div>
         </div>
     </article>
 
@@ -629,16 +736,94 @@
               </tbody>
             </table>
           </div>
+
+          <div class="worked-example-grid">
+            <div class="worked-example-box">
+              <span class="worked-example-title">📌 Esempio 1ª Specie (Salto)</span>
+              Sia $f(x) = \begin{cases} 2x + 1 & x < 1 \\ x^2 + 4 & x \ge 1 \end{cases}$ in $x_0 = 1$:<br>
+              • $l_1 = \lim_{x \to 1^-} (2x+1) = 3$<br>
+              • $l_2 = \lim_{x \to 1^+} (x^2+4) = 5$<br>
+              Finiti ma diversi $\implies$ <strong>1ª Specie</strong> con salto $S = |5 - 3| = 2$.
+            </div>
+            <div class="worked-example-box">
+              <span class="worked-example-title">📌 Esempio 2ª Specie (Asintotica)</span>
+              Sia $f(x) = \frac{3}{x - 4}$ in $x_0 = 4$:<br>
+              • $\lim_{x \to 4^-} \frac{3}{x-4} = \frac{3}{0^-} = -\infty$<br>
+              • $\lim_{x \to 4^+} \frac{3}{x-4} = \frac{3}{0^+} = +\infty$<br>
+              Limiti infiniti $\implies$ <strong>2ª Specie</strong> (asintoto verticale $x = 4$).
+            </div>
+            <div class="worked-example-box">
+              <span class="worked-example-title">📌 Esempio 3ª Specie (Eliminabile)</span>
+              Sia $f(x) = \frac{x^2 - 5x + 6}{x - 2}$ in $x_0 = 2 \notin \text{Dom}$:<br>
+              • $\lim_{x \to 2} \frac{(x-2)(x-3)}{x-2} = \lim_{x \to 2} (x - 3) = -1$.<br>
+              Limite finito $L = -1 \implies$ <strong>3ª Specie</strong>. Si prolunga per continuità ponendo $f^*(2) = -1$.
+            </div>
+          </div>
+
           <p style="font-size: 0.88rem; color: var(--text-muted); margin-top: 0.75rem;">
             💡 <em>Perché si chiama eliminabile?</em> Perché basta ridefinire la funzione ponendo $f(x_0) = L$ per «tappare il buco» e renderla continua!
           </p>
         </div>
 
-        <div class="verify-box">
-          <button type="button" class="btn-action" onclick="verifyLab(2)">
-            <span>✅</span> Salva e Completa Laboratorio 2 (+10 XP)
-          </button>
-          <span class="feedback-msg" id="lab2Msg" style="display: none;"></span>
+        <!-- ESERCIZIO CONCRETO 2 -->
+        <div class="step-box" style="margin-top: 1.5rem;">
+          <div class="step-header">
+            <span class="step-tag">✏️ Esercizio Concreto 2 • Calcola e Classifica le Singolarità (+10 XP)</span>
+            <button type="button" class="theory-ref-pill" style="margin-bottom: 0;" onclick="scrollToTheory('teoria-2')">
+              🔗 Rif. Teoria 2
+            </button>
+          </div>
+          <div class="step-content">
+            <p style="margin-bottom: 0.5rem;">
+              <strong>1) Caso A (1ª Specie):</strong> Data $f(x) = \begin{cases} 3x - 1 & x < 2 \\ 2x + 5 & x \ge 2 \end{cases}$ nel punto $x_0 = 2$, calcola i limiti laterali e l'ampiezza del salto $S = |l_2 - l_1|$:
+            </p>
+            <div class="verify-box" style="border-top: none; padding-top: 0; margin-top: 0.35rem; margin-bottom: 0.85rem;">
+              <label for="lab2L1" style="font-weight: 600;">$l_1 = \lim_{x \to 2^-} f(x) =$</label>
+              <input type="text" id="lab2L1" class="inline-input" style="width: 75px;" placeholder="es. 5">
+              <label for="lab2L2" style="font-weight: 600; margin-left: 0.4rem;">$l_2 = \lim_{x \to 2^+} f(x) =$</label>
+              <input type="text" id="lab2L2" class="inline-input" style="width: 75px;" placeholder="es. 9">
+              <label for="lab2Jump" style="font-weight: 600; margin-left: 0.4rem;">Salto $S =$</label>
+              <input type="text" id="lab2Jump" class="inline-input" style="width: 75px;" placeholder="es. 4">
+            </div>
+
+            <p style="margin-bottom: 0.5rem;">
+              <strong>2) Caso B (3ª Specie Eliminabile):</strong> Data $g(x) = \frac{x^2 - 25}{x - 5}$ in $x_0 = 5$, scomponi il numeratore $(x-5)(x+5)$ e calcola il valore $L = \lim_{x \to 5} g(x)$ da attribuire a $g(5)$ per «tappare il buco»:
+            </p>
+            <div class="verify-box" style="border-top: none; padding-top: 0; margin-top: 0.35rem; margin-bottom: 0.85rem;">
+              <label for="lab2RemovableL" style="font-weight: 600;">Valore limite $L = g^*(5) =$</label>
+              <input type="text" id="lab2RemovableL" class="inline-input" style="width: 90px;" placeholder="es. 10">
+            </div>
+
+            <p style="margin-bottom: 0.5rem; font-weight: 600;">
+              3) Caso C: Che tipo di singolarità presenta invece $h(x) = \frac{x + 1}{x - 3}$ nel punto $x_0 = 3$?
+            </p>
+            <div id="lab2Choices" style="margin-bottom: 0.75rem;">
+              <button type="button" class="m1l3-choice-btn" data-val="specie1" onclick="selectChoice('lab2', this)">
+                A) 1ª Specie (Salto finito di ampiezza 4)
+              </button>
+              <button type="button" class="m1l3-choice-btn" data-val="specie2" onclick="selectChoice('lab2', this)">
+                B) 2ª Specie (Essenziale/Asintotica, perché $\lim_{x \to 3^\pm} \frac{x+1}{x-3} = \pm\infty$)
+              </button>
+              <button type="button" class="m1l3-choice-btn" data-val="specie3" onclick="selectChoice('lab2', this)">
+                C) 3ª Specie (Eliminabile perché il numeratore si annulla in $x = 3$)
+              </button>
+            </div>
+
+            <div class="verify-box">
+              <button type="button" class="btn-action" onclick="verifyLab2()">
+                <span>✅</span> Verifica Esercizio 2 (+10 XP)
+              </button>
+              <button type="button" class="hint-btn" style="margin-top: 0;" onclick="toggleHint('hintLab2')">
+                💡 Suggerimento
+              </button>
+              <span class="feedback-msg" id="lab2Msg" style="display: none;"></span>
+            </div>
+            <div id="hintLab2" class="hint-text">
+              1) In $x_0=2$: a sinistra $3(2)-1 = 5$, a destra $2(2)+5 = 9$, quindi $S = |9 - 5| = 4$.<br>
+              2) $\frac{x^2-25}{x-5} = \frac{(x-5)(x+5)}{x-5} = x + 5 \xrightarrow{x \to 5} 5 + 5 = 10$.<br>
+              3) In $x_0=3$ il numeratore vale $3+1=4 \neq 0$ e il denominatore tende a $0$, quindi il rapporto esplode a $\pm\infty$ (2ª specie)!
+            </div>
+          </div>
         </div>
     </article>
 
@@ -696,13 +881,83 @@
             <li><strong>2. Intervallo Chiuso:</strong> Gli estremi $a$ e $b$ devono appartenere all'intervallo. Se l'intervallo è aperto $(a, b)$, la funzione $f(x) = x$ su $(0, 1)$ non ha né minimo (si avvicina a 0 senza mai toccarlo) né massimo (si avvicina a 1 senza mai toccarlo).</li>
             <li><strong>3. Intervallo Limitato:</strong> L'intervallo deve avere lunghezza finita (non può essere $[0, +\infty)$). La funzione $f(x) = x$ su $[0, +\infty)$ è continua e su intervallo chiuso, ma non ha massimo perché cresce all'infinito.</li>
           </ul>
+
+          <div class="worked-example-grid">
+            <div class="worked-example-box">
+              <span class="worked-example-title">📌 Esempio Svolto 1 • Weierstrass Applicabile</span>
+              Data $f(x) = -x^2 + 4x + 1$ sull'intervallo $[0, 3]$:<br>
+              • È un polinomio $\implies$ continua su $[0, 3]$ chiuso e limitato (Weierstrass vale!).<br>
+              • Vertice della parabola in $x_V = -\frac{b}{2a} = \frac{-4}{-2} = 2 \in [0, 3]$, dove $f(2) = -4 + 8 + 1 = 5$.<br>
+              • Valori agli estremi: $f(0) = 1$, $f(3) = -9 + 12 + 1 = 4$.<br>
+              Confrontando $\{1, 5, 4\}$: <strong>Minimo $m = 1$</strong> (in $x=0$) e <strong>Massimo $M = 5$</strong> (in $x=2$).
+            </div>
+            <div class="worked-example-box">
+              <span class="worked-example-title">📌 Esempio Svolto 2 • Quando Cade un'Ipotesi</span>
+              Consideriamo $g(x) = \frac{1}{x - 1}$ sull'intervallo chiuso e limitato $[0, 2]$:<br>
+              • L'intervallo $[0, 2]$ è chiuso e limitato, MA il punto $x = 1 \in [0, 2]$ è fuori dal dominio!<br>
+              • Per $x \to 1^\pm$ la funzione diverge a $\pm\infty$ (discontinuità di 2ª specie).<br>
+              • Cadendo la continuità in $[0, 2]$, il Teorema di Weierstrass <strong>non è applicabile</strong> (infatti non esistono né $M$ né $m$).
+            </div>
+          </div>
         </div>
 
-        <div class="verify-box">
-          <button type="button" class="btn-action" onclick="verifyLab(3)">
-            <span>✅</span> Salva e Completa Laboratorio 3 (+10 XP)
-          </button>
-          <span class="feedback-msg" id="lab3Msg" style="display: none;"></span>
+        <!-- ESERCIZIO CONCRETO 3 -->
+        <div class="step-box" style="margin-top: 1.5rem;">
+          <div class="step-header">
+            <span class="step-tag">✏️ Esercizio Concreto 3 • Trova Massimo e Minimo con Weierstrass (+10 XP)</span>
+            <button type="button" class="theory-ref-pill" style="margin-bottom: 0;" onclick="scrollToTheory('teoria-3')">
+              🔗 Rif. Teoria 3
+            </button>
+          </div>
+          <div class="step-content">
+            <p style="margin-bottom: 0.65rem;">
+              Considera la parabola $f(x) = x^2 - 4x + 5$ definita sull'intervallo chiuso e limitato $[1, 4]$.
+              Essendo polinomiale, $f(x)$ è continua in $[1, 4]$ e il suo vertice ha ascissa $x_V = -\frac{-4}{2} = 2 \in [1, 4]$.
+            </p>
+            <p style="margin-bottom: 0.45rem; font-weight: 600;">
+              1) Calcola i valori assunti agli estremi e nel vertice, quindi individua il minimo assoluto $m$ e il massimo assoluto $M$:
+            </p>
+            <div class="verify-box" style="border-top: none; padding-top: 0; margin-top: 0.35rem; margin-bottom: 0.85rem;">
+              <label for="lab3F1" style="font-weight: 600;">$f(1) =$</label>
+              <input type="text" id="lab3F1" class="inline-input" style="width: 68px;" placeholder="2">
+              <label for="lab3F2" style="font-weight: 600; margin-left: 0.35rem;">$f(2) =$</label>
+              <input type="text" id="lab3F2" class="inline-input" style="width: 68px;" placeholder="1">
+              <label for="lab3F4" style="font-weight: 600; margin-left: 0.35rem;">$f(4) =$</label>
+              <input type="text" id="lab3F4" class="inline-input" style="width: 68px;" placeholder="5">
+              <label for="lab3Min" style="font-weight: 600; margin-left: 0.5rem; color: var(--accent-success);">Min $m =$</label>
+              <input type="text" id="lab3Min" class="inline-input" style="width: 68px;" placeholder="Min">
+              <label for="lab3Max" style="font-weight: 600; margin-left: 0.35rem; color: var(--accent-gold);">Max $M =$</label>
+              <input type="text" id="lab3Max" class="inline-input" style="width: 68px;" placeholder="Max">
+            </div>
+
+            <p style="margin-bottom: 0.5rem; font-weight: 600;">
+              2) Se invece studiassimo $h(x) = \frac{1}{x - 2}$ sullo stesso intervallo $[1, 4]$, perché il Teorema di Weierstrass NON sarebbe applicabile?
+            </p>
+            <div id="lab3Choices" style="margin-bottom: 0.75rem;">
+              <button type="button" class="m1l3-choice-btn" data-val="unbounded" onclick="selectChoice('lab3', this)">
+                A) Perché l'intervallo $[1, 4]$ è illimitato
+              </button>
+              <button type="button" class="m1l3-choice-btn" data-val="discont" onclick="selectChoice('lab3', this)">
+                B) Perché $h(x)$ non è continua in $x = 2 \in [1, 4]$ (presenta un asintoto verticale di 2ª specie)
+              </button>
+              <button type="button" class="m1l3-choice-btn" data-val="open" onclick="selectChoice('lab3', this)">
+                C) Perché gli estremi $1$ e $4$ non appartengono a $[1, 4]$
+              </button>
+            </div>
+
+            <div class="verify-box">
+              <button type="button" class="btn-action" onclick="verifyLab3()">
+                <span>✅</span> Verifica Esercizio 3 (+10 XP)
+              </button>
+              <button type="button" class="hint-btn" style="margin-top: 0;" onclick="toggleHint('hintLab3')">
+                💡 Suggerimento
+              </button>
+              <span class="feedback-msg" id="lab3Msg" style="display: none;"></span>
+            </div>
+            <div id="hintLab3" class="hint-text">
+              Sostituisci in $f(x) = x^2 - 4x + 5$: $f(1) = 1 - 4 + 5 = 2$; $f(2) = 4 - 8 + 5 = 1$; $f(4) = 16 - 16 + 5 = 5$. Il valore più piccolo è $m = 1$ (nel vertice $x=2$) e il più grande è $M = 5$ (nell'estremo $x=4$). Per $h(x) = \frac{1}{x-2}$, in $x=2$ il denominatore si annulla!
+            </div>
+          </div>
         </div>
     </article>
 
@@ -741,7 +996,7 @@
             </div>
           </div>
 
-          <svg id="bisectionSvg" class="m1l3-svg" viewBox="0 0 620 280" role="img" aria-label="Rappresentazione grafica dell'intervallo che si dimezza con la bisezione">
+          <svg id="bisectionSvg" class="m1l3-svg" viewBox="0 0 640 320" role="img" aria-label="Rappresentazione grafica dell'intervallo che si dimezza con la bisezione">
             <!-- Disegnato via JS -->
           </svg>
 
@@ -784,13 +1039,74 @@
             $$f(c) = 0$$
             Se inoltre la funzione è <em>strettamente crescente</em> o <em>strettamente decrescente</em> in $[a, b]$, tale radice $c$ è <strong>unica</strong>.
           </div>
+
+          <div class="worked-example-grid">
+            <div class="worked-example-box">
+              <span class="worked-example-title">📌 Esempio Svolto 1 • Verifica Esistenza dello Zero</span>
+              Mostriamo che $f(x) = x^3 + x - 3 = 0$ ha una soluzione in $[1, 2]$:<br>
+              1) $f(x)$ è polinomiale $\implies$ <strong>continua</strong> in $[1, 2]$.<br>
+              2) Valori agli estremi: $f(1) = 1 + 1 - 3 = -1 < 0$ e $f(2) = 8 + 2 - 3 = +7 > 0$.<br>
+              3) Poiché $f(1) \cdot f(2) = -7 < 0$ (segni discordi), per il Teorema degli Zeri esiste almeno un $c \in (1, 2)$ con $f(c) = 0$.
+            </div>
+            <div class="worked-example-box">
+              <span class="worked-example-title">📌 Esempio Svolto 2 • Primo Passo di Bisezione</span>
+              Restringiamo l'intervallo $[1, 2]$ per $f(x) = x^3 + x - 3$:<br>
+              1) Punto medio: $m = \frac{1 + 2}{2} = 1{,}5$.<br>
+              2) Valutiamo il segno nel punto medio: $f(1{,}5) = (1{,}5)^3 + 1{,}5 - 3 = 3{,}375 + 1{,}5 - 3 = +1{,}875 > 0$.<br>
+              3) Poiché $f(1) = -1 < 0$ e $f(1{,}5) = +1{,}875 > 0$ hanno segni opposti, la radice cade nel nuovo intervallo dimezzato <strong>$[1;\ 1{,}5]$</strong>!
+            </div>
+          </div>
         </div>
 
-        <div class="verify-box">
-          <button type="button" class="btn-action" onclick="verifyLab(4)">
-            <span>✅</span> Salva e Completa Laboratorio 4 (+10 XP)
-          </button>
-          <span class="feedback-msg" id="lab4Msg" style="display: none;"></span>
+        <!-- ESERCIZIO CONCRETO 4 -->
+        <div class="step-box" style="margin-top: 1.5rem;">
+          <div class="step-header">
+            <span class="step-tag">✏️ Esercizio Concreto 4 • Applica il Teorema degli Zeri e la Bisezione (+10 XP)</span>
+            <button type="button" class="theory-ref-pill" style="margin-bottom: 0;" onclick="scrollToTheory('teoria-4')">
+              🔗 Rif. Teoria 4
+            </button>
+          </div>
+          <div class="step-content">
+            <p style="margin-bottom: 0.65rem;">
+              Vogliamo isolare la radice positiva dell'equazione $f(x) = x^2 - 2x - 4 = 0$ nell'intervallo chiuso $[3, 4]$.
+            </p>
+            <div class="verify-box" style="border-top: none; padding-top: 0; margin-top: 0.35rem; margin-bottom: 0.85rem;">
+              <label for="lab4F3" style="font-weight: 600;">1) Calcola $f(3) = 3^2 - 2(3) - 4 =$</label>
+              <input type="text" id="lab4F3" class="inline-input" style="width: 75px;" placeholder="-1">
+              <label for="lab4F4" style="font-weight: 600; margin-left: 0.4rem;">$f(4) = 4^2 - 2(4) - 4 =$</label>
+              <input type="text" id="lab4F4" class="inline-input" style="width: 75px;" placeholder="4">
+              <label for="lab4Mid" style="font-weight: 600; margin-left: 0.4rem;">Punto medio $m = \frac{3+4}{2} =$</label>
+              <input type="text" id="lab4Mid" class="inline-input" style="width: 80px;" placeholder="3.5">
+            </div>
+
+            <p style="margin-bottom: 0.5rem; font-weight: 600;">
+              2) Sapendo che nel punto medio vale $f(3{,}5) = (3{,}5)^2 - 2(3{,}5) - 4 = 12{,}25 - 7 - 4 = +1{,}25 > 0$, quale sarà il nuovo intervallo dimezzato che contiene sicuramente lo zero?
+            </p>
+            <div id="lab4Choices" style="margin-bottom: 0.75rem;">
+              <button type="button" class="m1l3-choice-btn" data-val="left" onclick="selectChoice('lab4', this)">
+                A) L'intervallo $[3;\ 3{,}5]$, poiché $f(3) = -1 < 0$ e $f(3{,}5) = +1{,}25 > 0$ hanno segni opposti
+              </button>
+              <button type="button" class="m1l3-choice-btn" data-val="right" onclick="selectChoice('lab4', this)">
+                B) L'intervallo $[3{,}5;\ 4]$, poiché $f(3{,}5) > 0$ e $f(4) > 0$ sono entrambi positivi
+              </button>
+              <button type="button" class="m1l3-choice-btn" data-val="none" onclick="selectChoice('lab4', this)">
+                C) Non è possibile dimezzare l'intervallo perché la parabola non è lineare
+              </button>
+            </div>
+
+            <div class="verify-box">
+              <button type="button" class="btn-action" onclick="verifyLab4()">
+                <span>✅</span> Verifica Esercizio 4 (+10 XP)
+              </button>
+              <button type="button" class="hint-btn" style="margin-top: 0;" onclick="toggleHint('hintLab4')">
+                💡 Suggerimento
+              </button>
+              <span class="feedback-msg" id="lab4Msg" style="display: none;"></span>
+            </div>
+            <div id="hintLab4" class="hint-text">
+              $f(3) = 9 - 6 - 4 = -1$ (negativo) e $f(4) = 16 - 8 - 4 = 4$ (positivo). Il punto medio è $m = 3{,}5$, dove $f(3{,}5) = +1{,}25 > 0$. Lo zero si trova sempre tra i due estremi con segno discorde: quindi tra $3$ (dove $f < 0$) e $3{,}5$ (dove $f > 0$)!
+            </div>
+          </div>
         </div>
     </article>
 
@@ -803,16 +1119,16 @@
         <span class="lab-badge">Laboratorio 5 • Problem Solving Istantaneo</span>
         <span class="lab-xp-badge">+10 XP</span>
       </div>
-      <h3 class="lab-title">Palestra Mentale: 4 Sfide Flash su Continuità e Teoremi</h3>
+      <h3 class="lab-title">Palestra Mentale: 6 Sfide Flash su Continuità, Singolarità e Teoremi</h3>
         <p>
-          Verifica la tua prontezza nel riconoscere al volo le singolarità e applicare i teoremi con queste 4 sfide guidate.
+          Verifica la tua prontezza nel riconoscere al volo le singolarità e applicare i teoremi con queste 6 sfide guidate.
         </p>
 
         <div class="m1l3-gym-grid">
           <!-- Sfida 1 -->
           <div class="m1l3-gym-card" id="gymCard1">
             <div>
-              <div class="m1l3-gym-badge">Sfida 1 • Discontinuità</div>
+              <div class="m1l3-gym-badge">Sfida 1 • Discontinuità Eliminabile</div>
               <div class="m1l3-gym-question">Quale discontinuità presenta $f(x) = \frac{x^2 - 9}{x - 3}$ in $x = 3$?</div>
               <div class="m1l3-choice-row">
                 <button type="button" class="m1l3-choice-btn" onclick="checkQuiz(1, 0, this)">1ª Specie (Salto finito di 6)</button>
@@ -826,7 +1142,7 @@
           <!-- Sfida 2 -->
           <div class="m1l3-gym-card" id="gymCard2">
             <div>
-              <div class="m1l3-gym-badge">Sfida 2 • Weierstrass</div>
+              <div class="m1l3-gym-badge">Sfida 2 • Ipotesi di Weierstrass</div>
               <div class="m1l3-gym-question">Il Teorema di Weierstrass si applica a $f(x) = \frac{1}{x}$ nell'intervallo $(0, 4]$?</div>
               <div class="m1l3-choice-row">
                 <button type="button" class="m1l3-choice-btn" onclick="checkQuiz(2, 0, this)">Sì, perché $4 \in \text{Dom}(f)$ ed è limitato</button>
@@ -864,11 +1180,39 @@
             </div>
             <div id="quizFeedback4" class="m1l3-gym-feedback" style="display: none;"></div>
           </div>
+
+          <!-- Sfida 5 -->
+          <div class="m1l3-gym-card" id="gymCard5">
+            <div>
+              <div class="m1l3-gym-badge">Sfida 5 • Calcolo del Salto (1ª Specie)</div>
+              <div class="m1l3-gym-question">Quanto misura il salto $S$ di $f(x) = \begin{cases} 5 - x & x < 1 \\ 2x + 7 & x \ge 1 \end{cases}$ nel punto $x_0 = 1$?</div>
+              <div class="m1l3-choice-row">
+                <button type="button" class="m1l3-choice-btn" onclick="checkQuiz(5, 0, this)">$S = 5$ (poiché $l_1 = 4$, $l_2 = 9$ e $|9 - 4| = 5$)</button>
+                <button type="button" class="m1l3-choice-btn" onclick="checkQuiz(5, 1, this)">$S = 13$ (la somma dei due limiti laterali)</button>
+                <button type="button" class="m1l3-choice-btn" onclick="checkQuiz(5, 2, this)">$S = 0$ (la funzione è continua in $x_0 = 1$)</button>
+              </div>
+            </div>
+            <div id="quizFeedback5" class="m1l3-gym-feedback" style="display: none;"></div>
+          </div>
+
+          <!-- Sfida 6 -->
+          <div class="m1l3-gym-card" id="gymCard6">
+            <div>
+              <div class="m1l3-gym-badge">Sfida 6 • Precisione della Bisezione</div>
+              <div class="m1l3-gym-question">Partendo da un intervallo $[a, b]$ di ampiezza $\Delta_0 = 2$, qual è l'ampiezza dell'intervallo dopo $k = 3$ passi di bisezione?</div>
+              <div class="m1l3-choice-row">
+                <button type="button" class="m1l3-choice-btn" onclick="checkQuiz(6, 0, this)">$\Delta_3 = \frac{2}{3} \approx 0{,}67$</button>
+                <button type="button" class="m1l3-choice-btn" onclick="checkQuiz(6, 1, this)">$\Delta_3 = \frac{2}{2^3} = \frac{2}{8} = 0{,}25$ (si dimezza a ogni passo)</button>
+                <button type="button" class="m1l3-choice-btn" onclick="checkQuiz(6, 2, this)">$\Delta_3 = 0$</button>
+              </div>
+            </div>
+            <div id="quizFeedback6" class="m1l3-gym-feedback" style="display: none;"></div>
+          </div>
         </div>
 
         <div class="verify-box" style="margin-top: 1.5rem;">
-          <button type="button" class="btn-action" onclick="verifyLab(5)">
-            <span>🏆</span> Salva e Completa Palestra Mentale (+10 XP)
+          <button type="button" class="btn-action" onclick="verifyLab5()">
+            <span>🏆</span> Verifica e Completa Palestra Mentale (+10 XP)
           </button>
           <span class="feedback-msg" id="lab5Msg" style="display: none;"></span>
         </div>
@@ -902,7 +1246,7 @@
             <input type="range" id="welfareKSlider" min="4000" max="9000" step="160" value="5000"
               oninput="updateWelfareSim()">
             <span class="m1l3-readout" id="welfareKVal">k = 5000</span>
-            <button class="btn btn-sm" onclick="setOptimalK()">Imposta Valore Continuo ($k = 6720$)</button>
+            <button type="button" class="m1l3-tab-btn" style="padding: 0.35rem 0.85rem; font-size: 0.82rem;" onclick="setOptimalK()">🎯 Imposta Valore Continuo ($k = 6720$)</button>
           </div>
 
           <svg id="welfareSvg" class="m1l3-svg" viewBox="0 0 640 320" role="img" aria-label="Grafico della funzione sussidio al variare di k">
@@ -941,11 +1285,40 @@
           </ol>
         </div>
 
-        <div class="verify-box" style="margin-top: 1.5rem;">
-          <button type="button" class="btn-action" onclick="verifyLab(6)">
-            <span>✅</span> Salva e Completa Laboratorio 6 (+10 XP)
-          </button>
-          <span class="feedback-msg" id="lab6Msg" style="display: none;"></span>
+        <!-- ESERCIZIO CONCRETO 6 -->
+        <div class="step-box" style="margin-top: 1.5rem;">
+          <div class="step-header">
+            <span class="step-tag">✏️ Esercizio Concreto 6 • Progetta una Tariffa Senza Salti (+10 XP)</span>
+          </div>
+          <div class="step-content">
+            <p style="margin-bottom: 0.65rem;">
+              Ora tocca a te! L'azienda dei trasporti regionali vuole introdurre un abbonamento annuale agevolato per studenti in funzione dell'ISEE $x \in [0, 25]$ (in migliaia di euro):
+              $$T(x) = \begin{cases} 15x + 40 & 0 \le x < 10 \\ 8x + k & 10 \le x \le 25 \end{cases}$$
+            </p>
+            <div class="verify-box" style="border-top: none; padding-top: 0; margin-top: 0.35rem; margin-bottom: 0.85rem;">
+              <label for="lab6LimSx" style="font-weight: 600;">1) Limite sinistro $\lim_{x \to 10^-} T(x) =$</label>
+              <input type="text" id="lab6LimSx" class="inline-input" style="width: 80px;" placeholder="€">
+              <label for="lab6ParamK" style="font-weight: 600; margin-left: 0.45rem;">2) Valore di $k$ per la continuità in $x = 10$:</label>
+              <input type="text" id="lab6ParamK" class="inline-input" style="width: 80px;" placeholder="k">
+              <label for="lab6MaxT" style="font-weight: 600; margin-left: 0.45rem;">3) Tariffa massima $T(25) =$</label>
+              <input type="text" id="lab6MaxT" class="inline-input" style="width: 80px;" placeholder="€">
+            </div>
+
+            <div class="verify-box">
+              <button type="button" class="btn-action" onclick="verifyLab6()">
+                <span>✅</span> Verifica Esercizio 6 (+10 XP)
+              </button>
+              <button type="button" class="hint-btn" style="margin-top: 0;" onclick="toggleHint('hintLab6')">
+                💡 Suggerimento
+              </button>
+              <span class="feedback-msg" id="lab6Msg" style="display: none;"></span>
+            </div>
+            <div id="hintLab6" class="hint-text">
+              1) A sinistra di $x = 10$: $15(10) + 40 = 190$ €.<br>
+              2) A destra di $x = 10$: $T(10) = 8(10) + k = 80 + k$. Imponendo $80 + k = 190$ trovi $k = 110$.<br>
+              3) Poiché entrambi i tratti sono crescenti, il massimo assoluto su $[0, 25]$ si raggiunge in $x = 25$: $T(25) = 8(25) + 110 = 200 + 110 = 310$ €!
+            </div>
+          </div>
         </div>
     </article>
 
@@ -1174,13 +1547,177 @@
       }
     }
 
-    function verifyLab(num) {
-      markLabCompleted(num, false);
-      const msg = document.getElementById('lab' + num + 'Msg');
-      if (msg) {
-        msg.className = 'feedback-msg success';
-        msg.textContent = 'Ottimo lavoro! Laboratorio ' + num + ' completato (+10 XP).';
-        msg.style.display = 'inline-flex';
+    const selectedChoices = {};
+    function selectChoice(group, btnOrVal) {
+      if (window.ComodeAudio) ComodeAudio.play('click');
+      let btn = btnOrVal;
+      if (typeof btnOrVal === 'string') {
+        const container = document.getElementById(group + 'Choices') || document;
+        btn = container.querySelector(`.m1l3-choice-btn[data-val="${btnOrVal}"]`);
+      }
+      if (!btn || !btn.parentElement) return;
+      const parent = btn.parentElement;
+      parent.querySelectorAll('.m1l3-choice-btn').forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+      selectedChoices[group] = btn.getAttribute('data-val');
+    }
+
+    function toggleHint(id) {
+      const el = document.getElementById(id);
+      if (el) el.classList.toggle('visible');
+    }
+
+    function parseNum(id) {
+      const el = document.getElementById(id);
+      if (!el) return NaN;
+      return parseFloat(el.value.trim().replace(',', '.'));
+    }
+
+    function showFeedback(msgId, isSuccess, text) {
+      const msg = document.getElementById(msgId);
+      if (!msg) return;
+      msg.className = 'feedback-msg ' + (isSuccess ? 'success' : 'error');
+      msg.textContent = text;
+      msg.style.display = 'inline-flex';
+    }
+
+    function verifyLab1() {
+      const f2 = parseNum('lab1ValF2');
+      const limSx = parseNum('lab1LimSx');
+      const choice = selectedChoices['lab1'];
+
+      const okNums = !isNaN(f2) && Math.abs(f2 - 7) < 0.05 && !isNaN(limSx) && Math.abs(limSx - 7) < 0.05;
+      const okChoice = choice === 'cond2';
+
+      if (okNums && okChoice) {
+        showFeedback('lab1Msg', true, 'Eccellente! f(2) = 7 e lim(x→2⁻) f(x) = 7 coincidono. Se il secondo ramo valesse 5, i limiti laterali sarebbero diversi (7 ≠ 5) e cadrebbe la 2ª condizione (+10 XP)!');
+        markLabCompleted(1, false);
+      } else {
+        if (window.ComodeAudio) ComodeAudio.play('error');
+        if (!okNums) {
+          showFeedback('lab1Msg', false, 'Controlla i calcoli numerici in x₀ = 2: nel secondo ramo f(2) = 2² + 3 = 7, e nel primo ramo lim(x→2⁻) (4x - 1) = 4(2) - 1 = 7.');
+        } else if (!choice) {
+          showFeedback('lab1Msg', false, 'Valori numerici esatti (7 e 7)! Ora seleziona una delle opzioni (A, B o C) per la domanda 2.');
+        } else {
+          showFeedback('lab1Msg', false, 'Rifletti sulla domanda 2: se a sinistra il limite vale 7 e a destra vale 5, i due limiti laterali non coincidono, quindi non esiste il limite globale (2ª condizione)!');
+        }
+      }
+    }
+
+    function verifyLab2() {
+      const l1 = parseNum('lab2L1');
+      const l2 = parseNum('lab2L2');
+      const jump = parseNum('lab2Jump');
+      const remL = parseNum('lab2RemovableL');
+      const choice = selectedChoices['lab2'];
+
+      const okA = !isNaN(l1) && Math.abs(l1 - 5) < 0.05 && !isNaN(l2) && Math.abs(l2 - 9) < 0.05 && !isNaN(jump) && Math.abs(jump - 4) < 0.05;
+      const okB = !isNaN(remL) && Math.abs(remL - 10) < 0.05;
+      const okC = choice === 'specie2';
+
+      if (okA && okB && okC) {
+        showFeedback('lab2Msg', true, 'Perfetto! Hai calcolato il salto S = |9 - 5| = 4 (1ª specie), eliminato il buco ponendo L = 10 (3ª specie) e riconosciuto la singolarità asintotica di 2ª specie (+10 XP)!');
+        markLabCompleted(2, false);
+      } else {
+        if (window.ComodeAudio) ComodeAudio.play('error');
+        if (!okA) {
+          showFeedback('lab2Msg', false, 'Controlla il Caso A in x₀ = 2: a sinistra l₁ = 3(2) - 1 = 5; a destra l₂ = 2(2) + 5 = 9; ampiezza del salto S = |9 - 5| = 4.');
+        } else if (!okB) {
+          showFeedback('lab2Msg', false, 'Controlla il Caso B: scomponendo (x² - 25)/(x - 5) = x + 5, per x → 5 il limite vale L = 5 + 5 = 10.');
+        } else if (!choice) {
+          showFeedback('lab2Msg', false, 'Ottimi calcoli! Ora seleziona la risposta per il Caso C (A, B o C).');
+        } else {
+          showFeedback('lab2Msg', false, 'Nel Caso C, per x → 3 il numeratore tende a 4 e il denominatore tende a 0: il rapporto diverge a ±∞, quindi è una singolarità di 2ª Specie!');
+        }
+      }
+    }
+
+    function verifyLab3() {
+      const f1 = parseNum('lab3F1');
+      const f2 = parseNum('lab3F2');
+      const f4 = parseNum('lab3F4');
+      const minV = parseNum('lab3Min');
+      const maxV = parseNum('lab3Max');
+      const choice = selectedChoices['lab3'];
+
+      const okVals = !isNaN(f1) && Math.abs(f1 - 2) < 0.05 && !isNaN(f2) && Math.abs(f2 - 1) < 0.05 && !isNaN(f4) && Math.abs(f4 - 5) < 0.05;
+      const okExtrema = !isNaN(minV) && Math.abs(minV - 1) < 0.05 && !isNaN(maxV) && Math.abs(maxV - 5) < 0.05;
+      const okChoice = choice === 'discont';
+
+      if (okVals && okExtrema && okChoice) {
+        showFeedback('lab3Msg', true, 'Bravissimo! Su [1, 4] la parabola assume minimo assoluto m = 1 (in x = 2) e massimo assoluto M = 5 (in x = 4), mentre 1/(x - 2) viola la continuità in x = 2 (+10 XP)!');
+        markLabCompleted(3, false);
+      } else {
+        if (window.ComodeAudio) ComodeAudio.play('error');
+        if (!okVals) {
+          showFeedback('lab3Msg', false, 'Verifica i valori di f(x) = x² - 4x + 5: f(1) = 1 - 4 + 5 = 2; f(2) = 4 - 8 + 5 = 1; f(4) = 16 - 16 + 5 = 5.');
+        } else if (!okExtrema) {
+          showFeedback('lab3Msg', false, 'Tra i valori {2, 1, 5}, il minimo assoluto è m = 1 e il massimo assoluto è M = 5!');
+        } else if (!choice) {
+          showFeedback('lab3Msg', false, 'Ottimo! Ora rispondi alla domanda 2 selezionando l\'opzione corretta.');
+        } else {
+          showFeedback('lab3Msg', false, 'Attenzione alla domanda 2: l\'intervallo [1, 4] è chiuso e limitato, ma h(x) = 1/(x - 2) ha un asintoto verticale in x = 2 ∈ [1, 4], quindi cade l\'ipotesi di continuità!');
+        }
+      }
+    }
+
+    function verifyLab4() {
+      const f3 = parseNum('lab4F3');
+      const f4 = parseNum('lab4F4');
+      const mid = parseNum('lab4Mid');
+      const choice = selectedChoices['lab4'];
+
+      const okNums = !isNaN(f3) && Math.abs(f3 - (-1)) < 0.05 && !isNaN(f4) && Math.abs(f4 - 4) < 0.05 && !isNaN(mid) && Math.abs(mid - 3.5) < 0.05;
+      const okChoice = choice === 'left';
+
+      if (okNums && okChoice) {
+        showFeedback('lab4Msg', true, 'Eccellente! f(3) = -1 < 0, f(4) = +4 > 0 e m = 3,5 con f(3,5) = +1,25 > 0: il cambio di segno avviene nel sotto-intervallo [3; 3,5] (+10 XP)!');
+        markLabCompleted(4, false);
+      } else {
+        if (window.ComodeAudio) ComodeAudio.play('error');
+        if (!okNums) {
+          showFeedback('lab4Msg', false, 'Controlla i calcoli per f(x) = x² - 2x - 4: f(3) = 9 - 6 - 4 = -1; f(4) = 16 - 8 - 4 = 4; il punto medio tra 3 e 4 è m = 3,5.');
+        } else if (!choice) {
+          showFeedback('lab4Msg', false, 'Calcoli perfetti! Ora seleziona il nuovo intervallo dimezzato (A, B o C).');
+        } else {
+          showFeedback('lab4Msg', false, 'Ricorda la regola della bisezione: dobbiamo scegliere gli estremi con segni opposti! Poiché f(3) = -1 < 0 e f(3,5) = +1,25 > 0, la radice sta in [3; 3,5].');
+        }
+      }
+    }
+
+    const solvedQuizzes = new Set();
+
+    function verifyLab5() {
+      if (solvedQuizzes.size >= 4) {
+        showFeedback('lab5Msg', true, `Ottimo lavoro! Hai affrontato con successo la Palestra Mentale (${solvedQuizzes.size}/6 sfide completate, +10 XP)!`);
+        markLabCompleted(5, false);
+      } else {
+        if (window.ComodeAudio) ComodeAudio.play('error');
+        showFeedback('lab5Msg', false, `Rispondi ad almeno 4 delle 6 sfide della Palestra Mentale prima di completare il laboratorio (attualmente: ${solvedQuizzes.size}/6).`);
+      }
+    }
+
+    function verifyLab6() {
+      const limSx = parseNum('lab6LimSx');
+      const kVal = parseNum('lab6ParamK');
+      const maxT = parseNum('lab6MaxT');
+
+      const ok1 = !isNaN(limSx) && Math.abs(limSx - 190) < 0.1;
+      const ok2 = !isNaN(kVal) && Math.abs(kVal - 110) < 0.1;
+      const ok3 = !isNaN(maxT) && Math.abs(maxT - 310) < 0.1;
+
+      if (ok1 && ok2 && ok3) {
+        showFeedback('lab6Msg', true, 'Perfetto! Limite sinistro = 190 €, parametro di raccordo continuo k = 110 e tariffa massima T(25) = 310 € (+10 XP)!');
+        markLabCompleted(6, false);
+      } else {
+        if (window.ComodeAudio) ComodeAudio.play('error');
+        if (!ok1) {
+          showFeedback('lab6Msg', false, 'Controlla il punto 1: per x → 10⁻ usiamo 15x + 40, quindi 15(10) + 40 = 190 €.');
+        } else if (!ok2) {
+          showFeedback('lab6Msg', false, 'Controlla il punto 2: in x = 10 il secondo ramo vale 8(10) + k = 80 + k. Imponendo 80 + k = 190 si ottiene k = 110.');
+        } else {
+          showFeedback('lab6Msg', false, 'Controlla il punto 3: con k = 110, la tariffa massima in x = 25 vale T(25) = 8(25) + 110 = 200 + 110 = 310 €.');
+        }
       }
     }
 
@@ -1355,11 +1892,11 @@
       if (type === 1) {
         titleEl.textContent = '1ª Specie: Salto Finito (Jump)';
         titleEl.style.color = 'var(--accent-math)';
-        descEl.innerHTML = 'I limiti laterali sinistro e destro sono entrambi finiti, ma diversi. La funzione compie un vero e proprio gradino.';
+        descEl.innerHTML = 'I limiti laterali sinistro e destro sono entrambi finiti, ma diversi. La funzione compie un vero e proprio gradino verticale in $x_0$.';
         formulaEl.innerHTML = `
           <strong>Condizione:</strong> $\\lim_{x \\to x_0^-} f(x) = l_1 \\in \\mathbb{R}$, $\\lim_{x \\to x_0^+} f(x) = l_2 \\in \\mathbb{R}$ con $l_1 \\neq l_2$.<br>
           <strong>Ampiezza del Salto:</strong> $S = |l_2 - l_1| = |5 - 2| = 3$.<br>
-          <em>Esempio:</em> Tariffe a scaglioni o funzione $f(x) = \\begin{cases} x + 1 & x < 2 \\\\ x + 3 & x \\ge 2 \\end{cases}$ in $x_0 = 2$.
+          <em>Modello rappresentato:</em> $f(x) = \\begin{cases} 0{,}5x + 1 & x < 2 \\\\ 0{,}5x + 4 & x \\ge 2 \\end{cases}$ in $x_0 = 2$ ($l_1 = 2$, $l_2 = 5$).
         `;
       } else if (type === 2) {
         titleEl.textContent = '2ª Specie: Singolarità Asintotica / Essenziale';
@@ -1368,7 +1905,7 @@
         formulaEl.innerHTML = `
           <strong>Condizione:</strong> $\\lim_{x \\to x_0^-} f(x) = \\pm\\infty$ oppure $\\lim_{x \\to x_0^+} f(x) = \\pm\\infty$.<br>
           <strong>Geometria:</strong> La retta verticale $x = x_0$ è un <strong>asintoto verticale</strong>.<br>
-          <em>Esempio classico:</em> $f(x) = \\frac{1}{x - 2}$ in $x_0 = 2$, dove $\\lim_{x \\to 2^-} f(x) = -\\infty$ e $\\lim_{x \\to 2^+} f(x) = +\\infty$.
+          <em>Modello rappresentato:</em> $f(x) = \\frac{1}{x - 2}$ in $x_0 = 2$, dove $\\lim_{x \\to 2^-} f(x) = -\\infty$ e $\\lim_{x \\to 2^+} f(x) = +\\infty$.
         `;
       } else if (type === 3) {
         titleEl.textContent = '3ª Specie: Singolarità Eliminabile (Bucata)';
@@ -1377,7 +1914,7 @@
         formulaEl.innerHTML = `
           <strong>Condizione:</strong> $\\lim_{x \\to x_0} f(x) = L \\in \\mathbb{R}$, ma $x_0 \\notin \\text{Dom}(f)$ oppure $f(x_0) \\neq L$.<br>
           <strong>Risoluzione:</strong> Basta porre $f^*(x_0) = L$ per «tappare il buco» e rendere la funzione continua ovunque.<br>
-          <em>Esempio:</em> $f(x) = \\frac{x^2 - 4}{x - 2}$ in $x_0 = 2$, dove $\\lim_{x \\to 2} f(x) = 4$, ma $f(2)$ non è definita.
+          <em>Modello rappresentato:</em> $f(x) = \\frac{x^2 - 4}{x - 2}$ per $x \\neq 2$ in $x_0 = 2$, dove $\\lim_{x \\to 2} f(x) = 4$.
         `;
       }
 
@@ -1392,21 +1929,23 @@
       renderDiscSvg(type);
     }
 
-        function buildHyperbola(xStart, xEnd, ox, oy, C, yMin, yMax) {
+    function buildHyperbola(xStart, xEnd, xAsym, oy, C, yMin, yMax) {
       let d = '';
-      for (let x = xStart; x <= xEnd; x += 3) {
-        const yVal = oy - (C / (x - ox));
-        const clampedY = Math.min(yMax, Math.max(yMin, yVal));
-        if (d === '') d += `M ${x} ${clampedY.toFixed(1)}`;
-        else d += ` L ${x} ${clampedY.toFixed(1)}`;
+      for (let x = xStart; x <= xEnd; x += 2) {
+        if (Math.abs(x - xAsym) < 4) continue;
+        const yVal = oy - (C / (x - xAsym));
+        if (yVal < yMin || yVal > yMax) continue;
+        if (d === '') d += `M ${x.toFixed(1)} ${yVal.toFixed(1)}`;
+        else d += ` L ${x.toFixed(1)} ${yVal.toFixed(1)}`;
       }
       return d;
     }
 
     function renderDiscSvg(type) {
       const svg = document.getElementById('discSvg');
-      const w = 600, h = 320;
-      const ox = 300, oy = 160;
+      const ox = 130; // Asse Y (x = 0)
+      const oy = (type === 2) ? 160 : 250; // Asse X (y = 0)
+      const x0 = 310; // Ascissa della singolarità (x₀ = 2)
 
       let html = `
         <defs>
@@ -1418,56 +1957,92 @@
         <rect width="100%" height="100%" fill="url(#discGrid)" rx="8"/>
 
         <!-- Assi cartesiani -->
-        <line x1="40" y1="${oy}" x2="560" y2="${oy}" stroke="var(--border-subtle)" stroke-width="1.5"/>
-        <line x1="${ox}" y1="30" x2="${ox}" y2="290" stroke="var(--border-subtle)" stroke-width="1.5"/>
-        <text x="555" y="${oy - 8}" fill="var(--text-muted)" font-size="12">x</text>
-        <text x="${ox + 10}" y="42" fill="var(--text-muted)" font-size="12">y</text>
-        <text x="${ox - 16}" y="${oy + 18}" fill="var(--text-muted)" font-size="12">x₀</text>
+        <line x1="40" y1="${oy}" x2="565" y2="${oy}" stroke="var(--border-subtle)" stroke-width="1.5"/>
+        <line x1="${ox}" y1="25" x2="${ox}" y2="295" stroke="var(--border-subtle)" stroke-width="1.5"/>
+        <text x="555" y="${oy - 8}" fill="var(--text-muted)" font-size="12" font-weight="700">x</text>
+        <text x="${ox + 10}" y="38" fill="var(--text-muted)" font-size="12" font-weight="700">y</text>
+        <text x="${ox - 12}" y="${oy + 16}" fill="var(--text-muted)" font-size="11" text-anchor="end">0</text>
       `;
 
       if (type === 1) {
-        // Salto: a sinistra arriva a oy + 40 (valore l1), a destra parte da oy - 50 (valore l2)
+        // 1ª Specie: f(x) = 0.5x + 1 per x < 2 (l₁ = 2), f(x) = 0.5x + 4 per x >= 2 (l₂ = 5)
+        // Scala: 90 px per unità X (ox=130 -> x₀=2 a 310), 34 px per unità Y (oy=250 -> l₁=2 a 182, l₂=5 a 80)
+        const y1 = 182; // l₁ = 2
+        const y2 = 80;  // l₂ = 5
         html += `
-          <!-- Ramo sinistro -->
-          <path d="M 70 ${oy + 90} Q 180 ${oy + 70} ${ox} ${oy + 40}" fill="none" stroke="var(--accent-math)" stroke-width="3"/>
-          <circle cx="${ox}" cy="${oy + 40}" r="5" fill="var(--accent-math)" stroke="var(--bg-surface)" stroke-width="2"/>
+          <!-- Proiezioni orizzontali su asse Y per l₁ e l₂ -->
+          <line x1="${ox}" y1="${y1}" x2="${x0}" y2="${y1}" stroke="rgba(255,255,255,0.18)" stroke-width="1.2" stroke-dasharray="3,3"/>
+          <line x1="${ox}" y1="${y2}" x2="${x0}" y2="${y2}" stroke="rgba(255,255,255,0.18)" stroke-width="1.2" stroke-dasharray="3,3"/>
+          <line x1="${ox - 4}" y1="${y1}" x2="${ox + 4}" y2="${y1}" stroke="var(--text-muted)" stroke-width="1.5"/>
+          <line x1="${ox - 4}" y1="${y2}" x2="${ox + 4}" y2="${y2}" stroke="var(--text-muted)" stroke-width="1.5"/>
+          <text x="${ox - 10}" y="${y1 + 4}" fill="var(--text-main)" font-size="11.5" font-weight="700" text-anchor="end">l₁ = 2</text>
+          <text x="${ox - 10}" y="${y2 + 4}" fill="var(--text-main)" font-size="11.5" font-weight="700" text-anchor="end">l₂ = 5</text>
 
-          <!-- Ramo destro -->
-          <path d="M ${ox} ${oy - 50} Q 420 ${oy - 60} 530 ${oy - 80}" fill="none" stroke="var(--accent-math)" stroke-width="3"/>
-          <circle cx="${ox}" cy="${oy - 50}" r="5" fill="var(--bg-surface)" stroke="var(--accent-math)" stroke-width="2.5"/>
+          <!-- Proiezione verticale da x₀ = 2 sull'asse X fino a l₁ -->
+          <line x1="${x0}" y1="${oy}" x2="${x0}" y2="${y1}" stroke="rgba(255,255,255,0.22)" stroke-width="1.3" stroke-dasharray="3,3"/>
+          <line x1="${x0}" y1="${oy - 4}" x2="${x0}" y2="${oy + 4}" stroke="var(--text-main)" stroke-width="1.8"/>
+          <text x="${x0}" y="${oy + 20}" fill="var(--text-main)" font-size="12" font-weight="700" text-anchor="middle">x₀ = 2</text>
 
-          <!-- Quota del salto -->
-          <line x1="${ox + 20}" y1="${oy + 40}" x2="${ox + 20}" y2="${oy - 50}" stroke="var(--accent-gold)" stroke-width="2" stroke-dasharray="4,4"/>
-          <text x="${ox + 30}" y="${oy - 5}" fill="var(--accent-gold)" font-size="12" font-weight="700">Salto S = |l₂ - l₁|</text>
-          <text x="${ox - 35}" y="${oy + 45}" fill="var(--text-muted)" font-size="11">l₁</text>
-          <text x="${ox - 35}" y="${oy - 45}" fill="var(--text-muted)" font-size="11">l₂</text>
+          <!-- Linea tratteggiata gialla del salto ESATTAMENTE sulla verticale x = x₀ -->
+          <line x1="${x0}" y1="${y1}" x2="${x0}" y2="${y2}" stroke="var(--accent-gold)" stroke-width="2.5" stroke-dasharray="5,4"/>
+
+          <!-- Ramo sinistro (x < 2): arriva in (x₀, y₁) -->
+          <path d="M 58 230 L ${x0} ${y1}" fill="none" stroke="var(--accent-math)" stroke-width="3.2"/>
+
+          <!-- Ramo destro (x >= 2): parte da (x₀, y₂) -->
+          <path d="M ${x0} ${y2} L 544 36" fill="none" stroke="var(--accent-math)" stroke-width="3.2"/>
+
+          <!-- Pallino vuoto in (x₀, l₁) e pallino pieno in (x₀, l₂) disegnati sopra i tratti -->
+          <circle cx="${x0}" cy="${y1}" r="5.5" fill="var(--bg-surface)" stroke="var(--accent-math)" stroke-width="2.5"/>
+          <circle cx="${x0}" cy="${y2}" r="5.5" fill="var(--accent-math)" stroke="var(--bg-surface)" stroke-width="2"/>
+
+          <!-- Etichetta del Salto S -->
+          <rect x="${x0 + 14}" y="${(y1 + y2)/2 - 14}" width="152" height="26" rx="5" fill="var(--bg-surface-elevated)" stroke="var(--accent-gold)" stroke-width="1"/>
+          <text x="${x0 + 90}" y="${(y1 + y2)/2 + 3}" fill="var(--accent-gold)" font-size="11.5" font-weight="700" text-anchor="middle">Salto S = |l₂ - l₁| = 3</text>
         `;
       } else if (type === 2) {
-        // Asintoto verticale: a sinistra va giù a -inf, a destra va su a +inf
+        // 2ª Specie: Asintoto verticale in x₀ = 2 (x0 = 310), ben distinto dall'asse Y (ox = 130)
         html += `
-          <!-- Asintoto tratteggiato -->
-          <line x1="${ox}" y1="30" x2="${ox}" y2="290" stroke="var(--accent-gold)" stroke-width="2" stroke-dasharray="6,4"/>
-          <text x="${ox + 8}" y="65" fill="var(--accent-gold)" font-size="11" font-weight="700">Asintoto x = x₀</text>
+          <!-- Asintoto verticale tratteggiato in x = x₀ -->
+          <line x1="${x0}" y1="25" x2="${x0}" y2="295" stroke="var(--accent-gold)" stroke-width="2.2" stroke-dasharray="6,4"/>
+          <line x1="${x0}" y1="${oy - 4}" x2="${x0}" y2="${oy + 4}" stroke="var(--accent-gold)" stroke-width="2"/>
+          <text x="${x0 + 10}" y="44" fill="var(--accent-gold)" font-size="11.5" font-weight="700">Asintoto verticale x = x₀ = 2</text>
+          <text x="${x0 - 8}" y="${oy + 18}" fill="var(--accent-gold)" font-size="11.5" font-weight="700" text-anchor="end">x₀ = 2</text>
 
-          <!-- Ramo sinistro -> -inf (iperbole y = 1/(x-x0)) -->
-          <path d="${buildHyperbola(80, ox - 14, ox, oy, 2400, 30, 290)}" fill="none" stroke="var(--accent-gold)" stroke-width="3"/>
-          <!-- Ramo destro -> +inf (iperbole y = 1/(x-x0)) -->
-          <path d="${buildHyperbola(ox + 14, 520, ox, oy, 2400, 30, 290)}" fill="none" stroke="var(--accent-gold)" stroke-width="3"/>
+          <!-- Ramo sinistro -> -∞ e ramo destro -> +∞ senza appiattimenti artificiali -->
+          <path d="${buildHyperbola(50, x0 - 6, x0, oy, 2200, 28, 292)}" fill="none" stroke="var(--accent-gold)" stroke-width="3.2"/>
+          <path d="${buildHyperbola(x0 + 6, 550, x0, oy, 2200, 28, 292)}" fill="none" stroke="var(--accent-gold)" stroke-width="3.2"/>
+
+          <text x="${x0 - 22}" y="282" fill="var(--accent-gold)" font-size="11.5" font-weight="700" text-anchor="end">↘ -∞</text>
+          <text x="${x0 + 22}" y="42" fill="var(--accent-gold)" font-size="11.5" font-weight="700">↗ +∞</text>
         `;
       } else if (type === 3) {
-        // Eliminabile: curva continua con buco aperto in (ox, oy - 40)
+        // 3ª Specie: f(x) = (x² - 4)/(x - 2) = x + 2 con buco in x₀ = 2, L = 4 (yL = 114)
+        const yL = 114;
+        const yIso = 199; // Eventuale valore isolato f(x₀) = 1.5
         html += `
-          <!-- Curva passante con buco -->
-          <path d="M 80 ${oy + 60} Q 200 ${oy + 20} ${ox - 6} ${oy - 38}" fill="none" stroke="var(--accent-purple)" stroke-width="3"/>
-          <path d="M ${ox + 6} ${oy - 42} Q 400 ${oy - 70} 520 ${oy - 90}" fill="none" stroke="var(--accent-purple)" stroke-width="3"/>
+          <!-- Proiezioni tratteggiate sugli assi -->
+          <line x1="${ox}" y1="${yL}" x2="${x0}" y2="${yL}" stroke="rgba(168, 85, 247, 0.4)" stroke-width="1.4" stroke-dasharray="4,3"/>
+          <line x1="${x0}" y1="${oy}" x2="${x0}" y2="${yL}" stroke="rgba(168, 85, 247, 0.4)" stroke-width="1.4" stroke-dasharray="4,3"/>
+          <line x1="${ox}" y1="${yIso}" x2="${x0}" y2="${yIso}" stroke="rgba(255,255,255,0.18)" stroke-width="1.2" stroke-dasharray="3,3"/>
 
-          <!-- Buco vuoto -->
-          <circle cx="${ox}" cy="${oy - 40}" r="6" fill="var(--bg-surface)" stroke="var(--accent-purple)" stroke-width="3"/>
-          <text x="${ox + 15}" y="${oy - 42}" fill="var(--accent-purple)" font-size="12" font-weight="700">Punto Bucato (Limite = L)</text>
+          <line x1="${ox - 4}" y1="${yL}" x2="${ox + 4}" y2="${yL}" stroke="var(--accent-purple)" stroke-width="1.5"/>
+          <text x="${ox - 10}" y="${yL + 4}" fill="var(--accent-purple)" font-size="11.5" font-weight="700" text-anchor="end">L = 4</text>
+          <text x="${ox - 10}" y="${yIso + 4}" fill="var(--text-muted)" font-size="11" text-anchor="end">f(x₀)</text>
 
-          <!-- Eventuale punto isolato spostato -->
-          <circle cx="${ox}" cy="${oy + 30}" r="5" fill="var(--accent-purple)" stroke="var(--bg-surface)" stroke-width="2"/>
-          <text x="${ox + 15}" y="${oy + 34}" fill="var(--text-muted)" font-size="11">Valore isolato f(x₀) ≠ L</text>
+          <line x1="${x0}" y1="${oy - 4}" x2="${x0}" y2="${oy + 4}" stroke="var(--text-main)" stroke-width="1.8"/>
+          <text x="${x0}" y="${oy + 20}" fill="var(--text-main)" font-size="12" font-weight="700" text-anchor="middle">x₀ = 2</text>
+
+          <!-- Retta f(x) = x + 2 passante per (x₀, L) -->
+          <line x1="65" y1="206" x2="515" y2="36" stroke="var(--accent-purple)" stroke-width="3.2"/>
+
+          <!-- Buco vuoto centrato esattamente in (x₀, yL) sopra la retta -->
+          <circle cx="${x0}" cy="${yL}" r="6" fill="var(--bg-surface)" stroke="var(--accent-purple)" stroke-width="3"/>
+          <text x="${x0 + 14}" y="${yL + 4}" fill="var(--accent-purple)" font-size="12" font-weight="700">Punto Bucato (Limite L = 4)</text>
+
+          <!-- Valore isolato f(x₀) ≠ L esattamente sulla verticale x = x₀ -->
+          <circle cx="${x0}" cy="${yIso}" r="5.5" fill="var(--accent-purple)" stroke="var(--bg-surface)" stroke-width="2"/>
+          <text x="${x0 + 14}" y="${yIso + 4}" fill="var(--text-muted)" font-size="11.5" font-weight="600">Valore isolato f(x₀) ≠ L</text>
         `;
       }
 
@@ -1490,7 +2065,7 @@
       if (c === 1) {
         statusBox.innerHTML = `
           <strong style="color: var(--accent-success);">Tutte le Ipotesi Valide:</strong> Intervallo chiuso $[a, b]$ e funzione continua.<br>
-          ✅ <strong>Esito:</strong> La funzione tocca obbligatoriamente il suo <strong>massimo assoluto $M$</strong> in $d$ e il suo <strong>minimo assoluto $m$</strong> in $c$. Il Teorema di Weierstrass è pienamente soddisfatto!
+          ✅ <strong>Esito:</strong> La funzione tocca obbligatoriamente il suo <strong>massimo assoluto $M$</strong> in $d$ e il suo <strong>minimo assoluto $m$</strong> in $a$. Il Teorema di Weierstrass è pienamente soddisfatto!
         `;
       } else if (c === 2) {
         statusBox.innerHTML = `
@@ -1499,8 +2074,8 @@
         `;
       } else if (c === 3) {
         statusBox.innerHTML = `
-          <strong style="color: #ef4444);">Cade l'ipotesi di continuità:</strong> C'è un salto o un buco proprio nel punto di picco.<br>
-          ⚠️ <strong>Esito:</strong> Nel punto in cui la funzione avrebbe dovuto raggiungere il vertice, c'è un buco vuoto e il valore effettivo è caduto in basso. Il massimo assoluto <strong>non esiste</strong>!
+          <strong style="color: #ef4444;">Cade l'ipotesi di continuità:</strong> C'è un salto o un buco proprio nel punto di picco $x_0$.<br>
+          ⚠️ <strong>Esito:</strong> Nel punto $x_0$ in cui la funzione si avvicina al picco, c'è un buco vuoto e il valore effettivo cade più in basso. Il massimo assoluto <strong>non esiste</strong>!
         `;
       }
 
@@ -1515,7 +2090,7 @@
 
     function renderWeierstrassSvg(c) {
       const svg = document.getElementById('weierstrassSvg');
-      const ax = 120, bx = 500, oy = 250;
+      const ox = 75, ax = 135, bx = 510, oy = 250;
 
       let html = `
         <defs>
@@ -1526,8 +2101,11 @@
         <rect width="100%" height="100%" fill="var(--bg-surface)" rx="8"/>
         <rect width="100%" height="100%" fill="url(#wGrid)" rx="8"/>
 
-        <!-- Asse X -->
-        <line x1="60" y1="${oy}" x2="560" y2="${oy}" stroke="var(--border-subtle)" stroke-width="1.5"/>
+        <!-- Assi X e Y -->
+        <line x1="50" y1="${oy}" x2="570" y2="${oy}" stroke="var(--border-subtle)" stroke-width="1.5"/>
+        <line x1="${ox}" y1="30" x2="${ox}" y2="275" stroke="var(--border-subtle)" stroke-width="1.5"/>
+        <text x="560" y="${oy - 8}" fill="var(--text-muted)" font-size="11.5" font-weight="700">x</text>
+        <text x="${ox + 10}" y="42" fill="var(--text-muted)" font-size="11.5" font-weight="700">y</text>
 
         <!-- Estremi a e b -->
         <line x1="${ax}" y1="${oy - 5}" x2="${ax}" y2="${oy + 5}" stroke="var(--text-muted)" stroke-width="2"/>
@@ -1536,46 +2114,67 @@
         <text x="${bx}" y="${oy + 22}" fill="var(--text-muted)" font-size="12" font-weight="700" text-anchor="middle">b</text>
 
         <!-- Tratteggi verticali estremi -->
-        <line x1="${ax}" y1="50" x2="${ax}" y2="${oy}" stroke="rgba(255,255,255,0.08)" stroke-dasharray="4,4"/>
-        <line x1="${bx}" y1="50" x2="${bx}" y2="${oy}" stroke="rgba(255,255,255,0.08)" stroke-dasharray="4,4"/>
+        <line x1="${ax}" y1="50" x2="${ax}" y2="${oy}" stroke="rgba(255,255,255,0.1)" stroke-dasharray="4,4"/>
+        <line x1="${bx}" y1="50" x2="${bx}" y2="${oy}" stroke="rgba(255,255,255,0.1)" stroke-dasharray="4,4"/>
       `;
 
       if (c === 1) {
-        // Continua con Max in d (x=360, y=70) e Min in a (x=120, y=210)
+        // Continua con Max in d (x=355, y=70) e Min in a (x=135, y=210)
         html += `
-          <!-- Curva continua con andamento strettamente crescente in x da a a b (nessun ripiegamento) -->
-          <path d="M ${ax} 210 C 150 180, 190 130, 240 130 C 280 130, 310 70, 350 70 C 390 70, 450 150, ${bx} 160" fill="none" stroke="var(--accent-math)" stroke-width="3.5"/>
-          <circle cx="${ax}" cy="210" r="5" fill="var(--accent-math)"/>
+          <!-- Proiezioni orizzontali su asse Y per M e m -->
+          <line x1="${ox}" y1="70" x2="355" y2="70" stroke="rgba(245, 158, 11, 0.35)" stroke-dasharray="3,3"/>
+          <line x1="${ox}" y1="210" x2="${ax}" y2="210" stroke="rgba(16, 185, 129, 0.35)" stroke-dasharray="3,3"/>
+          <text x="${ox - 8}" y="74" fill="var(--accent-gold)" font-size="11.5" font-weight="700" text-anchor="end">M</text>
+          <text x="${ox - 8}" y="214" fill="#10b981" font-size="11.5" font-weight="700" text-anchor="end">m</text>
+
+          <!-- Curva continua con andamento strettamente crescente in x da a a b -->
+          <path d="M ${ax} 210 C 165 180, 200 130, 245 130 C 285 130, 315 70, 355 70 C 395 70, 455 150, ${bx} 160" fill="none" stroke="var(--accent-math)" stroke-width="3.5"/>
           <circle cx="${bx}" cy="160" r="5" fill="var(--accent-math)"/>
 
-          <!-- Punto di Massimo M in x=350, y=70 con tangente orizzontale piana -->
-          <circle cx="350" cy="70" r="6" fill="var(--accent-gold)" stroke="var(--bg-surface)" stroke-width="2"/>
-          <line x1="350" y1="70" x2="350" y2="${oy}" stroke="var(--accent-gold)" stroke-dasharray="3,3"/>
-          <text x="350" y="55" fill="var(--accent-gold)" font-size="12" font-weight="700" text-anchor="middle">Massimo Assoluto M</text>
-          <text x="350" y="${oy + 22}" fill="var(--accent-gold)" font-size="11" font-weight="700" text-anchor="middle">d</text>
+          <!-- Punto di Massimo M in x=355, y=70 -->
+          <line x1="355" y1="70" x2="355" y2="${oy}" stroke="var(--accent-gold)" stroke-dasharray="3,3"/>
+          <circle cx="355" cy="70" r="6" fill="var(--accent-gold)" stroke="var(--bg-surface)" stroke-width="2"/>
+          <text x="355" y="54" fill="var(--accent-gold)" font-size="12" font-weight="700" text-anchor="middle">Massimo Assoluto M</text>
+          <text x="355" y="${oy + 22}" fill="var(--accent-gold)" font-size="11.5" font-weight="700" text-anchor="middle">d</text>
 
           <!-- Punto di Minimo m in a -->
           <circle cx="${ax}" cy="210" r="6" fill="#10b981" stroke="var(--bg-surface)" stroke-width="2"/>
-          <text x="${ax + 10}" y="195" fill="#10b981" font-size="11" font-weight="700">Minimo m</text>
+          <text x="${ax + 12}" y="200" fill="#10b981" font-size="11.5" font-weight="700">Minimo Assoluto m</text>
         `;
       } else if (c === 2) {
-        // Aperto (a, b): pallini vuoti agli estremi
+        // Aperto (a, b): pallini vuoti agli estremi disegnati sopra il segmento
         html += `
-          <path d="M ${ax + 5} 190 L ${bx - 5} 60" fill="none" stroke="var(--accent-gold)" stroke-width="3"/>
-          <!-- Pallini aperti agli estremi -->
-          <circle cx="${ax}" cy="190" r="5" fill="var(--bg-surface)" stroke="var(--accent-gold)" stroke-width="2.5"/>
-          <circle cx="${bx}" cy="60" r="5" fill="var(--bg-surface)" stroke="var(--accent-gold)" stroke-width="2.5"/>
-          <text x="${bx}" y="45" fill="var(--accent-gold)" font-size="11" font-weight="700" text-anchor="middle">Sup non raggiunto (b ∉ Dominio)</text>
-          <text x="${bx - 30}" y="95" fill="var(--text-muted)" font-size="11">Nessun Max!</text>
+          <line x1="${ox}" y1="60" x2="${bx}" y2="60" stroke="rgba(245, 158, 11, 0.3)" stroke-dasharray="3,3"/>
+          <line x1="${ox}" y1="195" x2="${ax}" y2="195" stroke="rgba(245, 158, 11, 0.3)" stroke-dasharray="3,3"/>
+          <text x="${ox - 8}" y="64" fill="var(--accent-gold)" font-size="10.5" font-weight="700" text-anchor="end">sup</text>
+          <text x="${ox - 8}" y="199" fill="var(--accent-gold)" font-size="10.5" font-weight="700" text-anchor="end">inf</text>
+
+          <path d="M ${ax} 195 L ${bx} 60" fill="none" stroke="var(--accent-gold)" stroke-width="3.2"/>
+          <!-- Pallini aperti agli estremi sopra la linea -->
+          <circle cx="${ax}" cy="195" r="5.5" fill="var(--bg-surface)" stroke="var(--accent-gold)" stroke-width="2.5"/>
+          <circle cx="${bx}" cy="60" r="5.5" fill="var(--bg-surface)" stroke="var(--accent-gold)" stroke-width="2.5"/>
+          <text x="${bx - 10}" y="44" fill="var(--accent-gold)" font-size="11.5" font-weight="700" text-anchor="end">Sup non raggiunto (b ∉ (a, b))</text>
+          <text x="${ax + 12}" y="212" fill="var(--accent-gold)" font-size="11" font-weight="700">Inf non raggiunto (a ∉ (a, b))</text>
         `;
       } else if (c === 3) {
-        // Discontinua: vertice con buco
+        // Discontinua: salto / buco esattamente sulla verticale x = 330
+        const xJump = 330;
         html += `
-          <path d="M ${ax} 200 Q 220 100 325 72" fill="none" stroke="#ef4444" stroke-width="3"/>
-          <path d="M 335 150 Q 420 180 ${bx} 170" fill="none" stroke="#ef4444" stroke-width="3"/>
-          <circle cx="330" cy="70" r="6" fill="var(--bg-surface)" stroke="#ef4444" stroke-width="2.5"/>
-          <circle cx="330" cy="150" r="5" fill="#ef4444"/>
-          <text x="330" y="52" fill="#ef4444" font-size="11" font-weight="700" text-anchor="middle">Buco nel vertice: Max Inesistente!</text>
+          <!-- Tratteggio verticale esatto in x = 330 -->
+          <line x1="${xJump}" y1="70" x2="${xJump}" y2="${oy}" stroke="rgba(239, 68, 68, 0.45)" stroke-width="1.8" stroke-dasharray="4,3"/>
+          <text x="${xJump}" y="${oy + 22}" fill="#ef4444" font-size="11.5" font-weight="700" text-anchor="middle">x₀</text>
+
+          <!-- Ramo sinistro che arriva esattamente a (330, 70) e ramo destro che riparte da (330, 150) -->
+          <path d="M ${ax} 205 Q 230 105 ${xJump} 70" fill="none" stroke="#ef4444" stroke-width="3.2"/>
+          <path d="M ${xJump} 150 Q 420 180 ${bx} 165" fill="none" stroke="#ef4444" stroke-width="3.2"/>
+
+          <circle cx="${ax}" cy="205" r="5" fill="#ef4444"/>
+          <circle cx="${bx}" cy="165" r="5" fill="#ef4444"/>
+
+          <!-- Pallino vuoto in (330, 70) e pallino pieno in (330, 150) perfettamente allineati -->
+          <circle cx="${xJump}" cy="70" r="6" fill="var(--bg-surface)" stroke="#ef4444" stroke-width="2.5"/>
+          <circle cx="${xJump}" cy="150" r="5.5" fill="#ef4444" stroke="var(--bg-surface)" stroke-width="2"/>
+          <text x="${xJump}" y="52" fill="#ef4444" font-size="11.5" font-weight="700" text-anchor="middle">Buco nel picco (x₀): Max Assoluto Inesistente!</text>
         `;
       }
 
@@ -1671,69 +2270,144 @@
     function renderBisectionSvg() {
       const svg = document.getElementById('bisectionSvg');
       const last = bisectionSteps[bisectionSteps.length - 1];
-      const oy = 140;
+      const ox = 80;   // Ascissa x = 1.0
+      const oy = 105;  // Asse x (y = 0)
+      const scaleX = 480; // Intervallo [1.0, 2.0] mappato su [80, 560]
+      const scaleY = 54;  // Range y in [-3, +1] mappato su [267, 51]
 
-      // Coordinate scala x: intervallo [1.0, 2.0] mappato su [80, 540]
-      const mapX = (x) => 80 + (x - 1.0) * 460;
+      const mapX = (x) => ox + (x - 1.0) * scaleX;
+      const mapY = (y) => oy - y * scaleY;
 
       let html = `
         <defs>
-          <pattern id="biGrid" width="20" height="20" patternUnits="userSpaceOnUse">
-            <path d="M 20 0 L 0 0 0 20" fill="none" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+          <pattern id="biGrid" width="24" height="24" patternUnits="userSpaceOnUse">
+            <path d="M 24 0 L 0 0 0 24" fill="none" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
           </pattern>
         </defs>
         <rect width="100%" height="100%" fill="var(--bg-surface)" rx="8"/>
         <rect width="100%" height="100%" fill="url(#biGrid)" rx="8"/>
-
-        <!-- Asse x = 0 -->
-        <line x1="50" y1="${oy}" x2="570" y2="${oy}" stroke="var(--border-subtle)" stroke-width="1.5"/>
-        <text x="560" y="${oy - 8}" fill="var(--text-muted)" font-size="11">x</text>
-
-        <!-- Curva f(x) = x³ - 3x - 1 -->
-        <!-- Campionamento punti -->
       `;
 
-      let pathD = 'M ' + mapX(1.0) + ' ' + (oy - targetF(1.0) * 40);
-      for (let x = 1.02; x <= 2.0; x += 0.02) {
-        const px = mapX(x);
-        const py = oy - targetF(x) * 40;
-        pathD += ' L ' + px.toFixed(1) + ' ' + py.toFixed(1);
-      }
-      html += `<path d="${pathD}" fill="none" stroke="var(--accent-math)" stroke-width="3"/>`;
+      // Linee guida orizzontali per y = +1, -1, -2, -3
+      [1, -1, -2, -3].forEach(yv => {
+        const py = mapY(yv);
+        html += `
+          <line x1="${ox}" y1="${py}" x2="575" y2="${py}" stroke="rgba(255,255,255,0.06)" stroke-width="1" stroke-dasharray="3,3"/>
+          <text x="${ox - 10}" y="${py + 4}" fill="var(--text-muted)" font-size="10.5" font-family="var(--font-mono)" text-anchor="end">${yv > 0 ? '+' + yv : yv}</text>
+        `;
+      });
 
-      // Evidenziazione intervallo corrente [a, b]
+      // Tacche di riferimento sull'asse x
+      [1.0, 1.25, 1.5, 1.75, 2.0].forEach(xv => {
+        const px = mapX(xv);
+        html += `
+          <line x1="${px}" y1="${oy - 4}" x2="${px}" y2="${oy + 4}" stroke="var(--border-subtle)" stroke-width="1.2"/>
+          <text x="${px}" y="302" fill="var(--text-muted)" font-size="10" font-family="var(--font-mono)" text-anchor="middle">${xv.toFixed(2)}</text>
+        `;
+      });
+
+      // Assi cartesiani (y = 0 e asse verticale in x = 1.0)
+      html += `
+        <line x1="45" y1="${oy}" x2="595" y2="${oy}" stroke="var(--border-subtle)" stroke-width="1.8"/>
+        <line x1="${ox}" y1="25" x2="${ox}" y2="286" stroke="var(--border-subtle)" stroke-width="1.5"/>
+        <text x="${ox - 10}" y="${oy + 4}" fill="var(--text-main)" font-size="10.5" font-weight="700" text-anchor="end">0</text>
+        <text x="588" y="${oy - 8}" fill="var(--text-muted)" font-size="11" font-weight="700">x</text>
+        <text x="${ox + 8}" y="34" fill="var(--text-muted)" font-size="11" font-weight="700">f(x)</text>
+      `;
+
+      // Evidenziazione fascia intervallo corrente [a, b]
       const axPx = mapX(last.a);
       const bxPx = mapX(last.b);
       const mxPx = mapX(last.m);
+      const fa = targetF(last.a);
+      const fb = targetF(last.b);
+      const fm = last.fm;
+      const ayPx = mapY(fa);
+      const byPx = mapY(fb);
+      const myPx = mapY(fm);
 
       html += `
-        <!-- Fascia intervallo ristretto -->
-        <rect x="${axPx}" y="30" width="${bxPx - axPx}" height="220" fill="rgba(56, 189, 248, 0.12)" stroke="var(--accent-math)" stroke-width="1.5" stroke-dasharray="4,4"/>
+        <rect x="${axPx}" y="32" width="${Math.max(2, bxPx - axPx)}" height="250" fill="rgba(56, 189, 248, 0.11)" stroke="var(--accent-math)" stroke-width="1.4" stroke-dasharray="4,3"/>
+      `;
 
-        <!-- Estremo a e b con offset anti-sovrapposizione a intervalli stretti -->
-        <line x1="${axPx}" y1="${oy - 10}" x2="${axPx}" y2="${oy + 10}" stroke="var(--text-main)" stroke-width="2"/>
-        <text x="${axPx}" y="${oy + 22}" fill="var(--text-main)" font-size="11" font-weight="700" text-anchor="middle">a = ${last.a.toFixed(3)}</text>
+      // Curva f(x) = x³ - 3x - 1
+      let pathD = '';
+      for (let x = 1.0; x <= 2.001; x += 0.02) {
+        const px = mapX(x);
+        const py = mapY(targetF(x));
+        pathD += (pathD === '' ? 'M ' : ' L ') + px.toFixed(1) + ' ' + py.toFixed(1);
+      }
+      html += `<path d="${pathD}" fill="none" stroke="var(--accent-math)" stroke-width="3.2"/>`;
 
-        <line x1="${bxPx}" y1="${oy - 10}" x2="${bxPx}" y2="${oy + 10}" stroke="var(--text-main)" stroke-width="2"/>
-        <text x="${bxPx}" y="${(bxPx - axPx < 85) ? (oy + 38) : (oy + 22)}" fill="var(--text-main)" font-size="11" font-weight="700" text-anchor="middle">b = ${last.b.toFixed(3)}</text>
+      // Proiezioni verticali dagli estremi a, b e dal punto medio m alla curva
+      const rootPx = mapX(1.879385);
+      html += `
+        <!-- Estremo sinistro a: f(a) < 0 -->
+        <line x1="${axPx}" y1="${oy}" x2="${axPx}" y2="${ayPx}" stroke="#ef4444" stroke-width="1.6" stroke-dasharray="3,3"/>
+        <circle cx="${axPx}" cy="${oy}" r="4" fill="#ef4444"/>
+        <circle cx="${axPx}" cy="${ayPx}" r="5.5" fill="#ef4444" stroke="var(--bg-surface)" stroke-width="1.8"/>
 
-        <!-- Punto medio m -->
-        <circle cx="${mxPx}" cy="${oy}" r="5" fill="var(--accent-gold)"/>
-        <line x1="${mxPx}" y1="40" x2="${mxPx}" y2="${oy + 15}" stroke="var(--accent-gold)" stroke-width="1.5" stroke-dasharray="2,2"/>
-        <text x="${mxPx}" y="${oy - 15}" fill="var(--accent-gold)" font-size="11" font-weight="700" text-anchor="middle">m = ${last.m.toFixed(3)}</text>
+        <!-- Estremo destro b: f(b) > 0 -->
+        <line x1="${bxPx}" y1="${oy}" x2="${bxPx}" y2="${byPx}" stroke="var(--accent-success)" stroke-width="1.6" stroke-dasharray="3,3"/>
+        <circle cx="${bxPx}" cy="${oy}" r="4" fill="var(--accent-success)"/>
+        <circle cx="${bxPx}" cy="${byPx}" r="5.5" fill="var(--accent-success)" stroke="var(--bg-surface)" stroke-width="1.8"/>
+
+        <!-- Punto medio m e proiezione esatta tra (m, 0) e (m, f(m)) -->
+        <line x1="${mxPx}" y1="${oy}" x2="${mxPx}" y2="${myPx}" stroke="var(--accent-gold)" stroke-width="2.2" stroke-dasharray="4,3"/>
+        <circle cx="${mxPx}" cy="${oy}" r="5" fill="var(--accent-gold)" stroke="var(--bg-surface)" stroke-width="1.5"/>
+        <circle cx="${mxPx}" cy="${myPx}" r="6" fill="var(--accent-gold)" stroke="var(--bg-surface)" stroke-width="2"/>
+
+        <!-- Zero esatto c ≈ 1.8794 -->
+        <circle cx="${rootPx}" cy="${oy}" r="6.5" fill="none" stroke="var(--accent-success)" stroke-width="2"/>
+      `;
+
+      // Etichette dinamiche a, m, b senza sovrapposizioni anche a intervalli stretti
+      const spanPx = bxPx - axPx;
+      if (spanPx >= 110) {
+        html += `
+          <text x="${axPx + 6}" y="${oy - 10}" fill="#ef4444" font-size="11" font-weight="800" text-anchor="start">a = ${last.a.toFixed(3)}</text>
+          <text x="${mxPx}" y="${fm < 0 ? oy - 10 : oy + 20}" fill="var(--accent-gold)" font-size="11" font-weight="800" text-anchor="middle">m = ${last.m.toFixed(3)}</text>
+          <text x="${bxPx}" y="${oy + 20}" fill="var(--accent-success)" font-size="11" font-weight="800" text-anchor="middle">b = ${last.b.toFixed(3)}</text>
+        `;
+      } else {
+        html += `
+          <text x="${axPx - 6}" y="${oy - 10}" fill="#ef4444" font-size="11" font-weight="800" text-anchor="end">a=${last.a.toFixed(3)}</text>
+          <text x="${mxPx}" y="${oy - 25}" fill="var(--accent-gold)" font-size="11" font-weight="800" text-anchor="middle">m=${last.m.toFixed(3)}</text>
+          <text x="${bxPx + 6}" y="${oy + 20}" fill="var(--accent-success)" font-size="11" font-weight="800" text-anchor="start">b=${last.b.toFixed(3)}</text>
+        `;
+      }
+
+      // Pannello riepilogativo in zona libera (x in [95, 305], y in [120, 204], a sinistra di m=1.5 e sopra la curva)
+      html += `
+        <g transform="translate(95, 120)">
+          <rect width="212" height="84" rx="6" fill="var(--bg-surface-elevated)" stroke="var(--border-subtle)" stroke-width="1"/>
+          <text x="10" y="18" fill="var(--text-main)" font-size="10.5" font-weight="800">Passo ${last.k} • [${last.a.toFixed(3)}, ${last.b.toFixed(3)}]</text>
+          <circle cx="15" cy="34" r="3.5" fill="#ef4444"/>
+          <text x="24" y="38" fill="var(--text-muted)" font-size="10" font-family="var(--font-mono)">f(a) = ${fa.toFixed(2)} &lt; 0 (sotto x)</text>
+          <circle cx="15" cy="52" r="3.5" fill="var(--accent-success)"/>
+          <text x="24" y="56" fill="var(--text-muted)" font-size="10" font-family="var(--font-mono)">f(b) = +${fb.toFixed(2)} &gt; 0 (sopra x)</text>
+          <circle cx="15" cy="70" r="3.5" fill="var(--accent-gold)"/>
+          <text x="24" y="74" fill="var(--accent-gold)" font-size="10" font-weight="700" font-family="var(--font-mono)">f(m) = ${fm >= 0 ? '+' : ''}${fm.toFixed(3)} → ${nextLabel(fa, fm, last.a, last.m, last.b)}</text>
+        </g>
       `;
 
       svg.innerHTML = html;
     }
 
+    function nextLabel(fa, fm, a, m, b) {
+      return (fa * fm < 0) ? `[${a.toFixed(2)}, ${m.toFixed(2)}]` : `[${m.toFixed(2)}, ${b.toFixed(2)}]`;
+    }
+
     /* ========================================================
        LABORATORIO 5: PALESTRA MENTALE
        ======================================================== */
-        const quizSolutions = {
+    const quizSolutions = {
       1: { correct: 2, exp: 'Esatto! Scomponendo $\\frac{(x-3)(x+3)}{x-3} = x+3$, per $x \\to 3$ il limite vale 6. La funzione non esiste in $x=3$, quindi è una discontinuità eliminabile (3ª specie).' },
       2: { correct: 1, exp: 'Corretto! L\'intervallo $(0, 4]$ non è chiuso in 0, dove la funzione diverge a $+\\infty$. Weierstrass richiede obbligatoriamente intervallo chiuso e limitato!' },
       3: { correct: 0, exp: 'Ottimo! Essendo un polinomio, la funzione è continua. Poiché $f(1) = -2$ e $f(2) = 7$ hanno segni opposti, il Teorema degli Zeri garantisce almeno una radice in $(1, 2)$.' },
-      4: { correct: 1, exp: 'Perfetto! Limite sinistro: $2(3) + k = 6 + k$. Limite destro e valore in 3: $3^2 - 1 = 8$. Imponendo $6 + k = 8$ si ricava $k = 2$.' }
+      4: { correct: 1, exp: 'Perfetto! Limite sinistro: $2(3) + k = 6 + k$. Limite destro e valore in 3: $3^2 - 1 = 8$. Imponendo $6 + k = 8$ si ricava $k = 2$.' },
+      5: { correct: 0, exp: 'Esatto! A sinistra di $x_0 = 1$ abbiamo $\\lim_{x \\to 1^-} (5 - x) = 4$; a destra $\\lim_{x \\to 1^+} (2x + 7) = 9$. Il salto vale $S = |9 - 4| = 5$.' },
+      6: { correct: 1, exp: 'Corretto! Ad ogni passo l\'ampiezza dell\'intervallo si dimezza: $\\Delta_k = \\frac{\\Delta_0}{2^k} = \\frac{2}{2^3} = \\frac{2}{8} = 0{,}25$.' }
     };
 
     function checkQuiz(qNum, chosenOpt, btn) {
@@ -1743,16 +2417,19 @@
       const sol = quizSolutions[qNum];
 
       buttons.forEach(b => b.disabled = true);
+      solvedQuizzes.add(qNum);
 
       if (chosenOpt === sol.correct) {
         btn.classList.add('correct');
         fb.innerHTML = '✅ ' + sol.exp;
         fb.style.color = 'var(--accent-success)';
+        if (window.ComodeAudio) ComodeAudio.play('success');
       } else {
         btn.classList.add('wrong');
         if (buttons[sol.correct]) buttons[sol.correct].classList.add('correct');
         fb.innerHTML = '❌ Risposta errata. ' + sol.exp;
         fb.style.color = '#ef4444';
+        if (window.ComodeAudio) ComodeAudio.play('error');
       }
       fb.style.display = 'block';
 

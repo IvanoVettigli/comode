@@ -208,24 +208,125 @@
       background: var(--bg-surface);
       border: 1px solid var(--border-subtle);
       color: var(--text-main);
-      padding: 0.55rem 0.95rem;
+      padding: 0.6rem 1rem;
       border-radius: var(--radius-md);
-      font-size: 0.88rem;
+      font-size: 0.9rem;
       font-family: inherit;
       cursor: pointer;
       transition: var(--transition);
-      display: inline-flex;
-      align-items: center;
+      display: block;
       text-align: left;
       width: 100%;
-      line-height: 1.4;
-      margin-bottom: 0.45rem;
+      line-height: 1.5;
+      margin-bottom: 0.5rem;
+    }
+
+    .math-input,
+    .inline-input {
+      background: var(--bg-surface);
+      border: 1.5px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      color: var(--text-main);
+      font-family: var(--font-mono);
+      font-size: 0.96rem;
+      padding: 0.42rem 0.75rem;
+      outline: none;
+      transition: var(--transition);
+    }
+
+    .math-input:focus,
+    .inline-input:focus {
+      border-color: var(--accent-math);
+      box-shadow: 0 0 0 3px var(--accent-math-glow);
+    }
+
+    .math-input.correct,
+    .inline-input.correct {
+      border-color: var(--accent-success) !important;
+      background: rgba(16, 185, 129, 0.12) !important;
+      color: var(--accent-success) !important;
+      font-weight: 700;
+    }
+
+    .math-input.wrong,
+    .inline-input.wrong {
+      border-color: #ef4444 !important;
+      background: rgba(239, 68, 68, 0.12) !important;
+      color: #ef4444 !important;
+      font-weight: 700;
+    }
+
+    .hint-box {
+      display: none;
+      margin-top: 0.75rem;
+      padding: 0.85rem 1.1rem;
+      background: var(--bg-surface);
+      border: 1px dashed rgba(245, 158, 11, 0.35);
+      border-left: 3px solid var(--accent-warning);
+      border-radius: var(--radius-sm);
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      line-height: 1.65;
+    }
+
+    .hint-box.visible {
+      display: block;
+    }
+
+    .step-box h5 {
+      font-size: 0.85rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--accent-math);
+      margin: 0 0 0.65rem 0;
     }
 
     .m1l4-choice-btn:hover:not(:disabled) {
       border-color: var(--accent-math);
       background: rgba(56, 189, 248, 0.08);
       color: var(--accent-math);
+    }
+
+    .m1l4-choice-btn.selected {
+      background: rgba(56, 189, 248, 0.16);
+      border-color: var(--accent-math);
+      color: var(--accent-math);
+      font-weight: 700;
+    }
+
+    .worked-example-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 0.9rem;
+      margin-top: 0.9rem;
+    }
+
+    .worked-example-box {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-left: 3px solid var(--accent-math);
+      border-radius: var(--radius-sm);
+      padding: 0.85rem 1rem;
+      font-size: 0.88rem;
+      line-height: 1.55;
+    }
+
+    .worked-example-box.gold {
+      border-left-color: var(--accent-gold);
+    }
+
+    .worked-example-box.purple {
+      border-left-color: var(--accent-purple);
+    }
+
+    .worked-example-title {
+      font-weight: 800;
+      color: var(--text-main);
+      margin-bottom: 0.35rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
     }
 
     .m1l4-choice-btn.correct {
@@ -514,11 +615,82 @@
           🔍 <strong>Significato Fisico ed Empirico:</strong>
           Mentre il rapporto incrementale misura la <em>velocità media</em> di variazione su un intervallo di ampiezza $h$, la derivata prima ne rappresenta la <strong>velocità istantanea di variazione</strong> in quel preciso momento.
         </div>
+
+        <div class="worked-example-grid">
+          <div class="worked-example-box">
+            <div class="worked-example-title">📌 Esempio Svolto 1A • Rapporto Incrementale Numerico</div>
+            Data $f(x) = x^2 + 3x$, calcoliamo il rapporto incrementale nel punto $x_0 = 2$ con incremento $h = 0{,}5$:<br>
+            1) Valore iniziale: $f(2) = 2^2 + 3(2) = 4 + 6 = 10$.<br>
+            2) Valore incrementato ($x_0 + h = 2{,}5$): $f(2{,}5) = (2{,}5)^2 + 3(2{,}5) = 6{,}25 + 7{,}5 = 13{,}75$.<br>
+            3) Rapporto incrementale: $\frac{\Delta y}{h} = \frac{13{,}75 - 10}{0{,}5} = \frac{3{,}75}{0{,}5} = 7{,}5$.
+          </div>
+          <div class="worked-example-box gold">
+            <div class="worked-example-title">📌 Esempio Svolto 1B • Derivata tramite Definizione di Limite</div>
+            Calcoliamo la derivata esatta $f'(2)$ di $f(x) = x^2 + 3x$ facendo tendere $h \to 0$:<br>
+            1) $f(2+h) = (2+h)^2 + 3(2+h) = 4 + 4h + h^2 + 6 + 3h = 10 + 7h + h^2$.<br>
+            2) $\frac{f(2+h)-f(2)}{h} = \frac{(10 + 7h + h^2) - 10}{h} = \frac{h(7 + h)}{h} = 7 + h$.<br>
+            3) Passando al limite: $f'(2) = \lim_{h \to 0} (7 + h) = 7$.
+          </div>
+        </div>
+      </div>
+
+      <!-- ESERCIZIO CONCRETO 1 -->
+      <div class="step-box" style="margin-top: 1.25rem;">
+        <h5>✏️ Esercizio Concreto 1 • Dal Rapporto Incrementale alla Derivata in un Punto</h5>
+        <p style="font-size: 0.92rem; margin-bottom: 0.9rem;">
+          Considera la funzione <strong>$f(x) = 3x^2 - 2$</strong> nel punto <strong>$x_0 = 2$</strong>. Esplora concretamente il passaggio dalla variazione media alla derivata istantanea:
+        </p>
+
+        <div style="margin-bottom: 0.9rem;">
+          <label style="font-size: 0.9rem; font-weight: 600; display: block; margin-bottom: 0.4rem;">
+            1. Fissa un incremento $h = 1$ (quindi $x_0 + h = 3$). Calcola i valori della funzione e il rapporto incrementale medio:
+          </label>
+          <div style="display: flex; align-items: center; gap: 0.65rem; flex-wrap: wrap;">
+            <span style="font-size: 0.9rem;">$f(2) =$</span>
+            <input type="text" id="lab1ExF2" class="math-input" placeholder="?" style="width: 75px;">
+            <span style="font-size: 0.9rem; margin-left: 0.35rem;">$f(3) =$</span>
+            <input type="text" id="lab1ExF3" class="math-input" placeholder="?" style="width: 75px;">
+            <span style="font-size: 0.9rem; margin-left: 0.35rem;">$\frac{\Delta y}{h} = \frac{f(3)-f(2)}{1} =$</span>
+            <input type="text" id="lab1ExRate" class="math-input" placeholder="?" style="width: 80px;">
+          </div>
+        </div>
+
+        <div style="margin-bottom: 0.9rem;">
+          <label style="font-size: 0.9rem; font-weight: 600; display: block; margin-bottom: 0.4rem;">
+            2. Per un incremento generico $h$, sviluppando i calcoli si ottiene $\frac{f(2+h)-f(2)}{h} = \frac{3(2+h)^2 - 2 - 10}{h} = \frac{12h + 3h^2}{h} = 12 + 3h$. Quanto vale la derivata esatta $f'(2) = \lim_{h \to 0}(12 + 3h)$?
+          </label>
+          <div style="display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap;">
+            <span style="font-size: 0.9rem;">$f'(2) =$</span>
+            <input type="text" id="lab1ExDer" class="math-input" placeholder="?" style="width: 85px;">
+          </div>
+        </div>
+
+        <div style="margin-bottom: 0.75rem;">
+          <label style="font-size: 0.9rem; font-weight: 600; display: block; margin-bottom: 0.45rem;">
+            3. Qual è la differenza concettuale tra il valore $\frac{\Delta y}{h} = 15$ (trovato al punto 1) e il valore $f'(2) = 12$ (trovato al punto 2)?
+          </label>
+          <div id="lab1Choices">
+            <button type="button" class="m1l4-choice-btn" data-opt="media_vs_ist" onclick="selectChoice('lab1', this)">
+              $15$ è il tasso di variazione medio sull'intervallo $[2, 3]$, mentre $12$ è il tasso di variazione istantaneo nel solo punto $x_0 = 2$
+            </button>
+            <button type="button" class="m1l4-choice-btn" data-opt="err_approx" onclick="selectChoice('lab1', this)">
+              $15$ è il valore esatto della derivata, mentre $12$ è solo un'approssimazione per difetto
+            </button>
+            <button type="button" class="m1l4-choice-btn" data-opt="same" onclick="selectChoice('lab1', this)">
+              Rappresentano entrambi la velocità media, ma misurata con unità di misura diverse
+            </button>
+          </div>
+        </div>
+
+        <button type="button" class="hint-btn" onclick="toggleHint('lab1Hint')">💡 Mostra Suggerimento</button>
+        <div class="hint-box" id="lab1Hint">
+          Sostituisci $x = 2$ in $f(x) = 3x^2 - 2$: ottieni $3(4) - 2 = 10$. Per $x = 3$ ottieni $3(9) - 2 = 25$. La differenza è $\Delta y = 25 - 10 = 15$. Quando invece $h \to 0$, il termine $3h$ svanisce e resta $12$.
+        </div>
       </div>
 
       <div class="verify-box">
-        <button type="button" class="btn-action" onclick="verifyLab(1)">
-          <span>✅</span> Salva e Completa Laboratorio 1 (+10 XP)
+        <button type="button" class="btn-action" onclick="verifyLab1()">
+          <span>✅</span> Verifica Esercizio e Completa Laboratorio 1 (+10 XP)
         </button>
         <span class="feedback-msg" id="lab1Msg" style="display: none;"></span>
       </div>
@@ -596,11 +768,70 @@
             <li>Se $f'(x_0) = 0$, la retta tangente è perfettamente orizzontale $\implies$ <strong>punto stazionario</strong> (possibile massimo, minimo o flesso a tangente orizzontale).</li>
           </ul>
         </div>
+
+        <div class="worked-example-grid">
+          <div class="worked-example-box">
+            <div class="worked-example-title">📌 Esempio Svolto 2A • Equazione della Retta Tangente</div>
+            Troviamo la retta tangente a $f(x) = x^2 - 2x + 3$ nel punto di ascissa $x_0 = 3$:<br>
+            1) Ordinata del punto: $y_0 = f(3) = 3^2 - 2(3) + 3 = 9 - 6 + 3 = 6 \implies P(3, 6)$.<br>
+            2) Derivata prima: $f'(x) = 2x - 2 \implies m_{\text{tan}} = f'(3) = 2(3) - 2 = 4$.<br>
+            3) Equazione tangente: $y - 6 = 4(x - 3) \implies y = 4x - 12 + 6 \implies \mathbf{y = 4x - 6}$.
+          </div>
+          <div class="worked-example-box purple">
+            <div class="worked-example-title">📌 Esempio Svolto 2B • Ricerca del Punto a Tangente Orizzontale</div>
+            In quale punto la parabola $f(x) = x^2 - 2x + 3$ ha retta tangente orizzontale?<br>
+            1) La tangente è orizzontale quando il suo coefficiente angolare è nullo ($m = 0$).<br>
+            2) Imponiamo $f'(x) = 0 \implies 2x - 2 = 0 \implies x = 1$.<br>
+            3) Calcoliamo l'ordinata: $f(1) = 1 - 2 + 3 = 2$. Nel vertice $V(1, 2)$ la retta tangente è la retta orizzontale $\mathbf{y = 2}$.
+          </div>
+        </div>
+      </div>
+
+      <!-- ESERCIZIO CONCRETO 2 -->
+      <div class="step-box" style="margin-top: 1.25rem;">
+        <h5>✏️ Esercizio Concreto 2 • Costruisci l'Equazione della Retta Tangente</h5>
+        <p style="font-size: 0.92rem; margin-bottom: 0.9rem;">
+          Data la funzione parabolica <strong>$f(x) = x^2 - 4x + 5$</strong> (la cui derivata prima è $f'(x) = 2x - 4$), determina la retta tangente al grafico nel punto di ascissa <strong>$x_0 = 3$</strong>:
+        </p>
+
+        <div style="margin-bottom: 0.9rem;">
+          <label style="font-size: 0.9rem; font-weight: 600; display: block; margin-bottom: 0.4rem;">
+            1. Calcola l'ordinata $y_0 = f(3)$ del punto di tangenza $P(3, y_0)$ e il coefficiente angolare $m_{\text{tan}} = f'(3)$:
+          </label>
+          <div style="display: flex; align-items: center; gap: 0.65rem; flex-wrap: wrap;">
+            <span style="font-size: 0.9rem;">$y_0 = f(3) =$</span>
+            <input type="text" id="lab2ExY0" class="math-input" placeholder="?" style="width: 80px;">
+            <span style="font-size: 0.9rem; margin-left: 0.4rem;">$m_{\text{tan}} = f'(3) =$</span>
+            <input type="text" id="lab2ExM" class="math-input" placeholder="?" style="width: 80px;">
+          </div>
+        </div>
+
+        <div style="margin-bottom: 0.75rem;">
+          <label style="font-size: 0.9rem; font-weight: 600; display: block; margin-bottom: 0.45rem;">
+            2. Sostituendo $x_0 = 3$, $y_0$ e $m_{\text{tan}}$ nella formula $y - y_0 = m_{\text{tan}}(x - x_0)$, quale equazione esplicita della retta tangente ottieni?
+          </label>
+          <div id="lab2Choices">
+            <button type="button" class="m1l4-choice-btn" data-opt="y_2x_m4" onclick="selectChoice('lab2', this)">
+              $y = 2x - 4$ (infatti $y - 2 = 2(x - 3) \implies y = 2x - 6 + 2$)
+            </button>
+            <button type="button" class="m1l4-choice-btn" data-opt="y_2x_p2" onclick="selectChoice('lab2', this)">
+              $y = 2x + 2$ (usando direttamente $y_0$ come intercetta $q$)
+            </button>
+            <button type="button" class="m1l4-choice-btn" data-opt="y_3x_m4" onclick="selectChoice('lab2', this)">
+              $y = 3x - 4$ (confondendo l'ascissa $x_0 = 3$ con la pendenza $m$)
+            </button>
+          </div>
+        </div>
+
+        <button type="button" class="hint-btn" onclick="toggleHint('lab2Hint')">💡 Mostra Suggerimento</button>
+        <div class="hint-box" id="lab2Hint">
+          Calcola $f(3) = 3^2 - 4(3) + 5 = 9 - 12 + 5 = 2$. Poi calcola la pendenza $f'(3) = 2(3) - 4 = 6 - 4 = 2$. Infine applica $y - 2 = 2(x - 3)$.
+        </div>
       </div>
 
       <div class="verify-box">
-        <button type="button" class="btn-action" onclick="verifyLab(2)">
-          <span>✅</span> Salva e Completa Laboratorio 2 (+10 XP)
+        <button type="button" class="btn-action" onclick="verifyLab2()">
+          <span>✅</span> Verifica Esercizio e Completa Laboratorio 2 (+10 XP)
         </button>
         <span class="feedback-msg" id="lab2Msg" style="display: none;"></span>
       </div>
@@ -608,30 +839,163 @@
 
 
     <!-- ======================================================== -->
-    <!-- LABORATORIO 3: REGOLE DI DERIVAZIONE                    -->
+    <!-- LABORATORIO 3: DERIVATE ELEMENTARI E REGOLE ALGEBRICHE   -->
     <!-- ======================================================== -->
     <article class="lab-card" id="lab3">
       <div class="lab-badge-row">
         <span class="lab-badge">Laboratorio 3 • Calcolo Algebrico</span>
         <span class="lab-xp-badge">+10 XP</span>
       </div>
-      <h3 class="lab-title">L'Officina del Calcolo: Dalle Basi alle Regole di Derivazione</h3>
+      <h3 class="lab-title">L'Officina del Calcolo: Tavola delle Derivate Elementari e Regole di Derivazione</h3>
 
       <button type="button" class="theory-ref-pill" onclick="scrollToTheory('teoria-3')">
-        📖 Scheda Teoria 3: Tavola delle Derivate e Regole
+        📖 Scheda Teoria 3: Tavola delle Derivate Elementari e Regole
       </button>
 
       <p>
-        Calcolare ogni volta il limite del rapporto incrementale sarebbe lungo e faticoso. Fortunatamente, i matematici hanno distillato delle <strong>regole algebriche universali</strong>.
-        Seleziona un modello di funzione per osservarne la derivata passo-passo:
+        Calcolare ogni volta il limite del rapporto incrementale sarebbe lungo e faticoso. Per operare con sicurezza nel calcolo differenziale seguiamo <strong>due passaggi ordinati</strong>:
+        prima impariamo i «mattoni fondamentali» nella <strong>Tavola delle Derivate delle Funzioni Elementari</strong>, e subito dopo vediamo come combinarli con le <strong>Regole Algebriche di Derivazione</strong> (somma, prodotto, quoziente e funzione composta).
+      </p>
+
+      <!-- PARTE 1: TAVOLA COMPLETA DELLE DERIVATE ELEMENTARI -->
+      <div class="m1l4-stage" style="margin-bottom: 1.35rem;">
+        <h4 style="color: var(--accent-math); margin-bottom: 0.45rem; font-size: 1.05rem;">
+          🧱 Passo 1 • Tavola Completa delle Derivate delle Funzioni Elementari
+        </h4>
+        <p style="font-size: 0.89rem; color: var(--text-muted); margin-bottom: 0.85rem;">
+          Ogni formula qui sotto è stata dimostrata una volta per tutte applicando la definizione di limite $\lim_{h \to 0}\frac{f(x+h)-f(x)}{h}$. Osserva per ciascuna funzione elementare la regola e l'esempio concreto:
+        </p>
+
+        <div style="overflow-x: auto;">
+          <table class="der-table">
+            <thead>
+              <tr>
+                <th>Famiglia</th>
+                <th>Funzione Elementare $f(x)$</th>
+                <th>Derivata Prima $f'(x)$</th>
+                <th>Esempio Concreto Svolto</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Costante</strong></td>
+                <td>$f(x) = k \quad (k \in \mathbb{R})$</td>
+                <td>$f'(x) = 0$</td>
+                <td>Se $f(x) = 7 \implies f'(x) = 0$ (retta orizzontale, pendenza nulla)</td>
+              </tr>
+              <tr>
+                <td><strong>Identità</strong></td>
+                <td>$f(x) = x$</td>
+                <td>$f'(x) = 1$</td>
+                <td>La bisettrice $y = x$ ha pendenza costante $m = 1$ ovunque</td>
+              </tr>
+              <tr>
+                <td><strong>Potenza intera o reale</strong></td>
+                <td>$f(x) = x^\alpha \quad (\alpha \in \mathbb{R})$</td>
+                <td>$f'(x) = \alpha \cdot x^{\alpha - 1}$</td>
+                <td>Se $f(x) = x^4 \implies f'(x) = 4x^{4-1} = 4x^3$</td>
+              </tr>
+              <tr>
+                <td><strong>Reciproco (Iperbole)</strong></td>
+                <td>$f(x) = \frac{1}{x} = x^{-1}$</td>
+                <td>$f'(x) = -\frac{1}{x^2}$</td>
+                <td>In $x_0 = 2$: $f'(2) = -\frac{1}{2^2} = -\frac{1}{4} = -0{,}25$</td>
+              </tr>
+              <tr>
+                <td><strong>Radice Quadrata</strong></td>
+                <td>$f(x) = \sqrt{x} = x^{1/2}$</td>
+                <td>$f'(x) = \frac{1}{2\sqrt{x}}$</td>
+                <td>In $x_0 = 9$: $f'(9) = \frac{1}{2\sqrt{9}} = \frac{1}{6}$</td>
+              </tr>
+              <tr>
+                <td><strong>Radice $n$-esima</strong></td>
+                <td>$f(x) = \sqrt[n]{x} = x^{1/n}$</td>
+                <td>$f'(x) = \frac{1}{n\sqrt[n]{x^{n-1}}}$</td>
+                <td>Se $f(x) = \sqrt[3]{x} \implies f'(x) = \frac{1}{3\sqrt[3]{x^2}}$</td>
+              </tr>
+              <tr>
+                <td><strong>Esponenziale Naturale</strong></td>
+                <td>$f(x) = e^x$</td>
+                <td>$f'(x) = e^x$</td>
+                <td>Unica funzione che coincide con la propria derivata: $f'(0) = e^0 = 1$</td>
+              </tr>
+              <tr>
+                <td><strong>Esponenziale in base $a$</strong></td>
+                <td>$f(x) = a^x \quad (a > 0, a \neq 1)$</td>
+                <td>$f'(x) = a^x \cdot \ln(a)$</td>
+                <td>Se $f(x) = 2^x \implies f'(x) = 2^x \cdot \ln(2)$</td>
+              </tr>
+              <tr>
+                <td><strong>Logaritmo Naturale</strong></td>
+                <td>$f(x) = \ln(x) \quad (x > 0)$</td>
+                <td>$f'(x) = \frac{1}{x}$</td>
+                <td>In $x_0 = 5$: $f'(5) = \frac{1}{5} = 0{,}2$</td>
+              </tr>
+              <tr>
+                <td><strong>Logaritmo in base $a$</strong></td>
+                <td>$f(x) = \log_a(x) \quad (x > 0)$</td>
+                <td>$f'(x) = \frac{1}{x \cdot \ln(a)}$</td>
+                <td>Se $f(x) = \log_{10}(x) \implies f'(x) = \frac{1}{x \cdot \ln(10)}$</td>
+              </tr>
+              <tr>
+                <td><strong>Seno e Coseno</strong></td>
+                <td>$f(x) = \sin(x)$ &nbsp;/&nbsp; $g(x) = \cos(x)$</td>
+                <td>$f'(x) = \cos(x)$ &nbsp;/&nbsp; $g'(x) = -\sin(x)$</td>
+                <td>In $x_0 = 0$: $D[\sin x]_{x=0} = \cos(0) = 1$; $D[\cos x]_{x=0} = -\sin(0) = 0$</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ESERCIZIO CONCRETO 3A SULLE DERIVATE ELEMENTARI -->
+      <div class="step-box" style="margin-bottom: 1.5rem;">
+        <h5>✏️ Esercizio Concreto 3A • Allenati sulle Derivate delle Funzioni Elementari</h5>
+        <p style="font-size: 0.92rem; margin-bottom: 0.9rem;">
+          Prima di passare alle operazioni tra funzioni, verifica di saper applicare direttamente la <strong>Tavola delle Derivate Elementari</strong>:
+        </p>
+
+        <div style="margin-bottom: 0.85rem;">
+          <label style="font-size: 0.9rem; font-weight: 600; display: block; margin-bottom: 0.4rem;">
+            1. Data la potenza elementare $f(x) = x^6$, la sua derivata ha forma $f'(x) = a \cdot x^b$. Inserisci il coefficiente $a$ e il nuovo esponente $b$:
+          </label>
+          <div style="display: flex; align-items: center; gap: 0.65rem; flex-wrap: wrap;">
+            <span style="font-size: 0.9rem;">Coefficiente $a =$</span>
+            <input type="text" id="lab3aExCoeff" class="math-input" placeholder="?" style="width: 75px;">
+            <span style="font-size: 0.9rem; margin-left: 0.35rem;">Esponente $b =$</span>
+            <input type="text" id="lab3aExExp" class="math-input" placeholder="?" style="width: 75px;">
+          </div>
+        </div>
+
+        <div style="margin-bottom: 0.5rem;">
+          <label style="font-size: 0.9rem; font-weight: 600; display: block; margin-bottom: 0.4rem;">
+            2. Calcola il valore numerico della derivata di $g(x) = \sqrt{x}$ nel punto $x_0 = 4$ e della derivata di $h(x) = \ln(x)$ nel punto $x_0 = 5$ (puoi scrivere in decimale o frazione, es. <code>0.25</code> o <code>1/4</code>):
+          </label>
+          <div style="display: flex; align-items: center; gap: 0.65rem; flex-wrap: wrap;">
+            <span style="font-size: 0.9rem;">$g'(4) = \frac{1}{2\sqrt{4}} =$</span>
+            <input type="text" id="lab3aExSqrt" class="math-input" placeholder="?" style="width: 85px;">
+            <span style="font-size: 0.9rem; margin-left: 0.4rem;">$h'(5) = \frac{1}{5} =$</span>
+            <input type="text" id="lab3aExLn" class="math-input" placeholder="?" style="width: 85px;">
+          </div>
+        </div>
+      </div>
+
+      <!-- PARTE 2: DALLE DERIVATE ELEMENTARI ALLE REGOLE DI COMBINAZIONE -->
+      <h4 style="color: var(--accent-gold); margin-bottom: 0.45rem; font-size: 1.05rem;">
+        ⚙️ Passo 2 • Regole Algebriche di Derivazione (Somma, Prodotto, Quoziente e Catena)
+      </h4>
+      <p>
+        Ora che conosci le derivate elementari, come si deriva una funzione costruita <strong>sommando, moltiplicando, dividendo o componendo</strong> funzioni elementari?
+        Attenzione: mentre la derivata di una somma è semplicemente la somma delle derivate, <strong>la derivata di un prodotto NON è il prodotto delle derivate</strong> e <strong>la derivata di un quoziente NON è il quoziente delle derivate</strong>! Esplora i 5 modelli operativi passo-passo:
       </p>
 
       <!-- Calcolatore Interattivo Regole di Derivazione -->
       <div class="m1l4-tab-group">
-        <button type="button" class="m1l4-tab-btn active" id="btnDer1" onclick="showDerivExample(1)">Polinomio: $f(x) = 3x^3 - 5x^2 + 7x - 4$</button>
-        <button type="button" class="m1l4-tab-btn" id="btnDer2" onclick="showDerivExample(2)">Prodotto: $f(x) = x^2 \cdot e^x$</button>
-        <button type="button" class="m1l4-tab-btn" id="btnDer3" onclick="showDerivExample(3)">Quoziente: $f(x) = \frac{2x + 1}{x - 3}$</button>
-        <button type="button" class="m1l4-tab-btn" id="btnDer4" onclick="showDerivExample(4)">Radice: $f(x) = \sqrt{x} = x^{1/2}$</button>
+        <button type="button" class="m1l4-tab-btn active" id="btnDer1" onclick="showDerivExample(1)">1. Somma / Polinomio: $3x^3 - 5x^2 + 7x - 4$</button>
+        <button type="button" class="m1l4-tab-btn" id="btnDer2" onclick="showDerivExample(2)">2. Prodotto (Leibniz): $x^2 \cdot e^x$</button>
+        <button type="button" class="m1l4-tab-btn" id="btnDer3" onclick="showDerivExample(3)">3. Quoziente: $\frac{2x + 1}{x - 3}$</button>
+        <button type="button" class="m1l4-tab-btn" id="btnDer4" onclick="showDerivExample(4)">4. Potenza Frazionaria: $\sqrt{x} = x^{1/2}$</button>
+        <button type="button" class="m1l4-tab-btn" id="btnDer5" onclick="showDerivExample(5)">5. Composta (Catena): $(x^2 + 3x)^4$</button>
       </div>
 
       <div class="m1l4-stage">
@@ -643,58 +1007,141 @@
       <!-- TEORIA 3 IN CALCE AL LABORATORIO -->
       <div class="theory-card" id="teoria-3">
         <h4>
-          <span>La Teoria in Breve • Tavola delle Derivate e Regole di Calcolo</span>
+          <span>La Teoria in Breve • Riepilogo Regole Algebriche di Derivazione</span>
           <span class="theory-pill">Teoria 3</span>
         </h4>
-        <div style="overflow-x: auto; margin-top: 0.75rem;">
+        <p style="font-size: 0.9rem; margin-bottom: 0.65rem;">
+          Siano $f(x)$ e $g(x)$ due funzioni derivabili e $k \in \mathbb{R}$ una costante. Le cinque regole fondamentali dell'algebra delle derivate sono:
+        </p>
+        <div style="overflow-x: auto; margin-top: 0.5rem;">
           <table class="der-table">
             <thead>
               <tr>
-                <th>Funzione Base $f(x)$</th>
-                <th>Derivata $f'(x)$</th>
-                <th>Regola di Operazione</th>
-                <th>Formula di Derivazione</th>
+                <th>Operazione Algebrica</th>
+                <th>Funzione Composta / Combinata</th>
+                <th>Regola di Derivazione</th>
+                <th>Avvertenza Didattica</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td>$k$ (costante)</td>
-                <td>$0$</td>
-                <td><strong>Prodotto per costante</strong></td>
-                <td>$D[k \cdot f(x)] = k \cdot f'(x)$</td>
+                <td><strong>Prodotto per una costante</strong></td>
+                <td>$y = k \cdot f(x)$</td>
+                <td>$y' = k \cdot f'(x)$</td>
+                <td>La costante moltiplicativa «esce» intatta dal segno di derivata</td>
               </tr>
               <tr>
-                <td>$x^n$ (potenza)</td>
-                <td>$n \cdot x^{n-1}$</td>
-                <td><strong>Somma / Differenza</strong></td>
-                <td>$D[f(x) \pm g(x)] = f'(x) \pm g'(x)$</td>
+                <td><strong>Combinazione Lineare (Somma/Diff.)</strong></td>
+                <td>$y = f(x) \pm g(x)$</td>
+                <td>$y' = f'(x) \pm g'(x)$</td>
+                <td>Si deriva termine a termine in modo indipendente</td>
               </tr>
               <tr>
-                <td>$\sqrt{x}$</td>
-                <td>$\frac{1}{2\sqrt{x}}$</td>
-                <td><strong>Prodotto (Leibniz)</strong></td>
-                <td>$D[f \cdot g] = f' \cdot g + f \cdot g'$</td>
+                <td><strong>Prodotto di due funzioni (Leibniz)</strong></td>
+                <td>$y = f(x) \cdot g(x)$</td>
+                <td>$y' = f'(x) \cdot g(x) + f(x) \cdot g'(x)$</td>
+                <td>⚠️ <strong>Mai</strong> fare $f'(x) \cdot g'(x)$! È la somma di due prodotti incrociati</td>
               </tr>
               <tr>
-                <td>$e^x$</td>
-                <td>$e^x$</td>
-                <td><strong>Quoziente (Rapporto)</strong></td>
-                <td>$D\left[\frac{f}{g}\right] = \frac{f' \cdot g - f \cdot g'}{g^2}$</td>
+                <td><strong>Quoziente (Rapporto di funzioni)</strong></td>
+                <td>$y = \frac{f(x)}{g(x)} \quad (g(x) \neq 0)$</td>
+                <td>$y' = \frac{f'(x) \cdot g(x) - f(x) \cdot g'(x)}{[g(x)]^2}$</td>
+                <td>⚠️ Al numeratore c'è il segno <strong>meno ($-$)</strong>, e il denominatore va al quadrato</td>
               </tr>
               <tr>
-                <td>$\ln(x)$</td>
-                <td>$\frac{1}{x}$</td>
-                <td><strong>Funzione Composta (Catena)</strong></td>
-                <td>$D[f(g(x))] = f'(g(x)) \cdot g'(x)$</td>
+                <td><strong>Funzione Composta (Regola della Catena)</strong></td>
+                <td>$y = f(g(x))$</td>
+                <td>$y' = f'(g(x)) \cdot g'(x)$</td>
+                <td>Si deriva la funzione «esterna» $f$ lasciando dentro $g(x)$, e si moltiplica per la derivata «interna» $g'(x)$</td>
               </tr>
             </tbody>
           </table>
         </div>
+
+        <div class="worked-example-grid">
+          <div class="worked-example-box">
+            <div class="worked-example-title">📌 Esempio Svolto 3A • Regola del Prodotto (Leibniz)</div>
+            Deriviamo $f(x) = x^3 \cdot \ln(x)$:<br>
+            1) Poniamo $u(x) = x^3 \implies u'(x) = 3x^2$ e $v(x) = \ln(x) \implies v'(x) = \frac{1}{x}$.<br>
+            2) Applichiamo $u'v + uv'$: $f'(x) = 3x^2 \cdot \ln(x) + x^3 \cdot \frac{1}{x} = 3x^2 \ln(x) + x^2$.<br>
+            3) Raccogliendo $x^2$: $\mathbf{f'(x) = x^2(3\ln x + 1)}$.
+          </div>
+          <div class="worked-example-box gold">
+            <div class="worked-example-title">📌 Esempio Svolto 3B • Regola del Quoziente</div>
+            Deriviamo $f(x) = \frac{x - 1}{x + 2}$:<br>
+            1) Numeratore $N(x) = x - 1 \implies N'(x) = 1$; Denominatore $D(x) = x + 2 \implies D'(x) = 1$.<br>
+            2) Applichiamo $\frac{N'D - ND'}{D^2}$: $f'(x) = \frac{1(x + 2) - (x - 1) \cdot 1}{(x + 2)^2} = \frac{x + 2 - x + 1}{(x + 2)^2} = \mathbf{\frac{3}{(x + 2)^2}}$.
+          </div>
+          <div class="worked-example-box purple">
+            <div class="worked-example-title">📌 Esempio Svolto 3C • Regola della Catena</div>
+            Deriviamo $f(x) = e^{3x^2 - 1}$:<br>
+            1) Funzione esterna: $e^u$ (derivata $e^u$); funzione interna: $u(x) = 3x^2 - 1 \implies u'(x) = 6x$.<br>
+            2) Moltiplichiamo derivata esterna per interna: $\mathbf{f'(x) = 6x \cdot e^{3x^2 - 1}}$.
+          </div>
+        </div>
+      </div>
+
+      <!-- ESERCIZIO CONCRETO 3B SULLE REGOLE DI DERIVAZIONE -->
+      <div class="step-box" style="margin-top: 1.25rem;">
+        <h5>✏️ Esercizio Concreto 3B • Applica Somma, Prodotto di Leibniz e Quoziente</h5>
+        <p style="font-size: 0.92rem; margin-bottom: 0.9rem;">
+          Ora metti insieme la tavola delle derivate elementari e le regole algebriche di combinazione:
+        </p>
+
+        <div style="margin-bottom: 0.9rem;">
+          <label style="font-size: 0.9rem; font-weight: 600; display: block; margin-bottom: 0.4rem;">
+            1. <strong>Combinazione lineare (Polinomio):</strong> Data $P(x) = 2x^3 - 4x^2 + 9x - 11$, calcola la derivata $P'(x) = 6x^2 - 8x + 9$ e valuta quanto vale in $x_0 = 2$:
+          </label>
+          <div style="display: flex; align-items: center; gap: 0.65rem; flex-wrap: wrap;">
+            <span style="font-size: 0.9rem;">$P'(2) =$</span>
+            <input type="text" id="lab3bExPoly" class="math-input" placeholder="?" style="width: 85px;">
+          </div>
+        </div>
+
+        <div style="margin-bottom: 0.9rem;">
+          <label style="font-size: 0.9rem; font-weight: 600; display: block; margin-bottom: 0.45rem;">
+            2. <strong>Regola del Prodotto (Leibniz):</strong> Qual è la derivata prima corretta di $f(x) = x \cdot \ln(x)$?
+          </label>
+          <div id="lab3ProdChoices">
+            <button type="button" class="m1l4-choice-btn" data-opt="prod_ok" onclick="selectChoice('lab3prod', this)">
+              $f'(x) = 1 \cdot \ln(x) + x \cdot \frac{1}{x} = \ln(x) + 1$
+            </button>
+            <button type="button" class="m1l4-choice-btn" data-opt="prod_naive" onclick="selectChoice('lab3prod', this)">
+              $f'(x) = 1 \cdot \frac{1}{x} = \frac{1}{x}$ (moltiplicando direttamente le due derivate)
+            </button>
+            <button type="button" class="m1l4-choice-btn" data-opt="prod_minus" onclick="selectChoice('lab3prod', this)">
+              $f'(x) = \ln(x) - 1$
+            </button>
+          </div>
+        </div>
+
+        <div style="margin-bottom: 0.75rem;">
+          <label style="font-size: 0.9rem; font-weight: 600; display: block; margin-bottom: 0.45rem;">
+            3. <strong>Regola del Quoziente:</strong> Qual è la derivata prima corretta di $g(x) = \frac{x}{x + 2}$?
+          </label>
+          <div id="lab3QuotChoices">
+            <button type="button" class="m1l4-choice-btn" data-opt="quot_ok" onclick="selectChoice('lab3quot', this)">
+              $g'(x) = \frac{1 \cdot (x + 2) - x \cdot 1}{(x + 2)^2} = \frac{2}{(x + 2)^2}$
+            </button>
+            <button type="button" class="m1l4-choice-btn" data-opt="quot_naive" onclick="selectChoice('lab3quot', this)">
+              $g'(x) = \frac{D[x]}{D[x+2]} = \frac{1}{1} = 1$
+            </button>
+            <button type="button" class="m1l4-choice-btn" data-opt="quot_plus" onclick="selectChoice('lab3quot', this)">
+              $g'(x) = \frac{2x + 2}{(x + 2)^2}$ (sommando invece di sottrarre al numeratore)
+            </button>
+          </div>
+        </div>
+
+        <button type="button" class="hint-btn" onclick="toggleHint('lab3Hint')">💡 Mostra Suggerimento</button>
+        <div class="hint-box" id="lab3Hint">
+          Nell'Esercizio 3A: $D[x^6] = 6x^5$ ($a=6, b=5$); $g'(4) = \frac{1}{2 \cdot 2} = \frac{1}{4} = 0{,}25$; $h'(5) = \frac{1}{5} = 0{,}2$.<br>
+          Nell'Esercizio 3B: $P'(2) = 6(2^2) - 8(2) + 9 = 24 - 16 + 9 = 17$. Per $x \cdot \ln x$ applica $u'v + uv'$; per $\frac{x}{x+2}$ applica $\frac{N'D - ND'}{D^2}$.
+        </div>
       </div>
 
       <div class="verify-box">
-        <button type="button" class="btn-action" onclick="verifyLab(3)">
-          <span>✅</span> Salva e Completa Laboratorio 3 (+10 XP)
+        <button type="button" class="btn-action" onclick="verifyLab3()">
+          <span>✅</span> Verifica Esercizi 3A + 3B e Completa Laboratorio 3 (+10 XP)
         </button>
         <span class="feedback-msg" id="lab3Msg" style="display: none;"></span>
       </div>
@@ -766,11 +1213,79 @@
             <strong>Flesso a Tangente Verticale:</strong> Entrambi i limiti laterali sono <strong>infiniti con lo stesso segno</strong> ($f'_-(x_0) = f'_+(x_0) = +\infty$ oppure $-\infty$). La curva attraversa la retta tangente verticale cambiando concavità (es. $f(x) = \sqrt[3]{x}$ in $x_0 = 0$).
           </li>
         </ul>
+
+        <div class="worked-example-grid">
+          <div class="worked-example-box">
+            <div class="worked-example-title">📌 Esempio Svolto 4A • Punto Angoloso su Funzione a Tratti</div>
+            Sia $f(x) = \begin{cases} x^2 & x \le 1 \\ 4x - 3 & x > 1 \end{cases}$ in $x_0 = 1$:<br>
+            1) Continuità: $\lim_{x \to 1^-} x^2 = 1$ e $\lim_{x \to 1^+}(4x-3) = 1 \implies$ continua.<br>
+            2) Derivate laterali: $f'_-(1) = [2x]_{x=1} = 2$; $f'_+(1) = [4]_{x=1} = 4$.<br>
+            3) Poiché $2 \neq 4$ (finite e diverse), $x_0 = 1$ è un <strong>punto angoloso</strong>.
+          </div>
+          <div class="worked-example-box gold">
+            <div class="worked-example-title">📌 Esempio Svolto 4B • Cuspide</div>
+            Sia $f(x) = \sqrt[3]{(x - 2)^2} = (x - 2)^{2/3}$ in $x_0 = 2$:<br>
+            1) La funzione è continua in $x_0 = 2$ ($f(2) = 0$).<br>
+            2) Derivata per $x \neq 2$: $f'(x) = \frac{2}{3(x - 2)^{1/3}} = \frac{2}{3\sqrt[3]{x - 2}}$.<br>
+            3) Limiti: $f'_-(2) = -\infty$ e $f'_+(2) = +\infty$ (segni opposti) $\implies$ <strong>cuspide</strong>.
+          </div>
+          <div class="worked-example-box purple">
+            <div class="worked-example-title">📌 Esempio Svolto 4C • Flesso a Tangente Verticale</div>
+            Sia $f(x) = \sqrt[3]{x - 1} = (x - 1)^{1/3}$ in $x_0 = 1$:<br>
+            1) Derivata per $x \neq 1$: $f'(x) = \frac{1}{3\sqrt[3]{(x - 1)^2}}$.<br>
+            2) Poiché $(x - 1)^2 > 0$ sia da sinistra che da destra, $f'_-(1) = +\infty$ e $f'_+(1) = +\infty$.<br>
+            3) Infiniti dello stesso segno $\implies$ <strong>flesso a tangente verticale</strong>.
+          </div>
+        </div>
+      </div>
+
+      <!-- ESERCIZIO CONCRETO 4 -->
+      <div class="step-box" style="margin-top: 1.25rem;">
+        <h5>✏️ Esercizio Concreto 4 • Analizza Continuità e Derivabilità nel Punto di Raccordo</h5>
+        <p style="font-size: 0.92rem; margin-bottom: 0.9rem;">
+          Considera la funzione definita a tratti (già verificata continua in $x_0 = 2$, dove $f(2) = 3$):
+          $$f(x) = \begin{cases} x^2 - 1 & \text{se } x \le 2 \\ 6x - 9 & \text{se } x > 2 \end{cases}$$
+          Studia la derivabilità nel punto di raccordo <strong>$x_0 = 2$</strong>:
+        </p>
+
+        <div style="margin-bottom: 0.9rem;">
+          <label style="font-size: 0.9rem; font-weight: 600; display: block; margin-bottom: 0.4rem;">
+            1. Derivando ciascun ramo, calcola il valore della derivata sinistra $f'_-(2)$ e della derivata destra $f'_+(2)$:
+          </label>
+          <div style="display: flex; align-items: center; gap: 0.65rem; flex-wrap: wrap;">
+            <span style="font-size: 0.9rem;">$f'_-(2) = [2x]_{x=2} =$</span>
+            <input type="text" id="lab4ExLeft" class="math-input" placeholder="?" style="width: 80px;">
+            <span style="font-size: 0.9rem; margin-left: 0.4rem;">$f'_+(2) = [6]_{x=2} =$</span>
+            <input type="text" id="lab4ExRight" class="math-input" placeholder="?" style="width: 80px;">
+          </div>
+        </div>
+
+        <div style="margin-bottom: 0.75rem;">
+          <label style="font-size: 0.9rem; font-weight: 600; display: block; margin-bottom: 0.45rem;">
+            2. Confrontando $f'_-(2)$ e $f'_+(2)$, come si classifica il punto $x_0 = 2$?
+          </label>
+          <div id="lab4Choices">
+            <button type="button" class="m1l4-choice-btn" data-opt="angoloso" onclick="selectChoice('lab4', this)">
+              Punto angoloso: la funzione è continua in $x_0 = 2$, ma le due derivate laterali sono finite e diverse ($4 \neq 6$)
+            </button>
+            <button type="button" class="m1l4-choice-btn" data-opt="derivabile" onclick="selectChoice('lab4', this)">
+              Punto di piena derivabilità: poiché la funzione è continua in $x_0 = 2$, è automaticamente derivabile
+            </button>
+            <button type="button" class="m1l4-choice-btn" data-opt="cuspide" onclick="selectChoice('lab4', this)">
+              Cuspide: perché i due rami hanno espressioni algebriche diverse
+            </button>
+          </div>
+        </div>
+
+        <button type="button" class="hint-btn" onclick="toggleHint('lab4Hint')">💡 Mostra Suggerimento</button>
+        <div class="hint-box" id="lab4Hint">
+          Per $x < 2$, la derivata di $x^2 - 1$ è $2x$, che valutata in $x = 2$ vale $2(2) = 4$. Per $x > 2$, la derivata di $6x - 9$ è la costante $6$. Poiché $4 \neq 6$ ed entrambi i valori sono finiti, le due semitangenti formano uno spigolo (punto angoloso).
+        </div>
       </div>
 
       <div class="verify-box">
-        <button type="button" class="btn-action" onclick="verifyLab(4)">
-          <span>✅</span> Salva e Completa Laboratorio 4 (+10 XP)
+        <button type="button" class="btn-action" onclick="verifyLab4()">
+          <span>✅</span> Verifica Esercizio e Completa Laboratorio 4 (+10 XP)
         </button>
         <span class="feedback-msg" id="lab4Msg" style="display: none;"></span>
       </div>
@@ -785,10 +1300,10 @@
         <span class="lab-badge">Laboratorio 5 • Problem Solving Istantaneo</span>
         <span class="lab-xp-badge">+10 XP</span>
       </div>
-      <h3 class="lab-title">Palestra Mentale: 4 Sfide Flash su Derivate e Tangenti</h3>
+      <h3 class="lab-title">Palestra Mentale: 6 Sfide Flash su Derivate, Regole e Tangenti</h3>
 
       <p>
-        Metti alla prova la tua abilità di calcolo e ragionamento geometrico con queste quattro sfide rapide:
+        Metti alla prova la tua abilità di calcolo e ragionamento geometrico con queste sei sfide rapide (rispondi a tutte e 6 per sbloccare il completamento del laboratorio):
       </p>
 
       <div class="m1l4-gym-grid">
@@ -855,11 +1370,43 @@
           </div>
           <div id="quizFeedback4" class="m1l4-gym-feedback" style="display: none;"></div>
         </div>
+
+        <!-- Sfida 5 -->
+        <div class="m1l4-gym-card">
+          <div>
+            <span class="m1l4-badge" style="background: rgba(56, 189, 248, 0.15); color: var(--accent-math); margin-bottom: 0.5rem;">Sfida 5 • Prodotto di Leibniz</span>
+            <p style="font-size: 0.92rem; font-weight: 700; margin-bottom: 0.65rem;">
+              Qual è la derivata prima del prodotto $f(x) = x \cdot e^x$?
+            </p>
+            <div>
+              <button type="button" class="m1l4-choice-btn" onclick="checkQuiz(5, 0, this)">$f'(x) = e^x$</button>
+              <button type="button" class="m1l4-choice-btn" onclick="checkQuiz(5, 1, this)">$f'(x) = 1 \cdot e^x + x \cdot e^x = e^x(x + 1)$</button>
+              <button type="button" class="m1l4-choice-btn" onclick="checkQuiz(5, 2, this)">$f'(x) = x \cdot e^{x-1}$</button>
+            </div>
+          </div>
+          <div id="quizFeedback5" class="m1l4-gym-feedback" style="display: none;"></div>
+        </div>
+
+        <!-- Sfida 6 -->
+        <div class="m1l4-gym-card">
+          <div>
+            <span class="m1l4-badge" style="background: rgba(245, 158, 11, 0.15); color: var(--accent-gold); margin-bottom: 0.5rem;">Sfida 6 • Derivate Elementari</span>
+            <p style="font-size: 0.92rem; font-weight: 700; margin-bottom: 0.65rem;">
+              Quanto vale la derivata di $f(x) = \ln(x) + \sqrt{x}$ calcolata in $x_0 = 1$?
+            </p>
+            <div>
+              <button type="button" class="m1l4-choice-btn" onclick="checkQuiz(6, 0, this)">$f'(1) = 1 + \frac{1}{2} = 1{,}5$ (poiché $f'(x) = \frac{1}{x} + \frac{1}{2\sqrt{x}}$)</button>
+              <button type="button" class="m1l4-choice-btn" onclick="checkQuiz(6, 1, this)">$f'(1) = 0 + 1 = 1$</button>
+              <button type="button" class="m1l4-choice-btn" onclick="checkQuiz(6, 2, this)">$f'(1) = 2$</button>
+            </div>
+          </div>
+          <div id="quizFeedback6" class="m1l4-gym-feedback" style="display: none;"></div>
+        </div>
       </div>
 
       <div class="verify-box" style="margin-top: 1.5rem;">
-        <button type="button" class="btn-action" onclick="verifyLab(5)">
-          <span>🏆</span> Salva e Completa Palestra Mentale (+10 XP)
+        <button type="button" class="btn-action" onclick="verifyLab5()">
+          <span>🏆</span> Verifica le 6 Sfide e Completa Palestra Mentale (+10 XP)
         </button>
         <span class="feedback-msg" id="lab5Msg" style="display: none;"></span>
       </div>
@@ -940,9 +1487,56 @@
         </ol>
       </div>
 
+      <!-- ESERCIZIO CONCRETO 6 -->
+      <div class="step-box" style="margin-top: 1.25rem;">
+        <h5>✏️ Esercizio Concreto 6 • Analisi Marginale di un'Impresa Sociale</h5>
+        <p style="font-size: 0.92rem; margin-bottom: 0.9rem;">
+          Un laboratorio artigianale sociale sostiene un costo totale giornaliero (in euro) per produrre $q$ cesti bio dato dal modello:
+          $$C(q) = 2q^2 + 12q + 100$$
+          Analizza la situazione produttiva per il livello attuale <strong>$q = 10$ cesti</strong>:
+        </p>
+
+        <div style="margin-bottom: 0.9rem;">
+          <label style="font-size: 0.9rem; font-weight: 600; display: block; margin-bottom: 0.4rem;">
+            1. Sapendo che la funzione del costo marginale è $C'(q) = 4q + 12$, calcola il costo marginale $C'(10)$, il costo totale $C(10)$ e il costo medio unitario $\overline{C}(10) = \frac{C(10)}{10}$:
+          </label>
+          <div style="display: flex; align-items: center; gap: 0.65rem; flex-wrap: wrap;">
+            <span style="font-size: 0.9rem;">$C'(10) =$</span>
+            <input type="text" id="lab6ExMar" class="math-input" placeholder="?" style="width: 75px;">
+            <span style="font-size: 0.9rem;">€/pz &nbsp;|&nbsp; $C(10) =$</span>
+            <input type="text" id="lab6ExTot" class="math-input" placeholder="?" style="width: 80px;">
+            <span style="font-size: 0.9rem;">€ &nbsp;|&nbsp; $\overline{C}(10) =$</span>
+            <input type="text" id="lab6ExAvg" class="math-input" placeholder="?" style="width: 75px;">
+            <span style="font-size: 0.9rem;">€/pz</span>
+          </div>
+        </div>
+
+        <div style="margin-bottom: 0.75rem;">
+          <label style="font-size: 0.9rem; font-weight: 600; display: block; margin-bottom: 0.45rem;">
+            2. Confrontando il costo marginale $C'(10) = 52\text{ €/pz}$ con il costo medio $\overline{C}(10) = 42\text{ €/pz}$, cosa accade al costo medio unitario se il laboratorio decide di produrre l'11° cesto?
+          </label>
+          <div id="lab6Choices">
+            <button type="button" class="m1l4-choice-btn" data-opt="sale" onclick="selectChoice('lab6', this)">
+              Il costo medio unitario aumenta (diseconomie di scala), poiché il costo marginale dell'unità aggiuntiva ($52\text{ €}$) è superiore alla media attuale ($42\text{ €}$)
+            </button>
+            <button type="button" class="m1l4-choice-btn" data-opt="scende" onclick="selectChoice('lab6', this)">
+              Il costo medio unitario diminuisce (economie di scala), perché si spalmano i costi fissi
+            </button>
+            <button type="button" class="m1l4-choice-btn" data-opt="costante" onclick="selectChoice('lab6', this)">
+              Il costo medio rimane invariato a $42\text{ €/pz}$
+            </button>
+          </div>
+        </div>
+
+        <button type="button" class="hint-btn" onclick="toggleHint('lab6Hint')">💡 Mostra Suggerimento</button>
+        <div class="hint-box" id="lab6Hint">
+          Sostituisci $q = 10$: $C'(10) = 4(10) + 12 = 52\text{ €/pz}$. Il costo totale è $C(10) = 2(100) + 12(10) + 100 = 200 + 120 + 100 = 420\text{ €}$, quindi il costo medio è $\overline{C}(10) = \frac{420}{10} = 42\text{ €/pz}$. Poiché $C'(10) > \overline{C}(10)$, l'unità aggiuntiva tira verso l'alto la media.
+        </div>
+      </div>
+
       <div class="verify-box">
-        <button type="button" class="btn-action" onclick="verifyLab(6)">
-          <span>✅</span> Salva e Completa Laboratorio 6 (+10 XP)
+        <button type="button" class="btn-action" onclick="verifyLab6()">
+          <span>✅</span> Verifica Esercizio e Completa Laboratorio 6 (+10 XP)
         </button>
         <span class="feedback-msg" id="lab6Msg" style="display: none;"></span>
       </div>
@@ -1180,13 +1774,267 @@
       }
     }
 
+    const labChoices = {};
+
+    function selectChoice(group, btn) {
+      if (typeof btn === 'string') {
+        const container = document.getElementById(group + 'Choices');
+        if (container) {
+          btn = container.querySelector(`[data-opt="${btn}"]`) || container.querySelector('.m1l4-choice-btn');
+        }
+      }
+      if (!btn || !btn.parentElement) return;
+      labChoices[group] = btn.getAttribute('data-opt');
+      const siblings = btn.parentElement.querySelectorAll('.m1l4-choice-btn');
+      siblings.forEach(b => {
+        b.classList.remove('selected', 'correct', 'wrong');
+      });
+      btn.classList.add('selected');
+    }
+
+    function toggleHint(id) {
+      const box = document.getElementById(id);
+      if (box) box.classList.toggle('visible');
+    }
+
+    function parseNum(val) {
+      if (!val) return NaN;
+      const clean = val.trim().replace(',', '.').replace(/\s+/g, '');
+      if (clean.includes('/')) {
+        const parts = clean.split('/');
+        if (parts.length === 2) {
+          const n = parseFloat(parts[0]);
+          const d = parseFloat(parts[1]);
+          if (!isNaN(n) && !isNaN(d) && d !== 0) return n / d;
+        }
+      }
+      return parseFloat(clean);
+    }
+
+    function showFeedback(id, ok, text) {
+      const msg = document.getElementById(id);
+      if (!msg) return;
+      msg.className = 'feedback-msg ' + (ok ? 'success' : '');
+      msg.style.color = ok ? 'var(--accent-success)' : '#ef4444';
+      msg.innerHTML = text;
+      msg.style.display = 'inline-flex';
+      if (window.renderMathInElement) {
+        renderMathInElement(msg, { delimiters: [{ left: '$', right: '$', display: false }] });
+      }
+    }
+
     function verifyLab(num) {
-      markLabCompleted(num, false);
-      const msg = document.getElementById('lab' + num + 'Msg');
-      if (msg) {
-        msg.className = 'feedback-msg success';
-        msg.textContent = 'Ottimo lavoro! Laboratorio ' + num + ' completato (+10 XP).';
-        msg.style.display = 'inline-flex';
+      if (num === 1) return verifyLab1();
+      if (num === 2) return verifyLab2();
+      if (num === 3) return verifyLab3();
+      if (num === 4) return verifyLab4();
+      if (num === 5) return verifyLab5();
+      if (num === 6) return verifyLab6();
+    }
+
+    function verifyLab1() {
+      const f2Input = document.getElementById('lab1ExF2');
+      const f3Input = document.getElementById('lab1ExF3');
+      const rateInput = document.getElementById('lab1ExRate');
+      const derInput = document.getElementById('lab1ExDer');
+
+      const vF2 = parseNum(f2Input.value);
+      const vF3 = parseNum(f3Input.value);
+      const vRate = parseNum(rateInput.value);
+      const vDer = parseNum(derInput.value);
+
+      const okF2 = Math.abs(vF2 - 10) < 1e-4;
+      const okF3 = Math.abs(vF3 - 25) < 1e-4;
+      const okRate = Math.abs(vRate - 15) < 1e-4;
+      const okDer = Math.abs(vDer - 12) < 1e-4;
+
+      f2Input.classList.toggle('correct', okF2);
+      f2Input.classList.toggle('wrong', !okF2);
+      f3Input.classList.toggle('correct', okF3);
+      f3Input.classList.toggle('wrong', !okF3);
+      rateInput.classList.toggle('correct', okRate);
+      rateInput.classList.toggle('wrong', !okRate);
+      derInput.classList.toggle('correct', okDer);
+      derInput.classList.toggle('wrong', !okDer);
+
+      const choice = labChoices['lab1'];
+      const okChoice = choice === 'media_vs_ist';
+      const choiceBtns = document.querySelectorAll('#lab1Choices .m1l4-choice-btn');
+      choiceBtns.forEach(b => {
+        if (b.getAttribute('data-opt') === choice) {
+          b.classList.toggle('correct', okChoice);
+          b.classList.toggle('wrong', !okChoice);
+        }
+      });
+
+      if (okF2 && okF3 && okRate && okDer && okChoice) {
+        markLabCompleted(1, false);
+        showFeedback('lab1Msg', true, '✅ Eccellente! $f(2)=10$, $f(3)=25$, variazione media $\\Delta y/h = 15$ e derivata istantanea $f\'(2)=12$ (+10 XP).');
+      } else {
+        if (window.ComodeAudio) ComodeAudio.play('error');
+        showFeedback('lab1Msg', false, '⚠️ Controlla i valori: $f(2)=3(4)-2=10$, $f(3)=3(9)-2=25$, $\\Delta y/1 = 15$ e per $h \\to 0$ vale $f\'(2)=12$.');
+      }
+    }
+
+    function verifyLab2() {
+      const y0Input = document.getElementById('lab2ExY0');
+      const mInput = document.getElementById('lab2ExM');
+      const vY0 = parseNum(y0Input.value);
+      const vM = parseNum(mInput.value);
+
+      const okY0 = Math.abs(vY0 - 2) < 1e-4;
+      const okM = Math.abs(vM - 2) < 1e-4;
+
+      y0Input.classList.toggle('correct', okY0);
+      y0Input.classList.toggle('wrong', !okY0);
+      mInput.classList.toggle('correct', okM);
+      mInput.classList.toggle('wrong', !okM);
+
+      const choice = labChoices['lab2'];
+      const okChoice = choice === 'y_2x_m4';
+      const choiceBtns = document.querySelectorAll('#lab2Choices .m1l4-choice-btn');
+      choiceBtns.forEach(b => {
+        if (b.getAttribute('data-opt') === choice) {
+          b.classList.toggle('correct', okChoice);
+          b.classList.toggle('wrong', !okChoice);
+        }
+      });
+
+      if (okY0 && okM && okChoice) {
+        markLabCompleted(2, false);
+        showFeedback('lab2Msg', true, '✅ Perfetto! In $P(3, 2)$ la pendenza è $f\'(3) = 2$ e la retta tangente ha equazione $y = 2x - 4$ (+10 XP).');
+      } else {
+        if (window.ComodeAudio) ComodeAudio.play('error');
+        showFeedback('lab2Msg', false, '⚠️ Ricontrolla: $f(3) = 9 - 12 + 5 = 2$, $f\'(3) = 2(3) - 4 = 2$ e $y - 2 = 2(x - 3) \\implies y = 2x - 4$.');
+      }
+    }
+
+    function verifyLab3() {
+      const coeffInput = document.getElementById('lab3aExCoeff');
+      const expInput = document.getElementById('lab3aExExp');
+      const sqrtInput = document.getElementById('lab3aExSqrt');
+      const lnInput = document.getElementById('lab3aExLn');
+      const polyInput = document.getElementById('lab3bExPoly');
+
+      const okCoeff = Math.abs(parseNum(coeffInput.value) - 6) < 1e-4;
+      const okExp = Math.abs(parseNum(expInput.value) - 5) < 1e-4;
+      const okSqrt = Math.abs(parseNum(sqrtInput.value) - 0.25) < 1e-3;
+      const okLn = Math.abs(parseNum(lnInput.value) - 0.2) < 1e-3;
+      const okPoly = Math.abs(parseNum(polyInput.value) - 17) < 1e-4;
+
+      coeffInput.classList.toggle('correct', okCoeff);
+      coeffInput.classList.toggle('wrong', !okCoeff);
+      expInput.classList.toggle('correct', okExp);
+      expInput.classList.toggle('wrong', !okExp);
+      sqrtInput.classList.toggle('correct', okSqrt);
+      sqrtInput.classList.toggle('wrong', !okSqrt);
+      lnInput.classList.toggle('correct', okLn);
+      lnInput.classList.toggle('wrong', !okLn);
+      polyInput.classList.toggle('correct', okPoly);
+      polyInput.classList.toggle('wrong', !okPoly);
+
+      const prodChoice = labChoices['lab3prod'];
+      const quotChoice = labChoices['lab3quot'];
+      const okProd = prodChoice === 'prod_ok';
+      const okQuot = quotChoice === 'quot_ok';
+
+      document.querySelectorAll('#lab3ProdChoices .m1l4-choice-btn').forEach(b => {
+        if (b.getAttribute('data-opt') === prodChoice) {
+          b.classList.toggle('correct', okProd);
+          b.classList.toggle('wrong', !okProd);
+        }
+      });
+      document.querySelectorAll('#lab3QuotChoices .m1l4-choice-btn').forEach(b => {
+        if (b.getAttribute('data-opt') === quotChoice) {
+          b.classList.toggle('correct', okQuot);
+          b.classList.toggle('wrong', !okQuot);
+        }
+      });
+
+      if (okCoeff && okExp && okSqrt && okLn && okPoly && okProd && okQuot) {
+        markLabCompleted(3, false);
+        showFeedback('lab3Msg', true, '✅ Ottimo lavoro! Hai padroneggiato sia la tavola delle derivate elementari sia le regole di somma, prodotto e quoziente (+10 XP).');
+      } else {
+        if (window.ComodeAudio) ComodeAudio.play('error');
+        showFeedback('lab3Msg', false, '⚠️ Controlla tutte le risposte degli Esercizi 3A e 3B (usa il pulsante Suggerimento se hai dubbi).');
+      }
+    }
+
+    function verifyLab4() {
+      const lInput = document.getElementById('lab4ExLeft');
+      const rInput = document.getElementById('lab4ExRight');
+      const okL = Math.abs(parseNum(lInput.value) - 4) < 1e-4;
+      const okR = Math.abs(parseNum(rInput.value) - 6) < 1e-4;
+
+      lInput.classList.toggle('correct', okL);
+      lInput.classList.toggle('wrong', !okL);
+      rInput.classList.toggle('correct', okR);
+      rInput.classList.toggle('wrong', !okR);
+
+      const choice = labChoices['lab4'];
+      const okChoice = choice === 'angoloso';
+      document.querySelectorAll('#lab4Choices .m1l4-choice-btn').forEach(b => {
+        if (b.getAttribute('data-opt') === choice) {
+          b.classList.toggle('correct', okChoice);
+          b.classList.toggle('wrong', !okChoice);
+        }
+      });
+
+      if (okL && okR && okChoice) {
+        markLabCompleted(4, false);
+        showFeedback('lab4Msg', true, '✅ Perfetto! $f\'_-(2) = 4 \\neq f\'_+(2) = 6$: derivate laterali finite ma distinte $\\implies$ punto angoloso (+10 XP).');
+      } else {
+        if (window.ComodeAudio) ComodeAudio.play('error');
+        showFeedback('lab4Msg', false, '⚠️ Verifica le derivate laterali in $x_0 = 2$: a sinistra $D[x^2-1] = 2x \\implies 4$, a destra $D[6x-9] = 6$.');
+      }
+    }
+
+    function verifyLab5() {
+      let answeredCount = 0;
+      for (let i = 1; i <= 6; i++) {
+        const fb = document.getElementById('quizFeedback' + i);
+        if (fb && fb.style.display === 'block') answeredCount++;
+      }
+      if (answeredCount < 6) {
+        if (window.ComodeAudio) ComodeAudio.play('error');
+        showFeedback('lab5Msg', false, `⚠️ Rispondi a tutte e 6 le sfide della Palestra Mentale prima di completare (${answeredCount}/6 completate).`);
+        return;
+      }
+      markLabCompleted(5, false);
+      showFeedback('lab5Msg', true, '🏆 Ottimo lavoro! Hai completato tutte le 6 sfide della Palestra Mentale (+10 XP).');
+    }
+
+    function verifyLab6() {
+      const marInput = document.getElementById('lab6ExMar');
+      const totInput = document.getElementById('lab6ExTot');
+      const avgInput = document.getElementById('lab6ExAvg');
+
+      const okMar = Math.abs(parseNum(marInput.value) - 52) < 1e-4;
+      const okTot = Math.abs(parseNum(totInput.value) - 420) < 1e-4;
+      const okAvg = Math.abs(parseNum(avgInput.value) - 42) < 1e-4;
+
+      marInput.classList.toggle('correct', okMar);
+      marInput.classList.toggle('wrong', !okMar);
+      totInput.classList.toggle('correct', okTot);
+      totInput.classList.toggle('wrong', !okTot);
+      avgInput.classList.toggle('correct', okAvg);
+      avgInput.classList.toggle('wrong', !okAvg);
+
+      const choice = labChoices['lab6'];
+      const okChoice = choice === 'sale';
+      document.querySelectorAll('#lab6Choices .m1l4-choice-btn').forEach(b => {
+        if (b.getAttribute('data-opt') === choice) {
+          b.classList.toggle('correct', okChoice);
+          b.classList.toggle('wrong', !okChoice);
+        }
+      });
+
+      if (okMar && okTot && okAvg && okChoice) {
+        markLabCompleted(6, false);
+        showFeedback('lab6Msg', true, '✅ Analisi impeccabile! $C\'(10) = 52\\text{ €/pz} > \\overline{C}(10) = 42\\text{ €/pz}$: il costo medio è in crescita (+10 XP).');
+      } else {
+        if (window.ComodeAudio) ComodeAudio.play('error');
+        showFeedback('lab6Msg', false, '⚠️ Controlla i calcoli: $C\'(10) = 4(10)+12 = 52$, $C(10) = 200+120+100 = 420$ e $\\overline{C}(10) = 420/10 = 42$.');
       }
     }
 
@@ -1452,11 +2300,22 @@
           "Riconvertiamo l'esponente negativo e frazionario in frazione con radice al denominatore:",
           "<strong>Risultato Finale:</strong> $f'(x) = \\frac{1}{2\\sqrt{x}}$"
         ]
+      },
+      5: {
+        title: 'Derivata di una Funzione Composta (Regola della Catena)',
+        formula: '$f(x) = (x^2 + 3x)^4$',
+        steps: [
+          'Riconosciamo la struttura a «scatole cinesi» $f(g(x))$: funzione esterna $u^4$, funzione interna $u = g(x) = x^2 + 3x$.',
+          'Deriviamo la funzione esterna rispetto a $u$: $D[u^4] = 4u^3 = 4(x^2 + 3x)^3$.',
+          "Deriviamo la funzione interna rispetto a $x$: $g'(x) = D[x^2 + 3x] = 2x + 3$.",
+          "Applichiamo la Regola della Catena $D[f(g(x))] = f'(g(x)) \\cdot g'(x)$ moltiplicando i due fattori:",
+          "<strong>Risultato Finale:</strong> $f'(x) = 4(x^2 + 3x)^3 \\cdot (2x + 3)$"
+        ]
       }
     };
 
     function showDerivExample(id) {
-      for (let i = 1; i <= 4; i++) {
+      for (let i = 1; i <= 5; i++) {
         const btn = document.getElementById('btnDer' + i);
         if (btn) btn.classList.toggle('active', i === id);
       }
@@ -1541,8 +2400,9 @@
 
     function renderNdSvg(type) {
       const svg = document.getElementById('ndSvg');
-      const ox = 300;
-      const oy = (type === 2) ? 230 : 165;
+      const ox = 115; // Asse y (x = 0) ben separato dal punto x0
+      const x0 = 325; // Ascissa del punto di non derivabilità x0 = 2
+      const oy = 250; // Asse x (y = 0)
 
       let html = `
         <defs>
@@ -1554,52 +2414,75 @@
         <rect width="100%" height="100%" fill="url(#ndGrid)" rx="8"/>
 
         <!-- Assi cartesiani -->
-        <line x1="40" y1="${oy}" x2="560" y2="${oy}" stroke="var(--border-subtle)" stroke-width="1.5"/>
+        <line x1="40" y1="${oy}" x2="565" y2="${oy}" stroke="var(--border-subtle)" stroke-width="1.5"/>
         <line x1="${ox}" y1="25" x2="${ox}" y2="295" stroke="var(--border-subtle)" stroke-width="1.5"/>
-        <text x="550" y="${oy - 8}" fill="var(--text-muted)" font-size="11">x</text>
+        <text x="555" y="${oy - 8}" fill="var(--text-muted)" font-size="11">x</text>
         <text x="${ox + 10}" y="38" fill="var(--text-muted)" font-size="11">y</text>
+        <text x="${ox - 8}" y="${oy + 15}" fill="var(--text-muted)" font-size="10.5" text-anchor="end">O</text>
       `;
 
       if (type === 1) {
-        // Punto Angoloso: due semitangenti ben distinte
+        // Punto Angoloso in x0 = 2, y0 = 175: due semitangenti ben distinte
+        const y0 = 175;
         html += `
-          <line x1="120" y1="45" x2="${ox}" y2="${oy}" stroke="var(--accent-math)" stroke-width="3.5"/>
-          <line x1="${ox}" y1="${oy}" x2="480" y2="45" stroke="var(--accent-math)" stroke-width="3.5"/>
+          <!-- Proiezioni sugli assi -->
+          <line x1="${x0}" y1="${y0}" x2="${x0}" y2="${oy}" stroke="rgba(255,255,255,0.22)" stroke-width="1.3" stroke-dasharray="4,3"/>
+          <line x1="${ox}" y1="${y0}" x2="${x0}" y2="${y0}" stroke="rgba(255,255,255,0.18)" stroke-width="1.3" stroke-dasharray="4,3"/>
+          <text x="${x0}" y="${oy + 18}" fill="var(--text-main)" font-size="11.5" font-weight="700" text-anchor="middle">x₀ = 2</text>
+          <text x="${ox - 8}" y="${y0 + 4}" fill="var(--text-muted)" font-size="11" text-anchor="end">f(x₀)</text>
 
-          <!-- Prolungamento semitangenti -->
-          <line x1="${ox}" y1="${oy}" x2="390" y2="${oy + 60}" stroke="var(--accent-gold)" stroke-width="2" stroke-dasharray="5,4"/>
-          <line x1="${ox}" y1="${oy}" x2="210" y2="${oy + 60}" stroke="var(--accent-purple)" stroke-width="2" stroke-dasharray="5,4"/>
+          <!-- Rami della funzione f(x) = |x - 2| + 1 -->
+          <line x1="155" y1="55" x2="${x0}" y2="${y0}" stroke="var(--accent-math)" stroke-width="3.5"/>
+          <line x1="${x0}" y1="${y0}" x2="495" y2="55" stroke="var(--accent-math)" stroke-width="3.5"/>
 
-          <circle cx="${ox}" cy="${oy}" r="6" fill="var(--accent-math)" stroke="var(--bg-surface)" stroke-width="2"/>
-          <text x="150" y="${oy + 78}" fill="var(--accent-purple)" font-size="12" font-weight="700">Semitangente dx (m₊ = +1)</text>
-          <text x="345" y="${oy + 78}" fill="var(--accent-gold)" font-size="12" font-weight="700">Semitangente sx (m₋ = -1)</text>
-          <text x="${ox}" y="${oy - 16}" fill="var(--text-main)" font-size="12" font-weight="800" text-anchor="middle">Punto Angoloso (x₀ = 0)</text>
+          <!-- Prolungamento tratteggiato delle due semitangenti oltre P(x0, f(x0)) -->
+          <line x1="${x0}" y1="${y0}" x2="410" y2="${y0 + 60}" stroke="var(--accent-gold)" stroke-width="2.2" stroke-dasharray="5,4"/>
+          <line x1="${x0}" y1="${y0}" x2="240" y2="${y0 + 60}" stroke="var(--accent-purple)" stroke-width="2.2" stroke-dasharray="5,4"/>
+
+          <circle cx="${x0}" cy="${y0}" r="6" fill="var(--accent-math)" stroke="var(--bg-surface)" stroke-width="2"/>
+          <text x="150" y="45" fill="var(--accent-gold)" font-size="11.5" font-weight="700">Ramo sx: f'₋(x₀) = -1 ↘</text>
+          <text x="495" y="45" fill="var(--accent-purple)" font-size="11.5" font-weight="700" text-anchor="end">↗ Ramo dx: f'₊(x₀) = +1</text>
+          <text x="225" y="${y0 + 52}" fill="var(--accent-purple)" font-size="11" font-weight="700" text-anchor="end">Semitangente dx</text>
+          <text x="420" y="${y0 + 52}" fill="var(--accent-gold)" font-size="11" font-weight="700">Semitangente sx</text>
+          <text x="${x0}" y="${y0 - 16}" fill="var(--text-main)" font-size="12" font-weight="800" text-anchor="middle">Punto Angoloso P(x₀, f(x₀))</text>
         `;
       } else if (type === 2) {
-        // Cuspide f(x) = sqrt(|x|): controllo su x = ox per tangente perfettamente verticale in (ox, oy)
+        // Cuspide in x0 = 325, y0 = 205: tangente perfettamente verticale su x = x0
+        const y0 = 205;
         html += `
-          <path d="M 90 65 Q ${ox} 115 ${ox} ${oy}" fill="none" stroke="var(--accent-gold)" stroke-width="3.5"/>
-          <path d="M ${ox} ${oy} Q ${ox} 115 510 65" fill="none" stroke="var(--accent-gold)" stroke-width="3.5"/>
-          <line x1="${ox}" y1="30" x2="${ox}" y2="285" stroke="#ef4444" stroke-width="2" stroke-dasharray="5,4"/>
-          <circle cx="${ox}" cy="${oy}" r="6" fill="var(--accent-gold)" stroke="var(--bg-surface)" stroke-width="2"/>
+          <!-- Proiezione sull'asse y e asse x -->
+          <line x1="${ox}" y1="${y0}" x2="${x0}" y2="${y0}" stroke="rgba(255,255,255,0.18)" stroke-width="1.3" stroke-dasharray="4,3"/>
+          <text x="${ox - 8}" y="${y0 + 4}" fill="var(--text-muted)" font-size="11" text-anchor="end">f(x₀)</text>
+          <text x="${x0}" y="${oy + 18}" fill="var(--text-main)" font-size="11.5" font-weight="700" text-anchor="middle">x₀ = 2</text>
 
-          <text x="${ox + 12}" y="52" fill="#ef4444" font-size="11" font-weight="700">Tangente Verticale x = x₀</text>
-          <text x="${ox - 20}" y="175" fill="var(--accent-gold)" font-size="12" font-weight="700" text-anchor="end">f'₋(x₀) = -∞ ↘</text>
-          <text x="${ox + 20}" y="175" fill="var(--accent-gold)" font-size="12" font-weight="700">↗ f'₊(x₀) = +∞</text>
-          <text x="${ox}" y="${oy + 24}" fill="var(--accent-gold)" font-size="12" font-weight="800" text-anchor="middle">Cuspide (Punta Aguzza)</text>
+          <path d="M 135 65 Q ${x0} 115 ${x0} ${y0}" fill="none" stroke="var(--accent-gold)" stroke-width="3.5"/>
+          <path d="M ${x0} ${y0} Q ${x0} 115 515 65" fill="none" stroke="var(--accent-gold)" stroke-width="3.5"/>
+          <line x1="${x0}" y1="30" x2="${x0}" y2="${oy + 4}" stroke="#ef4444" stroke-width="2.2" stroke-dasharray="5,4"/>
+          <circle cx="${x0}" cy="${y0}" r="6" fill="var(--accent-gold)" stroke="var(--bg-surface)" stroke-width="2"/>
+
+          <text x="${x0 + 12}" y="48" fill="#ef4444" font-size="11.5" font-weight="700">Tangente Verticale x = x₀</text>
+          <text x="${x0 - 18}" y="155" fill="var(--accent-gold)" font-size="12" font-weight="700" text-anchor="end">f'₋(x₀) = -∞ ↘</text>
+          <text x="${x0 + 18}" y="155" fill="var(--accent-gold)" font-size="12" font-weight="700">↗ f'₊(x₀) = +∞</text>
+          <text x="${x0}" y="${y0 + 22}" fill="var(--accent-gold)" font-size="12" font-weight="800" text-anchor="middle">Cuspide (Punta Aguzza)</text>
         `;
       } else if (type === 3) {
-        // Flesso a tangente verticale f(x) = cbrt(x): entrambi i controlli su x = ox
+        // Flesso a tangente verticale in x0 = 325, y0 = 145
+        const y0 = 145;
         html += `
-          <path d="M 90 265 Q ${ox} 245 ${ox} ${oy}" fill="none" stroke="var(--accent-purple)" stroke-width="3.5"/>
-          <path d="M ${ox} ${oy} Q ${ox} 85 510 65" fill="none" stroke="var(--accent-purple)" stroke-width="3.5"/>
-          <line x1="${ox}" y1="30" x2="${ox}" y2="290" stroke="#ef4444" stroke-width="2" stroke-dasharray="5,4"/>
-          <circle cx="${ox}" cy="${oy}" r="6" fill="var(--accent-purple)" stroke="var(--bg-surface)" stroke-width="2"/>
+          <!-- Proiezione sull'asse y e asse x -->
+          <line x1="${ox}" y1="${y0}" x2="${x0}" y2="${y0}" stroke="rgba(255,255,255,0.18)" stroke-width="1.3" stroke-dasharray="4,3"/>
+          <text x="${ox - 8}" y="${y0 + 4}" fill="var(--text-muted)" font-size="11" text-anchor="end">f(x₀)</text>
+          <text x="${x0}" y="${oy + 18}" fill="var(--text-main)" font-size="11.5" font-weight="700" text-anchor="middle">x₀ = 2</text>
 
-          <text x="${ox + 12}" y="52" fill="#ef4444" font-size="11" font-weight="700">Tangente Verticale x = x₀</text>
-          <text x="${ox - 16}" y="220" fill="var(--accent-purple)" font-size="12" font-weight="700" text-anchor="end">f'₋(x₀) = +∞ ↗</text>
-          <text x="${ox + 16}" y="115" fill="var(--accent-purple)" font-size="12" font-weight="700">↗ f'₊(x₀) = +∞</text>
-          <text x="${ox + 14}" y="${oy + 20}" fill="var(--text-main)" font-size="12" font-weight="800">Flesso Verticale</text>
+          <path d="M 135 230 Q ${x0} 210 ${x0} ${y0}" fill="none" stroke="var(--accent-purple)" stroke-width="3.5"/>
+          <path d="M ${x0} ${y0} Q ${x0} 80 515 60" fill="none" stroke="var(--accent-purple)" stroke-width="3.5"/>
+          <line x1="${x0}" y1="30" x2="${x0}" y2="${oy + 4}" stroke="#ef4444" stroke-width="2.2" stroke-dasharray="5,4"/>
+          <circle cx="${x0}" cy="${y0}" r="6" fill="var(--accent-purple)" stroke="var(--bg-surface)" stroke-width="2"/>
+
+          <text x="${x0 + 12}" y="48" fill="#ef4444" font-size="11.5" font-weight="700">Tangente Verticale x = x₀</text>
+          <text x="${x0 - 16}" y="198" fill="var(--accent-purple)" font-size="12" font-weight="700" text-anchor="end">f'₋(x₀) = +∞ ↗</text>
+          <text x="${x0 + 16}" y="102" fill="var(--accent-purple)" font-size="12" font-weight="700">↗ f'₊(x₀) = +∞</text>
+          <text x="${x0 + 14}" y="${y0 + 18}" fill="var(--text-main)" font-size="12" font-weight="800">Flesso Verticale</text>
         `;
       }
 
@@ -1613,7 +2496,9 @@
       1: { correct: 0, exp: "Esatto! $D[4x^3] = 12x^2$, $D[-5x] = -5$ e $D[7] = 0$. Dunque $f'(x) = 12x^2 - 5$." },
       2: { correct: 1, exp: "Corretto! La pendenza è la derivata nel punto: $f'(x) = 2x - 3$, quindi $f'(4) = 2(4) - 3 = 8 - 3 = 5$." },
       3: { correct: 0, exp: "Ottimo! In $x = 0$ la funzione valore assoluto ha derivata sinistra $-1$ e destra $+1$: derivate finite ma diverse $\\implies$ punto angoloso." },
-      4: { correct: 1, exp: "Perfetto! La derivabilità implica sempre la continuità. Il viceversa è falso (controesempio: $|x|$ è continua ma non derivabile in $0$)." }
+      4: { correct: 1, exp: "Perfetto! La derivabilità implica sempre la continuità. Il viceversa è falso (controesempio: $|x|$ è continua ma non derivabile in $0$)." },
+      5: { correct: 1, exp: "Bravissimo! Per la regola di Leibniz del prodotto: $D[x \\cdot e^x] = D[x]\\cdot e^x + x \\cdot D[e^x] = 1\\cdot e^x + x e^x = e^x(x+1)$." },
+      6: { correct: 0, exp: "Eccellente! Dalla tavola delle derivate elementari: $f'(x) = \\frac{1}{x} + \\frac{1}{2\\sqrt{x}}$, quindi in $x_0 = 1$ vale $f'(1) = 1 + 0{,}5 = 1{,}5$." }
     };
 
     function checkQuiz(qNum, chosenOpt, btn) {
