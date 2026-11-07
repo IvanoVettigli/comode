@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Lezione 5.M1.3: Continuità, Singolarità e Teoremi Cardinali • comode</title>
   <meta name="description"
-    content="Lezione interattiva per il 5° anno del Liceo delle Scienze Umane: definizione di continuità, piastrella dell'artigiano, classificazione delle singolarità (salto, essenziale, eliminabile), Teorema di Weierstrass, Teorema dei Valori Intermedi ed Esistenza degli Zeri con bisezione.">
+    content="Lezione interattiva per il 5° anno del Liceo delle Scienze Umane: definizione intuitiva e formale di continuità, funzioni continue e a tratti, classificazione delle singolarità (salto, essenziale, eliminabile), Teorema di Weierstrass, Teorema dei Valori Intermedi ed Esistenza degli Zeri con bisezione.">
 
   <!-- Font Google -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -432,7 +432,7 @@
       </div>
       <h1 class="hero-title">Continuità, Singolarità e Teoremi Cardinali</h1>
       <p class="hero-desc">
-        Dalla precisione millimetrica della piastrella in ceramica ai salti imprevisti delle tariffe sociali: esplora il significato intuitivo e formale di funzione continua, classifica i tre tipi di discontinuità e padroneggia i tre grandi teoremi dell'analisi (Weierstrass, Valori Intermedi ed Esistenza degli Zeri) con l'algoritmo di bisezione.
+        Dalla regola intuitiva del «disegnare senza staccare la penna dal foglio» ai raccordi delle funzioni definite a tratti e alle tariffe a scaglioni: esplora quando una funzione è continua oppure no, classifica i tre tipi di discontinuità e padroneggia i tre grandi teoremi dell'analisi (Weierstrass, Valori Intermedi ed Esistenza degli Zeri) con l'algoritmo di bisezione.
       </p>
 
       <!-- Progress Tracker -->
@@ -494,60 +494,105 @@
 
 
     <!-- ======================================================== -->
-    <!-- LABORATORIO 1: LA PIASTRELLA DELL'ARTIGIANO             -->
+    <!-- LABORATORIO 1: QUANDO UNA FUNZIONE È CONTINUA?          -->
     <!-- ======================================================== -->
     <article class="lab-card" id="lab1">
       <div class="lab-badge-row">
         <span class="lab-badge">Laboratorio 1 • Il Principio del Continuo</span>
         <span class="lab-xp-badge">+10 XP</span>
       </div>
-      <h3 class="lab-title">La Piastrella dell'Artigiano: Continuità come Variazione Senza Salti</h3>
+      <h3 class="lab-title">Quando una Funzione è Continua? La Regola del «Senza Staccare la Penna» e le Funzioni a Tratti</h3>
 
       <button type="button" class="theory-ref-pill" onclick="scrollToTheory('teoria-1')">
         📖 Scheda Teoria 1: Definizione di Continuità
       </button>
+
         <p>
-          Un maestro ceramista realizza piastrelle quadrate di lato nominale $l_0 = 3\text{ dm}$, la cui area è $A_0 = 3^2 = 9\text{ dm}^2$.
-          La macchina da taglio, per quanto accurata, presenta sempre una minuscola tolleranza: se il lato effettivo misura $l = l_0 + \Delta l$, l'area della piastrella diventa $A(l) = l^2$.
-        </p>
-        <p>
-          Il cliente ordina che l'area non si discosti da $9\text{ dm}^2$ per più di una severa tolleranza $\varepsilon$ (ad esempio $\varepsilon = 0.5\text{ dm}^2$). L'artigiano si chiede:
-          <em>«Qual è la massima variazione consentita sul lato $\delta$ affinché l'area rimanga all'interno della tolleranza richiesta?»</em>
+          Prima delle formule astratte, il concetto di <strong>continuità</strong> nasce da un'idea visiva e quotidiana semplicissima:
+          una funzione è <strong>continua</strong> in un intervallo se puoi disegnare il suo grafico da sinistra a destra <strong>senza mai dover staccare la punta della matita dal foglio</strong>.
         </p>
 
-        <!-- Simulatore Interattivo Piastrella -->
-        <div class="m1l3-stage">
-          <div class="m1l3-slider-panel">
-            <label for="tileDeltaLSlider">Variazione del lato $\Delta l$ (in dm):</label>
-            <input type="range" id="tileDeltaLSlider" min="-0.4" max="0.4" step="0.05" value="0.1"
-              oninput="updateTileSim()">
-            <span class="m1l3-readout" id="tileDeltaLVal">+0.10 dm</span>
+        <!-- Esempi Concreti Quotidiani e Funzioni a Tratti -->
+        <div class="worked-example-grid" style="margin: 1rem 0 1.25rem;">
+          <div class="worked-example-box" style="border-left-color: var(--accent-success);">
+            <span class="worked-example-title" style="color: var(--accent-success);">🌡️ 1. Esempio Continuo • La Temperatura dell'Acqua</span>
+            Se scaldi l'acqua sul fornello da $20^\circ\text{C}$ a $80^\circ\text{C}$, la temperatura cresce <strong>gradualmente</strong>: per salire da $30^\circ\text{C}$ a $50^\circ\text{C}$ deve passare per tutti i valori intermedi ($35^\circ\text{C}, 40^\circ\text{C}, 42{,}5^\circ\text{C}\dots$).<br>
+            Avvicinandoti a un istante $x_0$, il valore a cui tendi da sinistra e da destra coincide con la temperatura in $x_0$: <strong>non ci sono salti né interruzioni</strong>!
           </div>
 
-          <!-- SVG Visualizzatore Piastrella con bordi incrementali -->
-          <svg id="tileSvg" class="m1l3-svg" viewBox="0 0 500 360" role="img" aria-label="Geometria della piastrella quadrata con incremento di lato e area">
+          <div class="worked-example-box" style="border-left-color: #ef4444;">
+            <span class="worked-example-title" style="color: #ef4444;">🅿️ 2. Esempio NON Continuo • Il Parcheggio a Scaglioni</span>
+            In un parcheggio paghi $2\text{ €}$ fino a $2$ ore di sosta ($x < 2$), ma appena scatta il minuto dopo le $2$ ore ($x \ge 2$) la tariffa <strong>salta di colpo a $5\text{ €}$</strong>!<br>
+            Nel punto $x_0 = 2$ il grafico presenta uno scalino verticale: arrivando da sinistra tendi a $2\text{ €}$, ma a destra parti da $5\text{ €}$. Devi <strong>staccare la penna dal foglio</strong>: la funzione <strong>non è continua</strong>!
+          </div>
+
+          <div class="worked-example-box" style="border-left-color: var(--accent-math);">
+            <span class="worked-example-title" style="color: var(--accent-math);">🛤️ 3. E le Funzioni Definite a Tratti? (Due Binari)</span>
+            <strong>Attenzione:</strong> «definita a tratti» <em>non</em> significa «discontinua»! Immagina due tratti di binario (una retta per $x < 2$ e una parabola per $x \ge 2$) che si incontrano in $x_0 = 2$:<br>
+            • Se arrivano <strong>alla stessa altezza</strong> ($\lim_{x \to 2^-} f(x) = \lim_{x \to 2^+} f(x) = f(2)$), i due tratti <strong>si saldano perfettamente</strong> e la funzione a tratti è <strong>CONTINUA</strong>!<br>
+            • Se arrivano a <strong>quote diverse</strong>, c'è un gradino e la funzione <strong>NON è continua</strong>.
+          </div>
+        </div>
+
+        <!-- Selettore dei 4 Casi Grafici -->
+        <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 0.65rem;">
+          👇 <strong>Esplora i 4 casi fondamentali:</strong> clicca sui bottoni per confrontare una funzione continua, una con salto, e due funzioni definite a tratti (una che si salda con continuità e una che si spezza), poi muovi il cursore per avvicinare i punti da sinistra e da destra a $x_0 = 2$.
+        </p>
+
+        <div class="m1l3-tab-group" style="margin-bottom: 0.85rem;">
+          <button type="button" class="m1l3-tab-btn active" id="btnContCase1" onclick="selectContCase(1)">
+            🟢 1. Continua (Curva Unica)
+          </button>
+          <button type="button" class="m1l3-tab-btn" id="btnContCase2" onclick="selectContCase(2)">
+            🔴 2. NON Continua (Scaglioni)
+          </button>
+          <button type="button" class="m1l3-tab-btn" id="btnContCase3" onclick="selectContCase(3)">
+            🟢 3. A Tratti CONTINUA (Saldata)
+          </button>
+          <button type="button" class="m1l3-tab-btn" id="btnContCase4" onclick="selectContCase(4)">
+            🔴 4. A Tratti NON Continua (Spezzata)
+          </button>
+        </div>
+
+        <!-- Simulatore Interattivo Continuità -->
+        <div class="m1l3-stage">
+          <div class="m1l3-slider-panel">
+            <label for="tileDeltaLSlider">🔎 Distanza $\Delta x$ da $x_0 = 2$ (avvicina a $0$):</label>
+            <input type="range" id="tileDeltaLSlider" min="0.05" max="1.50" step="0.05" value="0.60"
+              oninput="updateTileSim()">
+            <span class="m1l3-readout" id="tileDeltaLVal">Δx = 0,60 (x⁻ = 1,40 | x⁺ = 2,60)</span>
+          </div>
+
+          <!-- Box Formula e Spiegazione del Caso Selezionato -->
+          <div id="contCaseFormulaBox" style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-left: 3.5px solid var(--accent-success); border-radius: var(--radius-sm); padding: 0.75rem 1rem; margin-bottom: 0.85rem; font-size: 0.89rem; line-height: 1.55;">
+          </div>
+
+          <!-- SVG Visualizzatore Grafici Continuità -->
+          <svg id="tileSvg" class="m1l3-svg" viewBox="0 0 600 320" role="img" aria-label="Grafico cartesiano di confronto tra funzioni continue, discontinue e definite a tratti">
             <!-- Disegnato dinamicamente via JS -->
           </svg>
 
-          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 1rem;">
-            <div style="background: var(--bg-surface); padding: 0.75rem 1rem; border-radius: var(--radius-md); border: 1px solid var(--border-subtle); text-align: center;">
-              <span style="font-size: 0.78rem; color: var(--text-muted); font-weight: 700;">NUOVO LATO $l$</span><br>
-              <strong style="font-family: var(--font-mono); font-size: 1.15rem; color: var(--accent-math);" id="tileSideText">3.10 dm</strong>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 0.85rem; margin-top: 1rem;">
+            <div style="background: var(--bg-surface); padding: 0.75rem 0.9rem; border-radius: var(--radius-md); border: 1px solid var(--border-subtle); text-align: center;">
+              <span style="font-size: 0.76rem; color: var(--text-muted); font-weight: 700;">DA SINISTRA ($x \to 2^-$)</span><br>
+              <strong style="font-family: var(--font-mono); font-size: 1.08rem; color: var(--accent-math);" id="tileSideText">f(1,40) = 1,98 → l⁻ = 3</strong>
             </div>
-            <div style="background: var(--bg-surface); padding: 0.75rem 1rem; border-radius: var(--radius-md); border: 1px solid var(--border-subtle); text-align: center;">
-              <span style="font-size: 0.78rem; color: var(--text-muted); font-weight: 700;">NUOVA AREA $A(l) = l^2$</span><br>
-              <strong style="font-family: var(--font-mono); font-size: 1.15rem; color: var(--accent-gold);" id="tileAreaText">9.61 dm²</strong>
+            <div style="background: var(--bg-surface); padding: 0.75rem 0.9rem; border-radius: var(--radius-md); border: 1px solid var(--border-subtle); text-align: center;">
+              <span style="font-size: 0.76rem; color: var(--text-muted); font-weight: 700;">DA DESTRA ($x \to 2^+$)</span><br>
+              <strong style="font-family: var(--font-mono); font-size: 1.08rem; color: var(--accent-gold);" id="tileAreaText">f(2,60) = 4,38 → l⁺ = 3</strong>
             </div>
-            <div style="background: var(--bg-surface); padding: 0.75rem 1rem; border-radius: var(--radius-md); border: 1px solid var(--border-subtle); text-align: center;">
-              <span style="font-size: 0.78rem; color: var(--text-muted); font-weight: 700;">VARIAZIONE AREA $\Delta A$</span><br>
-              <strong style="font-family: var(--font-mono); font-size: 1.15rem; color: var(--accent-purple);" id="tileDeltaAText">+0.61 dm²</strong>
+            <div style="background: var(--bg-surface); padding: 0.75rem 0.9rem; border-radius: var(--radius-md); border: 1px solid var(--border-subtle); text-align: center;">
+              <span style="font-size: 0.76rem; color: var(--text-muted); font-weight: 700;">VALORE IN $x_0 = 2$</span><br>
+              <strong style="font-family: var(--font-mono); font-size: 1.08rem; color: var(--accent-purple);" id="tileDeltaAText">f(2) = 3</strong>
+            </div>
+            <div style="background: var(--bg-surface); padding: 0.75rem 0.9rem; border-radius: var(--radius-md); border: 1px solid var(--border-subtle); text-align: center;">
+              <span style="font-size: 0.76rem; color: var(--text-muted); font-weight: 700;">VERDETTO IN $x_0 = 2$</span><br>
+              <strong style="font-family: var(--font-mono); font-size: 1.05rem; color: var(--accent-success);" id="contVerdictText">✅ CONTINUA</strong>
             </div>
           </div>
 
-          <p style="font-size: 0.88rem; color: var(--text-muted); margin-top: 0.85rem; line-height: 1.5;">
-            💡 <strong>Cosa notiamo:</strong> Quando $\Delta l$ diventa piccolissimo ($\Delta l \to 0$), la variazione dell'area $\Delta A = A(l) - A_0$ diventa a sua volta arbitrariamente piccola ($\Delta A \to 0$).
-            Non ci sono «salti» improvvisi: per garantire che l'area non sgarri di più di $\varepsilon$, basta regolare la lama con una precisione $\delta$.
-            Questo è il cuore dell'idea di <strong>continuità</strong>!
+          <p style="font-size: 0.88rem; color: var(--text-muted); margin-top: 0.85rem; line-height: 1.55;">
+            💡 <strong>Regola pratica per i tuoi esercizi:</strong> Quando una funzione è definita a tratti con punto di cambio in $x_0$, calcola il limite sostituendo $x_0$ nella formula di sinistra ($l^-$) e nella formula di destra ($l^+$): se i due risultati sono <strong>uguali tra loro e uguali a $f(x_0)$</strong>, i due pezzi si toccano e la funzione è <strong>continua</strong>!
           </p>
         </div>
 
@@ -842,9 +887,71 @@
         📖 Scheda Teoria 3: Teorema di Weierstrass
       </button>
         <p>
-          In economia e sociologia ci si domanda continuamente: <em>«Possiamo essere certi che esista un punto di massimo benessere sociale o di minimo costo operativo?»</em>
-          Il matematico Karl Weierstrass ha dimostrato che sotto tre condizioni ben precise, la risposta è un categorico <strong>SÌ</strong>.
+          In fisica, ingegneria ed economia ci si domanda continuamente: <em>«Siamo sicuri al 100% che esista un picco di massima efficienza o un punto di minimo costo operativo?»</em>
+          Il matematico tedesco <strong>Karl Weierstrass</strong> ha dimostrato che non basta avere una formula qualsiasi: per avere la certezza assoluta che esistano sia il <strong>Massimo assoluto $M$</strong> sia il <strong>Minimo assoluto $m$</strong>, devono essere verificate <strong>tre ipotesi preliminari</strong>. Vediamo prima quali sono queste ipotesi e poi come funziona il teorema nella realtà.
         </p>
+
+        <!-- PASSO 1: LE TRE IPOTESI DEL TEOREMA DI WEIERSTRASS -->
+        <div class="m1l3-highlight-box" style="margin-top: 1rem; border-left: 4px solid var(--accent-math);">
+          <strong style="color: var(--accent-math); font-size: 1rem;">📋 Passo 1 • Le 3 Ipotesi Preliminari del Teorema di Weierstrass</strong>
+          <p style="margin: 0.45rem 0 0.75rem; font-size: 0.92rem; line-height: 1.55;">
+            Prima di cercare il massimo e il minimo di una funzione $y = f(x)$, dobbiamo controllare che valgano contemporaneamente queste <strong>tre condizioni (ipotesi)</strong>:
+          </p>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 0.85rem;">
+            <div style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); padding: 0.8rem;">
+              <strong style="color: var(--accent-success);">1️⃣ Funzione Continua in $[a, b]$</strong>
+              <p style="font-size: 0.87rem; margin: 0.35rem 0 0; line-height: 1.48; color: var(--text-muted);">
+                Il grafico non deve mai spezzarsi tra $a$ e $b$: niente salti (1ª specie), niente asintoti verticali che scappano a $\pm\infty$ (2ª specie) e niente buchi proprio sul picco (3ª specie).
+              </p>
+            </div>
+            <div style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); padding: 0.8rem;">
+              <strong style="color: var(--accent-gold);">2️⃣ Intervallo Chiuso $[a, b]$</strong>
+              <p style="font-size: 0.87rem; margin: 0.35rem 0 0; line-height: 1.48; color: var(--text-muted);">
+                I due estremi $x = a$ e $x = b$ devono essere <strong>inclusi</strong> (parentesi quadre!). Se l'intervallo fosse aperto $(a, b)$, la funzione potrebbe salire verso il bordo $b$ avvicinandosi sempre di più senza mai poter toccare il traguardo.
+              </p>
+            </div>
+            <div style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); padding: 0.8rem;">
+              <strong style="color: var(--accent-purple);">3️⃣ Intervallo Limitato</strong>
+              <p style="font-size: 0.87rem; margin: 0.35rem 0 0; line-height: 1.48; color: var(--text-muted);">
+                Sia $a$ sia $b$ devono essere numeri reali finiti (l'intervallo ha lunghezza finita $b - a$). Su una semiretta illimitata come $[0, +\infty)$, una funzione continua come $f(x) = 2x$ salirebbe all'infinito senza avere mai un massimo.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- PASSO 2: SPIEGHIAMO IL TEOREMA CON ESEMPI CONCRETI -->
+        <div class="m1l3-highlight-box" style="margin-top: 1rem; border-left: 4px solid var(--accent-gold);">
+          <strong style="color: var(--accent-gold); font-size: 1rem;">🌍 Passo 2 • Cosa Dice il Teorema? Spiegazione con Esempi Concreti</strong>
+          <p style="margin: 0.45rem 0 0.75rem; font-size: 0.92rem; line-height: 1.55;">
+            <strong>Tesi del Teorema:</strong> Se le 3 ipotesi sono rispettate ($f$ continua su $[a, b]$ chiuso e limitato), allora <strong>esistono sicuramente</strong> almeno un punto $x_{\max} \in [a, b]$ in cui la funzione tocca la quota più alta in assoluto ($M = f(x_{\max})$) e almeno un punto $x_{\min} \in [a, b]$ in cui tocca la quota più bassa in assoluto ($m = f(x_{\min})$).
+          </p>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(245px, 1fr)); gap: 0.85rem;">
+            <div style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); padding: 0.8rem;">
+              <strong style="color: var(--text-main);">🌡️ Esempio Concreto 1: Temperatura Giornaliera</strong>
+              <p style="font-size: 0.87rem; margin: 0.35rem 0 0; line-height: 1.48; color: var(--text-muted);">
+                Consideriamo la temperatura dell'aria $T(t)$ in una città dalle ore $00{:}00$ ($t = 0$) alle ore $24{:}00$ ($t = 24$):<br>
+                • <em>Ipotesi:</em> L'intervallo $[0, 24]$ è chiuso e limitato, e la temperatura varia con continuità.<br>
+                • <em>Conclusione di Weierstrass:</em> Anche senza guardare il termometro ogni secondo, siamo <strong>certi al 100%</strong> che durante la giornata è esistito un istante preciso con la <strong>temperatura massima $M$</strong> (es. $+26^\circ\text{C}$ alle 15:20) e uno con la <strong>minima $m$</strong> (es. $+9^\circ\text{C}$ alle 05:40).
+              </p>
+            </div>
+            <div style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); padding: 0.8rem;">
+              <strong style="color: var(--text-main);">🏭 Esempio Concreto 2: Profitto di una Fabbrica</strong>
+              <p style="font-size: 0.87rem; margin: 0.35rem 0 0; line-height: 1.48; color: var(--text-muted);">
+                Un impianto può produrre da un minimo di $0$ a un massimo fisico di $1000$ batterie al giorno ($x \in [0, 1000]$) con funzione di profitto continua $P(x) = -x^2 + 800x - 50000$:<br>
+                • <em>Ipotesi:</em> $[0, 1000]$ è chiuso e limitato, e il polinomio $P(x)$ è continuo.<br>
+                • <em>Conclusione di Weierstrass:</em> Esiste certamente la produzione ottima che rende <strong>massimo il profitto</strong> ($x_{\max} = 400$ pezzi, con $M = +110.000\text{ €}$) e quella di <strong>minimo bilancio</strong> ($x_{\min} = 1000$ pezzi, con $m = -250.000\text{ €}$).
+              </p>
+            </div>
+            <div style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); padding: 0.8rem;">
+              <strong style="color: #ef4444;">🚫 Controesempio Concreto: Perché Serve $[a, b]$ Chiuso?</strong>
+              <p style="font-size: 0.87rem; margin: 0.35rem 0 0; line-height: 1.48; color: var(--text-muted);">
+                Immagina un concorso che premia chi sceglie il numero reale più grande <strong>strettamente minore di 10</strong>, cioè nell'intervallo aperto $(0, 10)$ con $f(x) = x$:<br>
+                • Se scegli $9{,}9$, qualcuno sceglie $9{,}99$; se scegli $9{,}999$, qualcuno sceglie $9{,}9999$!<br>
+                • Poiché il traguardo $10$ è escluso ($10 \notin (0, 10)$), <strong>non esiste alcun numero vincitore massimo</strong> (10 è solo l'estremo superiore $\sup$, mai raggiunto).
+              </p>
+            </div>
+          </div>
+        </div>
 
         <div class="m1l3-stage">
           <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.85rem;">
@@ -869,34 +976,30 @@
             <span class="theory-pill">Teoria 3</span>
           </h4>
           <p>
-            <strong>Enunciato del Teorema di Weierstrass:</strong><br>
-            Se una funzione $f(x)$ è <strong>continua</strong> in un intervallo <strong>chiuso e limitato</strong> $[a, b]$, allora essa assume in tale intervallo il suo <strong>valore massimo assoluto $M$</strong> e il suo <strong>valore minimo assoluto $m$</strong>.
+            <strong>Enunciato Formale del Teorema di Weierstrass:</strong><br>
+            Se una funzione $f : [a, b] \to \mathbb{R}$ è <strong>continua</strong> in un intervallo <strong>chiuso e limitato</strong> $[a, b]$, allora essa assume in tale intervallo sia il suo <strong>valore massimo assoluto $M$</strong> sia il suo <strong>valore minimo assoluto $m$</strong>:
           </p>
-          $$\exists c, d \in [a, b] : f(c) = m \le f(x) \le M = f(d), \quad \forall x \in [a, b]$$
+          $$\exists\, c, d \in [a, b] \text{ tali che } f(c) = m \le f(x) \le M = f(d), \quad \forall x \in [a, b]$$
           <p>
-            <strong>Le tre ipotesi imprescindibili:</strong>
+            <strong>Metodo operativo per trovare $m$ e $M$ su $[a, b]$:</strong><br>
+            Una volta verificato che $f(x)$ è continua su $[a, b]$, il massimo e il minimo assoluti si cercano confrontando i valori della funzione nei <strong>punti stazionari/vertici interni</strong> a $(a, b)$ con i valori assunti nei <strong>due estremi del bordo $f(a)$ e $f(b)$</strong>.
           </p>
-          <ul style="margin-left: 1.25rem; font-size: 0.92rem; line-height: 1.6;">
-            <li><strong>1. Funzione Continua:</strong> Se c'è una discontinuità, il massimo potrebbe trovarsi in un «buco» non raggiunto oppure la funzione potrebbe schizzare a infinito.</li>
-            <li><strong>2. Intervallo Chiuso:</strong> Gli estremi $a$ e $b$ devono appartenere all'intervallo. Se l'intervallo è aperto $(a, b)$, la funzione $f(x) = x$ su $(0, 1)$ non ha né minimo (si avvicina a 0 senza mai toccarlo) né massimo (si avvicina a 1 senza mai toccarlo).</li>
-            <li><strong>3. Intervallo Limitato:</strong> L'intervallo deve avere lunghezza finita (non può essere $[0, +\infty)$). La funzione $f(x) = x$ su $[0, +\infty)$ è continua e su intervallo chiuso, ma non ha massimo perché cresce all'infinito.</li>
-          </ul>
 
           <div class="worked-example-grid">
             <div class="worked-example-box">
               <span class="worked-example-title">📌 Esempio Svolto 1 • Weierstrass Applicabile</span>
               Data $f(x) = -x^2 + 4x + 1$ sull'intervallo $[0, 3]$:<br>
-              • È un polinomio $\implies$ continua su $[0, 3]$ chiuso e limitato (Weierstrass vale!).<br>
-              • Vertice della parabola in $x_V = -\frac{b}{2a} = \frac{-4}{-2} = 2 \in [0, 3]$, dove $f(2) = -4 + 8 + 1 = 5$.<br>
-              • Valori agli estremi: $f(0) = 1$, $f(3) = -9 + 12 + 1 = 4$.<br>
-              Confrontando $\{1, 5, 4\}$: <strong>Minimo $m = 1$</strong> (in $x=0$) e <strong>Massimo $M = 5$</strong> (in $x=2$).
+              • <strong>Verifica Ipotesi:</strong> È un polinomio $\implies$ continua su $[0, 3]$ chiuso e limitato (Weierstrass vale!).<br>
+              • <strong>Vertice interno:</strong> $x_V = -\frac{b}{2a} = \frac{-4}{-2} = 2 \in [0, 3]$, dove $f(2) = -4 + 8 + 1 = 5$.<br>
+              • <strong>Valori agli estremi:</strong> $f(0) = 1$, $f(3) = -9 + 12 + 1 = 4$.<br>
+              Confrontando $\{1, 5, 4\}$: <strong>Minimo assoluto $m = 1$</strong> (in $x=0$) e <strong>Massimo assoluto $M = 5$</strong> (in $x=2$).
             </div>
             <div class="worked-example-box">
               <span class="worked-example-title">📌 Esempio Svolto 2 • Quando Cade un'Ipotesi</span>
               Consideriamo $g(x) = \frac{1}{x - 1}$ sull'intervallo chiuso e limitato $[0, 2]$:<br>
-              • L'intervallo $[0, 2]$ è chiuso e limitato, MA il punto $x = 1 \in [0, 2]$ è fuori dal dominio!<br>
-              • Per $x \to 1^\pm$ la funzione diverge a $\pm\infty$ (discontinuità di 2ª specie).<br>
-              • Cadendo la continuità in $[0, 2]$, il Teorema di Weierstrass <strong>non è applicabile</strong> (infatti non esistono né $M$ né $m$).
+              • L'intervallo $[0, 2]$ è chiuso e limitato, MA il punto $x = 1 \in [0, 2]$ annulla il denominatore!<br>
+              • Per $x \to 1^-$ vale $-\infty$ e per $x \to 1^+$ vale $+\infty$ (discontinuità di 2ª specie).<br>
+              • Cadendo l'ipotesi di continuità in $[0, 2]$, il Teorema di Weierstrass <strong>non è applicabile</strong> (infatti non esistono né $M$ né $m$).
             </div>
           </div>
         </div>
@@ -914,8 +1017,39 @@
               Considera la parabola $f(x) = x^2 - 4x + 5$ definita sull'intervallo chiuso e limitato $[1, 4]$.
               Essendo polinomiale, $f(x)$ è continua in $[1, 4]$ e il suo vertice ha ascissa $x_V = -\frac{-4}{2} = 2 \in [1, 4]$.
             </p>
+
+            <!-- GRAFICO INTERATTIVO DI SUPPORTO ALL'ESERCIZIO -->
+            <div class="m1l3-stage" style="margin-bottom: 1.15rem; background: var(--bg-surface-elevated); border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); padding: 0.85rem;">
+              <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.65rem;">
+                <span style="font-weight: 700; font-size: 0.92rem; color: var(--accent-math);">
+                  📈 Grafico Interattivo: $f(x) = x^2 - 4x + 5$ su $[1, 4]$
+                </span>
+                <div style="display: flex; gap: 0.4rem; flex-wrap: wrap;">
+                  <button type="button" class="m1l3-tab-btn" id="btnWEx1" onclick="setWeierstrassExX(1)">📍 Estremo x = 1</button>
+                  <button type="button" class="m1l3-tab-btn active" id="btnWEx2" onclick="setWeierstrassExX(2)">🟢 Vertice x = 2 (Min)</button>
+                  <button type="button" class="m1l3-tab-btn" id="btnWEx4" onclick="setWeierstrassExX(4)">⭐ Estremo x = 4 (Max)</button>
+                </div>
+              </div>
+
+              <!-- Slider di scorrimento su [1, 4] -->
+              <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.65rem; background: var(--bg-surface); padding: 0.5rem 0.85rem; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle);">
+                <label for="wExSlider" style="font-size: 0.88rem; font-weight: 700; color: var(--text-muted); white-space: nowrap;">Muovi il cursore su $[1, 4]$:</label>
+                <input type="range" id="wExSlider" min="1" max="4" step="0.05" value="2" oninput="updateWeierstrassExSim()" style="flex: 1; min-width: 140px; accent-color: var(--accent-math);">
+                <span id="wExValBadge" style="font-family: var(--font-mono); font-weight: 800; font-size: 0.9rem; color: var(--accent-math); min-width: 75px; text-align: right;">x = 2.00</span>
+              </div>
+
+              <svg id="weierstrassExerciseSvg" class="m1l3-svg" viewBox="0 0 620 280" role="img" aria-label="Grafico interattivo della parabola f(x) = x^2 - 4x + 5 su intervallo chiuso [1, 4]">
+                <!-- Disegnato via JS -->
+              </svg>
+
+              <!-- Dettaglio dinamico del punto mobile e dei valori notevoli -->
+              <div id="wExStatusBox" style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); padding: 0.65rem 0.85rem; margin-top: 0.65rem; font-size: 0.88rem; line-height: 1.45;">
+                <!-- Riempito via JS -->
+              </div>
+            </div>
+
             <p style="margin-bottom: 0.45rem; font-weight: 600;">
-              1) Calcola i valori assunti agli estremi e nel vertice, quindi individua il minimo assoluto $m$ e il massimo assoluto $M$:
+              1) Calcola i valori assunti agli estremi e nel vertice (puoi verificare le coordinate muovendo il punto sul grafico), quindi individua il minimo assoluto $m$ e il massimo assoluto $M$:
             </p>
             <div class="verify-box" style="border-top: none; padding-top: 0; margin-top: 0.35rem; margin-bottom: 0.85rem;">
               <label for="lab3F1" style="font-weight: 600;">$f(1) =$</label>
@@ -976,15 +1110,133 @@
         📖 Scheda Teoria 4: Teorema degli Zeri e Bisezione
       </button>
         <p>
-          Come fa un software a trovare la soluzione di un'equazione complessa come $x^3 - 3x - 1 = 0$ per la quale non esistono formule elementari?
-          Sfrutta un risultato fondamentale dell'analisi: il <strong>Teorema di Esistenza degli Zeri</strong> (corollario del Teorema dei Valori Intermedi), trasformato nel potentissimo <strong>Algoritmo di Bisezione</strong>.
+          Come fa una calcolatrice scientifica o un computer a risolvere un'equazione come $x^3 - 3x - 1 = 0$?
         </p>
+        <div style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-left: 3px solid var(--accent-gold); border-radius: var(--radius-sm); padding: 0.65rem 0.9rem; margin-bottom: 0.85rem; font-size: 0.88rem; line-height: 1.5; color: var(--text-muted);">
+          💡 <strong>Nota didattica sulle equazioni di 3° grado:</strong> In realtà una formula risolutiva per le equazioni di terzo grado esiste (la celebre <em>formula di Cardano-Tartaglia</em> del Cinquecento), ma è estremamente complessa, richiede calcoli con radici cubiche di numeri complessi e a scuola non l'abbiamo studiata (a differenza della familiare formula di 2° grado con il $\Delta$). Inoltre, per le equazioni di grado $5$ o superiore, il teorema di Abel-Galois dimostra che una formula algebrica generale per radicali non esiste affatto!
+        </div>
+        <p>
+          Ecco perché nella realtà scientifica, ingegneristica e informatica si ricorre ai <strong>metodi numerici iterativi</strong>: sfruttando il <strong>Teorema di Esistenza degli Zeri</strong> (o di Bolzano) unito al potentissimo <strong>Algoritmo di Bisezione</strong>, un computer può calcolare la soluzione con qualunque livello di precisione decimale desiderato. Esaminiamo prima le <strong>ipotesi</strong> del teorema, poi vediamone il significato con <strong>esempi concreti</strong>, e infine traduciamo il metodo di bisezione in <strong>pseudocodice</strong>!
+        </p>
+
+        <!-- PASSO 1: LE IPOTESI DEL TEOREMA DI ESISTENZA DEGLI ZERI -->
+        <div class="m1l3-highlight-box" style="margin-top: 1rem; border-left: 4px solid var(--accent-math);">
+          <strong style="color: var(--accent-math); font-size: 1rem;">📋 Passo 1 • Le Ipotesi del Teorema di Esistenza degli Zeri</strong>
+          <p style="margin: 0.45rem 0 0.75rem; font-size: 0.92rem; line-height: 1.55;">
+            Per garantire che un'equazione $f(x) = 0$ abbia almeno una soluzione (detta <strong>zero</strong> o <strong>radice</strong> $c$) dentro un intervallo $(a, b)$, devono valere <strong>due ipotesi fondamentali</strong>:
+          </p>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 0.85rem;">
+            <div style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); padding: 0.8rem;">
+              <strong style="color: var(--accent-success);">1️⃣ Ipotesi 1: Continuità in $[a, b]$</strong>
+              <p style="font-size: 0.87rem; margin: 0.35rem 0 0; line-height: 1.48; color: var(--text-muted);">
+                La funzione $f(x)$ deve essere <strong>continua</strong> sull'intervallo chiuso e limitato $[a, b]$. Se il grafico avesse uno strappo o un salto, potrebbe passare da sotto a sopra l'asse $x$ «scavalcandolo» senza mai toccare quota $y = 0$!
+              </p>
+            </div>
+            <div style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); padding: 0.8rem;">
+              <strong style="color: var(--accent-gold);">2️⃣ Ipotesi 2: Segni Opposti agli Estremi ($f(a) \cdot f(b) < 0$)</strong>
+              <p style="font-size: 0.87rem; margin: 0.35rem 0 0; line-height: 1.48; color: var(--text-muted);">
+                Agli estremi $a$ e $b$ la funzione deve avere <strong>segni discordi</strong>: uno negativo (punto <em>sotto</em> l'asse $x$, $f < 0$) e l'altro positivo (punto <em>sopra</em> l'asse $x$, $f > 0$). In formula compatta: $f(a) \cdot f(b) < 0$.
+              </p>
+            </div>
+            <div style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); padding: 0.8rem;">
+              <strong style="color: var(--accent-purple);">➕ Ipotesi Extra per l'Unicità: Monotonia</strong>
+              <p style="font-size: 0.87rem; margin: 0.35rem 0 0; line-height: 1.48; color: var(--text-muted);">
+                Le prime due ipotesi garantiscono che esista <em>almeno uno</em> zero. Se in più $f(x)$ è <strong>strettamente crescente</strong> (o <strong>strettamente decrescente</strong>) in $[a, b]$, allora non può tornare indietro e lo zero $c \in (a, b)$ è <strong>unico</strong>!
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- PASSO 2: SPIEGHIAMO IL TEOREMA CON ESEMPI CONCRETI -->
+        <div class="m1l3-highlight-box" style="margin-top: 1rem; border-left: 4px solid var(--accent-gold);">
+          <strong style="color: var(--accent-gold); font-size: 1rem;">🌍 Passo 2 • Spiegazione del Teorema con Esempi Concreti</strong>
+          <p style="margin: 0.45rem 0 0.75rem; font-size: 0.92rem; line-height: 1.55;">
+            <strong>Tesi del Teorema:</strong> Se $f(x)$ è continua in $[a, b]$ e $f(a) \cdot f(b) < 0$, allora esiste almeno un punto interno $c \in (a, b)$ tale che <strong>$f(c) = 0$</strong> (il grafico taglia l'asse delle ascisse). Vediamo tre esempi immediati:
+          </p>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(245px, 1fr)); gap: 0.85rem;">
+            <div style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); padding: 0.8rem;">
+              <strong style="color: var(--text-main);">🤿 Esempio Concreto 1: Dal Fondale Marino alla Collina</strong>
+              <p style="font-size: 0.87rem; margin: 0.35rem 0 0; line-height: 1.48; color: var(--text-muted);">
+                Un sommozzatore parte a $-20\text{ m}$ sotto il livello del mare ($f(a) = -20 < 0$) e cammina lungo il fondale risalendo la spiaggia fino a un faro a $+50\text{ m}$ di altitudine ($f(b) = +50 > 0$).<br>
+                Poiché il percorso è continuo (non può teletrasportarsi!), deve obbligatoriamente aver attraversato <strong>la quota $0\text{ m}$ del livello del mare ($f(c) = 0$)</strong> in almeno un istante $c$!
+              </p>
+            </div>
+            <div style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); padding: 0.8rem;">
+              <strong style="color: var(--text-main);">💶 Esempio Concreto 2: Punto di Pareggio (Break-Even Point)</strong>
+              <p style="font-size: 0.87rem; margin: 0.35rem 0 0; line-height: 1.48; color: var(--text-muted);">
+                Una startup ha costi fissi iniziali: se vende $x = 0$ abbonamenti è in perdita di $P(0) = -4.000\text{ €} < 0$. Se vende $x = 500$ abbonamenti registra un utile di $P(500) = +6.000\text{ €} > 0$.<br>
+                Poiché $P(0) \cdot P(500) < 0$, il Teorema degli Zeri garantisce che esiste una quantità $c \in (0, 500)$ in cui il bilancio è in <strong>perfetto pareggio: $P(c) = 0\text{ €}$</strong>.
+              </p>
+            </div>
+            <div style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); padding: 0.8rem;">
+              <strong style="color: var(--accent-math);">🔢 Esempio Matematico: $x^3 - 3x - 1 = 0$ in $[1, 2]$</strong>
+              <p style="font-size: 0.87rem; margin: 0.35rem 0 0; line-height: 1.48; color: var(--text-muted);">
+                Consideriamo $f(x) = x^3 - 3x - 1$ su $[1, 2]$:<br>
+                • <em>Ipotesi 1:</em> È un polinomio $\implies$ continua su $[1, 2]$.<br>
+                • <em>Ipotesi 2:</em> In $a=1$ vale $f(1) = 1 - 3 - 1 = -3 < 0$; in $b=2$ vale $f(2) = 8 - 6 - 1 = +1 > 0$.<br>
+                • <em>Tesi:</em> Poiché $-3$ e $+1$ hanno segni opposti, tra $1$ e $2$ si nasconde sicuramente una soluzione $c$ con $f(c) = 0$!
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- PASSO 3: COME FUNZIONA L'ALGORITMO DI BISEZIONE + PSEUDOCODICE -->
+        <div class="m1l3-highlight-box" style="margin-top: 1rem; border-left: 4px solid var(--accent-purple);">
+          <strong style="color: var(--accent-purple); font-size: 1rem;">💻 Passo 3 • Come Funziona l'Algoritmo di Bisezione e il suo Pseudocodice</strong>
+          <p style="margin: 0.45rem 0 0.65rem; font-size: 0.92rem; line-height: 1.55;">
+            Sapere che lo zero $c$ esiste in $[a, b]$ è il primo passo; ma <strong>come lo calcoliamo con precisione arbitraria?</strong>
+            L'<strong>Algoritmo di Bisezione</strong> funziona come una «caccia al tesoro» che ad ogni passo taglia a metà la zona di ricerca:
+          </p>
+          <ol style="margin-left: 1.35rem; font-size: 0.9rem; line-height: 1.6; margin-bottom: 0.85rem;">
+            <li><strong>Taglio a metà:</strong> Calcoliamo il punto medio dell'intervallo attuale: $m = \frac{a + b}{2}$, che divide $[a, b]$ in due metà uguali: la metà sinistra $[a, m]$ e la metà destra $[m, b]$.</li>
+            <li><strong>Controllo nel punto medio:</strong> Calcoliamo $f(m)$. Se $f(m) = 0$, abbiamo trovato la radice esatta e ci fermiamo!</li>
+            <li><strong>Scelta della metà giusta (regola del cambio di segno):</strong> Guardiamo il segno di $f(m)$:
+              <br>• Se $f(a)$ e $f(m)$ hanno <strong>segni opposti</strong> ($f(a) \cdot f(m) < 0$), allora lo zero è intrappolato nella <strong>metà sinistra $[a, m]$</strong> $\implies$ spostiamo l'estremo destro ponendo $b \leftarrow m$.
+              <br>• Altrimenti ($f(m)$ e $f(b)$ hanno segni opposti), lo zero si trova nella <strong>metà destra $[m, b]$</strong> $\implies$ spostiamo l'estremo sinistro ponendo $a \leftarrow m$.</li>
+            <li><strong>Ripetizione fino alla tolleranza $\varepsilon$:</strong> Ad ogni passo l'ampiezza dell'intervallo (e quindi l'errore massimo) si dimezza: dopo $n$ passi vale $\Delta_n = \frac{b - a}{2^n}$. Ripetiamo il ciclo finché la semidistanza $\frac{b - a}{2}$ diventa più piccola dell'errore massimo tollerato $\varepsilon$ (es. $\varepsilon = 0{,}001$).</li>
+          </ol>
+
+          <div style="background: #0f172a; border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); padding: 0.95rem 1.1rem; font-family: var(--font-mono); font-size: 0.84rem; line-height: 1.58; color: #e2e8f0; overflow-x: auto;">
+            <div style="color: var(--accent-gold); font-weight: 700; margin-bottom: 0.4rem; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 0.3rem;">
+              📄 PSEUDOCODICE • Algoritmo di Bisezione (Ricerca Numerica degli Zeri)
+            </div>
+<pre style="margin: 0; font-family: inherit; white-space: pre;"><code><span style="color: #94a3b8;">// INPUT:  f(x) funzione continua su [a, b] tale che f(a) * f(b) &lt; 0</span>
+<span style="color: #94a3b8;">//         tolleranza ε &gt; 0 (errore massimo ammesso, es. ε = 0.001)</span>
+<span style="color: #94a3b8;">// OUTPUT: m, approssimazione dello zero c con errore &lt;= ε</span>
+
+<span style="color: #38bdf8; font-weight: 700;">FUNZIONE</span> <span style="color: #fbbf24;">Bisezione</span>(f, a, b, ε):
+    <span style="color: #94a3b8;">// 1. Verifica preliminare dell'ipotesi sul cambio di segno</span>
+    <span style="color: #c084fc; font-weight: 700;">SE</span> f(a) * f(b) &gt;= 0 <span style="color: #c084fc; font-weight: 700;">ALLORA</span>
+        <span style="color: #f87171; font-weight: 700;">ERRORE</span> "Ipotesi violata: f(a) e f(b) devono avere segni opposti!"
+    <span style="color: #c084fc; font-weight: 700;">FINE SE</span>
+
+    <span style="color: #94a3b8;">// 2. Ciclo iterativo: dimezza l'intervallo finché il raggio d'errore supera ε</span>
+    <span style="color: #38bdf8; font-weight: 700;">MENTRE</span> (b - a) / 2 &gt; ε <span style="color: #38bdf8; font-weight: 700;">FAI</span>:
+        m ← (a + b) / 2              <span style="color: #94a3b8;">// Calcola il punto medio dell'intervallo [a, b]</span>
+
+        <span style="color: #c084fc; font-weight: 700;">SE</span> f(m) == 0 <span style="color: #c084fc; font-weight: 700;">ALLORA</span>
+            <span style="color: #4ade80; font-weight: 700;">RITORNA</span> m                <span style="color: #94a3b8;">// Caso fortunato: m è lo zero esatto!</span>
+        <span style="color: #c084fc; font-weight: 700;">FINE SE</span>
+
+        <span style="color: #c084fc; font-weight: 700;">SE</span> f(a) * f(m) &lt; 0 <span style="color: #c084fc; font-weight: 700;">ALLORA</span>
+            b ← m                    <span style="color: #94a3b8;">// Cambio di segno a sinistra: nuovo intervallo [a, m]</span>
+        <span style="color: #c084fc; font-weight: 700;">ALTRIMENTI</span>
+            a ← m                    <span style="color: #94a3b8;">// Cambio di segno a destra:   nuovo intervallo [m, b]</span>
+        <span style="color: #c084fc; font-weight: 700;">FINE SE</span>
+    <span style="color: #38bdf8; font-weight: 700;">FINE MENTRE</span>
+
+    <span style="color: #94a3b8;">// 3. Restituisce il punto medio dell'ultimo intervallo come migliore stima</span>
+    m ← (a + b) / 2
+    <span style="color: #4ade80; font-weight: 700;">RITORNA</span> m
+<span style="color: #38bdf8; font-weight: 700;">FINE FUNZIONE</span></code></pre>
+          </div>
+        </div>
 
         <div class="m1l3-stage">
           <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 0.85rem;">
             <div>
-              <strong>Equazione bersaglio:</strong> $f(x) = x^3 - 3x - 1 = 0$ nell'intervallo $[1, 2]$.<br>
-              <span style="font-size: 0.85rem; color: var(--text-muted);">$f(1) = 1 - 3 - 1 = -3 < 0$, $f(2) = 8 - 6 - 1 = +1 > 0$ (Segni opposti!)</span>
+              <strong>Simulatore Passo-Passo dello Pseudocodice:</strong> $f(x) = x^3 - 3x - 1 = 0$ in $[1, 2]$.<br>
+              <span style="font-size: 0.85rem; color: var(--text-muted);">$f(1) = 1 - 3 - 1 = -3 < 0$, $f(2) = 8 - 6 - 1 = +1 > 0$ (Ipotesi verificata: $f(1)\cdot f(2) = -3 < 0$)</span>
             </div>
             <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
               <button type="button" class="btn-action" id="btnNextBisection" onclick="stepBisection()">
@@ -1025,35 +1277,39 @@
         <!-- TEORIA 4 IN CALCE AL LABORATORIO -->
         <div class="theory-card" id="teoria-4">
           <h4>
-            <span>La Teoria in Breve • Teorema dei Valori Intermedi ed Esistenza degli Zeri</span>
+            <span>La Teoria in Breve • Teorema dei Valori Intermedi, Zeri e Bisezione</span>
             <span class="theory-pill">Teoria 4</span>
           </h4>
           <p>
-            <strong>Teorema dei Valori Intermedi (di Bolzano):</strong><br>
+            <strong>Teorema dei Valori Intermedi (di Bolzano-Darboux):</strong><br>
             Se $f(x)$ è continua in un intervallo chiuso e limitato $[a, b]$, allora essa assume <strong>almeno una volta tutti i valori compresi tra il suo valore minimo $m$ e il suo valore massimo $M$</strong>.
-            Geometricamente: una curva continua che va da un'ordinata all'altra non può saltare alcun livello intermedio senza attraversarlo.
+            Geometricamente: una curva continua che collega due quote diverse non può saltare alcun livello intermedio senza attraversarlo.
           </p>
           <div style="background: var(--bg-surface); border: 1px solid var(--border-subtle); padding: 0.85rem; border-radius: var(--radius-sm); margin-top: 0.75rem;">
-            <strong>Corollario • Teorema di Esistenza degli Zeri:</strong><br>
-            Se $f(x)$ è continua in $[a, b]$ e agli estremi assume valori di <strong>segno opposto</strong> ($f(a) \cdot f(b) < 0$), allora esiste <strong>almeno un punto $c \in (a, b)$</strong> tale che:
+            <strong>Teorema di Esistenza degli Zeri (di Bolzano):</strong><br>
+            Sia $f : [a, b] \to \mathbb{R}$ una funzione che soddisfa le due ipotesi:
+            <br>1. $f(x)$ è <strong>continua</strong> nell'intervallo chiuso e limitato $[a, b]$;
+            <br>2. agli estremi assume valori di <strong>segno opposto</strong>: $f(a) \cdot f(b) < 0$.
+            <br>Allora esiste <strong>almeno un punto $c \in (a, b)$</strong> tale che:
             $$f(c) = 0$$
-            Se inoltre la funzione è <em>strettamente crescente</em> o <em>strettamente decrescente</em> in $[a, b]$, tale radice $c$ è <strong>unica</strong>.
+            Se inoltre $f(x)$ è <em>strettamente monotòna</em> (sempre crescente o sempre decrescente) in $[a, b]$, lo zero $c$ è <strong>unico</strong>.
+            <br><br>
+            <strong>Stima dell'errore nel Metodo di Bisezione:</strong> Partendo da $[a, b]$, dopo $n$ iterazioni l'ampiezza dell'intervallo è $\Delta_n = \frac{b - a}{2^n}$. Scegliendo il punto medio $m_n$, l'errore massimo commesso rispetto alla radice vera $c$ è $|c - m_n| \le \frac{b - a}{2^{n+1}}$.
           </div>
 
           <div class="worked-example-grid">
             <div class="worked-example-box">
-              <span class="worked-example-title">📌 Esempio Svolto 1 • Verifica Esistenza dello Zero</span>
-              Mostriamo che $f(x) = x^3 + x - 3 = 0$ ha una soluzione in $[1, 2]$:<br>
-              1) $f(x)$ è polinomiale $\implies$ <strong>continua</strong> in $[1, 2]$.<br>
-              2) Valori agli estremi: $f(1) = 1 + 1 - 3 = -1 < 0$ e $f(2) = 8 + 2 - 3 = +7 > 0$.<br>
-              3) Poiché $f(1) \cdot f(2) = -7 < 0$ (segni discordi), per il Teorema degli Zeri esiste almeno un $c \in (1, 2)$ con $f(c) = 0$.
+              <span class="worked-example-title">📌 Esempio Svolto 1 • Verifica delle Ipotesi degli Zeri</span>
+              Mostriamo che $f(x) = x^3 + x - 3 = 0$ ammette un'unica soluzione in $[1, 2]$:<br>
+              1) <strong>Ipotesi 1 (Continuità):</strong> $f(x)$ è polinomiale $\implies$ continua su $[1, 2]$.<br>
+              2) <strong>Ipotesi 2 (Segni discordi):</strong> $f(1) = 1 + 1 - 3 = -1 < 0$ e $f(2) = 8 + 2 - 3 = +7 > 0 \implies f(1)\cdot f(2) = -7 < 0$.<br>
+              3) <strong>Unicità:</strong> $x^3$ e $x$ sono strettamente crescenti $\implies$ esiste un <strong>unico</strong> $c \in (1, 2)$ con $f(c) = 0$.
             </div>
             <div class="worked-example-box">
-              <span class="worked-example-title">📌 Esempio Svolto 2 • Primo Passo di Bisezione</span>
-              Restringiamo l'intervallo $[1, 2]$ per $f(x) = x^3 + x - 3$:<br>
-              1) Punto medio: $m = \frac{1 + 2}{2} = 1{,}5$.<br>
-              2) Valutiamo il segno nel punto medio: $f(1{,}5) = (1{,}5)^3 + 1{,}5 - 3 = 3{,}375 + 1{,}5 - 3 = +1{,}875 > 0$.<br>
-              3) Poiché $f(1) = -1 < 0$ e $f(1{,}5) = +1{,}875 > 0$ hanno segni opposti, la radice cade nel nuovo intervallo dimezzato <strong>$[1;\ 1{,}5]$</strong>!
+              <span class="worked-example-title">📌 Esempio Svolto 2 • Esecuzione di 2 Passi di Bisezione</span>
+              Approssimiamo lo zero di $f(x) = x^3 + x - 3$ in $[1, 2]$ ($f(1) = -1 < 0$, $f(2) = +7 > 0$):<br>
+              • <strong>Passo 1:</strong> $m_1 = \frac{1 + 2}{2} = 1{,}5$. Calcoliamo $f(1{,}5) = 3{,}375 + 1{,}5 - 3 = +1{,}875 > 0$. Poiché $f(1) < 0$ e $f(1{,}5) > 0$, poniamo $b \leftarrow 1{,}5$: nuovo intervallo <strong>$[1;\ 1{,}5]$</strong>.<br>
+              • <strong>Passo 2:</strong> $m_2 = \frac{1 + 1{,}5}{2} = 1{,}25$. Calcoliamo $f(1{,}25) = 1{,}953 + 1{,}25 - 3 = +0{,}203 > 0$. Poiché $f(1) < 0$ e $f(1{,}25) > 0$, poniamo $b \leftarrow 1{,}25$: nuovo intervallo <strong>$[1;\ 1{,}25]$</strong>!
             </div>
           </div>
         </div>
@@ -1338,18 +1594,18 @@
 
       <article class="scheda-container">
         <h3 class="scheda-title">
-          Compito Autentico: «Stabilità di Sistemi Sociali &amp; Tariffe Pubbliche»
+          Compito Autentico: «Modelli di Welfare: Bonus Famiglia, Continuità delle Tariffe ed Equità Sociale»
         </h3>
 
         <div class="theory-link-box">
           <span class="tl-icon">🔗</span>
           <div>
-            <strong>Collegamento Teoria ↔ Pratica:</strong> Questo compito autentico applica il calcolo dei limiti di raccordo continuo per funzioni a tratti e l'algoritmo di bisezione esaminati nei Laboratori 4 e 6.
+            <strong>Collegamento Teoria ↔ Pratica:</strong> Questo compito di realtà ricalca passo dopo passo il modello svolto nel <strong>Laboratorio 6</strong>: userai i limiti laterali per evitare salti ingiusti nelle fasce ISEE (discontinuità di 1ª specie) e il <strong>Teorema di Weierstrass</strong> per determinare l'importo massimo e minimo del beneficio.
           </div>
         </div>
 
         <div class="scheda-delivery-callout">
-          <strong>📅 Modalità di consegna:</strong> Svolgi la scheda individualmente o in coppia con un compagno e portala compilata per la lezione successiva.
+          <strong>📅 Modalità di consegna:</strong> Segui la traccia guidata in 4 passi (analoga alla Risoluzione Guidata del Laboratorio 6) e porta la scheda compilata per la prossima lezione.
         </div>
 
         <div class="scheda-student-fields">
@@ -1368,50 +1624,55 @@
         </div>
 
       <div style="font-size: 0.93rem; line-height: 1.6; color: var(--text-main);">
-        <p><strong>Esercizio 1 (Analisi di Continuità e Singolarità):</strong><br>
-          Data la funzione $f(x) = \frac{x^2 - 4x + 3}{x - 1}$:
-          <br>a) Determina il dominio di $f(x)$.
-          <br>b) Calcola $\lim_{x \to 1} f(x)$ e individua la natura della singolarità in $x = 1$.
-          <br>c) Come è possibile estendere per continuità la funzione all'intero asse reale $\mathbb{R}$?
+        <div style="background: var(--bg-surface-elevated); border: 1px solid var(--border-subtle); border-left: 4px solid var(--accent-math); border-radius: var(--radius-sm); padding: 1rem 1.15rem; margin-bottom: 1.25rem;">
+          <strong>🏛️ Il Caso Studio Comunale:</strong><br>
+          Un Comune intende erogare un <strong>Bonus Energia Annuo</strong> $B(x)$ (espresso in euro) alle famiglie residenti in base al loro indicatore di reddito <strong>ISEE $x$</strong> (espresso in migliaia di euro, nell'intervallo chiuso e limitato $x \in [0, 25]$, cioè da $0\text{ €}$ a $25.000\text{ €}$).<br>
+          Il regolamento prevede due fasce di reddito con cambio di formula sulla soglia $x = 10$ (ossia $10.000\text{ €}$ di ISEE):
+          $$B(x) = \begin{cases} 500 - 20x & 0 \le x < 10 \\ \dfrac{k}{x + 5} & 10 \le x \le 25 \end{cases}$$
+          Il tuo compito è aiutare l'Ufficio Politiche Sociali a scegliere il parametro $k$ affinché sul confine $x = 10$ <strong>non si verifichi alcun salto improvviso</strong> («trappola della povertà»).
+        </div>
+
+        <p><strong>Passo 1 • Calcolo del limite sinistro alla soglia $x = 10$ (prima fascia):</strong><br>
+          Considera una famiglia il cui ISEE si avvicina da sinistra a $10.000\text{ €}$ ($x \to 10^-$), restando nella prima fascia $B(x) = 500 - 20x$.
+          <br>• Calcola il limite sinistro: $\lim_{x \to 10^-} B(x) = 500 - 20(10) = \dots\dots\dots\text{ euro}$.
         </p>
 
-        <p style="margin-top: 1.25rem;"><strong>Esercizio 2 (Raccordo Continuo di un Servizio Asilo Nido):</strong><br>
-          La retta mensile per l'asilo nido comunale in base all'ISEE familiare $x \in [0, 40]$ (in migliaia di euro) segue la legge:
-          $$T(x) = \begin{cases} 80 + 10x & 0 \le x \le 15 \\ ax + 30 & 15 < x \le 40 \end{cases}$$
-          <br>a) Calcola il valore del parametro $a$ affinché la retta sia continua nel punto di raccordo $x = 15$.
-          <br>b) Disegna il grafico della tariffa con il valore di $a$ trovato.
-          <br>c) Spiega quali garanzie offre il Teorema di Weierstrass rispetto alla retta minima e massima applicata dal Comune.
+        <p style="margin-top: 1.15rem;"><strong>Passo 2 • Calcolo del limite destro in $x = 10$ (seconda fascia) e analisi del salto:</strong><br>
+          A partire da $x = 10$ entra in vigore la seconda fascia $B(x) = \dfrac{k}{x + 5}$.
+          <br>a) Scrivi l'espressione del valore $B(10)$ e del limite destro $\lim_{x \to 10^+} B(x)$ in funzione di $k$: $B(10) = \dfrac{k}{10 + 5} = \dfrac{k}{\dots\dots}$.
+          <br>b) <em>Verifica di un errore amministrativo:</em> se il Comune fissasse per errore $k = 3000$, quanto riceverebbe una famiglia con ISEE $x = 10$? Che tipo di <strong>discontinuità</strong> si creerebbe in $x = 10$ e di quanti euro sarebbe il <strong>salto improvviso</strong> $S = |l_2 - l_1|$?
         </p>
 
-        <p style="margin-top: 1.25rem;"><strong>Esercizio 3 (Applicazione della Bisezione al Pareggio di Bilancio):</strong><br>
-          Una cooperativa sociale di inserimento lavorativo calcola che il suo profitto netto (in migliaia di euro) in funzione del numero di soci $x$ (in decine) è $P(x) = x^3 - 2x - 5$.
-          <br>a) Dimostra, tramite il Teorema di esistenza degli zeri, che l'attività raggiunge il pareggio di bilancio ($P(x) = 0$) in un intervallo compreso tra 2 e 3 (cioè tra 20 e 30 soci).
-          <br>b) Applica manualmente due passi dell'algoritmo di bisezione per restringere l'intervallo che contiene la radice, compilando una tabella analoga a quella del Laboratorio 4.
+        <p style="margin-top: 1.15rem;"><strong>Passo 3 • Condizione di Continuità ed Equità Sociale (Scelta ottima di $k$):</strong><br>
+          Per eliminare il salto e rendere la funzione $B(x)$ <strong>continua</strong> in $x = 10$, uguaglia il limite sinistro (trovato al Passo 1) e il limite destro (trovato al Passo 2a):
+          $$\lim_{x \to 10^-} B(x) = \lim_{x \to 10^+} B(x) \implies \dfrac{k}{15} = \dots\dots\dots \implies k = \dots\dots\dots$$
+          Spiega con parole tue perché questa scelta di $k$ evita ingiustizie tra famiglie con redditi quasi identici intorno a $10.000\text{ €}$.
         </p>
 
-        <p style="margin-top: 1.25rem;"><strong>Esercizio 4 (Quesito Argomentativo per il Colloquio d'Esame):</strong><br>
-          Il filosofo Leibniz sosteneva il celebre principio <em>«Natura non facit saltus»</em> (La natura non compie salti).
-          Analizza criticamente questa affermazione alla luce della continuità matematica e confrontala con i fenomeni studiati nelle scienze umane (ad esempio: mutamenti sociali graduali versus rivoluzioni repentine, oppure soglie psicologiche di percezione).
+        <p style="margin-top: 1.15rem;"><strong>Passo 4 • Applicazione del Teorema di Weierstrass (Bonus Massimo e Minimo):</strong><br>
+          Sostituendo il valore corretto di $k$ trovato al Passo 3, la funzione $B(x)$ diventa continua su tutto l'intervallo $[0, 25]$.
+          <br>a) Verifica che siano soddisfatte tutte e <strong>3 le ipotesi del Teorema di Weierstrass</strong> per $B(x)$ su $[0, 25]$.
+          <br>b) Poiché il bonus diminuisce al crescere del reddito ISEE, calcola l'importo del <strong>Bonus Massimo Assoluto $M = B(0)$</strong> (per chi ha ISEE $0\text{ €}$) e del <strong>Bonus Minimo Assoluto $m = B(25)$</strong> (per chi ha ISEE $25.000\text{ €}$).
         </p>
 
         <!-- Rubrica di Valutazione -->
         <h4 style="margin-top: 2rem; color: var(--accent-math);">Griglia di Valutazione delle Competenze (Rubrica in Decimi)</h4>
         <div class="rubric-grid">
           <div class="rubric-card">
-            <div class="rubric-card-title">1. Padronanza Teorica (0-2.5 pt)</div>
-            <p>Chiarezza nelle definizioni di limite e continuità; corretto riconoscimento e denominazione delle tre specie di discontinuità.</p>
+            <div class="rubric-card-title">1. Limiti Laterali in Soglia (0-2.5 pt)</div>
+            <p>Corretto calcolo di $\lim_{x \to 10^-} B(x) = 300\text{ €}$ e impostazione di $\lim_{x \to 10^+} B(x) = \frac{k}{15}$.</p>
           </div>
           <div class="rubric-card">
-            <div class="rubric-card-title">2. Calcolo &amp; Raccordi (0-2.5 pt)</div>
-            <p>Precisione algebrica nella determinazione dei parametri di raccordo nei modelli a tratti; calcolo accurato dei limiti laterali.</p>
+            <div class="rubric-card-title">2. Salto e 1ª Specie (0-2.5 pt)</div>
+            <p>Riconoscimento della discontinuità di 1ª specie per $k=3000$ e calcolo del salto $S = |200 - 300| = 100\text{ €}$.</p>
           </div>
           <div class="rubric-card">
-            <div class="rubric-card-title">3. Algoritmo di Bisezione (0-2.5 pt)</div>
-            <p>Rigore nell'applicazione del Teorema degli Zeri e precisione nei passaggi numerici successivi del metodo di bisezione.</p>
+            <div class="rubric-card-title">3. Raccordo Continuo (0-2.5 pt)</div>
+            <p>Risoluzione dell'equazione di continuità $\frac{k}{15} = 300 \implies k = 4500$ e commento sull'equità sociale.</p>
           </div>
           <div class="rubric-card">
-            <div class="rubric-card-title">4. Contestualizzazione Umana (0-2.5 pt)</div>
-            <p>Capacità di interpretare le implicazioni sociali del principio di continuità (equità fiscale, welfare, trappole della povertà).</p>
+            <div class="rubric-card-title">4. Teorema di Weierstrass (0-2.5 pt)</div>
+            <p>Verifica delle 3 ipotesi su $[0, 25]$ e calcolo esatto di $M = B(0) = 500\text{ €}$ e $m = B(25) = 150\text{ €}$.</p>
           </div>
         </div>
       </div>
@@ -1549,7 +1810,7 @@
 
     const selectedChoices = {};
     function selectChoice(group, btnOrVal) {
-      if (window.ComodeAudio) ComodeAudio.play('click');
+      if (window.ComodeAudio && ComodeAudio.playClick) ComodeAudio.playClick();
       let btn = btnOrVal;
       if (typeof btnOrVal === 'string') {
         const container = document.getElementById(group + 'Choices') || document;
@@ -1593,7 +1854,7 @@
         showFeedback('lab1Msg', true, 'Eccellente! f(2) = 7 e lim(x→2⁻) f(x) = 7 coincidono. Se il secondo ramo valesse 5, i limiti laterali sarebbero diversi (7 ≠ 5) e cadrebbe la 2ª condizione (+10 XP)!');
         markLabCompleted(1, false);
       } else {
-        if (window.ComodeAudio) ComodeAudio.play('error');
+        if (window.ComodeAudio && ComodeAudio.playError) ComodeAudio.playError();
         if (!okNums) {
           showFeedback('lab1Msg', false, 'Controlla i calcoli numerici in x₀ = 2: nel secondo ramo f(2) = 2² + 3 = 7, e nel primo ramo lim(x→2⁻) (4x - 1) = 4(2) - 1 = 7.');
         } else if (!choice) {
@@ -1619,7 +1880,7 @@
         showFeedback('lab2Msg', true, 'Perfetto! Hai calcolato il salto S = |9 - 5| = 4 (1ª specie), eliminato il buco ponendo L = 10 (3ª specie) e riconosciuto la singolarità asintotica di 2ª specie (+10 XP)!');
         markLabCompleted(2, false);
       } else {
-        if (window.ComodeAudio) ComodeAudio.play('error');
+        if (window.ComodeAudio && ComodeAudio.playError) ComodeAudio.playError();
         if (!okA) {
           showFeedback('lab2Msg', false, 'Controlla il Caso A in x₀ = 2: a sinistra l₁ = 3(2) - 1 = 5; a destra l₂ = 2(2) + 5 = 9; ampiezza del salto S = |9 - 5| = 4.');
         } else if (!okB) {
@@ -1648,7 +1909,7 @@
         showFeedback('lab3Msg', true, 'Bravissimo! Su [1, 4] la parabola assume minimo assoluto m = 1 (in x = 2) e massimo assoluto M = 5 (in x = 4), mentre 1/(x - 2) viola la continuità in x = 2 (+10 XP)!');
         markLabCompleted(3, false);
       } else {
-        if (window.ComodeAudio) ComodeAudio.play('error');
+        if (window.ComodeAudio && ComodeAudio.playError) ComodeAudio.playError();
         if (!okVals) {
           showFeedback('lab3Msg', false, 'Verifica i valori di f(x) = x² - 4x + 5: f(1) = 1 - 4 + 5 = 2; f(2) = 4 - 8 + 5 = 1; f(4) = 16 - 16 + 5 = 5.');
         } else if (!okExtrema) {
@@ -1674,7 +1935,7 @@
         showFeedback('lab4Msg', true, 'Eccellente! f(3) = -1 < 0, f(4) = +4 > 0 e m = 3,5 con f(3,5) = +1,25 > 0: il cambio di segno avviene nel sotto-intervallo [3; 3,5] (+10 XP)!');
         markLabCompleted(4, false);
       } else {
-        if (window.ComodeAudio) ComodeAudio.play('error');
+        if (window.ComodeAudio && ComodeAudio.playError) ComodeAudio.playError();
         if (!okNums) {
           showFeedback('lab4Msg', false, 'Controlla i calcoli per f(x) = x² - 2x - 4: f(3) = 9 - 6 - 4 = -1; f(4) = 16 - 8 - 4 = 4; il punto medio tra 3 e 4 è m = 3,5.');
         } else if (!choice) {
@@ -1692,7 +1953,7 @@
         showFeedback('lab5Msg', true, `Ottimo lavoro! Hai affrontato con successo la Palestra Mentale (${solvedQuizzes.size}/6 sfide completate, +10 XP)!`);
         markLabCompleted(5, false);
       } else {
-        if (window.ComodeAudio) ComodeAudio.play('error');
+        if (window.ComodeAudio && ComodeAudio.playError) ComodeAudio.playError();
         showFeedback('lab5Msg', false, `Rispondi ad almeno 4 delle 6 sfide della Palestra Mentale prima di completare il laboratorio (attualmente: ${solvedQuizzes.size}/6).`);
       }
     }
@@ -1710,7 +1971,7 @@
         showFeedback('lab6Msg', true, 'Perfetto! Limite sinistro = 190 €, parametro di raccordo continuo k = 110 e tariffa massima T(25) = 310 € (+10 XP)!');
         markLabCompleted(6, false);
       } else {
-        if (window.ComodeAudio) ComodeAudio.play('error');
+        if (window.ComodeAudio && ComodeAudio.playError) ComodeAudio.playError();
         if (!ok1) {
           showFeedback('lab6Msg', false, 'Controlla il punto 1: per x → 10⁻ usiamo 15x + 40, quindi 15(10) + 40 = 190 €.');
         } else if (!ok2) {
@@ -1730,7 +1991,7 @@
       if (card) card.classList.add('completed');
 
       if (!silent) {
-        if (window.ComodeAudio) ComodeAudio.play('success');
+        if (window.ComodeAudio && ComodeAudio.playSuccess) ComodeAudio.playSuccess();
         if (window.ComodeGamification) {
           ComodeGamification.addXP(10, 'Laboratorio ' + num + ' completato!');
         }
@@ -1745,7 +2006,7 @@
         markLabCompleted(i, true);
       }
       if (!silent) {
-        if (window.ComodeAudio) ComodeAudio.play('achievement');
+        if (window.ComodeAudio && ComodeAudio.playLevelUp) ComodeAudio.playLevelUp();
         if (window.ComodeGamification) {
           ComodeGamification.addXP(60, 'Lezione 5.M1.3 Completata con Successo!');
           ComodeGamification.markLessonCompleted(LESSON_ID);
@@ -1772,102 +2033,210 @@
     }
 
     /* ========================================================
-       LABORATORIO 1: PIASTRELLA DELL'ARTIGIANO
+       LABORATORIO 1: ESPLORATORE FUNZIONI CONTINUE E A TRATTI
        ======================================================== */
-    function updateTileSim() {
-      const slider = document.getElementById('tileDeltaLSlider');
-      const dL = parseFloat(slider.value);
-      const l0 = 3.0;
-      const l = l0 + dL;
-      const a0 = l0 * l0;
-      const a = l * l;
-      const dA = a - a0;
+    let currentContCase = 1;
 
-      document.getElementById('tileDeltaLVal').textContent = (dL >= 0 ? '+' : '') + dL.toFixed(2) + ' dm';
-      document.getElementById('tileSideText').textContent = l.toFixed(2) + ' dm';
-      document.getElementById('tileAreaText').textContent = a.toFixed(2) + ' dm²';
-      document.getElementById('tileDeltaAText').textContent = (dA >= 0 ? '+' : '') + dA.toFixed(2) + ' dm²';
-
-      renderTileSvg(dL, l0, l, a0, a, dA);
+    function selectContCase(c) {
+      if (window.ComodeAudio && ComodeAudio.playClick) ComodeAudio.playClick();
+      currentContCase = c;
+      for (let i = 1; i <= 4; i++) {
+        const btn = document.getElementById('btnContCase' + i);
+        if (btn) btn.classList.toggle('active', i === c);
+      }
+      updateTileSim();
     }
 
-    function renderTileSvg(dL, l0, l, a0, a, dA) {
+    function evalContLeft(c, vx) {
+      if (c === 1) return 0.5 * vx * vx + 1;
+      if (c === 2) return 2.0;
+      if (c === 3) return 2.0 * vx - 1.0;
+      return 2.0 * vx - 1.0;
+    }
+
+    function evalContRight(c, vx) {
+      if (c === 1) return 0.5 * vx * vx + 1;
+      if (c === 2) return 5.0;
+      if (c === 3) return 0.5 * vx * vx + 1;
+      return 0.5 * vx * vx + 3;
+    }
+
+    function updateTileSim() {
+      const slider = document.getElementById('tileDeltaLSlider');
+      if (!slider) return;
+      const dx = parseFloat(slider.value);
+      const x0 = 2.0;
+      const xL = x0 - dx;
+      const xR = x0 + dx;
+
+      const yL = evalContLeft(currentContCase, xL);
+      const yR = evalContRight(currentContCase, xR);
+      const limL = evalContLeft(currentContCase, x0);
+      const limR = evalContRight(currentContCase, x0);
+      const f2 = limR;
+      const isCont = Math.abs(limL - limR) < 0.001;
+
+      document.getElementById('tileDeltaLVal').textContent =
+        `Δx = ${dx.toFixed(2).replace('.', ',')} (x⁻ = ${xL.toFixed(2).replace('.', ',')} | x⁺ = ${xR.toFixed(2).replace('.', ',')})`;
+
+      document.getElementById('tileSideText').textContent =
+        `f(${xL.toFixed(2).replace('.', ',')}) = ${yL.toFixed(2).replace('.', ',')} → l⁻ = ${limL}`;
+      document.getElementById('tileAreaText').textContent =
+        `f(${xR.toFixed(2).replace('.', ',')}) = ${yR.toFixed(2).replace('.', ',')} → l⁺ = ${limR}`;
+      document.getElementById('tileDeltaAText').textContent = `f(2) = ${f2}`;
+
+      const verdictEl = document.getElementById('contVerdictText');
+      if (verdictEl) {
+        if (isCont) {
+          verdictEl.textContent = '✅ CONTINUA (l⁻ = l⁺ = f(2))';
+          verdictEl.style.color = 'var(--accent-success)';
+        } else {
+          verdictEl.textContent = `❌ NON CONTINUA (l⁻=${limL} ≠ l⁺=${limR})`;
+          verdictEl.style.color = '#ef4444';
+        }
+      }
+
+      const formulaBox = document.getElementById('contCaseFormulaBox');
+      if (formulaBox) {
+        formulaBox.style.borderLeftColor = isCont ? 'var(--accent-success)' : '#ef4444';
+        if (currentContCase === 1) {
+          formulaBox.innerHTML = `
+            <strong style="color: var(--accent-success);">Caso 1 • Funzione Elementare Continua:</strong>
+            $f(x) = \\frac{1}{2}x^2 + 1$ in $x_0 = 2$.<br>
+            Sia da sinistra ($\\lim_{x \\to 2^-} f(x) = 3$) che da destra ($\\lim_{x \\to 2^+} f(x) = 3$), la curva converge al valore $f(2) = 3$: <strong>non stacchi mai la penna dal foglio</strong>!
+          `;
+        } else if (currentContCase === 2) {
+          formulaBox.innerHTML = `
+            <strong style="color: #ef4444;">Caso 2 • Funzione a Scaglioni NON Continua (Tariffa Parcheggio):</strong>
+            $f(x) = \\begin{cases} 2 & x < 2 \\\\ 5 & x \\ge 2 \\end{cases}$ in $x_0 = 2$.<br>
+            Arrivando da sinistra la quota è $l^- = 2$, ma da destra parte da $l^+ = f(2) = 5$. Poiché $2 \\neq 5$, c'è un <strong>salto improvviso di $3$ unità</strong>: devi alzare la penna!
+          `;
+        } else if (currentContCase === 3) {
+          formulaBox.innerHTML = `
+            <strong style="color: var(--accent-success);">Caso 3 • Definita a Tratti MA CONTINUA (Raccordo Perfetto):</strong>
+            $f(x) = \\begin{cases} 2x - 1 & x < 2 \\\\ \\frac{1}{2}x^2 + 1 & x \\ge 2 \\end{cases}$ in $x_0 = 2$.<br>
+            A sinistra è una retta ($2(2)-1 = 3$), a destra una parabola ($\\frac{1}{2}(2^2)+1 = 3$). Poiché $l^- = l^+ = f(2) = 3$, <strong>i due tratti si saldano perfettamente in $(2, 3)$ senza interruzioni</strong>!
+          `;
+        } else {
+          formulaBox.innerHTML = `
+            <strong style="color: #ef4444;">Caso 4 • Definita a Tratti NON Continua (Tratti Spezzati):</strong>
+            $f(x) = \\begin{cases} 2x - 1 & x < 2 \\\\ \\frac{1}{2}x^2 + 3 & x \\ge 2 \\end{cases}$ in $x_0 = 2$.<br>
+            La retta di sinistra arriva a quota $l^- = 2(2)-1 = 3$, ma la parabola di destra parte da quota $l^+ = \\frac{1}{2}(2^2)+3 = 5$. Poiché $3 \\neq 5$, <strong>i due rami non si toccano</strong>!
+          `;
+        }
+        if (window.ComodeComponents) {
+          window.ComodeComponents.renderMath(formulaBox);
+        } else if (window.renderMathInElement) {
+          window.renderMathInElement(formulaBox, { delimiters: [{left: "$", right: "$", display: false}, {left: "$$", right: "$$", display: true}] });
+        }
+      }
+
+      renderTileSvg(dx, xL, xR, yL, yR, limL, limR, isCont);
+    }
+
+    function renderTileSvg(dx, xL, xR, yL, yR, limL, limR, isCont) {
       const svg = document.getElementById('tileSvg');
-      const baseSize = 160;
-      const scale = baseSize / l0; // px per dm
-      const ox = 70;
-      const oy = 50;
+      if (!svg) return;
 
-      const basePx = l0 * scale;
-      const dLPx = dL * scale;
+      // x in [0, 3.6] -> [75, 535], y in [-1, 8.5] -> [268, 28]
+      const toX = (vx) => 75 + (vx / 3.6) * 460;
+      const toY = (vy) => 268 - ((vy - (-1.0)) / 9.5) * 240;
+      const ox = toX(0);
+      const oy = toY(0);
+      const sx0 = toX(2.0);
 
-      let html = `
-        <defs>
-          <pattern id="tileGrid" width="20" height="20" patternUnits="userSpaceOnUse">
-            <path d="M 20 0 L 0 0 0 20" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
-          </pattern>
-        </defs>
-        <rect width="100%" height="100%" fill="var(--bg-surface)" rx="8"/>
-        <rect width="100%" height="100%" fill="url(#tileGrid)" rx="8"/>
+      let grid = '';
+      [0.5, 1, 1.5, 2, 2.5, 3, 3.5].forEach(vx => {
+        const sx = toX(vx);
+        const isTarget = Math.abs(vx - 2.0) < 0.01;
+        grid += `<line x1="${sx}" y1="24" x2="${sx}" y2="270" stroke="var(--border-subtle)" stroke-opacity="${isTarget ? '0.55' : '0.22'}" stroke-dasharray="2,3"/>`;
+        if (Number.isInteger(vx)) {
+          grid += `<line x1="${sx}" y1="${oy - 4}" x2="${sx}" y2="${oy + 4}" stroke="${isTarget ? 'var(--accent-math)' : 'var(--text-muted)'}" stroke-width="${isTarget ? '2' : '1.2'}"/>
+                   <text x="${sx}" y="${oy + 18}" fill="${isTarget ? 'var(--accent-math)' : 'var(--text-muted)'}" font-size="11.5" font-weight="${isTarget ? '800' : '500'}" text-anchor="middle">${vx === 2 ? 'x₀ = 2' : vx}</text>`;
+        }
+      });
 
-        <!-- Piastrella Base (3x3 dm) -->
-        <rect x="${ox}" y="${oy}" width="${basePx}" height="${basePx}" fill="rgba(56, 189, 248, 0.2)" stroke="var(--accent-math)" stroke-width="2"/>
-        <text x="${ox + basePx/2}" y="${oy + basePx/2 + 5}" fill="var(--accent-math)" font-size="14" font-weight="700" text-anchor="middle">
-          Area Base A₀ = 9 dm²
-        </text>
-      `;
+      [1, 2, 3, 4, 5, 6, 7, 8].forEach(vy => {
+        const sy = toY(vy);
+        grid += `<line x1="70" y1="${sy}" x2="545" y2="${sy}" stroke="var(--border-subtle)" stroke-opacity="0.22" stroke-dasharray="2,3"/>
+                 <line x1="${ox - 4}" y1="${sy}" x2="${ox + 4}" y2="${sy}" stroke="var(--text-muted)" stroke-width="1.2"/>
+                 <text x="${ox - 10}" y="${sy + 4}" fill="var(--text-muted)" font-size="11" text-anchor="end">${vy}</text>`;
+      });
 
-      if (dL > 0) {
-        // Strip orizzontale in alto/destra
-        html += `
-          <!-- Incremento orizzontale (lato destro) -->
-          <rect x="${ox + basePx}" y="${oy}" width="${dLPx}" height="${basePx}" fill="rgba(245, 158, 11, 0.3)" stroke="var(--accent-gold)" stroke-width="1.5" stroke-dasharray="3,3"/>
-          <!-- Incremento verticale (bordo inferiore) -->
-          <rect x="${ox}" y="${oy + basePx}" width="${basePx}" height="${dLPx}" fill="rgba(245, 158, 11, 0.3)" stroke="var(--accent-gold)" stroke-width="1.5" stroke-dasharray="3,3"/>
-          <!-- Angolino dL x dL -->
-          <rect x="${ox + basePx}" y="${oy + basePx}" width="${dLPx}" height="${dLPx}" fill="rgba(168, 85, 247, 0.4)" stroke="var(--accent-purple)" stroke-width="1.5"/>
+      let dLeft = '';
+      for (let vx = 0.2; vx <= 2.0; vx += 0.05) {
+        const sx = toX(vx);
+        const sy = toY(evalContLeft(currentContCase, vx));
+        dLeft += (dLeft === '' ? `M ${sx.toFixed(1)} ${sy.toFixed(1)}` : ` L ${sx.toFixed(1)} ${sy.toFixed(1)}`);
+      }
 
-          <text x="${ox + basePx + dLPx/2}" y="${oy + basePx/2}" fill="var(--accent-gold)" font-size="11" font-weight="700" text-anchor="middle" transform="rotate(90 ${ox + basePx + dLPx/2} ${oy + basePx/2})">
-            +Δl
-          </text>
-          <text x="${ox + basePx/2}" y="${oy + basePx + dLPx/2 + 4}" fill="var(--accent-gold)" font-size="11" font-weight="700" text-anchor="middle">
-            +Δl
+      let dRight = '';
+      for (let vx = 2.0; vx <= 3.45; vx += 0.05) {
+        const sx = toX(vx);
+        const sy = toY(evalContRight(currentContCase, vx));
+        dRight += (dRight === '' ? `M ${sx.toFixed(1)} ${sy.toFixed(1)}` : ` L ${sx.toFixed(1)} ${sy.toFixed(1)}`);
+      }
+
+      const syLimL = toY(limL);
+      const syLimR = toY(limR);
+      const sxL = toX(xL);
+      const syL = toY(yL);
+      const sxR = toX(xR);
+      const syR = toY(yR);
+
+      const leftBranchColor = 'var(--accent-math)';
+      const rightBranchColor = (currentContCase >= 3) ? 'var(--accent-purple)' : 'var(--accent-math)';
+
+      let junctionHtml = '';
+      if (isCont) {
+        junctionHtml = `
+          <line x1="${ox}" y1="${syLimL}" x2="${sx0}" y2="${syLimL}" stroke="var(--accent-success)" stroke-width="1.3" stroke-dasharray="3,3"/>
+          <circle cx="${sx0}" cy="${syLimL}" r="6.5" fill="var(--accent-success)" stroke="#fff" stroke-width="2"/>
+          <rect x="${sx0 + 12}" y="${syLimL - 12}" width="186" height="24" rx="5" fill="var(--bg-surface-elevated)" stroke="var(--accent-success)" stroke-width="1.2"/>
+          <text x="${sx0 + 105}" y="${syLimL + 4}" fill="var(--accent-success)" font-size="11" font-weight="800" text-anchor="middle">
+            ✅ Saldato in (2; ${limL}) • Continua!
           </text>
         `;
-      } else if (dL < 0) {
-        // Riduzione tratteggiata
-        const shrinkPx = Math.abs(dLPx);
-        html += `
-          <rect x="${ox + basePx - shrinkPx}" y="${oy}" width="${shrinkPx}" height="${basePx}" fill="rgba(239, 68, 68, 0.3)" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="3,3"/>
-          <rect x="${ox}" y="${oy + basePx - shrinkPx}" width="${basePx}" height="${shrinkPx}" fill="rgba(239, 68, 68, 0.3)" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="3,3"/>
-          <text x="${ox + basePx - shrinkPx/2}" y="${oy + basePx/2}" fill="#ef4444" font-size="10" font-weight="700" text-anchor="middle" transform="rotate(90 ${ox + basePx - shrinkPx/2} ${oy + basePx/2})">
-            -Δl
+      } else {
+        junctionHtml = `
+          <line x1="${ox}" y1="${syLimL}" x2="${sx0}" y2="${syLimL}" stroke="var(--accent-math)" stroke-width="1.2" stroke-dasharray="3,3"/>
+          <line x1="${ox}" y1="${syLimR}" x2="${sx0}" y2="${syLimR}" stroke="#ef4444" stroke-width="1.2" stroke-dasharray="3,3"/>
+          <line x1="${sx0}" y1="${syLimL}" x2="${sx0}" y2="${syLimR}" stroke="#ef4444" stroke-width="2.4" stroke-dasharray="4,3"/>
+          <circle cx="${sx0}" cy="${syLimL}" r="5.5" fill="var(--bg-surface)" stroke="${leftBranchColor}" stroke-width="2.5"/>
+          <circle cx="${sx0}" cy="${syLimR}" r="6" fill="${rightBranchColor}" stroke="#fff" stroke-width="2"/>
+          <rect x="${sx0 + 12}" y="${(syLimL + syLimR)/2 - 12}" width="190" height="24" rx="5" fill="var(--bg-surface-elevated)" stroke="#ef4444" stroke-width="1.2"/>
+          <text x="${sx0 + 107}" y="${(syLimL + syLimR)/2 + 4}" fill="#ef4444" font-size="11" font-weight="800" text-anchor="middle">
+            ❌ Salto (${limL} ≠ ${limR}) • Stacchi la penna!
           </text>
         `;
       }
 
-      // Quote quote lato iniziale e totale
-      html += `
-        <!-- Quota lato nominale -->
-        <line x1="${ox}" y1="${oy - 15}" x2="${ox + basePx}" y2="${oy - 15}" stroke="var(--text-muted)" stroke-width="1.5"/>
-        <text x="${ox + basePx/2}" y="${oy - 20}" fill="var(--text-muted)" font-size="11" text-anchor="middle">l₀ = 3.00 dm</text>
+      const html = `
+        <rect width="100%" height="100%" fill="var(--bg-surface)" rx="8"/>
+        ${grid}
 
-        <!-- Quota totale nuovo lato -->
-        <line x1="${ox}" y1="${oy + basePx + (dL > 0 ? dLPx : 0) + 25}" x2="${ox + basePx + dLPx}" y2="${oy + basePx + (dL > 0 ? dLPx : 0) + 25}" stroke="var(--accent-math)" stroke-width="1.5"/>
-        <text x="${ox + (basePx + dLPx)/2}" y="${oy + basePx + (dL > 0 ? dLPx : 0) + 40}" fill="var(--accent-math)" font-size="12" font-weight="700" text-anchor="middle">
-          l = ${l.toFixed(2)} dm
-        </text>
+        <!-- Assi cartesiani -->
+        <line x1="55" y1="${oy}" x2="565" y2="${oy}" stroke="var(--border-subtle)" stroke-width="1.6"/>
+        <polygon points="572,${oy} 564,${oy - 4} 564,${oy + 4}" fill="var(--text-muted)"/>
+        <line x1="${ox}" y1="280" x2="${ox}" y2="18" stroke="var(--border-subtle)" stroke-width="1.6"/>
+        <polygon points="${ox},12 ${ox - 4},20 ${ox + 4},20" fill="var(--text-muted)"/>
+        <text x="568" y="${oy - 8}" fill="var(--text-muted)" font-size="12" font-weight="700">x</text>
+        <text x="${ox + 10}" y="24" fill="var(--text-muted)" font-size="12" font-weight="700">y = f(x)</text>
 
-        <!-- Box legenda a destra -->
-        <g transform="translate(310, 60)">
-          <rect width="170" height="150" fill="var(--bg-surface-elevated)" rx="6" stroke="var(--border-subtle)"/>
-          <text x="12" y="24" fill="var(--text-main)" font-size="12" font-weight="700">Analisi Incrementale</text>
-          <text x="12" y="50" fill="var(--accent-math)" font-size="11">■ Base: 9.00 dm²</text>
-          <text x="12" y="74" fill="var(--accent-gold)" font-size="11">■ 2·l₀·Δl = ${(2 * l0 * dL).toFixed(2)} dm²</text>
-          <text x="12" y="98" fill="var(--accent-purple)" font-size="11">■ (Δl)² = ${(dL * dL).toFixed(3)} dm²</text>
-          <line x1="12" y1="112" x2="158" y2="112" stroke="var(--border-subtle)"/>
-          <text x="12" y="132" fill="var(--text-main)" font-size="11" font-weight="700">ΔA = ${(dA).toFixed(2)} dm²</text>
-        </g>
+        <!-- Ramo sinistro (x < 2) e Ramo destro (x >= 2) -->
+        <path d="${dLeft}" fill="none" stroke="${leftBranchColor}" stroke-width="3.2" stroke-linecap="round"/>
+        <path d="${dRight}" fill="none" stroke="${rightBranchColor}" stroke-width="3.2" stroke-linecap="round"/>
+
+        <!-- Punti mobili che si avvicinano da sinistra (x⁻) e da destra (x⁺) -->
+        <line x1="${sxL}" y1="${oy}" x2="${sxL}" y2="${syL}" stroke="var(--accent-math)" stroke-width="1.2" stroke-dasharray="2,2"/>
+        <circle cx="${sxL}" cy="${syL}" r="5" fill="var(--accent-math)" stroke="#fff" stroke-width="1.5"/>
+        <text x="${sxL - 6}" y="${syL - 9}" fill="var(--accent-math)" font-size="10.5" font-weight="700" text-anchor="end">x⁻</text>
+
+        <line x1="${sxR}" y1="${oy}" x2="${sxR}" y2="${syR}" stroke="var(--accent-gold)" stroke-width="1.2" stroke-dasharray="2,2"/>
+        <circle cx="${sxR}" cy="${syR}" r="5" fill="var(--accent-gold)" stroke="#fff" stroke-width="1.5"/>
+        <text x="${sxR + 6}" y="${syR - 9}" fill="var(--accent-gold)" font-size="10.5" font-weight="700" text-anchor="start">x⁺</text>
+
+        ${junctionHtml}
       `;
 
       svg.innerHTML = html;
@@ -2182,6 +2551,204 @@
     }
 
     /* ========================================================
+       ESERCIZIO CONCRETO 3: GRAFICO INTERATTIVO PARABOLA WEIERSTRASS
+       ======================================================== */
+    let currentWeierstrassExX = 2.0;
+
+    function setWeierstrassExX(x) {
+      if (window.ComodeAudio && ComodeAudio.playClick) ComodeAudio.playClick();
+      currentWeierstrassExX = x;
+      const slider = document.getElementById('wExSlider');
+      if (slider) slider.value = x;
+      updateWeierstrassExSim();
+    }
+
+    function updateWeierstrassExSim() {
+      const slider = document.getElementById('wExSlider');
+      if (!slider) return;
+      const x = parseFloat(slider.value);
+      currentWeierstrassExX = x;
+
+      const badge = document.getElementById('wExValBadge');
+      if (badge) badge.textContent = 'x = ' + x.toFixed(2);
+
+      const b1 = document.getElementById('btnWEx1');
+      const b2 = document.getElementById('btnWEx2');
+      const b4 = document.getElementById('btnWEx4');
+      if (b1) b1.classList.toggle('active', Math.abs(x - 1.0) < 0.04);
+      if (b2) b2.classList.toggle('active', Math.abs(x - 2.0) < 0.04);
+      if (b4) b4.classList.toggle('active', Math.abs(x - 4.0) < 0.04);
+
+      const fx = x * x - 4 * x + 5;
+      const statusBox = document.getElementById('wExStatusBox');
+      if (statusBox) {
+        let note = '';
+        if (Math.abs(x - 2.0) < 0.04) {
+          note = '<span style="color: var(--accent-success); font-weight: 700;">🟢 MINIMO ASSOLUTO al vertice $V(2, 1) \\implies m = 1$</span>';
+        } else if (Math.abs(x - 4.0) < 0.04) {
+          note = '<span style="color: var(--accent-gold); font-weight: 700;">⭐ MASSIMO ASSOLUTO all\'estremo destro $B(4, 5) \\implies M = 5$</span>';
+        } else if (Math.abs(x - 1.0) < 0.04) {
+          note = '<span style="color: var(--accent-math); font-weight: 700;">📍 Estremo sinistro $A(1, 2) \\implies f(1) = 2$ (valore intermedio)</span>';
+        } else {
+          note = `<span style="color: var(--text-muted);">Punto interno ad andamento continuo: quota $f(x) = ${fx.toFixed(2)}$, compresa tra $m = 1$ e $M = 5$.</span>`;
+        }
+
+        statusBox.innerHTML = `
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem;">
+            <div>
+              <strong>Valore calcolato:</strong> $f(${x.toFixed(2)}) = (${x.toFixed(2)})^2 - 4(${x.toFixed(2)}) + 5 =$ <strong style="color: var(--accent-math);">${fx.toFixed(2)}</strong>
+            </div>
+            <div>${note}</div>
+          </div>
+        `;
+
+        if (window.ComodeComponents) {
+          window.ComodeComponents.renderMath(statusBox);
+        } else if (window.renderMathInElement) {
+          window.renderMathInElement(statusBox, { delimiters: [{left: "$", right: "$", display: false}, {left: "$$", right: "$$", display: true}] });
+        }
+      }
+
+      renderWeierstrassExSvg(x);
+    }
+
+    function renderWeierstrassExSvg(currentX) {
+      const svg = document.getElementById('weierstrassExerciseSvg');
+      if (!svg) return;
+
+      const ox = 70; // Asse x = 0
+      const oy = 235; // Asse y = 0
+      const scaleX = 105; // 105 px per unita X (1 -> 175, 2 -> 280, 3 -> 385, 4 -> 490)
+      const scaleY = 32;  // 32 px per unita Y (1 -> 203, 2 -> 171, 5 -> 75, 6 -> 43)
+
+      const mapX = (x) => ox + x * scaleX;
+      const mapY = (y) => oy - y * scaleY;
+
+      // Coordinate chiave
+      const x1 = mapX(1), y1 = mapY(2);
+      const x2 = mapX(2), y2 = mapY(1);
+      const x3 = mapX(3), y3 = mapY(2);
+      const x4 = mapX(4), y4 = mapY(5);
+
+      // Griglia orizzontale e verticale
+      let gridLines = '';
+      for (let yv = 1; yv <= 6; yv++) {
+        const py = mapY(yv);
+        gridLines += `
+          <line x1="${ox}" y1="${py}" x2="570" y2="${py}" stroke="rgba(255,255,255,0.05)" stroke-width="1" stroke-dasharray="2,3"/>
+          <line x1="${ox - 4}" y1="${py}" x2="${ox + 4}" y2="${py}" stroke="var(--border-subtle)" stroke-width="1.2"/>
+          <text x="${ox - 8}" y="${py + 4}" fill="var(--text-muted)" font-size="10.5" font-family="var(--font-mono)" text-anchor="end">${yv}</text>
+        `;
+      }
+      for (let xv = 1; xv <= 5; xv++) {
+        const px = mapX(xv);
+        gridLines += `
+          <line x1="${px}" y1="28" x2="${px}" y2="${oy}" stroke="rgba(255,255,255,0.05)" stroke-width="1" stroke-dasharray="2,3"/>
+          <line x1="${px}" y1="${oy - 4}" x2="${px}" y2="${oy + 4}" stroke="var(--border-subtle)" stroke-width="1.2"/>
+          <text x="${px}" y="${oy + 18}" fill="var(--text-muted)" font-size="11" font-weight="${(xv >= 1 && xv <= 4) ? '700' : '500'}" text-anchor="middle">${xv}</text>
+        `;
+      }
+
+      // Fascia intervallo chiuso [1, 4]
+      const bandWidth = x4 - x1;
+      const bandHtml = `
+        <rect x="${x1}" y="28" width="${bandWidth}" height="${oy - 28}" fill="rgba(56, 189, 248, 0.08)" stroke="rgba(56, 189, 248, 0.28)" stroke-width="1.2" stroke-dasharray="4,4"/>
+        <text x="${(x1 + x4)/2}" y="42" fill="var(--accent-math)" font-size="11" font-weight="700" text-anchor="middle">Intervallo Chiuso e Limitato [1, 4]</text>
+      `;
+
+      // Tratto esterno della parabola (fuori da [1, 4], tratteggiato)
+      let dOutLeft = '';
+      for (let xv = 0.4; xv <= 1.0; xv += 0.05) {
+        const yv = xv * xv - 4 * xv + 5;
+        const px = mapX(xv), py = mapY(yv);
+        dOutLeft += (dOutLeft === '' ? `M ${px.toFixed(1)} ${py.toFixed(1)}` : ` L ${px.toFixed(1)} ${py.toFixed(1)}`);
+      }
+      let dOutRight = '';
+      for (let xv = 4.0; xv <= 4.25; xv += 0.05) {
+        const yv = xv * xv - 4 * xv + 5;
+        const px = mapX(xv), py = mapY(yv);
+        dOutRight += (dOutRight === '' ? `M ${px.toFixed(1)} ${py.toFixed(1)}` : ` L ${px.toFixed(1)} ${py.toFixed(1)}`);
+      }
+
+      // Tratto interno continuo su [1, 4]
+      let dIn = '';
+      for (let xv = 1.0; xv <= 4.001; xv += 0.05) {
+        const yv = xv * xv - 4 * xv + 5;
+        const px = mapX(xv), py = mapY(yv);
+        dIn += (dIn === '' ? `M ${px.toFixed(1)} ${py.toFixed(1)}` : ` L ${px.toFixed(1)} ${py.toFixed(1)}`);
+      }
+
+      // Punto mobile P
+      const curY = currentX * currentX - 4 * currentX + 5;
+      const pxCur = mapX(currentX);
+      const pyCur = mapY(curY);
+
+      let html = `
+        <defs>
+          <pattern id="wExGrid" width="28" height="28" patternUnits="userSpaceOnUse">
+            <path d="M 28 0 L 0 0 0 28" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
+          </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill="var(--bg-surface)" rx="8"/>
+        <rect width="100%" height="100%" fill="url(#wExGrid)" rx="8"/>
+
+        <!-- Fascia e Griglia -->
+        ${bandHtml}
+        ${gridLines}
+
+        <!-- Assi Cartesiani -->
+        <line x1="45" y1="${oy}" x2="585" y2="${oy}" stroke="var(--border-subtle)" stroke-width="1.8"/>
+        <line x1="${ox}" y1="20" x2="${ox}" y2="260" stroke="var(--border-subtle)" stroke-width="1.8"/>
+        <text x="578" y="${oy - 8}" fill="var(--text-muted)" font-size="11.5" font-weight="700">x</text>
+        <text x="${ox + 10}" y="28" fill="var(--text-muted)" font-size="11.5" font-weight="700">y</text>
+        <text x="${ox - 10}" y="${oy + 16}" fill="var(--text-muted)" font-size="11" text-anchor="end">0</text>
+
+        <!-- Tratti parabola esterni (tratteggiati) -->
+        <path d="${dOutLeft}" fill="none" stroke="rgba(255,255,255,0.22)" stroke-width="2.2" stroke-dasharray="3,3"/>
+        <path d="${dOutRight}" fill="none" stroke="rgba(255,255,255,0.22)" stroke-width="2.2" stroke-dasharray="3,3"/>
+
+        <!-- Parabola su [1, 4] (continua, solida) -->
+        <path d="${dIn}" fill="none" stroke="var(--accent-math)" stroke-width="3.5" stroke-linecap="round"/>
+
+        <!-- Proiezioni e Punti Notevoli -->
+        <!-- Estremo sinistro A(1, 2) -->
+        <line x1="${ox}" y1="${y1}" x2="${x1}" y2="${y1}" stroke="rgba(56, 189, 248, 0.4)" stroke-width="1.2" stroke-dasharray="3,3"/>
+        <line x1="${x1}" y1="${oy}" x2="${x1}" y2="${y1}" stroke="rgba(56, 189, 248, 0.4)" stroke-width="1.2" stroke-dasharray="3,3"/>
+        <circle cx="${x1}" cy="${y1}" r="5.5" fill="var(--accent-math)" stroke="var(--bg-surface)" stroke-width="2"/>
+        <text x="${x1 - 10}" y="${y1 - 10}" fill="var(--accent-math)" font-size="11" font-weight="700" text-anchor="end">A(1; 2)</text>
+
+        <!-- Vertice e Minimo Assoluto V(2, 1) -->
+        <line x1="${ox}" y1="${y2}" x2="${x2}" y2="${y2}" stroke="var(--accent-success)" stroke-width="1.5" stroke-dasharray="3,3"/>
+        <line x1="${x2}" y1="${oy}" x2="${x2}" y2="${y2}" stroke="var(--accent-success)" stroke-width="1.5" stroke-dasharray="3,3"/>
+        <circle cx="${x2}" cy="${y2}" r="6.5" fill="var(--accent-success)" stroke="var(--bg-surface)" stroke-width="2"/>
+        <text x="${x2}" y="${y2 + 22}" fill="var(--accent-success)" font-size="11" font-weight="800" text-anchor="middle">Minimo m = 1 (V)</text>
+        <text x="${ox - 8}" y="${y2 + 4}" fill="var(--accent-success)" font-size="11" font-weight="800" text-anchor="end">m=1</text>
+
+        <!-- Estremo destro e Massimo Assoluto B(4, 5) -->
+        <line x1="${ox}" y1="${y4}" x2="${x4}" y2="${y4}" stroke="var(--accent-gold)" stroke-width="1.5" stroke-dasharray="3,3"/>
+        <line x1="${x4}" y1="${oy}" x2="${x4}" y2="${y4}" stroke="var(--accent-gold)" stroke-width="1.5" stroke-dasharray="3,3"/>
+        <circle cx="${x4}" cy="${y4}" r="6.5" fill="var(--accent-gold)" stroke="var(--bg-surface)" stroke-width="2"/>
+        <text x="${x4 - 12}" y="${y4 - 10}" fill="var(--accent-gold)" font-size="11" font-weight="800" text-anchor="end">Massimo M = 5 (B)</text>
+        <text x="${ox - 8}" y="${y4 + 4}" fill="var(--accent-gold)" font-size="11" font-weight="800" text-anchor="end">M=5</text>
+
+        <!-- Punto mobile corrente P(x, f(x)) -->
+        <line x1="${ox}" y1="${pyCur}" x2="${pxCur}" y2="${pyCur}" stroke="var(--accent-math)" stroke-width="1.5" stroke-dasharray="2,2"/>
+        <line x1="${pxCur}" y1="${oy}" x2="${pxCur}" y2="${pyCur}" stroke="var(--accent-math)" stroke-width="1.5" stroke-dasharray="2,2"/>
+        <circle cx="${pxCur}" cy="${oy}" r="4" fill="var(--accent-math)"/>
+        <circle cx="${ox}" cy="${pyCur}" r="4" fill="var(--accent-math)"/>
+        <circle cx="${pxCur}" cy="${pyCur}" r="7.5" fill="#38bdf8" stroke="#ffffff" stroke-width="2.5"/>
+
+        <!-- Badge coordinate del punto mobile -->
+        <g transform="translate(${Math.min(480, Math.max(120, pxCur))}, ${Math.max(48, pyCur - 36)})">
+          <rect x="-44" y="-14" width="88" height="22" rx="4" fill="var(--bg-surface-elevated)" stroke="var(--accent-math)" stroke-width="1.3"/>
+          <text x="0" y="2" fill="var(--text-main)" font-size="10.5" font-weight="800" font-family="var(--font-mono)" text-anchor="middle">P(${currentX.toFixed(2)}; ${curY.toFixed(2)})</text>
+        </g>
+      `;
+
+      svg.innerHTML = html;
+    }
+
+    /* ========================================================
        LABORATORIO 4: ZERI & BISEZIONE
        ======================================================== */
     let bisectionSteps = [];
@@ -2423,13 +2990,13 @@
         btn.classList.add('correct');
         fb.innerHTML = '✅ ' + sol.exp;
         fb.style.color = 'var(--accent-success)';
-        if (window.ComodeAudio) ComodeAudio.play('success');
+        if (window.ComodeAudio && ComodeAudio.playSuccess) ComodeAudio.playSuccess();
       } else {
         btn.classList.add('wrong');
         if (buttons[sol.correct]) buttons[sol.correct].classList.add('correct');
         fb.innerHTML = '❌ Risposta errata. ' + sol.exp;
         fb.style.color = '#ef4444';
-        if (window.ComodeAudio) ComodeAudio.play('error');
+        if (window.ComodeAudio && ComodeAudio.playError) ComodeAudio.playError();
       }
       fb.style.display = 'block';
 
@@ -2565,6 +3132,7 @@
       updateTileSim();
       selectDiscontinuity(1);
       setWeierstrassCase(1);
+      updateWeierstrassExSim();
       resetBisection();
       updateWelfareSim();
 

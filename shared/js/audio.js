@@ -28,6 +28,17 @@ class ComodeAudioEngine {
     return this.isMuted;
   }
 
+  // Interfaccia universale play(type)
+  play(type = 'click') {
+    if (this.isMuted) return;
+    if (type === 'click') return this.playClick();
+    if (type === 'success') return this.playSuccess();
+    if (type === 'error') return this.playError();
+    if (type === 'hint') return this.playHint();
+    if (type === 'achievement' || type === 'levelup' || type === 'levelUp') return this.playLevelUp();
+    return this.playClick();
+  }
+
   // Suono 1: Click / Interazione leggera
   playClick() {
     if (this.isMuted) return;

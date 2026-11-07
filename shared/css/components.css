@@ -585,7 +585,8 @@
   transform: translateY(-1px);
 }
 
-.hint-text {
+.hint-text,
+.hint-box {
   display: none;
   margin-top: 0.75rem;
   padding: 0.85rem 1.1rem;
@@ -598,7 +599,8 @@
   line-height: 1.7;
 }
 
-.hint-text.visible {
+.hint-text.visible,
+.hint-box.visible {
   display: block;
 }
 
