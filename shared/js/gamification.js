@@ -375,16 +375,74 @@ class ComodeGamification {
     return this.profile.unlockedTitles.some(t => t.udaId === udaId);
   }
 
+  getLessonProgress(lessonId, totalLabs = 6) {
+    if (!lessonId) {
+      return { status: 'not_started', percent: 0, completedLabs: 0, totalLabs: 6, isCompleted: false };
+    }
+
+    if (this.isLessonCompleted(lessonId)) {
+      return {
+        status: 'completed',
+        percent: 100,
+        completedLabs: totalLabs,
+        totalLabs: totalLabs,
+        isCompleted: true
+      };
+    }
+
+    let completedCount = 0;
+    try {
+      const raw = localStorage.getItem('comode_labs_' + lessonId) ||
+                  localStorage.getItem('comode_labs_completed_' + lessonId) ||
+                  localStorage.getItem('comode_clil_tasks_' + lessonId);
+      if (raw) {
+        const list = JSON.parse(raw);
+        if (Array.isArray(list)) {
+          completedCount = list.length;
+        }
+      }
+    } catch (e) {
+      /* ignore */
+    }
+
+    const isAllDone = totalLabs > 0 && completedCount >= totalLabs;
+    const pct = isAllDone ? 100 : (totalLabs > 0 ? Math.min(99, Math.round((completedCount / totalLabs) * 100)) : 0);
+
+    return {
+      status: isAllDone ? 'completed' : (completedCount > 0 ? 'in_progress' : 'not_started'),
+      percent: pct,
+      completedLabs: completedCount,
+      totalLabs: totalLabs,
+      isCompleted: isAllDone
+    };
+  }
+
   getUDAProgress(udaId) {
     const uda = this.udas.find(u => u.id === udaId);
-    if (!uda) return { completed: 0, total: 1, isUnlocked: false, percent: 0 };
+    if (!uda) return { completed: 0, total: 0, isUnlocked: false, percent: 0, earnedTitle: '', badge: '', remaining: 0, code: '', title: '' };
 
     const total = uda.requiredLessons.length;
-    const completed = uda.requiredLessons.filter(lId => this.isLessonCompleted(lId)).length;
+    const completed = uda.requiredLessons.filter(lId => {
+      if (this.isLessonCompleted(lId)) return true;
+      const lp = this.getLessonProgress(lId, 6);
+      return lp.isCompleted;
+    }).length;
+
     const isUnlocked = this.isUDAUnlocked(udaId) || (total > 0 && completed >= total);
     const percent = total > 0 ? Math.round((completed / total) * 100) : 0;
+    const remaining = Math.max(0, total - completed);
 
-    return { completed, total, isUnlocked, percent };
+    return {
+      completed,
+      total,
+      isUnlocked,
+      percent,
+      earnedTitle: uda.earnedTitle,
+      badge: uda.badge,
+      code: uda.code,
+      title: uda.title,
+      remaining
+    };
   }
 
   isMasterUnlocked() {
@@ -504,6 +562,192 @@ class ComodeGamification {
 
     const titlesCount = document.querySelectorAll('.user-titles-count');
     titlesCount.forEach(el => { el.textContent = `${this.profile.unlockedTitles.length}`; });
+
+    this.syncCardsProgress();
+  }
+
+  ensureStyles() {
+    if (typeof document === 'undefined' || document.getElementById('comode-gamification-styles')) return;
+    const style = document.createElement('style');
+    style.id = 'comode-gamification-styles';
+    style.textContent = `
+      .lesson-badge.completed, .uda-status-badge.completed, .wip-status-badge.completed, .portal-pill.uda-status-badge.completed, .active-tag-ribbon.completed {
+        background: rgba(16, 185, 129, 0.15) !important;
+        color: var(--accent-success, #10b981) !important;
+        border: 1px solid rgba(16, 185, 129, 0.35) !important;
+      }
+      .lesson-badge.in-progress, .uda-status-badge.in-progress, .wip-status-badge.in-progress, .portal-pill.uda-status-badge.in-progress, .active-tag-ribbon.in-progress {
+        background: rgba(56, 189, 248, 0.15) !important;
+        color: var(--accent-math, #38bdf8) !important;
+        border: 1px solid rgba(56, 189, 248, 0.35) !important;
+      }
+      .lesson-badge.not-started, .uda-status-badge.not-started, .wip-status-badge.not-started, .portal-pill.uda-status-badge.not-started, .active-tag-ribbon.not-started {
+        background: rgba(148, 163, 184, 0.12) !important;
+        color: var(--text-muted, #94a3b8) !important;
+        border: 1px solid rgba(148, 163, 184, 0.25) !important;
+      }
+      .card-progress-track {
+        width: 100%;
+        height: 6px;
+        background: rgba(255, 255, 255, 0.08);
+        border-radius: 999px;
+        overflow: hidden;
+        margin: 0.65rem 0 0.85rem 0;
+      }
+      .card-progress-fill {
+        height: 100%;
+        background: linear-gradient(90deg, var(--accent-math, #38bdf8), var(--accent-purple, #a855f7));
+        border-radius: 999px;
+        transition: width 0.4s ease;
+      }
+      .card-progress-fill.completed {
+        background: var(--accent-success, #10b981) !important;
+      }
+      .lesson-card.lesson-done {
+        border-color: rgba(16, 185, 129, 0.4) !important;
+      }
+      .wip-uda-card.uda-done, .active-uda-card.uda-done, .portal-card.uda-done {
+        border-color: rgba(16, 185, 129, 0.5) !important;
+      }
+    `;
+    document.head.appendChild(style);
+  }
+
+  syncCardsProgress() {
+    this.ensureStyles();
+
+    // 1. Aggiorna tutte le card delle singole lezioni che hanno data-lesson-id
+    const lessonCards = document.querySelectorAll('[data-lesson-id]:not(body)');
+    lessonCards.forEach(card => {
+      const lessonId = card.getAttribute('data-lesson-id');
+      const totalLabs = parseInt(card.getAttribute('data-total-labs') || '6', 10);
+      const isClil = card.classList.contains('clil') || (lessonId && lessonId.includes('clil'));
+      const prog = this.getLessonProgress(lessonId, totalLabs);
+
+      card.classList.toggle('lesson-done', prog.isCompleted);
+      card.classList.toggle('lesson-in-progress', prog.status === 'in_progress');
+
+      const badge = card.querySelector('.lesson-badge, .lesson-status-badge');
+      if (badge) {
+        badge.classList.remove('completed', 'in-progress', 'not-started');
+        const baseName = badge.getAttribute('data-badge-base') || badge.dataset.base;
+
+        if (prog.isCompleted) {
+          badge.classList.add('completed');
+          badge.innerHTML = baseName ? `${baseName} • Completata 100% ✓` : (isClil ? `✓ Modulo CLIL Completato (100%)` : `✓ Completata (100%)`);
+        } else if (prog.completedLabs > 0) {
+          badge.classList.add('in-progress');
+          const unit = isClil ? 'task' : 'lab';
+          badge.innerHTML = baseName 
+            ? `${baseName} • In corso (${prog.completedLabs}/${prog.totalLabs} ${unit} - ${prog.percent}%)`
+            : `⏳ In corso: ${prog.completedLabs}/${prog.totalLabs} ${unit} (${prog.percent}%)`;
+        } else {
+          badge.classList.add('not-started');
+          badge.innerHTML = baseName ? `${baseName} • Da iniziare (0%)` : (isClil ? `Modulo CLIL • Da iniziare` : `Da iniziare (0%)`);
+        }
+      }
+
+      let fill = card.querySelector('.card-progress-fill');
+      if (fill) {
+        fill.style.width = `${prog.percent}%`;
+        fill.classList.toggle('completed', prog.isCompleted);
+      }
+
+      const btn = card.querySelector('.lesson-card-btn, .btn-action');
+      if (btn) {
+        if (prog.isCompleted) {
+          btn.innerHTML = isClil ? `Rivedi il Modulo CLIL →` : `Rivedi la Lezione →`;
+        } else if (prog.completedLabs > 0) {
+          btn.innerHTML = isClil ? `Continua il Modulo CLIL (${prog.percent}%) →` : `Continua la Lezione (${prog.percent}%) →`;
+        }
+      }
+    });
+
+    // 2. Aggiorna tutte le card delle UDA che hanno data-uda-id
+    const udaCards = document.querySelectorAll('[data-uda-id]');
+    udaCards.forEach(card => {
+      const udaId = card.getAttribute('data-uda-id');
+      if (!udaId) return;
+      const prog = this.getUDAProgress(udaId);
+      if (!prog || !prog.total) return;
+
+      card.classList.toggle('uda-done', prog.isUnlocked);
+      card.classList.toggle('uda-in-progress', prog.completed > 0 && !prog.isUnlocked);
+
+      const badge = card.querySelector('.wip-status-badge, .uda-status-badge, .portal-pill.uda-status-badge, .active-tag-ribbon');
+      if (badge) {
+        badge.classList.remove('completed', 'in-progress', 'not-started');
+        if (prog.isUnlocked) {
+          badge.classList.add('completed');
+          badge.innerHTML = `🏆 Titolo Conquistato (${prog.percent}%) ✓`;
+        } else if (prog.completed > 0) {
+          badge.classList.add('in-progress');
+          badge.innerHTML = `⏳ In corso: ${prog.completed}/${prog.total} lezioni (${prog.percent}%)`;
+        } else {
+          badge.classList.add('not-started');
+          badge.innerHTML = `0/${prog.total} lezioni completate`;
+        }
+      }
+
+      const fill = card.querySelector('.uda-progress-fill, .card-progress-fill');
+      if (fill) {
+        fill.style.width = `${prog.percent}%`;
+        fill.classList.toggle('completed', prog.isUnlocked);
+      }
+
+      const progText = card.querySelector('.uda-progress-text');
+      if (progText) {
+        if (prog.isUnlocked) {
+          progText.innerHTML = `🎉 Tutte le ${prog.total} lezioni completate! Titolo <strong>"${prog.earnedTitle}"</strong> ${prog.badge} acquisito!`;
+        } else if (prog.completed > 0) {
+          progText.innerHTML = `Progresso: <strong>${prog.completed}/${prog.total}</strong> lezioni (${prog.percent}%). Mancano <strong>${prog.remaining}</strong> lezioni per il titolo <em>"${prog.earnedTitle}"</em>.`;
+        } else {
+          progText.innerHTML = `0/${prog.total} lezioni completate. Completa tutte le lezioni per conquistare il titolo <em>"${prog.earnedTitle}"</em> ${prog.badge}.`;
+        }
+      }
+
+      const trophyTarget = card.querySelector('.wip-trophy-target');
+      if (trophyTarget) {
+        if (prog.isUnlocked) {
+          trophyTarget.innerHTML = `🏆 Titolo: <strong>${prog.earnedTitle}</strong> ${prog.badge} <span style="color: var(--accent-success); font-weight:700;">(Conquistato! ✓)</span>`;
+        } else {
+          trophyTarget.innerHTML = `🏆 Titolo in palio: <em>${prog.earnedTitle}</em> ${prog.badge} (${prog.completed}/${prog.total} lezioni)`;
+        }
+      }
+    });
+
+    // 3. Aggiorna il Box Titolo dell'UDA in fondo alla pagina (#udaTrophyStatusBox) se presente
+    const trophyBox = document.getElementById('udaTrophyStatusBox');
+    if (trophyBox) {
+      const boxUdaId = trophyBox.getAttribute('data-uda-id') || 
+                       (window.location.href.includes('uda-5.m1') ? 'uda-5.m1' : 
+                       (window.location.href.includes('uda-1.1') ? 'uda-1.1' : null));
+      if (boxUdaId) {
+        const prog = this.getUDAProgress(boxUdaId);
+        const actionWrap = document.getElementById('udaStatusActionWrap');
+        if (actionWrap && prog && prog.total > 0) {
+          if (prog.isUnlocked) {
+            actionWrap.innerHTML = `
+              <span class="uda-trophy-won-pill" style="display: inline-flex; align-items: center; gap: 0.45rem; font-size: 0.88rem; font-weight: 800; color: var(--accent-success); background: rgba(16, 185, 129, 0.16); padding: 0.5rem 1.1rem; border-radius: var(--radius-pill); border: 1px solid rgba(16, 185, 129, 0.4); box-shadow: 0 0 12px rgba(16, 185, 129, 0.2);">
+                🏆 Titolo Ufficiale Conquistato! ${prog.badge} (100%)
+              </span>
+            `;
+          } else if (prog.completed > 0) {
+            actionWrap.innerHTML = `
+              <span class="uda-trophy-prog-pill" style="display: inline-flex; align-items: center; gap: 0.45rem; font-size: 0.85rem; font-weight: 700; color: var(--accent-math); background: rgba(56, 189, 248, 0.12); padding: 0.45rem 1rem; border-radius: var(--radius-pill); border: 1px solid rgba(56, 189, 248, 0.3);">
+                🚀 Progresso UDA: ${prog.completed} di ${prog.total} lezioni (${prog.percent}%) • Mancano ${prog.remaining} per il Titolo
+              </span>
+            `;
+          } else {
+            actionWrap.innerHTML = `
+              <span style="font-size: 0.85rem; font-weight: 700; color: var(--text-muted); background: var(--bg-surface); padding: 0.45rem 1rem; border-radius: var(--radius-pill); border: 1px solid var(--border-subtle);">
+                0 di ${prog.total} lezioni completate • Obiettivo: ${prog.earnedTitle} ${prog.badge}
+              </span>
+            `;
+          }
+        }
+      }
+    }
   }
 
   updateLessonCompletionUI(isDone) {
