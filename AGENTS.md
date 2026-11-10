@@ -52,3 +52,10 @@ Ogni file HTML di lezione deve presentare le sezioni esattamente nel seguente or
 * **Gamification e Audio:** Integrazione con `ComodeProgress.completeLab(labNumber)` e feedback sonori con `ComodeAudio.play('success')` ed `error`.
 * **Accessibilità e Inclusione:** Contrasto cromatico verificato, pulsanti `aria-label`, messaggi di feedback chiari per studenti BES/DSA.
 
+---
+
+## 3. Gestione del Versioning Git (Commit & Push)
+
+* **DIVIETO DI COMMIT E PUSH AUTONOMO:** L'agente **NON deve mai** eseguire `git commit` o `git push` di propria iniziativa.
+* **Solo su richiesta esplicita:** Le modifiche ai file devono rimanere nell'area di lavoro locale finché l'utente non richiede esplicitamente di committare o pushare.
+

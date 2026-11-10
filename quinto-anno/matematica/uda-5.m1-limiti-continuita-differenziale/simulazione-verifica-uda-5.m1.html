@@ -1,0 +1,1872 @@
+<!DOCTYPE html>
+<html lang="it" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simulazione Verifica Scritta (Formato INVALSI / TOLC): UDA 5.M1 • le comode lezioni d'Ivano</title>
+  <meta name="description" content="Simulazione della verifica scritta per l'UDA 5.M1 (Limiti, Continuità e Derivate) in stile INVALSI e Test Universitario (TOLC): analisi di grafici, tabelle, problemi di realtà, quesiti a scelta multipla, domande con ragionamento aperto e griglia in decimi stampabile.">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- KaTeX 0.16.9 per rendering matematico -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" crossorigin="anonymous">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" crossorigin="anonymous"></script>
+
+  <!-- Stili Condivisi comode -->
+  <link rel="stylesheet" href="../../../shared/css/comode.css">
+
+  <style>
+    /* ==========================================================================
+       STILI SIMULAZIONE VERIFICA UDA 5.M1 (STILE INVALSI & TEST UNIVERSITARI)
+       ========================================================================== */
+    .exam-header-banner {
+      background: linear-gradient(145deg, var(--bg-surface) 0%, var(--bg-surface-elevated) 100%);
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      margin-bottom: 1.75rem;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.25);
+    }
+
+    .exam-header-banner::before {
+      content: '';
+      position: absolute;
+      top: -40px;
+      right: -40px;
+      width: 220px;
+      height: 220px;
+      background: radial-gradient(circle, rgba(56, 189, 248, 0.14) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .exam-timer-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 0.85rem 1.25rem;
+      margin-top: 1.5rem;
+    }
+
+    .timer-display-wrap {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .timer-clock {
+      font-family: var(--font-mono);
+      font-size: 1.55rem;
+      font-weight: 800;
+      color: var(--accent-gold);
+      background: rgba(245, 158, 11, 0.12);
+      padding: 0.3rem 0.85rem;
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(245, 158, 11, 0.3);
+      letter-spacing: 0.05em;
+    }
+
+    .timer-clock.urgent {
+      color: var(--accent-danger);
+      background: rgba(244, 63, 94, 0.12);
+      border-color: rgba(244, 63, 94, 0.35);
+      animation: pulse 1s infinite alternate;
+    }
+
+    @keyframes pulse {
+      from { opacity: 0.75; }
+      to { opacity: 1; }
+    }
+
+    .timer-actions {
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .btn-timer {
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-main);
+      padding: 0.45rem 0.9rem;
+      border-radius: var(--radius-pill);
+      font-size: 0.82rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      transition: var(--transition);
+    }
+
+    .btn-timer:hover {
+      border-color: var(--accent-math);
+      color: var(--accent-math);
+    }
+
+    .btn-timer.print-highlight {
+      background: rgba(56, 189, 248, 0.14);
+      border-color: rgba(56, 189, 248, 0.4);
+      color: var(--accent-math);
+    }
+
+    .btn-timer.print-highlight:hover {
+      background: rgba(56, 189, 248, 0.25);
+    }
+
+    /* Intestazione Cartacea Studente */
+    .print-student-box {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 1.25rem;
+      margin-bottom: 1.75rem;
+      display: grid;
+      grid-template-columns: 2fr 1.2fr 1fr 1.3fr;
+      gap: 1.25rem;
+    }
+
+    @media (max-width: 820px) {
+      .print-student-box {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .print-field {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+
+    .print-field label {
+      font-size: 0.74rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .print-field .line {
+      height: 28px;
+      border-bottom: 1.5px dashed var(--border-subtle);
+      font-size: 0.92rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      color: var(--text-main);
+    }
+
+    /* Card Quesito Stile INVALSI */
+    .invalsi-question-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 1.75rem;
+      margin-bottom: 1.75rem;
+      position: relative;
+      transition: var(--transition);
+    }
+
+    .invalsi-question-card:hover {
+      border-color: rgba(56, 189, 248, 0.35);
+    }
+
+    .invalsi-q-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      padding-bottom: 0.85rem;
+      margin-bottom: 1.15rem;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .invalsi-q-badge-group {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+    }
+
+    .invalsi-q-num {
+      background: var(--accent-math);
+      color: #090d16;
+      font-weight: 800;
+      font-size: 0.82rem;
+      padding: 0.25rem 0.7rem;
+      border-radius: var(--radius-pill);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .invalsi-q-topic {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--text-muted);
+    }
+
+    .invalsi-q-points {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      font-weight: 800;
+      color: var(--accent-gold);
+      background: rgba(245, 158, 11, 0.12);
+      border: 1px solid rgba(245, 158, 11, 0.3);
+      padding: 0.25rem 0.7rem;
+      border-radius: var(--radius-pill);
+    }
+
+    /* Box Stimolo (Contesto, Grafico o Tabella) */
+    .stimulus-container {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 1.5rem;
+      align-items: center;
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 1.25rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .stimulus-container.full-width {
+      grid-template-columns: 1fr;
+    }
+
+    @media (max-width: 860px) {
+      .stimulus-container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .stimulus-text {
+      font-size: 0.94rem;
+      line-height: 1.65;
+      color: var(--text-main);
+    }
+
+    .stimulus-visual {
+      background: #0d1322;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 0.85rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .stimulus-visual svg {
+      width: 100%;
+      max-width: 400px;
+      height: auto;
+      display: block;
+    }
+
+    .visual-caption {
+      font-size: 0.76rem;
+      color: var(--text-muted);
+      margin-top: 0.45rem;
+      text-align: center;
+      font-style: italic;
+    }
+
+    /* Tabelle dati stile INVALSI */
+    .invalsi-data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.86rem;
+      margin: 0.5rem 0;
+      text-align: center;
+    }
+
+    .invalsi-data-table th,
+    .invalsi-data-table td {
+      border: 1px solid var(--border-subtle);
+      padding: 0.55rem 0.65rem;
+    }
+
+    .invalsi-data-table th {
+      background: rgba(56, 189, 248, 0.12);
+      color: var(--accent-math);
+      font-weight: 700;
+    }
+
+    .invalsi-data-table td {
+      background: var(--bg-surface);
+      font-family: var(--font-mono);
+      color: var(--text-main);
+    }
+
+    /* Sotto-quesiti e Opzioni */
+    .sub-question-block {
+      margin-top: 1.15rem;
+      padding-top: 1rem;
+      border-top: 1px dashed var(--border-subtle);
+    }
+
+    .sub-question-block:first-of-type {
+      margin-top: 0;
+      padding-top: 0;
+      border-top: none;
+    }
+
+    .q-prompt {
+      font-size: 0.96rem;
+      font-weight: 600;
+      line-height: 1.55;
+      color: var(--text-main);
+      margin-bottom: 0.85rem;
+    }
+
+    .exam-options-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.65rem;
+      margin-bottom: 1rem;
+    }
+
+    .exam-options-grid.single-col {
+      grid-template-columns: 1fr;
+    }
+
+    @media (max-width: 720px) {
+      .exam-options-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .exam-option-label {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.7rem;
+      padding: 0.75rem 0.95rem;
+      border-radius: var(--radius-md);
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-subtle);
+      cursor: pointer;
+      transition: var(--transition);
+      font-size: 0.9rem;
+      line-height: 1.45;
+    }
+
+    .exam-option-label:hover {
+      border-color: var(--accent-math);
+      background: rgba(56, 189, 248, 0.06);
+    }
+
+    .exam-option-label input[type="radio"] {
+      margin-top: 0.22rem;
+      accent-color: var(--accent-math);
+      transform: scale(1.1);
+    }
+
+    /* Tabella Vero/Falso Stile INVALSI */
+    .vf-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+      margin-bottom: 1rem;
+    }
+
+    .vf-table th, .vf-table td {
+      border: 1px solid var(--border-subtle);
+      padding: 0.6rem 0.85rem;
+    }
+
+    .vf-table th {
+      background: var(--bg-surface-elevated);
+      font-weight: 700;
+      text-align: left;
+    }
+
+    .vf-table th.vf-col, .vf-table td.vf-col {
+      text-align: center;
+      width: 64px;
+      font-family: var(--font-mono);
+      font-weight: 700;
+    }
+
+    /* Box Scrittura Ragionamento (con righe per la stampa su carta) */
+    .reasoning-box {
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 0.95rem 1.1rem;
+      margin-top: 0.75rem;
+    }
+
+    .reasoning-box label {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--accent-gold);
+      margin-bottom: 0.45rem;
+    }
+
+    .reasoning-textarea {
+      width: 100%;
+      min-height: 78px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      color: var(--text-main);
+      padding: 0.65rem 0.85rem;
+      font-family: inherit;
+      font-size: 0.9rem;
+      line-height: 1.5;
+      resize: vertical;
+    }
+
+    .reasoning-textarea:focus {
+      outline: none;
+      border-color: var(--accent-math);
+    }
+
+    /* Righe guida visibili solo su carta stampata */
+    .print-lines-only {
+      display: none;
+    }
+
+    /* Box Soluzione e Commento Didattico (nascosto di default e in stampa) */
+    .solution-reveal-box {
+      display: none;
+      margin-top: 1rem;
+      padding: 1rem 1.2rem;
+      background: rgba(16, 185, 129, 0.08);
+      border: 1px solid rgba(16, 185, 129, 0.35);
+      border-left: 4px solid var(--accent-success);
+      border-radius: var(--radius-md);
+      font-size: 0.88rem;
+      line-height: 1.6;
+      color: var(--text-main);
+    }
+
+    .solution-reveal-box.visible {
+      display: block;
+    }
+
+    .solution-title {
+      font-weight: 800;
+      color: var(--accent-success);
+      margin-bottom: 0.35rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    /* Griglia di Valutazione in Decimi */
+    .rubric-section {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 1.75rem;
+      margin-top: 2.5rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .rubric-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+      font-size: 0.86rem;
+    }
+
+    .rubric-table th, .rubric-table td {
+      border: 1px solid var(--border-subtle);
+      padding: 0.65rem 0.9rem;
+      text-align: left;
+    }
+
+    .rubric-table th {
+      background: var(--bg-surface-elevated);
+      color: var(--text-main);
+      font-weight: 700;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .rubric-table td {
+      color: var(--text-muted);
+    }
+
+    .rubric-table td.score-col {
+      font-family: var(--font-mono);
+      font-weight: 700;
+      color: var(--text-main);
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    /* Barra di Consegna Online */
+    .exam-submit-bar {
+      background: linear-gradient(145deg, var(--bg-surface) 0%, var(--bg-surface-elevated) 100%);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .exam-result-box {
+      display: none;
+      margin-top: 1.5rem;
+      padding: 1.5rem;
+      background: var(--bg-surface);
+      border: 2px solid var(--accent-gold);
+      border-radius: var(--radius-md);
+      text-align: left;
+      max-width: 720px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* ==========================================================================
+        OTTIMIZZAZIONE STAMPA CARTACEA PER COMPITO IN CLASSE (@media print)
+       ========================================================================== */
+    @media print {
+      @page {
+        size: A4 portrait;
+        margin: 12mm 14mm;
+      }
+
+      body {
+        background: #ffffff !important;
+        color: #000000 !important;
+        font-size: 10.5pt !important;
+        line-height: 1.4 !important;
+      }
+
+      .navbar,
+      .breadcrumbs,
+      .exam-timer-bar,
+      .exam-submit-bar,
+      .btn-check-single,
+      .solution-reveal-box {
+        display: none !important;
+      }
+
+      .container {
+        max-width: 100% !important;
+        width: 100% !important;
+        padding: 0 !important;
+        margin: 0 !important;
+      }
+
+      .exam-header-banner {
+        background: #ffffff !important;
+        border: 2px solid #000000 !important;
+        padding: 1rem 1.25rem !important;
+        margin-bottom: 1rem !important;
+        box-shadow: none !important;
+      }
+
+      .exam-header-banner h1,
+      .exam-header-banner h1 span,
+      .exam-header-banner p {
+        color: #000000 !important;
+      }
+
+      .exam-header-banner .badge {
+        border: 1px solid #000000 !important;
+        color: #000000 !important;
+        background: #f1f5f9 !important;
+      }
+
+      .print-student-box {
+        background: #ffffff !important;
+        border: 1.5px solid #000000 !important;
+        padding: 0.75rem 1rem !important;
+        margin-bottom: 1rem !important;
+        gap: 0.75rem !important;
+      }
+
+      .print-field label,
+      .print-field .line {
+        color: #000000 !important;
+        border-bottom-color: #000000 !important;
+      }
+
+      .status-alert-box {
+        background: #f8fafc !important;
+        border: 1px solid #000000 !important;
+        color: #000000 !important;
+        padding: 0.65rem 1rem !important;
+        margin-bottom: 1.25rem !important;
+      }
+
+      .invalsi-question-card {
+        background: #ffffff !important;
+        border: 1.5px solid #000000 !important;
+        border-radius: 6px !important;
+        padding: 1rem 1.15rem !important;
+        margin-bottom: 1.1rem !important;
+        page-break-inside: avoid;
+        break-inside: avoid;
+        box-shadow: none !important;
+      }
+
+      .invalsi-q-header {
+        border-bottom: 1px solid #333333 !important;
+        padding-bottom: 0.45rem !important;
+        margin-bottom: 0.75rem !important;
+      }
+
+      .invalsi-q-num {
+        background: #000000 !important;
+        color: #ffffff !important;
+      }
+
+      .invalsi-q-topic,
+      .invalsi-q-points,
+      .q-prompt,
+      .stimulus-text {
+        color: #000000 !important;
+        border-color: #000000 !important;
+        background: transparent !important;
+      }
+
+      .stimulus-container {
+        background: #f8fafc !important;
+        border: 1px solid #cccccc !important;
+        padding: 0.75rem !important;
+        margin-bottom: 0.75rem !important;
+        gap: 1rem !important;
+      }
+
+      .stimulus-visual {
+        background: #ffffff !important;
+        border: 1px solid #999999 !important;
+        padding: 0.5rem !important;
+      }
+
+      /* Inversione alta leggibilità per grafici SVG in stampa */
+      .stimulus-visual svg {
+        background: #ffffff !important;
+      }
+      .stimulus-visual svg text {
+        fill: #000000 !important;
+      }
+      .stimulus-visual svg .grid-line {
+        stroke: #e2e8f0 !important;
+      }
+      .stimulus-visual svg .axis-line {
+        stroke: #000000 !important;
+      }
+
+      .visual-caption {
+        color: #333333 !important;
+      }
+
+      .invalsi-data-table th,
+      .invalsi-data-table td,
+      .vf-table th,
+      .vf-table td,
+      .rubric-table th,
+      .rubric-table td {
+        border: 1px solid #000000 !important;
+        color: #000000 !important;
+        background: #ffffff !important;
+      }
+
+      .invalsi-data-table th,
+      .vf-table th,
+      .rubric-table th {
+        background: #e2e8f0 !important;
+        font-weight: 800 !important;
+      }
+
+      .exam-option-label {
+        background: #ffffff !important;
+        border: 1px solid #555555 !important;
+        color: #000000 !important;
+        padding: 0.45rem 0.65rem !important;
+      }
+
+      .reasoning-box {
+        background: #ffffff !important;
+        border: 1px solid #000000 !important;
+        padding: 0.6rem 0.85rem !important;
+      }
+
+      .reasoning-box label {
+        color: #000000 !important;
+      }
+
+      .reasoning-textarea {
+        display: none !important;
+      }
+
+      .print-lines-only {
+        display: block !important;
+      }
+
+      .print-line-row {
+        height: 24px;
+        border-bottom: 1px dotted #666666;
+        width: 100%;
+      }
+
+      .rubric-section {
+        background: #ffffff !important;
+        border: 1.5px solid #000000 !important;
+        page-break-inside: avoid;
+        break-inside: avoid;
+        padding: 1rem !important;
+      }
+    }
+  </style>
+</head>
+<body data-theme="dark" data-lesson-id="uda-5.m1-simulazione-verifica" data-xp="80" data-unit="uda-5.m1">
+
+  <div class="container">
+
+    <!-- Navbar Superiore -->
+    <nav class="navbar">
+      <a href="../../../index.html" class="brand">
+        📐 comode<span>.</span>
+      </a>
+      <div class="nav-actions">
+        <div class="gamification-widget" title="Il tuo livello attuale e punti XP">
+          <span class="level-badge user-level-val">Liv. 1 🌱</span>
+          <span class="xp-counter user-xp-val">0 XP</span>
+        </div>
+        <button id="audioToggleBtn" class="icon-btn" aria-label="Attiva o disattiva audio">
+          🔊 <span class="nav-text">Suoni</span>
+        </button>
+        <button id="themeToggleBtn" class="theme-toggle-btn" aria-label="Cambia tema chiaro/scuro">
+          <span id="themeIcon">☀️</span>
+          <span id="themeLabel">Chiaro</span>
+        </button>
+      </div>
+    </nav>
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumbs">
+      <a href="../../../index.html">le comode lezioni d'Ivano</a>
+      <span class="sep">/</span>
+      <a href="../../index.html">Quinto Anno</a>
+      <span class="sep">/</span>
+      <a href="index.html">UDA 5.M1: Limiti, Continuità e Derivate</a>
+      <span class="sep">/</span>
+      <span class="current">Simulazione Verifica Scritta (Formato INVALSI / TOLC)</span>
+    </div>
+
+    <!-- Header Banner della Verifica -->
+    <header class="exam-header-banner">
+      <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.85rem;">
+        <span class="badge" style="background: rgba(56, 189, 248, 0.12); color: var(--accent-math); border: 1px solid rgba(56, 189, 248, 0.3); font-weight: 700; padding: 0.25rem 0.7rem; border-radius: var(--radius-pill); font-size: 0.78rem;">
+          📐 Matematica • 5° Anno Liceo delle Scienze Umane
+        </span>
+        <span class="badge" style="background: rgba(168, 85, 247, 0.14); color: var(--accent-purple); border: 1px solid rgba(168, 85, 247, 0.35); font-weight: 700; padding: 0.25rem 0.7rem; border-radius: var(--radius-pill); font-size: 0.78rem;">
+          🎯 Formato INVALSI &amp; Test Universitari (TOLC)
+        </span>
+        <span class="badge" style="background: rgba(16, 185, 129, 0.14); color: var(--accent-success); border: 1px solid rgba(16, 185, 129, 0.35); font-weight: 700; padding: 0.25rem 0.7rem; border-radius: var(--radius-pill); font-size: 0.78rem;">
+          ⏱️ Durata: 60 Minuti • Valutazione in Decimi (1–10)
+        </span>
+      </div>
+
+      <h1 style="font-size: clamp(1.65rem, 3.2vw, 2.2rem); font-weight: 800; letter-spacing: -0.02em; margin-bottom: 0.55rem;">
+        Verifica Scritta UDA 5.M1: <span style="color: var(--accent-math);">Limiti, Continuità e Derivate</span>
+      </h1>
+      <p style="font-size: 0.95rem; color: var(--text-muted); max-width: 860px; line-height: 1.6; margin-bottom: 0;">
+        Fascicolo composto da <strong>8 quesiti contestualizzati</strong> con lettura di grafici, tabelle di dati e modelli reali applicati alle scienze umane e sociali. La prova affianca quesiti a scelta multipla (stile <strong>INVALSI</strong> e test di ammissione universitaria) a quesiti in cui è richiesto di <strong>esplicitare il ragionamento</strong>.
+      </p>
+
+      <!-- Barra Timer, Soluzioni & Stampa Cartacea -->
+      <div class="exam-timer-bar">
+        <div class="timer-display-wrap">
+          <span style="font-size: 0.85rem; font-weight: 700; color: var(--text-muted);">⏱️ Tempo rimasto:</span>
+          <div class="timer-clock" id="timerClock">60:00</div>
+        </div>
+        <div class="timer-actions">
+          <button type="button" class="btn-timer" onclick="startTimer()">▶️ Avvia Timer</button>
+          <button type="button" class="btn-timer" onclick="pauseTimer()">⏸️ Pausa</button>
+          <button type="button" class="btn-timer" onclick="resetTimer()">🔄 Reset (60')</button>
+          <button type="button" class="btn-timer" id="btnToggleSolutions" onclick="toggleAllSolutions()">🔑 Mostra Soluzioni</button>
+          <button type="button" class="btn-timer print-highlight" onclick="window.print()">🖨️ Stampa Verifica per la Classe</button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Intestazione Cartacea Studente -->
+    <div class="print-student-box">
+      <div class="print-field">
+        <label>Cognome e Nome Studente:</label>
+        <div class="line"></div>
+      </div>
+      <div class="print-field">
+        <label>Classe e Sezione:</label>
+        <div class="line">5ª Sez. ____ • Scienze Umane</div>
+      </div>
+      <div class="print-field">
+        <label>Data:</label>
+        <div class="line" id="examDateLine">___ / ___ / 2026</div>
+      </div>
+      <div class="print-field">
+        <label>Esito Finale:</label>
+        <div class="line">Punti: ___ / 10,0 &nbsp;•&nbsp; Voto: ___ / 10</div>
+      </div>
+    </div>
+
+    <!-- Istruzioni per lo svolgimento -->
+    <div class="status-alert-box" style="margin-bottom: 2rem;">
+      <span class="icon">📋</span>
+      <div style="font-size: 0.88rem; line-height: 1.55;">
+        <strong>Istruzioni per lo svolgimento su carta (60 minuti):</strong>
+        Rispondi a tutti gli <strong>8 quesiti</strong>. Nei quesiti a scelta multipla barra una sola casella ($\text{A, B, C, D}$); nelle tabelle Vero/Falso barra $\text{V}$ oppure $\text{F}$ per ciascuna riga. Nei riquadri <em>«Scrivi il ragionamento»</em> illustra in modo sintetico ma chiaro il procedimento logico o analitico seguito: <strong>una risposta corretta priva del ragionamento richiesto riceve punteggio parziale</strong>.
+      </div>
+    </div>
+
+
+    <!-- =====================================================================
+         QUESITO 1 • LETTURA GRAFICA DI LIMITI LATERALI E DISCONTINUITÀ A SALTO
+         ===================================================================== -->
+    <article class="invalsi-question-card" id="q1">
+      <div class="invalsi-q-header">
+        <div class="invalsi-q-badge-group">
+          <span class="invalsi-q-num">Quesito 1</span>
+          <span class="invalsi-q-topic">Lettura di Grafico • Limiti Laterali e Continuità (Tariffa Navetta Sociale)</span>
+        </div>
+        <span class="invalsi-q-points">1,25 Punti (0,65 pt + 0,60 pt)</span>
+      </div>
+
+      <div class="stimulus-container">
+        <div class="stimulus-text">
+          Un consorzio di comuni gestisce un servizio di navetta agevolata per gli studenti. Il grafico a fianco mostra il costo del biglietto $C(x)$ (in euro) in funzione della distanza percorsa $x$ (in chilometri), per tratte fino a $20\text{ km}$.
+          <br><br>
+          Osserva attentamente cosa accade in corrispondenza della soglia $x = 10\text{ km}$:
+          <ul style="margin: 0.4rem 0 0 1.2rem; padding: 0;">
+            <li>Il pallino <strong>pieno</strong> $\bullet$ in $(10; 2)$ indica il valore effettivo $C(10) = 2\text{ €}$;</li>
+            <li>Il pallino <strong>vuoto</strong> $\circ$ in $(10; 4)$ indica che, superati anche di pochissimo i $10\text{ km}$, scatta la fascia tariffaria extraurbana.</li>
+          </ul>
+        </div>
+
+        <div class="stimulus-visual">
+          <svg viewBox="0 0 360 220" aria-label="Grafico costo navetta con salto in x=10">
+            <!-- Griglia -->
+            <g class="grid-line" stroke="#1e293b" stroke-width="1">
+              <line x1="45" y1="30" x2="335" y2="30" />
+              <line x1="45" y1="65" x2="335" y2="65" />
+              <line x1="45" y1="100" x2="335" y2="100" />
+              <line x1="45" y1="135" x2="335" y2="135" />
+              <line x1="45" y1="170" x2="335" y2="170" />
+              <line x1="115" y1="20" x2="115" y2="180" />
+              <line x1="185" y1="20" x2="185" y2="180" />
+              <line x1="255" y1="20" x2="255" y2="180" />
+              <line x1="325" y1="20" x2="325" y2="180" />
+            </g>
+            <!-- Assi -->
+            <line class="axis-line" x1="45" y1="180" x2="345" y2="180" stroke="#94a3b8" stroke-width="2" />
+            <line class="axis-line" x1="45" y1="180" x2="45" y2="15" stroke="#94a3b8" stroke-width="2" />
+            <!-- Linea tratteggiata in x=10 -->
+            <line x1="185" y1="100" x2="185" y2="180" stroke="#f59e0b" stroke-width="1.5" stroke-dasharray="4,4" />
+            <!-- Tratto 1: da x=0 a x=10, C(x) = 2 (y=135) -->
+            <line x1="45" y1="135" x2="185" y2="135" stroke="#38bdf8" stroke-width="3.5" />
+            <circle cx="45" cy="135" r="4.5" fill="#38bdf8" />
+            <circle cx="185" cy="135" r="5" fill="#38bdf8" />
+            <!-- Tratto 2: da x=10 a x=20, da C=4 (y=100) a C=6 (y=65) -->
+            <line x1="185" y1="100" x2="325" y2="65" stroke="#38bdf8" stroke-width="3.5" />
+            <circle cx="185" cy="100" r="5.5" fill="#0d1322" stroke="#38bdf8" stroke-width="2.5" />
+            <circle cx="325" cy="65" r="4.5" fill="#38bdf8" />
+            <!-- Etichette Asse Y (Costo €) -->
+            <text x="35" y="184" fill="#cbd5e1" font-size="11" text-anchor="end">0</text>
+            <text x="35" y="139" fill="#cbd5e1" font-size="11" text-anchor="end" font-weight="bold">2 €</text>
+            <text x="35" y="104" fill="#cbd5e1" font-size="11" text-anchor="end" font-weight="bold">4 €</text>
+            <text x="35" y="69" fill="#cbd5e1" font-size="11" text-anchor="end" font-weight="bold">6 €</text>
+            <text x="35" y="34" fill="#cbd5e1" font-size="11" text-anchor="end">8 €</text>
+            <text x="52" y="24" fill="#38bdf8" font-size="11" font-weight="bold">Costo C(x)</text>
+            <!-- Etichette Asse X (km) -->
+            <text x="45" y="198" fill="#cbd5e1" font-size="11" text-anchor="middle">0</text>
+            <text x="115" y="198" fill="#cbd5e1" font-size="11" text-anchor="middle">5</text>
+            <text x="185" y="198" fill="#f59e0b" font-size="11" text-anchor="middle" font-weight="bold">10 km</text>
+            <text x="255" y="198" fill="#cbd5e1" font-size="11" text-anchor="middle">15</text>
+            <text x="325" y="198" fill="#cbd5e1" font-size="11" text-anchor="middle">20 km</text>
+          </svg>
+          <div class="visual-caption">Figura 1: Grafico della tariffa $C(x)$ al variare della distanza $x\text{ (km)}$.</div>
+        </div>
+      </div>
+
+      <!-- 1.a -->
+      <div class="sub-question-block">
+        <div class="q-prompt">
+          <strong>1.a)</strong> Quanto valgono rispettivamente il limite sinistro $\lim_{x \to 10^-} C(x)$ e il limite destro $\lim_{x \to 10^+} C(x)$?
+        </div>
+        <div class="exam-options-grid">
+          <label class="exam-option-label">
+            <input type="radio" name="q1a" value="A">
+            <span><strong>A)</strong> $\lim_{x \to 10^-} C(x) = 4\text{ €}$ &nbsp;e&nbsp; $\lim_{x \to 10^+} C(x) = 2\text{ €}$</span>
+          </label>
+          <label class="exam-option-label">
+            <input type="radio" name="q1a" value="B">
+            <span><strong>B)</strong> $\lim_{x \to 10^-} C(x) = 2\text{ €}$ &nbsp;e&nbsp; $\lim_{x \to 10^+} C(x) = 4\text{ €}$</span>
+          </label>
+          <label class="exam-option-label">
+            <input type="radio" name="q1a" value="C">
+            <span><strong>C)</strong> Entrambi i limiti valgono $3\text{ €}$ (media tra i due).</span>
+          </label>
+          <label class="exam-option-label">
+            <input type="radio" name="q1a" value="D">
+            <span><strong>D)</strong> $\lim_{x \to 10^-} C(x) = 2\text{ €}$ &nbsp;e&nbsp; $\lim_{x \to 10^+} C(x) = 6\text{ €}$</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- 1.b -->
+      <div class="sub-question-block">
+        <div class="q-prompt">
+          <strong>1.b)</strong> Indica se ciascuna delle seguenti affermazioni riferite al grafico di Figura 1 è <strong>Vera (V)</strong> o <strong>Falsa (F)</strong>:
+        </div>
+        <table class="vf-table">
+          <thead>
+            <tr>
+              <th>Affermazione</th>
+              <th class="vf-col">V</th>
+              <th class="vf-col">F</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>1.</strong> Un pendolare che percorre esattamente $10\text{ km}$ paga $2\text{ €}$, mentre chi percorre $10,1\text{ km}$ paga più di $4\text{ €}$.</td>
+              <td class="vf-col"><input type="radio" name="q1b_1" value="V"></td>
+              <td class="vf-col"><input type="radio" name="q1b_1" value="F"></td>
+            </tr>
+            <tr>
+              <td><strong>2.</strong> Il limite globale $\lim_{x \to 10} C(x)$ esiste ed è uguale a $2\text{ €}$.</td>
+              <td class="vf-col"><input type="radio" name="q1b_2" value="V"></td>
+              <td class="vf-col"><input type="radio" name="q1b_2" value="F"></td>
+            </tr>
+            <tr>
+              <td><strong>3.</strong> In $x = 10$ la funzione presenta una discontinuità di prima specie (a salto) di ampiezza pari a $2\text{ €}$.</td>
+              <td class="vf-col"><input type="radio" name="q1b_3" value="V"></td>
+              <td class="vf-col"><input type="radio" name="q1b_3" value="F"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="solution-reveal-box" id="sol_q1">
+        <div class="solution-title">✓ Soluzione e Criterio di Correzione (Quesito 1 • 1,25 pt)</div>
+        <strong>1.a) Risposta corretta: B</strong> (0,65 pt). Avvicinandosi a $10\text{ km}$ da sinistra ($x < 10$) il grafico è sulla quota costante $2\text{ €}$; avvicinandosi da destra ($x > 10$) il grafico parte dalla quota del pallino vuoto posta a $4\text{ €}$.<br>
+        <strong>1.b) Tabella V/F:</strong> <strong>1 = V</strong>, <strong>2 = F</strong> (il limite globale non esiste perché i limiti destro e sinistro sono diversi: $2 \neq 4$), <strong>3 = V</strong> (il salto vale $|4 - 2| = 2\text{ €}$) (0,20 pt per ogni riga corretta = 0,60 pt).
+      </div>
+    </article>
+
+
+    <!-- =====================================================================
+         QUESITO 2 • TABELLA DATI, MODELLO RAZIONALE E ASINTOTO ORIZZONTALE
+         ===================================================================== -->
+    <article class="invalsi-question-card" id="q2">
+      <div class="invalsi-q-header">
+        <div class="invalsi-q-badge-group">
+          <span class="invalsi-q-num">Quesito 2</span>
+          <span class="invalsi-q-topic">Analisi di Tabella e Limite all'Infinito • Curva di Apprendimento Cognitivo</span>
+        </div>
+        <span class="invalsi-q-points">1,25 Punti (0,50 pt + 0,75 pt)</span>
+      </div>
+
+      <div class="stimulus-container full-width">
+        <div class="stimulus-text">
+          In uno studio di psicologia dell'apprendimento, un team universitario misura la percentuale media $P(t)$ di vocaboli stranieri padroneggiati da uno studente dopo $t$ settimane di utilizzo di una piattaforma didattica. I dati raccolti seguono la legge matematica:
+          $$P(t) = \frac{90t + 20}{t + 2} \quad (\text{con } t \ge 0)$$
+          La tabella sottostante riporta i valori registrati in diverse settimane:
+          <table class="invalsi-data-table" style="margin-top: 0.75rem;">
+            <thead>
+              <tr>
+                <th>Settimane di pratica ($t$)</th>
+                <th>$t = 0$</th>
+                <th>$t = 2$</th>
+                <th>$t = 8$</th>
+                <th>$t = 18$</th>
+                <th>$t = 98$</th>
+                <th>$t \to +\infty$</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Vocaboli padroneggiati $P(t)$</strong></td>
+                <td>$10\%$</td>
+                <td>$50\%$</td>
+                <td>$74\%$</td>
+                <td>$82\%$</td>
+                <td>$88,4\%$</td>
+                <td><strong>?</strong></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="sub-question-block">
+        <div class="q-prompt">
+          <strong>2.a)</strong> A quale valore percentuale limite tende $P(t)$ quando il tempo di pratica cresce indefinitamente ($t \to +\infty$)?
+        </div>
+        <div class="exam-options-grid">
+          <label class="exam-option-label">
+            <input type="radio" name="q2a" value="A">
+            <span><strong>A)</strong> Tende al $100\%$, perché continuando a studiare si impara necessariamente tutto.</span>
+          </label>
+          <label class="exam-option-label">
+            <input type="radio" name="q2a" value="B">
+            <span><strong>B)</strong> Tende al $90\%$, che rappresenta l'asintoto orizzontale di saturazione fisiologica.</span>
+          </label>
+          <label class="exam-option-label">
+            <input type="radio" name="q2a" value="C">
+            <span><strong>C)</strong> Tende al $45\%$, dato dal rapporto tra $90$ e $2$.</span>
+          </label>
+          <label class="exam-option-label">
+            <input type="radio" name="q2a" value="D">
+            <span><strong>D)</strong> Cresce fino a $+\infty$ senza alcun limite superiore.</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="sub-question-block">
+        <div class="reasoning-box">
+          <label for="just_q2">
+            <span>✍️ 2.b) Scrivi il ragionamento matematico (0,75 pt):</span>
+            <span style="font-weight: 500; color: var(--text-muted);">Mostra il calcolo di $\lim_{t \to +\infty} \frac{90t + 20}{t + 2}$</span>
+          </label>
+          <textarea id="just_q2" class="reasoning-textarea" placeholder="Spiega come si risolve la forma indeterminata [infinito/infinito] confrontando i termini di grado massimo al numeratore (90t) e al denominatore (t)..."></textarea>
+          <div class="print-lines-only">
+            <div class="print-line-row"></div>
+            <div class="print-line-row"></div>
+            <div class="print-line-row"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="solution-reveal-box" id="sol_q2">
+        <div class="solution-title">✓ Soluzione e Criterio di Correzione (Quesito 2 • 1,25 pt)</div>
+        <strong>2.a) Risposta corretta: B</strong> (0,50 pt).<br>
+        <strong>2.b) Ragionamento richiesto (0,75 pt):</strong> Per $t \to +\infty$ si presenta la forma indeterminata $\left[\frac{\infty}{\infty}\right]$. Raccogliendo il termine di grado massimo $t$ (oppure confrontando i gradi di numeratore e denominatore, entrambi pari a 1):
+        $$\lim_{t \to +\infty} \frac{t\left(90 + \frac{20}{t}\right)}{t\left(1 + \frac{2}{t}\right)} = \frac{90 + 0}{1 + 0} = 90\%$$
+        La retta $y = 90$ è l'asintoto orizzontale: nel modello psicologico indica la soglia massima di ritenzione mnemonica raggiungibile con quel metodo.
+      </div>
+    </article>
+
+
+    <!-- =====================================================================
+         QUESITO 3 • ASINTOTO VERTICALE E INTERPRETAZIONE DI SOGLIA CRITICA
+         ===================================================================== -->
+    <article class="invalsi-question-card" id="q3">
+      <div class="invalsi-q-header">
+        <div class="invalsi-q-badge-group">
+          <span class="invalsi-q-num">Quesito 3</span>
+          <span class="invalsi-q-topic">Modello Ambientale e Asintoto Verticale • Bonifica di un Fiume</span>
+        </div>
+        <span class="invalsi-q-points">1,00 Punto</span>
+      </div>
+
+      <div class="stimulus-container">
+        <div class="stimulus-text">
+          Un'agenzia di tutela ambientale stima che la spesa $S(p)$ (in migliaia di euro) necessaria per rimuovere il $p\%$ di microplastiche da un corso d'acqua ($0 \le p < 100$) sia descritta dal modello:
+          $$S(p) = \frac{150 \cdot p}{100 - p}$$
+          Ad esempio:
+          <ul style="margin: 0.4rem 0 0 1.2rem; padding: 0;">
+            <li>Per rimuovere il $50\%$ degli inquinanti ($p=50$): $S(50) = \frac{7500}{50} = 150\text{ mila €}$;</li>
+            <li>Per rimuovere il $90\%$ ($p=90$): $S(90) = \frac{13500}{10} = 1.350\text{ mila €}$.</li>
+          </ul>
+        </div>
+
+        <div class="stimulus-visual">
+          <svg viewBox="0 0 340 205" aria-label="Grafico costo depurazione con asintoto verticale p=100">
+            <g class="grid-line" stroke="#1e293b" stroke-width="1">
+              <line x1="45" y1="35" x2="300" y2="35" />
+              <line x1="45" y1="80" x2="300" y2="80" />
+              <line x1="45" y1="125" x2="300" y2="125" />
+              <line x1="105" y1="20" x2="105" y2="170" />
+              <line x1="165" y1="20" x2="165" y2="170" />
+              <line x1="225" y1="20" x2="225" y2="170" />
+            </g>
+            <!-- Assi -->
+            <line class="axis-line" x1="45" y1="170" x2="315" y2="170" stroke="#94a3b8" stroke-width="2" />
+            <line class="axis-line" x1="45" y1="170" x2="45" y2="15" stroke="#94a3b8" stroke-width="2" />
+            <!-- Asintoto verticale p = 100 (x = 285) -->
+            <line x1="285" y1="15" x2="285" y2="170" stroke="#f43f5e" stroke-width="2" stroke-dasharray="5,4" />
+            <!-- Curva S(p) -->
+            <path d="M 45 170 Q 165 162, 225 135 T 275 20" fill="none" stroke="#38bdf8" stroke-width="3.2" />
+            <circle cx="165" cy="155" r="4" fill="#f59e0b" />
+            <circle cx="261" cy="80" r="4" fill="#f59e0b" />
+            <!-- Etichette -->
+            <text x="45" y="188" fill="#cbd5e1" font-size="11" text-anchor="middle">0%</text>
+            <text x="165" y="188" fill="#cbd5e1" font-size="11" text-anchor="middle">50%</text>
+            <text x="285" y="188" fill="#f43f5e" font-size="11" text-anchor="middle" font-weight="bold">100%</text>
+            <text x="52" y="25" fill="#38bdf8" font-size="11" font-weight="bold">Spesa S(p)</text>
+            <text x="278" y="32" fill="#f43f5e" font-size="10" text-anchor="end" font-weight="bold">p = 100 (Asintoto)</text>
+          </svg>
+          <div class="visual-caption">Figura 2: Esplosione dei costi per $p \to 100^-$.</div>
+        </div>
+      </div>
+
+      <div class="sub-question-block">
+        <div class="q-prompt">
+          Quale delle seguenti affermazioni spiega correttamente, dal punto di vista matematico e reale, cosa accade quando $p$ si avvicina a $100$ da sinistra ($p \to 100^-$)?
+        </div>
+        <div class="exam-options-grid single-col">
+          <label class="exam-option-label">
+            <input type="radio" name="q3" value="A">
+            <span><strong>A)</strong> Il denominatore $(100 - p)$ tende a $0^+$, mentre il numeratore tende a $15.000$: il rapporto $\lim_{p \to 100^-} S(p) = +\infty$ (asintoto verticale $p=100$), indicando che eliminare il $100\%$ assoluto delle microplastiche richiederebbe costi infiniti.</span>
+          </label>
+          <label class="exam-option-label">
+            <input type="radio" name="q3" value="B">
+            <span><strong>B)</strong> Per $p = 100$ il denominatore vale zero, quindi il costo per depurare completamente il fiume scende improvvisamente a $0\text{ €}$.</span>
+          </label>
+          <label class="exam-option-label">
+            <input type="radio" name="q3" value="C">
+            <span><strong>C)</strong> Si tratta di una forma indeterminata $\left[\frac{0}{0}\right]$ che una volta semplificata dà una spesa massima di $150\text{ mila €}$.</span>
+          </label>
+          <label class="exam-option-label">
+            <input type="radio" name="q3" value="D">
+            <span><strong>D)</strong> La funzione ha un asintoto orizzontale $y = 100$, quindi la spesa si stabilizza a $100\text{ mila €}$.</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="solution-reveal-box" id="sol_q3">
+        <div class="solution-title">✓ Soluzione e Criterio di Correzione (Quesito 3 • 1,00 pt)</div>
+        <strong>Risposta corretta: A</strong> (1,00 pt). Quando $p \to 100^-$, il numeratore tende a $150 \cdot 100 = 15.000$ (costante positiva) e il denominatore $(100-p)$ tende a $0^+$. Nell'algebra dei limiti $\left[\frac{k}{0^+}\right] = +\infty$, generando l'asintoto verticale $p = 100$.
+      </div>
+    </article>
+
+
+    <!-- =====================================================================
+         QUESITO 4 • ANALISI DELL'ERRORE E FORMA INDETERMINATA [0/0]
+         ===================================================================== -->
+    <article class="invalsi-question-card" id="q4">
+      <div class="invalsi-q-header">
+        <div class="invalsi-q-badge-group">
+          <span class="invalsi-q-num">Quesito 4</span>
+          <span class="invalsi-q-topic">Argomentazione e Calcolo • Rimozione di una Forma Indeterminata $\left[\frac{0}{0}\right]$</span>
+        </div>
+        <span class="invalsi-q-points">1,25 Punti (0,40 pt + 0,85 pt)</span>
+      </div>
+
+      <div class="stimulus-container full-width">
+        <div class="stimulus-text">
+          Durante un laboratorio di matematica, due compagni di classe devono determinare il valore del seguente limite:
+          $$\lim_{x \to 3} \frac{x^2 - 9}{x - 3}$$
+          <ul style="margin: 0.5rem 0 0 1.2rem; padding: 0;">
+            <li><strong>Lorenzo</strong> afferma: <em>«Sostituendo $x = 3$ ottengo $\frac{9 - 9}{3 - 3} = \frac{0}{0}$. Poiché il numeratore è zero, il limite vale sicuramente $0$»</em>.</li>
+            <li><strong>Chiara</strong> afferma: <em>«No, $\frac{0}{0}$ è una forma indeterminata; scomponendo il numeratore si scopre che il limite vale $6$»</em>.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="sub-question-block">
+        <div class="q-prompt">
+          <strong>4.a)</strong> Chi tra i due studenti ha ragione?
+        </div>
+        <div class="exam-options-grid">
+          <label class="exam-option-label">
+            <input type="radio" name="q4a" value="A">
+            <span><strong>A)</strong> Ha ragione <strong>Lorenzo</strong>: zero diviso qualsiasi espressione fa sempre zero.</span>
+          </label>
+          <label class="exam-option-label">
+            <input type="radio" name="q4a" value="B">
+            <span><strong>B)</strong> Ha ragione <strong>Chiara</strong>: il limite esiste finito e vale esattamente $6$.</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="sub-question-block">
+        <div class="reasoning-box">
+          <label for="just_q4">
+            <span>✍️ 4.b) Scrivi tutti i passaggi algebrici (0,85 pt):</span>
+            <span style="font-weight: 500; color: var(--text-muted);">Mostra la scomposizione e spiega perché è lecito semplificare $(x-3)$</span>
+          </label>
+          <textarea id="just_q4" class="reasoning-textarea" placeholder="Scomponi x^2 - 9 come prodotto notevole (somma per differenza), semplifica per x diverso da 3 e calcola il limite..."></textarea>
+          <div class="print-lines-only">
+            <div class="print-line-row"></div>
+            <div class="print-line-row"></div>
+            <div class="print-line-row"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="solution-reveal-box" id="sol_q4">
+        <div class="solution-title">✓ Soluzione e Criterio di Correzione (Quesito 4 • 1,25 pt)</div>
+        <strong>4.a) Risposta corretta: B (Ha ragione Chiara)</strong> (0,40 pt).<br>
+        <strong>4.b) Procedimento e spiegazione (0,85 pt):</strong> Scomponendo la differenza di quadrati $x^2 - 9 = (x - 3)(x + 3)$:
+        $$\lim_{x \to 3} \frac{(x - 3)(x + 3)}{x - 3} = \lim_{x \to 3} (x + 3) = 3 + 3 = 6$$
+        La semplificazione del fattore $(x - 3)$ è lecita perché nella definizione di limite per $x \to 3$ si considerano i valori nell'intorno di $3$ con $x \neq 3$ (quindi $x - 3 \neq 0$). Graficamente in $x=3$ la funzione ha una <em>discontinuità eliminabile</em> (un buco nella retta $y = x+3$ a quota $y=6$).
+      </div>
+    </article>
+
+
+    <!-- =====================================================================
+         QUESITO 5 • TEOREMA DEGLI ZERI E INTERPRETAZIONE TABELLARE
+         ===================================================================== -->
+    <article class="invalsi-question-card" id="q5">
+      <div class="invalsi-q-header">
+        <div class="invalsi-q-badge-group">
+          <span class="invalsi-q-num">Quesito 5</span>
+          <span class="invalsi-q-topic">Teorema di Esistenza degli Zeri • Bilancio di un'Impresa Sociale</span>
+        </div>
+        <span class="invalsi-q-points">1,25 Punti (0,50 pt + 0,75 pt)</span>
+      </div>
+
+      <div class="stimulus-container full-width">
+        <div class="stimulus-text">
+          Il saldo economico netto $B(t)$ (Ricavi meno Costi, espresso in migliaia di euro) di una cooperativa editoriale varia nel corso dei primi 5 mesi dell'anno secondo una <strong>funzione continua</strong> $B(t)$. Nella tabella sono riportati i valori rilevati all'inizio di ciascun mese:
+          <table class="invalsi-data-table" style="margin-top: 0.75rem;">
+            <thead>
+              <tr>
+                <th>Mese ($t$)</th>
+                <th>$t = 1$ (Gennaio)</th>
+                <th>$t = 2$ (Febbraio)</th>
+                <th>$t = 3$ (Marzo)</th>
+                <th>$t = 4$ (Aprile)</th>
+                <th>$t = 5$ (Maggio)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Saldo netto $B(t)$ (mila €)</strong></td>
+                <td style="color: var(--accent-danger); font-weight: 700;">$-8$</td>
+                <td style="color: var(--accent-danger); font-weight: 700;">$-3$</td>
+                <td style="color: var(--accent-success); font-weight: 700;">$+5$</td>
+                <td style="color: var(--accent-success); font-weight: 700;">$+9$</td>
+                <td style="color: var(--accent-success); font-weight: 700;">$+12$</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="sub-question-block">
+        <div class="q-prompt">
+          <strong>5.a)</strong> In quale intervallo temporale la cooperativa ha <strong>certamente</strong> raggiunto il punto di pareggio economico ($B(t) = 0$, cioè ricavi uguali ai costi)?
+        </div>
+        <div class="exam-options-grid">
+          <label class="exam-option-label">
+            <input type="radio" name="q5a" value="A">
+            <span><strong>A)</strong> Tra $t = 1$ e $t = 2$</span>
+          </label>
+          <label class="exam-option-label">
+            <input type="radio" name="q5a" value="B">
+            <span><strong>B)</strong> Tra $t = 2$ e $t = 3$</span>
+          </label>
+          <label class="exam-option-label">
+            <input type="radio" name="q5a" value="C">
+            <span><strong>C)</strong> Tra $t = 3$ e $t = 4$</span>
+          </label>
+          <label class="exam-option-label">
+            <input type="radio" name="q5a" value="D">
+            <span><strong>D)</strong> Non è possibile saperlo senza conoscere la formula algebrica di $B(t)$.</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="sub-question-block">
+        <div class="reasoning-box">
+          <label for="just_q5">
+            <span>✍️ 5.b) Scrivi il ragionamento teorico (0,75 pt):</span>
+            <span style="font-weight: 500; color: var(--text-muted);">Cita il teorema applicato e spiega perché serve l'ipotesi di continuità</span>
+          </label>
+          <textarea id="just_q5" class="reasoning-textarea" placeholder="Enuncia le ipotesi del Teorema di Esistenza degli Zeri (Bolzano) sull'intervallo [2, 3] e spiega cosa potrebbe succedere se la funzione non fosse continua..."></textarea>
+          <div class="print-lines-only">
+            <div class="print-line-row"></div>
+            <div class="print-line-row"></div>
+            <div class="print-line-row"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="solution-reveal-box" id="sol_q5">
+        <div class="solution-title">✓ Soluzione e Criterio di Correzione (Quesito 5 • 1,25 pt)</div>
+        <strong>5.a) Risposta corretta: B (Tra $t=2$ e $t=3$)</strong> (0,50 pt).<br>
+        <strong>5.b) Ragionamento richiesto (0,75 pt):</strong> Nell'intervallo chiuso e limitato $[2, 3]$ la funzione $B(t)$ è <strong>continua</strong> per ipotesi e assume valori di <strong>segno opposto</strong> agli estremi: $B(2) = -3 < 0$ e $B(3) = +5 > 0$ (quindi $B(2) \cdot B(3) < 0$). Per il <strong>Teorema di Esistenza degli Zeri (o di Bolzano)</strong> esiste almeno un istante $t_0 \in (2, 3)$ tale che $B(t_0) = 0$. Se la funzione non fosse continua (ad esempio se avesse un salto improvviso da $-3$ a $+5$), il grafico potrebbe scavalcare l'asse orizzontale senza mai toccare quota zero.
+      </div>
+    </article>
+
+
+    <!-- =====================================================================
+         QUESITO 6 • RAPPORTO INCREMENTALE, RETTA TANGENTE E DERIVATA DA GRAFICO
+         ===================================================================== -->
+    <article class="invalsi-question-card" id="q6">
+      <div class="invalsi-q-header">
+        <div class="invalsi-q-badge-group">
+          <span class="invalsi-q-num">Quesito 6</span>
+          <span class="invalsi-q-topic">Significato Geometrico della Derivata • Lettura della Retta Tangente su Griglia</span>
+        </div>
+        <span class="invalsi-q-points">1,50 Punti (0,75 pt + 0,75 pt)</span>
+      </div>
+
+      <div class="stimulus-container">
+        <div class="stimulus-text">
+          Il grafico a fianco (curva azzurra) mostra il numero totale di adesioni $A(t)$ (in centinaia di firme) a una petizione civica nelle prime $5$ ore dal lancio.
+          <br><br>
+          Sul piano quadrettato è tracciata anche la <strong>retta tangente $r$</strong> (linea dorata) al grafico nel punto $P(2; 4)$.
+          <br><br>
+          Osserva dalla griglia che la retta tangente $r$ passa esattamente per due punti a coordinate intere evidenziati con i pallini:
+          <ul style="margin: 0.4rem 0 0 1.2rem; padding: 0;">
+            <li>Il punto di tangenza <strong>$P(2; 4)$</strong>;</li>
+            <li>Il punto <strong>$Q(4; 10)$</strong>.</li>
+          </ul>
+          Inoltre sulla curva è segnato anche il punto <strong>$S(4; 12)$</strong>.
+        </div>
+
+        <div class="stimulus-visual">
+          <svg viewBox="0 0 350 230" aria-label="Grafico funzione con retta tangente in P(2,4) passante per Q(4,10)">
+            <!-- Griglia: X da 0 a 5 (step 50px, x0=50); Y da 0 a 12 (step 12px, y0=195) -->
+            <g class="grid-line" stroke="#1e293b" stroke-width="1">
+              <line x1="50" y1="171" x2="310" y2="171" /> <!-- y=2 -->
+              <line x1="50" y1="147" x2="310" y2="147" /> <!-- y=4 -->
+              <line x1="50" y1="123" x2="310" y2="123" /> <!-- y=6 -->
+              <line x1="50" y1="99"  x2="310" y2="99"  /> <!-- y=8 -->
+              <line x1="50" y1="75"  x2="310" y2="75"  /> <!-- y=10 -->
+              <line x1="50" y1="51"  x2="310" y2="51"  /> <!-- y=12 -->
+              <line x1="100" y1="30" x2="100" y2="195" /> <!-- x=1 -->
+              <line x1="150" y1="30" x2="150" y2="195" /> <!-- x=2 -->
+              <line x1="200" y1="30" x2="200" y2="195" /> <!-- x=3 -->
+              <line x1="250" y1="30" x2="250" y2="195" /> <!-- x=4 -->
+              <line x1="300" y1="30" x2="300" y2="195" /> <!-- x=5 -->
+            </g>
+            <!-- Assi -->
+            <line class="axis-line" x1="50" y1="195" x2="320" y2="195" stroke="#94a3b8" stroke-width="2" />
+            <line class="axis-line" x1="50" y1="195" x2="50" y2="25" stroke="#94a3b8" stroke-width="2" />
+            <!-- Curva A(t) = 0.5*t^2 + t (per t=0 -> 0, t=2 -> 4, t=4 -> 12) -->
+            <path d="M 50 195 Q 150 165, 250 51" fill="none" stroke="#38bdf8" stroke-width="3.5" />
+            <!-- Retta tangente in P(2,4): m = 3 -> per t=1 y=1 (183), per t=2 y=4 (147), per t=4 y=10 (75) -->
+            <line x1="83" y1="195" x2="275" y2="45" stroke="#f59e0b" stroke-width="2.5" stroke-dasharray="6,3" />
+            <!-- Punti P(2,4), Q(4,10), S(4,12) -->
+            <circle cx="150" cy="147" r="5.5" fill="#f59e0b" stroke="#0d1322" stroke-width="1.5" />
+            <circle cx="250" cy="75" r="5" fill="#f59e0b" />
+            <circle cx="250" cy="51" r="5" fill="#38bdf8" />
+            <!-- Etichette Punti -->
+            <text x="142" y="138" fill="#f59e0b" font-size="11" font-weight="bold" text-anchor="end">P(2; 4)</text>
+            <text x="258" y="80" fill="#f59e0b" font-size="11" font-weight="bold">Q(4; 10) [sulla tangente]</text>
+            <text x="242" y="43" fill="#38bdf8" font-size="11" font-weight="bold" text-anchor="end">S(4; 12) [sulla curva]</text>
+            <!-- Etichette Assi -->
+            <text x="50" y="212" fill="#cbd5e1" font-size="11" text-anchor="middle">0</text>
+            <text x="100" y="212" fill="#cbd5e1" font-size="11" text-anchor="middle">1</text>
+            <text x="150" y="212" fill="#cbd5e1" font-size="11" text-anchor="middle" font-weight="bold">2h</text>
+            <text x="200" y="212" fill="#cbd5e1" font-size="11" text-anchor="middle">3</text>
+            <text x="250" y="212" fill="#cbd5e1" font-size="11" text-anchor="middle" font-weight="bold">4h</text>
+            <text x="300" y="212" fill="#cbd5e1" font-size="11" text-anchor="middle">5h</text>
+            <text x="40" y="151" fill="#cbd5e1" font-size="11" text-anchor="end">4</text>
+            <text x="40" y="79" fill="#cbd5e1" font-size="11" text-anchor="end">10</text>
+            <text x="40" y="55" fill="#cbd5e1" font-size="11" text-anchor="end">12</text>
+            <text x="58" y="26" fill="#38bdf8" font-size="11" font-weight="bold">Adesioni A(t)</text>
+          </svg>
+          <div class="visual-caption">Figura 3: Curva $A(t)$ e retta tangente $r$ nel punto $P(2; 4)$.</div>
+        </div>
+      </div>
+
+      <!-- 6.a -->
+      <div class="sub-question-block">
+        <div class="q-prompt">
+          <strong>6.a)</strong> Ricorrendo al significato geometrico di derivata (coefficiente angolare della retta tangente $r$ passante per $P(2; 4)$ e $Q(4; 10)$), quanto vale la <strong>derivata prima $A'(2)$</strong>?
+        </div>
+        <div class="exam-options-grid">
+          <label class="exam-option-label">
+            <input type="radio" name="q6a" value="A">
+            <span><strong>A)</strong> $A'(2) = 2$</span>
+          </label>
+          <label class="exam-option-label">
+            <input type="radio" name="q6a" value="B">
+            <span><strong>B)</strong> $A'(2) = 3$</span>
+          </label>
+          <label class="exam-option-label">
+            <input type="radio" name="q6a" value="C">
+            <span><strong>C)</strong> $A'(2) = 4$</span>
+          </label>
+          <label class="exam-option-label">
+            <input type="radio" name="q6a" value="D">
+            <span><strong>D)</strong> $A'(2) = 6$</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- 6.b -->
+      <div class="sub-question-block">
+        <div class="q-prompt">
+          <strong>6.b)</strong> Quanto vale invece il <strong>rapporto incrementale (velocità media di crescita)</strong> della funzione $A(t)$ nell'intervallo tra $t = 2$ (punto $P(2; 4)$) e $t = 4$ (punto $S(4; 12)$ sulla curva)?
+        </div>
+        <div class="exam-options-grid">
+          <label class="exam-option-label">
+            <input type="radio" name="q6b" value="A">
+            <span><strong>A)</strong> $\frac{\Delta A}{\Delta t} = \frac{12 - 4}{4 - 2} = 4$</span>
+          </label>
+          <label class="exam-option-label">
+            <input type="radio" name="q6b" value="B">
+            <span><strong>B)</strong> $\frac{\Delta A}{\Delta t} = \frac{10 - 4}{4 - 2} = 3$</span>
+          </label>
+          <label class="exam-option-label">
+            <input type="radio" name="q6b" value="C">
+            <span><strong>C)</strong> $\frac{\Delta A}{\Delta t} = 12 - 4 = 8$</span>
+          </label>
+          <label class="exam-option-label">
+            <input type="radio" name="q6b" value="D">
+            <span><strong>D)</strong> $\frac{\Delta A}{\Delta t} = \frac{4 - 2}{12 - 4} = 0,25$</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="solution-reveal-box" id="sol_q6">
+        <div class="solution-title">✓ Soluzione e Criterio di Correzione (Quesito 6 • 1,50 pt)</div>
+        <strong>6.a) Risposta corretta: B ($A'(2) = 3$)</strong> (0,75 pt). La derivata prima $A'(2)$ è il coefficiente angolare $m_t$ della retta tangente in $P(2;4)$. Poiché la tangente passa per $P(2;4)$ e $Q(4;10)$, la sua pendenza è $m_t = \frac{10 - 4}{4 - 2} = \frac{6}{2} = 3$ (cioè $300$ firme/ora nell'istante $t=2$).<br>
+        <strong>6.b) Risposta corretta: A ($\frac{\Delta A}{\Delta t} = 4$)</strong> (0,75 pt). Il rapporto incrementale sulla curva tra $t=2$ e $t=4$ è la pendenza della retta secante passante per $P(2;4)$ e $S(4;12)$: $\frac{A(4)-A(2)}{4-2} = \frac{12-4}{2} = 4$.
+      </div>
+    </article>
+
+
+    <!-- =====================================================================
+         QUESITO 7 • SEGNO DELLA DERIVATA E ANDAMENTO DEL GRAFICO (YERKES-DODSON)
+         ===================================================================== -->
+    <article class="invalsi-question-card" id="q7">
+      <div class="invalsi-q-header">
+        <div class="invalsi-q-badge-group">
+          <span class="invalsi-q-num">Quesito 7</span>
+          <span class="invalsi-q-topic">Derivata e Monotonia • Curva Psicologica di Yerkes-Dodson (Stress vs Performance)</span>
+        </div>
+        <span class="invalsi-q-points">1,25 Punti (0,60 pt + 0,65 pt)</span>
+      </div>
+
+      <div class="stimulus-container">
+        <div class="stimulus-text">
+          In psicologia cognitiva, la <strong>Legge di Yerkes-Dodson</strong> descrive come il rendimento $R(s)$ di uno studente vari in funzione del livello di attivazione emotiva o stress $s$ (da $0$ a $10$):
+          <ul style="margin: 0.4rem 0 0 1.2rem; padding: 0;">
+            <li>Nel punto <strong>$A$ ($s = 2$)</strong> un moderato aumento di attenzione migliora il rendimento (fase di <em>eustress</em>);</li>
+            <li>Nel punto <strong>$B$ ($s = 5$)</strong> si raggiunge il <strong>massimo rendimento possibile</strong> (picco della curva);</li>
+            <li>Nel punto <strong>$C$ ($s = 8$)</strong> l'ansia eccessiva fa calare il rendimento (fase di <em>distress</em>).</li>
+          </ul>
+        </div>
+
+        <div class="stimulus-visual">
+          <svg viewBox="0 0 340 200" aria-label="Curva a campana di Yerkes-Dodson con punti A, B, C">
+            <line class="axis-line" x1="40" y1="165" x2="315" y2="165" stroke="#94a3b8" stroke-width="2" />
+            <line class="axis-line" x1="40" y1="165" x2="40" y2="20" stroke="#94a3b8" stroke-width="2" />
+            <!-- Tangente orizzontale in B -->
+            <line x1="125" y1="45" x2="225" y2="45" stroke="#10b981" stroke-width="2" stroke-dasharray="5,3" />
+            <!-- Curva a campana -->
+            <path d="M 45 155 C 95 145, 130 45, 175 45 C 220 45, 255 145, 305 155" fill="none" stroke="#a855f7" stroke-width="3.5" />
+            <!-- Punti A, B, C -->
+            <circle cx="105" cy="102" r="5.5" fill="#38bdf8" />
+            <circle cx="175" cy="45" r="6" fill="#10b981" />
+            <circle cx="245" cy="102" r="5.5" fill="#f43f5e" />
+            <!-- Etichette -->
+            <text x="92" y="96" fill="#38bdf8" font-size="12" font-weight="bold">A</text>
+            <text x="175" y="33" fill="#10b981" font-size="12" font-weight="bold" text-anchor="middle">B (Massimo)</text>
+            <text x="256" y="96" fill="#f43f5e" font-size="12" font-weight="bold">C</text>
+            <text x="105" y="183" fill="#cbd5e1" font-size="11" text-anchor="middle">s = 2</text>
+            <text x="175" y="183" fill="#10b981" font-size="11" text-anchor="middle" font-weight="bold">s = 5</text>
+            <text x="245" y="183" fill="#cbd5e1" font-size="11" text-anchor="middle">s = 8</text>
+            <text x="48" y="28" fill="#a855f7" font-size="11" font-weight="bold">Rendimento R(s)</text>
+          </svg>
+          <div class="visual-caption">Figura 4: Curva di Yerkes-Dodson e tangente orizzontale nel picco $B$.</div>
+        </div>
+      </div>
+
+      <div class="sub-question-block">
+        <div class="q-prompt">
+          <strong>7.a)</strong> Quale delle seguenti combinazioni associa correttamente il segno della derivata prima $R'(s)$ ai tre punti $A$, $B$ e $C$?
+        </div>
+        <div class="exam-options-grid">
+          <label class="exam-option-label">
+            <input type="radio" name="q7a" value="A">
+            <span><strong>A)</strong> $R'(2) > 0$, &nbsp;$R'(5) = 0$, &nbsp;$R'(8) < 0$</span>
+          </label>
+          <label class="exam-option-label">
+            <input type="radio" name="q7a" value="B">
+            <span><strong>B)</strong> $R'(2) < 0$, &nbsp;$R'(5) > 0$, &nbsp;$R'(8) = 0$</span>
+          </label>
+          <label class="exam-option-label">
+            <input type="radio" name="q7a" value="C">
+            <span><strong>C)</strong> $R'(2) > 0$, &nbsp;$R'(5) > 0$, &nbsp;$R'(8) > 0$ (perché il grafico è sempre sopra l'asse orizzontale)</span>
+          </label>
+          <label class="exam-option-label">
+            <input type="radio" name="q7a" value="D">
+            <span><strong>D)</strong> $R'(2) = 0$, &nbsp;$R'(5) = 10$, &nbsp;$R'(8) = 0$</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="sub-question-block">
+        <div class="reasoning-box">
+          <label for="just_q7">
+            <span>✍️ 7.b) Scrivi il ragionamento (0,65 pt):</span>
+            <span style="font-weight: 500; color: var(--text-muted);">Spiega perché nel punto di massimo $B(s=5)$ la derivata vale zero e perché l'opzione C è un errore concettuale</span>
+          </label>
+          <textarea id="just_q7" class="reasoning-textarea" placeholder="Collega il segno della derivata alla pendenza della retta tangente (crescente, orizzontale, decrescente) e non alla positività di R(s)..."></textarea>
+          <div class="print-lines-only">
+            <div class="print-line-row"></div>
+            <div class="print-line-row"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="solution-reveal-box" id="sol_q7">
+        <div class="solution-title">✓ Soluzione e Criterio di Correzione (Quesito 7 • 1,25 pt)</div>
+        <strong>7.a) Risposta corretta: A</strong> (0,60 pt).<br>
+        <strong>7.b) Ragionamento richiesto (0,65 pt):</strong> La derivata prima $R'(s)$ misura la pendenza della retta tangente (e quindi la crescita/decrescita di $R$), non la quota $R(s)$. In $A(s=2)$ la funzione è crescente quindi $R'(2) > 0$; nel punto di massimo $B(s=5)$ la funzione inverte la monotonia e la retta tangente è <strong>orizzontale</strong> (parallela all'asse delle ascisse, coefficiente angolare nullo), quindi $R'(5) = 0$; in $C(s=8)$ la funzione è decrescente quindi $R'(8) < 0$.
+      </div>
+    </article>
+
+
+    <!-- =====================================================================
+         QUESITO 8 • CALCOLO DELLA DERIVATA E COSTO MARGINALE NEL TERZO SETTORE
+         ===================================================================== -->
+    <article class="invalsi-question-card" id="q8">
+      <div class="invalsi-q-header">
+        <div class="invalsi-q-badge-group">
+          <span class="invalsi-q-num">Quesito 8</span>
+          <span class="invalsi-q-topic">Calcolo Differenziale e Realtà • Costo Marginale di una Cooperativa Artigiana</span>
+        </div>
+        <span class="invalsi-q-points">1,25 Punti (0,50 pt + 0,75 pt)</span>
+      </div>
+
+      <div class="stimulus-container full-width">
+        <div class="stimulus-text">
+          Un laboratorio artigianale di inclusione lavorativa produce $q$ confezioni giornaliere di quaderni in carta ecologica. Il costo totale giornaliero di produzione $C(q)$ (espresso in euro) è modellizzato dalla funzione:
+          $$C(q) = q^2 + 10q + 100 \quad (\text{con } q \ge 0)$$
+          dove $100\text{ €}$ rappresenta i costi fissi giornalieri della struttura.
+        </div>
+      </div>
+
+      <div class="sub-question-block">
+        <div class="q-prompt">
+          <strong>8.a)</strong> Applicando le regole di derivazione delle funzioni polinomiali, qual è l'espressione della derivata prima $C'(q)$ (detta <strong>costo marginale</strong>) e quanto vale quando il laboratorio produce $q = 15$ confezioni?
+        </div>
+        <div class="exam-options-grid">
+          <label class="exam-option-label">
+            <input type="radio" name="q8a" value="A">
+            <span><strong>A)</strong> $C'(q) = 2q + 10$ &nbsp;$\implies$&nbsp; $C'(15) = 40\text{ €/confezione}$</span>
+          </label>
+          <label class="exam-option-label">
+            <input type="radio" name="q8a" value="B">
+            <span><strong>B)</strong> $C'(q) = 2q + 110$ &nbsp;$\implies$&nbsp; $C'(15) = 140\text{ €/confezione}$</span>
+          </label>
+          <label class="exam-option-label">
+            <input type="radio" name="q8a" value="C">
+            <span><strong>C)</strong> $C'(q) = q + 10$ &nbsp;$\implies$&nbsp; $C'(15) = 25\text{ €/confezione}$</span>
+          </label>
+          <label class="exam-option-label">
+            <input type="radio" name="q8a" value="D">
+            <span><strong>D)</strong> $C'(q) = 2q^2 + 10$ &nbsp;$\implies$&nbsp; $C'(15) = 460\text{ €/confezione}$</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="sub-question-block">
+        <div class="reasoning-box">
+          <label for="just_q8">
+            <span>✍️ 8.b) Scrivi il procedimento e l'interpretazione nel contesto reale (0,75 pt):</span>
+            <span style="font-weight: 500; color: var(--text-muted);">Mostra come hai derivato termine a termine e spiega cosa significa $C'(15) = 40\text{ €}$</span>
+          </label>
+          <textarea id="just_q8" class="reasoning-textarea" placeholder="Spiega perché la derivata della costante 100 è 0 e cosa rappresenta il costo marginale di 40 € per la produzione della 16ª confezione..."></textarea>
+          <div class="print-lines-only">
+            <div class="print-line-row"></div>
+            <div class="print-line-row"></div>
+            <div class="print-line-row"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="solution-reveal-box" id="sol_q8">
+        <div class="solution-title">✓ Soluzione e Criterio di Correzione (Quesito 8 • 1,25 pt)</div>
+        <strong>8.a) Risposta corretta: A ($C'(q) = 2q + 10$ e $C'(15) = 40$)</strong> (0,50 pt).<br>
+        <strong>8.b) Ragionamento e interpretazione (0,75 pt):</strong> Derivando termine a termine: $\frac{d}{dq}(q^2) = 2q$, $\frac{d}{dq}(10q) = 10$ e la derivata del costo fisso costante $100$ vale $0$ (poiché una costante non varia al crescere di $q$). Sostituendo $q=15$ si ottiene $C'(15) = 2(15) + 10 = 40\text{ €}$. Nel contesto reale dell'impresa sociale, significa che quando la produzione è a quota $15$ confezioni, produrre <strong>una confezione aggiuntiva</strong> (la sedicesima) comporta un incremento istantaneo di costo di circa $40\text{ €}$.
+      </div>
+    </article>
+
+
+    <!-- =====================================================================
+         GRIGLIA DI VALUTAZIONE IN DECIMI (STAMPABILE SUL COMPITO)
+         ===================================================================== -->
+    <section class="rubric-section" id="grigliaValutazione">
+      <div style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 0.5rem; border-bottom: 2px solid var(--border-subtle); padding-bottom: 0.75rem;">
+        <h2 style="font-size: 1.25rem; font-weight: 800; margin: 0;">
+          🎯 Griglia di Valutazione Analitica in Decimi (Totale: 10,0 Punti)
+        </h2>
+        <span style="font-family: var(--font-mono); font-size: 0.82rem; font-weight: 700; color: var(--accent-gold);">
+          Sufficienza: 6,0 / 10
+        </span>
+      </div>
+
+      <table class="rubric-table">
+        <thead>
+          <tr>
+            <th>Quesito</th>
+            <th>Competenza Verificata (Quadro INVALSI / MIM)</th>
+            <th>Struttura Punteggio</th>
+            <th>Max Punti</th>
+            <th>Punti Ottenuti</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Q1</strong></td>
+            <td>Lettura grafica di limiti laterali e discontinuità a salto</td>
+            <td>1.a Scelta (0,65) + 1.b Tabella V/F (0,60)</td>
+            <td class="score-col">1,25 pt</td>
+            <td class="score-col">_____ / 1,25</td>
+          </tr>
+          <tr>
+            <td><strong>Q2</strong></td>
+            <td>Analisi tabellare, limite all'infinito e asintoto orizzontale</td>
+            <td>2.a Scelta (0,50) + 2.b Ragionamento (0,75)</td>
+            <td class="score-col">1,25 pt</td>
+            <td class="score-col">_____ / 1,25</td>
+          </tr>
+          <tr>
+            <td><strong>Q3</strong></td>
+            <td>Modellizzazione di soglie critiche e asintoto verticale</td>
+            <td>Quesito a scelta multipla ragionata</td>
+            <td class="score-col">1,00 pt</td>
+            <td class="score-col">_____ / 1,00</td>
+          </tr>
+          <tr>
+            <td><strong>Q4</strong></td>
+            <td>Argomentazione e rimozione della forma indeterminata $[0/0]$</td>
+            <td>4.a Scelta (0,40) + 4.b Procedimento (0,85)</td>
+            <td class="score-col">1,25 pt</td>
+            <td class="score-col">_____ / 1,25</td>
+          </tr>
+          <tr>
+            <td><strong>Q5</strong></td>
+            <td>Teorema di Esistenza degli Zeri e ruolo della continuità</td>
+            <td>5.a Scelta (0,50) + 5.b Ragionamento (0,75)</td>
+            <td class="score-col">1,25 pt</td>
+            <td class="score-col">_____ / 1,25</td>
+          </tr>
+          <tr>
+            <td><strong>Q6</strong></td>
+            <td>Lettura grafica di pendenza della tangente ($f'$) e secante ($\Delta y/\Delta x$)</td>
+            <td>6.a Derivata (0,75) + 6.b Rapp. Incr. (0,75)</td>
+            <td class="score-col">1,50 pt</td>
+            <td class="score-col">_____ / 1,50</td>
+          </tr>
+          <tr>
+            <td><strong>Q7</strong></td>
+            <td>Relazione tra segno della derivata prima e monotonia/massimo</td>
+            <td>7.a Scelta (0,60) + 7.b Ragionamento (0,65)</td>
+            <td class="score-col">1,25 pt</td>
+            <td class="score-col">_____ / 1,25</td>
+          </tr>
+          <tr>
+            <td><strong>Q8</strong></td>
+            <td>Calcolo della derivata polinomiale e significato del costo marginale</td>
+            <td>8.a Scelta (0,50) + 8.b Ragionamento (0,75)</td>
+            <td class="score-col">1,25 pt</td>
+            <td class="score-col">_____ / 1,25</td>
+          </tr>
+          <tr style="border-top: 2px solid var(--border-subtle); font-weight: 800;">
+            <td colspan="3" style="text-align: right; color: var(--text-main);"><strong>TOTALE PROVA (VOTO IN DECIMI):</strong></td>
+            <td class="score-col" style="color: var(--accent-gold);">10,00 pt</td>
+            <td class="score-col" style="color: var(--accent-gold);">_____ / 10</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div style="margin-top: 0.9rem; font-size: 0.8rem; color: var(--text-muted); line-height: 1.5;">
+        <strong>Criterio di attribuzione dei punti per le sezioni «Scrivi il ragionamento»:</strong>
+        Punteggio pieno (100% del sub-item) per argomentazione completa, coerente e con passaggi corretti; punteggio intermedio (50%–70%) per intuizione corretta ma spiegazione parziale o imprecisione formale; punteggio nullo (0 pt) se il riquadro è lasciato in bianco o contraddittorio. Voto minimo garantito per consegna in bianco o gravemente insufficiente: <strong>2,0 / 10</strong>.
+      </div>
+    </section>
+
+
+    <!-- =====================================================================
+         BARRA DI AUTOCORREZIONE INTERATTIVA ONLINE
+         ===================================================================== -->
+    <div class="exam-submit-bar">
+      <h3 style="font-size: 1.3rem; font-weight: 800; margin-bottom: 0.45rem;">
+        Simulazione Interattiva: Correggi e Valuta la tua Prova
+      </h3>
+      <p style="font-size: 0.92rem; color: var(--text-muted); max-width: 640px; margin: 0 auto 1.4rem; line-height: 1.55;">
+        Se stai svolgendo la simulazione online per allenarti, clicca qui sotto per verificare automaticamente tutte le risposte chiuse, confrontare i tuoi ragionamenti con le soluzioni modello e ottenere <strong>+80 XP</strong>!
+      </p>
+
+      <div style="display: flex; gap: 0.85rem; justify-content: center; flex-wrap: wrap;">
+        <button type="button" class="btn-action" style="font-size: 1rem; padding: 0.85rem 1.85rem;" onclick="evaluateInvalsiExam()">
+          🎯 Correggi Simulazione e Calcola il Voto in Decimi (+80 XP)
+        </button>
+        <button type="button" class="btn-timer print-highlight" style="font-size: 0.92rem; padding: 0.85rem 1.4rem;" onclick="window.print()">
+          🖨️ Stampa Fascicolo per Svolgimento su Carta
+        </button>
+      </div>
+
+      <!-- Box Risultato Online -->
+      <div id="examResultBox" class="exam-result-box">
+        <h4 style="font-size: 1.35rem; font-weight: 800; color: var(--accent-gold); margin-bottom: 0.5rem;" id="resScoreTitle">
+          Esito Simulazione
+        </h4>
+        <div style="font-size: 0.92rem; color: var(--text-main); line-height: 1.65;" id="resScoreDesc"></div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer style="margin-top: 3rem; padding-top: 1.75rem; border-top: 1px solid var(--border-subtle); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; color: var(--text-muted); font-size: 0.85rem;">
+      <div style="display: flex; gap: 1.25rem;">
+        <a href="index.html" style="color: var(--accent-math); text-decoration: none; font-weight: 700;">
+          ← Torna all'UDA 5.M1
+        </a>
+        <a href="../../index.html" style="color: var(--text-muted); text-decoration: none;">
+          Quinto Anno
+        </a>
+        <a href="../../../index.html" style="color: var(--text-muted); text-decoration: none;">
+          Home Page
+        </a>
+      </div>
+      <div>
+        <strong>comode</strong> • Liceo delle Scienze Umane
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- Script Condivisi comode -->
+  <script src="../../../shared/js/audio.js"></script>
+  <script src="../../../shared/js/theme.js"></script>
+  <script src="../../../shared/js/gamification.js"></script>
+  <script src="../../../shared/js/components.js"></script>
+  <script src="../../../shared/js/comode.js"></script>
+
+  <script>
+    // Timer 60 minuti
+    let timeLeft = 60 * 60;
+    let timerInterval = null;
+    let solutionsVisible = false;
+
+    function updateTimerDisplay() {
+      const clock = document.getElementById('timerClock');
+      if (!clock) return;
+      const m = Math.floor(timeLeft / 60);
+      const s = timeLeft % 60;
+      clock.textContent = `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+      clock.classList.toggle('urgent', timeLeft <= 300);
+    }
+
+    function startTimer() {
+      if (timerInterval) return;
+      if (window.ComodeAudio) window.ComodeAudio.playClick();
+      timerInterval = setInterval(() => {
+        if (timeLeft > 0) {
+          timeLeft--;
+          updateTimerDisplay();
+        } else {
+          clearInterval(timerInterval);
+          timerInterval = null;
+          if (window.ComodeAudio) window.ComodeAudio.playError();
+          alert('⏰ Tempo di 60 minuti scaduto! Consegna la prova o controlla le soluzioni.');
+        }
+      }, 1000);
+    }
+
+    function pauseTimer() {
+      if (window.ComodeAudio) window.ComodeAudio.playClick();
+      clearInterval(timerInterval);
+      timerInterval = null;
+    }
+
+    function resetTimer() {
+      if (window.ComodeAudio) window.ComodeAudio.playClick();
+      clearInterval(timerInterval);
+      timerInterval = null;
+      timeLeft = 60 * 60;
+      updateTimerDisplay();
+    }
+
+    function toggleAllSolutions(forceState) {
+      if (window.ComodeAudio) window.ComodeAudio.playClick();
+      solutionsVisible = typeof forceState === 'boolean' ? forceState : !solutionsVisible;
+      document.querySelectorAll('.solution-reveal-box').forEach(box => {
+        box.classList.toggle('visible', solutionsVisible);
+      });
+      const btn = document.getElementById('btnToggleSolutions');
+      if (btn) {
+        btn.innerHTML = solutionsVisible ? '🙈 Nascondi Soluzioni' : '🔑 Mostra Soluzioni';
+      }
+    }
+
+    function getRadioVal(name) {
+      const el = document.querySelector(`input[name="${name}"]:checked`);
+      return el ? el.value : null;
+    }
+
+    function evaluateInvalsiExam() {
+      let scoreClosed = 0; // Max 5,15 pt da risposte chiuse
+      let scoreReasoning = 0; // Max 4,85 pt da ragionamenti scritti
+
+      // Q1 (0.65 + 0.60 = 1.25)
+      if (getRadioVal('q1a') === 'B') scoreClosed += 0.65;
+      if (getRadioVal('q1b_1') === 'V') scoreClosed += 0.20;
+      if (getRadioVal('q1b_2') === 'F') scoreClosed += 0.20;
+      if (getRadioVal('q1b_3') === 'V') scoreClosed += 0.20;
+
+      // Q2 (0.50 + 0.75 = 1.25)
+      if (getRadioVal('q2a') === 'B') scoreClosed += 0.50;
+      if ((document.getElementById('just_q2')?.value.trim().length || 0) >= 15) scoreReasoning += 0.75;
+
+      // Q3 (1.00)
+      if (getRadioVal('q3') === 'A') scoreClosed += 1.00;
+
+      // Q4 (0.40 + 0.85 = 1.25)
+      if (getRadioVal('q4a') === 'B') scoreClosed += 0.40;
+      if ((document.getElementById('just_q4')?.value.trim().length || 0) >= 15) scoreReasoning += 0.85;
+
+      // Q5 (0.50 + 0.75 = 1.25)
+      if (getRadioVal('q5a') === 'B') scoreClosed += 0.50;
+      if ((document.getElementById('just_q5')?.value.trim().length || 0) >= 15) scoreReasoning += 0.75;
+
+      // Q6 (0.75 + 0.75 = 1.50)
+      if (getRadioVal('q6a') === 'B') scoreClosed += 0.75;
+      if (getRadioVal('q6b') === 'A') scoreClosed += 0.75;
+
+      // Q7 (0.60 + 0.65 = 1.25)
+      if (getRadioVal('q7a') === 'A') scoreClosed += 0.60;
+      if ((document.getElementById('just_q7')?.value.trim().length || 0) >= 15) scoreReasoning += 0.65;
+
+      // Q8 (0.50 + 0.75 = 1.25)
+      if (getRadioVal('q8a') === 'A') scoreClosed += 0.50;
+      if ((document.getElementById('just_q8')?.value.trim().length || 0) >= 15) scoreReasoning += 0.75;
+
+      const totalRaw = scoreClosed + scoreReasoning;
+      const finalGrade = Math.max(2.0, Math.min(10.0, Math.round(totalRaw * 100) / 100));
+
+      // Mostra tutte le soluzioni commentate per il confronto
+      toggleAllSolutions(true);
+
+      const resBox = document.getElementById('examResultBox');
+      const resTitle = document.getElementById('resScoreTitle');
+      const resDesc = document.getElementById('resScoreDesc');
+
+      if (resBox && resTitle && resDesc) {
+        resBox.style.display = 'block';
+        resTitle.textContent = `🎯 Voto Stimato: ${finalGrade.toFixed(2).replace('.', ',')} / 10`;
+        resDesc.innerHTML = `
+          <div style="margin-bottom: 0.75rem;">
+            • <strong>Quesiti a risposta chiusa e tabelle (INVALSI / TOLC):</strong> ${scoreClosed.toFixed(2).replace('.', ',')} / 6,25 punti<br>
+            • <strong>Sezioni «Scrivi il ragionamento» compilate:</strong> ${scoreReasoning.toFixed(2).replace('.', ',')} / 3,75 punti
+          </div>
+          <div style="padding: 0.75rem; background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 8px; color: var(--accent-success); font-weight: 600;">
+            ✓ Tutte le soluzioni commentate sotto ciascun quesito sono state sbloccate! Confronta i tuoi ragionamenti scritti con i modelli risolutivi.
+          </div>
+        `;
+        resBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+
+      if (window.ComodeGamification) {
+        window.ComodeGamification.completeLesson('uda-5.m1-simulazione-verifica', 80);
+      }
+    }
+  </script>
+</body>
+</html>
+
