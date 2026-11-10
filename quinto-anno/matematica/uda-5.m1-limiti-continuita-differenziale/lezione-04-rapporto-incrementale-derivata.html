@@ -967,7 +967,7 @@
           </div>
         </div>
 
-        <div style="margin-bottom: 0.5rem;">
+        <div style="margin-bottom: 0.85rem;">
           <label style="font-size: 0.9rem; font-weight: 600; display: block; margin-bottom: 0.4rem;">
             2. Calcola il valore numerico della derivata di $g(x) = \sqrt{x}$ nel punto $x_0 = 4$ e della derivata di $h(x) = \ln(x)$ nel punto $x_0 = 5$ (puoi scrivere in decimale o frazione, es. <code>0.25</code> o <code>1/4</code>):
           </label>
@@ -977,6 +977,19 @@
             <span style="font-size: 0.9rem; margin-left: 0.4rem;">$h'(5) = \frac{1}{5} =$</span>
             <input type="text" id="lab3aExLn" class="math-input" placeholder="?" style="width: 85px;">
           </div>
+        </div>
+
+        <div class="verify-box" style="margin-top: 1rem; padding-top: 0.75rem; border-top: 1px dashed var(--border-subtle);">
+          <button type="button" class="btn-action" onclick="verifyLab3A()">
+            <span>✅</span> Verifica Esercizio 3A
+          </button>
+          <button type="button" class="hint-btn" onclick="toggleHint('lab3aHint')">💡 Mostra Suggerimento</button>
+          <span class="feedback-msg" id="lab3aMsg" style="display: none;"></span>
+        </div>
+        <div class="hint-box" id="lab3aHint">
+          Per la potenza $x^6$, la regola è $D[x^n] = n \cdot x^{n-1}$, perciò $a = 6$ e $b = 5$.<br>
+          Per la radice quadrata $D[\sqrt{x}] = \frac{1}{2\sqrt{x}}$, per $x_0 = 4$ otteniamo $\frac{1}{2 \cdot 2} = \frac{1}{4} = 0{,}25$.<br>
+          Per il logaritmo naturale $D[\ln(x)] = \frac{1}{x}$, per $x_0 = 5$ otteniamo $\frac{1}{5} = 0{,}2$.
         </div>
       </div>
 
@@ -1558,13 +1571,14 @@
 
       <article class="scheda-container">
         <h3 class="scheda-title">
-          Compito Autentico: «Diffusione di Notizie &amp; Analisi Marginale»
+          Compito di Realtà per Casa: «Costo Marginale di Produzione ed Economie di Scala nel Terzo Settore»
         </h3>
 
         <div class="theory-link-box">
           <span class="tl-icon">🔗</span>
           <div>
-            <strong>Collegamento Teoria ↔ Pratica:</strong> Questo compito autentico applica il calcolo del rapporto incrementale, l'equazione della retta tangente, lo studio dei punti di non derivabilità e l'analisi marginale esaminati nei Laboratori 1–6.
+            <strong>Collegamento Teoria ↔ Pratica (Compito Analogo al Laboratorio 6 Svolto in Classe):</strong>
+            Questo compito applica il calcolo differenziale alle decisioni gestionali di un'impresa sociale, replicando fedelmente l'analisi svolta in classe nel Laboratorio 6. La struttura operativa e i passaggi logici sono identici a quelli guidati dal docente, applicati a una <strong>nuova funzione di costo totale</strong>.
           </div>
         </div>
 
@@ -1588,51 +1602,66 @@
         </div>
 
         <div style="font-size: 0.93rem; line-height: 1.65; color: var(--text-main);">
-          <p><strong>Esercizio 1 (Rapporto Incrementale e Derivata dalla Definizione):</strong><br>
-            Data la funzione $f(x) = 2x^2 - 3x$:
-            <br>a) Calcola l'incremento $\Delta y = f(1 + h) - f(1)$.
-            <br>b) Determina il rapporto incrementale $\frac{\Delta y}{h}$ semplificando il fattore $h$.
-            <br>c) Calcola $\lim_{h \to 0} \frac{\Delta y}{h}$ e verifica che il risultato coincide con la derivata $f'(1)$ calcolata con le regole algebriche.
+          <!-- IL CONTESTO DI REALTÀ -->
+          <div style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-left: 4px solid var(--accent-math); padding: 1rem 1.25rem; border-radius: var(--radius-md); margin-bottom: 1.25rem;">
+            <strong>🏭 Il Contesto Aziendale:</strong>
+            Una cooperativa sociale di inserimento lavorativo protetto produce manufatti e accessori ecosostenibili in tessuto riciclato.
+            La funzione del <strong>costo totale mensile di produzione</strong> (in euro) in funzione del numero di manufatti realizzati $q \in [10, 60]$ è descritta dal modello matematico:
+            $$C(q) = 0.04q^3 - 2.4q^2 + 60q + 600$$
+            dove $C(0) = 600\text{ €}$ rappresenta la quota fissa mensile incomprimibile (locazione dei laboratori, utenze ed equipe di supporto socio-educativo).
+          </div>
+
+          <p><strong>Punto 1 (Calcolo Analitico della Funzione Costo Marginale):</strong><br>
+            a) Spiega con parole tue il significato economico di <strong>Costo Marginale</strong> e perché corrisponde alla derivata prima del costo totale.<br>
+            b) Applicando le regole algebriche di derivazione studiate nei Laboratori 3 e 4 (derivata di potenze, costanti moltiplicative e combinazioni lineari), determina analiticamente la funzione derivata prima:
+            $$C'(q) = \frac{dC}{dq}$$
+            mostrando chiaramente tutti i passaggi di calcolo.
           </p>
 
-          <p style="margin-top: 1.25rem;"><strong>Esercizio 2 (Retta Tangente e Diffusione Virale sui Social Network):</strong><br>
-            Il numero di persone $N(t)$ (in migliaia) raggiunte da una campagna di sensibilizzazione sui diritti umani dopo $t$ giorni segue l'andamento $N(t) = -\frac{1}{3}t^3 + 4t^2 + 10$.
-            <br>a) Calcola la funzione derivata prima $N'(t)$, che esprime la velocità istantanea di diffusione (migliaia di utenti/giorno).
-            <br>b) Determina la velocità di diffusione dopo 2 giorni ($t = 2$) e dopo 5 giorni ($t = 5$).
-            <br>c) Scrivi l'equazione della retta tangente al grafico di $N(t)$ nel punto di ascissa $t_0 = 3$.
+          <p style="margin-top: 1.25rem;"><strong>Punto 2 (Analisi del Lotto Produttivo Attuale a $q = 20$ pezzi):</strong><br>
+            Attualmente la cooperativa lavora su un lotto base mensile di $q_0 = 20$ manufatti.<br>
+            a) Calcola il costo totale sostenuto $C(20)$.<br>
+            b) Determina il costo medio unitario per pezzo $\overline{C}(20) = \frac{C(20)}{20}$.<br>
+            c) Calcola il costo marginale $C'(20)$ sostituendo $q = 20$ nella funzione derivata calcolata al Punto 1.
           </p>
 
-          <p style="margin-top: 1.25rem;"><strong>Esercizio 3 (Analisi di Continuità e Non Derivabilità):</strong><br>
-            Considera la funzione definita a tratti:
-            $$f(x) = \begin{cases} x^2 & x \le 2 \\ 4x - 4 & x > 2 \end{cases}$$
-            <br>a) Verifica se $f(x)$ è continua nel punto di raccordo $x = 2$.
-            <br>b) Calcola la derivata sinistra $f'_-(2)$ e la derivata destra $f'_+(2)$.
-            <br>c) Stabilisci se la funzione è derivabile in $x = 2$ oppure classifica il tipo di punto di non derivabilità.
+          <p style="margin-top: 1.25rem;"><strong>Punto 3 (Decisione Gestionale ed Economie di Scala per la Commessa Aggiuntiva):</strong><br>
+            Il Consiglio Direttivo riceve da una rete no-profit la richiesta urgente di <strong>1 pezzo in più</strong> (commessa speciale per il $21^\circ$ pezzo):<br>
+            a) Quanto costerà approssimativamente alla cooperativa produrre quella singola unità aggiuntiva?<br>
+            b) Confronta il costo marginale $C'(20)$ con il costo medio unitario $\overline{C}(20)$: produrre questo manufatto extra farà <em>aumentare</em> o <em>diminuire</em> il costo medio complessivo dei pezzi prodotti?<br>
+            c) Spiega perché la cooperativa, a questo livello di produzione, beneficia del fenomeno economico delle <strong>economie di scala</strong>.
           </p>
 
-          <p style="margin-top: 1.25rem;"><strong>Esercizio 4 (Quesito Argomentativo per il Colloquio d'Esame):</strong><br>
-            Nelle scienze sociali e nell'economia del benessere si fa largo uso del concetto di <em>«utilità marginale decrescente»</em>: all'aumentare della quantità disponibile di un bene o servizio, l'incremento di benessere generato da un'unità aggiuntiva diminuisce gradualmente.
-            Spiega come questo principio psicologico e sociologico si traduce nel linguaggio della derivata prima.
+          <p style="margin-top: 1.25rem;"><strong>Punto 4 (Analisi a Regime Elevato $q = 50$ pezzi e Diseconomie di Scala):</strong><br>
+            Immagina che la cooperativa decida di forzare la produzione portandosi a un ritmo serrato di $q_1 = 50$ manufatti mensili:<br>
+            a) Calcola il nuovo costo totale $C(50)$, il nuovo costo medio unitario $\overline{C}(50)$ e il nuovo costo marginale $C'(50)$.<br>
+            b) Cosa è accaduto alla relazione d'ordine tra costo marginale e costo medio unitario ($C'(50)$ vs $\overline{C}(50)$)?<br>
+            c) Perché a livelli produttivi troppo elevati subentrano le <strong>diseconomie di scala</strong> (saturazione degli spazi, stress degli operatori, turni di straordinario più onerosi)?
+          </p>
+
+          <p style="margin-top: 1.25rem;"><strong>Punto 5 (Ottimo di Scala e Relazione Finale per il Consiglio Direttivo):</strong><br>
+            a) Richiamando quanto osservato nel simulatore interattivo del Laboratorio 6 in classe, spiega in quale condizione teorica il costo medio unitario tocca il suo <strong>minimo assoluto</strong> (intersezione tra le curve $C'(q)$ e $\overline{C}(q)$).<br>
+            b) <strong>Relazione Decisionale:</strong> Scrivi una breve nota argomentata (8–10 righe) indirizzata al Presidente e al Consiglio Direttivo della cooperativa, formulando una raccomandazione motivata sul range di produzione ottimale e sull'utilità pratica della derivata prima come strumento di governo aziendale etico e sostenibile.
           </p>
 
           <!-- Rubrica di Valutazione -->
           <h4 style="margin-top: 2rem; color: var(--accent-math);">Griglia di Valutazione delle Competenze (Rubrica in Decimi)</h4>
           <div class="rubric-grid">
             <div class="rubric-card">
-              <div class="rubric-card-title">1. Rapporto Incrementale (0-2.5 pt)</div>
-              <p>Corretta impostazione analitica degli incrementi $\Delta x$ e $\Delta y$; calcolo rigoroso del limite per $h \to 0$.</p>
+              <div class="rubric-card-title">1. Calcolo del Costo Marginale (0-2.5 pt)</div>
+              <p>Corretta determinazione analitica della derivata prima $C'(q)$ con motivazione rigorosa delle regole algebriche applicate.</p>
             </div>
             <div class="rubric-card">
-              <div class="rubric-card-title">2. Calcolo Differenziale (0-2.5 pt)</div>
-              <p>Applicazione fluida e precisa delle regole di derivazione di potenze, somme, prodotti e quozienti.</p>
+              <div class="rubric-card-title">2. Parametri Economici $C, \overline{C}, C'$ (0-2.5 pt)</div>
+              <p>Precisione nel calcolo numerico dei costi totali, costi medi unitari e costi marginali per i due livelli di produzione ($q=20$ e $q=50$).</p>
             </div>
             <div class="rubric-card">
-              <div class="rubric-card-title">3. Geometria della Tangente (0-2.5 pt)</div>
-              <p>Determinazione corretta dell'equazione della retta tangente; interpretazione della pendenza e classificazione dei punti singolari.</p>
+              <div class="rubric-card-title">3. Economie e Diseconomie di Scala (0-2.5 pt)</div>
+              <p>Comprensione analitica del confronto tra costo marginale e costo medio, e identificazione della condizione di minima efficienza.</p>
             </div>
             <div class="rubric-card">
-              <div class="rubric-card-title">4. Contestualizzazione Umana (0-2.5 pt)</div>
-              <p>Capacità di interpretare le derivate in contesti reali (velocità istantanea, costo marginale, utilità marginale, flussi sociali).</p>
+              <div class="rubric-card-title">4. Relazione Decisionale Terzo Settore (0-2.5 pt)</div>
+              <p>Capacità di contestualizzare i risultati matematici in una proposta gestionale chiara, etica e sostenibile per il Consiglio Direttivo.</p>
             </div>
           </div>
         </div>
@@ -1909,6 +1938,35 @@
       }
     }
 
+    function verifyLab3A() {
+      const coeffInput = document.getElementById('lab3aExCoeff');
+      const expInput = document.getElementById('lab3aExExp');
+      const sqrtInput = document.getElementById('lab3aExSqrt');
+      const lnInput = document.getElementById('lab3aExLn');
+
+      const okCoeff = Math.abs(parseNum(coeffInput.value) - 6) < 1e-4;
+      const okExp = Math.abs(parseNum(expInput.value) - 5) < 1e-4;
+      const okSqrt = Math.abs(parseNum(sqrtInput.value) - 0.25) < 1e-3;
+      const okLn = Math.abs(parseNum(lnInput.value) - 0.2) < 1e-3;
+
+      coeffInput.classList.toggle('correct', okCoeff);
+      coeffInput.classList.toggle('wrong', !okCoeff);
+      expInput.classList.toggle('correct', okExp);
+      expInput.classList.toggle('wrong', !okExp);
+      sqrtInput.classList.toggle('correct', okSqrt);
+      sqrtInput.classList.toggle('wrong', !okSqrt);
+      lnInput.classList.toggle('correct', okLn);
+      lnInput.classList.toggle('wrong', !okLn);
+
+      if (okCoeff && okExp && okSqrt && okLn) {
+        if (window.ComodeAudio) ComodeAudio.play('success');
+        showFeedback('lab3aMsg', true, '✅ Bravissimo! Risposte dell\'Esercizio 3A tutte corrette: hai applicato con successo la tavola delle derivate elementari ($x^n$, $\\sqrt{x}$ e $\\ln x$). Ora puoi passare al Passo 2!');
+      } else {
+        if (window.ComodeAudio) ComodeAudio.play('error');
+        showFeedback('lab3aMsg', false, '⚠️ Alcuni valori non sono corretti. Ricorda: $D[x^6] = 6x^5$, $D[\\sqrt{x}] = \\frac{1}{2\\sqrt{x}}$ e $D[\\ln x] = \\frac{1}{x}$. Clicca su Suggerimento se hai dubbi!');
+      }
+    }
+
     function verifyLab3() {
       const coeffInput = document.getElementById('lab3aExCoeff');
       const expInput = document.getElementById('lab3aExExp');
@@ -1951,12 +2009,21 @@
         }
       });
 
-      if (okCoeff && okExp && okSqrt && okLn && okPoly && okProd && okQuot) {
+      const ok3A = okCoeff && okExp && okSqrt && okLn;
+      const ok3B = okPoly && okProd && okQuot;
+
+      if (ok3A && ok3B) {
         markLabCompleted(3, false);
-        showFeedback('lab3Msg', true, '✅ Ottimo lavoro! Hai padroneggiato sia la tavola delle derivate elementari sia le regole di somma, prodotto e quoziente (+10 XP).');
+        showFeedback('lab3Msg', true, '✅ Ottimo lavoro! Hai padroneggiato sia la tavola delle derivate elementari (3A) sia le regole di somma, prodotto e quoziente (3B) (+10 XP).');
       } else {
         if (window.ComodeAudio) ComodeAudio.play('error');
-        showFeedback('lab3Msg', false, '⚠️ Controlla tutte le risposte degli Esercizi 3A e 3B (usa il pulsante Suggerimento se hai dubbi).');
+        if (!ok3A && ok3B) {
+          showFeedback('lab3Msg', false, '⚠️ Le risposte dell\'Esercizio 3B sono esatte, ma devi completare o correggere anche l\'Esercizio 3A in alto.');
+        } else if (ok3A && !ok3B) {
+          showFeedback('lab3Msg', false, '⚠️ L\'Esercizio 3A è perfetto! Controlla ora le risposte dell\'Esercizio 3B (Polinomio, Prodotto di Leibniz o Quoziente).');
+        } else {
+          showFeedback('lab3Msg', false, '⚠️ Controlla le risposte sia nell\'Esercizio 3A che nell\'Esercizio 3B (usa il pulsante Suggerimento se hai dubbi).');
+        }
       }
     }
 
