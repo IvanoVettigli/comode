@@ -51,3 +51,4 @@ Ogni file HTML di lezione deve presentare le sezioni esattamente nel seguente or
   ```
 * **Gamification e Audio:** Integrazione con `ComodeProgress.completeLab(labNumber)` e feedback sonori con `ComodeAudio.play('success')` ed `error`.
 * **Accessibilità e Inclusione:** Contrasto cromatico verificato, pulsanti `aria-label`, messaggi di feedback chiari per studenti BES/DSA.
+
