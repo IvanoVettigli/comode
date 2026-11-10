@@ -698,11 +698,11 @@ class ComodeGamification {
       const progText = card.querySelector('.uda-progress-text');
       if (progText) {
         if (prog.isUnlocked) {
-          progText.innerHTML = `🎉 Tutte le ${prog.total} lezioni completate! Titolo <strong>"${prog.earnedTitle}"</strong> ${prog.badge} acquisito!`;
+          progText.innerHTML = `🎉 Titolo <strong>"${prog.earnedTitle}"</strong> ${prog.badge} conquistato con successo (100%)!`;
         } else if (prog.completed > 0) {
-          progText.innerHTML = `Progresso: <strong>${prog.completed}/${prog.total}</strong> lezioni (${prog.percent}%). Mancano <strong>${prog.remaining}</strong> lezioni per il titolo <em>"${prog.earnedTitle}"</em>.`;
+          progText.innerHTML = `Avanzamento: <strong>${prog.completed}/${prog.total}</strong> lezioni (${prog.percent}%). Titolo in palio: <em>"${prog.earnedTitle}"</em> ${prog.badge}.`;
         } else {
-          progText.innerHTML = `0/${prog.total} lezioni completate. Completa tutte le lezioni per conquistare il titolo <em>"${prog.earnedTitle}"</em> ${prog.badge}.`;
+          progText.innerHTML = `Completa l'UDA per ottenere il titolo <strong>"${prog.earnedTitle}"</strong> ${prog.badge}.`;
         }
       }
 
@@ -711,7 +711,7 @@ class ComodeGamification {
         if (prog.isUnlocked) {
           trophyTarget.innerHTML = `🏆 Titolo: <strong>${prog.earnedTitle}</strong> ${prog.badge} <span style="color: var(--accent-success); font-weight:700;">(Conquistato! ✓)</span>`;
         } else {
-          trophyTarget.innerHTML = `🏆 Titolo in palio: <em>${prog.earnedTitle}</em> ${prog.badge} (${prog.completed}/${prog.total} lezioni)`;
+          trophyTarget.innerHTML = `🏆 Titolo ottenibile: <em>${prog.earnedTitle}</em> ${prog.badge}`;
         }
       }
     });
@@ -735,13 +735,13 @@ class ComodeGamification {
           } else if (prog.completed > 0) {
             actionWrap.innerHTML = `
               <span class="uda-trophy-prog-pill" style="display: inline-flex; align-items: center; gap: 0.45rem; font-size: 0.85rem; font-weight: 700; color: var(--accent-math); background: rgba(56, 189, 248, 0.12); padding: 0.45rem 1rem; border-radius: var(--radius-pill); border: 1px solid rgba(56, 189, 248, 0.3);">
-                🚀 Progresso UDA: ${prog.completed} di ${prog.total} lezioni (${prog.percent}%) • Mancano ${prog.remaining} per il Titolo
+                🚀 Avanzamento: ${prog.completed} di ${prog.total} lezioni (${prog.percent}%) • Titolo: ${prog.earnedTitle} ${prog.badge}
               </span>
             `;
           } else {
             actionWrap.innerHTML = `
               <span style="font-size: 0.85rem; font-weight: 700; color: var(--text-muted); background: var(--bg-surface); padding: 0.45rem 1rem; border-radius: var(--radius-pill); border: 1px solid var(--border-subtle);">
-                0 di ${prog.total} lezioni completate • Obiettivo: ${prog.earnedTitle} ${prog.badge}
+                Completa le lezioni per ottenere il titolo "${prog.earnedTitle}" ${prog.badge}
               </span>
             `;
           }
